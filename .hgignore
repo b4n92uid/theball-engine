@@ -11,3 +11,5 @@ syntax: regexp
 .*(\.lnk)$
 .*(\.bat)$
 .*(\.tdl)$
+.*(\.xml)$
+.*nbproject.*
