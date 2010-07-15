@@ -333,30 +333,35 @@ Vector3f SceneManager::ScreenToWorld(Vector2i target, Rtt* rtt)
 {
     Vector3f pick;
 
-    if(FrameBufferObject::CheckHardware() && rtt->FBO_IsUseRenderBuffer())
+    Vector2i mouse;
+    mouse.x = target.x * rtt->GetFrameSize().x / m_viewport.x - 1;
+    mouse.y = target.y * rtt->GetFrameSize().y / m_viewport.y - 1;
+
+    bool useRb = FrameBufferObject::CheckHardware() && rtt->FBO_IsUseRenderBuffer();
+
+    if(useRb)
     {
         rtt->FBO_BlitToTexutre();
         rtt->FBO_SetUseRenderBuffer(false);
-        rtt->Use(true);
+    }
 
-        Vector2i mouse;
-        mouse.x = target.x * rtt->GetFrameSize().x / m_viewport.x - 1;
-        mouse.y = target.y * rtt->GetFrameSize().y / m_viewport.y - 1;
+    rtt->Use(true);
 
-        pick = ScreenToWorld(mouse);
+    pick = ScreenToWorld(mouse);
 
-        rtt->Use(false);
+    rtt->Use(false);
+
+    if(useRb)
+    {
         rtt->FBO_SetUseRenderBuffer(true);
     }
-    else
-        pick = ScreenToWorld(target);
 
     return pick;
 }
 
 Vector3f SceneManager::ScreenToWorld(Vector2i target)
 {
-    
+
     int iViewport[4];
     double fModelview[16];
     double fProjection[16];
