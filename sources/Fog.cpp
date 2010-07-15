@@ -15,10 +15,10 @@ Fog::Fog()
     glFogi(GL_FOG_MODE, GL_LINEAR);
     glHint(GL_FOG_HINT, GL_DONT_CARE);
 
-    SetColor(Vector4f(1.0, 1.0, 1.0, 1));
-    SetDensity(0.1);
-    SetStart(2.0);
-    SetEnd(256.0);
+    SetColor(1.0f);
+    SetDensity(0.1f);
+    SetStart(2.0f);
+    SetEnd(32.0f);
 }
 
 Fog::~Fog()
