@@ -1,0 +1,13 @@
+build/*
+doc/html/*
+sourcesold/*
+versions/*
+
+syntax: regexp
+.*(\.lib)$
+.*(\.a)$
+.*(\.exe)$
+.*(\.dll)$
+.*(\.lnk)$
+.*(\.bat)$
+.*(\.tdl)$
