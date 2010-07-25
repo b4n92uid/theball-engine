@@ -18,11 +18,7 @@ SkyBox::SkyBox(Texture textures[])
 
 SkyBox::~SkyBox()
 {
-    if(m_renderID)
-    {
-        glDeleteLists(m_renderID, 1);
-        m_renderID = 0;
-    }
+    Clear();
 }
 
 Texture* SkyBox::GetTextures()
@@ -30,10 +26,24 @@ Texture* SkyBox::GetTextures()
     return m_textures;
 }
 
+void SkyBox::Clear()
+{
+    for_each(m_textures, m_textures + 6, mem_fun_ref(&Texture::Delete));
+
+    if(m_renderID)
+    {
+        glDeleteLists(m_renderID, 1);
+        m_renderID = 0;
+    }
+}
+
 void SkyBox::SetTextures(Texture textures[])
 {
     for(unsigned i = 0; i < 6; i++)
     {
+        if(!textures[i])
+            continue;
+
         m_textures[i] = textures[i];
 
         m_textures[i].Use(true);

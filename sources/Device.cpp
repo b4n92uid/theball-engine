@@ -34,11 +34,11 @@ Device::Device()
 
 Device::~Device()
 {
-    delete m_eventManager;
-    delete m_fpsManager;
-    delete m_sceneManager;
-    delete m_guiManager;
-    delete m_postProcessManager;
+    if(m_eventManager) delete m_eventManager;
+    if(m_fpsManager) delete m_fpsManager;
+    if(m_sceneManager) delete m_sceneManager;
+    if(m_guiManager) delete m_guiManager;
+    if(m_postProcessManager) delete m_postProcessManager;
 }
 
 void Device::Setup(Vector2i winSize)
@@ -57,25 +57,24 @@ void Device::Setup(Vector2i winSize)
     if(!scene::ParticlesEmiter::CheckHardware())
         cout << "Device::Setup; Point sprite particles not supported" << endl;
 
-    if(!m_eventManager)
-        m_eventManager = new EventManager;
 
-    if(!m_fpsManager)
-        m_fpsManager = new ticks::FpsManager;
+    if(m_eventManager) new(m_eventManager)EventManager;
+    else m_eventManager = new EventManager;
 
-    if(!m_sceneManager)
-        m_sceneManager = new scene::SceneManager;
+    if(m_fpsManager) new(m_fpsManager)ticks::FpsManager;
+    else m_fpsManager = new ticks::FpsManager;
 
-    if(!m_guiManager)
-        m_guiManager = new gui::GuiManager;
+    if(m_sceneManager) new(m_sceneManager)scene::SceneManager;
+    else m_sceneManager = new scene::SceneManager;
 
-    if(!m_postProcessManager)
-        m_postProcessManager = new ppe::PostProcessManager;
+    if(m_guiManager) new(m_guiManager)gui::GuiManager;
+    else m_guiManager = new gui::GuiManager;
 
-    m_sceneManager->Setup(winSize, 0, 70, 0.1, 512);
+    if(m_postProcessManager) new(m_postProcessManager)ppe::PostProcessManager;
+    else m_postProcessManager = new ppe::PostProcessManager;
 
     m_guiManager->Setup(winSize);
-
+    m_sceneManager->Setup(winSize, 0, 70, 0.1, 512);
     m_postProcessManager->Setup(winSize);
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

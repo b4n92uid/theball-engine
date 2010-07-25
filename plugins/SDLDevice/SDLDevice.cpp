@@ -29,6 +29,11 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
 {
     using namespace std;
 
+    // NOTE Requis pour respécifier le multisampling
+    SDL_QuitSubSystem(SDL_INIT_VIDEO);
+    SDL_InitSubSystem(SDL_INIT_VIDEO);
+    // --
+
     m_caption = caption;
     m_winSize = winsize;
     m_winBits = bits;
@@ -52,16 +57,27 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
 
     returnState = SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, m_winMultiSamples);
     if(returnState == -1)
-        cout << "Multisamples setting failed" << endl;
+        cout << "SDLDevice::Window; Multisamples setting failed " << m_winMultiSamples << endl;
 
     returnState = SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     if(returnState == -1)
-        cout << "Double Buffer setting failed" << endl;
+        cout << "SDLDevice::Window; Double Buffer setting failed 1" << endl;
 
     SDL_WM_SetCaption(caption.c_str(), 0);
 
     if(SDL_SetVideoMode(m_winSize.x, m_winSize.y, bits, flags) == NULL)
         throw Exception("SDLDevice::Window; Couldn't set specified video mode : %s", SDL_GetError());
+
+    SDL_GL_GetAttribute(SDL_GL_MULTISAMPLESAMPLES, &returnState);
+    if(returnState != m_winMultiSamples)
+        cout << "SDLDevice::Window; Multisamples incorrect value " << returnState << endl;
+
+    SDL_GL_GetAttribute(SDL_GL_DOUBLEBUFFER, &returnState);
+    if(returnState != 1)
+        cout << "SDLDevice::Window; Double Buffer incorrect value " << returnState << endl;
+
+    char* error = SDL_GetError();
+    cout << "SDLDevice::Window; SDL error: " << (error ? error : "nothing") << endl;
 
     Setup(m_winSize);
 }

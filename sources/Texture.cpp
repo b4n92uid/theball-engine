@@ -23,6 +23,11 @@ public:
 
     ~SharedTextureManager()
     {
+        Free();
+    }
+
+    void Free()
+    {
         for(iterator itt = begin(); itt != end(); itt++)
         {
             cout << "MANAGER Free texture : " << itt->first->GetFilename() << endl;
@@ -43,6 +48,11 @@ public:
 };
 
 static SharedTextureManager manager;
+
+void Texture::ResetCache()
+{
+    manager.Free();
+}
 
 Texture::Texture()
 {
@@ -245,7 +255,7 @@ void Texture::Delete()
 
 void Texture::Use(bool state)
 {
-    if(state)
+    if(state && m_textureName)
     {
         GLuint binded;
         glGetIntegerv(GL_TEXTURE_BINDING_2D, (GLint*) & binded);

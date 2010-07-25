@@ -24,6 +24,9 @@ public:
     void SetTextures(Texture textures[]);
     Texture* GetTextures();
 
+    /// Réinitialisation
+    void Clear();
+    
     /// Rendue du skybox
     /// \param camerapos Position de la camera
     void Render(const Vector3f& camerapos);

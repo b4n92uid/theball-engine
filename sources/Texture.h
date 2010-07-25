@@ -88,6 +88,8 @@ public:
         MIPMAP,
     };
 
+    static void ResetCache();
+
     typedef std::map<unsigned, Texture> Map;
 
 protected:
