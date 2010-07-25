@@ -26,7 +26,7 @@ using namespace std;
 
 GuiManager::GuiManager()
 {
-    m_guiSkin = 0;
+    m_guiSkin = NULL;
     m_currentSession = m_sessions.end();
 
     SetSession(0);
@@ -36,7 +36,8 @@ GuiManager::~GuiManager()
 {
     ClearAll();
 
-    delete m_guiSkin;
+    if(m_guiSkin)
+        delete m_guiSkin;
 }
 
 void GuiManager::ClearAll()
@@ -159,6 +160,9 @@ void GuiManager::TrasmitEvent(EventManager& e)
 
 void GuiManager::SetSkin(GuiSkin* skin)
 {
+    if(m_guiSkin)
+        delete m_guiSkin;
+
     m_guiSkin = skin;
 
     if(m_guiSkin)

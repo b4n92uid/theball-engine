@@ -241,6 +241,9 @@ void Shader::SetUniform(const char* name, Vector2i value)
 
 bool Shader::CheckHardware()
 {
-    static bool supported = GLEE_ARB_shading_language_100 && GLEE_ARB_shader_objects && GLEE_ARB_vertex_shader && GLEE_ARB_fragment_shader;
+    static bool supported = GLEE_ARB_shading_language_100 && GLEE_ARB_shader_objects
+            && GLEE_ARB_vertex_shader && GLEE_ARB_fragment_shader
+            && GLEE_VERSION_2_0;
+
     return supported;
 }
