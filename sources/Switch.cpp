@@ -229,6 +229,7 @@ void Switch::ObjectRender()
 
 SwitchString::SwitchString()
 {
+    m_it = m_content.end();
 }
 
 void SwitchString::SetCurrent(unsigned index)
@@ -332,6 +333,12 @@ SwitchString& SwitchString::Push(std::string str, const Any& data)
 unsigned SwitchString::GetCount() const
 {
     return m_content.size();
+}
+
+void SwitchString::DeleteAll()
+{
+    m_content.clear();
+    m_it = m_content.end();
 }
 
 void SwitchString::Delete(unsigned index)

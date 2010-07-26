@@ -76,6 +76,7 @@ public:
     SwitchString& Push(std::string str);
     SwitchString& Push(std::string str, const Any& data);
 
+    void DeleteAll();
     void Delete(unsigned index);
     void Delete(std::string str);
 
