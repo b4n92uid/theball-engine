@@ -19,9 +19,6 @@
 #include <algorithm>
 #include <exception>
 
-#include <io.h>
-#include <conio.h>
-
 // Core ------------------------------------------------------------------------
 
 #include "AABB.h"

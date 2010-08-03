@@ -2,7 +2,6 @@
 #define TBE_H
 
 #include <iostream>
-#include <io.h>
 
 #include "GLee.h"
 #include <GL/glu.h>
@@ -86,9 +85,6 @@ public:
 
     /// Renvoi la version du moteur (Build Date)
     static std::string GetVersion();
-
-    /// Renvoi la dossier courant
-    static std::string GetCWD();
 
 protected:
     scene::SceneManager* m_sceneManager;

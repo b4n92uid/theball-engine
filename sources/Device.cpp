@@ -129,10 +129,3 @@ std::string Device::GetVersion()
 {
     return __DATE__;
 }
-
-std::string Device::GetCWD()
-{
-    char cwd[MAX_PATH];
-    getcwd(cwd, MAX_PATH);
-    return cwd;
-}
