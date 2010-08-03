@@ -60,21 +60,10 @@ bool Clock::IsEsplanedTime(long time)
 void Clock::Sleep(unsigned v)
 {
     #ifdef __linux__
-    return usleep(v);
+    usleep(v);
 
     #elif defined(__WIN32__)
-    return ::Sleep(v);
+    ::Sleep(v);
 
     #endif
-}
-
-std::string Clock::Date(std::string format, time_t timestamp)
-{
-    if(timestamp < 0)
-        timestamp = time(0);
-
-    char ct[1024];
-    strftime(ct, 1024, format.c_str(), localtime(&timestamp));
-
-    return ct;
 }

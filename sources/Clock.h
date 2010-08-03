@@ -35,9 +35,6 @@ public:
     /// Enregistre le temp courant pour le comparer a l'appele de la fonction IsEsplanedTime
     void SnapShoot();
 
-    /// Fonction qui renvoi le temp du timestamp courant selon le format de strftime
-    static std::string Date(std::string format, time_t timestamp = -1);
-
     /// Fonction qui suspend le processus courant (valeur en millisecond)
     static void Sleep(unsigned v);
 

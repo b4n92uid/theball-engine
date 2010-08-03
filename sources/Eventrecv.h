@@ -94,7 +94,7 @@ public:
         KEY_MODE = 313, /* "Alt Gr" key */
     };
 
-    EventManager::EventManager()
+    EventManager()
     {
         notify = EVENT_NO_EVENT;
         lastActiveKey.first = 0;

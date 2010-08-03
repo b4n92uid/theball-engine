@@ -80,7 +80,7 @@ public:
 
     unsigned GetVertexCount() const;
 
-    Face::Array HardwareBuffer::GetAllFace();
+    Face::Array GetAllFace();
 
     Vertex::Array GetAllVertex(bool makeUnique = false);
 
