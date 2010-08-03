@@ -1,5 +1,5 @@
-#ifndef SkyboxFile
-#define SkyboxFile
+#ifndef _SKYBOX_H
+#define _SKYBOX_H
 
 #include "Mathematics.h"
 #include "Texture.h"
@@ -46,4 +46,4 @@ protected:
 }
 }
 
-#endif
+#endif // _SKYBOX_H

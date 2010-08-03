@@ -1,4 +1,10 @@
+/*
+ * File:   Skybox.cpp
+ * Author: b4n92uid
+ */
+
 #include "Skybox.h"
+#include <algorithm>
 
 using namespace std;
 using namespace tbe;

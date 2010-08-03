@@ -8,8 +8,8 @@
 #ifndef _TBE_TOOLS_H
 #define	_TBE_TOOLS_H
 
+#include <algorithm>
 #include <iostream>
-#include <cstdlib>
 #include <sstream>
 #include <map>
 
@@ -24,7 +24,7 @@ namespace tools
 /**
  * Renvois la premier puissance-deux apres 'v'
  *
- * @param a
+ * @param v
  * @return
  */
 template<typename T> inline Vector2<T> next_p2(Vector2<T> v)

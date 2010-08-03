@@ -8,7 +8,6 @@
 #ifndef _HARDWAREBUFFER_H
 #define	_HARDWAREBUFFER_H
 
-#include <iostream>
 #include <vector>
 
 #include "GLee.h"
