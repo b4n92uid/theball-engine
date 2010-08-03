@@ -267,7 +267,7 @@ MTLFile::~MTLFile()
 
 void MTLFile::Open(const std::string & path)
 {
-    FILE* file = fopen(path.c_str(), "r");
+    ifstream file(path.c_str());
 
     if(!file)
         throw tbe::Exception("MTLFile::Open\nOpen MTL File Error:\n(%s)", path.c_str());
@@ -278,72 +278,68 @@ void MTLFile::Open(const std::string & path)
 
     Material * material = NULL;
 
-    char buffer[512];
-    for(unsigned line = 1; fgets(buffer, 512, file); line++)
+    string buffer;
+    for(unsigned line = 1; getline(file, buffer); line++)
     {
-        if(buffer[0] == '#' || buffer[0] == '\n')
+        if(buffer[0] == '#' || buffer.empty())
             continue;
 
-        if(buffer[strlen(buffer) - 1] == '\n')
-            buffer[strlen(buffer) - 1] = '\0';
+        int pos = buffer.find_first_of(' ');
 
-        char buffertocmp[255];
-        sscanf(buffer, "%s", buffertocmp);
+        string opcode(buffer, 0, pos),
+            arg(buffer, pos + 1, string::npos);
 
-        if(strcmp(buffertocmp, "newmtl") == 0)
+        if(opcode == "newmtl")
         {
             material = new Material;
 
-            m_parent->AddMaterial(strchr(buffer, ' ') + 1, material);
+            m_parent->AddMaterial(arg, material);
         }
 
-        else if(strcmp(buffertocmp, "Ns") == 0)
+        else if(opcode == "Ns")
         {
         }
 
-        else if(strcmp(buffertocmp, "Ka") == 0)
+        else if(opcode == "Ka")
         {
             Vector4f ka;
-            sscanf(buffer, "%*s %f %f %f", &ka.x, &ka.y, &ka.z);
+            sscanf(arg.c_str(), "%f %f %f", &ka.x, &ka.y, &ka.z);
             material->SetAmbient(ka);
         }
 
-        else if(strcmp(buffertocmp, "Kd") == 0)
+        else if(opcode == "Kd")
         {
             Vector4f kd;
-            sscanf(buffer, "%*s %f %f %f", &kd.x, &kd.y, &kd.z);
+            sscanf(arg.c_str(), "%f %f %f", &kd.x, &kd.y, &kd.z);
             material->SetDiffuse(kd);
         }
 
-        else if(strcmp(buffertocmp, "Ks") == 0)
+        else if(opcode == "Ks")
         {
             Vector4f ks;
-            sscanf(buffer, "%*s %f %f %f", &ks.x, &ks.y, &ks.z);
+            sscanf(arg.c_str(), "%f %f %f", &ks.x, &ks.y, &ks.z);
             material->SetSpecular(ks);
         }
 
-        else if(strcmp(buffertocmp, "Ni") == 0)
+        else if(opcode == "Ni")
         {
         }
 
-        else if(strcmp(buffertocmp, "d") == 0)
+        else if(opcode == "d")
         {
         }
 
-        else if(strcmp(buffertocmp, "illum") == 0)
+        else if(opcode == "illum")
         {
         }
 
-        else if(strcmp(buffertocmp, "map_Kd") == 0)
+        else if(opcode == "map_Kd")
         {
             int pos = path.find_last_of('\\');
             if(pos == -1)
                 pos = path.find_last_of('/');
 
-            std::string texturepath = path.substr(0, pos + 1) + (strchr(buffer, ' ') + 1);
-
-            if(texturepath[texturepath.length() - 1] == '\n')
-                texturepath[texturepath.length() - 1] = '\0';
+            std::string texturepath = path.substr(0, pos + 1) + arg;
 
             try
             {
@@ -365,5 +361,5 @@ void MTLFile::Open(const std::string & path)
 
     }
 
-    fclose(file);
+    file.close();
 }

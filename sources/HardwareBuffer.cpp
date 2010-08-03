@@ -7,6 +7,9 @@
 
 #include "HardwareBuffer.h"
 
+#include <algorithm>
+#include <iostream>
+
 #define vertexStrid     sizeof(Vertex)
 
 #define posOffset       (void*)(0)
