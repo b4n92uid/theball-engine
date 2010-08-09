@@ -37,6 +37,17 @@ template<typename T> inline Vector2<T> next_p2(Vector2<T> v)
     return rval;
 }
 
+inline void cleanLine(std::string& line)
+{
+    if(line[line.size() - 1] == '\n')
+    {
+        line.erase(line.size() - 1);
+
+        if(line[line.size() - 1] == '\r')
+            line.erase(line.size() - 1);
+    }
+}
+
 /**
  * Renvois la premier puissance-deux apres 'v'
  *
