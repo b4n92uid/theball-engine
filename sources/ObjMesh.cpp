@@ -1,4 +1,5 @@
 #include "ObjMesh.h"
+#include "Tools.h"
 
 #include <fstream>
 
@@ -95,6 +96,8 @@ void OBJMesh::Open(const std::string& path)
     {
         if(buffer[0] == '#' || buffer.empty())
             continue;
+
+        tools::cleanLine(buffer);
 
         string opcode = buffer.substr(0, buffer.find_first_of(' '));
         string value = buffer.substr(buffer.find_first_of(' ') + 1);
@@ -284,10 +287,12 @@ void MTLFile::Open(const std::string & path)
         if(buffer[0] == '#' || buffer.empty())
             continue;
 
+        tools::cleanLine(buffer);
+
         int pos = buffer.find_first_of(' ');
 
         string opcode(buffer, 0, pos),
-            arg(buffer, pos + 1, string::npos);
+                arg(buffer, pos + 1, string::npos);
 
         if(opcode == "newmtl")
         {
