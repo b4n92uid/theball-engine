@@ -263,7 +263,7 @@ void Pencil::Load(std::string path, int size)
     // Of All The Places Where The Code Might Die, This Is The Most Likely,
     // As FT_New_Face Will Fail If The Font File Does Not Exist Or Is Somehow Broken.
     if(FT_New_Face(manager.library, path.c_str(), 0, &face))
-        throw Exception("TextFont::SetFon\nOpen font file error (%s)", path.c_str());
+        throw Exception("Pencil::Load; Open font file error (%s)", path.c_str());
 
     cout << "Load font file : " << path << endl;
 
@@ -287,12 +287,12 @@ void Pencil::Load(std::string path, int size)
         // Into A Bitmap. This Actually Requires A Couple Of FreeType Commands:
         // Load The Glyph For Our Character.
         if(FT_Load_Glyph(face, FT_Get_Char_Index(face, i), FT_LOAD_DEFAULT))
-            throw Exception("TextFont::Load FT_Load_Glyph failed");
+            throw Exception("Pencil::Load; FT_Load_Glyph failed");
 
         // Move The Face's Glyph Into A Glyph Node.
         FT_Glyph glyph;
         if(FT_Get_Glyph(face->glyph, &glyph))
-            throw Exception("TextFont::Load FT_Get_Glyph failed");
+            throw Exception("Pencil::Load; FT_Get_Glyph failed");
 
         // Convert The Glyph To A Bitmap.
         FT_Glyph_To_Bitmap(&glyph, ft_render_mode_normal, 0, 1);

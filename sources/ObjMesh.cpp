@@ -78,7 +78,7 @@ void OBJMesh::Open(const std::string& path)
     ifstream file(path.c_str());
 
     if(!file)
-        throw tbe::Exception("OBJMesh::Open\nOpen OBJ File Error:\n(%s)", path.c_str());
+        throw tbe::Exception("OBJMesh::Open; Open OBJ File Error; (%s)", path.c_str());
 
     manager[this] = m_filepath = path;
 
@@ -109,7 +109,10 @@ void OBJMesh::Open(const std::string& path)
             if(pos == string::npos)
                 pos = m_filepath.find_last_of('/');
 
-            m_mtlfile.Open(m_filepath.substr(0, pos + 1) + value);
+            string mtlFilename = m_filepath.substr(0, pos + 1) + value;
+            tools::cleanLine(mtlFilename);
+
+            m_mtlfile.Open(mtlFilename);
         }
 
             // object define
@@ -268,12 +271,12 @@ MTLFile::~MTLFile()
 {
 }
 
-void MTLFile::Open(const std::string & path)
+void MTLFile::Open(const std::string& path)
 {
     ifstream file(path.c_str());
 
     if(!file)
-        throw tbe::Exception("MTLFile::Open\nOpen MTL File Error:\n(%s)", path.c_str());
+        throw tbe::Exception("MTLFile::Open; Open MTL File Error; (%s)", path.c_str());
 
     cout << "Load mtl file : " << path << endl;
 

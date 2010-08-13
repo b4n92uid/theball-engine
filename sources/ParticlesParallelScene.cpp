@@ -43,7 +43,7 @@ void ParticlesParallelScene::AddParticlesEmiter(std::string name, ParticlesEmite
         name = tools::NameGen(m_nodes);
 
     else if(m_nodes.find(name) != m_nodes.end())
-        throw Exception("SceneManager::AddParticlesEmiter\nName already exist (%s)", name.c_str());
+        throw Exception("SceneManager::AddParticlesEmiter; Name already exist (%s)", name.c_str());
 
     if(!node)
         throw Exception("SceneManager::AddParticlesEmiter; Try to add a NULL ptr node");
@@ -97,7 +97,7 @@ void ParticlesParallelScene::DeleteParticlesEmiter(ParticlesEmiter* node)
 void ParticlesParallelScene::DeleteParticlesEmiter(std::string name)
 {
     if(m_nodes.find(name) == m_nodes.end())
-        throw Exception("ParticlesEmiterParallelScene::DeleteParticlesEmiter\nParticlesEmiter not found (%s)", name.c_str());
+        throw Exception("ParticlesEmiterParallelScene::DeleteParticlesEmiter; ParticlesEmiter not found (%s)", name.c_str());
 
     delete m_nodes[name];
     m_nodes.erase(name);
