@@ -122,7 +122,7 @@ void SceneManager::Render(bool setupView)
 Light* SceneManager::GetDynamicLight(std::string name)
 {
     if(m_lights.find(name) == m_lights.end())
-        throw Exception("SceneManager::GetDynamicLight\nLight not found (%s)", name.c_str());
+        throw Exception("SceneManager::GetDynamicLight; Light not found (%s)", name.c_str());
 
     return m_lights[name];
 }
@@ -130,7 +130,7 @@ Light* SceneManager::GetDynamicLight(std::string name)
 void SceneManager::DeleteDynamicLight(std::string name)
 {
     if(m_lights.find(name) == m_lights.end())
-        throw Exception("SceneManager::DeleteDynamicLight\nLight not found (%s)", name.c_str());
+        throw Exception("SceneManager::DeleteDynamicLight; Light not found (%s)", name.c_str());
 
     delete m_lights[name];
     m_lights.erase(name);
@@ -139,7 +139,7 @@ void SceneManager::DeleteDynamicLight(std::string name)
 Light* SceneManager::ReleaseDynamicLight(std::string name)
 {
     if(m_lights.find(name) == m_lights.end())
-        throw Exception("SceneManager::ReleaseDynamicLight\nLight not found (%s)", name.c_str());
+        throw Exception("SceneManager::ReleaseDynamicLight; Light not found (%s)", name.c_str());
 
     Light* light = m_lights[name];
     m_lights.erase(name);
@@ -153,7 +153,7 @@ void SceneManager::AddDynamicLight(std::string name, Light* light)
         name = tools::NameGen(m_lights);
 
     else if(m_lights.find(name) != m_lights.end())
-        throw Exception("SceneManager::AddDynamicLight\nLight already exist (%s)", name.c_str());
+        throw Exception("SceneManager::AddDynamicLight; Light already exist (%s)", name.c_str());
 
     if(!light)
         throw Exception("SceneManager::AddDynamicLight; Try to add a NULL prt light");
@@ -173,7 +173,7 @@ void SceneManager::AddParallelScene(std::string name, ParallelScene * subscene)
         name = tools::NameGen(m_parallelScenes);
 
     else if(m_parallelScenes.find(name) != m_parallelScenes.end())
-        throw Exception("SceneManager::AddParallelScene\nName already exist (%s)", name.c_str());
+        throw Exception("SceneManager::AddParallelScene; Name already exist (%s)", name.c_str());
 
     if(!subscene)
         throw Exception("SceneManager::AddParallelScene; Try to add a NULL prt subscene");
@@ -186,7 +186,7 @@ void SceneManager::AddParallelScene(std::string name, ParallelScene * subscene)
 ParallelScene* SceneManager::ReleaseParallelScene(std::string name)
 {
     if(m_parallelScenes.find(name) == m_parallelScenes.end())
-        throw Exception("SceneManager::ReleaseParallelScene\nParallelScene not found (%s)", name.c_str());
+        throw Exception("SceneManager::ReleaseParallelScene; ParallelScene not found (%s)", name.c_str());
 
     ParallelScene* ps = m_parallelScenes[name];
 
@@ -198,7 +198,7 @@ ParallelScene* SceneManager::ReleaseParallelScene(std::string name)
 void SceneManager::DeleteParallelScene(std::string name)
 {
     if(m_parallelScenes.find(name) == m_parallelScenes.end())
-        throw Exception("SceneManager::DeleteParallelScene\nParallelScene not found (%s)", name.c_str());
+        throw Exception("SceneManager::DeleteParallelScene; ParallelScene not found (%s)", name.c_str());
 
     delete m_parallelScenes[name];
     m_parallelScenes.erase(name);
@@ -261,7 +261,7 @@ ParallelScene* SceneManager::GetParallelScene(std::string name)
         return m_parallelScenes[name];
 
     else
-        throw tbe::Exception("SceneManager::GetSubScene\nSubScene not found (%s)", name.c_str());
+        throw tbe::Exception("SceneManager::GetSubScene; SubScene not found (%s)", name.c_str());
 }
 
 Frustum* SceneManager::GetFrustum() const

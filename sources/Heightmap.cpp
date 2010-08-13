@@ -52,7 +52,7 @@ void Heightmap::Open(const std::string& path)
     FILE * pFile = fopen(path.c_str(), "rb");
 
     if(!pFile)
-        throw tbe::Exception("Heightmap::Open, Open heightmap file error:\n(%s)\n", path.c_str());
+        throw tbe::Exception("Heightmap::Open; Open file error (%s)", path.c_str());
 
     fseek(pFile, 0, SEEK_END);
     m_fileSize = ftell(pFile);

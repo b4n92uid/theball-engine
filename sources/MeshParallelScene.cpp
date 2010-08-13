@@ -147,7 +147,7 @@ Mesh* MeshParallelScene::ReleaseMesh(std::string name)
 void MeshParallelScene::DeleteMesh(std::string name)
 {
     if(m_nodes.find(name) == m_nodes.end())
-        throw Exception("MeshParallelScene::DeleteMesh\nMesh not found (%s)", name.c_str());
+        throw Exception("MeshParallelScene::DeleteMesh; Mesh not found (%s)", name.c_str());
 
     delete m_nodes[name];
     m_nodes.erase(name);
