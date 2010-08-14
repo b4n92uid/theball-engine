@@ -39,13 +39,11 @@ template<typename T> inline Vector2<T> next_p2(Vector2<T> v)
 
 inline void cleanLine(std::string& line)
 {
-    if(line[line.size() - 1] == '\n')
-    {
-        line.erase(line.size() - 1);
+    while(isspace(*(--line.end())))
+        line.erase(*(--line.end()));
 
-        if(line[line.size() - 1] == '\r')
-            line.erase(line.size() - 1);
-    }
+    while(isspace(*line.begin()))
+        line.erase(*line.begin());
 }
 
 /**
