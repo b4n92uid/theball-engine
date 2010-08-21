@@ -23,6 +23,16 @@ public:
 
 SharedlObjMeshManager manager;
 
+bool getline(ifstream& stream, string& buffer)
+{
+    bool status = std::getline(stream, buffer);
+
+    for(string::iterator it = --buffer.end(); isspace(*it); it--)
+        buffer.erase(it);
+
+    return status;
+}
+
 OBJMesh::OBJMesh() : m_mtlfile(this)
 {
 }
@@ -97,8 +107,6 @@ void OBJMesh::Open(const std::string& path)
         if(buffer[0] == '#' || buffer.empty())
             continue;
 
-        tools::cleanLine(buffer);
-
         string opcode = buffer.substr(0, buffer.find_first_of(' '));
         string value = buffer.substr(buffer.find_first_of(' ') + 1);
 
@@ -110,7 +118,6 @@ void OBJMesh::Open(const std::string& path)
                 pos = m_filepath.find_last_of('/');
 
             string mtlFilename = m_filepath.substr(0, pos + 1) + value;
-            tools::cleanLine(mtlFilename);
 
             m_mtlfile.Open(mtlFilename);
         }
@@ -289,8 +296,6 @@ void MTLFile::Open(const std::string& path)
     {
         if(buffer[0] == '#' || buffer.empty())
             continue;
-
-        tools::cleanLine(buffer);
 
         int pos = buffer.find_first_of(' ');
 
