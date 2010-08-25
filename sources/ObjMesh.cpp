@@ -23,16 +23,6 @@ public:
 
 SharedlObjMeshManager manager;
 
-bool getline(ifstream& stream, string& buffer)
-{
-    bool status = std::getline(stream, buffer);
-
-    for(string::iterator it = --buffer.end(); isspace(*it); it--)
-        buffer.erase(it);
-
-    return status;
-}
-
 OBJMesh::OBJMesh() : m_mtlfile(this)
 {
 }
@@ -102,7 +92,7 @@ void OBJMesh::Open(const std::string& path)
     unsigned applyOffset = 0;
 
     string buffer;
-    for(unsigned lineCount = 1; getline(file, buffer); lineCount++)
+    for(unsigned lineCount = 1; tools::getline(file, buffer); lineCount++)
     {
         if(buffer[0] == '#' || buffer.empty())
             continue;
@@ -292,7 +282,7 @@ void MTLFile::Open(const std::string& path)
     Material * material = NULL;
 
     string buffer;
-    for(unsigned line = 1; getline(file, buffer); line++)
+    for(unsigned line = 1; tools::getline(file, buffer); line++)
     {
         if(buffer[0] == '#' || buffer.empty())
             continue;
