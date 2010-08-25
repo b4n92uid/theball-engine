@@ -60,22 +60,6 @@ AABB& AABB::Count(const Vector3f& pos)
     return *this;
 }
 
-AABB& AABB::Add(const AABB& aabb)
-{
-    min += aabb.min;
-    max += aabb.max;
-
-    return *this;
-}
-
-AABB& AABB::Add(const Vector3f& pos)
-{
-    min -= pos;
-    max += pos;
-
-    return *this;
-}
-
 bool AABB::IsInner(scene::Node* node) const
 {
     return IsInner(node->GetPos());
@@ -94,4 +78,72 @@ bool AABB::IsInner(const Vector3f& point) const
 float AABB::GetSize() const
 {
     return(max - min).GetMagnitude();
+}
+
+AABB& AABB::operator()(const Vector3f& min, const Vector3f& max)
+{
+    this->min = min;
+    this->max = max;
+
+    return *this;
+}
+
+AABB & AABB::Add(const Vector3f& pos)
+{
+    return *this += pos;
+}
+
+AABB & AABB::Add(const AABB& aabb)
+{
+    return *this += aabb;
+}
+
+AABB & AABB::Sub(const Vector3f& pos)
+{
+    return *this -= pos;
+}
+
+AABB & AABB::Sub(const AABB& aabb)
+{
+    return *this -= aabb;
+}
+
+AABB& AABB::operator+=(const Vector3f& pos)
+{
+    return(*this)(min - pos, max + pos);
+}
+
+AABB& AABB::operator+=(const AABB& aabb)
+{
+    return(*this)(min + aabb.min, max + aabb.max);
+}
+
+AABB& AABB::operator-=(const Vector3f& pos)
+{
+    return(*this)(min + pos, max - pos);
+}
+
+AABB& AABB::operator-=(const AABB& aabb)
+{
+    return(*this)(min + aabb.min, max - aabb.max);
+}
+
+AABB AABB::operator-(const Vector3f& value)
+{
+    return AABB(*this) -= value;
+}
+
+AABB AABB::operator-(const AABB& aabb)
+{
+    return AABB(*this) -= aabb;
+}
+
+AABB AABB::operator+(const Vector3f& value)
+{
+    return AABB(*this) += value;
+}
+
+AABB AABB::operator+(const AABB& aabb)
+{
+    return AABB(*this) += aabb;
 }
