@@ -114,7 +114,7 @@ NewtonNode* NewtonParallelScene::GetNode(std::string name)
         return m_newtonNodes[name];
 
     else
-        throw tbe::Exception("NewtonSubScene::GetNewtonMesh\nNewtonMesh not found (%s)\n\n", name.c_str());
+        throw tbe::Exception("NewtonSubScene::GetNewtonMesh; NewtonMesh not found (%s)", name.c_str());
 }
 
 NewtonNode* NewtonParallelScene::ReleaseNode(std::string name)

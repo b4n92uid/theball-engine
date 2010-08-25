@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <string>
 #include <sstream>
 #include <map>
 
@@ -20,6 +21,18 @@ namespace tbe
 {
 namespace tools
 {
+
+inline bool getline(std::istream& stream, std::string& buffer)
+{
+    using namespace std;
+
+    bool status = std::getline(stream, buffer);
+
+    for(string::iterator it = --buffer.end(); isspace(*it); it--)
+        buffer.erase(it);
+
+    return status;
+}
 
 /**
  * Renvois la premier puissance-deux apres 'v'

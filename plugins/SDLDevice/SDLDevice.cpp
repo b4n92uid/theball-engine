@@ -81,7 +81,9 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
         cout << "SDLDevice::Window; Double Buffer incorrect value " << returnState << endl;
 
     char* error = SDL_GetError();
-    cout << "SDLDevice::Window; SDL error: " << (error ? error : "nothing") << endl;
+
+    if(strlen(error))
+        cout << "SDLDevice::Window; SDL error: " << error << endl;
 
     Setup(m_winSize);
 }
