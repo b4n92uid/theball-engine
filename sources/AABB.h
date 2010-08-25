@@ -32,8 +32,25 @@ public:
     AABB& Count(const AABB& aabb);
     AABB& Count(const Vector3f& pos);
 
-    AABB& Add(const AABB& aabb);
-    AABB& Add(const Vector3f& pos);
+    AABB & operator()(const Vector3f& min, const Vector3f& max);
+
+    AABB & Add(const Vector3f& pos);
+    AABB & Add(const AABB& aabb);
+
+    AABB & Sub(const Vector3f& pos);
+    AABB & Sub(const AABB& aabb);
+
+    AABB & operator+=(const Vector3f& pos);
+    AABB & operator+=(const AABB& aabb);
+
+    AABB & operator-=(const Vector3f& pos);
+    AABB & operator-=(const AABB& aabb);
+
+    AABB operator+(const Vector3f& value);
+    AABB operator+(const AABB& aabb);
+
+    AABB operator-(const Vector3f& value);
+    AABB operator-(const AABB& aabb);
 
     bool IsInner(scene::Node* node) const;
     bool IsInner(const AABB& aabb) const;
