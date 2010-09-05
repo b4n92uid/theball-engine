@@ -53,7 +53,7 @@ public:
     /// Rendue
     void Render();
 
-    /// Detruit tout les entitÃ©s
+    /// Detruit tout les entités
     void Clear();
 
     /// Specifier le timestep du moteur physique
