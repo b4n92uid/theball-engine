@@ -70,7 +70,7 @@ public:
             }
         }
 
-        Texture grassTexel("../../medias/obj/gras_02.png", true);
+        Texture grassTexel("../../medias/textures/gras_02.png", true);
         grassTexel.SetFiltring(Texture::NEAREST);
 
         Material* mainMaterial = new Material;
