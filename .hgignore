@@ -17,4 +17,3 @@ syntax: regexp
 .*(\.exe)$
 .*(\.dll)$
 .*(\.lnk)$
-.*nbproject.*
