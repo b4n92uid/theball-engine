@@ -1,15 +1,20 @@
-build/*
-doc/html/*
-sourcesold/*
-versions/*
+build
+dist
+doc/html
+extras
+sourcesold
+nbproject
+
+.dep.inc
+Makefile
+
+syntax: glob
+demo/*/Makefile
+demo/*/.dep.inc
+demo/*/nbproject
 
 syntax: regexp
-.*(\.lib)$
-.*(\.a)$
 .*(\.exe)$
 .*(\.dll)$
 .*(\.lnk)$
-.*(\.bat)$
-.*(\.tdl)$
-.*(\.xml)$
 .*nbproject.*
