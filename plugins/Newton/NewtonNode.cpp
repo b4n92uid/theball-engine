@@ -182,7 +182,7 @@ void NewtonNode::BuildConvexNode(const Vertex::Array& vertexes, float masse)
     Vector3f::Array onlyPos = ExtractPos(vertexes);
 
     // Corp de collision
-    NewtonCollision* collision = NewtonCreateConvexHull(m_newtonWorld, vertexes.size(), &onlyPos[0].x, sizeof (Vector3f), 0, 0, NULL);
+    NewtonCollision* collision = NewtonCreateConvexHull(m_newtonWorld, vertexes.size(), &onlyPos[0].x, sizeof(Vector3f), 0, 0, NULL);
     m_body = NewtonCreateBody(m_newtonWorld, collision);
 
     // Masse & Inertia
@@ -225,7 +225,7 @@ void NewtonNode::BuildTreeNode(const Face::Array& faces)
         for(unsigned j = 0; j < faces[j].size(); j++)
             vertexesPos.push_back(faces[i][j].pos);
 
-        NewtonTreeCollisionAddFace(nCollision, vertexesPos.size(), &vertexesPos[0].x, sizeof (Vector3f), 0);
+        NewtonTreeCollisionAddFace(nCollision, vertexesPos.size(), &vertexesPos[0].x, sizeof(Vector3f), 0);
     }
 
     // 1 = optimisation
@@ -302,6 +302,18 @@ void NewtonNode::SetPos(Vector3f pos)
 Vector3f NewtonNode::GetPos()
 {
     return m_updatedMatrix->GetPos();
+}
+
+void NewtonNode::SetVelocity(Vector3f vel)
+{
+    NewtonBodySetVelocity(m_body, vel);
+}
+
+Vector3f NewtonNode::GetVelocity()
+{
+    Vector3f vel;
+    NewtonBodyGetVelocity(m_body, vel);
+    return vel;
 }
 
 NewtonBody* NewtonNode::GetBody()
