@@ -17,6 +17,7 @@
 #include "Rtt.h"
 #include "ParallelScene.h"
 #include "Camera.h"
+#include "Clock.h"
 
 #include <map>
 #include <string>
@@ -73,6 +74,8 @@ protected:
     Shader m_shader;
     Rtt m_reflection;
     Rtt m_refraction;
+    
+    ticks::Clock m_clock;
 
     Vector2f m_uvRepeat;
     float m_blend;

@@ -396,8 +396,6 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
 
 void Mesh::Render()
 {
-    Process();
-
     glPushMatrix();
     glMultMatrixf(m_matrix);
 
