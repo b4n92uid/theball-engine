@@ -53,6 +53,9 @@ public:
     void SetPos(Vector3f pos);
     Vector3f GetPos();
 
+    void SetVelocity(Vector3f vel);
+    Vector3f GetVelocity();
+
     /// Mise a jour
     virtual void UpdateMatrix();
 
