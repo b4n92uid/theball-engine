@@ -63,7 +63,6 @@ public:
     typedef std::map<std::string, Node*> Map;
     typedef std::vector<Node*> Array;
 
-protected:
     virtual void Process();
 
 protected:

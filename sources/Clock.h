@@ -39,7 +39,7 @@ public:
     static void Sleep(unsigned v);
 
 private:
-    clock_t m_lastTime;
+    long m_lastTime;
 
 };
 

@@ -59,6 +59,8 @@ void MeshParallelScene::Render()
         if(!it->second->IsEnable())
             continue;
 
+        it->second->Process();
+
         if(m_enableFrustumTest && !frustum->IsInside(it->second))
         {
             m_frustumCullingCount++;

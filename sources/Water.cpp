@@ -9,6 +9,7 @@
 #include "SceneManager.h"
 #include "HardwareBuffer.h"
 #include "Rtt.h"
+#include "Clock.h"
 
 const char* vertexShader =
         "varying vec3 light;"
@@ -313,7 +314,7 @@ void Water::Render()
     m_buffer.BindTexture();
 
     m_shader.Use(true);
-    m_shader.SetUniform("timer", (float)clock());
+    m_shader.SetUniform("timer", (float)m_clock.GetEsplanedTime());
 
     glClientActiveTexture(GL_TEXTURE0);
     glActiveTexture(GL_TEXTURE0);
