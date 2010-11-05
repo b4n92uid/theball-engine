@@ -11,6 +11,9 @@
 #include <string>
 #include <map>
 
+#include "MeshParallelScene.h"
+#include "ParticlesParallelScene.h"
+
 namespace tbe
 {
 namespace scene
@@ -24,7 +27,7 @@ public:
     BldParser(SceneManager* sceneManager);
     virtual ~BldParser();
 
-    void LoadScene(std::string filepath);
+    void LoadScene(const std::string& filepath);
 
 protected:
 
@@ -34,15 +37,24 @@ protected:
     void ParseFog(AttribMap& att);
     void ParseSkyBox(AttribMap& att);
     void ParseLight(AttribMap& att);
-    void ParseNode(AttribMap& att);
+    void ParseNode(AttribMap& att, Mesh* parent = NULL);
     void ParseParticles(AttribMap& att);
-    void ParseClass(AttribMap& att);
+    
+    void RecordClass(std::ifstream& file, std::string name);
 
     AttribMap GetAttributs(std::ifstream& file);
 
 private:
-    SceneManager* m_sceneManager;
+
+    typedef std::map<std::string, Mesh*> ClassRec;
+
     std::string m_mapName;
+
+    SceneManager* m_sceneManager;
+    MeshParallelScene* m_meshScene;
+    ParticlesParallelScene* m_particleScene;
+    
+    ClassRec m_classRec;
 };
 
 }

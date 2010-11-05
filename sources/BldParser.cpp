@@ -6,18 +6,21 @@
  */
 
 #include "BldParser.h"
+#include "ObjMesh.h"
 
 #include <fstream>
 
 #include "SceneManager.h"
 #include "Skybox.h"
 #include "Tools.h"
+#include "Particles.h"
 
 using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
-BldParser::BldParser(SceneManager* sceneManager) : m_sceneManager(sceneManager)
+BldParser::BldParser(SceneManager* sceneManager)
+: m_sceneManager(sceneManager), m_meshScene(NULL)
 {
 }
 
@@ -32,6 +35,8 @@ BldParser::AttribMap BldParser::GetAttributs(std::ifstream& file)
 
     while(tools::getline(file, buffer))
     {
+        tools::trimstr(buffer);
+
         if(buffer.empty())
             break;
 
@@ -47,10 +52,75 @@ BldParser::AttribMap BldParser::GetAttributs(std::ifstream& file)
     return fileMap;
 }
 
+void BldParser::LoadScene(const std::string& filepath)
+{
+    ifstream file(filepath.c_str());
+
+    if(!file)
+        throw tbe::Exception("BLDLoader::LoadScene; Open file error (%s)", filepath.c_str());
+
+    string buffer;
+    for(unsigned line = 0; tools::getline(file, buffer); line++)
+    {
+        if(buffer.empty() || buffer[0] == '#')
+            continue;
+
+        if(buffer == ".map")
+        {
+            AttribMap att = GetAttributs(file);
+            ParseMap(att);
+        }
+
+        else if(buffer == ".music")
+        {
+        }
+
+        else if(buffer == ".fog")
+        {
+            AttribMap att = GetAttributs(file);
+            ParseFog(att);
+        }
+
+        else if(buffer == ".skybox")
+        {
+            AttribMap att = GetAttributs(file);
+            ParseSkyBox(att);
+        }
+
+        else if(buffer == "+node")
+        {
+            AttribMap att = GetAttributs(file);
+            ParseNode(att);
+        }
+
+        else if(buffer == "+light")
+        {
+            AttribMap att = GetAttributs(file);
+            ParseLight(att);
+        }
+
+        else if(buffer.substr(0, 6) == "/class")
+        {
+            RecordClass(file, buffer.substr(7));
+        }
+
+        else
+            throw tbe::Exception("BldParser::LoadScene; Parse error %d (%s)", line, buffer.c_str());
+    }
+
+    file.close();
+}
+
 void BldParser::ParseMap(AttribMap& att)
 {
     m_mapName = att["name"];
     m_sceneManager->SetAmbientLight(vec34(Vector3f(att["ambient"])));
+
+    m_meshScene = new MeshParallelScene;
+    m_sceneManager->AddParallelScene(m_mapName + ":Mesh", m_meshScene);
+
+    m_particleScene = new ParticlesParallelScene;
+    m_sceneManager->AddParallelScene(m_mapName + ":Particles", m_particleScene);
 }
 
 void BldParser::ParseFog(AttribMap& att)
@@ -82,26 +152,68 @@ void BldParser::ParseSkyBox(AttribMap& att)
     sky->SetEnable(true);
 }
 
-void BldParser::ParseClass(AttribMap& att)
+void BldParser::RecordClass(std::ifstream& file, std::string name)
 {
+    Mesh* mesh = m_classRec[name] = new Mesh;
 
+    string buffer;
+
+    while(tools::getline(file, buffer))
+    {
+        if(buffer.empty())
+            break;
+
+        tools::trimstr(buffer);
+
+        if(buffer == "+node")
+        {
+            AttribMap attribs = GetAttributs(file);
+            ParseNode(attribs, mesh);
+        }
+    }
 }
 
-void BldParser::ParseNode(AttribMap& att)
+void BldParser::ParseNode(AttribMap& att, Mesh* parent)
 {
-    throw tbe::Exception("BLDLoader::ParseNode; Unknown node type (%s)", att["type"].c_str());
+    if(att["type"] == "OBJMesh")
+    {
+        OBJMesh* mesh = new OBJMesh;
+        mesh->Open(att["open"]);
+
+        if(parent)
+            ;
+        else
+            m_meshScene->AddMesh("", mesh);
+    }
+
+    else if(att["type"] == "ParticlesEmiter")
+    {
+        //        ParticlesEmiter* emiter = new ParticlesEmiter;
+
+        //        m_particleScene->AddParticlesEmiter("", emiter);
+    }
+
+    else if(m_classRec.count(att["type"]))
+    {
+        //        Mesh* mesh = m_classRec[att["type"]];
+
+        //        m_meshScene->AddMesh("", mesh);
+    }
+
+    else
+        throw tbe::Exception("BLDLoader::ParseNode; Unknown node type (%s)", att["type"].c_str());
 }
 
 void BldParser::ParseLight(AttribMap& att)
 {
     Light* light = NULL;
 
-    if(att["type"] == "DIRI")
+    if(att["type"] == "Diri")
     {
         light = new DiriLight;
     }
 
-    else if(att["type"] == "POINT")
+    else if(att["type"] == "Point")
     {
         float radius = tools::StrToNum<float>(att["radius"]);
 

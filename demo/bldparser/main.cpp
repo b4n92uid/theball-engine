@@ -7,6 +7,15 @@ using namespace tbe;
 using namespace tbe::scene;
 using namespace tbe::gui;
 
+class Jumper
+{
+public:
+    Jumper();
+    ~Jumper();
+
+    void Action();
+};
+
 void mainapp()
 {
     SDLDevice* engine = new SDLDevice;
@@ -22,7 +31,8 @@ void mainapp()
     OrbitalCamera* camera = new OrbitalCamera;
     sceneMng->AddCamera("cam", camera);
 
-
+    BldParser* sceneParser = new BldParser(sceneMng);
+    sceneParser->LoadScene("../../medias/scene.bld");
 
     EventManager* event = engine->GetEventManager();
 

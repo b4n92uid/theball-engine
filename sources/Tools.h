@@ -22,14 +22,25 @@ namespace tbe
 namespace tools
 {
 
+inline void trimstr(std::string& buffer)
+{
+    using namespace std;
+
+    for(string::iterator it = buffer.begin(); isspace(*it); it = buffer.begin())
+        buffer.erase(it);
+
+    for(string::iterator it = --buffer.end(); isspace(*it); it--)
+        buffer.erase(it);
+}
+
 inline bool getline(std::istream& stream, std::string& buffer)
 {
     using namespace std;
 
     bool status = std::getline(stream, buffer);
 
-    for(string::iterator it = --buffer.end(); isspace(*it); it--)
-        buffer.erase(it);
+    //    for(string::iterator it = --buffer.end(); isspace(*it); it--)
+    //        buffer.erase(it);
 
     return status;
 }
