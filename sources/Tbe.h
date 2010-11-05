@@ -61,7 +61,7 @@
 #include "Frustum.h"
 #include "Water.h"
 #include "PosMap.h"
-#include "BldParser.h"
+#include "SceneParser.h"
 
 // Post process effect ---------------------------------------------------------
 

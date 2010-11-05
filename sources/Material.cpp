@@ -58,6 +58,8 @@ bool Material::operator=(const Material& copy)
     m_lineWidth = copy.m_lineWidth;
 
     m_alphaThershold = copy.m_alphaThershold;
+
+    return true;
 }
 
 void Material::SetAoccLocation(std::string aoccLocation)
