@@ -25,6 +25,41 @@ Material::Material()
     m_faceType = TRIANGLES;
 }
 
+Material::Material(const Material& copy)
+{
+    *this = copy;
+}
+
+Material::~Material()
+{
+}
+
+bool Material::operator=(const Material& copy)
+{
+    m_name = copy.m_name;
+
+    m_aoccLocation = copy.m_aoccLocation;
+    m_tangentLocation = copy.m_tangentLocation;
+
+    m_ambient = copy.m_ambient;
+    m_diffuse = copy.m_diffuse;
+    m_specular = copy.m_specular;
+    m_shininess = copy.m_shininess;
+
+    m_textures = copy.m_textures;
+    m_shader = copy.m_shader;
+
+    m_faceType = copy.m_faceType;
+
+    m_renderFlags = copy.m_renderFlags;
+
+    m_frameSortWait = copy.m_frameSortWait;
+
+    m_lineWidth = copy.m_lineWidth;
+
+    m_alphaThershold = copy.m_alphaThershold;
+}
+
 void Material::SetAoccLocation(std::string aoccLocation)
 {
     this->m_aoccLocation = aoccLocation;

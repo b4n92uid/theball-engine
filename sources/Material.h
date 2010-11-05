@@ -29,6 +29,10 @@ class Material
 public:
 
     Material();
+    Material(const Material& copy);
+    ~Material();
+
+    bool operator=(const Material& copy);
 
     void SetRenderFlags(unsigned renderFlags);
     unsigned GetRenderFlags() const;

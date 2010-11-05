@@ -181,7 +181,7 @@ void BldParser::ParseNode(AttribMap& att, Mesh* parent)
         mesh->Open(att["open"]);
 
         if(parent)
-            ;
+            parent->AddChild(mesh);
         else
             m_meshScene->AddMesh("", mesh);
     }
@@ -195,9 +195,12 @@ void BldParser::ParseNode(AttribMap& att, Mesh* parent)
 
     else if(m_classRec.count(att["type"]))
     {
-        //        Mesh* mesh = m_classRec[att["type"]];
+        Mesh* mesh = new Mesh(*m_classRec[att["type"]]);
 
-        //        m_meshScene->AddMesh("", mesh);
+        if(parent)
+            parent->AddChild(mesh);
+        else
+            m_meshScene->AddMesh("", mesh);
     }
 
     else
