@@ -1,11 +1,11 @@
 /* 
- * File:   BldParser.cpp
+ * File:   SceneParser.cpp
  * Author: b4n92uid
  * 
  * Created on 5 novembre 2010, 14:19
  */
 
-#include "BldParser.h"
+#include "SceneParser.h"
 #include "ObjMesh.h"
 
 #include <fstream>
@@ -19,18 +19,18 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
-BldParser::BldParser(SceneManager* sceneManager)
+SceneParser::SceneParser(SceneManager* sceneManager)
 : m_sceneManager(sceneManager), m_meshScene(NULL)
 {
 }
 
-BldParser::~BldParser()
+SceneParser::~SceneParser()
 {
 }
 
-BldParser::AttribMap BldParser::GetAttributs(std::ifstream& file)
+SceneParser::AttribMap SceneParser::GetAttributs(std::ifstream& file)
 {
-    BldParser::AttribMap fileMap;
+    SceneParser::AttribMap fileMap;
     string buffer;
 
     while(tools::getline(file, buffer))
@@ -52,7 +52,7 @@ BldParser::AttribMap BldParser::GetAttributs(std::ifstream& file)
     return fileMap;
 }
 
-void BldParser::LoadScene(const std::string& filepath)
+void SceneParser::LoadScene(const std::string& filepath)
 {
     ifstream file(filepath.c_str());
 
@@ -105,13 +105,13 @@ void BldParser::LoadScene(const std::string& filepath)
         }
 
         else
-            throw tbe::Exception("BldParser::LoadScene; Parse error %d (%s)", line, buffer.c_str());
+            throw tbe::Exception("SceneParser::LoadScene; Parse error %d (%s)", line, buffer.c_str());
     }
 
     file.close();
 }
 
-void BldParser::ParseMap(AttribMap& att)
+void SceneParser::ParseMap(AttribMap& att)
 {
     m_mapName = att["name"];
     m_sceneManager->SetAmbientLight(vec34(Vector3f(att["ambient"])));
@@ -123,7 +123,7 @@ void BldParser::ParseMap(AttribMap& att)
     m_sceneManager->AddParallelScene(m_mapName + ":Particles", m_particleScene);
 }
 
-void BldParser::ParseFog(AttribMap& att)
+void SceneParser::ParseFog(AttribMap& att)
 {
     Vector4f color = att["color"];
     float start = tools::StrToNum<float>(att["start"]);
@@ -136,7 +136,7 @@ void BldParser::ParseFog(AttribMap& att)
     fog->SetEnable(true);
 }
 
-void BldParser::ParseSkyBox(AttribMap& att)
+void SceneParser::ParseSkyBox(AttribMap& att)
 {
     Texture skyTex[6] = {
         att["front"],
@@ -152,7 +152,7 @@ void BldParser::ParseSkyBox(AttribMap& att)
     sky->SetEnable(true);
 }
 
-void BldParser::RecordClass(std::ifstream& file, std::string name)
+void SceneParser::RecordClass(std::ifstream& file, std::string name)
 {
     Mesh* mesh = m_classRec[name] = new Mesh;
 
@@ -173,7 +173,7 @@ void BldParser::RecordClass(std::ifstream& file, std::string name)
     }
 }
 
-void BldParser::ParseNode(AttribMap& att, Mesh* parent)
+void SceneParser::ParseNode(AttribMap& att, Mesh* parent)
 {
     if(att["type"] == "OBJMesh")
     {
@@ -208,7 +208,7 @@ void BldParser::ParseNode(AttribMap& att, Mesh* parent)
         throw tbe::Exception("BLDLoader::ParseNode; Unknown node type (%s)", att["type"].c_str());
 }
 
-void BldParser::ParseLight(AttribMap& att)
+void SceneParser::ParseLight(AttribMap& att)
 {
     Light* light = NULL;
 

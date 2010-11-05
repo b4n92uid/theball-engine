@@ -1,12 +1,12 @@
 /* 
- * File:   BldParser.h
+ * File:   SceneParser.h
  * Author: b4n92uid
  *
  * Created on 5 novembre 2010, 14:19
  */
 
-#ifndef BLDPARSER_H
-#define	BLDPARSER_H
+#ifndef SCENEPARSER_H
+#define	SCENEPARSER_H
 
 #include <string>
 #include <map>
@@ -21,11 +21,11 @@ namespace scene
 
 class SceneManager;
 
-class BldParser
+class SceneParser
 {
 public:
-    BldParser(SceneManager* sceneManager);
-    virtual ~BldParser();
+    SceneParser(SceneManager* sceneManager);
+    virtual ~SceneParser();
 
     void LoadScene(const std::string& filepath);
 
@@ -60,5 +60,5 @@ private:
 }
 }
 
-#endif	/* BLDPARSER_H */
+#endif	/* SCENEPARSER_H */
 
