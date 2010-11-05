@@ -179,6 +179,7 @@ void BldParser::ParseNode(AttribMap& att, Mesh* parent)
     {
         OBJMesh* mesh = new OBJMesh;
         mesh->Open(att["open"]);
+        mesh->SetMatrix(att["matrix"]);
 
         if(parent)
             parent->AddChild(mesh);
@@ -189,13 +190,13 @@ void BldParser::ParseNode(AttribMap& att, Mesh* parent)
     else if(att["type"] == "ParticlesEmiter")
     {
         //        ParticlesEmiter* emiter = new ParticlesEmiter;
-
         //        m_particleScene->AddParticlesEmiter("", emiter);
     }
 
     else if(m_classRec.count(att["type"]))
     {
         Mesh* mesh = new Mesh(*m_classRec[att["type"]]);
+        mesh->SetMatrix(att["matrix"]);
 
         if(parent)
             parent->AddChild(mesh);

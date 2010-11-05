@@ -55,6 +55,9 @@ bool Mesh::operator=(const Mesh& mesh)
     for(unsigned i = 0; i < m_renderProess.size(); i++)
         m_renderProess[i].parent = this;
 
+    for(unsigned i = 0; i < mesh.m_childs.size(); i++)
+        m_childs.push_back(new Mesh(*mesh.m_childs[i]));
+
     return true;
 }
 
