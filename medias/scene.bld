@@ -1,0 +1,87 @@
+.map
+name=Desert
+ambient=0.2,0.2,0.2,1
+
+.music
+open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/music/speed.ogg
+
+.fog
+color=1,1,0.75,1
+start=30
+end=60
+
+.skybox
+front=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/desertplanet_up.tga
+back=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/desertplanet_dn.tga
+top=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/desertplanet_tp.tga
+bottom=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/desertplanet_bm.tga
+left=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/desertplanet_lt.tga
+right=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/desertplanet_rt.tga
+
+/class Jumper
+
+    +node
+    type=Particles
+    open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/jumper.bmp
+    matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+    rangeTo=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+    lifeInit=2
+    lifeDown=0.05
+    number=64
+    freemove=0
+    continous=true
+    
+    +node
+    type=ObjMesh
+    matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+    open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/scene/jumper.obj
+
+
+/class Teleporter
+
+    +node
+    type=Particles
+    open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/teleporter.bmp
+    matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+    rangeTo=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+    lifeInit=2
+    lifeDown=0.05
+    number=64
+    freemove=0
+    continous=true
+    
+    +node
+    type=ObjMesh
+    matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+    open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/scene/teleporter.obj
+
++light
+type=Diri
+pos=-0.699561,0.991667,0.695071
+ambient=0,0,0,0
+diffuse=1,1,1,1
+specular=0.5,0.5,0.5,1
+
++node
+type=ObjMesh
+matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/scene/desert.obj
+
++node
+type=Particles
+matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/jumper.bmp
+rangeTo=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+lifeInit=2
+lifeDown=0.05
+number=64
+freemove=0
+continous=true
+
++node
+type=Jumper
+matrix=1,0,0,0,0,1,0,0,0,0,1,0,-16,0.765782,4,1
+
++node
+type=Teleporter
+matrix=0.0707372,0,-0.997495,0,0,1,0,0,0.997495,0,0.0707372,0,-20.0555,1.05033,-7.58527,1
