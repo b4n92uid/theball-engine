@@ -25,7 +25,10 @@ class Mesh : public Node
 {
 public:
     Mesh();
+    Mesh(const Mesh& mesh);
     ~Mesh();
+
+    bool operator=(const Mesh& mesh);
 
     /// Rendue
     void Render();
@@ -87,6 +90,16 @@ public:
     void SetTriangulate(bool triangulate);
     bool IsTriangulate() const;
 
+    void SetParent(Mesh* parent);
+    Mesh*GetParent();
+
+    void AddChild(Mesh* child);
+
+    Mesh* ReleaseChild(Mesh* child);
+    Mesh* ReleaseChild(unsigned index);
+
+    Mesh* GetChild(unsigned index);
+
     /**
      * Applique le materieux identifier par name
      * aux vertexs depuis offset jusqu'a offset + size
@@ -130,13 +143,17 @@ protected:
 
     HardwareBuffer m_hardwareBuffer;
 
+    Mesh::Array m_childs;
+    Mesh* m_parent;
+
 private:
 
     void Render(Material* material, unsigned offset, unsigned size);
 
     struct RenderProcess
     {
-        Material* applyMaterial;
+        Mesh* parent;
+        std::string applyMaterial;
         unsigned offset;
         unsigned size;
 
@@ -145,7 +162,7 @@ private:
 
     inline static bool RenderProcessSortFunc(const RenderProcess& rp1, const RenderProcess&)
     {
-        return !rp1.applyMaterial->IsTransparent();
+        return !rp1.parent->m_materials[rp1.applyMaterial]->IsTransparent();
     }
 
     RenderProcess::Array m_renderProess;

@@ -8,6 +8,7 @@
 #include "Mesh.h"
 #include "ParallelScene.h"
 #include "SceneManager.h"
+#include "Tools.h"
 
 using namespace tbe;
 using namespace tbe::scene;
@@ -15,15 +16,46 @@ using namespace std;
 
 Mesh::Mesh()
 {
+    m_parent = NULL;
+
     m_triangulate = true;
     m_withNormal = false;
     m_withTexCoord = false;
 }
 
+Mesh::Mesh(const Mesh& mesh)
+{
+    m_parent = NULL;
+
+    *this = mesh;
+}
+
 Mesh::~Mesh()
 {
-    for(Material::Map::iterator i = m_materials.begin(); i != m_materials.end(); i++)
-        delete i->second;
+    for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); it++)
+        delete it->second;
+
+    for(unsigned i = 0; i < m_childs.size(); i++)
+        delete m_childs[i];
+}
+
+bool Mesh::operator=(const Mesh& mesh)
+{
+    m_triangulate = mesh.m_triangulate;
+    m_withNormal = mesh.m_withNormal;
+    m_withTexCoord = mesh.m_withTexCoord;
+
+    m_hardwareBuffer = mesh.m_hardwareBuffer;
+
+    for(Material::Map::const_iterator it = mesh.m_materials.begin(); it != mesh.m_materials.end(); it++)
+        m_materials[it->first] = new Material(*it->second);
+
+    m_renderProess = mesh.m_renderProess;
+
+    for(unsigned i = 0; i < m_renderProess.size(); i++)
+        m_renderProess[i].parent = this;
+
+    return true;
 }
 
 void Mesh::ComputeAabb()
@@ -399,6 +431,9 @@ void Mesh::Render()
     glPushMatrix();
     glMultMatrixf(m_matrix);
 
+    for(unsigned i = 0; i < m_childs.size(); i++)
+        m_childs[i]->Render();
+
     if(m_renderProess.empty())
     {
         Material defaultMateral;
@@ -410,7 +445,12 @@ void Mesh::Render()
         std::sort(m_renderProess.begin(), m_renderProess.end(), RenderProcessSortFunc);
 
         for(unsigned i = 0; i < m_renderProess.size(); i++)
-            Render(m_renderProess[i].applyMaterial, m_renderProess[i].offset, m_renderProess[i].size);
+        {
+            std::string name = m_renderProess[i].applyMaterial;
+            Material* mat = m_materials[name];
+
+            Render(mat, m_renderProess[i].offset, m_renderProess[i].size);
+        }
     }
 
     glPopMatrix();
@@ -498,6 +538,60 @@ bool Mesh::IsTransparent()
     return false;
 }
 
+void Mesh::SetParent(Mesh* parent)
+{
+    if(m_parent)
+        m_parent->ReleaseChild(this);
+
+    parent->AddChild(this);
+}
+
+Mesh* Mesh::GetParent()
+{
+    return m_parent;
+}
+
+void Mesh::AddChild(Mesh* child)
+{
+    if(find(m_childs.begin(), m_childs.end(), child) == m_childs.end())
+        m_childs.push_back(child);
+
+    else
+        throw Exception("Mesh::AddChild; child already exist");
+}
+
+Mesh* Mesh::ReleaseChild(Mesh* child)
+{
+    Mesh::Array::iterator it = find(m_childs.begin(), m_childs.end(), child);
+
+    if(it == m_childs.end())
+        return NULL;
+
+    Mesh* ret = *it;
+    m_childs.erase(it);
+
+    return ret;
+}
+
+Mesh* Mesh::ReleaseChild(unsigned index)
+{
+    if(index >= m_childs.size())
+        throw Exception("Mesh::ReleaseChild; index out of range %d", index);
+
+    Mesh* ret = m_childs[index];
+    m_childs.erase(m_childs.begin() + index);
+
+    return ret;
+}
+
+Mesh* Mesh::GetChild(unsigned index)
+{
+    if(index >= m_childs.size())
+        throw Exception("Mesh::GetChild; index out of range %d", index);
+
+    return m_childs[index];
+}
+
 void Mesh::AddMaterial(std::string name, Material* material)
 {
     m_materials[name] = material;
@@ -556,7 +650,7 @@ Vector2i::Array Mesh::GetMaterialApply(std::string name)
     {
         const RenderProcess& rp = m_renderProess[i];
 
-        if(rp.applyMaterial == m_materials[name])
+        if(rp.applyMaterial == name)
             offset.push_back(Vector2i(rp.offset, rp.size));
     }
 
@@ -583,14 +677,22 @@ Material* Mesh::ReleaseMaterial(std::string name)
 
 void Mesh::ApplyMaterial(std::string name, unsigned offset, unsigned size)
 {
-    RenderProcess rp = {m_materials[name], offset, size};
+    RenderProcess rp = {this, name, offset, size};
     m_renderProess.push_back(rp);
 }
 
 void Mesh::ApplyMaterial(Material* material, unsigned offset, unsigned size)
 {
-    RenderProcess rp = {material, offset, size};
-    m_renderProess.push_back(rp);
+    for(Material::Map::iterator it = m_materials.begin();
+        it != m_materials.end(); it++)
+        if(it->second == material)
+        {
+            RenderProcess rp = {this, it->first, offset, size};
+            m_renderProess.push_back(rp);
+            return;
+        }
+
+    throw tbe::Exception("Mesh::ApplyMaterial; Material ptr not found");
 }
 
 HardwareBuffer& Mesh::GetHardwareBuffer()

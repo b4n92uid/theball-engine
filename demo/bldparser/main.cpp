@@ -25,14 +25,16 @@ void mainapp()
 
     SceneManager* sceneMng = engine->GetSceneManager();
 
-    MeshParallelScene* nodeScene = new MeshParallelScene;
-    sceneMng->AddParallelScene("nodeScene", nodeScene);
+    MeshParallelScene* meshScene = new MeshParallelScene;
+    sceneMng->AddParallelScene("nodeScene", meshScene);
 
     OrbitalCamera* camera = new OrbitalCamera;
     sceneMng->AddCamera("cam", camera);
 
-    BldParser* sceneParser = new BldParser(sceneMng);
-    sceneParser->LoadScene("../../medias/scene.bld");
+    //    BldParser* sceneParser = new BldParser(sceneMng);
+    //    sceneParser->LoadScene("../../medias/scene.bld");
+
+    meshScene->AddMesh("", copyobj);
 
     EventManager* event = engine->GetEventManager();
 

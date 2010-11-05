@@ -54,6 +54,10 @@ public:
     HardwareBuffer();
     ~HardwareBuffer();
 
+    HardwareBuffer(const HardwareBuffer& hb);
+
+    bool operator=(const HardwareBuffer& hb);
+
     Vertex* Lock(GLenum usage = GL_READ_WRITE);
     void UnLock();
 
@@ -85,6 +89,7 @@ public:
 
 protected:
     GLuint m_bufferId;
+    GLenum m_usage;
     Vertex::Array m_vertex;
 
     unsigned m_vertexCount;

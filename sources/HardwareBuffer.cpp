@@ -32,6 +32,22 @@ HardwareBuffer::~HardwareBuffer()
     glDeleteBuffers(1, &m_bufferId);
 }
 
+HardwareBuffer::HardwareBuffer(const HardwareBuffer& hb)
+{
+    glGenBuffers(1, &m_bufferId);
+
+    *this = hb;
+}
+
+bool HardwareBuffer::operator=(const HardwareBuffer& hb)
+{
+    m_vertex = hb.m_vertex;
+
+    Compile(hb.m_usage);
+
+    return true;
+}
+
 Vertex* HardwareBuffer::Lock(GLenum usage)
 {
     glBindBuffer(GL_ARRAY_BUFFER, m_bufferId);
@@ -68,6 +84,7 @@ void HardwareBuffer::AddVertex(const Vertex::Array& array)
 
 void HardwareBuffer::Compile(GLenum usage)
 {
+    m_usage = usage;
     m_vertexCount = m_vertex.size();
     m_bufferSize = m_vertex.size() * sizeof(Vertex);
 
