@@ -31,10 +31,8 @@ void mainapp()
     OrbitalCamera* camera = new OrbitalCamera;
     sceneMng->AddCamera("cam", camera);
 
-    //    BldParser* sceneParser = new BldParser(sceneMng);
-    //    sceneParser->LoadScene("../../medias/scene.bld");
-
-    meshScene->AddMesh("", copyobj);
+    BldParser* sceneParser = new BldParser(sceneMng);
+    sceneParser->LoadScene("../../medias/scene.bld");
 
     EventManager* event = engine->GetEventManager();
 
