@@ -79,6 +79,8 @@ public:
 
     void Render(GLenum mode = GL_TRIANGLES, unsigned first = 0, unsigned count = 0);
 
+    bool IsEmpty();
+
     unsigned GetBufferSize() const;
 
     unsigned GetVertexCount() const;

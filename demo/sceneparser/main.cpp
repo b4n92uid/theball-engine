@@ -7,13 +7,69 @@ using namespace tbe;
 using namespace tbe::scene;
 using namespace tbe::gui;
 
-class Jumper
+class Jumper : public Mesh
 {
 public:
-    Jumper();
-    ~Jumper();
 
-    void Action();
+    Jumper()
+    {
+    }
+
+    ~Jumper()
+    {
+    }
+
+protected:
+    int m_jumpforce;
+};
+
+class Teleporter : public Mesh
+{
+public:
+
+    Teleporter()
+    {
+    }
+
+    ~Teleporter()
+    {
+    }
+
+protected:
+    Vector3f m_location;
+};
+
+class MyClassFactory : public ClassFactory
+{
+public:
+
+    MyClassFactory()
+    {
+        m_binder["Jumper"] = CreateJumper;
+        m_binder["Teleporter"] = CreateTeleporter;
+    }
+
+    static Mesh* CreateJumper()
+    {
+        return new Jumper;
+    }
+
+    static Mesh* CreateTeleporter()
+    {
+        return new Teleporter;
+    }
+
+    Mesh* Instance(std::string type)
+    {
+        if(m_binder.count(type))
+            return m_binder[type]();
+        else
+            return new Mesh;
+    }
+
+private:
+    typedef Mesh* (*Inst)();
+    std::map<std::string, Inst> m_binder;
 };
 
 void mainapp()
@@ -32,6 +88,7 @@ void mainapp()
     sceneMng->AddCamera("cam", camera);
 
     SceneParser* sceneParser = new SceneParser(sceneMng);
+    sceneParser->SetClassFactory(new MyClassFactory);
     sceneParser->LoadScene("../../medias/scene.bld");
 
     EventManager* event = engine->GetEventManager();

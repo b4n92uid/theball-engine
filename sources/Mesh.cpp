@@ -437,6 +437,9 @@ void Mesh::Render()
     for(unsigned i = 0; i < m_childs.size(); i++)
         m_childs[i]->Render();
 
+    if(m_hardwareBuffer.IsEmpty())
+        return;
+
     if(m_renderProess.empty())
     {
         Material defaultMateral;
@@ -448,12 +451,9 @@ void Mesh::Render()
         std::sort(m_renderProess.begin(), m_renderProess.end(), RenderProcessSortFunc);
 
         for(unsigned i = 0; i < m_renderProess.size(); i++)
-        {
-            std::string name = m_renderProess[i].applyMaterial;
-            Material* mat = m_materials[name];
+            Render(m_materials[m_renderProess[i].applyMaterial],
+                   m_renderProess[i].offset, m_renderProess[i].size);
 
-            Render(mat, m_renderProess[i].offset, m_renderProess[i].size);
-        }
     }
 
     glPopMatrix();
@@ -557,7 +557,10 @@ Mesh* Mesh::GetParent()
 void Mesh::AddChild(Mesh* child)
 {
     if(find(m_childs.begin(), m_childs.end(), child) == m_childs.end())
+    {
+        m_aabb += child->m_aabb;
         m_childs.push_back(child);
+    }
 
     else
         throw Exception("Mesh::AddChild; child already exist");
@@ -568,7 +571,7 @@ Mesh* Mesh::ReleaseChild(Mesh* child)
     Mesh::Array::iterator it = find(m_childs.begin(), m_childs.end(), child);
 
     if(it == m_childs.end())
-        return NULL;
+        throw Exception("Mesh::ReleaseChild; cannot found child");
 
     Mesh* ret = *it;
     m_childs.erase(it);
