@@ -11,6 +11,7 @@
 #include "AABB.h"
 #include "Texture.h"
 #include "Exception.h"
+#include "ParallelScene.h"
 
 namespace tbe
 {
@@ -60,10 +61,23 @@ public:
     void SetPos(Vector3f pos);
     Vector3f GetPos() const;
 
+    void SetParent(Node* parent);
+    Node*GetParent();
+
+    void AddChild(Node* child);
+
+    Node* GetChild(unsigned index);
+
+    Node* ReleaseChild(Node* child);
+    Node* ReleaseChild(unsigned index);
+
     typedef std::map<std::string, Node*> Map;
     typedef std::vector<Node*> Array;
 
-    virtual void Process();
+    virtual void Process() = 0;
+    virtual void Render() = 0;
+
+    virtual Node* Clone() = 0;
 
 protected:
     ParallelScene* m_parallelScene;
@@ -72,6 +86,8 @@ protected:
     bool m_enable;
     bool m_enableProcess;
     AABB m_aabb;
+    Node::Array m_childs;
+    Node* m_parent;
 };
 
 }
