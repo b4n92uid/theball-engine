@@ -26,11 +26,47 @@ ParticlesEmiter::ParticlesEmiter()
     m_blendEq = ADDITIVE;
 }
 
+ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy)
+{
+    glGenBuffers(1, &m_renderId);
+
+    *this = copy;
+}
+
 ParticlesEmiter::~ParticlesEmiter()
 {
     glDeleteBuffers(1, &m_renderId);
 
     Destroy();
+}
+
+bool ParticlesEmiter::operator=(const ParticlesEmiter& copy)
+{
+    m_lifeInit = copy.m_lifeInit;
+    m_lifeDown = copy.m_lifeDown;
+
+    m_freeMove = copy.m_freeMove;
+
+    m_continousMode = copy.m_continousMode;
+    m_deadEmiter = copy.m_deadEmiter;
+    m_autoRebuild = copy.m_autoRebuild;
+
+    m_depthTest = copy.m_depthTest;
+
+    m_gravity = copy.m_gravity;
+    m_endPos = copy.m_endPos;
+
+    m_number = copy.m_number;
+
+    m_drawNumber = copy.m_drawNumber;
+
+    m_blendEq = copy.m_blendEq;
+    m_texture = copy.m_texture;
+
+    if(copy.m_enable)
+        Build();
+
+    return true;
 }
 
 void ParticlesEmiter::Build(Particle& p)
@@ -66,11 +102,16 @@ void ParticlesEmiter::Build()
     }
 
     glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
-    glBufferData(GL_ARRAY_BUFFER, sizeof (Particle) * m_number, &m_particles[0], GL_STREAM_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Particle) * m_number, &m_particles[0], GL_STREAM_DRAW);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     m_enable = true;
+}
+
+Node* ParticlesEmiter::Clone()
+{
+    return new ParticlesEmiter(*this);
 }
 
 void ParticlesEmiter::Process()
@@ -148,8 +189,8 @@ void ParticlesEmiter::Render()
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
 
-    glVertexPointer(3, GL_FLOAT, sizeof (Particle), POSITION_OFFSET);
-    glColorPointer(4, GL_FLOAT, sizeof (Particle), COLOR_OFFSET);
+    glVertexPointer(3, GL_FLOAT, sizeof(Particle), POSITION_OFFSET);
+    glColorPointer(4, GL_FLOAT, sizeof(Particle), COLOR_OFFSET);
 
     glDrawArrays(GL_POINTS, 0, m_drawNumber);
 

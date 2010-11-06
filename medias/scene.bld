@@ -1,13 +1,13 @@
-.map
+*map
 name=Desert
 ambient=0.2,0.2,0.2,1
 
-.fog
+*fog
 color=1,1,0.75,1
 start=30
 end=60
 
-.skybox
+*skybox
 front=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/desertplanet_up.tga
 back=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/desertplanet_dn.tga
 top=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/desertplanet_tp.tga
@@ -17,16 +17,16 @@ right=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/deser
 
 /class Jumper
     
-    +node
-    type=ParticlesEmiter
-    open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/jumper.bmp
-    matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
-    rangeTo=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
-    lifeInit=2
-    lifeDown=0.05
-    number=64
-    freemove=0
-    continous=true
+    # +node
+    # type=ParticlesEmiter
+    # open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/jumper.bmp
+    # matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+    # endPos=1,1,1
+    # lifeInit=2
+    # lifeDown=0.05
+    # number=64
+    # freemove=0
+    # continous=1
     
     +node
     type=OBJMesh
@@ -36,16 +36,16 @@ right=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/deser
 
 /class Teleporter
     
-    +node
-    type=ParticlesEmiter
-    open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/teleporter.bmp
-    matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
-    rangeTo=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
-    lifeInit=2
-    lifeDown=0.05
-    number=64
-    freemove=0
-    continous=true
+    # +node
+    # type=ParticlesEmiter
+    # open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/teleporter.bmp
+    # matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+    # endPos=1,1,1
+    # lifeInit=2
+    # lifeDown=0.05
+    # number=64
+    # freemove=0
+    # continous=1
     
     +node
     type=OBJMesh
@@ -67,14 +67,15 @@ open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/scene/desert.obj
 
 +node
 type=ParticlesEmiter
-matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
-open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/jumper.bmp
-rangeTo=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+matrix=1,0,0,0,0,1,0,0,0,0,1,0,2,0,0,1
+open=../../medias/particles/fire.bmp
+endPos=0,0,0
 lifeInit=2
 lifeDown=0.05
-number=64
-freemove=0
-continous=true
+number=128
+gravity=0,0.001,0
+freemove=0.01
+continous=1
 
 +node
 type=Jumper

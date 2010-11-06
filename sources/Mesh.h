@@ -30,8 +30,13 @@ public:
 
     bool operator=(const Mesh& mesh);
 
+    Node* Clone();
+
     /// Rendue
     void Render();
+
+    /// Traitement
+    void Process();
 
     /// Calcule l'AABB du mesh
     void ComputeAabb();
@@ -90,16 +95,6 @@ public:
     void SetTriangulate(bool triangulate);
     bool IsTriangulate() const;
 
-    void SetParent(Mesh* parent);
-    Mesh*GetParent();
-
-    void AddChild(Mesh* child);
-
-    Mesh* GetChild(unsigned index);
-
-    Mesh* ReleaseChild(Mesh* child);
-    Mesh* ReleaseChild(unsigned index);
-
     /**
      * Applique le materieux identifier par name
      * aux vertexs depuis offset jusqu'a offset + size
@@ -142,9 +137,6 @@ protected:
     bool m_withTexCoord;
 
     HardwareBuffer m_hardwareBuffer;
-
-    Mesh::Array m_childs;
-    Mesh* m_parent;
 
 private:
 

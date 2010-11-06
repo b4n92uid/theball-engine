@@ -39,13 +39,18 @@ public:
     typedef std::vector<ParticlesEmiter*> Array;
 
     ParticlesEmiter();
+    ParticlesEmiter(const ParticlesEmiter& copy);
     virtual ~ParticlesEmiter();
+
+    bool operator=(const ParticlesEmiter& copy);
 
     void Build();
 
     void Process();
 
     void Render();
+
+    Node* Clone();
 
     void Destroy();
 

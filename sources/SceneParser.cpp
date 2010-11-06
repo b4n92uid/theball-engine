@@ -66,19 +66,19 @@ void SceneParser::LoadScene(const std::string& filepath)
         if(buffer.empty() || buffer[0] == '#')
             continue;
 
-        if(buffer == ".map")
+        if(buffer == "*map")
         {
             AttribMap att = GetAttributs(file);
             ParseMap(att);
         }
 
-        else if(buffer == ".fog")
+        else if(buffer == "*fog")
         {
             AttribMap att = GetAttributs(file);
             ParseFog(att);
         }
 
-        else if(buffer == ".skybox")
+        else if(buffer == "*skybox")
         {
             AttribMap att = GetAttributs(file);
             ParseSkyBox(att);
@@ -160,6 +160,9 @@ void SceneParser::RecordClass(std::ifstream& file, std::string type)
 
         tools::trimstr(buffer);
 
+        if(buffer[0] == '#')
+            continue;
+
         if(buffer == "+node")
             m_classRec[type].push_back(GetAttributs(file));
     }
@@ -183,8 +186,30 @@ void SceneParser::ParseNode(AttribMap& att, Mesh* parent)
 
     else if(type == "ParticlesEmiter")
     {
-        //        ParticlesEmiter* emiter = new ParticlesEmiter;
-        //        m_particleScene->AddParticlesEmiter("", emiter);
+        ParticlesEmiter* emiter = new ParticlesEmiter;
+
+        emiter->SetTexture(att["open"]);
+
+        emiter->SetMatrix(att["matrix"]);
+        emiter->SetEndPos(att["endPos"]);
+
+        emiter->SetLifeInit(tools::StrToNum<float>(att["lifeInit"]));
+        emiter->SetLifeDown(tools::StrToNum<float>(att["lifeDown"]));
+
+        emiter->SetGravity(att["gravity"]);
+
+        emiter->SetNumber(tools::StrToNum<int>(att["number"]));
+
+        emiter->SetFreeMove(tools::StrToNum<float>(att["freemove"]));
+
+        emiter->SetContinousMode(tools::StrToNum<bool>(att["continous"]));
+
+        emiter->Build();
+
+        if(parent)
+            parent->AddChild(emiter);
+        else
+            m_particleScene->AddParticlesEmiter("", emiter);
     }
 
     else if(m_classRec.count(type))
