@@ -206,10 +206,9 @@ void SceneParser::ParseNode(AttribMap& att, Mesh* parent)
 
         emiter->Build();
 
-        if(parent)
-            parent->AddChild(emiter);
-        else
-            m_particleScene->AddParticlesEmiter("", emiter);
+        emiter->SetMatrixParent(parent);
+
+        m_particleScene->AddParticlesEmiter("", emiter);
     }
 
     else if(m_classRec.count(type))

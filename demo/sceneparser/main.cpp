@@ -9,34 +9,10 @@ using namespace tbe::gui;
 
 class Jumper : public Mesh
 {
-public:
-
-    Jumper()
-    {
-    }
-
-    ~Jumper()
-    {
-    }
-
-protected:
-    int m_jumpforce;
 };
 
 class Teleporter : public Mesh
 {
-public:
-
-    Teleporter()
-    {
-    }
-
-    ~Teleporter()
-    {
-    }
-
-protected:
-    Vector3f m_location;
 };
 
 class MyClassFactory : public ClassFactory
