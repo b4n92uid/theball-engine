@@ -20,12 +20,13 @@ using namespace tbe;
 using namespace tbe::scene;
 
 SceneParser::SceneParser(SceneManager* sceneManager)
-: m_sceneManager(sceneManager), m_meshScene(NULL)
+: m_sceneManager(sceneManager), m_meshScene(NULL), m_classFactory(NULL)
 {
 }
 
 SceneParser::~SceneParser()
 {
+    delete m_classFactory;
 }
 
 SceneParser::AttribMap SceneParser::GetAttributs(std::ifstream& file)
@@ -71,10 +72,6 @@ void SceneParser::LoadScene(const std::string& filepath)
             ParseMap(att);
         }
 
-        else if(buffer == ".music")
-        {
-        }
-
         else if(buffer == ".fog")
         {
             AttribMap att = GetAttributs(file);
@@ -87,16 +84,16 @@ void SceneParser::LoadScene(const std::string& filepath)
             ParseSkyBox(att);
         }
 
-        else if(buffer == "+node")
-        {
-            AttribMap att = GetAttributs(file);
-            ParseNode(att);
-        }
-
         else if(buffer == "+light")
         {
             AttribMap att = GetAttributs(file);
             ParseLight(att);
+        }
+
+        else if(buffer == "+node")
+        {
+            AttribMap att = GetAttributs(file);
+            ParseNode(att);
         }
 
         else if(buffer.substr(0, 6) == "/class")
@@ -152,10 +149,8 @@ void SceneParser::ParseSkyBox(AttribMap& att)
     sky->SetEnable(true);
 }
 
-void SceneParser::RecordClass(std::ifstream& file, std::string name)
+void SceneParser::RecordClass(std::ifstream& file, std::string type)
 {
-    Mesh* mesh = m_classRec[name] = new Mesh;
-
     string buffer;
 
     while(tools::getline(file, buffer))
@@ -166,16 +161,15 @@ void SceneParser::RecordClass(std::ifstream& file, std::string name)
         tools::trimstr(buffer);
 
         if(buffer == "+node")
-        {
-            AttribMap attribs = GetAttributs(file);
-            ParseNode(attribs, mesh);
-        }
+            m_classRec[type].push_back(GetAttributs(file));
     }
 }
 
 void SceneParser::ParseNode(AttribMap& att, Mesh* parent)
 {
-    if(att["type"] == "OBJMesh")
+    const string& type = att["type"];
+
+    if(type == "OBJMesh")
     {
         OBJMesh* mesh = new OBJMesh;
         mesh->Open(att["open"]);
@@ -187,16 +181,22 @@ void SceneParser::ParseNode(AttribMap& att, Mesh* parent)
             m_meshScene->AddMesh("", mesh);
     }
 
-    else if(att["type"] == "ParticlesEmiter")
+    else if(type == "ParticlesEmiter")
     {
         //        ParticlesEmiter* emiter = new ParticlesEmiter;
         //        m_particleScene->AddParticlesEmiter("", emiter);
     }
 
-    else if(m_classRec.count(att["type"]))
+    else if(m_classRec.count(type))
     {
-        Mesh* mesh = new Mesh(*m_classRec[att["type"]]);
+        Mesh* mesh = m_classFactory ? m_classFactory->Instance(type) : new Mesh;
+
         mesh->SetMatrix(att["matrix"]);
+
+        AttribMapArray& attArray = m_classRec[type];
+
+        for(unsigned i = 0; i < attArray.size(); i++)
+            ParseNode(attArray[i], mesh);
 
         if(parent)
             parent->AddChild(mesh);
@@ -205,7 +205,7 @@ void SceneParser::ParseNode(AttribMap& att, Mesh* parent)
     }
 
     else
-        throw tbe::Exception("BLDLoader::ParseNode; Unknown node type (%s)", att["type"].c_str());
+        throw tbe::Exception("BLDLoader::ParseNode; Unknown node type (%s)", type.c_str());
 }
 
 void SceneParser::ParseLight(AttribMap& att)
@@ -235,4 +235,14 @@ void SceneParser::ParseLight(AttribMap& att)
     light->SetSpecular(att["specular"]);
 
     m_sceneManager->AddDynamicLight(tools::numToStr(light), light);
+}
+
+void SceneParser::SetClassFactory(ClassFactory* classFactory)
+{
+    this->m_classFactory = classFactory;
+}
+
+ClassFactory* SceneParser::GetClassFactory() const
+{
+    return m_classFactory;
 }

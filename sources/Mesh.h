@@ -95,10 +95,10 @@ public:
 
     void AddChild(Mesh* child);
 
+    Mesh* GetChild(unsigned index);
+
     Mesh* ReleaseChild(Mesh* child);
     Mesh* ReleaseChild(unsigned index);
-
-    Mesh* GetChild(unsigned index);
 
     /**
      * Applique le materieux identifier par name

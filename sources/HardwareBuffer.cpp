@@ -25,6 +25,9 @@ using namespace std;
 HardwareBuffer::HardwareBuffer()
 {
     glGenBuffers(1, &m_bufferId);
+
+    m_vertexCount = 0;
+    m_bufferSize = 0;
 }
 
 HardwareBuffer::~HardwareBuffer()
@@ -60,6 +63,11 @@ void HardwareBuffer::UnLock()
 {
     glUnmapBuffer(GL_ARRAY_BUFFER);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+bool HardwareBuffer::IsEmpty()
+{
+    return !m_vertexCount && !m_bufferSize;
 }
 
 void HardwareBuffer::AddFace(const Face& face)
