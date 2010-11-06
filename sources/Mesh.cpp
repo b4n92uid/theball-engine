@@ -56,7 +56,7 @@ bool Mesh::operator=(const Mesh& mesh)
         m_renderProess[i].parent = this;
 
     for(unsigned i = 0; i < mesh.m_childs.size(); i++)
-        m_childs.push_back(mesh.m_childs[i]->Clone());
+        m_childs.push_back(new Mesh(*m_childs[i]));
 
     return true;
 }
@@ -437,6 +437,10 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
 void Mesh::Render()
 {
     glPushMatrix();
+
+    if(m_matrixParent)
+        glMultMatrixf(m_matrixParent->GetMatrix());
+
     glMultMatrixf(m_matrix);
 
     for(unsigned i = 0; i < m_childs.size(); i++)
@@ -663,4 +667,55 @@ HardwareBuffer& Mesh::GetHardwareBuffer()
 bool Mesh::CheckHardware()
 {
     return GLEE_ARB_vertex_buffer_object;
+}
+
+void Mesh::SetParent(Mesh* parent)
+{
+    if(m_parent)
+        m_parent->ReleaseChild(this);
+
+    parent->AddChild(this);
+}
+
+Mesh* Mesh::GetParent()
+{
+    return m_parent;
+}
+
+void Mesh::AddChild(Mesh* child)
+{
+    if(find(m_childs.begin(), m_childs.end(), child) != m_childs.end())
+        throw Exception("Mesh::AddChild; child already exist");
+
+    m_aabb += child->m_aabb;
+    m_childs.push_back(child);
+}
+
+void Mesh::ReleaseChild(Mesh* child)
+{
+    Mesh::Array::iterator it = find(m_childs.begin(), m_childs.end(), child);
+
+    if(it == m_childs.end())
+        throw Exception("Mesh::ReleaseChild; cannot found child");
+
+    m_childs.erase(it);
+}
+
+Mesh* Mesh::ReleaseChild(unsigned index)
+{
+    if(index >= m_childs.size())
+        throw Exception("Mesh::ReleaseChild; index out of range %d", index);
+
+    Mesh* ret = m_childs[index];
+    m_childs.erase(m_childs.begin() + index);
+
+    return ret;
+}
+
+Mesh* Mesh::GetChild(unsigned index)
+{
+    if(index >= m_childs.size())
+        throw Exception("Mesh::GetChild; index out of range %d", index);
+
+    return m_childs[index];
 }

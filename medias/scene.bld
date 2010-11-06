@@ -17,16 +17,16 @@ right=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/deser
 
 /class Jumper
     
-    # +node
-    # type=ParticlesEmiter
-    # open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/jumper.bmp
-    # matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
-    # endPos=1,1,1
-    # lifeInit=2
-    # lifeDown=0.05
-    # number=64
-    # freemove=0
-    # continous=1
+    +node
+    type=ParticlesEmiter
+    open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/jumper.bmp
+    matrix=1,0,0,0,0,1,0,0,0,0,1,0,1,0,1,1
+    endPos=-2,0.25,-2
+    lifeInit=2
+    lifeDown=0.05
+    number=64
+    freemove=0
+    continous=1
     
     +node
     type=OBJMesh
@@ -36,16 +36,16 @@ right=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/deser
 
 /class Teleporter
     
-    # +node
-    # type=ParticlesEmiter
-    # open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/teleporter.bmp
-    # matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
-    # endPos=1,1,1
-    # lifeInit=2
-    # lifeDown=0.05
-    # number=64
-    # freemove=0
-    # continous=1
+    +node
+    type=ParticlesEmiter
+    open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/teleporter.bmp
+    matrix=1,0,0,0,0,1,0,0,0,0,1,0,0.75,0.75,0,1
+    endPos=-1.5,-1.5,0.25
+    lifeInit=2
+    lifeDown=0.05
+    number=64
+    freemove=0
+    continous=1
     
     +node
     type=OBJMesh

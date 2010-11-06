@@ -184,6 +184,9 @@ void ParticlesEmiter::Render()
 
     m_texture.Use();
 
+    if(m_matrixParent)
+        glMultMatrixf(m_matrixParent->GetMatrix());
+
     glMultMatrixf(m_matrix);
 
     glEnableClientState(GL_VERTEX_ARRAY);
