@@ -25,10 +25,10 @@ class Mesh : public Node
 {
 public:
     Mesh();
-    Mesh(const Mesh& mesh);
+    Mesh(const Mesh& copy);
     ~Mesh();
 
-    bool operator=(const Mesh& mesh);
+    bool operator=(const Mesh& copy);
 
     Node* Clone();
 
@@ -95,16 +95,6 @@ public:
     void SetTriangulate(bool triangulate);
     bool IsTriangulate() const;
 
-    void SetParent(Mesh* parent);
-    Mesh*GetParent();
-
-    void AddChild(Mesh* child);
-
-    Mesh* GetChild(unsigned index);
-
-    void ReleaseChild(Mesh* child);
-    Mesh* ReleaseChild(unsigned index);
-
     /**
      * Applique le materieux identifier par name
      * aux vertexs depuis offset jusqu'a offset + size
@@ -145,9 +135,6 @@ protected:
     bool m_triangulate;
     bool m_withNormal;
     bool m_withTexCoord;
-
-    Mesh* m_parent;
-    Mesh::Array m_childs;
 
     HardwareBuffer m_hardwareBuffer;
 

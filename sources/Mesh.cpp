@@ -16,47 +16,39 @@ using namespace std;
 
 Mesh::Mesh()
 {
-    m_parent = NULL;
-
     m_triangulate = true;
     m_withNormal = false;
     m_withTexCoord = false;
 }
 
-Mesh::Mesh(const Mesh& mesh)
+Mesh::Mesh(const Mesh& copy) : Node(copy)
 {
-    m_parent = NULL;
-
-    *this = mesh;
+    *this = copy;
 }
 
 Mesh::~Mesh()
 {
     for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); it++)
         delete it->second;
-
-    for(unsigned i = 0; i < m_childs.size(); i++)
-        delete m_childs[i];
 }
 
-bool Mesh::operator=(const Mesh& mesh)
+bool Mesh::operator=(const Mesh& copy)
 {
-    m_triangulate = mesh.m_triangulate;
-    m_withNormal = mesh.m_withNormal;
-    m_withTexCoord = mesh.m_withTexCoord;
+    Node::operator=(copy);
 
-    m_hardwareBuffer = mesh.m_hardwareBuffer;
+    m_triangulate = copy.m_triangulate;
+    m_withNormal = copy.m_withNormal;
+    m_withTexCoord = copy.m_withTexCoord;
 
-    for(Material::Map::const_iterator it = mesh.m_materials.begin(); it != mesh.m_materials.end(); it++)
+    m_hardwareBuffer = copy.m_hardwareBuffer;
+
+    for(Material::Map::const_iterator it = copy.m_materials.begin(); it != copy.m_materials.end(); it++)
         m_materials[it->first] = new Material(*it->second);
 
-    m_renderProess = mesh.m_renderProess;
+    m_renderProess = copy.m_renderProess;
 
     for(unsigned i = 0; i < m_renderProess.size(); i++)
         m_renderProess[i].parent = this;
-
-    for(unsigned i = 0; i < mesh.m_childs.size(); i++)
-        m_childs.push_back(new Mesh(*m_childs[i]));
 
     return true;
 }
@@ -436,18 +428,15 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
 
 void Mesh::Render()
 {
-    glPushMatrix();
-
-    if(m_matrixParent)
-        glMultMatrixf(m_matrixParent->GetMatrix());
-
-    glMultMatrixf(m_matrix);
-
-    for(unsigned i = 0; i < m_childs.size(); i++)
-        m_childs[i]->Render();
-
     if(m_hardwareBuffer.IsEmpty())
         return;
+
+    glPushMatrix();
+
+    if(m_parent)
+        glMultMatrixf(m_parent->GetAbsoluteMatrix());
+
+    glMultMatrixf(m_matrix);
 
     if(m_renderProess.empty())
     {
@@ -667,55 +656,4 @@ HardwareBuffer& Mesh::GetHardwareBuffer()
 bool Mesh::CheckHardware()
 {
     return GLEE_ARB_vertex_buffer_object;
-}
-
-void Mesh::SetParent(Mesh* parent)
-{
-    if(m_parent)
-        m_parent->ReleaseChild(this);
-
-    parent->AddChild(this);
-}
-
-Mesh* Mesh::GetParent()
-{
-    return m_parent;
-}
-
-void Mesh::AddChild(Mesh* child)
-{
-    if(find(m_childs.begin(), m_childs.end(), child) != m_childs.end())
-        throw Exception("Mesh::AddChild; child already exist");
-
-    m_aabb += child->m_aabb;
-    m_childs.push_back(child);
-}
-
-void Mesh::ReleaseChild(Mesh* child)
-{
-    Mesh::Array::iterator it = find(m_childs.begin(), m_childs.end(), child);
-
-    if(it == m_childs.end())
-        throw Exception("Mesh::ReleaseChild; cannot found child");
-
-    m_childs.erase(it);
-}
-
-Mesh* Mesh::ReleaseChild(unsigned index)
-{
-    if(index >= m_childs.size())
-        throw Exception("Mesh::ReleaseChild; index out of range %d", index);
-
-    Mesh* ret = m_childs[index];
-    m_childs.erase(m_childs.begin() + index);
-
-    return ret;
-}
-
-Mesh* Mesh::GetChild(unsigned index)
-{
-    if(index >= m_childs.size())
-        throw Exception("Mesh::GetChild; index out of range %d", index);
-
-    return m_childs[index];
 }

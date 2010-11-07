@@ -27,7 +27,12 @@ void ParticlesParallelScene::Render()
     ParticlesEmiter::BeginSpiritDraw(m_sceneManager->GetFovy(), m_sceneManager->GetViewport().y);
 
     for(ParticlesEmiter::Map::iterator i = m_nodes.begin(); i != m_nodes.end(); i++)
+    {
+        if(i->second->IsTopLevel())
+            i->second->Process();
+
         i->second->Render();
+    }
 
     ParticlesEmiter::EndSpiritDraw();
 }

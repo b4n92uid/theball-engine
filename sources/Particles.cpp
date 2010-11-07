@@ -26,7 +26,7 @@ ParticlesEmiter::ParticlesEmiter()
     m_blendEq = ADDITIVE;
 }
 
-ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy)
+ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
 {
     glGenBuffers(1, &m_renderId);
 
@@ -42,6 +42,8 @@ ParticlesEmiter::~ParticlesEmiter()
 
 bool ParticlesEmiter::operator=(const ParticlesEmiter& copy)
 {
+    Node::operator=(copy);
+
     m_lifeInit = copy.m_lifeInit;
     m_lifeDown = copy.m_lifeDown;
 
@@ -118,13 +120,18 @@ void ParticlesEmiter::Process()
 {
     // Mise a jour du buffer
 
+    for(unsigned i = 0; i < m_childs.size(); i++)
+        m_childs[i]->Process();
+
+    glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
+
     Particle* particles = static_cast<Particle*>(glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE));
 
     m_deadEmiter = true;
 
     m_aabb.Clear();
 
-    for(unsigned i = 0; i < m_particles.size(); i++)
+    for(unsigned i = 0; i < m_drawNumber; i++)
     {
         Particle& p = particles[i];
 
@@ -153,6 +160,8 @@ void ParticlesEmiter::Process()
     }
 
     glUnmapBuffer(GL_ARRAY_BUFFER);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void ParticlesEmiter::Render()
@@ -172,22 +181,19 @@ void ParticlesEmiter::Render()
 
     glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
 
-    glDepthMask(m_depthTest);
-
-    if(m_enableProcess)
-        Process();
-
     glPushMatrix();
+
+    if(m_parent)
+        glMultMatrixf(m_parent->GetAbsoluteMatrix());
+
+    glMultMatrixf(m_matrix);
 
     #define POSITION_OFFSET (void*)0
     #define COLOR_OFFSET (void*)sizeof(Vector3f)
 
+    glDepthMask(m_depthTest);
+
     m_texture.Use();
-
-    if(m_matrixParent)
-        glMultMatrixf(m_matrixParent->GetMatrix());
-
-    glMultMatrixf(m_matrix);
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
