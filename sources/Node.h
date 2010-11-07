@@ -28,7 +28,10 @@ class Node
 {
 public:
     Node();
+    Node(const Node& copy);
     virtual ~Node();
+
+    bool operator=(const Node& copy);
 
     /// Operateur de comparaison par nom (m_name)
     bool operator==(Node* node);
@@ -52,6 +55,8 @@ public:
     /// Matrice du noeud
     void SetMatrix(const Matrix4f& matrix);
     void MulMatrix(const Matrix4f& matrix);
+
+    Matrix4f GetAbsoluteMatrix();
     Matrix4f& GetMatrix();
 
     /// Spécifier la scene parallel parent
@@ -62,15 +67,25 @@ public:
     void SetPos(Vector3f pos);
     Vector3f GetPos() const;
 
-    void SetMatrixParent(Node* target);
+    bool IsTopLevel();
 
-    typedef std::map<std::string, Node*> Map;
-    typedef std::vector<Node*> Array;
+    void SetParent(Node* parent);
+    Node* GetParent();
+
+    void AddChild(Node* child);
+
+    Node* GetChild(unsigned index);
+
+    void ReleaseChild(Node* child);
+    Node* ReleaseChild(unsigned index);
 
     virtual void Process() = 0;
     virtual void Render() = 0;
 
     virtual Node* Clone() = 0;
+
+    typedef std::map<std::string, Node*> Map;
+    typedef std::vector<Node*> Array;
 
 protected:
     ParallelScene* m_parallelScene;
@@ -80,8 +95,8 @@ protected:
     bool m_enableProcess;
     AABB m_aabb;
 
-    Node* m_matrixParent;
-
+    Node* m_parent;
+    Node::Array m_childs;
 };
 
 }

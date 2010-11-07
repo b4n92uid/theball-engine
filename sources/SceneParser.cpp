@@ -179,9 +179,9 @@ void SceneParser::ParseNode(AttribMap& att, Mesh* parent)
         mesh->SetMatrix(att["matrix"]);
 
         if(parent)
-            parent->AddChild(mesh);
-        else
-            m_meshScene->AddMesh("", mesh);
+            mesh->SetParent(parent);
+
+        m_meshScene->AddMesh("", mesh);
     }
 
     else if(type == "ParticlesEmiter")
@@ -206,7 +206,8 @@ void SceneParser::ParseNode(AttribMap& att, Mesh* parent)
 
         emiter->Build();
 
-        emiter->SetMatrixParent(parent);
+        if(parent)
+            emiter->SetParent(parent);
 
         m_particleScene->AddParticlesEmiter("", emiter);
     }
@@ -217,15 +218,15 @@ void SceneParser::ParseNode(AttribMap& att, Mesh* parent)
 
         mesh->SetMatrix(att["matrix"]);
 
+        if(parent)
+            mesh->SetParent(parent);
+
         AttribMapArray& attArray = m_classRec[type];
 
         for(unsigned i = 0; i < attArray.size(); i++)
             ParseNode(attArray[i], mesh);
 
-        if(parent)
-            parent->AddChild(mesh);
-        else
-            m_meshScene->AddMesh("", mesh);
+        m_meshScene->AddMesh("", mesh);
     }
 
     else
