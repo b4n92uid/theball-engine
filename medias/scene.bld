@@ -18,6 +18,11 @@ right=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/deser
 /class Jumper
     
     +node
+    type=OBJMesh
+    matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
+    open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/scene/jumper.obj
+    
+    +node
     type=ParticlesEmiter
     open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/particles/jumper.bmp
     matrix=1,0,0,0,0,1,0,0,0,0,1,0,1,0,1,1
@@ -27,14 +32,14 @@ right=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/deser
     number=64
     freemove=0
     continous=1
+
+
+/class Teleporter
     
     +node
     type=OBJMesh
     matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
-    open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/scene/jumper.obj
-
-
-/class Teleporter
+    open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/scene/teleporter.obj
     
     +node
     type=ParticlesEmiter
@@ -46,11 +51,6 @@ right=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/gfxart/skybox/deser
     number=64
     freemove=0
     continous=1
-    
-    +node
-    type=OBJMesh
-    matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
-    open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/scene/teleporter.obj
 
 
 +light
@@ -64,6 +64,12 @@ specular=0.5,0.5,0.5,1
 type=OBJMesh
 matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1
 open=D:/projets/cpp/theball/dist/Release/MinGW-Windows/data/scene/desert.obj
+    
+    +node
+    type=OBJMesh
+    matrix=1,0,0,0,0,1,0,0,0,0,1,0,0,2,0,1
+    open=../../medias/obj/convex.obj
+
 
 +node
 type=ParticlesEmiter

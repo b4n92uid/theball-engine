@@ -33,14 +33,25 @@ inline void trimstr(std::string& buffer)
         buffer.erase(it);
 }
 
+inline bool isspace(const std::string& buffer)
+{
+    for(unsigned i = 0; i < buffer.size(); i++)
+        if(!std::isspace(buffer[i]))
+            return false;
+
+    return true;
+}
+
 inline bool getline(std::istream& stream, std::string& buffer)
 {
     using namespace std;
 
     bool status = std::getline(stream, buffer);
 
-    //    for(string::iterator it = --buffer.end(); isspace(*it); it--)
-    //        buffer.erase(it);
+    #ifdef __linux__
+    for(string::iterator it = --buffer.end(); isspace(*it); it--)
+        buffer.erase(it);
+    #endif
 
     return status;
 }

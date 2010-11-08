@@ -51,7 +51,7 @@ private:
 void mainapp()
 {
     SDLDevice* engine = new SDLDevice;
-    engine->Window("Bld Parser", Vector2i(800, 600), 32, false, 4);
+    engine->Window("Scene Parser", Vector2i(800, 600), 32, false, 4);
     engine->SetMouseVisible(false);
     engine->SetGrabInput(true);
 
