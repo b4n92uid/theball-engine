@@ -29,28 +29,90 @@ SceneParser::~SceneParser()
     delete m_classFactory;
 }
 
-SceneParser::AttribMap SceneParser::GetAttributs(std::ifstream& file)
+void SceneParser::ParseRelation(std::ifstream& file, Relation& rel)
 {
-    SceneParser::AttribMap fileMap;
     string buffer;
 
     while(tools::getline(file, buffer))
     {
-        tools::trimstr(buffer);
+        if(buffer.empty())
+            break;
+
+        buffer = buffer.substr(rel.deep);
 
         if(buffer.empty())
             break;
 
-        if(buffer[0] == '#')
+        if(buffer[0] == '#' || tools::isspace(buffer))
             continue;
+
+        int deep = buffer.find("+node");
+
+        if(deep > rel.deep)
+        {
+            Relation subrel(deep);
+            ParseRelation(file, subrel);
+
+            rel.child.push_back(subrel);
+
+            continue;
+        }
 
         string key(buffer, 0, buffer.find_first_of('=')),
                 value(buffer, buffer.find_first_of('=') + 1);
 
-        fileMap[key] = value;
+        rel.attr[key] = value;
+    }
+}
+
+void SceneParser::SaveScene()
+{
+    if(m_fileName.empty())
+        return;
+
+    SaveScene(m_fileName);
+}
+
+void SceneParser::SaveScene(const std::string& filepath)
+{
+    ofstream file(filepath.c_str());
+
+    if(!file)
+        throw tbe::Exception("BLDLoader::SaveScene; Open file error (%s)", filepath.c_str());
+
+    file << "*map" << endl;
+    file << "name=" << m_mapName << endl;
+    file << "ambient=" << m_sceneManager->GetAmbientLight() << endl;
+    file << endl;
+
+    Fog* fog = m_sceneManager->GetFog();
+
+    if(fog)
+    {
+        file << "*fog" << endl;
+        file << "color=" << fog->GetColor() << endl;
+        file << "start=" << fog->GetStart() << endl;
+        file << "end=" << fog->GetEnd() << endl;
+        file << endl;
     }
 
-    return fileMap;
+    SkyBox* sky = m_sceneManager->GetSkybox();
+
+    if(sky)
+    {
+        Texture* skyTexs = sky->GetTextures();
+
+        file << "*skybox" << endl;
+        file << "front=" << skyTexs[0].GetFilename() << endl;
+        file << "back=" << skyTexs[1].GetFilename() << endl;
+        file << "top=" << skyTexs[2].GetFilename() << endl;
+        file << "bottom=" << skyTexs[3].GetFilename() << endl;
+        file << "left=" << skyTexs[4].GetFilename() << endl;
+        file << "right=" << skyTexs[5].GetFilename() << endl;
+        file << endl;
+    }
+
+    file.close();
 }
 
 void SceneParser::LoadScene(const std::string& filepath)
@@ -60,6 +122,8 @@ void SceneParser::LoadScene(const std::string& filepath)
     if(!file)
         throw tbe::Exception("BLDLoader::LoadScene; Open file error (%s)", filepath.c_str());
 
+    m_fileName = filepath;
+
     string buffer;
     for(unsigned line = 0; tools::getline(file, buffer); line++)
     {
@@ -68,32 +132,37 @@ void SceneParser::LoadScene(const std::string& filepath)
 
         if(buffer == "*map")
         {
-            AttribMap att = GetAttributs(file);
-            ParseMap(att);
+            Relation rel;
+            ParseRelation(file, rel);
+            ParseMap(rel.attr);
         }
 
         else if(buffer == "*fog")
         {
-            AttribMap att = GetAttributs(file);
-            ParseFog(att);
+            Relation rel;
+            ParseRelation(file, rel);
+            ParseFog(rel.attr);
         }
 
         else if(buffer == "*skybox")
         {
-            AttribMap att = GetAttributs(file);
-            ParseSkyBox(att);
+            Relation rel;
+            ParseRelation(file, rel);
+            ParseSkyBox(rel.attr);
         }
 
         else if(buffer == "+light")
         {
-            AttribMap att = GetAttributs(file);
-            ParseLight(att);
+            Relation rel;
+            ParseRelation(file, rel);
+            ParseLight(rel.attr);
         }
 
         else if(buffer == "+node")
         {
-            AttribMap att = GetAttributs(file);
-            ParseNode(att);
+            Relation rel;
+            ParseRelation(file, rel);
+            ParseNode(rel);
         }
 
         else if(buffer.substr(0, 6) == "/class")
@@ -151,58 +220,68 @@ void SceneParser::ParseSkyBox(AttribMap& att)
 
 void SceneParser::RecordClass(std::ifstream& file, std::string type)
 {
-    string buffer;
+    Relation rel;
+    ParseRelation(file, rel);
 
-    while(tools::getline(file, buffer))
-    {
-        if(buffer.empty())
-            break;
-
-        tools::trimstr(buffer);
-
-        if(buffer[0] == '#')
-            continue;
-
-        if(buffer == "+node")
-            m_classRec[type].push_back(GetAttributs(file));
-    }
+    m_classRec[type] = rel.child;
 }
 
-void SceneParser::ParseNode(AttribMap& att, Mesh* parent)
+void SceneParser::ParseNode(Relation& rel, Node* parent)
 {
-    const string& type = att["type"];
+    const string& type = rel.attr["type"];
 
-    if(type == "OBJMesh")
+    if(m_classRec.count(type))
     {
-        OBJMesh* mesh = new OBJMesh;
-        mesh->Open(att["open"]);
-        mesh->SetMatrix(att["matrix"]);
+        Mesh* mesh = m_classFactory ? m_classFactory->Instance(type) : new Mesh;
+
+        mesh->SetMatrix(rel.attr["matrix"]);
 
         if(parent)
             mesh->SetParent(parent);
 
         m_meshScene->AddMesh("", mesh);
+
+        for(unsigned i = 0; i < m_classRec[type].size(); i++)
+            ParseNode(m_classRec[type][i], mesh);
+
+        return;
+    }
+
+    Node* current = NULL;
+
+    if(type == "OBJMesh")
+    {
+        OBJMesh* mesh = new OBJMesh;
+        mesh->Open(rel.attr["open"]);
+        mesh->SetMatrix(rel.attr["matrix"]);
+
+        if(parent)
+            mesh->SetParent(parent);
+
+        m_meshScene->AddMesh("", mesh);
+
+        current = mesh;
     }
 
     else if(type == "ParticlesEmiter")
     {
         ParticlesEmiter* emiter = new ParticlesEmiter;
 
-        emiter->SetTexture(att["open"]);
+        emiter->SetTexture(rel.attr["open"]);
 
-        emiter->SetMatrix(att["matrix"]);
-        emiter->SetEndPos(att["endPos"]);
+        emiter->SetMatrix(rel.attr["matrix"]);
+        emiter->SetEndPos(rel.attr["endPos"]);
 
-        emiter->SetLifeInit(tools::StrToNum<float>(att["lifeInit"]));
-        emiter->SetLifeDown(tools::StrToNum<float>(att["lifeDown"]));
+        emiter->SetLifeInit(tools::StrToNum<float>(rel.attr["lifeInit"]));
+        emiter->SetLifeDown(tools::StrToNum<float>(rel.attr["lifeDown"]));
 
-        emiter->SetGravity(att["gravity"]);
+        emiter->SetGravity(rel.attr["gravity"]);
 
-        emiter->SetNumber(tools::StrToNum<int>(att["number"]));
+        emiter->SetNumber(tools::StrToNum<int>(rel.attr["number"]));
 
-        emiter->SetFreeMove(tools::StrToNum<float>(att["freemove"]));
+        emiter->SetFreeMove(tools::StrToNum<float>(rel.attr["freemove"]));
 
-        emiter->SetContinousMode(tools::StrToNum<bool>(att["continous"]));
+        emiter->SetContinousMode(tools::StrToNum<bool>(rel.attr["continous"]));
 
         emiter->Build();
 
@@ -210,27 +289,15 @@ void SceneParser::ParseNode(AttribMap& att, Mesh* parent)
             emiter->SetParent(parent);
 
         m_particleScene->AddParticlesEmiter("", emiter);
-    }
 
-    else if(m_classRec.count(type))
-    {
-        Mesh* mesh = m_classFactory ? m_classFactory->Instance(type) : new Mesh;
-
-        mesh->SetMatrix(att["matrix"]);
-
-        if(parent)
-            mesh->SetParent(parent);
-
-        AttribMapArray& attArray = m_classRec[type];
-
-        for(unsigned i = 0; i < attArray.size(); i++)
-            ParseNode(attArray[i], mesh);
-
-        m_meshScene->AddMesh("", mesh);
+        current = emiter;
     }
 
     else
         throw tbe::Exception("BLDLoader::ParseNode; Unknown node type (%s)", type.c_str());
+
+    for(unsigned i = 0; i < rel.child.size(); i++)
+        ParseNode(rel.child[i], current);
 }
 
 void SceneParser::ParseLight(AttribMap& att)
