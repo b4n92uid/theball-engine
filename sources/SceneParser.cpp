@@ -29,42 +29,6 @@ SceneParser::~SceneParser()
     delete m_classFactory;
 }
 
-void SceneParser::ParseRelation(std::ifstream& file, Relation& rel)
-{
-    string buffer;
-
-    while(tools::getline(file, buffer))
-    {
-        if(buffer.empty())
-            break;
-
-        buffer = buffer.substr(rel.deep);
-
-        if(buffer.empty())
-            break;
-
-        if(buffer[0] == '#' || tools::isspace(buffer))
-            continue;
-
-        int deep = buffer.find("+node");
-
-        if(deep > rel.deep)
-        {
-            Relation subrel(deep);
-            ParseRelation(file, subrel);
-
-            rel.child.push_back(subrel);
-
-            continue;
-        }
-
-        string key(buffer, 0, buffer.find_first_of('=')),
-                value(buffer, buffer.find_first_of('=') + 1);
-
-        rel.attr[key] = value;
-    }
-}
-
 void SceneParser::SaveScene()
 {
     if(m_fileName.empty())
@@ -218,88 +182,6 @@ void SceneParser::ParseSkyBox(AttribMap& att)
     sky->SetEnable(true);
 }
 
-void SceneParser::RecordClass(std::ifstream& file, std::string type)
-{
-    Relation rel;
-    ParseRelation(file, rel);
-
-    m_classRec[type] = rel.child;
-}
-
-void SceneParser::ParseNode(Relation& rel, Node* parent)
-{
-    const string& type = rel.attr["type"];
-
-    if(m_classRec.count(type))
-    {
-        Mesh* mesh = m_classFactory ? m_classFactory->Instance(type) : new Mesh;
-
-        mesh->SetMatrix(rel.attr["matrix"]);
-
-        if(parent)
-            mesh->SetParent(parent);
-
-        m_meshScene->AddMesh("", mesh);
-
-        for(unsigned i = 0; i < m_classRec[type].size(); i++)
-            ParseNode(m_classRec[type][i], mesh);
-
-        return;
-    }
-
-    Node* current = NULL;
-
-    if(type == "OBJMesh")
-    {
-        OBJMesh* mesh = new OBJMesh;
-        mesh->Open(rel.attr["open"]);
-        mesh->SetMatrix(rel.attr["matrix"]);
-
-        if(parent)
-            mesh->SetParent(parent);
-
-        m_meshScene->AddMesh("", mesh);
-
-        current = mesh;
-    }
-
-    else if(type == "ParticlesEmiter")
-    {
-        ParticlesEmiter* emiter = new ParticlesEmiter;
-
-        emiter->SetTexture(rel.attr["open"]);
-
-        emiter->SetMatrix(rel.attr["matrix"]);
-        emiter->SetEndPos(rel.attr["endPos"]);
-
-        emiter->SetLifeInit(tools::StrToNum<float>(rel.attr["lifeInit"]));
-        emiter->SetLifeDown(tools::StrToNum<float>(rel.attr["lifeDown"]));
-
-        emiter->SetGravity(rel.attr["gravity"]);
-
-        emiter->SetNumber(tools::StrToNum<int>(rel.attr["number"]));
-
-        emiter->SetFreeMove(tools::StrToNum<float>(rel.attr["freemove"]));
-
-        emiter->SetContinousMode(tools::StrToNum<bool>(rel.attr["continous"]));
-
-        emiter->Build();
-
-        if(parent)
-            emiter->SetParent(parent);
-
-        m_particleScene->AddParticlesEmiter("", emiter);
-
-        current = emiter;
-    }
-
-    else
-        throw tbe::Exception("BLDLoader::ParseNode; Unknown node type (%s)", type.c_str());
-
-    for(unsigned i = 0; i < rel.child.size(); i++)
-        ParseNode(rel.child[i], current);
-}
-
 void SceneParser::ParseLight(AttribMap& att)
 {
     Light* light = NULL;
@@ -327,6 +209,133 @@ void SceneParser::ParseLight(AttribMap& att)
     light->SetSpecular(att["specular"]);
 
     m_sceneManager->AddDynamicLight(tools::numToStr(light), light);
+}
+
+void SceneParser::ParseRelation(std::ifstream& file, Relation& rel)
+{
+    string buffer;
+
+    while(tools::getline(file, buffer))
+    {
+        if(buffer.empty())
+            break;
+
+        buffer = buffer.substr(rel.deep);
+
+        if(buffer.empty())
+            break;
+
+        if(buffer[0] == '#' || tools::isspace(buffer))
+            continue;
+
+        int deep = buffer.find("+node");
+
+        if(deep > rel.deep)
+        {
+            Relation subrel(deep);
+            ParseRelation(file, subrel);
+
+            rel.child.push_back(subrel);
+
+            continue;
+        }
+
+        string key(buffer, 0, buffer.find_first_of('=')),
+                value(buffer, buffer.find_first_of('=') + 1);
+
+        rel.attr[key] = value;
+    }
+}
+
+void SceneParser::RecordClass(std::ifstream& file, std::string type)
+{
+    Relation rel;
+    ParseRelation(file, rel);
+
+    m_classRec[type] = rel.child;
+}
+
+void SceneParser::ParseNode(Relation& rel, Node* parent)
+{
+    const string& type = rel.attr["type"];
+
+    if(m_classRec.count(type))
+    {
+        Node* node = m_classFactory ? m_classFactory->Instance(type) : new Mesh;
+
+        if(rel.attr.count("matrix"))
+            node->SetMatrix(rel.attr["matrix"]);
+
+        if(rel.attr.count("name"))
+            node->SetName(rel.attr["name"]);
+
+        if(parent)
+            node->SetParent(parent);
+
+        m_meshScene->AddChild(node);
+
+        for(unsigned i = 0; i < m_classRec[type].size(); i++)
+            ParseNode(m_classRec[type][i], node);
+
+        return;
+    }
+
+    Node* current = NULL;
+
+    if(type == "OBJMesh")
+    {
+        OBJMesh* node = new OBJMesh;
+        node->Open(rel.attr["open"]);
+
+        if(rel.attr.count("matrix"))
+            node->SetMatrix(rel.attr["matrix"]);
+
+        if(rel.attr.count("name"))
+            node->SetName(rel.attr["name"]);
+
+        if(parent)
+            node->SetParent(parent);
+
+        m_meshScene->AddChild(node);
+
+        current = node;
+    }
+
+    else if(type == "ParticlesEmiter")
+    {
+        ParticlesEmiter* emiter = new ParticlesEmiter;
+
+        emiter->SetTexture(rel.attr["open"]);
+
+        emiter->SetMatrix(rel.attr["matrix"]);
+        emiter->SetEndPos(rel.attr["endPos"]);
+
+        emiter->SetLifeInit(tools::StrToNum<float>(rel.attr["lifeInit"]));
+        emiter->SetLifeDown(tools::StrToNum<float>(rel.attr["lifeDown"]));
+
+        emiter->SetGravity(rel.attr["gravity"]);
+
+        emiter->SetNumber(tools::StrToNum<int>(rel.attr["number"]));
+
+        emiter->SetFreeMove(tools::StrToNum<float>(rel.attr["freemove"]));
+
+        emiter->SetContinousMode(tools::StrToNum<bool>(rel.attr["continous"]));
+
+        emiter->Build();
+
+        if(parent)
+            emiter->SetParent(parent);
+
+        m_particleScene->AddChild(emiter);
+
+        current = emiter;
+    }
+
+    else
+        throw tbe::Exception("BLDLoader::ParseNode; Unknown node type (%s)", type.c_str());
+
+    for(unsigned i = 0; i < rel.child.size(); i++)
+        ParseNode(rel.child[i], current);
 }
 
 void SceneParser::SetClassFactory(ClassFactory* classFactory)

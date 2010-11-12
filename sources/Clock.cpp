@@ -52,7 +52,7 @@ bool Clock::IsEsplanedTime(long time)
     long curtime = clock();
 
     if(curtime - m_lastTime >= time)
-        return m_lastTime = curtime;
+        return(m_lastTime = curtime);
 
     else return false;
 }

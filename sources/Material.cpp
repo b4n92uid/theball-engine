@@ -34,7 +34,7 @@ Material::~Material()
 {
 }
 
-bool Material::operator=(const Material& copy)
+Material& Material::operator=(const Material& copy)
 {
     m_name = copy.m_name;
 
@@ -59,7 +59,7 @@ bool Material::operator=(const Material& copy)
 
     m_alphaThershold = copy.m_alphaThershold;
 
-    return true;
+    return *this;
 }
 
 void Material::SetAoccLocation(std::string aoccLocation)

@@ -28,11 +28,6 @@ public:
     void Render();
 
     void Clear();
-    
-    void AddWater(std::string name, Water* node);
-
-protected:
-    Water::Map m_nodes;
 };
 
 }

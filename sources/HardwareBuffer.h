@@ -56,7 +56,7 @@ public:
 
     HardwareBuffer(const HardwareBuffer& hb);
 
-    bool operator=(const HardwareBuffer& hb);
+    HardwareBuffer& operator=(const HardwareBuffer& hb);
 
     Vertex* Lock(GLenum usage = GL_READ_WRITE);
     void UnLock();

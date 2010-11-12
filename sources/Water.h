@@ -34,9 +34,16 @@ class Water : public Node
 {
 public:
     Water();
+    Water(const Water& copy);
     ~Water();
 
+    Water& operator=(const Water& copy);
+
     void Render();
+    
+    void Process();
+    
+    Water* Clone();
 
     void SetNormalMap(Texture normalMap);
     Texture GetNormalMap() const;

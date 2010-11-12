@@ -5,7 +5,7 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::gui;
 
-struct
+static struct
 {
     Vector2f pos[8];
     Vector2f stOut[8];

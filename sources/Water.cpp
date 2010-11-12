@@ -6,10 +6,13 @@
  */
 
 #include "Water.h"
+
 #include "SceneManager.h"
 #include "HardwareBuffer.h"
 #include "Rtt.h"
 #include "Clock.h"
+
+#include <time.h>
 
 const char* vertexShader =
         "varying vec3 light;"
@@ -168,6 +171,57 @@ Water::~Water()
 {
 }
 
+Water::Water(const Water& copy)
+{
+    m_shader.ParseVertexShader(vertexShader);
+    m_shader.ParseFragmentShader(fragmentShader);
+    m_shader.LoadProgram();
+
+    m_shader.Use(true);
+    m_shader.SetUniform("normalMap", 0);
+    m_shader.SetUniform("reflexionMap", 1);
+    m_shader.SetUniform("refractionMap", 2);
+    m_shader.Use(false);
+
+    m_reflection.SetFrameSize(128);
+    m_reflection.SetCaptureColor(true);
+    m_reflection.SetCaptureDepth(true);
+
+    m_refraction.SetFrameSize(128);
+    m_refraction.SetCaptureColor(true);
+    m_refraction.SetCaptureDepth(true);
+
+    Vertex vertex[6] = {
+        Vertex(Vector3f(1, 0, -1), Vector3f(0, 1, 0), 1, Vector2f(0, 1)),
+        Vertex(Vector3f(1, 0, 1), Vector3f(0, 1, 0), 1, Vector2f(0, 0)),
+        Vertex(Vector3f(-1, 0, 1), Vector3f(0, 1, 0), 1, Vector2f(1, 0)),
+        Vertex(Vector3f(-1, 0, 1), Vector3f(0, 1, 0), 1, Vector2f(1, 0)),
+        Vertex(Vector3f(-1, 0, -1), Vector3f(0, 1, 0), 1, Vector2f(1, 1)),
+        Vertex(Vector3f(1, 0, -1), Vector3f(0, 1, 0), 1, Vector2f(0, 1)),
+    };
+
+    m_buffer.AddVertex(vertex, 6);
+
+    m_buffer.Compile();
+
+    *this = copy;
+}
+
+Water& Water::operator=(const Water& copy)
+{
+    Node::operator=(copy);
+
+    m_size = copy.m_size;
+    m_normalMap = copy.m_normalMap;
+
+    m_uvRepeat = copy.m_uvRepeat;
+    m_blend = copy.m_blend;
+    m_deform = copy.m_deform;
+    m_speed = copy.m_speed;
+
+    return *this;
+}
+
 void Water::BeginReflection()
 {
     m_reflection.Use(true);
@@ -308,13 +362,23 @@ Vector2f Water::GetUvRepeat() const
     return m_uvRepeat;
 }
 
+Water* Water::Clone()
+{
+    return new Water(*this);
+}
+
+void Water::Process()
+{
+
+}
+
 void Water::Render()
 {
     m_buffer.BindBuffer();
     m_buffer.BindTexture();
 
     m_shader.Use(true);
-    m_shader.SetUniform("timer", (float)m_clock.GetEsplanedTime());
+    m_shader.SetUniform("timer", (float)clock());
 
     glClientActiveTexture(GL_TEXTURE0);
     glActiveTexture(GL_TEXTURE0);

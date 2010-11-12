@@ -57,9 +57,33 @@ NewtonNode::NewtonNode(NewtonParallelScene* newtonScene, Matrix4f* matrix)
     m_applyGravity = true;
 }
 
+NewtonNode::NewtonNode(const NewtonNode& copy)
+{
+    *this = copy;
+}
+
 NewtonNode::~NewtonNode()
 {
     DestroyBody();
+}
+
+bool NewtonNode::operator=(const NewtonNode& copy)
+{
+    m_applyForce = copy.m_applyForce;
+    m_applyTorque = copy.m_applyTorque;
+    m_newtonScene = copy.m_newtonScene;
+    m_newtonWorld = copy.m_newtonWorld;
+
+    m_masse = copy.m_masse;
+    m_freeze = copy.m_freeze;
+    m_applyGravity = copy.m_applyGravity;
+
+    return true;
+}
+
+Node* NewtonNode::Clone()
+{
+    return new NewtonNode(*this);
 }
 
 void NewtonNode::BuildBoxNode(Vector3f size, float masse)
@@ -272,8 +296,18 @@ bool NewtonNode::IsCollidWith(const NewtonNode* target)
                                   );
 }
 
-void NewtonNode::UpdateMatrix()
+void NewtonNode::Render()
 {
+}
+
+void NewtonNode::Process()
+{
+    if(!m_enable || !m_enableProcess)
+        return;
+
+    for(unsigned i = 0; i < m_childs.size(); i++)
+        m_childs[i]->Process();
+
     if(m_body)
         NewtonBodyGetMatrix(m_body, *m_updatedMatrix);
 }

@@ -42,7 +42,7 @@ public:
     ParticlesEmiter(const ParticlesEmiter& copy);
     virtual ~ParticlesEmiter();
 
-    bool operator=(const ParticlesEmiter& copy);
+    ParticlesEmiter& operator=(const ParticlesEmiter& copy);
 
     void Build();
 
