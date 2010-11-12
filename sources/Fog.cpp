@@ -19,6 +19,11 @@ Fog::Fog()
     SetDensity(0.1f);
     SetStart(2.0f);
     SetEnd(32.0f);
+
+    m_enable = false;
+    m_density = 0;
+    m_start = 0;
+    m_end = 0;
 }
 
 Fog::~Fog()
