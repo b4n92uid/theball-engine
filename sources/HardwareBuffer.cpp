@@ -42,13 +42,13 @@ HardwareBuffer::HardwareBuffer(const HardwareBuffer& hb)
     *this = hb;
 }
 
-bool HardwareBuffer::operator=(const HardwareBuffer& hb)
+HardwareBuffer& HardwareBuffer::operator=(const HardwareBuffer& hb)
 {
     m_vertex = hb.m_vertex;
 
     Compile(hb.m_usage);
 
-    return true;
+    return *this;
 }
 
 Vertex* HardwareBuffer::Lock(GLenum usage)

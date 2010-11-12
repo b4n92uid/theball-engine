@@ -40,7 +40,7 @@ ParticlesEmiter::~ParticlesEmiter()
     Destroy();
 }
 
-bool ParticlesEmiter::operator=(const ParticlesEmiter& copy)
+ParticlesEmiter& ParticlesEmiter::operator=(const ParticlesEmiter& copy)
 {
     Node::operator=(copy);
 
@@ -68,7 +68,7 @@ bool ParticlesEmiter::operator=(const ParticlesEmiter& copy)
     if(copy.m_enable)
         Build();
 
-    return true;
+    return *this;
 }
 
 void ParticlesEmiter::Build(Particle& p)
@@ -109,6 +109,7 @@ void ParticlesEmiter::Build()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     m_enable = true;
+    m_deadEmiter = false;
 }
 
 Node* ParticlesEmiter::Clone()
@@ -118,10 +119,14 @@ Node* ParticlesEmiter::Clone()
 
 void ParticlesEmiter::Process()
 {
-    // Mise a jour du buffer
+    if(!m_enable || !m_enableProcess)
+        return;
 
     for(unsigned i = 0; i < m_childs.size(); i++)
         m_childs[i]->Process();
+
+    if(m_deadEmiter && !m_autoRebuild)
+        return;
 
     glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
 
@@ -166,7 +171,7 @@ void ParticlesEmiter::Process()
 
 void ParticlesEmiter::Render()
 {
-    if(!m_enable || (m_deadEmiter && !m_autoRebuild))
+    if(!m_enable || !m_enableRender || (m_deadEmiter && !m_autoRebuild))
         return;
 
     switch(m_blendEq)
@@ -352,12 +357,14 @@ Texture ParticlesEmiter::GetTexture() const
 
 Particle* ParticlesEmiter::BeginParticlesPosProcess()
 {
+    glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
     return static_cast<Particle*>(glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE));
 }
 
 void ParticlesEmiter::EndParticlesPosProcess()
 {
     glUnmapBuffer(GL_ARRAY_BUFFER);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void ParticlesEmiter::BeginSpiritDraw(float fovy, float viewportHeight)
@@ -393,7 +400,7 @@ void ParticlesEmiter::BeginSpiritDraw(float fovy, float viewportHeight)
 
     // Limit Max/Min taille
     glPointParameterfARB(GL_POINT_SIZE_MIN_ARB, 1.0f);
-    glPointParameterfARB(GL_POINT_SIZE_MAX_ARB, maxSize);
+    glPointParameterfARB(GL_POINT_SIZE_MAX_ARB, 256);
 
     // Fondue depuis le centre
     glPointParameterfARB(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 60.0f);

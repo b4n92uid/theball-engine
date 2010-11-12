@@ -32,7 +32,7 @@ Mesh::~Mesh()
         delete it->second;
 }
 
-bool Mesh::operator=(const Mesh& copy)
+Mesh& Mesh::operator=(const Mesh& copy)
 {
     Node::operator=(copy);
 
@@ -50,7 +50,7 @@ bool Mesh::operator=(const Mesh& copy)
     for(unsigned i = 0; i < m_renderProess.size(); i++)
         m_renderProess[i].parent = this;
 
-    return true;
+    return *this;
 }
 
 Node* Mesh::Clone()
@@ -428,7 +428,7 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
 
 void Mesh::Render()
 {
-    if(m_hardwareBuffer.IsEmpty())
+    if(!m_enable || !m_enableRender || m_hardwareBuffer.IsEmpty())
         return;
 
     glPushMatrix();
@@ -459,6 +459,9 @@ void Mesh::Render()
 
 void Mesh::Process()
 {
+    if(!m_enable || !m_enableProcess)
+        return;
+
     for(unsigned i = 0; i < m_childs.size(); i++)
         m_childs[i]->Process();
 }

@@ -24,26 +24,12 @@ NewtonParallelScene::NewtonParallelScene()
     SetWorldSize(AABB(-100, 100));
 
     m_worldTimestep = 1.0 / 60.0;
-    m_sharedNode = false;
     m_gravity = 1;
 }
 
 NewtonParallelScene::~NewtonParallelScene()
 {
-    if(!m_sharedNode)
-        Clear();
-
     NewtonDestroy(m_newtonWorld);
-}
-
-void NewtonParallelScene::Clear()
-{
-    for(std::map<std::string, NewtonNode*>::iterator i = m_newtonNodes.begin(); i != m_newtonNodes.end(); i++)
-        delete i->second;
-
-    m_newtonNodes.clear();
-
-    NewtonDestroyAllBodies(m_newtonWorld);
 }
 
 void NewtonParallelScene::SetGravity(float gravity)
@@ -54,16 +40,6 @@ void NewtonParallelScene::SetGravity(float gravity)
 float NewtonParallelScene::GetGravity() const
 {
     return m_gravity;
-}
-
-void NewtonParallelScene::SetSharedNode(bool sharedNode)
-{
-    this->m_sharedNode = sharedNode;
-}
-
-bool NewtonParallelScene::IsSharedNode() const
-{
-    return m_sharedNode;
 }
 
 void NewtonParallelScene::SetWorldSize(AABB wordlSize)
@@ -84,58 +60,8 @@ void NewtonParallelScene::Render()
 
     NewtonUpdate(m_newtonWorld, m_worldTimestep);
 
-    std::map<std::string, NewtonNode*>::iterator endOfNewtonEnity = m_newtonNodes.end();
-    for(std::map<std::string, NewtonNode*>::iterator i = m_newtonNodes.begin(); i != endOfNewtonEnity; i++)
-        i->second->UpdateMatrix();
-}
-
-void NewtonParallelScene::AddNode(std::string name, NewtonNode* node)
-{
-    if(name.empty())
-        name = tools::NameGen(m_newtonNodes);
-
-    else if(m_newtonNodes.find(name) != m_newtonNodes.end())
-        throw Exception("SceneManager::AddNewtonNode\nName already exist (%s)", name.c_str());
-
-    if(!node)
-        throw Exception("SceneManager::AddNewtonNode\nTry to add a NULL ptr child");
-
-    if(!node->GetBody())
-        throw Exception("SceneManager::AddNewtonNode\nTry to add a NULL ptr body child");
-
-    node->SetNewtonScene(this);
-
-    m_newtonNodes[name] = node;
-}
-
-NewtonNode* NewtonParallelScene::GetNode(std::string name)
-{
-    if(m_newtonNodes.find(name) != m_newtonNodes.end())
-        return m_newtonNodes[name];
-
-    else
-        throw tbe::Exception("NewtonSubScene::GetNewtonMesh; NewtonMesh not found (%s)", name.c_str());
-}
-
-NewtonNode* NewtonParallelScene::ReleaseNode(std::string name)
-{
-    if(m_newtonNodes.find(name) == m_newtonNodes.end())
-        throw Exception("MainParallelScene::RealeaseNode\nNode not found (%s)\n\n", name.c_str());
-
-    NewtonNode* releaseNode = m_newtonNodes[name];
-
-    m_newtonNodes.erase(name);
-
-    return releaseNode;
-}
-
-void NewtonParallelScene::DeleteNode(std::string name)
-{
-    if(m_newtonNodes.find(name) == m_newtonNodes.end())
-        throw Exception("MainParallelScene::DeleteNode\nNode not found (%s)\n\n", name.c_str());
-
-    delete m_newtonNodes[name];
-    m_newtonNodes.erase(name);
+    for(unsigned i = 0; i < m_nodes.size(); i++)
+        m_nodes[i]->Process();
 }
 
 void NewtonParallelScene::SetWorldTimestep(float worldTimestep)

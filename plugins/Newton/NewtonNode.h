@@ -19,14 +19,17 @@ class NewtonParallelScene;
 
 /// \brief Class represantant un objet physique dans l'espace
 
-class NewtonNode
+class NewtonNode : public Node
 {
 public:
     NewtonNode();
+    NewtonNode(const NewtonNode& copy);
     NewtonNode(NewtonParallelScene* newtonScene, Node* node);
     NewtonNode(NewtonParallelScene* newtonScene, Matrix4f* matrix);
 
     virtual ~NewtonNode();
+
+    bool operator=(const NewtonNode& copy);
 
     void BuildBoxNode(Vector3f size, float masse);
     void BuildSphereNode(Vector3f size, float masse);
@@ -57,7 +60,11 @@ public:
     Vector3f GetVelocity();
 
     /// Mise a jour
-    virtual void UpdateMatrix();
+    void Render();
+
+    void Process();
+
+    Node* Clone();
 
     /// Accés au gestionnaire de scene newton
     void SetNewtonScene(NewtonParallelScene* newtonNodeScene);

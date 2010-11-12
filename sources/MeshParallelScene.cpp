@@ -24,7 +24,6 @@ MeshParallelScene::MeshParallelScene()
 
 MeshParallelScene::~MeshParallelScene()
 {
-    Clear();
 }
 
 struct DepthSortMeshFunc
@@ -44,7 +43,7 @@ struct DepthSortMeshFunc
 
 void MeshParallelScene::Render()
 {
-    typedef std::list<Mesh*> MeshList;
+    typedef std::list<Node*> MeshList;
 
     Frustum* frustum = m_sceneManager->GetFrustum();
 
@@ -54,24 +53,23 @@ void MeshParallelScene::Render()
 
     MeshList opacNode, blendNode;
 
-    for(Mesh::Map::iterator it = m_nodes.begin(); it != m_nodes.end(); it++)
+    for(unsigned i = 0; i < m_nodes.size(); i++)
     {
-        if(!it->second->IsEnable())
-            continue;
+        Node* it = m_nodes[i];
 
-        if(it->second->IsTopLevel())
-            it->second->Process();
+        if(!it->HasParent())
+            it->Process();
 
-        if(m_enableFrustumTest && !frustum->IsInside(it->second))
+        if(m_enableFrustumTest && !frustum->IsInside(it))
         {
             m_frustumCullingCount++;
             continue;
         }
 
-        if(it->second->IsTransparent())
-            blendNode.push_back(it->second);
+        if(dynamic_cast<Mesh*>(it)->IsTransparent())
+            blendNode.push_back(it);
         else
-            opacNode.push_back(it->second);
+            opacNode.push_back(it);
     }
 
     // Tri
@@ -99,61 +97,6 @@ void MeshParallelScene::Render()
 
     for(MeshList::iterator itt = blendNode.begin(); itt != blendNode.end(); itt++)
         (*itt)->Render();
-}
-
-void MeshParallelScene::Clear()
-{
-    for(Mesh::Map::iterator itt = m_nodes.begin(); itt != m_nodes.end(); itt++)
-        delete itt->second;
-
-    m_nodes.clear();
-}
-
-void MeshParallelScene::AddMesh(std::string name, Mesh* node)
-{
-    if(!node)
-        throw Exception("MeshParallelScene::AddMesh; Try to add a NULL ptr node");
-
-    if(name.empty())
-        name = tools::NameGen(m_nodes);
-
-    else if(m_nodes.find(name) != m_nodes.end())
-        throw Exception("MeshParallelScene::AddMesh; Name already exist (%s)", name.c_str());
-
-    node->SetName(name);
-    node->SetParallelScene(this);
-
-    m_nodes[name] = node;
-}
-
-Mesh* MeshParallelScene::GetMesh(std::string name)
-{
-    if(m_nodes.find(name) != m_nodes.end())
-        return m_nodes[name];
-
-    else
-        throw tbe::Exception("MeshParallelScene::GetMesh; Mesh not found (%s)", name.c_str());
-}
-
-Mesh* MeshParallelScene::ReleaseMesh(std::string name)
-{
-    if(m_nodes.find(name) == m_nodes.end())
-        throw Exception("MeshParallelScene::RealeaseMesh; Mesh not found (%s)", name.c_str());
-
-    Mesh * releaseMesh = m_nodes[name];
-
-    m_nodes.erase(name);
-
-    return releaseMesh;
-}
-
-void MeshParallelScene::DeleteMesh(std::string name)
-{
-    if(m_nodes.find(name) == m_nodes.end())
-        throw Exception("MeshParallelScene::DeleteMesh; Mesh not found (%s)", name.c_str());
-
-    delete m_nodes[name];
-    m_nodes.erase(name);
 }
 
 void MeshParallelScene::SetEnableFrustumTest(bool enableFrustumTest)

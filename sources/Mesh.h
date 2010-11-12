@@ -28,7 +28,7 @@ public:
     Mesh(const Mesh& copy);
     ~Mesh();
 
-    bool operator=(const Mesh& copy);
+    Mesh& operator=(const Mesh& copy);
 
     Node* Clone();
 

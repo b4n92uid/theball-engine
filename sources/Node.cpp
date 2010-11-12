@@ -10,7 +10,9 @@ using namespace std;
 Node::Node()
 {
     m_enable = true;
+    m_enableRender = true;
     m_enableProcess = true;
+    m_lockPtr = false;
     m_parallelScene = NULL;
 
     m_parent = NULL;
@@ -25,23 +27,25 @@ Node::Node(const Node& copy)
 
 Node::~Node()
 {
+    for(unsigned i = 0; i < m_childs.size(); i++)
+    {
+        m_childs[i]->ReleaseFromParallelScene();
+
+        if(!m_childs[i]->m_lockPtr)
+            delete m_childs[i];
+    }
 }
 
-bool Node::operator =(const Node& copy)
+Node& Node::operator =(const Node& copy)
 {
     m_parallelScene = copy.m_parallelScene;
     m_name = copy.m_name;
     m_matrix = copy.m_matrix;
     m_enable = copy.m_enable;
-    m_enableProcess = copy.m_enableProcess;
+    m_lockPtr = copy.m_lockPtr;
     m_aabb = copy.m_aabb;
 
-    // m_parent = copy.m_parent;
-
-    for(unsigned i = 0; i < copy.m_childs.size(); i++)
-        m_childs.push_back(copy.m_childs[i]->Clone());
-
-    return true;
+    return *this;
 }
 
 bool Node::operator==(std::string name)
@@ -94,6 +98,15 @@ ParallelScene* Node::GetParallelScene() const
     return m_parallelScene;
 }
 
+void Node::ReleaseFromParallelScene()
+{
+    if(!m_parallelScene)
+        return;
+
+    m_parallelScene->ReleaseChild(this);
+    m_parallelScene = NULL;
+}
+
 AABB Node::GetAbsolutAabb() const
 {
     Vector3f pos = m_matrix.GetPos();
@@ -115,16 +128,6 @@ bool Node::IsEnable() const
     return m_enable;
 }
 
-void Node::SetEnableProcess(bool enableProcess)
-{
-    this->m_enableProcess = enableProcess;
-}
-
-bool Node::IsEnableProcess() const
-{
-    return m_enableProcess;
-}
-
 void Node::SetName(std::string name)
 {
     this->m_name = name;
@@ -135,9 +138,18 @@ std::string Node::GetName() const
     return m_name;
 }
 
-bool Node::IsTopLevel()
+bool Node::HasParent()
 {
-    return !m_parent;
+    return m_parent;
+}
+
+void Node::ReleaseParent()
+{
+    if(!m_parent)
+        return;
+
+    m_parent->ReleaseChild(this);
+    m_parent = NULL;
 }
 
 void Node::SetParent(Node* parent)
@@ -172,7 +184,7 @@ void Node::ReleaseChild(Node* child)
     if(it == m_childs.end())
         throw Exception("Node::ReleaseChild; cannot found child");
 
-    (*it)->SetParent(NULL);
+    (*it)->m_parent = NULL;
 
     m_childs.erase(it);
 }
@@ -183,11 +195,31 @@ Node* Node::ReleaseChild(unsigned index)
         throw Exception("Node::ReleaseChild; index out of range %d", index);
 
     Node* ret = m_childs[index];
-    ret->SetParent(NULL);
+    ret->ReleaseParent();
 
     m_childs.erase(m_childs.begin() + index);
 
     return ret;
+}
+
+void Node::DeleteChild(Node* child)
+{
+    Node::Array::iterator it = find(m_childs.begin(), m_childs.end(), child);
+
+    if(it == m_childs.end())
+        throw Exception("Node::DeleteChild; cannot found child");
+
+    delete (*it);
+    m_childs.erase(it);
+}
+
+void Node::DeleteChild(unsigned index)
+{
+    if(index >= m_childs.size())
+        throw Exception("Node::DeleteChild; index out of range %d", index);
+
+    delete m_childs[index];
+    m_childs.erase(m_childs.begin() + index);
 }
 
 Node* Node::GetChild(unsigned index)
@@ -196,4 +228,34 @@ Node* Node::GetChild(unsigned index)
         throw Exception("Node::GetChild; index out of range %d", index);
 
     return m_childs[index];
+}
+
+void Node::SetEnableProcess(bool enableProcess)
+{
+    this->m_enableProcess = enableProcess;
+}
+
+bool Node::IsEnableProcess() const
+{
+    return m_enableProcess;
+}
+
+void Node::SetEnableRender(bool enableRender)
+{
+    this->m_enableRender = enableRender;
+}
+
+bool Node::IsEnableRender() const
+{
+    return m_enableRender;
+}
+
+void Node::SetLockPtr(bool lockPtr)
+{
+    this->m_lockPtr = lockPtr;
+}
+
+bool Node::IsLockPtr() const
+{
+    return m_lockPtr;
 }

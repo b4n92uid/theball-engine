@@ -12,6 +12,8 @@
 #include <vector>
 #include <map>
 
+#include "Node.h"
+
 namespace tbe
 {
 namespace scene
@@ -32,8 +34,19 @@ public:
     /// Methode virtual pure pour le rendue
     virtual void Render() = 0;
 
-    /// Methode virtual pure pour la liberation memoire
-    virtual void Clear() = 0;
+    /// Methode la liberation memoire
+    void Clear();
+
+    bool IsChild(Node* child);
+
+    void AddChild(Node* child);
+
+    Node* GetChild(unsigned index);
+
+    void DeleteChild(Node* child);
+
+    void ReleaseChild(Node* child);
+    Node* ReleaseChild(unsigned index);
 
     void SetSceneManager(SceneManager* sceneManager);
     SceneManager* GetSceneManager() const;
@@ -45,8 +58,8 @@ public:
 
 protected:
     SceneManager* m_sceneManager;
+    Node::Array m_nodes;
     bool m_enable;
-
 };
 
 }

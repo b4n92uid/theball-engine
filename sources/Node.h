@@ -11,7 +11,6 @@
 #include "AABB.h"
 #include "Texture.h"
 #include "Exception.h"
-#include "ParallelScene.h"
 
 namespace tbe
 {
@@ -31,7 +30,7 @@ public:
     Node(const Node& copy);
     virtual ~Node();
 
-    bool operator=(const Node& copy);
+    Node& operator=(const Node& copy);
 
     /// Operateur de comparaison par nom (m_name)
     bool operator==(Node* node);
@@ -45,8 +44,8 @@ public:
     void SetEnable(bool enbale);
     bool IsEnable() const;
 
-    void SetEnableProcess(bool enableProcess);
-    bool IsEnableProcess() const;
+    void SetLockPtr(bool lockPtr);
+    bool IsLockPtr() const;
 
     /// Identifiant du noeud
     void SetName(std::string name);
@@ -62,12 +61,14 @@ public:
     /// Spécifier la scene parallel parent
     void SetParallelScene(ParallelScene* parallelScene);
     ParallelScene* GetParallelScene() const;
+    void ReleaseFromParallelScene();
 
     /// Racourcie pour sépcifier la postion de la matrice du noeud
     void SetPos(Vector3f pos);
     Vector3f GetPos() const;
 
-    bool IsTopLevel();
+    bool HasParent();
+    void ReleaseParent();
 
     void SetParent(Node* parent);
     Node* GetParent();
@@ -79,10 +80,20 @@ public:
     void ReleaseChild(Node* child);
     Node* ReleaseChild(unsigned index);
 
-    virtual void Process() = 0;
-    virtual void Render() = 0;
+    void DeleteChild(Node* child);
+    void DeleteChild(unsigned index);
 
     virtual Node* Clone() = 0;
+
+    virtual void Process() = 0;
+
+    virtual void Render() = 0;
+
+    void SetEnableProcess(bool enableProcess);
+    bool IsEnableProcess() const;
+
+    void SetEnableRender(bool enableRender);
+    bool IsEnableRender() const;
 
     typedef std::map<std::string, Node*> Map;
     typedef std::vector<Node*> Array;
@@ -92,7 +103,9 @@ protected:
     std::string m_name;
     Matrix4f m_matrix;
     bool m_enable;
+    bool m_enableRender;
     bool m_enableProcess;
+    bool m_lockPtr;
     AABB m_aabb;
 
     Node* m_parent;

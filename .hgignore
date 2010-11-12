@@ -1,4 +1,5 @@
 build
+demo
 dist
 doc/html
 extras
@@ -7,11 +8,6 @@ nbproject
 
 .dep.inc
 Makefile
-
-syntax: glob
-demo/*/Makefile
-demo/*/.dep.inc
-demo/*/nbproject
 
 syntax: regexp
 .*(\.exe)$

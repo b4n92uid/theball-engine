@@ -27,38 +27,15 @@ public:
 
     void Render();
 
-    void Clear();
-
-    void CompileStaticMesh();
-
     void SetEnableFrustumTest(bool enableFrustumTest);
     bool IsEnableFrustumTest() const;
 
     void SetFrustumCullingCount(unsigned frustumCullingCount);
     unsigned GetFrustumCullingCount() const;
 
-    void AddMesh(std::string name, Mesh* node);
-
-    Mesh* GetMesh(std::string name);
-
-    Mesh* ReleaseMesh(std::string name);
-
-    void DeleteMesh(std::string name);
-
-    template <typename T> T* GetMesh(std::string name)
-    {
-        return (T*) & GetMesh(name);
-    }
-
-    template <typename T> T* ReleaseMesh(std::string name)
-    {
-        return (T*) & ReleaseMesh(name);
-    }
-
 protected:
     unsigned m_frustumCullingCount;
     bool m_enableFrustumTest;
-    Mesh::Map m_nodes;
 
 };
 
