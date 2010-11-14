@@ -31,27 +31,27 @@ struct DepthSortMeshFunc
 
     bool operator()(Node* node1, Node * node2)
     {
-        if(FarToNear)
-            return(node1->GetMatrix().GetPos() - camPos) > (node2->GetMatrix().GetPos() - camPos);
+        if(dynamic_cast<Mesh*>(node1)->IsTransparent())
+            return false;
+
         else
-            return(node1->GetMatrix().GetPos() - camPos) < (node2->GetMatrix().GetPos() - camPos);
+            return(node1->GetMatrix().GetPos() - camPos) > (node2->GetMatrix().GetPos() - camPos);
     }
 
     Vector3f camPos;
-    bool FarToNear;
 };
 
 void MeshParallelScene::Render()
 {
-    typedef std::list<Node*> MeshList;
-
     Frustum* frustum = m_sceneManager->GetFrustum();
 
     m_frustumCullingCount = 0;
 
-    // Préparation au tri
+    static DepthSortMeshFunc sortFunc;
 
-    MeshList opacNode, blendNode;
+    sortFunc.camPos = m_sceneManager->GetCurCamera()->GetPos();
+
+    std::sort(m_nodes.begin(), m_nodes.end(), sortFunc);
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
     {
@@ -66,37 +66,8 @@ void MeshParallelScene::Render()
             continue;
         }
 
-        if(dynamic_cast<Mesh*>(it)->IsTransparent())
-            blendNode.push_back(it);
-        else
-            opacNode.push_back(it);
+        it->Render();
     }
-
-    // Tri
-
-    static DepthSortMeshFunc sortFunc;
-
-    sortFunc.camPos = m_sceneManager->GetCurCamera()->GetPos();
-
-    if(!blendNode.empty())
-    {
-        sortFunc.FarToNear = true;
-        blendNode.sort(sortFunc);
-    }
-
-    if(!opacNode.empty())
-    {
-        sortFunc.FarToNear = false;
-        opacNode.sort(sortFunc);
-    }
-
-    // Rendue
-
-    for(MeshList::iterator itt = opacNode.begin(); itt != opacNode.end(); itt++)
-        (*itt)->Render();
-
-    for(MeshList::iterator itt = blendNode.begin(); itt != blendNode.end(); itt++)
-        (*itt)->Render();
 }
 
 void MeshParallelScene::SetEnableFrustumTest(bool enableFrustumTest)

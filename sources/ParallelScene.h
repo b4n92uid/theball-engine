@@ -55,6 +55,7 @@ public:
     bool IsEnable() const;
 
     typedef std::map<std::string, ParallelScene*> Map;
+    typedef std::vector<ParallelScene*> Array;
 
 protected:
     SceneManager* m_sceneManager;
