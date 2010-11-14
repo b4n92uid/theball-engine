@@ -59,21 +59,23 @@ public:
     void Setup(Vector2i viewport, float ratio, float fovy, float zNear, float zFar);
 
     /// Ajouter une sous-scene
-    void AddParallelScene(std::string name, ParallelScene* subscene);
+    void AddParallelScene(ParallelScene* scene);
 
     /// Accès a une sous-scene
-    ParallelScene* GetParallelScene(std::string name);
+    ParallelScene* GetParallelScene(unsigned index);
 
-    template <typename T> T* GetParallelScene(std::string name)
+    template <typename T> T* GetParallelScene(unsigned index)
     {
-        return(T*)GetParallelScene(name);
+        return dynamic_cast<T*>(GetParallelScene(index));
     }
 
     /// Destruite une scene parallele
-    void DeleteParallelScene(std::string name);
+    void DeleteParallelScene(unsigned index);
+    void DeleteParallelScene(ParallelScene* scene);
 
     /// Détache une scene parallele du gestionnaire
-    ParallelScene* ReleaseParallelScene(std::string name);
+    ParallelScene* ReleaseParallelScene(unsigned index);
+    void ReleaseParallelScene(ParallelScene* scene);
 
     /// Rendue
     void Render(bool setupView = true);
@@ -147,7 +149,7 @@ public:
 
 protected:
 
-    ParallelScene::Map m_parallelScenes;
+    ParallelScene::Array m_parallelScenes;
 
     Vector4f m_ambientLight;
     Light::Map m_lights;

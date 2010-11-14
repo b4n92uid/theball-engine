@@ -22,6 +22,21 @@ namespace tbe
 namespace tools
 {
 
+template<typename T> void erase(std::vector<T>& vec, unsigned index)
+{
+    vec.erase(vec.begin() + index);
+}
+
+template<typename T> void erase(std::vector<T>& vec, T val)
+{
+    vec.erase(std::find(vec.begin(), vec.end(), val));
+}
+
+template<typename T> bool find(const std::vector<T>& vec, T val)
+{
+    return std::find(vec.begin(), vec.end(), val) != vec.end();
+}
+
 inline void trimstr(std::string& buffer)
 {
     using namespace std;

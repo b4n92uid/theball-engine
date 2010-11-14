@@ -76,8 +76,8 @@ void SceneManager::ClearCameras()
 
 void SceneManager::ClearParallelScenes()
 {
-    for(ParallelScene::Map::iterator i = m_parallelScenes.begin(); i != m_parallelScenes.end(); i++)
-        delete i->second;
+    for(unsigned i = 0; i < m_parallelScenes.size(); i++)
+        delete m_parallelScenes[i];
 
     m_parallelScenes.clear();
 }
@@ -115,8 +115,8 @@ void SceneManager::Render(bool setupView)
         itt->second->Update();
 
     // Rendue des scenes parallele
-    for(ParallelScene::Map::iterator itt = m_parallelScenes.begin(); itt != m_parallelScenes.end(); itt++)
-        itt->second->Render();
+    for(unsigned i = 0; i < m_parallelScenes.size(); i++)
+        m_parallelScenes[i]->Render();
 }
 
 Light* SceneManager::GetDynamicLight(std::string name)
@@ -167,41 +167,61 @@ void SceneManager::SetAmbientLight(Vector4f ambient)
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, m_ambientLight);
 }
 
-void SceneManager::AddParallelScene(std::string name, ParallelScene * subscene)
+void SceneManager::AddParallelScene(ParallelScene* scene)
 {
-    if(name.empty())
-        name = tools::NameGen(m_parallelScenes);
+    if(tools::find(m_parallelScenes, scene))
+        throw Exception("SceneManager::AddParallelScene; Scene already exist");
 
-    else if(m_parallelScenes.find(name) != m_parallelScenes.end())
-        throw Exception("SceneManager::AddParallelScene; Name already exist (%s)", name.c_str());
+    scene->SetSceneManager(this);
 
-    if(!subscene)
-        throw Exception("SceneManager::AddParallelScene; Try to add a NULL prt subscene");
-
-    subscene->SetSceneManager(this);
-
-    m_parallelScenes[name] = subscene;
+    m_parallelScenes.push_back(scene);
 }
 
-ParallelScene* SceneManager::ReleaseParallelScene(std::string name)
+void SceneManager::ReleaseParallelScene(ParallelScene* scene)
 {
-    if(m_parallelScenes.find(name) == m_parallelScenes.end())
-        throw Exception("SceneManager::ReleaseParallelScene; ParallelScene not found (%s)", name.c_str());
+    if(tools::find(m_parallelScenes, scene))
+        throw Exception("SceneManager::ReleaseParallelScene; ParallelScene not found");
 
-    ParallelScene* ps = m_parallelScenes[name];
+    tools::erase(m_parallelScenes, scene);
+}
 
-    m_parallelScenes.erase(name);
+ParallelScene* SceneManager::ReleaseParallelScene(unsigned index)
+{
+    if(index > m_parallelScenes.size())
+        throw Exception("SceneManager::DeleteParallelScene; ParallelScene not found");
+
+    ParallelScene* ps = m_parallelScenes[index];
+    tools::erase(m_parallelScenes, index);
 
     return ps;
 }
 
-void SceneManager::DeleteParallelScene(std::string name)
+void SceneManager::DeleteParallelScene(ParallelScene* scene)
 {
-    if(m_parallelScenes.find(name) == m_parallelScenes.end())
-        throw Exception("SceneManager::DeleteParallelScene; ParallelScene not found (%s)", name.c_str());
+    if(tools::find(m_parallelScenes, scene))
+        throw Exception("SceneManager::ReleaseParallelScene; ParallelScene not found");
 
-    delete m_parallelScenes[name];
-    m_parallelScenes.erase(name);
+    delete scene;
+
+    tools::erase(m_parallelScenes, scene);
+}
+
+void SceneManager::DeleteParallelScene(unsigned index)
+{
+    if(index > m_parallelScenes.size())
+        throw Exception("SceneManager::DeleteParallelScene; ParallelScene not found");
+
+    delete m_parallelScenes[index];
+
+    tools::erase(m_parallelScenes, index);
+}
+
+ParallelScene* SceneManager::GetParallelScene(unsigned index)
+{
+    if(index > m_parallelScenes.size())
+        throw tbe::Exception("SceneManager::GetParallelScene; ParallelScene not found");
+
+    return m_parallelScenes[index];
 }
 
 Vector4f SceneManager::GetAmbientLight() const
@@ -253,15 +273,6 @@ void SceneManager::SetCurCamera(std::string name)
 Camera* SceneManager::GetCurCamera()
 {
     return m_currentCamera->second;
-}
-
-ParallelScene* SceneManager::GetParallelScene(std::string name)
-{
-    if(m_parallelScenes.find(name) != m_parallelScenes.end())
-        return m_parallelScenes[name];
-
-    else
-        throw tbe::Exception("SceneManager::GetSubScene; SubScene not found (%s)", name.c_str());
 }
 
 Frustum* SceneManager::GetFrustum() const
