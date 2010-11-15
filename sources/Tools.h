@@ -27,9 +27,19 @@ template<typename T> void erase(std::vector<T>& vec, unsigned index)
     vec.erase(vec.begin() + index);
 }
 
+template<typename T, typename T2> void erase(std::vector<T>& vec, T2 val)
+{
+    vec.erase(std::find(vec.begin(), vec.end(), dynamic_cast<T2>(val)));
+}
+
 template<typename T> void erase(std::vector<T>& vec, T val)
 {
     vec.erase(std::find(vec.begin(), vec.end(), val));
+}
+
+template<typename T, typename T2> bool find(const std::vector<T>& vec, T2 val)
+{
+    return std::find(vec.begin(), vec.end(), dynamic_cast<T2>(val)) != vec.end();
 }
 
 template<typename T> bool find(const std::vector<T>& vec, T val)

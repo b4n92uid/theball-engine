@@ -34,6 +34,9 @@ struct DepthSortMeshFunc
         if(dynamic_cast<Mesh*>(node1)->IsTransparent())
             return false;
 
+        else if(dynamic_cast<Mesh*>(node2)->IsTransparent())
+            return true;
+
         else
             return(node1->GetMatrix().GetPos() - camPos) > (node2->GetMatrix().GetPos() - camPos);
     }
