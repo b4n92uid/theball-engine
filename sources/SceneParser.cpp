@@ -147,10 +147,10 @@ void SceneParser::ParseMap(AttribMap& att)
     m_sceneManager->SetAmbientLight(vec34(Vector3f(att["ambient"])));
 
     m_meshScene = new MeshParallelScene;
-    m_sceneManager->AddParallelScene(m_mapName + ":Mesh", m_meshScene);
+    m_sceneManager->AddParallelScene(m_meshScene);
 
     m_particleScene = new ParticlesParallelScene;
-    m_sceneManager->AddParallelScene(m_mapName + ":Particles", m_particleScene);
+    m_sceneManager->AddParallelScene(m_particleScene);
 }
 
 void SceneParser::ParseFog(AttribMap& att)
