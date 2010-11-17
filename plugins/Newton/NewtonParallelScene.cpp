@@ -143,8 +143,8 @@ void NewtonParallelScene::ApplyForceAndTorque(const NewtonBody* body, float, int
     if(core->IsApplyGravity())
         applyForce.y -= core->GetMasse() * 9.81 * core->GetNewtonScene()->GetGravity();
 
-    NewtonBodyAddForce(body, applyForce);
-    NewtonBodyAddTorque(body, applyTorque);
+    NewtonBodySetForce(body, applyForce);
+    NewtonBodySetTorque(body, applyTorque);
 
     core->SetApplyForce(0);
 }
