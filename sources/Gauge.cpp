@@ -50,10 +50,11 @@ void Gauge::ObjectRender()
 
     if(m_smooth)
     {
-        m_value += m_smoothSpeed;
+        if(m_valueTarget > m_value)
+            m_value = min(m_value + m_smoothSpeed, m_valueTarget);
 
-        if(m_value > m_valueTarget)
-            m_value = m_valueTarget;
+        if(m_valueTarget < m_value)
+            m_value = max(m_value - m_smoothSpeed, m_valueTarget);
     }
 
     DrawSurface(
@@ -71,10 +72,10 @@ void Gauge::ObjectRender()
 
 void Gauge::SetValue(int value, bool rel)
 {
-#ifdef TBE_COMPILE_DEBUG
+    #ifdef TBE_COMPILE_DEBUG
     if(value < 0 && !rel)
         cout << "Gauge::SetValue; Warning : value < 0 && rel == false" << endl;
-#endif
+    #endif
 
     if(m_smooth)
     {
@@ -119,10 +120,10 @@ void Gauge::SetSmooth(bool b, int speed)
 {
     m_smooth = b;
 
-#ifdef TBE_COMPILE_DEBUG
+    #ifdef TBE_COMPILE_DEBUG
     if(b && speed < 1)
         cout << "Gauge::SetSmooth; nWarning : speed < 1" << endl;
-#endif
+    #endif
 
     m_smoothSpeed = speed;
 }
