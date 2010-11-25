@@ -301,6 +301,8 @@ void MTLFile::Open(const std::string& path)
 
         else if(opcode == "Ns")
         {
+            // Evite de lire la valeur Ns pour la non-standarisation du format
+            // le shininess doit etre spécifier manuellement
         }
 
         else if(opcode == "Ka")
@@ -326,14 +328,20 @@ void MTLFile::Open(const std::string& path)
 
         else if(opcode == "Ni")
         {
+            // Refraction index
         }
 
         else if(opcode == "d")
         {
+            // Valeur alpha du materiaux
         }
 
         else if(opcode == "illum")
         {
+            // Mode d'éclairage :
+            // 0 : pas d'éclairage
+            // 1 : éclairage ambiant et diffuse
+            // 2 : éclairage ambiant, diffuse et spéculaire
         }
 
         else if(opcode == "map_Kd")
