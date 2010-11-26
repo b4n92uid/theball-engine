@@ -22,6 +22,16 @@ namespace tbe
 namespace tools
 {
 
+inline std::string MakeAbsolutFilePath(const std::string& absfile, const std::string& relfile)
+{
+    unsigned pos = absfile.find_last_of('\\');
+
+    if(pos == std::string::npos)
+        pos = absfile.find_last_of('/');
+
+    return absfile.substr(0, pos + 1) + relfile;
+}
+
 template<typename T> void erase(std::vector<T>& vec, unsigned index)
 {
     vec.erase(vec.begin() + index);
@@ -215,6 +225,60 @@ template <typename T> T StrToNum(std::string str)
     std::stringstream ss(str);
     ss >> numeric;
     return numeric;
+}
+
+template <typename T> Vector2<T> StrToVec2(std::string str, bool withsep = false)
+{
+    Vector2<T> vec;
+    std::stringstream ss(str);
+
+    if(withsep)
+    {
+        char sep;
+        ss >> vec.x >> sep >> vec.y;
+    }
+    else
+    {
+        ss >> vec.x >> vec.y;
+    }
+
+    return vec;
+}
+
+template <typename T> Vector3<T> StrToVec3(std::string str, bool withsep = false)
+{
+    Vector3<T> vec;
+    std::stringstream ss(str);
+
+    if(withsep)
+    {
+        char sep;
+        ss >> vec.x >> sep >> vec.y >> sep >> vec.z;
+    }
+    else
+    {
+        ss >> vec.x >> vec.y >> vec.z;
+    }
+
+    return vec;
+}
+
+template <typename T> Vector4<T> StrToVec4(std::string str, bool withsep = false)
+{
+    Vector4<T> vec;
+    std::stringstream ss(str);
+
+    if(withsep)
+    {
+        char sep;
+        ss >> vec.x >> sep >> vec.y >> sep >> vec.z >> sep >> vec.w;
+    }
+    else
+    {
+        ss >> vec.x >> vec.y >> vec.z >> vec.w;
+    }
+
+    return vec;
 }
 
 /**

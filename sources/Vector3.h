@@ -2,7 +2,6 @@
 #define _VECTOR3_H
 
 #include <cmath>
-#include <string>
 #include <sstream>
 #include <vector>
 
@@ -48,13 +47,6 @@ public:
         x = fx;
         y = fy;
         z = fz;
-    }
-
-    Vector3(const std::string& exp)
-    {
-        char sep;
-        std::istringstream str(exp);
-        str >> x >> sep >> y >> sep >> z;
     }
 
     template<typename T2> Vector3 & operator=(const Vector3<T2>& vec)

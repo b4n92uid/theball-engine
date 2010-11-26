@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <cmath>
-#include <string>
 #include <sstream>
 
 namespace tbe
@@ -53,13 +52,6 @@ public:
         y = value;
         z = value;
         w = value;
-    }
-
-    Vector4(std::string exp)
-    {
-        char sep;
-        std::istringstream str(exp);
-        str >> x >> sep >> y >> sep >> z >> sep >> w;
     }
 
     template<typename T2> Vector4 & operator=(const Vector4<T2>& vec)
