@@ -10,7 +10,6 @@
 
 #include "Shader.h"
 
-#include "BlurEffect.h"
 #include "PostProcessManager.h"
 
 namespace tbe
@@ -32,21 +31,15 @@ public:
 
     void SetThreshold(float threshold);
     float GetThreshold() const;
-
-    void SetBlurPass(unsigned pass);
+    
+    void SetBlurPass(unsigned blurPass);
     unsigned GetBlurPass() const;
 
-    void SetBlurOffset(float offset);
-    float GetBlurOffset() const;
-    
-    void SetUseThreshold(bool useThreshold);
-    bool IsUseThreshold() const;
-
 private:
-    BlurEffect m_blur;
+    Shader m_blurShader;
     float m_threshold;
     float m_intensity;
-    bool m_useThreshold;
+    unsigned m_blurPass;
 };
 
 }

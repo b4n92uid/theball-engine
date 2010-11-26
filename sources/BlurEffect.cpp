@@ -21,25 +21,26 @@ static const char vertexShader[] =
 
 static const char fragmentShader[] =
         "uniform sampler2D texture;"
-        "uniform float offset;"
 
         "void main(void)"
         "{"
 
-        "vec4 final = texture2D(texture,gl_TexCoord[0].st);"
+        "float offset = 0.0078125;"
 
-        "final +=  texture2D(texture, gl_TexCoord[0].st+vec2(offset,0));"
-        "final +=  texture2D(texture, gl_TexCoord[0].st+vec2(-offset,0));"
-        "final +=  texture2D(texture, gl_TexCoord[0].st+vec2(0,offset));"
-        "final +=  texture2D(texture, gl_TexCoord[0].st+vec2(0,-offset));"
-        "final +=  texture2D(texture, gl_TexCoord[0].st+vec2(offset,offset));"
-        "final +=  texture2D(texture, gl_TexCoord[0].st+vec2(offset,-offset));"
-        "final +=  texture2D(texture, gl_TexCoord[0].st+vec2(-offset,-offset));"
-        "final +=  texture2D(texture, gl_TexCoord[0].st+vec2(-offset,offset));"
+        "vec4 final = texture2D(texture, gl_TexCoord[0].st);"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset,0));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,0));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(0,offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(0,-offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset,offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset,-offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,-offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,offset));"
 
         "final /= 9.0;"
 
         "gl_FragColor = final;"
+
         "}";
 
 BlurEffect::BlurEffect()
@@ -49,7 +50,6 @@ BlurEffect::BlurEffect()
     m_processShader.LoadProgram();
 
     SetPasse(1);
-    SetOffset(1.0 / 128.0);
 }
 
 BlurEffect::~BlurEffect()
@@ -83,7 +83,7 @@ void BlurEffect::Process(Rtt* rtt)
         // Etape 1
 
         m_processShader.Use(true);
-        
+
         m_workRtt->Use(true);
 
         rtt->GetColor().Use(true);
@@ -122,18 +122,4 @@ void BlurEffect::SetPasse(unsigned passe)
 unsigned BlurEffect::GetPasse() const
 {
     return m_passe;
-}
-
-void BlurEffect::SetOffset(float offset)
-{
-    this->m_offset = offset;
-
-    m_processShader.Use(true);
-    m_processShader.SetUniform("offset", m_offset);
-    m_processShader.Use(false);
-}
-
-float BlurEffect::GetOffset() const
-{
-    return m_offset;
 }
