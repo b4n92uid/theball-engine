@@ -48,8 +48,6 @@ public:
 
     std::string GetFilepath() const;
 
-    typedef std::map<std::string, Node*> Map;
-
 protected:
     std::string m_filepath;
     MTLFile m_mtlfile;

@@ -51,26 +51,6 @@ OBJMesh::~OBJMesh()
 {
 }
 
-inline Vector2f parseVector2f(const std::string& exp)
-{
-    Vector2f v;
-
-    istringstream ss(exp);
-    ss >> v.x >> v.y;
-
-    return v;
-}
-
-inline Vector3f parseVector3f(const std::string& exp)
-{
-    Vector3f v;
-
-    istringstream ss(exp);
-    ss >> v.x >> v.y >> v.z;
-
-    return v;
-}
-
 void OBJMesh::Open(const std::string& path)
 {
     cout << "Load obj mesh file : " << path << endl;
@@ -102,13 +82,7 @@ void OBJMesh::Open(const std::string& path)
 
         if(opcode == "mtllib")
         {
-            unsigned pos = m_filepath.find_last_of('\\');
-
-            if(pos == string::npos)
-                pos = m_filepath.find_last_of('/');
-
-            string mtlFilename = m_filepath.substr(0, pos + 1) + value;
-
+            string mtlFilename = tools::MakeAbsolutFilePath(m_filepath, value);
             m_mtlfile.Open(mtlFilename);
         }
 
@@ -122,13 +96,13 @@ void OBJMesh::Open(const std::string& path)
         else if(opcode == "s");
 
         else if(opcode == "v")
-            vPos.push_back(parseVector3f(value));
+            vPos.push_back(tools::StrToVec3<float>(value));
 
         else if(opcode == "vn")
-            vNormal.push_back(parseVector3f(value));
+            vNormal.push_back(tools::StrToVec3<float>(value));
 
         else if(opcode == "vt")
-            vTexCoord.push_back(parseVector2f(value));
+            vTexCoord.push_back(tools::StrToVec2<float>(value));
 
         else if(opcode == "usemtl")
         {
@@ -346,11 +320,7 @@ void MTLFile::Open(const std::string& path)
 
         else if(opcode == "map_Kd")
         {
-            int pos = path.find_last_of('\\');
-            if(pos == -1)
-                pos = path.find_last_of('/');
-
-            std::string texturepath = path.substr(0, pos + 1) + arg;
+            string texturepath = tools::MakeAbsolutFilePath(path, arg);
 
             try
             {

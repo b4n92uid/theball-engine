@@ -195,7 +195,7 @@ unsigned HardwareBuffer::GetBufferSize() const
 
 unsigned HardwareBuffer::GetVertexCount() const
 {
-    return m_vertexCount;
+    return m_vertex.size();
 }
 
 inline bool VertexComparePredicat(Vertex& v1, Vertex& v2)
