@@ -151,9 +151,9 @@ void PostProcessManager::Render()
 
 // Effect ----------------------------------------------------------------------
 
-Effect::Effect(Vector2i frameSize)
+Effect::Effect()
 {
-    m_workRtt = new Rtt(frameSize);
+    m_workRtt = new Rtt(127);
     m_workRtt->SetCaptureColor(true);
     m_workRtt->SetCaptureDepth(true);
 

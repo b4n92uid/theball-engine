@@ -29,12 +29,8 @@ public:
     void SetPasse(unsigned passe);
     unsigned GetPasse() const;
 
-    void SetOffset(float offset);
-    float GetOffset() const;
-
 private:
     unsigned m_passe;
-    float m_offset;
 };
 
 }

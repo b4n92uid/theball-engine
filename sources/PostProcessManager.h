@@ -49,7 +49,7 @@ protected:
 class Effect
 {
 public:
-    Effect(Vector2i frameSize = 128);
+    Effect();
     virtual ~Effect();
 
     virtual void Process(Rtt* rtt) = 0;

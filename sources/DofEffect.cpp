@@ -30,13 +30,17 @@ static const char fragmentShader[] =
 
         "float depth = texture2D(tDepth, gl_TexCoord[0].st).r;"
 
-        "float n = 1.0;"
-        "float f = 100.0;"
-        "float z = depth;"
+        "float focus = texture2D(tDepth, vec2(0.5)).r;"
 
-        "float factor = (2.0 * n) / (f + n - z * (f - n));"
+        "float n = 3.0;"
+        "float f = 256.0;"
 
-        "gl_FragColor = mix(vColor, vBlur, factor);"
+        "float depthFactor = (2.0 * n) / (f + n - depth * (f - n));"
+        "float focusFactor = (2.0 * n) / (f + n - focus * (f - n));"
+
+        "gl_FragColor = mix(vColor, vBlur, abs(depthFactor - focusFactor) + 0.5);"
+
+        // "gl_FragColor = vec4(abs(depthFactor - focusFactor));"
         "}";
 
 DofEffect::DofEffect()
@@ -51,8 +55,7 @@ DofEffect::DofEffect()
     m_processShader.SetUniform("tDepth", 2);
     m_processShader.Use(false);
 
-    m_blur.SetOffset(1.0f / 128.0f);
-    m_blur.SetPasse(10);
+    m_blur.SetPasse(5);
 }
 
 DofEffect::~DofEffect()

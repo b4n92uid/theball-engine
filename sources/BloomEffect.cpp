@@ -12,43 +12,72 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::ppe;
 
-static const char vertexShader[] =
+static const char textureVertexShader[] =
         "void main(void)"
         "{"
         "gl_TexCoord[0] = gl_MultiTexCoord0;"
         "gl_Position = ftransform();"
         "}";
 
-static const char fragmentShader[] =
+static const char brightFragShader[] =
         "uniform sampler2D texture;"
         "uniform float threshold;"
         "uniform float intensity;"
 
         "void main(void)"
         "{"
-        "vec4 final = texture2D(texture,gl_TexCoord[0].st);"
-        "final *= intensity;"
 
-        "float factor = (final.x + final.y + final.z) / 3.0;"
+        "vec4 final = texture2D(texture, gl_TexCoord[0].st);"
 
-        "if(factor < threshold)"
-        "final = vec4(0, 0, 0, 1);"
+        "if(final.x > threshold || final.y > threshold || final.z > threshold)"
+        "   gl_FragColor = final * intensity;"
+
+        "else"
+        "   gl_FragColor = vec4(0, 0, 0, 0);"
+
+        "}";
+
+static const char blurFragShader[] =
+        "uniform sampler2D texture;"
+
+        "void main(void)"
+        "{"
+
+        "vec4 final = texture2D(texture, gl_TexCoord[0].st);"
+
+        "float offset = 0.0078125;"
+
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset,0));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,0));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(0,offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(0,-offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset,offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset,-offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,-offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,offset));"
+
+        "final /= 9;"
+
+        "if(final == 0)"
+        "   discard;"
 
         "gl_FragColor = final;"
+
         "}";
 
 BloomEffect::BloomEffect()
 {
-    m_useThreshold = true;
-
-    m_processShader.ParseFragmentShader(fragmentShader);
-    m_processShader.ParseVertexShader(vertexShader);
+    m_processShader.ParseVertexShader(textureVertexShader);
+    m_processShader.ParseFragmentShader(brightFragShader);
     m_processShader.LoadProgram();
 
-    m_blur.SetOffset(1.0f / 128.0f);
-    m_blur.SetPasse(5);
+    m_blurShader.ParseVertexShader(textureVertexShader);
+    m_blurShader.ParseFragmentShader(blurFragShader);
+    m_blurShader.LoadProgram();
 
-    SetThreshold(0.1);
+    m_blurPass = 1;
+
+    SetThreshold(0.5);
     SetIntensity(1.0);
 }
 
@@ -61,42 +90,36 @@ void BloomEffect::Process(Rtt* rtt)
     /*
      * Etape du bloom :
      * ----------------
-     * Rendue fbo -> workFbo (zones éclairer)
-     * Blur sur workFbo
-     * Rendue de workFbo -> output (blend GL_SRC_ALPHA, GL_ONE)
+     * Rendue bright : fbo -> workFbo (zones éclairer)
+     * Blur : workFbo
+     * Rendue blend GL_SRC_ALPHA, GL_ONE : workFbo -> output
      */
 
     // Step 1 ------------------------------------------------------------------
 
     m_workRtt->Use(true);
 
-    if(m_useThreshold)
-    {
-        m_processShader.Use(true);
+    m_processShader.Use(true);
 
-        rtt->GetColor().Use(true);
-        m_layer.Draw();
+    rtt->GetColor().Use(true);
+    m_layer.Draw();
 
-        m_processShader.Use(false);
-    }
-
-    else
-    {
-        glColor4f(1, 1, 1, m_intensity);
-
-        rtt->GetColor().Use(true);
-        m_layer.Draw();
-
-        glColor4f(1, 1, 1, 1);
-    }
-
-    m_workRtt->Use(false);
+    m_processShader.Use(false);
 
     // Step 2 ------------------------------------------------------------------
 
-    m_blur.Process(m_workRtt);
+    m_blurShader.Use(true);
 
-    // Step 4 ------------------------------------------------------------------
+    m_workRtt->GetColor().Use(true);
+
+    for(unsigned i = 0; i < m_blurPass; i++)
+        m_layer.Draw();
+
+    m_blurShader.Use(false);
+
+    m_workRtt->Use(false);
+
+    // Step 3 ------------------------------------------------------------------
 
     glPushAttrib(GL_ENABLE_BIT);
 
@@ -147,32 +170,12 @@ float BloomEffect::GetThreshold() const
     return m_threshold;
 }
 
-void BloomEffect::SetBlurPass(unsigned pass)
+void BloomEffect::SetBlurPass(unsigned blurPass)
 {
-    m_blur.SetPasse(pass);
+    this->m_blurPass = blurPass;
 }
 
 unsigned BloomEffect::GetBlurPass() const
 {
-    return m_blur.GetPasse();
-}
-
-void BloomEffect::SetBlurOffset(float offset)
-{
-    m_blur.SetOffset(offset);
-}
-
-float BloomEffect::GetBlurOffset() const
-{
-    return m_blur.GetOffset();
-}
-
-void BloomEffect::SetUseThreshold(bool useThreshold)
-{
-    this->m_useThreshold = useThreshold;
-}
-
-bool BloomEffect::IsUseThreshold() const
-{
-    return m_useThreshold;
+    return m_blurPass;
 }
