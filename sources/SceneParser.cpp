@@ -144,7 +144,7 @@ void SceneParser::LoadScene(const std::string& filepath)
 void SceneParser::ParseMap(AttribMap& att)
 {
     m_mapName = att["name"];
-    m_sceneManager->SetAmbientLight(vec34(Vector3f(att["ambient"])));
+    m_sceneManager->SetAmbientLight(vec34(tools::StrToVec3<float>(att["ambient"])));
 
     m_meshScene = new MeshParallelScene;
     m_sceneManager->AddParallelScene(m_meshScene);
@@ -155,7 +155,7 @@ void SceneParser::ParseMap(AttribMap& att)
 
 void SceneParser::ParseFog(AttribMap& att)
 {
-    Vector4f color = att["color"];
+    Vector4f color = tools::StrToVec4<float>(att["color"]);
     float start = tools::StrToNum<float>(att["start"]);
     float end = tools::StrToNum<float>(att["end"]);
 
@@ -202,11 +202,11 @@ void SceneParser::ParseLight(AttribMap& att)
     else
         throw tbe::Exception("BLDLoader::LoadScene; Unknown light type (%s)", att["type"].c_str());
 
-    light->SetPos(att["pos"]);
+    light->SetPos(tools::StrToVec3<float>(att["pos"]));
 
-    light->SetAmbient(att["ambient"]);
-    light->SetDiffuse(att["diffuse"]);
-    light->SetSpecular(att["specular"]);
+    light->SetAmbient(tools::StrToVec4<float>(att["ambient"]));
+    light->SetDiffuse(tools::StrToVec4<float>(att["diffuse"]));
+    light->SetSpecular(tools::StrToVec4<float>(att["specular"]));
 
     m_sceneManager->AddDynamicLight(tools::numToStr(light), light);
 }
@@ -308,12 +308,12 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         emiter->SetTexture(rel.attr["open"]);
 
         emiter->SetMatrix(rel.attr["matrix"]);
-        emiter->SetEndPos(rel.attr["endPos"]);
+        emiter->SetEndPos(tools::StrToVec3<float>(rel.attr["endPos"]));
 
         emiter->SetLifeInit(tools::StrToNum<float>(rel.attr["lifeInit"]));
         emiter->SetLifeDown(tools::StrToNum<float>(rel.attr["lifeDown"]));
 
-        emiter->SetGravity(rel.attr["gravity"]);
+        emiter->SetGravity(tools::StrToVec3<float>(rel.attr["gravity"]));
 
         emiter->SetNumber(tools::StrToNum<int>(rel.attr["number"]));
 
