@@ -149,10 +149,7 @@ def write(file):
                 filename = mtex.tex.image.getFilename()
                 basename = os.path.basename(filename)
 
-                if mtex.tex.normalMap:
-                    file.write("normalMap %s\n" % basename)
-                else:
-                    file.write("diffuseMap %s\n" % basename)
+                file.write("tex %d %s\n" % (i, basename))
 
                 if filename[:2] != '//' and os.path.isabs(filename):
                     src = filename

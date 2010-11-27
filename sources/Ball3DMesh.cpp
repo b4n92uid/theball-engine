@@ -86,18 +86,13 @@ void Ball3DMesh::ReadMaterial(std::ifstream& file, Material* mat)
         else if(opcode == "shininess")
             mat->SetShininess(tools::StrToNum<float>(value));
 
-        else if(opcode == "diffuseMap")
+        else if(opcode == "tex")
         {
-            string filepath = tools::MakeAbsolutFilePath(m_filepath, value);
-            mat->SetTexture(Texture(filepath, true));
-            mat->Enable(Material::TEXTURE);
-        }
+            unsigned index = tools::StrToNum<float>(value);
+            string filepath = tools::MakeAbsolutFilePath(m_filepath, value.substr(value.find(' ') + 1));
 
-        else if(opcode == "normalMap")
-        {
-            string filepath = tools::MakeAbsolutFilePath(m_filepath, value);
-            mat->SetTexture(Texture(filepath, true), 1);
-            mat->Enable(Material::TEXTURE | Material::TANGENT);
+            mat->SetTexture(Texture(filepath, true), index);
+            mat->Enable(Material::TEXTURE);
         }
     }
 }
