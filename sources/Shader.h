@@ -16,6 +16,9 @@ class Shader
 public:
 
     Shader();
+    Shader(const Shader& copy);
+
+    Shader& operator=(const Shader& copy);
 
     /// Chargement d'un FragmentShader depuis content
     void ParseFragmentShader(std::string content);
@@ -66,6 +69,8 @@ protected:
     GLuint m_program;
     GLuint m_frag_shader;
     GLuint m_vert_shader;
+    std::string m_vShaderDump;
+    std::string m_fShaderDump;
 };
 
 }
