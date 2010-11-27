@@ -19,9 +19,14 @@ class MTLFile
 public:
     MTLFile(OBJMesh* parent);
     MTLFile(OBJMesh* parent, const std::string& path);
+    MTLFile(const MTLFile& copy);
     ~MTLFile();
 
+    MTLFile & operator=(const MTLFile& copy);
+
     void Open(const std::string& path);
+
+    std::string GetFilePath() const;
 
 protected:
     std::string m_filePath;

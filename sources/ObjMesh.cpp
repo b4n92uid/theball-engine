@@ -242,6 +242,16 @@ MTLFile::~MTLFile()
 {
 }
 
+MTLFile::MTLFile(const MTLFile& copy)
+{
+    *this = copy;
+}
+
+MTLFile& MTLFile::operator=(const MTLFile& copy)
+{
+    m_filePath = copy.m_filePath;
+}
+
 void MTLFile::Open(const std::string& path)
 {
     ifstream file(path.c_str());
@@ -343,4 +353,9 @@ void MTLFile::Open(const std::string& path)
     }
 
     file.close();
+}
+
+std::string MTLFile::GetFilePath() const
+{
+    return m_filePath;
 }
