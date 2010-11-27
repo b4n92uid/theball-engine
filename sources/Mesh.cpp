@@ -43,6 +43,11 @@ Mesh& Mesh::operator=(const Mesh& copy)
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
     for(Material::Map::const_iterator it = copy.m_materials.begin(); it != copy.m_materials.end(); it++)
+        delete it->second;
+
+    m_materials.clear();
+
+    for(Material::Map::const_iterator it = copy.m_materials.begin(); it != copy.m_materials.end(); it++)
         m_materials[it->first] = new Material(*it->second);
 
     m_renderProess = copy.m_renderProess;
