@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <bits/basic_string.h>
 
 #include "Shader.h"
 #include "Exception.h"
@@ -29,13 +30,32 @@ Shader::Shader()
     m_program = 0;
 }
 
-GLuint ParseShader(const char* content, GLenum type)
+Shader::Shader(const Shader& copy)
+{
+    m_vert_shader = 0;
+    m_frag_shader = 0;
+    m_program = 0;
+
+    *this = copy;
+}
+
+Shader& Shader::operator=(const Shader& copy)
+{
+    ParseFragmentShader(copy.m_fShaderDump);
+    ParseVertexShader(copy.m_vShaderDump);
+    LoadProgram();
+
+    return *this;
+}
+
+GLuint ParseShader(const string& content, GLenum type)
 {
     // Création du shader
     GLuint shader = glCreateShader(type);
 
     // Compilation du shader
-    glShaderSource(shader, 1, &content, 0);
+    const char* source = content.c_str();
+    glShaderSource(shader, 1, &source, 0);
     glCompileShader(shader);
 
     // Verification d'erreur a la compildation
@@ -64,42 +84,52 @@ GLuint ParseShader(const char* content, GLenum type)
     return shader;
 }
 
-GLuint LoadShader(const char* path, GLenum type)
-{
-    // Lecteure du code source
-    ifstream file(path);
-
-    if(!file)
-        throw tbe::Exception("Shader::LoadShader; Open shader file error; (%s)", path);
-
-    stringstream sourceCode;
-    sourceCode << file.rdbuf();
-
-    file.close();
-
-    return ParseShader(sourceCode.str().c_str(), type);
-}
-
 void Shader::ParseVertexShader(std::string content)
 {
+    m_vShaderDump = content;
     m_vert_shader = ParseShader(content.c_str(), GL_VERTEX_SHADER);
 }
 
 void Shader::ParseFragmentShader(std::string content)
 {
+    m_fShaderDump = content;
     m_frag_shader = ParseShader(content.c_str(), GL_FRAGMENT_SHADER);
 }
 
 void Shader::LoadVertexShader(std::string filepath)
 {
     cout << "Load vertex shader file : " << filepath << endl;
-    m_vert_shader = LoadShader(filepath.c_str(), GL_VERTEX_SHADER);
+
+    ifstream file(filepath.c_str());
+
+    if(!file)
+        throw tbe::Exception("Shader::LoadVertexShader; Open shader file error; (%s)", filepath.c_str());
+
+    stringstream sourceCode;
+    sourceCode << file.rdbuf();
+
+    file.close();
+
+    m_vShaderDump = sourceCode.str();
+    m_vert_shader = ParseShader(m_vShaderDump.c_str(), GL_VERTEX_SHADER);
 }
 
 void Shader::LoadFragmentShader(std::string filepath)
 {
     cout << "Load fragment shader file : " << filepath << endl;
-    m_frag_shader = LoadShader(filepath.c_str(), GL_FRAGMENT_SHADER);
+
+    ifstream file(filepath.c_str());
+
+    if(!file)
+        throw tbe::Exception("Shader::LoadFragmentShader; Open shader file error; (%s)", filepath.c_str());
+
+    stringstream sourceCode;
+    sourceCode << file.rdbuf();
+
+    file.close();
+
+    m_fShaderDump = sourceCode.str();
+    m_frag_shader = ParseShader(filepath.c_str(), GL_FRAGMENT_SHADER);
 }
 
 void Shader::Use(bool use)
