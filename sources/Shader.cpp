@@ -1,6 +1,9 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <string>
+#include <vector>
+#include <map>
 #include <bits/basic_string.h>
 
 #include "Shader.h"
@@ -9,19 +12,17 @@
 using namespace std;
 using namespace tbe;
 
-class SharedShaderManager : public map<Shader*, string>
+class SharedShaderManager : public vector<GLuint>
 {
 public:
 
-    Shader* IsExist(string path)
+    ~SharedShaderManager()
     {
-        for(iterator itt = begin(); itt != end(); itt++)
-            if(itt->second == path)
-                return itt->first;
-
-        return NULL;
+        for(iterator it = begin(); it != end(); it++)
+            glDeleteProgram(*it);
     }
-};
+
+} manager;
 
 Shader::Shader()
 {
@@ -39,11 +40,15 @@ Shader::Shader(const Shader& copy)
     *this = copy;
 }
 
+Shader::~Shader()
+{
+}
+
 Shader& Shader::operator=(const Shader& copy)
 {
-    ParseFragmentShader(copy.m_fShaderDump);
-    ParseVertexShader(copy.m_vShaderDump);
-    LoadProgram();
+    m_vert_shader = copy.m_vert_shader;
+    m_frag_shader = copy.m_frag_shader;
+    m_program = copy.m_program;
 
     return *this;
 }
@@ -86,13 +91,11 @@ GLuint ParseShader(const string& content, GLenum type)
 
 void Shader::ParseVertexShader(std::string content)
 {
-    m_vShaderDump = content;
     m_vert_shader = ParseShader(content.c_str(), GL_VERTEX_SHADER);
 }
 
 void Shader::ParseFragmentShader(std::string content)
 {
-    m_fShaderDump = content;
     m_frag_shader = ParseShader(content.c_str(), GL_FRAGMENT_SHADER);
 }
 
@@ -110,8 +113,7 @@ void Shader::LoadVertexShader(std::string filepath)
 
     file.close();
 
-    m_vShaderDump = sourceCode.str();
-    m_vert_shader = ParseShader(m_vShaderDump.c_str(), GL_VERTEX_SHADER);
+    m_vert_shader = ParseShader(sourceCode.str().c_str(), GL_VERTEX_SHADER);
 }
 
 void Shader::LoadFragmentShader(std::string filepath)
@@ -128,8 +130,7 @@ void Shader::LoadFragmentShader(std::string filepath)
 
     file.close();
 
-    m_fShaderDump = sourceCode.str();
-    m_frag_shader = ParseShader(filepath.c_str(), GL_FRAGMENT_SHADER);
+    m_frag_shader = ParseShader(sourceCode.str().c_str(), GL_FRAGMENT_SHADER);
 }
 
 void Shader::Use(bool use)
@@ -187,6 +188,8 @@ void Shader::LoadProgram()
 
         throw ex;
     }
+
+    manager.push_back(m_program);
 }
 
 void Shader::SetUniform(const char* name, float value)
