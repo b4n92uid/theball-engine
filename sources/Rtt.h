@@ -72,6 +72,10 @@ private:
     } m_textureMethod;
 
     bool m_supportFbo;
+
+    Rtt* m_prevActive;
+    static Rtt* m_curActive;
+    Matrix4f m_prevMat;
 };
 
 }
