@@ -16,12 +16,6 @@ using namespace tbe;
 
 Device::Device()
 {
-    #ifdef TBE_COMPILE_DEBUG
-    cout << "Device::Device; Version (" << GetVersion() << ") Debug run" << endl;
-    #else
-    cout << "Device::Device; Version (" << GetVersion() << ") Release run" << endl;
-    #endif
-
     m_eventManager = NULL;
     m_fpsManager = NULL;
 
@@ -45,6 +39,17 @@ void Device::Setup(Vector2i winSize)
 {
     this->m_winSize = winSize;
 
+    #ifdef TBE_COMPILE_DEBUG
+    cout << "theBall engine (" << GetVersion() << ") Debug run" << endl;
+    #else
+    cout << "theBall engine (" << GetVersion() << ") Release run" << endl;
+    #endif
+
+    cout << "Vendor: " << glGetString(GL_VENDOR) << endl;
+    cout << "Render: " << glGetString(GL_RENDERER) << endl;
+    cout << "OpenGL: " << glGetString(GL_VERSION) << endl;
+    cout << "Shader: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
+
     if(!FrameBufferObject::CheckHardware())
         cout << "Device::Setup; Frame buffer object not supported" << endl;
 
@@ -57,21 +62,30 @@ void Device::Setup(Vector2i winSize)
     if(!scene::ParticlesEmiter::CheckHardware())
         cout << "Device::Setup; Point sprite particles not supported" << endl;
 
+    if(m_eventManager) 
+        new(m_eventManager)EventManager;
+    else 
+        m_eventManager = new EventManager;
 
-    if(m_eventManager) new(m_eventManager)EventManager;
-    else m_eventManager = new EventManager;
+    if(m_fpsManager) 
+        new(m_fpsManager)ticks::FpsManager;
+    else 
+        m_fpsManager = new ticks::FpsManager;
 
-    if(m_fpsManager) new(m_fpsManager)ticks::FpsManager;
-    else m_fpsManager = new ticks::FpsManager;
+    if(m_sceneManager) 
+        new(m_sceneManager)scene::SceneManager;
+    else 
+        m_sceneManager = new scene::SceneManager;
 
-    if(m_sceneManager) new(m_sceneManager)scene::SceneManager;
-    else m_sceneManager = new scene::SceneManager;
+    if(m_guiManager) 
+        new(m_guiManager)gui::GuiManager;
+    else 
+        m_guiManager = new gui::GuiManager;
 
-    if(m_guiManager) new(m_guiManager)gui::GuiManager;
-    else m_guiManager = new gui::GuiManager;
-
-    if(m_postProcessManager) new(m_postProcessManager)ppe::PostProcessManager;
-    else m_postProcessManager = new ppe::PostProcessManager;
+    if(m_postProcessManager) 
+        new(m_postProcessManager)ppe::PostProcessManager;
+    else 
+        m_postProcessManager = new ppe::PostProcessManager;
 
     m_guiManager->Setup(winSize);
     m_sceneManager->Setup(winSize, 0, 70, 0.1, 512);
