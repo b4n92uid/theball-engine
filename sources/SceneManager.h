@@ -114,6 +114,8 @@ public:
     void SetAmbientLight(Vector4f color);
     Vector4f GetAmbientLight() const;
 
+    unsigned GetLightCount() const;
+
     // External Manipulator ----------------------------------------------------
 
     Frustum* GetFrustum() const;
