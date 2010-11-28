@@ -229,6 +229,11 @@ Vector4f SceneManager::GetAmbientLight() const
     return m_ambientLight;
 }
 
+unsigned SceneManager::GetLightCount() const
+{
+    return m_lights.size();
+}
+
 void SceneManager::AddCamera(std::string name, Camera* camera)
 {
     if(name.empty())
