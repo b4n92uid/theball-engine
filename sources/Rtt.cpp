@@ -10,8 +10,12 @@
 using namespace tbe;
 using namespace std;
 
+Rtt* Rtt::m_curActive = NULL;
+
 Rtt::Rtt()
 {
+    m_prevActive = NULL;
+
     m_captureColor = false;
     m_captureDepth = false;
 
@@ -35,6 +39,8 @@ Rtt::Rtt()
 
 Rtt::Rtt(Vector2i frameSize)
 {
+    m_prevActive = NULL;
+
     m_captureColor = false;
     m_captureDepth = false;
 
@@ -86,6 +92,17 @@ void Rtt::Use(bool state)
     {
         if(state)
         {
+            if(m_curActive)
+            {
+                m_prevActive = m_curActive;
+                m_curActive->Use(false);
+
+                glGetFloatv(GL_MODELVIEW_MATRIX, m_prevMat);
+                glPopMatrix();
+            }
+
+            m_curActive = this;
+
             m_fboMethod.useRenderBuffer
                     ? m_fboMethod.render->Use(true)
                     : m_fboMethod.display->Use(true);
@@ -96,8 +113,18 @@ void Rtt::Use(bool state)
             m_fboMethod.useRenderBuffer
                     ? m_fboMethod.render->Use(false)
                     : m_fboMethod.display->Use(false);
-        }
 
+            m_curActive = NULL;
+
+            if(m_prevActive)
+            {
+                glLoadMatrixf(m_prevMat);
+                glPushMatrix();
+
+                m_prevActive->Use(true);
+                m_prevActive = NULL;
+            }
+        }
     }
 
     else
