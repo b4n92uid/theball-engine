@@ -7,7 +7,7 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
-class SharedlObjMeshManager : public map<OBJMesh*, string>
+static class SharedlObjMeshManager : public map<OBJMesh*, string>
 {
 public:
 
@@ -19,9 +19,7 @@ public:
 
         return NULL;
     }
-};
-
-SharedlObjMeshManager manager;
+} manager;
 
 OBJMesh::OBJMesh() : m_mtlfile(this)
 {
@@ -250,6 +248,8 @@ MTLFile::MTLFile(const MTLFile& copy)
 MTLFile& MTLFile::operator=(const MTLFile& copy)
 {
     m_filePath = copy.m_filePath;
+
+    return *this;
 }
 
 void MTLFile::Open(const std::string& path)
