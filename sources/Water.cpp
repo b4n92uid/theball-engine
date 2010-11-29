@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Water.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 21 mai 2010, 22:02
  */
 
@@ -15,121 +15,101 @@
 #include <time.h>
 
 const char* vertexShader =
-        "varying vec3 light;"
-        "varying vec3 eye;"
+        "varying vec3 eye;\n"
+        "varying vec3 light;\n"
 
-        "varying vec4 projectionCoordinates;"
+        "varying vec4 projectionCoordinates;\n"
 
-        "uniform vec2 uvRepeat;"
+        "uniform vec2 uvRepeat;\n"
 
-        "void main()"
-        "{"
-        "vec3 t = normalize(gl_NormalMatrix * vec3(1, 0, 0));"
-        "vec3 n = normalize(gl_NormalMatrix * vec3(0, 1, 0));"
-        "vec3 b = cross(n, t);"
+        "void main()\n"
+        "{\n"
+        "    // Coordonés de projection\n"
+        "    projectionCoordinates = gl_ModelViewProjectionMatrix * gl_Vertex;\n"
 
-        "vec3 vVertex = vec3(gl_ModelViewMatrix * gl_Vertex);"
+        "    gl_TexCoord[0].xy   = gl_MultiTexCoord0.xy * uvRepeat;\n"
+        "    gl_Position         = ftransform();\n"
+        "    vec3 vVertex = vec3(gl_ModelViewMatrix * gl_Vertex);\n"
 
-        "vec3 tmpVec;"
+        "    // Vecteur vertex -> lumiere (Lumiere dirictionelle)\n"
+        "    light = gl_LightSource[0].position.xyz;\n"
 
-        "if(gl_LightSource[0].position.w == 1.0)"
-        "tmpVec = gl_LightSource[0].position.xyz - vVertex;"
+        "    // Vecteur vertex -> caméra\n"
+        "    eye = -vVertex;\n"
 
-        "else "
-        "tmpVec = gl_LightSource[0].position.xyz;"
+        "    // Il faut se mettre dans la TBN\n"
+        "    vec3 T = normalize(gl_NormalMatrix * vec3(0, 0, 1));\n"
+        "    vec3 B = normalize(gl_NormalMatrix * vec3(1, 0, 0));\n"
+        "    vec3 N = normalize(gl_NormalMatrix * vec3(0, 1, 0));\n"
 
-        "light.x = dot(tmpVec, t);"
-        "light.y = dot(tmpVec, b);"
-        "light.z = dot(tmpVec, n);"
+        "    vec3 tbnEye;\n"
+        "    tbnEye.x = dot(eye, T);\n"
+        "    tbnEye.y = dot(eye, B);\n"
+        "    tbnEye.z = dot(eye, N);\n"
+        "    eye = tbnEye;\n"
 
-        "tmpVec = -vVertex;"
-        "eye.x = dot(tmpVec, t);"
-        "eye.y = dot(tmpVec, b);"
-        "eye.z = dot(tmpVec, n);"
-
-        "projectionCoordinates = gl_ModelViewProjectionMatrix * gl_Vertex;"
-
-        "gl_TexCoord[0].xy   = gl_MultiTexCoord0.xy * uvRepeat;"
-        "gl_Position         = ftransform();"
+        "    vec3 tbnLight;\n"
+        "    tbnLight.x = dot(light, T);\n"
+        "    tbnLight.y = dot(light, B);\n"
+        "    tbnLight.z = dot(light, N);\n"
+        "    light = tbnLight;\n"
         "}";
 
 const char* fragmentShader =
-        "varying vec3 light;"
-        "varying vec3 eye;"
+        "varying vec3 eye;\n"
+        "varying vec3 light;\n"
 
-        "varying vec4 projectionCoordinates;"
+        "varying vec4 projectionCoordinates;\n"
 
-        "uniform sampler2D colorMap;"
-        "uniform sampler2D normalMap;"
-        "uniform sampler2D reflexionMap;"
-        "uniform sampler2D refractionMap;"
+        "uniform sampler2D colorMap;\n"
+        "uniform sampler2D normalMap;\n"
+        "uniform sampler2D reflexionMap;\n"
+        "uniform sampler2D refractionMap;\n"
 
-        "uniform float timer;"
-        "uniform float blend;"
-        "uniform float deform;"
-        "uniform float speed;"
+        "uniform float timer;\n"
+        "uniform float blend;\n"
+        "uniform float deform;\n"
+        "uniform float speed;\n"
+        "uniform float endborder;\n"
 
-        "void main()"
-        "{"
-        #if 0
-        "vec4 ambient = gl_LightSource[0].ambient * gl_FrontMaterial.ambient + gl_LightModel.ambient * gl_FrontMaterial.ambient;"
-        "vec4 emission = gl_FrontMaterial.emission;"
-        "vec4 diffuse;"
-        "vec4 specular;"
+        "void main()\n"
+        "{\n"
+        "    // -- On passe les normals dans un optique de [-1;1] plutot que [0;1]\n"
+        "    vec3 n1 = texture2D(normalMap, gl_TexCoord[0].st + vec2(timer, -timer) * speed).xyz * 2.0 - 1.0;\n"
+        "    vec3 n2 = texture2D(normalMap, gl_TexCoord[0].st + vec2(-timer, timer) * speed).xyz * 2.0 - 1.0;\n"
+        "    vec3 N = normalize(n1 + n2);\n"
 
-        "float att = 1.0;"
+        "    // -- Coorodoné de texture de projection\n"
+        "    vec2 projCoord = projectionCoordinates.xy / projectionCoordinates.w;\n"
+        "    projCoord = (projCoord + 1.0) * 0.5;\n"
+        "    projCoord = clamp(projCoord, 0.0, 1.0);\n"
+        "    projCoord += N * deform;"
 
-        "if(gl_LightSource[0].position.w == 1.0)"
-        "{"
-        "float distance = length(light);"
+        "    // -- Intensité spéculaire\n"
+        "    vec3 L = normalize(light);\n"
+        "    vec3 E = normalize(eye);\n"
 
-        "att = 1.0 / (gl_LightSource[0].constantAttenuation"
-        "+ gl_LightSource[0].linearAttenuation"
-        "* distance"
-        "+ gl_LightSource[0].quadraticAttenuation"
-        "* distance"
-        "* distance);"
-        "}"
+        "    // Le reflet du vecteur incident 'lumiere' sur la normal de la surface\n"
+        "    vec3 ref = normalize(reflect(-L, N));\n"
 
-        "vec3 lightDiri = normalize(light);"
-        #endif
+        "    // L'angle entre la caméra et le reflet de la lumiere\n"
+        "    float stemp = clamp(dot(E, ref), 0.0, 1.0);\n"
 
-        //On passe les normals dans un optique de [-1;1] plutot que [0;1]
-        "vec3 n1 = texture2D(normalMap, gl_TexCoord[0].st - vec2(timer)*speed).xyz * 2.0 - 1.0;"
-        "vec3 n2 = texture2D(normalMap, gl_TexCoord[0].st + vec2(timer)*speed).xyz * 2.0 - 1.0;"
-        "vec3 bumpNormal = normalize(n1 + n2);"
+        "    // Intensité de la spéculaire\n"
+        "    float ispecular = pow(stemp, 16.0);\n"
 
-        #if 0
-        "float NdotL = max(0.0, dot(bumpNormal, lightDiri));"
+        "    // -- Calcule de Reflection & Refraction\n"
+        "    vec4 reflexion = texture2D(reflexionMap, projCoord);\n"
+        "    vec4 refraction = texture2D(refractionMap, projCoord);\n"
 
-        "if(NdotL > 0.0)"
-        "{"
-        "float NdotHV = dot(bumpNormal, normalize(lightDiri + eye));"
+        "    gl_FragColor = mix(reflexion, refraction, blend);\n"
+        "    gl_FragColor += gl_LightSource[0].specular * ispecular;\n"
 
-        "diffuse  = gl_FrontMaterial.diffuse * gl_LightSource[0].diffuse * NdotL * att;"
-        "specular = gl_FrontMaterial.specular * gl_LightSource[0].specular * pow(NdotHV, gl_FrontMaterial.shininess) * att;"
-        "}"
-        #endif
-
-        // Coorodoné de texture de projection
-        "vec2 projCoord = projectionCoordinates.xy / projectionCoordinates.w;"
-        "projCoord = (projCoord + 1.0) * 0.5;"
-        //"projCoord = clamp(projCoord, 0.001, 0.999);"
-        "projCoord = clamp(projCoord, 0.0, 1.0);"
-        "projCoord += bumpNormal * deform;"
-
-        // Calcule de Reflection & Refraction
-        "vec4 reflexion = texture2D(reflexionMap, projCoord);"
-        "vec4 refraction = texture2D(refractionMap, projCoord);"
-
-        #if 0
-        "gl_FragColor = ambient + emission + diffuse;"
-        "gl_FragColor *= mix(reflexion, refraction, blend);"
-        "gl_FragColor += specular;"
-        #endif
-        "gl_FragColor = mix(reflexion, refraction, blend);"
+        "    // Attinuation par transparence sur les bords\n"
+        "    gl_FragColor.a = 1.0 - (gl_FragCoord.z / gl_FragCoord.w) / endborder;\n"
         "}";
 
+using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
@@ -165,6 +145,8 @@ Water::Water()
     m_buffer.AddVertex(vertex, 6);
 
     m_buffer.Compile();
+
+    m_uvDecal = 0;
 }
 
 Water::~Water()
@@ -238,15 +220,10 @@ void Water::BeginReflection()
     float height = m_matrix.GetPos().y;
 
     if(cam->GetPos().y > height)
-    {
         glClipPlane(GL_CLIP_PLANE0, Vector4<double>(0, -1, 0, 0));
-    }
 
     else
-    {
-        glEnable(GL_CLIP_PLANE0);
         glClipPlane(GL_CLIP_PLANE0, Vector4<double>(0, 1, 0, 0));
-    }
 
 
     cam->Push();
@@ -322,7 +299,7 @@ float Water::GetSpeed() const
 
 void Water::SetDeform(float deform)
 {
-    this->m_deform = deform;
+    this->m_deform = max(min(deform, 1.0f), 0.0f);
 
     m_shader.Use(true);
     m_shader.SetUniform("deform", m_deform);
@@ -336,7 +313,7 @@ float Water::GetDeform() const
 
 void Water::SetBlend(float blend)
 {
-    this->m_blend = blend;
+    this->m_blend = max(min(blend, 1.0f), 0.0f);
 
     m_shader.Use(true);
     m_shader.SetUniform("blend", m_blend);
@@ -378,7 +355,7 @@ void Water::Render()
     m_buffer.BindTexture();
 
     m_shader.Use(true);
-    m_shader.SetUniform("timer", (float)clock());
+    m_shader.SetUniform("timer", (float)(clock() * 0.001f));
 
     glClientActiveTexture(GL_TEXTURE0);
     glActiveTexture(GL_TEXTURE0);
@@ -448,6 +425,10 @@ void Water::SetSize(Vector2f size)
     }
 
     m_buffer.UnLock();
+
+    m_shader.Use(true);
+    m_shader.SetUniform("endborder", max(m_size.x, m_size.y));
+    m_shader.Use(false);
 }
 
 Vector2f Water::GetSize() const
