@@ -88,6 +88,7 @@ protected:
     float m_blend;
     float m_deform;
     float m_speed;
+    float m_uvDecal;
 };
 
 }
