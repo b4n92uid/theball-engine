@@ -23,6 +23,7 @@ class Camera
 {
 public:
 
+    typedef std::vector<Camera*> Array;
     typedef std::map<std::string, Camera*> Map;
 
     enum CameraType

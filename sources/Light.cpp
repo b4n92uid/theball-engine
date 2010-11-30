@@ -24,13 +24,15 @@ Light::Light(Type type)
 
     glEnable(m_lightId);
 
+    m_enable = true;
+
     m_type = type;
-    
+
     m_ambient = 0;
     m_diffuse = 1;
     m_specular = 0;
     m_position = 1;
-    
+
     m_spotExponent = 0;
     m_spotCutoff = 0;
     m_spotCosCutoff = 0;
@@ -136,6 +138,18 @@ void Light::SetType(Type type)
 Light::Type Light::GetType() const
 {
     return m_type;
+}
+
+void Light::SetEnable(bool enable)
+{
+    this->m_enable = enable;
+
+    enable ? glEnable(m_lightId) : glDisable(m_lightId);
+}
+
+bool Light::IsEnable() const
+{
+    return m_enable;
 }
 
 DiriLight::DiriLight() : Light(DIRI)

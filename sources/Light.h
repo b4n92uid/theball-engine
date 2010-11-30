@@ -48,6 +48,9 @@ public:
 
     void SetType(Type type);
     Type GetType() const;
+    
+    void SetEnable(bool enable);
+    bool IsEnable() const;
 
     typedef std::map<std::string, scene::Light*> Map;
     typedef std::vector<scene::Light*> Array;
@@ -69,6 +72,8 @@ protected:
     float m_quadraticAttenuation; // K2
 
     float m_radius;
+
+    bool m_enable;
 
     GLint m_lightId;
 
