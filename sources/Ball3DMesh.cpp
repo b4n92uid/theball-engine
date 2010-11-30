@@ -149,8 +149,7 @@ void Ball3DMesh::Open(std::string filepath)
     m_hardwareBuffer.Compile();
 
     ComputeAabb();
-    ComputeTangent();
-
+    
     file.close();
 }
 

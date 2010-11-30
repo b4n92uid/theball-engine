@@ -21,6 +21,8 @@ gvertexs = {}
 gvertexCount = 0
 gmaterialCount = 0
 
+gscaleValue = 1
+
 blendfilename = Blender.Get('filename')
 
 class Vertex:
@@ -58,12 +60,14 @@ def prepare(file):
         omesh = ob.getData(mesh=True).copy()
 
         tmp_ob = scene.objects.new(omesh)
+        
+        mesh = BPyMesh.getMeshFromObject(ob, omesh, True, True, scene)
 
-        mesh = tmp_ob.getData(mesh=True)
+        scaleMatrix = Blender.Mathutils.ScaleMatrix(gscaleValue, 4)
 
         mesh.sel = True
         mesh.quadToTriangle(0)
-        mesh.transform(ob.matrix)
+        mesh.transform(ob.matrix * scaleMatrix)
         
         BPyMesh.meshCalcNormals(mesh)
         
@@ -139,7 +143,10 @@ def write(file):
         file.write("diffuse %f %f %f 1.0\n" % (mat.R, mat.G, mat.B))
 
         # specular
-        file.write("specular %f %f %f 1.0\n" % (mat.specCol[0], mat.specCol[1], mat.specCol[2]))
+        file.write("specular %f %f %f 1.0\n" % (mat.specCol[0] * mat.spec, \
+                   mat.specCol[1] * mat.spec, \
+                   mat.specCol[2] * mat.spec))
+        
         file.write("shininess %f\n" % (mat.getHardness() * 127 / 511))
 
         for i, mtex in enumerate(textures):
@@ -191,6 +198,52 @@ def export(filename):
 
     file.close()
 
-output = os.path.basename(blendfilename).split('.')[0] + ".ball3d"
+# GUI --------------------------------------------------------------------------
 
-Blender.Window.FileSelector(export, "Export theBall 3D Mesh", output)
+gScaleValueField = Blender.Draw.Create(1)
+
+def guiDraw():
+    x = 8
+    y = 8
+    width = 80
+    height = 25
+
+    global gScaleValueField
+    
+    Blender.Draw.PushButton("Export", 1, x, y + height + 5, width, height)
+    Blender.Draw.PushButton("Cancel", 2, x, y + (height + 5) * 2, width, height)
+
+    gScaleValueField = Blender.Draw.Number("Scale", 3, x, y, width, height, gScaleValueField.val, 1, 128)
+
+def guiButtonEvent(event):
+
+    if event == 1:
+
+        global gScaleValueField
+        global gscaleValue
+        global export
+
+        output = os.path.basename(blendfilename).split('.')[0] + ".ball3d"
+        gscaleValue = gScaleValueField.val
+
+        Blender.Draw.Exit()
+        
+        inEm = Blender.Window.EditMode()
+
+        if inEm:
+            Blender.Window.EditMode(0)
+
+        Blender.Window.FileSelector(export, "Export theBall 3D Mesh", output)
+
+        if inEm:
+            Blender.Window.EditMode(1)
+
+        return
+
+    elif event == 2:
+        Blender.Draw.Exit()
+        return
+
+    Blender.Draw.Redraw(1)
+
+Blender.Draw.Register(guiDraw, None, guiButtonEvent)
