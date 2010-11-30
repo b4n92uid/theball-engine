@@ -33,6 +33,7 @@
 #include "Matrix.h"
 #include "Texture.h"
 #include "Tools.h"
+#include "Iterator.h"
 #include "Shader.h"
 #include "MotionPath.h"
 #include "Mathematics.h"

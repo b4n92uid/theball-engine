@@ -16,6 +16,7 @@
 #include "Frustum.h"
 #include "Fog.h"
 #include "PostProcessManager.h"
+#include "Iterator.h"
 
 namespace tbe
 {
@@ -77,44 +78,49 @@ public:
     ParallelScene* ReleaseParallelScene(unsigned index);
     void ReleaseParallelScene(ParallelScene* scene);
 
+    Iterator<ParallelScene*> GetParallelSceneIterator();
+
     /// Rendue
     void Render(bool setupView = true);
 
     // Camera ------------------------------------------------------------------
 
     /// Ajoute une camera
-    void AddCamera(std::string name, Camera* camera);
-
-    /// Accès au camera name
-    Camera* GetCamera(std::string name);
+    void AddCamera(Camera* camera);
 
     /// Specifier la camera courante
-    void SetCurCamera(std::string name);
-
-    void SetCurCamera(Camera* ptr);
+    void SetCurCamera(Camera* camera);
 
     /// Accès a la camera courante
     Camera* GetCurCamera();
 
+    void DeleteCamera(Camera* camera);
+
+    void ReleaseCamera(Camera* camera);
+
+    Iterator<Camera*> GetCameraIterator();
+
     // Light -------------------------------------------------------------------
 
     /// Ajoute une lumiere
-    void AddDynamicLight(std::string name, Light* light);
+    void AddDynamicLight(Light* light);
 
-    /// Accès a une lumiere
-    Light* GetDynamicLight(std::string name);
+    // Détache une lumiere par son ptr du getionnaire (sans faire un delete)
+    void ReleaseDynamicLight(Light* light);
 
-    // Détache une lumiere par son nom du getionnaire (sans faire un delete)
-    Light* ReleaseDynamicLight(std::string name);
-
-    /// Détrute une lumiere par son nom
-    void DeleteDynamicLight(std::string name);
+    /// Détrute une lumiere par son ptr
+    void DeleteDynamicLight(Light* light);
 
     /// Specifer la composant ambient de la scene
     void SetAmbientLight(Vector4f color);
+
+    /// Renvois la composant ambient de la scene
     Vector4f GetAmbientLight() const;
 
+    /// Renvois le nombre de lumiere contenue dans la scene
     unsigned GetLightCount() const;
+
+    Iterator<Light*> GetLightIterator();
 
     // External Manipulator ----------------------------------------------------
 
@@ -154,10 +160,10 @@ protected:
     ParallelScene::Array m_parallelScenes;
 
     Vector4f m_ambientLight;
-    Light::Map m_lights;
+    Light::Array m_lights;
 
-    Camera::Map m_cameras;
-    Camera::Map::iterator m_currentCamera;
+    Camera::Array m_cameras;
+    Camera::Array::iterator m_currentCamera;
 
     Vector2i m_viewport;
     float m_fovy, m_zNear, m_zFar, m_ratio;

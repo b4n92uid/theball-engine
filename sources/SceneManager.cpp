@@ -60,16 +60,16 @@ void SceneManager::Setup(Vector2i viewport, float ratio, float fovy, float zNear
 
 void SceneManager::ClearLights()
 {
-    for(Light::Map::iterator i = m_lights.begin(); i != m_lights.end(); i++)
-        delete i->second;
+    for(unsigned i = 0; i < m_lights.size(); i++)
+        delete m_lights[i];
 
     m_lights.clear();
 }
 
 void SceneManager::ClearCameras()
 {
-    for(Camera::Map::iterator i = m_cameras.begin(); i != m_cameras.end(); i++)
-        delete i->second;
+    for(unsigned i = 0; i < m_cameras.size(); i++)
+        delete m_cameras[i];
 
     m_cameras.clear();
 }
@@ -103,68 +103,69 @@ void SceneManager::Render(bool setupView)
     if(!m_cameras.empty())
     {
         if(setupView)
-            m_currentCamera->second->Engine();
+            (*m_currentCamera)->Engine();
 
         m_frustum->ExtractPlane();
 
-        m_skybox->Render(m_currentCamera->second->GetPos());
+        m_skybox->Render((*m_currentCamera)->GetPos());
     }
 
     // Mise a jour des lumieres
-    for(Light::Map::iterator itt = m_lights.begin(); itt != m_lights.end(); itt++)
-        itt->second->Update();
+    for(unsigned i = 0; i < m_lights.size(); i++)
+        m_lights[i]->Update();
 
     // Rendue des scenes parallele
     for(unsigned i = 0; i < m_parallelScenes.size(); i++)
         m_parallelScenes[i]->Render();
 }
 
-Light* SceneManager::GetDynamicLight(std::string name)
+void SceneManager::AddDynamicLight(Light* light)
 {
-    if(m_lights.find(name) == m_lights.end())
-        throw Exception("SceneManager::GetDynamicLight; Light not found (%s)", name.c_str());
-
-    return m_lights[name];
-}
-
-void SceneManager::DeleteDynamicLight(std::string name)
-{
-    if(m_lights.find(name) == m_lights.end())
-        throw Exception("SceneManager::DeleteDynamicLight; Light not found (%s)", name.c_str());
-
-    delete m_lights[name];
-    m_lights.erase(name);
-}
-
-Light* SceneManager::ReleaseDynamicLight(std::string name)
-{
-    if(m_lights.find(name) == m_lights.end())
-        throw Exception("SceneManager::ReleaseDynamicLight; Light not found (%s)", name.c_str());
-
-    Light* light = m_lights[name];
-    m_lights.erase(name);
-
-    return light;
-}
-
-void SceneManager::AddDynamicLight(std::string name, Light* light)
-{
-    if(name.empty())
-        name = tools::NameGen(m_lights);
-
-    else if(m_lights.find(name) != m_lights.end())
-        throw Exception("SceneManager::AddDynamicLight; Light already exist (%s)", name.c_str());
-
     if(!light)
         throw Exception("SceneManager::AddDynamicLight; Try to add a NULL prt light");
 
-    m_lights[name] = light;
+    if(tools::find(m_lights, light))
+        throw Exception("SceneManager::AddDynamicLight; Light already exist");
+
+    m_lights.push_back(light);
+}
+
+void SceneManager::DeleteDynamicLight(Light* light)
+{
+    if(tools::find(m_lights, light))
+        throw Exception("SceneManager::DeleteDynamicLight; Light not found ");
+
+    tools::erase(m_lights, light);
+    delete light;
+}
+
+void SceneManager::ReleaseDynamicLight(Light* light)
+{
+    if(tools::find(m_lights, light))
+        throw Exception("SceneManager::ReleaseDynamicLight; Light not found ");
+
+    tools::erase(m_lights, light);
 }
 
 void SceneManager::SetAmbientLight(Vector4f ambient)
 {
     m_ambientLight = ambient;
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, m_ambientLight);
+}
+
+Vector4f SceneManager::GetAmbientLight() const
+{
+    return m_ambientLight;
+}
+
+unsigned SceneManager::GetLightCount() const
+{
+    return m_lights.size();
+}
+
+Iterator<Light*> SceneManager::GetLightIterator()
+{
+    return Iterator<Light*>(m_lights);
 }
 
 void SceneManager::AddParallelScene(ParallelScene* scene)
@@ -224,60 +225,36 @@ ParallelScene* SceneManager::GetParallelScene(unsigned index)
     return m_parallelScenes[index];
 }
 
-Vector4f SceneManager::GetAmbientLight() const
+Iterator<ParallelScene*> SceneManager::GetParallelSceneIterator()
 {
-    return m_ambientLight;
+    return Iterator<ParallelScene*>(m_parallelScenes);
 }
 
-unsigned SceneManager::GetLightCount() const
+void SceneManager::AddCamera(Camera* camera)
 {
-    return m_lights.size();
+    if(tools::find(m_cameras, camera))
+        throw Exception("SceneManager::AddCamera; Camera already exist");
+
+    m_cameras.push_back(camera);
+    m_currentCamera = --m_cameras.end();
 }
 
-void SceneManager::AddCamera(std::string name, Camera* camera)
+void SceneManager::SetCurCamera(Camera* camera)
 {
-    if(name.empty())
-        name = tools::NameGen(m_cameras);
+    if(!tools::find(m_cameras, camera))
+        throw Exception("SceneManager::SetCurCamera; Camera not found");
 
-    else if(m_cameras.find(name) != m_cameras.end())
-        throw Exception("SceneManager::AddCamera; Camera already exist (%s)", name.c_str());
-
-
-    m_cameras[name] = camera;
-    m_currentCamera = m_cameras.find(name);
-}
-
-Camera* SceneManager::GetCamera(std::string name)
-{
-    if(m_cameras.find(name) == m_cameras.end())
-        throw Exception("SceneManager::GetCamera; Camera not found (%s)", name.c_str());
-
-    return m_cameras[name];
-}
-
-void SceneManager::SetCurCamera(Camera* ptr)
-{
-    for(Camera::Map::iterator itt = m_cameras.begin(); itt != m_cameras.end(); itt++)
-        if(itt->second == ptr)
-        {
-            m_currentCamera = itt;
-            return;
-        }
-
-    throw Exception("SceneManager::SetCurCamera; Camera not found (%p)", ptr);
-}
-
-void SceneManager::SetCurCamera(std::string name)
-{
-    m_currentCamera = m_cameras.find(name);
-
-    if(m_currentCamera == m_cameras.end())
-        throw Exception("SceneManager::SetCurCamera; Camera not found (%s)", name.c_str());
+    m_currentCamera = find(m_cameras.begin(), m_cameras.end(), camera);
 }
 
 Camera* SceneManager::GetCurCamera()
 {
-    return m_currentCamera->second;
+    return *m_currentCamera;
+}
+
+Iterator<Camera*> SceneManager::GetCameraIterator()
+{
+    return Iterator<Camera*>(m_cameras);
 }
 
 Frustum* SceneManager::GetFrustum() const
