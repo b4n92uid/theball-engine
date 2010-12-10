@@ -293,7 +293,7 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         if(rel.attr["open"].find(':') != string::npos)
             modelFilepath = rel.attr["open"];
         else
-            modelFilepath = tools::MakeAbsolutFilePath(m_fileName, rel.attr["open"]);
+            modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["open"]);
 
         node->Open(modelFilepath);
 
@@ -320,7 +320,7 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         if(rel.attr["open"].find(':') != string::npos)
             modelFilepath = rel.attr["open"];
         else
-            modelFilepath = tools::MakeAbsolutFilePath(m_fileName, rel.attr["open"]);
+            modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["open"]);
 
         emiter->SetTexture(modelFilepath);
 

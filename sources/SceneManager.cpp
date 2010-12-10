@@ -91,9 +91,6 @@ void SceneManager::ClearAll()
     ClearLights();
     ClearCameras();
     ClearParallelScenes();
-
-    delete m_skybox, m_skybox = new SkyBox;
-    delete m_fog, m_fog = new Fog;
 }
 
 void SceneManager::Render(bool setupView)
