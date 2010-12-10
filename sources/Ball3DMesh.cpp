@@ -89,7 +89,7 @@ void Ball3DMesh::ReadMaterial(std::ifstream& file, Material* mat)
         else if(opcode == "tex")
         {
             unsigned index = tools::StrToNum<float>(value);
-            string filepath = tools::MakeAbsolutFilePath(m_filepath, value.substr(value.find(' ') + 1));
+            string filepath = tools::makeRelatifTo(m_filepath, value.substr(value.find(' ') + 1));
 
             mat->SetTexture(Texture(filepath, true), index);
             mat->Enable(Material::TEXTURE);
@@ -114,6 +114,7 @@ void Ball3DMesh::Open(std::string filepath)
         throw Exception("Ball3DMesh::Open; Invalid file format (%s)", filepath.c_str());
 
     m_filepath = filepath;
+    m_name = tools::basename(filepath, false);
 
     Material* curMaterial;
 
