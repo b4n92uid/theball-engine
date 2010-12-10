@@ -25,21 +25,33 @@ public:
     Iterator & operator++(int)
     {
         m_cur++;
+        return *this;
     }
 
     Iterator & operator--(int)
     {
         m_cur--;
+        return *this;
     }
 
-    T operator->()
+    T & operator*()
     {
         return (*m_cur);
     }
 
+    T & operator->()
+    {
+        return (*m_cur);
+    }
+
+    operator T()
+    {
+        return *m_cur;
+    }
+
     operator bool()
     {
-        return m_cur >= m_end || (m_cur < m_begin);
+        return (m_cur < m_end && m_cur >= m_begin);
     }
 
 private:
