@@ -26,6 +26,8 @@ public:
     Fog();
     virtual ~Fog();
 
+    void Clear();
+
     void SetEnd(float end);
     float GetEnd() const;
 
