@@ -13,6 +13,7 @@
 
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
+#include "WaterParallelScene.h"
 
 namespace tbe
 {
@@ -40,6 +41,10 @@ public:
 
     void SetClassFactory(ClassFactory* classFactory);
     ClassFactory* GetClassFactory() const;
+
+    MeshParallelScene* GetMeshScene() const;
+    ParticlesParallelScene* GetParticlesScene() const;
+    WaterParallelScene* GetWaterScene() const;
 
 protected:
 
@@ -76,7 +81,8 @@ private:
 
     SceneManager* m_sceneManager;
     MeshParallelScene* m_meshScene;
-    ParticlesParallelScene* m_particleScene;
+    ParticlesParallelScene* m_particlesScene;
+    WaterParallelScene* m_waterScene;
 
     typedef std::map<std::string, Relation::Child> ClassRec;
 
