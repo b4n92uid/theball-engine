@@ -20,7 +20,9 @@ using namespace tbe;
 using namespace tbe::scene;
 
 SceneParser::SceneParser(SceneManager* sceneManager)
-: m_sceneManager(sceneManager), m_meshScene(NULL), m_classFactory(NULL)
+: m_sceneManager(sceneManager),
+m_meshScene(NULL), m_particlesScene(NULL), m_waterScene(NULL),
+m_classFactory(NULL)
 {
 }
 
@@ -144,18 +146,18 @@ void SceneParser::LoadScene(const std::string& filepath)
 void SceneParser::ParseMap(AttribMap& att)
 {
     m_mapName = att["name"];
-    m_sceneManager->SetAmbientLight(vec34(tools::StrToVec3<float>(att["ambient"])));
+    m_sceneManager->SetAmbientLight(vec34(tools::StrToVec3<float>(att["ambient"], true)));
 
     m_meshScene = new MeshParallelScene;
     m_sceneManager->AddParallelScene(m_meshScene);
 
-    m_particleScene = new ParticlesParallelScene;
-    m_sceneManager->AddParallelScene(m_particleScene);
+    m_particlesScene = new ParticlesParallelScene;
+    m_sceneManager->AddParallelScene(m_particlesScene);
 }
 
 void SceneParser::ParseFog(AttribMap& att)
 {
-    Vector4f color = tools::StrToVec4<float>(att["color"]);
+    Vector4f color = tools::StrToVec4<float>(att["color"], true);
     float start = tools::StrToNum<float>(att["start"]);
     float end = tools::StrToNum<float>(att["end"]);
 
@@ -169,12 +171,12 @@ void SceneParser::ParseFog(AttribMap& att)
 void SceneParser::ParseSkyBox(AttribMap& att)
 {
     Texture skyTex[6] = {
-        att["front"],
-        att["back"],
-        att["top"],
-        att["bottom"],
-        att["left"],
-        att["right"]
+                         att["front"],
+                         att["back"],
+                         att["top"],
+                         att["bottom"],
+                         att["left"],
+                         att["right"]
     };
 
     scene::SkyBox* sky = m_sceneManager->GetSkybox();
@@ -202,13 +204,13 @@ void SceneParser::ParseLight(AttribMap& att)
     else
         throw tbe::Exception("BLDLoader::LoadScene; Unknown light type (%s)", att["type"].c_str());
 
-    light->SetPos(tools::StrToVec3<float>(att["pos"]));
+    light->SetPos(tools::StrToVec3<float>(att["pos"], true));
 
-    light->SetAmbient(tools::StrToVec4<float>(att["ambient"]));
-    light->SetDiffuse(tools::StrToVec4<float>(att["diffuse"]));
-    light->SetSpecular(tools::StrToVec4<float>(att["specular"]));
+    light->SetAmbient(tools::StrToVec4<float>(att["ambient"], true));
+    light->SetDiffuse(tools::StrToVec4<float>(att["diffuse"], true));
+    light->SetSpecular(tools::StrToVec4<float>(att["specular"], true));
 
-    m_sceneManager->AddDynamicLight(tools::numToStr(light), light);
+    m_sceneManager->AddDynamicLight(light);
 }
 
 void SceneParser::ParseRelation(std::ifstream& file, Relation& rel)
@@ -261,7 +263,7 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
     if(m_classRec.count(type))
     {
-        Node* node = m_classFactory ? m_classFactory->Instance(type) : new Mesh;
+        Mesh* node = m_classFactory ? m_classFactory->Instance(type) : new Mesh;
 
         if(rel.attr.count("matrix"))
             node->SetMatrix(rel.attr["matrix"]);
@@ -272,7 +274,7 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         if(parent)
             node->SetParent(parent);
 
-        m_meshScene->AddChild(node);
+        m_meshScene->RegisterMesh(node);
 
         for(unsigned i = 0; i < m_classRec[type].size(); i++)
             ParseNode(m_classRec[type][i], node);
@@ -285,7 +287,15 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
     if(type == "OBJMesh")
     {
         OBJMesh* node = new OBJMesh;
-        node->Open(rel.attr["open"]);
+
+        string modelFilepath;
+
+        if(rel.attr["open"].find(':') != string::npos)
+            modelFilepath = rel.attr["open"];
+        else
+            modelFilepath = tools::MakeAbsolutFilePath(m_fileName, rel.attr["open"]);
+
+        node->Open(modelFilepath);
 
         if(rel.attr.count("matrix"))
             node->SetMatrix(rel.attr["matrix"]);
@@ -296,7 +306,7 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         if(parent)
             node->SetParent(parent);
 
-        m_meshScene->AddChild(node);
+        m_meshScene->RegisterMesh(node);
 
         current = node;
     }
@@ -305,15 +315,22 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
     {
         ParticlesEmiter* emiter = new ParticlesEmiter;
 
-        emiter->SetTexture(rel.attr["open"]);
+        string modelFilepath;
+
+        if(rel.attr["open"].find(':') != string::npos)
+            modelFilepath = rel.attr["open"];
+        else
+            modelFilepath = tools::MakeAbsolutFilePath(m_fileName, rel.attr["open"]);
+
+        emiter->SetTexture(modelFilepath);
 
         emiter->SetMatrix(rel.attr["matrix"]);
-        emiter->SetEndPos(tools::StrToVec3<float>(rel.attr["endPos"]));
+        emiter->SetEndPos(tools::StrToVec3<float>(rel.attr["endPos"], true));
 
         emiter->SetLifeInit(tools::StrToNum<float>(rel.attr["lifeInit"]));
         emiter->SetLifeDown(tools::StrToNum<float>(rel.attr["lifeDown"]));
 
-        emiter->SetGravity(tools::StrToVec3<float>(rel.attr["gravity"]));
+        emiter->SetGravity(tools::StrToVec3<float>(rel.attr["gravity"], true));
 
         emiter->SetNumber(tools::StrToNum<int>(rel.attr["number"]));
 
@@ -326,7 +343,7 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         if(parent)
             emiter->SetParent(parent);
 
-        m_particleScene->AddChild(emiter);
+        m_particlesScene->RegisterParticles(emiter);
 
         current = emiter;
     }
@@ -346,4 +363,19 @@ void SceneParser::SetClassFactory(ClassFactory* classFactory)
 ClassFactory* SceneParser::GetClassFactory() const
 {
     return m_classFactory;
+}
+
+ParticlesParallelScene* SceneParser::GetParticlesScene() const
+{
+    return m_particlesScene;
+}
+
+MeshParallelScene* SceneParser::GetMeshScene() const
+{
+    return m_meshScene;
+}
+
+WaterParallelScene* SceneParser::GetWaterScene() const
+{
+    return m_waterScene;
 }
