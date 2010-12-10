@@ -75,11 +75,12 @@ public:
     /// Accès aux gestionnaire d'effets apres traitement
     ppe::PostProcessManager* GetPostProcessManager() const;
 
-    /// Spécifier le taille de la fenetre
-    void Setup(Vector2i viewport);
+    /// Initilisation
+    void Init();
 
-    /// Retourne la taille de la fenetre
-    Vector2i GetWinSize() const;
+    /// Taille du viewport
+    void SetViewportSize(Vector2i viewportSize);
+    Vector2i GetViewportSize() const;
 
     // Static ------------------------------------------------------------------
 
@@ -93,7 +94,7 @@ protected:
     gui::GuiManager* m_guiManager;
     EventManager* m_eventManager;
 
-    Vector2i m_winSize;
+    Vector2i m_viewportSize;
 };
 
 

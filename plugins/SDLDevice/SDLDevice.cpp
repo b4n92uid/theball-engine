@@ -29,7 +29,7 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
 {
     using namespace std;
 
-    // NOTE Requis pour respécifier le multisampling
+    // NOTE Requis pour respï¿½cifier le multisampling
     if(SDL_WasInit(SDL_INIT_VIDEO))
     {
         SDL_QuitSubSystem(SDL_INIT_VIDEO);
@@ -39,7 +39,7 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
     // --
 
     m_caption = caption;
-    m_winSize = winsize;
+    m_viewportSize = winsize;
     m_winBits = bits;
     m_winFullscreen = fullscreen;
     m_winMultiSamples = multisamples;
@@ -51,11 +51,11 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
 
     const SDL_VideoInfo * videoInfo = SDL_GetVideoInfo();
 
-    if(!m_winSize.x)
-        m_winSize.x = videoInfo->current_w;
+    if(!m_viewportSize.x)
+        m_viewportSize.x = videoInfo->current_w;
 
-    if(!m_winSize.y)
-        m_winSize.y = videoInfo->current_h;
+    if(!m_viewportSize.y)
+        m_viewportSize.y = videoInfo->current_h;
 
     int returnState = 0;
 
@@ -69,7 +69,7 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
 
     SDL_WM_SetCaption(caption.c_str(), 0);
 
-    if(SDL_SetVideoMode(m_winSize.x, m_winSize.y, bits, flags) == NULL)
+    if(SDL_SetVideoMode(m_viewportSize.x, m_viewportSize.y, bits, flags) == NULL)
         throw Exception("SDLDevice::Window; Couldn't set specified video mode : %s", SDL_GetError());
 
     SDL_GL_GetAttribute(SDL_GL_MULTISAMPLESAMPLES, &returnState);
@@ -85,7 +85,9 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
     if(strlen(error))
         cout << "SDLDevice::Window; SDL error: " << error << endl;
 
-    Setup(m_winSize);
+    Init();
+
+    SetViewportSize(m_viewportSize);
 }
 
 void SDLDevice::PollEvent()
@@ -100,7 +102,7 @@ void SDLDevice::PollEvent()
     if(sdlEvent.type == SDL_MOUSEMOTION)
     {
         m_eventManager->notify = EventManager::EVENT_MOUSE_MOVE;
-        m_eventManager->mousePos = Vector2i(sdlEvent.motion.x, m_winSize.y - sdlEvent.motion.y);
+        m_eventManager->mousePos = Vector2i(sdlEvent.motion.x, m_viewportSize.y - sdlEvent.motion.y);
         m_eventManager->mousePosRel = Vector2i(sdlEvent.motion.xrel, sdlEvent.motion.yrel);
     }
 
