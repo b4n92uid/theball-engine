@@ -22,8 +22,12 @@ namespace tbe
 namespace tools
 {
 
-inline std::string MakeAbsolutFilePath(const std::string& absfile, const std::string& relfile)
+inline std::string MakeAbsolutFilePath(std::string absfile, const std::string& relfile)
 {
+    unsigned reppos;
+    while((reppos = absfile.find('\\')) != std::string::npos)
+        absfile.replace(reppos, 1, 1, '/');
+
     unsigned pos = absfile.find_last_of('\\');
 
     if(pos == std::string::npos)
@@ -39,7 +43,7 @@ template<typename T> void erase(std::vector<T>& vec, unsigned index)
 
 template<typename T, typename T2> void erase(std::vector<T>& vec, T2 val)
 {
-    vec.erase(std::find(vec.begin(), vec.end(), dynamic_cast<T2>(val)));
+    vec.erase(std::find(vec.begin(), vec.end(), dynamic_cast<T2> (val)));
 }
 
 template<typename T> void erase(std::vector<T>& vec, T val)
@@ -49,7 +53,7 @@ template<typename T> void erase(std::vector<T>& vec, T val)
 
 template<typename T, typename T2> bool find(const std::vector<T>& vec, T2 val)
 {
-    return std::find(vec.begin(), vec.end(), dynamic_cast<T2>(val)) != vec.end();
+    return std::find(vec.begin(), vec.end(), dynamic_cast<T2> (val)) != vec.end();
 }
 
 template<typename T> bool find(const std::vector<T>& vec, T val)
@@ -83,10 +87,10 @@ inline bool getline(std::istream& stream, std::string& buffer)
 
     bool status = std::getline(stream, buffer);
 
-    #ifdef __linux__
+#    ifdef __linux__
     for(string::iterator it = --buffer.end(); isspace(*it); it--)
         buffer.erase(it);
-    #endif
+#    endif
 
     return status;
 }
@@ -311,7 +315,7 @@ inline float rand(float min, float max)
         return 0;
 
     //return (min + ((float) std::rand() / RAND_MAX * (max - min + 1.0)));
-    return(min + ((float)std::rand() / RAND_MAX * (max - min)));
+    return (min + ((float) std::rand() / RAND_MAX * (max - min)));
 }
 
 /**
