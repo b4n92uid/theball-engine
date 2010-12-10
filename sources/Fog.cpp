@@ -15,19 +15,20 @@ Fog::Fog()
     glFogi(GL_FOG_MODE, GL_LINEAR);
     glHint(GL_FOG_HINT, GL_DONT_CARE);
 
-    SetColor(1.0f);
-    SetDensity(0.1f);
-    SetStart(2.0f);
-    SetEnd(32.0f);
-
-    m_enable = false;
-    m_density = 0;
-    m_start = 0;
-    m_end = 0;
+    Clear();
 }
 
 Fog::~Fog()
 {
+    SetEnable(false);
+}
+
+void Fog::Clear()
+{
+    SetColor(1.0f);
+    SetDensity(0.1f);
+    SetStart(2.0f);
+    SetEnd(32.0f);
     SetEnable(false);
 }
 
