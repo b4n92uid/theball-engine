@@ -27,6 +27,10 @@ SceneManager::SceneManager()
     m_frustum = new Frustum;
     m_skybox = new SkyBox;
     m_fog = new Fog;
+
+    m_currentCamera = m_cameras.end();
+
+    m_fovy = m_zNear = m_zFar = m_ratio = 0;
 }
 
 SceneManager::~SceneManager()
@@ -51,7 +55,7 @@ void SceneManager::Setup(Vector2i viewport, float ratio, float fovy, float zNear
 {
     m_viewport = viewport;
     m_fovy = fovy;
-    m_ratio = ratio ? ratio : (float)m_viewport.x / m_viewport.y;
+    m_ratio = ratio ? ratio : (float) m_viewport.x / m_viewport.y;
     m_zNear = zNear;
     m_zFar = zFar;
 
@@ -100,7 +104,7 @@ void SceneManager::Render(bool setupView)
         glLoadIdentity();
 
     // Camera et Skybox
-    if(!m_cameras.empty())
+    if(!m_cameras.empty() && m_currentCamera != m_cameras.end())
     {
         if(setupView)
             (*m_currentCamera)->Engine();
@@ -370,8 +374,8 @@ Vector3f SceneManager::ScreenToWorld(Vector2i target)
     // On récupére le viewport
     glGetIntegerv(GL_VIEWPORT, iViewport);
 
-    fPosX = (float)target.x;
-    fPosY = (float)target.y;
+    fPosX = (float) target.x;
+    fPosY = (float) target.y;
 
     // On lit la profondeur dans le tampon de profondeur
     glReadPixels(int(fPosX), int(fPosY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &fPosZ);
