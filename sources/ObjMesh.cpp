@@ -60,6 +60,8 @@ void OBJMesh::Open(const std::string& path)
 
     manager[this] = m_filepath = path;
 
+    m_name = tools::basename(path, false);
+
     Material* curMaterial = NULL;
 
     Vector3f::Array vPos;
@@ -80,7 +82,7 @@ void OBJMesh::Open(const std::string& path)
 
         if(opcode == "mtllib")
         {
-            string mtlFilename = tools::MakeAbsolutFilePath(m_filepath, value);
+            string mtlFilename = tools::makeRelatifTo(m_filepath, value);
             m_mtlfile.Open(mtlFilename);
         }
 
@@ -330,7 +332,7 @@ void MTLFile::Open(const std::string& path)
 
         else if(opcode == "map_Kd")
         {
-            string texturepath = tools::MakeAbsolutFilePath(path, arg);
+            string texturepath = tools::makeRelatifTo(path, arg);
 
             try
             {
