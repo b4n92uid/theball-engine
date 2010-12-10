@@ -209,6 +209,7 @@ void OrbitalCamera::OnEvent(EventManager* event)
 void OrbitalCamera::SetDistance(float distance)
 {
     this->m_distance = distance;
+    m_pos = m_center - m_target * m_distance;
 }
 
 float OrbitalCamera::GetDistance() const
@@ -219,6 +220,7 @@ float OrbitalCamera::GetDistance() const
 void OrbitalCamera::SetCenter(Vector3f center)
 {
     this->m_center = center;
+    m_pos = m_center - m_target * m_distance;
 }
 
 Vector3f OrbitalCamera::GetCenter() const
