@@ -26,10 +26,19 @@ public:
     ~WaterParallelScene();
 
     void PreRender();
+    
     void Render();
+
+    void Clear();
+
+    void RegisterWater(Water* water);
+    void UnRegisterWater(Water* water, bool deleteptr = false);
+
+    Iterator<Water*> GetIterator();
 
 private:
     bool m_inPreRender;
+    Water::Array m_nodes;
 };
 
 }

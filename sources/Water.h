@@ -72,7 +72,7 @@ public:
     void SetUvRepeat(Vector2f uvRepeat);
     Vector2f GetUvRepeat() const;
 
-    typedef std::map<std::string, Water*> Map;
+    typedef std::vector<Water*> Array;
 
 protected:
     HardwareBuffer m_buffer;
