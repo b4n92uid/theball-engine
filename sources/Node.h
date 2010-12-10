@@ -30,7 +30,7 @@ public:
     Node(const Node& copy);
     virtual ~Node();
 
-    Node& operator=(const Node& copy);
+    Node & operator=(const Node& copy);
 
     /// Operateur de comparaison par nom (m_name)
     bool operator==(Node* node);
@@ -55,17 +55,18 @@ public:
     void SetMatrix(const Matrix4f& matrix);
     void MulMatrix(const Matrix4f& matrix);
 
-    Matrix4f GetAbsoluteMatrix();
+    Matrix4f GetAbsoluteMatrix() const;
     Matrix4f& GetMatrix();
 
     /// Spécifier la scene parallel parent
     void SetParallelScene(ParallelScene* parallelScene);
     ParallelScene* GetParallelScene() const;
-    void ReleaseFromParallelScene();
 
     /// Racourcie pour sépcifier la postion de la matrice du noeud
     void SetPos(Vector3f pos);
     Vector3f GetPos() const;
+
+    Vector3f MapFromGlobal(Vector3f pos);
 
     bool HasParent();
     void ReleaseParent();
