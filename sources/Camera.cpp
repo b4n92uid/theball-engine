@@ -61,23 +61,23 @@ void Camera::Engine()
 {
     switch(m_cameraType)
     {
-    case TARGET_RELATIVE:
-    {
-        Vector3f set = m_pos + m_target;
-        gluLookAt(m_pos.x, m_pos.y, m_pos.z, set.x, set.y, set.z, 0, 1, 0);
-    }
-        break;
+        case TARGET_RELATIVE:
+        {
+            Vector3f set = m_pos + m_target;
+            gluLookAt(m_pos.x, m_pos.y, m_pos.z, set.x, set.y, set.z, 0, 1, 0);
+        }
+            break;
 
-    case TARGET_ABSOLUTE:
-        gluLookAt(m_pos.x, m_pos.y, m_pos.z, m_target.x, m_target.y, m_target.z, 0, 1, 0);
-        break;
+        case TARGET_ABSOLUTE:
+            gluLookAt(m_pos.x, m_pos.y, m_pos.z, m_target.x, m_target.y, m_target.z, 0, 1, 0);
+            break;
     }
 }
 
 void Camera::SetRotate(Vector2f rel)
 {
     m_theta = rel.x;
-    m_phi = -rel.y;
+    m_phi = rel.y;
 
     if(m_phi > 89)
         m_phi = 89;
@@ -97,7 +97,7 @@ void Camera::SetRotate(Vector2f rel)
 void Camera::SetRelRotate(Vector2f rel)
 {
     m_theta -= rel.x*m_sensivity;
-    m_phi -= rel.y*m_sensivity;
+    m_phi += rel.y*m_sensivity;
 
     if(m_phi > 89)
         m_phi = 89;
