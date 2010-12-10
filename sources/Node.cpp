@@ -29,8 +29,6 @@ Node::~Node()
 {
     for(unsigned i = 0; i < m_childs.size(); i++)
     {
-        m_childs[i]->ReleaseFromParallelScene();
-
         if(!m_childs[i]->m_lockPtr)
             delete m_childs[i];
     }
@@ -68,6 +66,14 @@ Vector3f Node::GetPos() const
     return m_matrix.GetPos();
 }
 
+Vector3f Node::MapFromGlobal(Vector3f pos)
+{
+    if(m_parent)
+        return m_parent->MapFromGlobal(pos - m_parent->GetPos() + pos);
+    else
+        return pos;
+}
+
 void Node::MulMatrix(const Matrix4f& matrix)
 {
     this->m_matrix *= matrix;
@@ -78,7 +84,7 @@ void Node::SetMatrix(const Matrix4f& matrix)
     this->m_matrix = matrix;
 }
 
-Matrix4f Node::GetAbsoluteMatrix()
+Matrix4f Node::GetAbsoluteMatrix() const
 {
     return m_parent ? m_parent->GetAbsoluteMatrix() * m_matrix : m_matrix;
 }
@@ -98,18 +104,9 @@ ParallelScene* Node::GetParallelScene() const
     return m_parallelScene;
 }
 
-void Node::ReleaseFromParallelScene()
-{
-    if(!m_parallelScene)
-        return;
-
-    m_parallelScene->ReleaseChild(this);
-    m_parallelScene = NULL;
-}
-
 AABB Node::GetAbsolutAabb() const
 {
-    Vector3f pos = m_matrix.GetPos();
+    Vector3f pos = GetAbsoluteMatrix().GetPos();
     return AABB(pos + m_aabb.min, pos + m_aabb.max);
 }
 
@@ -174,7 +171,7 @@ void Node::AddChild(Node* child)
 
     m_childs.push_back(child);
 
-    m_aabb += child->m_aabb;
+    m_aabb.Count(child->GetAbsolutAabb());
 }
 
 void Node::ReleaseChild(Node* child)
