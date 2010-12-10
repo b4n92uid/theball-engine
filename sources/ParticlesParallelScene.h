@@ -26,6 +26,16 @@ public:
     ~ParticlesParallelScene();
 
     void Render();
+
+    void Clear();
+
+    void RegisterParticles(ParticlesEmiter* pemiter);
+    void UnRegisterParticles(ParticlesEmiter* pemiter, bool deleteptr = false);
+
+    Iterator<ParticlesEmiter*> GetIterator();
+
+private:
+    ParticlesEmiter::Array m_nodes;
 };
 
 }

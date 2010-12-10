@@ -24,25 +24,36 @@ MeshParallelScene::MeshParallelScene()
 
 MeshParallelScene::~MeshParallelScene()
 {
+    Clear();
 }
 
 struct DepthSortMeshFunc
 {
 
-    bool operator()(Node* node1, Node * node2)
+    bool operator()(Mesh* node1, Mesh * node2)
     {
-        if(dynamic_cast<Mesh*>(node1)->IsTransparent())
+        if(node1->IsTransparent())
             return false;
 
-        else if(dynamic_cast<Mesh*>(node2)->IsTransparent())
+        else if(node2->IsTransparent())
             return true;
 
         else
-            return(node1->GetMatrix().GetPos() - camPos) > (node2->GetMatrix().GetPos() - camPos);
+            return (node1->GetMatrix().GetPos() - camPos) > (node2->GetMatrix().GetPos() - camPos);
     }
 
     Vector3f camPos;
 };
+
+void MeshParallelScene::Clear()
+{
+    for(unsigned i = 0; i < m_nodes.size(); i++)
+        if(!m_nodes[i]->HasParent())
+            if(!m_nodes[i]->IsLockPtr())
+                delete m_nodes[i], m_nodes[i] = NULL;
+
+    m_nodes.clear();
+}
 
 void MeshParallelScene::Render()
 {
@@ -91,4 +102,49 @@ void MeshParallelScene::SetFrustumCullingCount(unsigned frustumCullingCount)
 unsigned MeshParallelScene::GetFrustumCullingCount() const
 {
     return m_frustumCullingCount;
+}
+
+void MeshParallelScene::RegisterMesh(Mesh* mesh)
+{
+    if(std::find(m_nodes.begin(), m_nodes.end(), mesh) != m_nodes.end())
+        throw Exception("MeshParallelScene::RegisterMesh; child already exist");
+
+    mesh->SetParallelScene(this);
+
+    m_nodes.push_back(mesh);
+}
+
+void MeshParallelScene::UnRegisterMesh(Mesh* mesh, bool deleteptr)
+{
+    Mesh::Array::iterator it = std::find(m_nodes.begin(), m_nodes.end(), mesh);
+
+    if(it == m_nodes.end())
+        throw Exception("MeshParallelScene::UnRegisterMesh; cannot found child");
+
+    if(deleteptr)
+        delete (*it);
+
+    m_nodes.erase(it);
+}
+
+Vector3f MeshParallelScene::FindFloor(Vector3f pos)
+{
+    return Vector3f(pos.x, FindFloor(pos.x, pos.z) + pos.y, pos.z);
+}
+
+float MeshParallelScene::FindFloor(float x, float z)
+{
+    float y = 0;
+    for(unsigned i = 0; i < m_nodes.size(); i++)
+    {
+        Mesh* it = m_nodes[i];
+        y = std::max(it->FindFloor(x, z).y, y);
+    }
+
+    return y;
+}
+
+Iterator<Mesh*> MeshParallelScene::GetIterator()
+{
+    return Iterator<Mesh*>(m_nodes);
 }
