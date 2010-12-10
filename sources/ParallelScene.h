@@ -13,6 +13,7 @@
 #include <map>
 
 #include "Node.h"
+#include "Iterator.h"
 
 namespace tbe
 {
@@ -35,18 +36,7 @@ public:
     virtual void Render() = 0;
 
     /// Methode la liberation memoire
-    void Clear();
-
-    bool IsChild(Node* child);
-
-    void AddChild(Node* child);
-
-    Node* GetChild(unsigned index);
-
-    void DeleteChild(Node* child);
-
-    void ReleaseChild(Node* child);
-    Node* ReleaseChild(unsigned index);
+    virtual void Clear() = 0;
 
     void SetSceneManager(SceneManager* sceneManager);
     SceneManager* GetSceneManager() const;
@@ -54,12 +44,10 @@ public:
     void SetEnable(bool enable);
     bool IsEnable() const;
 
-    typedef std::map<std::string, ParallelScene*> Map;
     typedef std::vector<ParallelScene*> Array;
 
 protected:
     SceneManager* m_sceneManager;
-    Node::Array m_nodes;
     bool m_enable;
 };
 
