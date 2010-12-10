@@ -47,7 +47,7 @@ public:
     /// Calcule l'occlusion ambiante
     void ComputeAocc();
 
-    /// Renvois la position y de coordonnés x z local au mesh
+    /// Renvois la position y des coordonnés x z dans le repere local du mesh
     Vector3f FindFloor(float x, float z);
 
     /// Renvoi la position d'intersection depuis rayStart vers rayDiri local au mesh
