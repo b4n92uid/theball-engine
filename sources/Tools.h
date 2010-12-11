@@ -22,7 +22,30 @@ namespace tbe
 namespace tools
 {
 
-inline std::string MakeAbsolutFilePath(std::string absfile, const std::string& relfile)
+inline std::string pathname(std::string filename)
+{
+    unsigned pos = filename.find_last_of('\\');
+
+    if(pos == std::string::npos)
+        pos = filename.find_last_of('/');
+
+    return filename.substr(0, pos);
+}
+
+inline std::string basename(std::string filename, bool withExt = true)
+{
+    unsigned pos = filename.find_last_of('\\');
+
+    if(pos == std::string::npos)
+        pos = filename.find_last_of('/');
+
+    if(withExt)
+        return filename.substr(pos + 1);
+    else
+        return filename.substr(pos + 1, filename.find_last_of('.'));
+}
+
+inline std::string makeRelatifTo(std::string absfile, const std::string& relfile)
 {
     unsigned reppos;
     while((reppos = absfile.find('\\')) != std::string::npos)
