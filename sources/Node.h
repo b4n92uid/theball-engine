@@ -30,11 +30,11 @@ public:
     Node(const Node& copy);
     virtual ~Node();
 
-    Node & operator=(const Node& copy);
+    virtual Node & operator=(const Node& copy);
 
     /// Operateur de comparaison par nom (m_name)
-    bool operator==(Node* node);
-    bool operator==(std::string name);
+    bool operator==(Node* node) const;
+    bool operator==(std::string name) const;
 
     /// Renvois le AABB du noeud
     AABB GetAabb() const;
@@ -68,15 +68,15 @@ public:
 
     Vector3f MapFromGlobal(Vector3f pos);
 
-    bool HasParent();
+    bool HasParent() const;
     void ReleaseParent();
 
     void SetParent(Node* parent);
-    Node* GetParent();
+    Node* GetParent() const;
 
     void AddChild(Node* child);
 
-    Node* GetChild(unsigned index);
+    Node* GetChild(unsigned index) const;
 
     void ReleaseChild(Node* child);
     Node* ReleaseChild(unsigned index);
