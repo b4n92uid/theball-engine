@@ -79,13 +79,28 @@ Texture::Texture(const char* filename, bool genMipMap, bool upperLeftOrigin)
 
 Texture::~Texture()
 {
+    Release();
+}
+
+void Texture::Delete()
+{
+    if(m_textureName)
+    {
+        glDeleteTextures(1, &m_textureName);
+        m_textureName = 0;
+    }
+}
+
+void Texture::Release()
+{
     if(manager.count(this))
     {
         manager.erase(this);
 
         if(!manager.IsExist(m_filename))
         {
-            cout << "DTOR Free texture : " << m_filename << endl;
+            cout << "Free texture : " << m_filename << endl;
+
             Delete();
         }
     }
@@ -245,12 +260,6 @@ void Texture::Build(Vector2i size, Vector4i color, GLint internalFormat, GLenum 
     delete[] pixels;
 
     glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void Texture::Delete()
-{
-    if(m_textureName)
-        glDeleteTextures(1, &m_textureName);
 }
 
 void Texture::Use(bool state)
