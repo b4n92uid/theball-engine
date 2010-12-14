@@ -28,8 +28,10 @@ public:
     Mesh(const Mesh& copy);
     ~Mesh();
 
-    Mesh& operator=(const Mesh& copy);
+    /// Opérateur d'assignation
+    Mesh & operator=(const Mesh& copy);
 
+    /// Méthode polymorphique de clonage du noueud
     Node* Clone();
 
     /// Rendue
@@ -48,10 +50,13 @@ public:
     void ComputeAocc();
 
     /// Renvois la position y des coordonnés x z dans le repere local du mesh
-    Vector3f FindFloor(float x, float z);
+    bool FindLocalFloor(Vector3f& pos);
+
+    /// Renvois la position y des coordonnés x z dans le repere global
+    bool FindGlobalFloor(Vector3f& pos);
 
     /// Renvoi la position d'intersection depuis rayStart vers rayDiri local au mesh
-    Vector3f RayCast(Vector3f rayStart, Vector3f rayDiri);
+    bool RayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect);
 
     /// Ajout un materieux au noeud
     void AddMaterial(std::string name, Material* material);
@@ -62,6 +67,9 @@ public:
     /**
      * Renvois tout les application du materieux name
      * sous forme d'un tableau de vecteur ou x=offset et y=lenght
+     *
+     * @param name
+     * @return
      */
     Vector2i::Array GetMaterialApply(std::string name);
 
@@ -139,7 +147,6 @@ protected:
     HardwareBuffer m_hardwareBuffer;
 
 private:
-
     void Render(Material* material, unsigned offset, unsigned size);
 
     struct RenderProcess

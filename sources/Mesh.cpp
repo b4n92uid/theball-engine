@@ -42,7 +42,7 @@ Mesh& Mesh::operator=(const Mesh& copy)
 
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
-    for(Material::Map::const_iterator it = copy.m_materials.begin(); it != copy.m_materials.end(); it++)
+    for(Material::Map::const_iterator it = m_materials.begin(); it != m_materials.end(); it++)
         delete it->second;
 
     m_materials.clear();
@@ -159,7 +159,7 @@ struct DepthSortVertexFunc
 
     bool operator()(const TriangleFace& face1, const TriangleFace & face2)
     {
-        return(meshPos + (face1.v1.pos + face1.v2.pos + face1.v3.pos) / 3.0f - camPos) >
+        return (meshPos + (face1.v1.pos + face1.v2.pos + face1.v3.pos) / 3.0f - camPos) >
                 (meshPos + (face2.v1.pos + face2.v2.pos + face2.v3.pos) / 3.0f - camPos);
     }
 
@@ -514,13 +514,11 @@ Vector3f RayCastTriangle(Vector3f p, Vector3f d, Vector3f v0, Vector3f v1, Vecto
         return p;
 }
 
-Vector3f Mesh::RayCast(Vector3f rayStart, Vector3f rayDiri)
+bool Mesh::RayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect)
 {
     Vertex* vertex = m_hardwareBuffer.Lock();
 
     const unsigned vertexCount = m_hardwareBuffer.GetVertexCount();
-
-    Vector3f intersect = 0;
 
     for(unsigned i = 0; i < vertexCount; i += 3)
     {
@@ -531,17 +529,30 @@ Vector3f Mesh::RayCast(Vector3f rayStart, Vector3f rayDiri)
                                     vertex[i + 2].pos);
 
         if(intersect != rayStart)
-            break;
+            return true;
     }
 
     m_hardwareBuffer.UnLock();
 
-    return intersect;
+    return false;
 }
 
-Vector3f Mesh::FindFloor(float x, float z)
+// FIXME Lancer de rayon sur sol
+
+bool Mesh::FindLocalFloor(Vector3f& pos)
 {
-    return RayCast(Vector3f(x, m_aabb.max.y + 1, z), Vector3f(0, -1, 0));
+    return RayCast(Vector3f(pos.x, m_aabb.max.y + 1, pos.z),
+                   Vector3f(0, -1, 0),
+                   pos);
+}
+
+bool Mesh::FindGlobalFloor(Vector3f& pos)
+{
+    Matrix4f absMatrix = GetAbsoluteMatrix();
+
+    return RayCast(Vector3f(absMatrix * pos.x, (absMatrix * m_aabb.max).y + 1, absMatrix * pos.z),
+                   Vector3f(0, -1, 0),
+                   pos);
 }
 
 bool Mesh::IsTransparent()
