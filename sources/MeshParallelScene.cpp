@@ -84,26 +84,6 @@ void MeshParallelScene::Render()
     }
 }
 
-void MeshParallelScene::SetEnableFrustumTest(bool enableFrustumTest)
-{
-    this->m_enableFrustumTest = enableFrustumTest;
-}
-
-bool MeshParallelScene::IsEnableFrustumTest() const
-{
-    return m_enableFrustumTest;
-}
-
-void MeshParallelScene::SetFrustumCullingCount(unsigned frustumCullingCount)
-{
-    this->m_frustumCullingCount = frustumCullingCount;
-}
-
-unsigned MeshParallelScene::GetFrustumCullingCount() const
-{
-    return m_frustumCullingCount;
-}
-
 void MeshParallelScene::RegisterMesh(Mesh* mesh)
 {
     if(std::find(m_nodes.begin(), m_nodes.end(), mesh) != m_nodes.end())
@@ -127,24 +107,77 @@ void MeshParallelScene::UnRegisterMesh(Mesh* mesh, bool deleteptr)
     m_nodes.erase(it);
 }
 
-Vector3f MeshParallelScene::FindFloor(Vector3f pos)
+bool MeshParallelScene::FindFloor(Vector3f& pos)
 {
-    return Vector3f(pos.x, FindFloor(pos.x, pos.z) + pos.y, pos.z);
-}
+    bool atleastone = false;
 
-float MeshParallelScene::FindFloor(float x, float z)
-{
-    float y = 0;
+    pos.y = getSceneAabb().min.y - 1;
+
     for(unsigned i = 0; i < m_nodes.size(); i++)
     {
-        Mesh* it = m_nodes[i];
-        y = std::max(it->FindFloor(x, z).y, y);
+        float lastY = pos.y;
+
+        if(m_nodes[i]->FindGlobalFloor(pos))
+            atleastone = true;
+
+        pos.y = std::max(pos.y, lastY);
     }
 
-    return y;
+    return atleastone;
+}
+
+void MeshParallelScene::SetInFloor(Node* node)
+{
+    Vector3f pos = node->GetPos();
+
+    pos.y = getSceneAabb().min.y - 1;
+
+    for(unsigned i = 0; i < m_nodes.size(); i++)
+    {
+        if(node == m_nodes[i] || node->HasParent())
+            continue;
+
+        float lastY = pos.y;
+
+        m_nodes[i]->FindGlobalFloor(pos);
+
+        pos.y = std::max(pos.y, lastY);
+    }
+
+    node->SetPos(pos);
 }
 
 Iterator<Mesh*> MeshParallelScene::GetIterator()
 {
     return Iterator<Mesh*>(m_nodes);
+}
+
+AABB MeshParallelScene::getSceneAabb()
+{
+    AABB sceneAabb;
+
+    for(unsigned i = 0; i < m_nodes.size(); i++)
+        sceneAabb.Count(m_nodes[i]);
+
+    return sceneAabb;
+}
+
+void MeshParallelScene::SetEnableFrustumTest(bool enableFrustumTest)
+{
+    this->m_enableFrustumTest = enableFrustumTest;
+}
+
+bool MeshParallelScene::IsEnableFrustumTest() const
+{
+    return m_enableFrustumTest;
+}
+
+void MeshParallelScene::SetFrustumCullingCount(unsigned frustumCullingCount)
+{
+    this->m_frustumCullingCount = frustumCullingCount;
+}
+
+unsigned MeshParallelScene::GetFrustumCullingCount() const
+{
+    return m_frustumCullingCount;
 }
