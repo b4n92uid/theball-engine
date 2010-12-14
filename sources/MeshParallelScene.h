@@ -30,10 +30,9 @@ public:
     void Clear();
 
     /// Renvois la position y des coordonnés x z dans le repere global
-    float FindFloor(float x, float z);
+    bool FindFloor(Vector3f& pos);
 
-    /// Renvois le vecteur de position défini pas pos.x, pos.z
-    Vector3f FindFloor(Vector3f pos);
+    void SetInFloor(Node* node);
 
     void SetEnableFrustumTest(bool enableFrustumTest);
     bool IsEnableFrustumTest() const;
@@ -45,6 +44,9 @@ public:
     void UnRegisterMesh(Mesh* mesh, bool deleteptr = false);
 
     Iterator<Mesh*> GetIterator();
+
+protected:
+    AABB getSceneAabb();
 
 private:
     unsigned m_frustumCullingCount;
