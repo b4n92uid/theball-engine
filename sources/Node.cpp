@@ -40,18 +40,27 @@ Node& Node::operator =(const Node& copy)
     m_name = copy.m_name;
     m_matrix = copy.m_matrix;
     m_enable = copy.m_enable;
+    m_enableRender = copy.m_enableRender;
+    m_enableProcess = copy.m_enableProcess;
     m_lockPtr = copy.m_lockPtr;
     m_aabb = copy.m_aabb;
+
+    // TODO Copie des noeud enfant
+
+    //    m_childs.reserve(copy.m_childs.size());
+    //
+    //    for(unsigned i = 0; i < copy.m_childs.size(); i++)
+    //        m_childs[i] = copy.m_childs[i]->Clone();
 
     return *this;
 }
 
-bool Node::operator==(std::string name)
+bool Node::operator==(std::string name) const
 {
     return m_name == name;
 }
 
-bool Node::operator==(Node* node)
+bool Node::operator==(Node* node) const
 {
     return m_name == node->m_name;
 }
@@ -69,7 +78,7 @@ Vector3f Node::GetPos() const
 Vector3f Node::MapFromGlobal(Vector3f pos)
 {
     if(m_parent)
-        return m_parent->MapFromGlobal(pos - m_parent->GetPos() + pos);
+        return m_parent->MapFromGlobal(pos - m_parent->GetPos());
     else
         return pos;
 }
@@ -135,7 +144,7 @@ std::string Node::GetName() const
     return m_name;
 }
 
-bool Node::HasParent()
+bool Node::HasParent() const
 {
     return m_parent;
 }
@@ -154,7 +163,7 @@ void Node::SetParent(Node* parent)
     parent->AddChild(this);
 }
 
-Node* Node::GetParent()
+Node* Node::GetParent() const
 {
     return m_parent;
 }
@@ -219,7 +228,7 @@ void Node::DeleteChild(unsigned index)
     m_childs.erase(m_childs.begin() + index);
 }
 
-Node* Node::GetChild(unsigned index)
+Node* Node::GetChild(unsigned index) const
 {
     if(index >= m_childs.size())
         throw Exception("Node::GetChild; index out of range %d", index);
