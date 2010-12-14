@@ -79,10 +79,10 @@ FrameBufferObject::~FrameBufferObject()
     glDeleteFramebuffersEXT(1, &m_fboId);
 
     if(m_colorTextureId)
-        m_colorTextureId.Delete();
+        m_colorTextureId.Release();
 
     if(m_depthTextureId)
-        m_depthTextureId.Delete();
+        m_depthTextureId.Release();
 
     if(m_colorRenderBuffer)
         glDeleteRenderbuffersEXT(1, &m_colorRenderBuffer);
@@ -141,7 +141,7 @@ void FrameBufferObject::Attach(unsigned compenent)
     if(compenent & COLOR_TEXTURE_2D)
     {
         if(m_colorTextureId)
-            m_colorTextureId.Delete();
+            m_colorTextureId.Release();
 
         // Génération buffer de rendue
         m_colorTextureId.Build(m_frameSize);
@@ -158,7 +158,7 @@ void FrameBufferObject::Attach(unsigned compenent)
     if(compenent & DEPTH_TEXTURE_2D)
     {
         if(m_depthTextureId)
-            m_depthTextureId.Delete();
+            m_depthTextureId.Release();
 
         // Génération buffer de rendue
         m_depthTextureId.Build(m_frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
