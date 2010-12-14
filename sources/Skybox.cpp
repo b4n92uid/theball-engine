@@ -34,17 +34,21 @@ Texture* SkyBox::GetTextures()
 
 void SkyBox::Clear()
 {
-    for_each(m_textures, m_textures + 6, mem_fun_ref(&Texture::Delete));
+    for_each(m_textures, m_textures + 6, mem_fun_ref(&Texture::Release));
 
     if(m_renderID)
     {
         glDeleteLists(m_renderID, 1);
         m_renderID = 0;
     }
+
+    m_enable = false;
 }
 
 void SkyBox::SetTextures(Texture textures[])
 {
+    Clear();
+
     for(unsigned i = 0; i < 6; i++)
     {
         if(!textures[i])
