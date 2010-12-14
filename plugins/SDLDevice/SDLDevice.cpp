@@ -103,7 +103,7 @@ void SDLDevice::PollEvent()
     {
         m_eventManager->notify = EventManager::EVENT_MOUSE_MOVE;
         m_eventManager->mousePos = Vector2i(sdlEvent.motion.x, m_viewportSize.y - sdlEvent.motion.y);
-        m_eventManager->mousePosRel = Vector2i(sdlEvent.motion.xrel, sdlEvent.motion.yrel);
+        m_eventManager->mousePosRel = Vector2i(sdlEvent.motion.xrel, -sdlEvent.motion.yrel);
     }
 
     else if(sdlEvent.type == SDL_MOUSEBUTTONDOWN)
