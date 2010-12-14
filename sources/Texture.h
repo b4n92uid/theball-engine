@@ -55,7 +55,16 @@ public:
     /// Utilisation de la texture
     void Use(bool state = true);
 
-    /// Supprime la texture
+    /**
+     * Supprime la texture si pas d'instance utiliser
+     * note : plus sure que Delete()
+     */
+    void Release();
+
+    /**
+     * Supprime la texture directement
+     * note : utiliser Release() ai lieu
+     */
     void Delete();
 
     /// Remplis la texture par la valeur color [0;255]
