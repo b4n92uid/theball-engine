@@ -66,7 +66,7 @@ template<typename T> void erase(std::vector<T>& vec, unsigned index)
 
 template<typename T, typename T2> void erase(std::vector<T>& vec, T2 val)
 {
-    vec.erase(std::find(vec.begin(), vec.end(), dynamic_cast<T2> (val)));
+    vec.erase(std::find(vec.begin(), vec.end(), dynamic_cast<T2>(val)));
 }
 
 template<typename T> void erase(std::vector<T>& vec, T val)
@@ -74,9 +74,10 @@ template<typename T> void erase(std::vector<T>& vec, T val)
     vec.erase(std::find(vec.begin(), vec.end(), val));
 }
 
-template<typename T, typename T2> bool find(const std::vector<T>& vec, T2 val)
+template<typename T, typename T2> T find(const std::vector<T>& vec, T2 val)
 {
-    return std::find(vec.begin(), vec.end(), dynamic_cast<T2> (val)) != vec.end();
+    typename std::vector<T>::const_iterator it = std::find(vec.begin(), vec.end(), val);
+    return (it != vec.end()) ? *it : NULL;
 }
 
 template<typename T> bool find(const std::vector<T>& vec, T val)
@@ -110,10 +111,10 @@ inline bool getline(std::istream& stream, std::string& buffer)
 
     bool status = std::getline(stream, buffer);
 
-#    ifdef __linux__
+    #ifdef __linux__
     for(string::iterator it = --buffer.end(); isspace(*it); it--)
         buffer.erase(it);
-#    endif
+    #endif
 
     return status;
 }
@@ -338,7 +339,7 @@ inline float rand(float min, float max)
         return 0;
 
     //return (min + ((float) std::rand() / RAND_MAX * (max - min + 1.0)));
-    return (min + ((float) std::rand() / RAND_MAX * (max - min)));
+    return (min + ((float)std::rand() / RAND_MAX * (max - min)));
 }
 
 /**
