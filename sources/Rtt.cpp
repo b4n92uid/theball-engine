@@ -82,8 +82,8 @@ Rtt::~Rtt()
     }
 
     // Texture
-    m_textureMethod.color.Delete();
-    m_textureMethod.depth.Delete();
+    m_textureMethod.color.Release();
+    m_textureMethod.depth.Release();
 }
 
 void Rtt::Use(bool state)
@@ -190,10 +190,10 @@ void Rtt::SetFrameSize(Vector2i frameSize)
     }
 
     // Teture
-    m_textureMethod.color.Delete();
+    m_textureMethod.color.Release();
     m_textureMethod.color.Build(frameSize);
 
-    m_textureMethod.depth.Delete();
+    m_textureMethod.depth.Release();
     m_textureMethod.depth.Build(frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
 }
 
