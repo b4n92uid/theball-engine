@@ -117,10 +117,11 @@ bool MeshParallelScene::FindFloor(Vector3f& pos)
     {
         float lastY = pos.y;
 
-        if(m_nodes[i]->FindGlobalFloor(pos))
+        if(m_nodes[i]->FindFloor(pos, true))
+        {
             atleastone = true;
-
-        pos.y = std::max(pos.y, lastY);
+            pos.y = std::max(pos.y, lastY);
+        }
     }
 
     return atleastone;
@@ -134,14 +135,13 @@ void MeshParallelScene::SetInFloor(Node* node)
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
     {
-        if(node == m_nodes[i] || node->HasParent())
+        if(m_nodes[i] == node || !m_nodes[i]->IsEnable())
             continue;
 
         float lastY = pos.y;
 
-        m_nodes[i]->FindGlobalFloor(pos);
-
-        pos.y = std::max(pos.y, lastY);
+        if(m_nodes[i]->FindFloor(pos, true))
+            pos.y = std::max(pos.y, lastY);
     }
 
     node->SetPos(pos);

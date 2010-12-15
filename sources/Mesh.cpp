@@ -514,45 +514,56 @@ Vector3f RayCastTriangle(Vector3f p, Vector3f d, Vector3f v0, Vector3f v1, Vecto
         return p;
 }
 
-bool Mesh::RayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect)
+bool Mesh::RayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, bool global)
 {
     Vertex* vertex = m_hardwareBuffer.Lock();
 
+    Matrix4f absmat = GetAbsoluteMatrix();
+
     const unsigned vertexCount = m_hardwareBuffer.GetVertexCount();
+
+    Vector3f::Array hits;
 
     for(unsigned i = 0; i < vertexCount; i += 3)
     {
-        intersect = RayCastTriangle(rayStart,
-                                    rayDiri,
-                                    vertex[i].pos,
-                                    vertex[i + 1].pos,
-                                    vertex[i + 2].pos);
+        Vector3f pos0 = vertex[i].pos,
+                pos1 = vertex[i + 1].pos,
+                pos2 = vertex[i + 2].pos;
 
-        if(intersect != rayStart)
-            return true;
+        if(global)
+        {
+            pos0 = absmat * pos0;
+            pos1 = absmat * pos1;
+            pos2 = absmat * pos2;
+        }
+
+        Vector3f intr = RayCastTriangle(rayStart, rayDiri, pos0, pos1, pos2);
+
+        if(intr != rayStart)
+            hits.push_back(intr);
     }
 
     m_hardwareBuffer.UnLock();
 
-    return false;
+    if(hits.empty())
+    {
+        return false;
+    }
+
+    else
+    {
+        intersect = *std::max_element(hits.begin(), hits.end());
+
+        return true;
+    }
 }
 
-// FIXME Lancer de rayon sur sol
-
-bool Mesh::FindLocalFloor(Vector3f& pos)
+bool Mesh::FindFloor(Vector3f& pos, bool global)
 {
-    return RayCast(Vector3f(pos.x, m_aabb.max.y + 1, pos.z),
-                   Vector3f(0, -1, 0),
-                   pos);
-}
+    float y = global ? (GetAbsoluteMatrix() * m_aabb.max).y + 1 : m_aabb.max.y + 1;
 
-bool Mesh::FindGlobalFloor(Vector3f& pos)
-{
-    Matrix4f absMatrix = GetAbsoluteMatrix();
-
-    return RayCast(Vector3f(absMatrix * pos.x, (absMatrix * m_aabb.max).y + 1, absMatrix * pos.z),
-                   Vector3f(0, -1, 0),
-                   pos);
+    return RayCast(Vector3f(pos.x, y, pos.z),
+                   Vector3f(0, -1, 0), pos, global);
 }
 
 bool Mesh::IsTransparent()

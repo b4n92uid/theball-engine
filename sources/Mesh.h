@@ -50,13 +50,7 @@ public:
     void ComputeAocc();
 
     /// Renvois la position y des coordonnés x z dans le repere local du mesh
-    bool FindLocalFloor(Vector3f& pos);
-
-    /// Renvois la position y des coordonnés x z dans le repere global
-    bool FindGlobalFloor(Vector3f& pos);
-
-    /// Renvoi la position d'intersection depuis rayStart vers rayDiri local au mesh
-    bool RayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect);
+    bool FindFloor(Vector3f& pos, bool global);
 
     /// Ajout un materieux au noeud
     void AddMaterial(std::string name, Material* material);
@@ -145,6 +139,9 @@ protected:
     bool m_withTexCoord;
 
     HardwareBuffer m_hardwareBuffer;
+
+    bool RayCast(Vector3f rayStart, Vector3f rayDiri,
+                 Vector3f& intersect, bool global);
 
 private:
     void Render(Material* material, unsigned offset, unsigned size);
