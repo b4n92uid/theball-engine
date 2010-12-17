@@ -37,6 +37,8 @@ public:
     /// Rendue
     void Render();
 
+    void Clear();
+
     /// Specifier le timestep du moteur physique
     void SetWorldTimestep(float worldTimestep);
 
@@ -49,6 +51,9 @@ public:
     /// Specifier les dimmension du mond physique
     void SetWorldSize(AABB wordlSize);
     AABB GetWorldSize() const;
+
+    void RegisterBody(NewtonNode* body);
+    void UnRegisterBody(NewtonNode* body, bool delptr = false);
 
     /// Fonction qui recupere la position de collision quand body.masse == 0
     Vector3f FindZeroMassBody(Vector3f start, Vector3f end);
@@ -67,6 +72,7 @@ protected:
     NewtonWorld* m_newtonWorld;
     float m_worldTimestep;
     float m_gravity;
+    NewtonNode::Array m_nodes;
 };
 
 }

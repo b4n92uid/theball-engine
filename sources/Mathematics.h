@@ -16,6 +16,9 @@
 
 #include "Matrix.h"
 
+namespace tbe
+{
+
 template<typename T> inline tbe::Vector2<T> vec32(tbe::Vector3<T> vec3)
 {
     return tbe::Vector2<T > (vec3.x, vec3.y);
@@ -69,6 +72,8 @@ template<typename T> inline std::ostream & operator <<(std::ostream& stream, tbe
     stream << mat[15];
 
     return stream;
+}
+
 }
 
 #endif	/* _MATHEMATICS_H */
