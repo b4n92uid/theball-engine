@@ -55,19 +55,11 @@ void SceneManager::Setup(Vector2i viewport, float ratio, float fovy, float zNear
 {
     m_viewport = viewport;
     m_fovy = fovy;
-    m_ratio = ratio ? ratio : (float) m_viewport.x / m_viewport.y;
+    m_ratio = ratio ? ratio : (float)m_viewport.x / m_viewport.y;
     m_zNear = zNear;
     m_zFar = zFar;
 
     UpdateViewParameter();
-}
-
-void SceneManager::ClearLights()
-{
-    for(unsigned i = 0; i < m_lights.size(); i++)
-        delete m_lights[i];
-
-    m_lights.clear();
 }
 
 void SceneManager::ClearCameras()
@@ -88,7 +80,6 @@ void SceneManager::ClearParallelScenes()
 
 void SceneManager::ClearAll()
 {
-    ClearLights();
     ClearCameras();
     ClearParallelScenes();
 }
@@ -111,41 +102,9 @@ void SceneManager::Render(bool setupView)
         m_skybox->Render((*m_currentCamera)->GetPos());
     }
 
-    // Mise a jour des lumieres
-    for(unsigned i = 0; i < m_lights.size(); i++)
-        m_lights[i]->Update();
-
     // Rendue des scenes parallele
     for(unsigned i = 0; i < m_parallelScenes.size(); i++)
         m_parallelScenes[i]->Render();
-}
-
-void SceneManager::AddDynamicLight(Light* light)
-{
-    if(!light)
-        throw Exception("SceneManager::AddDynamicLight; Try to add a NULL prt light");
-
-    if(tools::find(m_lights, light))
-        throw Exception("SceneManager::AddDynamicLight; Light already exist");
-
-    m_lights.push_back(light);
-}
-
-void SceneManager::DeleteDynamicLight(Light* light)
-{
-    if(tools::find(m_lights, light))
-        throw Exception("SceneManager::DeleteDynamicLight; Light not found ");
-
-    tools::erase(m_lights, light);
-    delete light;
-}
-
-void SceneManager::ReleaseDynamicLight(Light* light)
-{
-    if(tools::find(m_lights, light))
-        throw Exception("SceneManager::ReleaseDynamicLight; Light not found ");
-
-    tools::erase(m_lights, light);
 }
 
 void SceneManager::SetAmbientLight(Vector4f ambient)
@@ -157,16 +116,6 @@ void SceneManager::SetAmbientLight(Vector4f ambient)
 Vector4f SceneManager::GetAmbientLight() const
 {
     return m_ambientLight;
-}
-
-unsigned SceneManager::GetLightCount() const
-{
-    return m_lights.size();
-}
-
-Iterator<Light*> SceneManager::GetLightIterator()
-{
-    return Iterator<Light*>(m_lights);
 }
 
 void SceneManager::AddParallelScene(ParallelScene* scene)
@@ -371,8 +320,8 @@ Vector3f SceneManager::ScreenToWorld(Vector2i target)
     // On récupére le viewport
     glGetIntegerv(GL_VIEWPORT, iViewport);
 
-    fPosX = (float) target.x;
-    fPosY = (float) target.y;
+    fPosX = (float)target.x;
+    fPosY = (float)target.y;
 
     // On lit la profondeur dans le tampon de profondeur
     glReadPixels(int(fPosX), int(fPosY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &fPosZ);

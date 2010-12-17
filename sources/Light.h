@@ -7,6 +7,7 @@
 #include "GLee.h"
 
 #include "Mathematics.h"
+#include "Node.h"
 
 namespace tbe
 {
@@ -16,7 +17,7 @@ namespace scene
 /**
  * \brief Représentation d'un lumieres
  */
-class Light
+class Light : public Node
 {
 public:
 
@@ -27,12 +28,15 @@ public:
     };
 
     Light(Type type = POINT);
-    virtual ~Light();
+    Light(const Light& copy);
+    ~Light();
 
-    virtual void Update();
+    Light & operator=(const Light& copy);
 
-    void SetPos(Vector3f position);
-    Vector3f GetPos() const;
+    void Process();
+    void Render();
+
+    Light* Clone();
 
     void SetSpecular(Vector4f specular);
     Vector4f GetSpecular() const;
@@ -48,18 +52,13 @@ public:
 
     void SetType(Type type);
     Type GetType() const;
-    
-    void SetEnable(bool enable);
-    bool IsEnable() const;
 
-    typedef std::map<std::string, scene::Light*> Map;
     typedef std::vector<scene::Light*> Array;
 
 protected:
     Vector4f m_ambient; // Acli
     Vector4f m_diffuse; // Dcli
     Vector4f m_specular; // Scli
-    Vector3f m_position; // Ppli
     Vector3f m_halfVector; // Derived: Hi
     Vector3f m_spotDirection; // Sdli
 
@@ -72,8 +71,6 @@ protected:
     float m_quadraticAttenuation; // K2
 
     float m_radius;
-
-    bool m_enable;
 
     GLint m_lightId;
 

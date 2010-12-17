@@ -44,9 +44,6 @@ public:
     /// Dtor
     ~SceneManager();
 
-    /// Supprime tout les lumieres
-    void ClearLights();
-
     /// Supprime tout les scene paralleles
     void ClearParallelScenes();
 
@@ -102,25 +99,11 @@ public:
 
     // Light -------------------------------------------------------------------
 
-    /// Ajoute une lumiere
-    void AddDynamicLight(Light* light);
-
-    // Détache une lumiere par son ptr du getionnaire (sans faire un delete)
-    void ReleaseDynamicLight(Light* light);
-
-    /// Détrute une lumiere par son ptr
-    void DeleteDynamicLight(Light* light);
-
     /// Specifer la composant ambient de la scene
     void SetAmbientLight(Vector4f color);
 
     /// Renvois la composant ambient de la scene
     Vector4f GetAmbientLight() const;
-
-    /// Renvois le nombre de lumiere contenue dans la scene
-    unsigned GetLightCount() const;
-
-    Iterator<Light*> GetLightIterator();
 
     // External Manipulator ----------------------------------------------------
 
@@ -160,7 +143,6 @@ protected:
     ParallelScene::Array m_parallelScenes;
 
     Vector4f m_ambientLight;
-    Light::Array m_lights;
 
     Camera::Array m_cameras;
     Camera::Array::iterator m_currentCamera;

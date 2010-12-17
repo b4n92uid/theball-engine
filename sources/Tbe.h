@@ -55,6 +55,7 @@
 #include "Primitives.h"
 #include "Particles.h"
 #include "ParallelScene.h"
+#include "LightParallelScene.h"
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
 #include "WaterParallelScene.h"
