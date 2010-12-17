@@ -21,7 +21,7 @@ using namespace tbe::scene;
 
 SceneParser::SceneParser(SceneManager* sceneManager)
 : m_sceneManager(sceneManager),
-m_meshScene(NULL), m_particlesScene(NULL), m_waterScene(NULL),
+m_lightScene(NULL), m_meshScene(NULL), m_particlesScene(NULL), m_waterScene(NULL),
 m_classFactory(NULL)
 {
 }
@@ -117,13 +117,6 @@ void SceneParser::LoadScene(const std::string& filepath)
             ParseSkyBox(rel.attr);
         }
 
-        else if(buffer == "+light")
-        {
-            Relation rel;
-            ParseRelation(file, rel);
-            ParseLight(rel.attr);
-        }
-
         else if(buffer == "+node")
         {
             Relation rel;
@@ -148,6 +141,9 @@ void SceneParser::ParseMap(AttribMap& att)
     m_mapName = att["name"];
     m_sceneManager->SetAmbientLight(vec34(tools::StrToVec3<float>(att["ambient"], true)));
 
+    m_lightScene = new LightParallelScene;
+    m_sceneManager->AddParallelScene(m_lightScene);
+
     m_meshScene = new MeshParallelScene;
     m_sceneManager->AddParallelScene(m_meshScene);
 
@@ -171,46 +167,17 @@ void SceneParser::ParseFog(AttribMap& att)
 void SceneParser::ParseSkyBox(AttribMap& att)
 {
     Texture skyTex[6] = {
-                         att["front"],
-                         att["back"],
-                         att["top"],
-                         att["bottom"],
-                         att["left"],
-                         att["right"]
+        att["front"],
+        att["back"],
+        att["top"],
+        att["bottom"],
+        att["left"],
+        att["right"]
     };
 
     scene::SkyBox* sky = m_sceneManager->GetSkybox();
     sky->SetTextures(skyTex);
     sky->SetEnable(true);
-}
-
-void SceneParser::ParseLight(AttribMap& att)
-{
-    Light* light = NULL;
-
-    if(att["type"] == "Diri")
-    {
-        light = new DiriLight;
-    }
-
-    else if(att["type"] == "Point")
-    {
-        float radius = tools::StrToNum<float>(att["radius"]);
-
-        light = new PointLight;
-        light->SetRadius(radius);
-    }
-
-    else
-        throw tbe::Exception("BLDLoader::LoadScene; Unknown light type (%s)", att["type"].c_str());
-
-    light->SetPos(tools::StrToVec3<float>(att["pos"], true));
-
-    light->SetAmbient(tools::StrToVec4<float>(att["ambient"], true));
-    light->SetDiffuse(tools::StrToVec4<float>(att["diffuse"], true));
-    light->SetSpecular(tools::StrToVec4<float>(att["specular"], true));
-
-    m_sceneManager->AddDynamicLight(light);
 }
 
 void SceneParser::ParseRelation(std::ifstream& file, Relation& rel)
@@ -265,14 +232,14 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
     {
         Mesh* node = m_classFactory ? m_classFactory->Instance(type) : new Mesh;
 
+        if(parent)
+            node->SetParent(parent);
+
         if(rel.attr.count("matrix"))
             node->SetMatrix(rel.attr["matrix"]);
 
         if(rel.attr.count("name"))
             node->SetName(rel.attr["name"]);
-
-        if(parent)
-            node->SetParent(parent);
 
         m_meshScene->RegisterMesh(node);
 
@@ -297,15 +264,6 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
         node->Open(modelFilepath);
 
-        if(rel.attr.count("matrix"))
-            node->SetMatrix(rel.attr["matrix"]);
-
-        if(rel.attr.count("name"))
-            node->SetName(rel.attr["name"]);
-
-        if(parent)
-            node->SetParent(parent);
-
         m_meshScene->RegisterMesh(node);
 
         current = node;
@@ -324,7 +282,6 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
         emiter->SetTexture(modelFilepath);
 
-        emiter->SetMatrix(rel.attr["matrix"]);
         emiter->SetEndPos(tools::StrToVec3<float>(rel.attr["endPos"], true));
 
         emiter->SetLifeInit(tools::StrToNum<float>(rel.attr["lifeInit"]));
@@ -340,16 +297,53 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
         emiter->Build();
 
-        if(parent)
-            emiter->SetParent(parent);
-
         m_particlesScene->RegisterParticles(emiter);
 
         current = emiter;
     }
 
+    else if(type == "Light")
+    {
+        Light* light = NULL;
+
+        if(rel.attr["class"] == "Diri")
+        {
+            light = new DiriLight;
+        }
+
+        else if(rel.attr["class"] == "Point")
+        {
+            float radius = tools::StrToNum<float>(rel.attr["radius"]);
+
+            light = new PointLight;
+            light->SetRadius(radius);
+        }
+
+        else
+            throw tbe::Exception("SceneParser::ParseNode; Unknown light type (%s)", rel.attr["class"].c_str());
+
+        light->SetAmbient(tools::StrToVec4<float>(rel.attr["ambient"], true));
+        light->SetDiffuse(tools::StrToVec4<float>(rel.attr["diffuse"], true));
+        light->SetSpecular(tools::StrToVec4<float>(rel.attr["specular"], true));
+
+        m_lightScene->Register(light);
+
+        current = light;
+    }
+
+
     else
         throw tbe::Exception("BLDLoader::ParseNode; Unknown node type (%s)", type.c_str());
+
+
+    if(parent)
+        current->SetParent(parent);
+
+    if(rel.attr.count("name"))
+        current->SetName(rel.attr["name"]);
+
+    if(rel.attr.count("matrix"))
+        current->SetMatrix(rel.attr["matrix"]);
 
     for(unsigned i = 0; i < rel.child.size(); i++)
         ParseNode(rel.child[i], current);
@@ -378,4 +372,9 @@ MeshParallelScene* SceneParser::GetMeshScene() const
 WaterParallelScene* SceneParser::GetWaterScene() const
 {
     return m_waterScene;
+}
+
+LightParallelScene* SceneParser::GetLightScene() const
+{
+    return m_lightScene;
 }

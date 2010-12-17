@@ -11,6 +11,7 @@
 #include <string>
 #include <map>
 
+#include "LightParallelScene.h"
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
 #include "WaterParallelScene.h"
@@ -44,6 +45,7 @@ public:
 
     MeshParallelScene* GetMeshScene() const;
     ParticlesParallelScene* GetParticlesScene() const;
+    LightParallelScene* GetLightScene() const;
     WaterParallelScene* GetWaterScene() const;
 
 protected:
@@ -68,7 +70,6 @@ protected:
     void ParseMap(AttribMap& att);
     void ParseFog(AttribMap& att);
     void ParseSkyBox(AttribMap& att);
-    void ParseLight(AttribMap& att);
     void ParseNode(Relation& att, Node* parent = NULL);
 
 private:
@@ -80,6 +81,7 @@ private:
     std::string m_mapName;
 
     SceneManager* m_sceneManager;
+    LightParallelScene* m_lightScene;
     MeshParallelScene* m_meshScene;
     ParticlesParallelScene* m_particlesScene;
     WaterParallelScene* m_waterScene;
