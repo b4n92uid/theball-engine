@@ -53,6 +53,16 @@ AABB NewtonParallelScene::GetWorldSize() const
     return m_worldSize;
 }
 
+void NewtonParallelScene::Clear()
+{
+    for(unsigned i = 0; i < m_nodes.size(); i++)
+        if(!m_nodes[i]->HasParent())
+            if(!m_nodes[i]->IsLockPtr())
+                delete m_nodes[i], m_nodes[i] = NULL;
+
+    m_nodes.clear();
+}
+
 void NewtonParallelScene::Render()
 {
     if(!m_enable)
@@ -147,4 +157,27 @@ void NewtonParallelScene::ApplyForceAndTorque(const NewtonBody* body, float, int
     NewtonBodySetTorque(body, applyTorque);
 
     core->SetApplyForce(0);
+}
+
+void NewtonParallelScene::RegisterBody(NewtonNode* body)
+{
+    if(std::find(m_nodes.begin(), m_nodes.end(), body) != m_nodes.end())
+        throw Exception("NewtonParallelScene::RegisterMesh; child already exist");
+
+    body->SetParallelScene(this);
+
+    m_nodes.push_back(body);
+}
+
+void NewtonParallelScene::UnRegisterBody(NewtonNode* body, bool delptr)
+{
+    NewtonNode::Array::iterator it = std::find(m_nodes.begin(), m_nodes.end(), body);
+
+    if(it == m_nodes.end())
+        throw Exception("NewtonParallelScene::UnRegisterMesh; cannot found child");
+
+    if(delptr)
+        delete (*it);
+
+    m_nodes.erase(it);
 }
