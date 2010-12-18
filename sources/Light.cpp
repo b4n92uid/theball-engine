@@ -39,7 +39,7 @@ Light::Light(Type type)
     m_type = type;
 }
 
-Light::Light(const Light& copy)
+Light::Light(const Light& copy) : Node(copy)
 {
     GLint maxLight;
     glGetIntegerv(GL_MAX_LIGHTS, & maxLight);
@@ -66,6 +66,8 @@ Light::~Light()
 
 Light& Light::operator =(const Light& copy)
 {
+    Node::operator=(copy);
+
     m_ambient = copy.m_ambient;
     m_diffuse = copy.m_diffuse;
     m_specular = copy.m_specular;
@@ -81,8 +83,6 @@ Light& Light::operator =(const Light& copy)
     m_quadraticAttenuation = copy.m_quadraticAttenuation;
 
     m_radius = copy.m_radius;
-
-    m_lightId = copy.m_lightId;
 
     m_type = copy.m_type;
 
