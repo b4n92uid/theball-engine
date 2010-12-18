@@ -36,7 +36,6 @@ Node::~Node()
 
 Node& Node::operator =(const Node& copy)
 {
-    m_parallelScene = copy.m_parallelScene;
     m_name = copy.m_name;
     m_matrix = copy.m_matrix;
     m_enable = copy.m_enable;
