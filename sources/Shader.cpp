@@ -18,7 +18,7 @@ public:
 
     ~SharedShaderManager()
     {
-        for(iterator it = begin(); it != end(); it++)
+        for(iterator it = begin(); it != end(); ++it)
             glDeleteProgram(*it);
     }
 

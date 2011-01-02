@@ -9,6 +9,7 @@
 #include "SceneManager.h"
 #include "Exception.h"
 #include "Tools.h"
+#include "Water.h"
 
 using namespace tbe;
 using namespace tbe::scene;
@@ -20,17 +21,6 @@ WaterParallelScene::WaterParallelScene()
 
 WaterParallelScene::~WaterParallelScene()
 {
-    Clear();
-}
-
-void WaterParallelScene::Clear()
-{
-    for(unsigned i = 0; i < m_nodes.size(); i++)
-        if(!m_nodes[i]->HasParent())
-            if(!m_nodes[i]->IsLockPtr())
-                delete m_nodes[i], m_nodes[i] = NULL;
-
-    m_nodes.clear();
 }
 
 void WaterParallelScene::PreRender()
@@ -39,7 +29,7 @@ void WaterParallelScene::PreRender()
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
     {
-        Water* water = dynamic_cast<Water*> (m_nodes[i]);
+        Water* water = m_nodes[i];
 
         // Render Reflection
         water->BeginReflection();
@@ -67,36 +57,11 @@ void WaterParallelScene::Render()
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
 
-    for(unsigned i = 0; i < m_nodes.size(); i++)
-        m_nodes[i]->Render();
+    while(!m_rendredNodes.empty())
+    {
+        m_rendredNodes.front()->Render();
+        m_rendredNodes.pop_front();
+    }
 
     glPopAttrib();
-}
-
-void WaterParallelScene::RegisterWater(Water* water)
-{
-    if(std::find(m_nodes.begin(), m_nodes.end(), water) != m_nodes.end())
-        throw Exception("WaterParallelScene::RegisterWater; child already exist");
-
-    water->SetParallelScene(this);
-
-    m_nodes.push_back(water);
-}
-
-void WaterParallelScene::UnRegisterWater(Water* water, bool deleteptr)
-{
-    Water::Array::iterator it = std::find(m_nodes.begin(), m_nodes.end(), water);
-
-    if(it == m_nodes.end())
-        throw Exception("WaterParallelScene::UnRegisterWater; cannot found child");
-
-    if(deleteptr)
-        delete (*it);
-
-    m_nodes.erase(it);
-}
-
-Iterator<Water*> WaterParallelScene::GetIterator()
-{
-    return Iterator<Water*>(m_nodes);
 }

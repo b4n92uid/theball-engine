@@ -8,11 +8,14 @@
 
 #include "Mathematics.h"
 #include "Node.h"
+#include "LightParallelScene.h"
 
 namespace tbe
 {
 namespace scene
 {
+
+class LightParallelScene;
 
 /**
  * \brief Représentation d'un lumieres
@@ -27,13 +30,14 @@ public:
         POINT,
     };
 
-    Light(Type type = POINT);
+    Light(LightParallelScene* scene, Type type = POINT);
     Light(const Light& copy);
     ~Light();
 
     Light & operator=(const Light& copy);
 
     void Process();
+
     void Render();
 
     Light* Clone();
@@ -75,6 +79,8 @@ protected:
     GLint m_lightId;
 
     Type m_type;
+
+    LightParallelScene* m_parallelScene;
 };
 
 /// \brief Lumiere dirictionelle
@@ -82,7 +88,7 @@ protected:
 class DiriLight : public Light
 {
 public:
-    DiriLight();
+    DiriLight(LightParallelScene* scene);
 };
 
 /// \brief Lumiere pointctuelle
@@ -90,7 +96,7 @@ public:
 class PointLight : public Light
 {
 public:
-    PointLight();
+    PointLight(LightParallelScene* scene);
 };
 
 }

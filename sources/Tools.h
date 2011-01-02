@@ -168,7 +168,7 @@ inline std::string UnixName(std::string name)
     replacement['é'] = 'e';
     replacement['è'] = 'e';
 
-    for(repMap::iterator it = replacement.begin(); it != replacement.end(); it++)
+    for(repMap::iterator it = replacement.begin(); it != replacement.end(); ++it)
         std::replace(name.begin(), name.end(), it->first, it->second);
 
     return name;

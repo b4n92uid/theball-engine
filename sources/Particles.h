@@ -8,14 +8,18 @@
 
 #include "Node.h"
 #include "Material.h"
+#include "ParticlesParallelScene.h"
 
 namespace tbe
 {
 namespace scene
 {
 
-/// \brief Représentation d'une particule
+class ParticlesParallelScene;
 
+/**
+ * \brief Représentation d'une particule
+ */
 struct Particle
 {
     typedef std::vector<Particle> Array;
@@ -38,11 +42,11 @@ public:
     typedef std::map<std::string, ParticlesEmiter*> Map;
     typedef std::vector<ParticlesEmiter*> Array;
 
-    ParticlesEmiter();
+    ParticlesEmiter(ParticlesParallelScene* scene);
     ParticlesEmiter(const ParticlesEmiter& copy);
     virtual ~ParticlesEmiter();
 
-    ParticlesEmiter& operator=(const ParticlesEmiter& copy);
+    ParticlesEmiter & operator=(const ParticlesEmiter& copy);
 
     void Build();
 
@@ -133,6 +137,8 @@ protected:
     Texture m_texture;
 
     GLuint m_renderId;
+
+    ParticlesParallelScene* m_parallelScene;
 };
 
 }

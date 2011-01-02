@@ -27,13 +27,15 @@ namespace tbe
 namespace scene
 {
 
+class WaterParallelScene;
+
 /**
  * \brief Représentation d'un plan d'eau
  */
 class Water : public Node
 {
 public:
-    Water();
+    Water(WaterParallelScene* scene);
     Water(const Water& copy);
     ~Water();
 
@@ -89,6 +91,8 @@ protected:
     float m_deform;
     float m_speed;
     float m_uvDecal;
+
+    WaterParallelScene* m_parallelScene;
 };
 
 }

@@ -369,7 +369,7 @@ void SwitchString::Increment()
         return;
     }
 
-    m_it++;
+    ++m_it;
 
     if(m_it >= m_content.end())
         m_it = m_content.begin();

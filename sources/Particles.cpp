@@ -7,7 +7,7 @@ using namespace tbe::scene;
 
 // ParticlesEmiter -------------------------------------------------------------
 
-ParticlesEmiter::ParticlesEmiter()
+ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
 {
     glGenBuffers(1, &m_renderId);
 
@@ -24,6 +24,9 @@ ParticlesEmiter::ParticlesEmiter()
     m_depthTest = false;
 
     m_blendEq = ADDITIVE;
+
+    m_parallelScene = scene;
+    m_parallelScene->Register(this);
 }
 
 ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
@@ -31,13 +34,17 @@ ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
     glGenBuffers(1, &m_renderId);
 
     *this = copy;
+
+    m_parallelScene->Register(this);
 }
 
 ParticlesEmiter::~ParticlesEmiter()
 {
-    glDeleteBuffers(1, &m_renderId);
-
     Destroy();
+
+    m_parallelScene->UnRegister(this);
+
+    glDeleteBuffers(1, &m_renderId);
 }
 
 ParticlesEmiter& ParticlesEmiter::operator=(const ParticlesEmiter& copy)
@@ -64,6 +71,8 @@ ParticlesEmiter& ParticlesEmiter::operator=(const ParticlesEmiter& copy)
 
     m_blendEq = copy.m_blendEq;
     m_texture = copy.m_texture;
+
+    m_parallelScene = copy.m_parallelScene;
 
     if(copy.m_enable)
         Build();
@@ -104,7 +113,7 @@ void ParticlesEmiter::Build()
     }
 
     glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(Particle) * m_number, &m_particles[0], GL_STREAM_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof (Particle) * m_number, &m_particles[0], GL_STREAM_DRAW);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -119,7 +128,7 @@ Node* ParticlesEmiter::Clone()
 
 void ParticlesEmiter::Process()
 {
-    if(!m_enable || !m_enableProcess)
+    if(!m_enable)
         return;
 
     for(unsigned i = 0; i < m_childs.size(); i++)
@@ -167,11 +176,13 @@ void ParticlesEmiter::Process()
     glUnmapBuffer(GL_ARRAY_BUFFER);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    m_parallelScene->PushToDraw(this);
 }
 
 void ParticlesEmiter::Render()
 {
-    if(!m_enable || !m_enableRender || (m_deadEmiter && !m_autoRebuild))
+    if(!m_enable || (m_deadEmiter && !m_autoRebuild))
         return;
 
     switch(m_blendEq)
@@ -203,8 +214,8 @@ void ParticlesEmiter::Render()
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
 
-    glVertexPointer(3, GL_FLOAT, sizeof(Particle), POSITION_OFFSET);
-    glColorPointer(4, GL_FLOAT, sizeof(Particle), COLOR_OFFSET);
+    glVertexPointer(3, GL_FLOAT, sizeof (Particle), POSITION_OFFSET);
+    glColorPointer(4, GL_FLOAT, sizeof (Particle), COLOR_OFFSET);
 
     glDrawArrays(GL_POINTS, 0, m_drawNumber);
 
@@ -400,7 +411,7 @@ void ParticlesEmiter::BeginSpiritDraw(float fovy, float viewportHeight)
 
     // Limit Max/Min taille
     glPointParameterfARB(GL_POINT_SIZE_MIN_ARB, 1.0f);
-    glPointParameterfARB(GL_POINT_SIZE_MAX_ARB, 256);
+    glPointParameterfARB(GL_POINT_SIZE_MAX_ARB, maxSize);
 
     // Fondue depuis le centre
     glPointParameterfARB(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 60.0f);

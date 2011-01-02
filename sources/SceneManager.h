@@ -62,11 +62,6 @@ public:
     /// Accès a une sous-scene
     ParallelScene* GetParallelScene(unsigned index);
 
-    template <typename T> T* GetParallelScene(unsigned index)
-    {
-        return dynamic_cast<T*>(GetParallelScene(index));
-    }
-
     /// Destruite une scene parallele
     void DeleteParallelScene(unsigned index);
     void DeleteParallelScene(ParallelScene* scene);
@@ -79,6 +74,10 @@ public:
 
     /// Rendue
     void Render(bool setupView = true);
+
+    // Node --------------------------------------------------------------------
+
+    Node* GetRootNode() const;
 
     // Camera ------------------------------------------------------------------
 
@@ -146,6 +145,8 @@ protected:
 
     Camera::Array m_cameras;
     Camera::Array::iterator m_currentCamera;
+
+    Node* m_rootNode;
 
     Vector2i m_viewport;
     float m_fovy, m_zNear, m_zFar, m_ratio;

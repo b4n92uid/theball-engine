@@ -10,6 +10,7 @@ namespace scene
 
 class Material;
 class OBJMesh;
+class MeshParallelScene;
 
 /**
  * \brief Loader de fichier MTL pour fichier OBJ (.mtl)
@@ -41,8 +42,8 @@ class OBJMesh : public Mesh
     friend class MTLFile;
 
 public:
-    OBJMesh();
-    OBJMesh(const std::string& path);
+    OBJMesh(MeshParallelScene* scene);
+    OBJMesh(MeshParallelScene* scene, const std::string& path);
     OBJMesh(const OBJMesh& copy);
 
     ~OBJMesh();

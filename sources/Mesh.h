@@ -11,10 +11,13 @@
 #include "Node.h"
 #include "Material.h"
 
+
 namespace tbe
 {
 namespace scene
 {
+
+class MeshParallelScene;
 
 /**
  * \brief Représentation d'un Mailliage
@@ -24,7 +27,7 @@ namespace scene
 class Mesh : public Node
 {
 public:
-    Mesh();
+    Mesh(MeshParallelScene* scene);
     Mesh(const Mesh& copy);
     ~Mesh();
 
@@ -119,6 +122,9 @@ public:
     /// Renvoi 'true' si le mesh contien un materieu transparent
     bool IsTransparent();
 
+    void SetVisible(bool visible);
+    bool IsVisible() const;
+
     /// Renvois le buffer graphique de rendue
     HardwareBuffer& GetHardwareBuffer();
 
@@ -137,8 +143,11 @@ protected:
     bool m_triangulate;
     bool m_withNormal;
     bool m_withTexCoord;
+    bool m_visible;
 
     HardwareBuffer m_hardwareBuffer;
+
+    MeshParallelScene* m_parallelScene;
 
     bool RayCast(Vector3f rayStart, Vector3f rayDiri,
                  Vector3f& intersect, bool global);

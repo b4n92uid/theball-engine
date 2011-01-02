@@ -1,5 +1,13 @@
+/*
+ * File:   Node.cpp
+ * Author: b4n92uid
+ *
+ * Created on 14 juillet 2010, 16:11:27
+ */
+
 #include "Node.h"
 #include "ParallelScene.h"
+#include "SceneManager.h"
 
 using namespace tbe;
 using namespace tbe::scene;
@@ -10,11 +18,7 @@ using namespace std;
 Node::Node()
 {
     m_enable = true;
-    m_enableRender = true;
-    m_enableProcess = true;
-    m_lockPtr = false;
     m_parallelScene = NULL;
-
     m_parent = NULL;
 }
 
@@ -27,11 +31,10 @@ Node::Node(const Node& copy)
 
 Node::~Node()
 {
-    for(unsigned i = 0; i < m_childs.size(); i++)
-    {
-        if(!m_childs[i]->m_lockPtr)
-            delete m_childs[i];
-    }
+    ClearAllChild();
+
+    if(m_parent)
+        m_parent->ReleaseChild(this);
 }
 
 Node& Node::operator =(const Node& copy)
@@ -39,17 +42,14 @@ Node& Node::operator =(const Node& copy)
     m_name = copy.m_name;
     m_matrix = copy.m_matrix;
     m_enable = copy.m_enable;
-    m_enableRender = copy.m_enableRender;
-    m_enableProcess = copy.m_enableProcess;
-    m_lockPtr = copy.m_lockPtr;
     m_aabb = copy.m_aabb;
 
-    // TODO Copie des noeud enfant
+    ClearAllChild();
 
-    //    m_childs.reserve(copy.m_childs.size());
-    //
-    //    for(unsigned i = 0; i < copy.m_childs.size(); i++)
-    //        m_childs[i] = copy.m_childs[i]->Clone();
+    m_childs.reserve(copy.m_childs.size());
+
+    for(unsigned i = 0; i < copy.m_childs.size(); i++)
+        AddChild(copy.m_childs[i]->Clone());
 
     return *this;
 }
@@ -235,32 +235,25 @@ Node* Node::GetChild(unsigned index) const
     return m_childs[index];
 }
 
-void Node::SetEnableProcess(bool enableProcess)
+void Node::SetUserData(Any userData)
 {
-    this->m_enableProcess = enableProcess;
+    this->m_userData = userData;
 }
 
-bool Node::IsEnableProcess() const
+Any Node::GetUserData() const
 {
-    return m_enableProcess;
+    return m_userData;
 }
 
-void Node::SetEnableRender(bool enableRender)
+Iterator<Node*> Node::GetChildIterator()
 {
-    this->m_enableRender = enableRender;
+    return Iterator<Node*>(m_childs);
 }
 
-bool Node::IsEnableRender() const
+void Node::ClearAllChild()
 {
-    return m_enableRender;
-}
+    for(unsigned i = 0; i < m_childs.size(); i++)
+        delete m_childs[i];
 
-void Node::SetLockPtr(bool lockPtr)
-{
-    this->m_lockPtr = lockPtr;
-}
-
-bool Node::IsLockPtr() const
-{
-    return m_lockPtr;
+    m_childs.clear();
 }

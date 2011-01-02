@@ -10,6 +10,8 @@
 #include "Frustum.h"
 #include "Mesh.h"
 #include "Tools.h"
+#include "Ball3DMesh.h"
+#include "ObjMesh.h"
 
 #include <list>
 
@@ -24,7 +26,6 @@ MeshParallelScene::MeshParallelScene()
 
 MeshParallelScene::~MeshParallelScene()
 {
-    Clear();
 }
 
 struct DepthSortMeshFunc
@@ -45,16 +46,6 @@ struct DepthSortMeshFunc
     Vector3f camPos;
 };
 
-void MeshParallelScene::Clear()
-{
-    for(unsigned i = 0; i < m_nodes.size(); i++)
-        if(!m_nodes[i]->HasParent())
-            if(!m_nodes[i]->IsLockPtr())
-                delete m_nodes[i], m_nodes[i] = NULL;
-
-    m_nodes.clear();
-}
-
 void MeshParallelScene::Render()
 {
     Frustum* frustum = m_sceneManager->GetFrustum();
@@ -62,17 +53,13 @@ void MeshParallelScene::Render()
     m_frustumCullingCount = 0;
 
     static DepthSortMeshFunc sortFunc;
-
     sortFunc.camPos = m_sceneManager->GetCurCamera()->GetPos();
+    m_rendredNodes.sort(sortFunc);
 
-    std::sort(m_nodes.begin(), m_nodes.end(), sortFunc);
-
-    for(unsigned i = 0; i < m_nodes.size(); i++)
+    while(!m_rendredNodes.empty())
     {
-        Node* it = m_nodes[i];
-
-        if(!it->HasParent())
-            it->Process();
+        Node* it = m_rendredNodes.front();
+        m_rendredNodes.pop_front();
 
         if(m_enableFrustumTest && !frustum->IsInside(it))
         {
@@ -82,29 +69,6 @@ void MeshParallelScene::Render()
 
         it->Render();
     }
-}
-
-void MeshParallelScene::RegisterMesh(Mesh* mesh)
-{
-    if(std::find(m_nodes.begin(), m_nodes.end(), mesh) != m_nodes.end())
-        throw Exception("MeshParallelScene::RegisterMesh; child already exist");
-
-    mesh->SetParallelScene(this);
-
-    m_nodes.push_back(mesh);
-}
-
-void MeshParallelScene::UnRegisterMesh(Mesh* mesh, bool deleteptr)
-{
-    Mesh::Array::iterator it = std::find(m_nodes.begin(), m_nodes.end(), mesh);
-
-    if(it == m_nodes.end())
-        throw Exception("MeshParallelScene::UnRegisterMesh; cannot found child");
-
-    if(deleteptr)
-        delete (*it);
-
-    m_nodes.erase(it);
 }
 
 bool MeshParallelScene::FindFloor(Vector3f& pos)

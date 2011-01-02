@@ -1,3 +1,5 @@
+#include <map>
+
 #include "SceneManager.h"
 
 #include "Texture.h"
@@ -31,6 +33,8 @@ SceneManager::SceneManager()
     m_currentCamera = m_cameras.end();
 
     m_fovy = m_zNear = m_zFar = m_ratio = 0;
+
+    m_rootNode = new BullNode;
 }
 
 SceneManager::~SceneManager()
@@ -40,6 +44,8 @@ SceneManager::~SceneManager()
     delete m_frustum;
     delete m_skybox;
     delete m_fog;
+
+    delete m_rootNode;
 }
 
 void SceneManager::UpdateViewParameter()
@@ -80,8 +86,13 @@ void SceneManager::ClearParallelScenes()
 
 void SceneManager::ClearAll()
 {
+    m_rootNode->ClearAllChild();
+
     ClearCameras();
     ClearParallelScenes();
+
+    m_skybox->Clear();
+    m_fog->Clear();
 }
 
 void SceneManager::Render(bool setupView)
@@ -102,20 +113,12 @@ void SceneManager::Render(bool setupView)
         m_skybox->Render((*m_currentCamera)->GetPos());
     }
 
-    // Rendue des scenes parallele
-    for(unsigned i = 0; i < m_parallelScenes.size(); i++)
-        m_parallelScenes[i]->Render();
-}
+    // Traitement Logique
+    m_rootNode->Process();
 
-void SceneManager::SetAmbientLight(Vector4f ambient)
-{
-    m_ambientLight = ambient;
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, m_ambientLight);
-}
-
-Vector4f SceneManager::GetAmbientLight() const
-{
-    return m_ambientLight;
+    // Traitement Graphique : Rendue des scenes parallele
+    std::for_each(m_parallelScenes.begin(), m_parallelScenes.end(),
+                  mem_fun(&ParallelScene::Render));
 }
 
 void SceneManager::AddParallelScene(ParallelScene* scene)
@@ -304,7 +307,6 @@ Vector3f SceneManager::ScreenToWorld(Vector2i target, Rtt* rtt)
 
 Vector3f SceneManager::ScreenToWorld(Vector2i target)
 {
-
     int iViewport[4];
     double fModelview[16];
     double fProjection[16];
@@ -332,82 +334,18 @@ Vector3f SceneManager::ScreenToWorld(Vector2i target)
     return Vector3f(float(pick.x), float(pick.y), float(pick.z));
 }
 
-
-#if 0
-
-Box* SceneManager::AddBox(std::string name, Vector3f size, Node* parent)
+void SceneManager::SetAmbientLight(Vector4f ambient)
 {
-    if(name.empty())
-        name = Node::NameGen(m_entity);
-
-    else if(m_entity.find(name) != m_entity.end())
-        throw Exception("SceneManager::Add*; Name already exist (%s)", name.c_str());
-
-    Box* O = new Box(size);
-
-    if(parent)
-        O->m_parent = parent;
-    else
-        m_entity[name] = O;
-    return O;
+    m_ambientLight = ambient;
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, m_ambientLight);
 }
 
-Sphere* SceneManager::AddSphere(std::string name, Vector3f size, Node* parent)
+Vector4f SceneManager::GetAmbientLight() const
 {
-    if(name.empty())
-        name = Node::NameGen(m_entity);
-
-    else if(m_entity.find(name) != m_entity.end())
-        throw Exception("SceneManager::Add*; Name already exist (%s)", name.c_str());
-
-    Sphere* O = new Sphere(size.XYZ());
-
-    if(parent)
-        O->m_parent = parent;
-    else
-        m_entity[name] = O;
-    return O;
+    return m_ambientLight;
 }
 
-Heightmap* SceneManager::AddHeightmap(std::string name, std::string filepath, Node* parent)
+Node* SceneManager::GetRootNode() const
 {
-    if(m_entity.find(name) != m_entity.end())
-        throw Exception("SceneManager::Add*; Name already exist (%s)", name.c_str());
-
-    Heightmap* O = new Heightmap(filepath);
-
-    if(parent)
-        O->m_parent = parent;
-    else
-        m_entity[name] = O;
-    return O;
+    return m_rootNode;
 }
-
-MD2Mesh* SceneManager::AddMD2Mesh(std::string name, std::string filepath, Node* parent)
-{
-    if(m_entity.find(name) != m_entity.end())
-        throw Exception("SceneManager::Add*; Name already exist (%s)", name.c_str());
-
-    MD2Mesh* O = new MD2Mesh(filepath);
-
-    if(parent)
-        O->m_parent = parent;
-    else
-        m_entity[name] = O;
-    return O;
-}
-
-OBJMesh* SceneManager::AddOBJMesh(std::string name, std::string filepath, Node* parent)
-{
-    if(m_entity.find(name) != m_entity.end())
-        throw Exception("SceneManager::Add*; Name already exist (%s)", name.c_str());
-
-    OBJMesh* O = new OBJMesh(filepath);
-
-    if(parent)
-        O->m_parent = parent;
-    else
-        m_entity[name] = O;
-    return O;
-}
-#endif

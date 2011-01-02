@@ -10,10 +10,13 @@
 
 #include <string>
 #include <vector>
+#include <list>
+#include <typeinfo>
 #include <map>
 
 #include "Node.h"
 #include "Iterator.h"
+#include "Tools.h"
 
 namespace tbe
 {
@@ -55,32 +58,35 @@ template<typename T> class ParallelSceneRegister : public ParallelScene
 {
 public:
 
+    ~ParallelSceneRegister()
+    {
+        Clear();
+    }
+
     void Clear()
     {
-        for(unsigned i = 0; i < m_nodes.size(); i++)
-            if(!m_nodes[i]->HasParent())
-                if(!m_nodes[i]->IsLockPtr())
-                    delete m_nodes[i], m_nodes[i] = NULL;
-
         m_nodes.clear();
+        m_rendredNodes.clear();
     }
 
     void Register(T* node)
     {
-        if(std::find(m_nodes.begin(), m_nodes.end(), node) != m_nodes.end())
-            throw Exception("NodeRegister::Register; child already exist");
+        const std::type_info& ti = typeid (node);
 
-        node->SetParallelScene(this);
+        if(std::find(m_nodes.begin(), m_nodes.end(), node) != m_nodes.end())
+            throw Exception("NodeRegister::Register<%s>; child already exist", ti.name());
 
         m_nodes.push_back(node);
     }
 
-    void UnRegister(T* node, bool deleteptr)
+    void UnRegister(T* node, bool deleteptr = false)
     {
         typename std::vector<T*>::iterator it = std::find(m_nodes.begin(), m_nodes.end(), node);
 
+        const std::type_info& ti = typeid (node);
+
         if(it == m_nodes.end())
-            throw Exception("NodeRegister::UnRegister; cannot found child");
+            throw Exception("NodeRegister::UnRegister<%s>; cannot found child", ti.name());
 
         if(deleteptr)
             delete (*it);
@@ -88,11 +94,23 @@ public:
         m_nodes.erase(it);
     }
 
+    void PushToDraw(T* node)
+    {
+        const std::type_info& ti = typeid (node);
+
+        if(std::find(m_rendredNodes.begin(), m_rendredNodes.end(), node) != m_rendredNodes.end())
+            throw Exception("NodeRegister::PushToDraw<%s>; child already push", ti.name());
+
+        m_rendredNodes.push_back(node);
+    }
+
     Iterator<T*> GetIterator()
     {
         return Iterator<T*>(m_nodes);
     }
 
+protected:
+    std::list<T*> m_rendredNodes;
     std::vector<T*> m_nodes;
 };
 

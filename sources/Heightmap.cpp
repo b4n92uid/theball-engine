@@ -4,7 +4,7 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
-Heightmap::Heightmap()
+Heightmap::Heightmap(MeshParallelScene* scene) : Mesh(scene)
 {
     m_pixels = NULL;
 
@@ -14,7 +14,7 @@ Heightmap::Heightmap()
     m_rendreId = 0;
 }
 
-Heightmap::Heightmap(const std::string& path, unsigned precision)
+Heightmap::Heightmap(MeshParallelScene* scene, const std::string& path, unsigned precision) : Mesh(scene)
 {
     m_pixels = NULL;
 
@@ -41,7 +41,7 @@ float Heightmap::GetY(unsigned x, unsigned z)
     // On accède avec comme calcul z * largeur + x. Ainsi pour trouver l'élément
     // tab [9][4], soit par convention la ligne 9 et colonne 4, cela donne :
     // 4 * m_iLargeur (par exemple 15) : 4 * 15 + 9 = 69.
-    return(GLfloat)m_pixels[z * m_length + x];
+    return (GLfloat)m_pixels[z * m_length + x];
 }
 
 void Heightmap::Open(const std::string& path)
@@ -61,7 +61,7 @@ void Heightmap::Open(const std::string& path)
     rewind(pFile);
 
     m_pixels = new unsigned char[m_fileSize];
-    fread(m_pixels, sizeof(unsigned char), m_fileSize, pFile);
+    fread(m_pixels, sizeof (unsigned char), m_fileSize, pFile);
 
     fclose(pFile);
 

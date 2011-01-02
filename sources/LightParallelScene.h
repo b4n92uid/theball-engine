@@ -9,12 +9,13 @@
 #define	LIGHTPARALLELSCENE_H
 
 #include "ParallelScene.h"
-#include "Light.h"
 
 namespace tbe
 {
 namespace scene
 {
+
+class Light;
 
 class LightParallelScene : public ParallelSceneRegister<Light>
 {

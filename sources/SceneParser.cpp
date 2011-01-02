@@ -230,7 +230,7 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
     if(m_classRec.count(type))
     {
-        Mesh* node = m_classFactory ? m_classFactory->Instance(type) : new Mesh;
+        Mesh* node = m_classFactory ? m_classFactory->Instance(type) : new Mesh(m_meshScene);
 
         if(parent)
             node->SetParent(parent);
@@ -240,8 +240,6 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
         if(rel.attr.count("name"))
             node->SetName(rel.attr["name"]);
-
-        m_meshScene->RegisterMesh(node);
 
         for(unsigned i = 0; i < m_classRec[type].size(); i++)
             ParseNode(m_classRec[type][i], node);
@@ -253,7 +251,7 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
     if(type == "OBJMesh")
     {
-        OBJMesh* node = new OBJMesh;
+        OBJMesh* node = new OBJMesh(m_meshScene);
 
         string modelFilepath;
 
@@ -264,14 +262,14 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
         node->Open(modelFilepath);
 
-        m_meshScene->RegisterMesh(node);
+        m_meshScene->Register(node);
 
         current = node;
     }
 
     else if(type == "ParticlesEmiter")
     {
-        ParticlesEmiter* emiter = new ParticlesEmiter;
+        ParticlesEmiter* emiter = new ParticlesEmiter(m_particlesScene);
 
         string modelFilepath;
 
@@ -297,7 +295,7 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
         emiter->Build();
 
-        m_particlesScene->RegisterParticles(emiter);
+        m_particlesScene->Register(emiter);
 
         current = emiter;
     }
@@ -308,14 +306,14 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
         if(rel.attr["class"] == "Diri")
         {
-            light = new DiriLight;
+            light = new DiriLight(m_lightScene);
         }
 
         else if(rel.attr["class"] == "Point")
         {
             float radius = tools::StrToNum<float>(rel.attr["radius"]);
 
-            light = new PointLight;
+            light = new PointLight(m_lightScene);
             light->SetRadius(radius);
         }
 

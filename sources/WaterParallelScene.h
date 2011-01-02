@@ -9,36 +9,29 @@
 #define	_WATERPARALLELSCENE_H
 
 #include "ParallelScene.h"
-#include "Water.h"
 
 namespace tbe
 {
 namespace scene
 {
 
+class Water;
+
 /**
  * \brief Scene parallel pour la gestion des plans d'eau
  */
-class WaterParallelScene : public ParallelScene
+class WaterParallelScene : public ParallelSceneRegister<Water>
 {
 public:
     WaterParallelScene();
     ~WaterParallelScene();
 
     void PreRender();
-    
+
     void Render();
-
-    void Clear();
-
-    void RegisterWater(Water* water);
-    void UnRegisterWater(Water* water, bool deleteptr = false);
-
-    Iterator<Water*> GetIterator();
 
 private:
     bool m_inPreRender;
-    Water::Array m_nodes;
 };
 
 }

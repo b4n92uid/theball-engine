@@ -9,33 +9,24 @@
 #define	_PARTICLESPARALLELSCENE_H
 
 #include "ParallelScene.h"
-#include "Particles.h"
 
 namespace tbe
 {
 namespace scene
 {
 
+class ParticlesEmiter;
+
 /**
  * \brief Scene parallele de rendue des particules
  */
-class ParticlesParallelScene : public ParallelScene
+class ParticlesParallelScene : public ParallelSceneRegister<ParticlesEmiter>
 {
 public:
     ParticlesParallelScene();
     ~ParticlesParallelScene();
 
     void Render();
-
-    void Clear();
-
-    void RegisterParticles(ParticlesEmiter* pemiter);
-    void UnRegisterParticles(ParticlesEmiter* pemiter, bool deleteptr = false);
-
-    Iterator<ParticlesEmiter*> GetIterator();
-
-private:
-    ParticlesEmiter::Array m_nodes;
 };
 
 }

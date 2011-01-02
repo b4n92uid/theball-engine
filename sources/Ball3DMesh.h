@@ -20,11 +20,13 @@ namespace tbe
 namespace scene
 {
 
+class MeshParallelScene;
+
 class Ball3DMesh : public Mesh
 {
 public:
-    Ball3DMesh();
-    Ball3DMesh(std::string filepath);
+    Ball3DMesh(MeshParallelScene* scene);
+    Ball3DMesh(MeshParallelScene* scene, const std::string& filepath);
     Ball3DMesh(const Ball3DMesh& copy);
     ~Ball3DMesh();
 

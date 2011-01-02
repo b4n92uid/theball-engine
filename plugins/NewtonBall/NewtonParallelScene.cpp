@@ -53,25 +53,12 @@ AABB NewtonParallelScene::GetWorldSize() const
     return m_worldSize;
 }
 
-void NewtonParallelScene::Clear()
-{
-    for(unsigned i = 0; i < m_nodes.size(); i++)
-        if(!m_nodes[i]->HasParent())
-            if(!m_nodes[i]->IsLockPtr())
-                delete m_nodes[i], m_nodes[i] = NULL;
-
-    m_nodes.clear();
-}
-
 void NewtonParallelScene::Render()
 {
     if(!m_enable)
         return;
 
     NewtonUpdate(m_newtonWorld, m_worldTimestep);
-
-    for(unsigned i = 0; i < m_nodes.size(); i++)
-        m_nodes[i]->Process();
 }
 
 void NewtonParallelScene::SetWorldTimestep(float worldTimestep)
@@ -138,46 +125,4 @@ Vector3f NewtonParallelScene::FindFloor(Vector3f pos)
 
     //return Vector3f(pos.x, 1000.0f - 2000.0f * intersect + pos.y, pos.z);
     return Vector3f(pos.x, p0.y + (p1.y - p0.y) * intersect + pos.y, pos.z);
-}
-
-void NewtonParallelScene::ApplyForceAndTorque(const NewtonBody* body, float, int)
-{
-    NewtonNode* core = (NewtonNode*)NewtonBodyGetUserData(body);
-
-    if(!core)
-        throw tbe::Exception("NewtonParallelScene::ApplyForceAndTorque; core == NULL");
-
-    Vector3f applyForce = core->GetApplyForce();
-    Vector3f applyTorque = core->GetApplyTorque();
-
-    if(core->IsApplyGravity())
-        applyForce.y -= core->GetMasse() * 9.81 * core->GetNewtonScene()->GetGravity();
-
-    NewtonBodySetForce(body, applyForce);
-    NewtonBodySetTorque(body, applyTorque);
-
-    core->SetApplyForce(0);
-}
-
-void NewtonParallelScene::RegisterBody(NewtonNode* body)
-{
-    if(std::find(m_nodes.begin(), m_nodes.end(), body) != m_nodes.end())
-        throw Exception("NewtonParallelScene::RegisterMesh; child already exist");
-
-    body->SetParallelScene(this);
-
-    m_nodes.push_back(body);
-}
-
-void NewtonParallelScene::UnRegisterBody(NewtonNode* body, bool delptr)
-{
-    NewtonNode::Array::iterator it = std::find(m_nodes.begin(), m_nodes.end(), body);
-
-    if(it == m_nodes.end())
-        throw Exception("NewtonParallelScene::UnRegisterMesh; cannot found child");
-
-    if(delptr)
-        delete (*it);
-
-    m_nodes.erase(it);
 }
