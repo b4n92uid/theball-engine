@@ -19,15 +19,13 @@ namespace scene
 /**
  * \brief Scene parallel de rendue des mailliage
  */
-class MeshParallelScene : public ParallelScene
+class MeshParallelScene : public ParallelSceneRegister<Mesh>
 {
 public:
     MeshParallelScene();
     ~MeshParallelScene();
 
     void Render();
-
-    void Clear();
 
     /// Renvois la position y des coordonnés x z dans le repere global
     bool FindFloor(Vector3f& pos);
@@ -40,9 +38,6 @@ public:
     void SetFrustumCullingCount(unsigned frustumCullingCount);
     unsigned GetFrustumCullingCount() const;
 
-    void RegisterMesh(Mesh* mesh);
-    void UnRegisterMesh(Mesh* mesh, bool deleteptr = false);
-
     Iterator<Mesh*> GetIterator();
 
 protected:
@@ -51,7 +46,6 @@ protected:
 private:
     unsigned m_frustumCullingCount;
     bool m_enableFrustumTest;
-    Mesh::Array m_nodes;
 };
 
 }

@@ -2,7 +2,7 @@ build
 demo
 dist
 doc/html
-extras
+ignore
 sourcesold
 nbproject
 

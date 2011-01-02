@@ -6,12 +6,12 @@ using namespace tbe::scene;
 
 // Box -------------------------------------------------------------------------
 
-Box::Box()
+Box::Box(MeshParallelScene* scene) : Mesh(scene)
 {
 
 }
 
-Box::Box(Vector3f size)
+Box::Box(MeshParallelScene* scene, Vector3f size) : Mesh(scene)
 {
     Setup(size);
 }
@@ -113,12 +113,12 @@ Vector3f Box::GetSize() const
 
 // Sphere ----------------------------------------------------------------------
 
-Sphere::Sphere()
+Sphere::Sphere(MeshParallelScene* scene) : Mesh(scene)
 {
     m_radius = 0;
 }
 
-Sphere::Sphere(float radius, unsigned slices, unsigned stackes)
+Sphere::Sphere(MeshParallelScene* scene, float radius, unsigned slices, unsigned stackes) : Mesh(scene)
 {
     Setup(radius, slices, stackes);
 }
@@ -192,13 +192,13 @@ float Sphere::GetRadius() const
 
 // Axes ------------------------------------------------------------------------
 
-Axes::Axes()
+Axes::Axes(MeshParallelScene* scene) : Mesh(scene)
 {
     m_lineWidth = 0;
     m_lineLength = 0;
 }
 
-Axes::Axes(float lineWidth, float lineLength)
+Axes::Axes(MeshParallelScene* scene, float lineWidth, float lineLength) : Mesh(scene)
 {
     Setup(lineWidth, lineLength);
 }
@@ -247,12 +247,12 @@ float Axes::GetLineWidth() const
 
 // Plan ------------------------------------------------------------------------
 
-Plane::Plane()
+Plane::Plane(MeshParallelScene* scene) : Mesh(scene)
 {
 
 }
 
-Plane::Plane(Vector2f size, Vector2i cut)
+Plane::Plane(MeshParallelScene* scene, Vector2f size, Vector2i cut) : Mesh(scene)
 {
     Setup(size, cut);
 }

@@ -15,7 +15,7 @@ namespace tbe
 namespace scene
 {
 
-class Node;
+class MeshParallelScene;
 
 /**
  * \brief Primitive de type cube
@@ -23,8 +23,8 @@ class Node;
 class Box : public Mesh
 {
 public:
-    Box();
-    Box(Vector3f size);
+    Box(MeshParallelScene* scene);
+    Box(MeshParallelScene* scene, Vector3f size);
 
     void Setup(Vector3f size);
 
@@ -41,8 +41,8 @@ protected:
 class Sphere : public Mesh
 {
 public:
-    Sphere();
-    Sphere(float radius, unsigned slices, unsigned stackes);
+    Sphere(MeshParallelScene* scene);
+    Sphere(MeshParallelScene* scene, float radius, unsigned slices, unsigned stackes);
 
     void Setup(float radius, unsigned slices, unsigned stackes);
 
@@ -58,8 +58,8 @@ protected:
 class Axes : public Mesh
 {
 public:
-    Axes();
-    Axes(float lineWidth, float lineLength);
+    Axes(MeshParallelScene* scene);
+    Axes(MeshParallelScene* scene, float lineWidth, float lineLength);
 
     void Setup(float lineWidth, float lineLength);
 
@@ -78,8 +78,8 @@ protected:
 class Plane : public Mesh
 {
 public:
-    Plane();
-    Plane(Vector2f size, Vector2i cut);
+    Plane(MeshParallelScene* scene);
+    Plane(MeshParallelScene* scene, Vector2f size, Vector2i cut);
 
     void Setup(Vector2f size, Vector2i cut);
 

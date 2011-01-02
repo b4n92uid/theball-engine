@@ -11,6 +11,7 @@
 #include "HardwareBuffer.h"
 #include "Rtt.h"
 #include "Clock.h"
+#include "WaterParallelScene.h"
 
 #include <time.h>
 
@@ -113,7 +114,7 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
-Water::Water()
+Water::Water(WaterParallelScene* scene)
 {
     m_shader.ParseVertexShader(vertexShader);
     m_shader.ParseFragmentShader(fragmentShader);
@@ -147,6 +148,9 @@ Water::Water()
     m_buffer.Compile();
 
     m_uvDecal = 0;
+
+    m_parallelScene = scene;
+    m_parallelScene->Register(this);
 }
 
 Water::~Water()
@@ -187,6 +191,8 @@ Water::Water(const Water& copy)
     m_buffer.Compile();
 
     *this = copy;
+
+    m_parallelScene->Register(this);
 }
 
 Water& Water::operator=(const Water& copy)
@@ -200,6 +206,8 @@ Water& Water::operator=(const Water& copy)
     m_blend = copy.m_blend;
     m_deform = copy.m_deform;
     m_speed = copy.m_speed;
+
+    m_parallelScene = copy.m_parallelScene;
 
     return *this;
 }

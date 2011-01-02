@@ -21,16 +21,16 @@ public:
     }
 } manager;
 
-OBJMesh::OBJMesh() : m_mtlfile(this)
+OBJMesh::OBJMesh(MeshParallelScene* scene) : Mesh(scene), m_mtlfile(this)
 {
 }
 
-OBJMesh::OBJMesh(const std::string& path) : m_mtlfile(this)
+OBJMesh::OBJMesh(MeshParallelScene* scene, const std::string& path) : Mesh(scene), m_mtlfile(this)
 {
     Open(path);
 }
 
-OBJMesh::OBJMesh(const OBJMesh& copy) : m_mtlfile(this)
+OBJMesh::OBJMesh(const OBJMesh& copy) : Mesh(copy), m_mtlfile(this)
 {
     *this = copy;
 }

@@ -22,10 +22,10 @@ class NewtonParallelScene;
 class NewtonNode : public Node
 {
 public:
-    NewtonNode();
-    NewtonNode(const NewtonNode& copy);
+    NewtonNode(NewtonParallelScene* newtonScene);
     NewtonNode(NewtonParallelScene* newtonScene, Node* node);
     NewtonNode(NewtonParallelScene* newtonScene, Matrix4f* matrix);
+    NewtonNode(const NewtonNode& copy);
 
     virtual ~NewtonNode();
 
@@ -66,13 +66,6 @@ public:
 
     Node* Clone();
 
-    /// Accés au gestionnaire de scene newton
-    void SetNewtonScene(NewtonParallelScene* newtonNodeScene);
-    NewtonParallelScene* GetNewtonScene() const;
-
-    void SetNewtonWorld(NewtonWorld* newtonWorld);
-    NewtonWorld* GetNewtonWorld() const;
-
     void SetUpdatedMatrix(Matrix4f* updatedMatrix);
     Matrix4f* GetUpdatedMatrix() const;
 
@@ -88,13 +81,18 @@ public:
     void SetFreeze(bool freeze);
     bool IsFreeze() const;
 
+    NewtonParallelScene* GetParallelScene() const;
+    
+    /// Method static d'application de la force gravitationnele (9.81)
+    static void ApplyForceAndTorque(const NewtonBody* body, float, int);
+
     typedef std::vector<NewtonNode*> Array;
     typedef std::map<std::string, NewtonNode*> Map;
 
 protected:
     Vector3f m_applyForce;
     Vector3f m_applyTorque;
-    NewtonParallelScene* m_newtonScene;
+    NewtonParallelScene* m_parallelScene;
     NewtonWorld* m_newtonWorld;
     NewtonBody* m_body;
     Matrix4f* m_updatedMatrix;

@@ -7,15 +7,16 @@
 
 #include "Ball3DMesh.h"
 #include "Tools.h"
+#include "MeshParallelScene.h"
 
 using namespace tbe;
 using namespace scene;
 
-Ball3DMesh::Ball3DMesh()
+Ball3DMesh::Ball3DMesh(MeshParallelScene* scene) : Mesh(scene)
 {
 }
 
-Ball3DMesh::Ball3DMesh(std::string filepath)
+Ball3DMesh::Ball3DMesh(MeshParallelScene* scene, const std::string& filepath) : Mesh(scene)
 {
     Open(filepath);
 }
@@ -150,7 +151,7 @@ void Ball3DMesh::Open(std::string filepath)
     m_hardwareBuffer.Compile();
 
     ComputeAabb();
-    
+
     file.close();
 }
 

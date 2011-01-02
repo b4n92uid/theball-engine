@@ -8,46 +8,57 @@
 #include "Mesh.h"
 #include "ParallelScene.h"
 #include "SceneManager.h"
+#include "MeshParallelScene.h"
 #include "Tools.h"
 
 using namespace tbe;
 using namespace tbe::scene;
 using namespace std;
 
-Mesh::Mesh()
+Mesh::Mesh(MeshParallelScene* scene)
 {
+    m_parallelScene = scene;
     m_triangulate = true;
     m_withNormal = false;
     m_withTexCoord = false;
+    m_visible = true;
+
+    m_parallelScene->Register(this);
 }
 
 Mesh::Mesh(const Mesh& copy) : Node(copy)
 {
     *this = copy;
+
+    m_parallelScene->Register(this);
 }
 
 Mesh::~Mesh()
 {
-    for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); it++)
+    for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
         delete it->second;
+
+    m_parallelScene->UnRegister(this);
 }
 
 Mesh& Mesh::operator=(const Mesh& copy)
 {
     Node::operator=(copy);
 
+    m_parallelScene = copy.m_parallelScene;
     m_triangulate = copy.m_triangulate;
     m_withNormal = copy.m_withNormal;
     m_withTexCoord = copy.m_withTexCoord;
+    m_visible = copy.m_visible;
 
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
-    for(Material::Map::const_iterator it = m_materials.begin(); it != m_materials.end(); it++)
+    for(Material::Map::const_iterator it = m_materials.begin(); it != m_materials.end(); ++it)
         delete it->second;
 
     m_materials.clear();
 
-    for(Material::Map::const_iterator it = copy.m_materials.begin(); it != copy.m_materials.end(); it++)
+    for(Material::Map::const_iterator it = copy.m_materials.begin(); it != copy.m_materials.end(); ++it)
         m_materials[it->first] = new Material(*it->second);
 
     m_renderProess = copy.m_renderProess;
@@ -433,7 +444,7 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
 
 void Mesh::Render()
 {
-    if(!m_enable || !m_enableRender || m_hardwareBuffer.IsEmpty())
+    if(!m_enable || m_hardwareBuffer.IsEmpty() || !m_visible)
         return;
 
     glPushMatrix();
@@ -464,11 +475,12 @@ void Mesh::Render()
 
 void Mesh::Process()
 {
-    if(!m_enable || !m_enableProcess)
+    if(!m_enable)
         return;
 
-    for(unsigned i = 0; i < m_childs.size(); i++)
-        m_childs[i]->Process();
+    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::Process));
+
+    m_parallelScene->PushToDraw(this);
 }
 
 Vector3f RayCastTriangle(Vector3f p, Vector3f d, Vector3f v0, Vector3f v1, Vector3f v2)
@@ -667,7 +679,7 @@ void Mesh::ApplyMaterial(std::string name, unsigned offset, unsigned size)
 void Mesh::ApplyMaterial(Material* material, unsigned offset, unsigned size)
 {
     for(Material::Map::iterator it = m_materials.begin();
-        it != m_materials.end(); it++)
+        it != m_materials.end(); ++it)
         if(it->second == material)
         {
             RenderProcess rp = {this, it->first, offset, size};
@@ -686,4 +698,14 @@ HardwareBuffer& Mesh::GetHardwareBuffer()
 bool Mesh::CheckHardware()
 {
     return GLEE_ARB_vertex_buffer_object;
+}
+
+void Mesh::SetVisible(bool visible)
+{
+    this->m_visible = visible;
+}
+
+bool Mesh::IsVisible() const
+{
+    return m_visible;
 }

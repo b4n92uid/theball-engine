@@ -18,42 +18,36 @@ namespace tbe
 namespace scene
 {
 
-class ParallelScene;
-
 /// \brief Scene Parallele Newton
 /// Wrapper pour utiliser le moteur physique
 /// Newton Game Dynamics avec le moteur TBE
 
-class NewtonParallelScene : public ParallelScene
+class NewtonParallelScene : public ParallelSceneRegister<NewtonNode>
 {
 public:
     NewtonParallelScene();
     ~NewtonParallelScene();
 
-    /// Spécifier la gravité appliquer au noeud
+    /// SpÃ©cifier la gravitÃ© appliquer au noeud
     void SetGravity(float gravity);
     float GetGravity() const;
 
     /// Rendue
     void Render();
 
-    void Clear();
-
     /// Specifier le timestep du moteur physique
     void SetWorldTimestep(float worldTimestep);
 
-    /// Accés au timestep du moteur physique
+    /// AccÃ©s au timestep du moteur physique
     float GetWorldTimestep() const;
 
-    /// Accés au NewtonWorld
+    /// AccÃ©s au NewtonWorld
     NewtonWorld* GetNewtonWorld() const;
 
     /// Specifier les dimmension du mond physique
     void SetWorldSize(AABB wordlSize);
     AABB GetWorldSize() const;
 
-    void RegisterBody(NewtonNode* body);
-    void UnRegisterBody(NewtonNode* body, bool delptr = false);
 
     /// Fonction qui recupere la position de collision quand body.masse == 0
     Vector3f FindZeroMassBody(Vector3f start, Vector3f end);
@@ -64,15 +58,11 @@ public:
     /// Fonction qui recupere la position sur le sol
     Vector3f FindFloor(Vector3f pos);
 
-    /// Method static d'application de la force gravitationnele (9.81)
-    static void ApplyForceAndTorque(const NewtonBody* body, float, int);
-
 protected:
     AABB m_worldSize;
     NewtonWorld* m_newtonWorld;
     float m_worldTimestep;
     float m_gravity;
-    NewtonNode::Array m_nodes;
 };
 
 }

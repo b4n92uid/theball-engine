@@ -6,6 +6,7 @@
  */
 
 #include "LightParallelScene.h"
+#include "Light.h"
 
 using namespace tbe;
 using namespace scene;
@@ -21,6 +22,9 @@ LightParallelScene::~LightParallelScene()
 void LightParallelScene::Render()
 {
     // Mise a jour des lumieres
-    for(unsigned i = 0; i < m_nodes.size(); i++)
-        m_nodes[i]->Render();
+    while(!m_rendredNodes.empty())
+    {
+        m_rendredNodes.front()->Render();
+        m_rendredNodes.pop_front();
+    }
 }

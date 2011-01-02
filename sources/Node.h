@@ -8,9 +8,11 @@
 #include <map>
 
 #include "Mathematics.h"
+#include "Any.h"
 #include "AABB.h"
 #include "Texture.h"
 #include "Exception.h"
+#include "Iterator.h"
 
 namespace tbe
 {
@@ -44,9 +46,6 @@ public:
     void SetEnable(bool enbale);
     bool IsEnable() const;
 
-    void SetLockPtr(bool lockPtr);
-    bool IsLockPtr() const;
-
     /// Identifiant du noeud
     void SetName(std::string name);
     std::string GetName() const;
@@ -75,8 +74,11 @@ public:
     Node* GetParent() const;
 
     void AddChild(Node* child);
-
     Node* GetChild(unsigned index) const;
+
+    void ClearAllChild();
+
+    Iterator<Node*> GetChildIterator();
 
     void ReleaseChild(Node* child);
     Node* ReleaseChild(unsigned index);
@@ -90,11 +92,8 @@ public:
 
     virtual void Render() = 0;
 
-    void SetEnableProcess(bool enableProcess);
-    bool IsEnableProcess() const;
-
-    void SetEnableRender(bool enableRender);
-    bool IsEnableRender() const;
+    void SetUserData(Any userData);
+    Any GetUserData() const;
 
     typedef std::map<std::string, Node*> Map;
     typedef std::vector<Node*> Array;
@@ -104,13 +103,34 @@ protected:
     std::string m_name;
     Matrix4f m_matrix;
     bool m_enable;
-    bool m_enableRender;
-    bool m_enableProcess;
-    bool m_lockPtr;
     AABB m_aabb;
 
     Node* m_parent;
     Node::Array m_childs;
+
+    Any m_userData;
+};
+
+class BullNode : public Node
+{
+
+    Node* Clone()
+    {
+        return new BullNode(*this);
+    }
+
+    void Process()
+    {
+        if(!m_enable)
+            return;
+
+        for_each(m_childs.begin(), m_childs.end(), std::mem_fun(&Node::Process));
+    }
+
+    void Render()
+    {
+        // Nothging to do...
+    }
 };
 
 }

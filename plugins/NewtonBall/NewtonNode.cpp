@@ -15,10 +15,10 @@ using namespace tbe::scene;
 
 //// NewtonNode ----------------------------------------------------------------
 
-NewtonNode::NewtonNode()
+NewtonNode::NewtonNode(NewtonParallelScene* newtonScene)
 {
-    m_newtonScene = NULL;
-    m_newtonWorld = NULL;
+    m_parallelScene = newtonScene;
+    m_newtonWorld = newtonScene->GetNewtonWorld();
     m_body = NULL;
 
     m_updatedMatrix = NULL;
@@ -27,11 +27,13 @@ NewtonNode::NewtonNode()
 
     m_freeze = false;
     m_applyGravity = true;
+
+    m_parallelScene->Register(this);
 }
 
 NewtonNode::NewtonNode(NewtonParallelScene* newtonScene, Node* node)
 {
-    m_newtonScene = newtonScene;
+    m_parallelScene = newtonScene;
     m_newtonWorld = newtonScene->GetNewtonWorld();
     m_body = NULL;
 
@@ -41,11 +43,13 @@ NewtonNode::NewtonNode(NewtonParallelScene* newtonScene, Node* node)
 
     m_freeze = false;
     m_applyGravity = true;
+
+    m_parallelScene->Register(this);
 }
 
 NewtonNode::NewtonNode(NewtonParallelScene* newtonScene, Matrix4f* matrix)
 {
-    m_newtonScene = newtonScene;
+    m_parallelScene = newtonScene;
     m_newtonWorld = newtonScene->GetNewtonWorld();
     m_body = NULL;
 
@@ -55,23 +59,29 @@ NewtonNode::NewtonNode(NewtonParallelScene* newtonScene, Matrix4f* matrix)
 
     m_freeze = false;
     m_applyGravity = true;
+
+    m_parallelScene->Register(this);
 }
 
 NewtonNode::NewtonNode(const NewtonNode& copy)
 {
     *this = copy;
+
+    m_parallelScene->Register(this);
 }
 
 NewtonNode::~NewtonNode()
 {
     DestroyBody();
+
+    m_parallelScene->UnRegister(this);
 }
 
 bool NewtonNode::operator=(const NewtonNode& copy)
 {
     m_applyForce = copy.m_applyForce;
     m_applyTorque = copy.m_applyTorque;
-    m_newtonScene = copy.m_newtonScene;
+    m_parallelScene = copy.m_parallelScene;
     m_newtonWorld = copy.m_newtonWorld;
 
     m_masse = copy.m_masse;
@@ -108,11 +118,11 @@ void NewtonNode::BuildBoxNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // Donneés utilisateur
+    // DonneÃ©s utilisateur
     NewtonBodySetUserData(m_body, this);
 
     // Callback
-    NewtonBodySetForceAndTorqueCallback(m_body, NewtonParallelScene::ApplyForceAndTorque);
+    NewtonBodySetForceAndTorqueCallback(m_body, NewtonNode::ApplyForceAndTorque);
 
     size /= 2;
 
@@ -142,11 +152,11 @@ void NewtonNode::BuildSphereNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // Donneés utilisateur
+    // DonneÃ©s utilisateur
     NewtonBodySetUserData(m_body, this);
 
     // Callback
-    NewtonBodySetForceAndTorqueCallback(m_body, NewtonParallelScene::ApplyForceAndTorque);
+    NewtonBodySetForceAndTorqueCallback(m_body, NewtonNode::ApplyForceAndTorque);
 
     // Matrice
     NewtonBodySetMatrix(m_body, *m_updatedMatrix);
@@ -174,11 +184,11 @@ void NewtonNode::BuildCylinderNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // Donneés utilisateur
+    // DonneÃ©s utilisateur
     NewtonBodySetUserData(m_body, this);
 
     // Callback
-    NewtonBodySetForceAndTorqueCallback(m_body, NewtonParallelScene::ApplyForceAndTorque);
+    NewtonBodySetForceAndTorqueCallback(m_body, NewtonNode::ApplyForceAndTorque);
 
     // Matrice
     NewtonBodySetMatrix(m_body, *m_updatedMatrix);
@@ -206,7 +216,7 @@ void NewtonNode::BuildConvexNode(const Vertex::Array& vertexes, float masse)
     Vector3f::Array onlyPos = ExtractPos(vertexes);
 
     // Corp de collision
-    NewtonCollision* collision = NewtonCreateConvexHull(m_newtonWorld, vertexes.size(), &onlyPos[0].x, sizeof(Vector3f), 0, 0, NULL);
+    NewtonCollision* collision = NewtonCreateConvexHull(m_newtonWorld, vertexes.size(), &onlyPos[0].x, sizeof (Vector3f), 0, 0, NULL);
     m_body = NewtonCreateBody(m_newtonWorld, collision);
 
     // Masse & Inertia
@@ -222,7 +232,7 @@ void NewtonNode::BuildConvexNode(const Vertex::Array& vertexes, float masse)
     NewtonBodySetUserData(m_body, this);
 
     // Callback
-    NewtonBodySetForceAndTorqueCallback(m_body, NewtonParallelScene::ApplyForceAndTorque);
+    NewtonBodySetForceAndTorqueCallback(m_body, NewtonNode::ApplyForceAndTorque);
 
     // Matrice
     NewtonBodySetMatrix(m_body, *m_updatedMatrix);
@@ -249,7 +259,7 @@ void NewtonNode::BuildTreeNode(const Face::Array& faces)
         for(unsigned j = 0; j < faces[j].size(); j++)
             vertexesPos.push_back(faces[i][j].pos);
 
-        NewtonTreeCollisionAddFace(nCollision, vertexesPos.size(), &vertexesPos[0].x, sizeof(Vector3f), 0);
+        NewtonTreeCollisionAddFace(nCollision, vertexesPos.size(), &vertexesPos[0].x, sizeof (Vector3f), 0);
     }
 
     // 1 = optimisation
@@ -302,7 +312,7 @@ void NewtonNode::Render()
 
 void NewtonNode::Process()
 {
-    if(!m_enable || !m_enableProcess)
+    if(!m_enable)
         return;
 
     for(unsigned i = 0; i < m_childs.size(); i++)
@@ -360,28 +370,6 @@ float NewtonNode::GetMasse()
     return m_masse;
 }
 
-void NewtonNode::SetNewtonWorld(NewtonWorld* newtonWorld)
-{
-    this->m_newtonWorld = newtonWorld;
-    m_newtonScene = static_cast<NewtonParallelScene*>(NewtonWorldGetUserData(m_newtonWorld));
-}
-
-NewtonWorld* NewtonNode::GetNewtonWorld() const
-{
-    return m_newtonWorld;
-}
-
-void NewtonNode::SetNewtonScene(NewtonParallelScene* newtonNodeScene)
-{
-    this->m_newtonScene = newtonNodeScene;
-    m_newtonWorld = m_newtonScene->GetNewtonWorld();
-}
-
-NewtonParallelScene* NewtonNode::GetNewtonScene() const
-{
-    return m_newtonScene;
-}
-
 void NewtonNode::SetUpdatedMatrix(Matrix4f* updatedMatrix)
 {
     this->m_updatedMatrix = updatedMatrix;
@@ -426,11 +414,32 @@ void NewtonNode::SetFreeze(bool freeze)
 {
     this->m_freeze = freeze;
 
-    NewtonBodySetForceAndTorqueCallback(m_body, freeze ? NULL : NewtonParallelScene::ApplyForceAndTorque);
+    NewtonBodySetForceAndTorqueCallback(m_body, freeze ? NULL : NewtonNode::ApplyForceAndTorque);
     NewtonBodySetVelocity(m_body, Vector3f(0));
 }
 
 bool NewtonNode::IsFreeze() const
 {
     return m_freeze;
+}
+
+NewtonParallelScene* NewtonNode::GetParallelScene() const
+{
+    return m_parallelScene;
+}
+
+void NewtonNode::ApplyForceAndTorque(const NewtonBody* body, float, int)
+{
+    NewtonNode* core = (NewtonNode*)NewtonBodyGetUserData(body);
+
+    if(!core)
+        throw tbe::Exception("NewtonNode::ApplyForceAndTorque; core == NULL");
+
+    if(core->m_applyGravity)
+        core->m_applyForce.y -= core->m_masse * 9.81 * core->m_parallelScene->GetGravity();
+
+    NewtonBodySetForce(body, core->m_applyForce);
+    NewtonBodySetTorque(body, core->m_applyTorque);
+
+    core->m_applyForce = 0;
 }

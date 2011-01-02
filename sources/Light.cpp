@@ -1,6 +1,13 @@
+/*
+ * File:   Light.cpp
+ * Author: b4n92uid
+ *
+ * Created on 14 juillet 2010, 16:11:27
+ */
+
 #include "Light.h"
 #include "Exception.h"
-
+#include "LightParallelScene.h"
 
 using namespace std;
 using namespace tbe;
@@ -8,7 +15,7 @@ using namespace tbe::scene;
 
 // Light -----------------------------------------------------------------------
 
-Light::Light(Type type)
+Light::Light(LightParallelScene* scene, Type type)
 {
     GLint maxLight;
     glGetIntegerv(GL_MAX_LIGHTS, & maxLight);
@@ -37,6 +44,9 @@ Light::Light(Type type)
     SetRadius(1);
 
     m_type = type;
+
+    m_parallelScene = scene;
+    m_parallelScene->Register(this);
 }
 
 Light::Light(const Light& copy) : Node(copy)
@@ -56,6 +66,8 @@ Light::Light(const Light& copy) : Node(copy)
     glEnable(m_lightId);
 
     *this = copy;
+
+    m_parallelScene->Register(this);
 }
 
 Light::~Light()
@@ -86,6 +98,8 @@ Light& Light::operator =(const Light& copy)
 
     m_type = copy.m_type;
 
+    m_parallelScene = copy.m_parallelScene;
+
     return *this;
 }
 
@@ -96,14 +110,20 @@ Light* Light::Clone()
 
 void Light::Process()
 {
+    if(!m_enable)
+        return;
 
+    m_parallelScene->PushToDraw(this);
+
+    for(unsigned i = 0; i < m_childs.size(); i++)
+        m_childs[i]->Process();
 }
 
 void Light::Render()
 {
     m_enable ? glEnable(m_lightId) : glDisable(m_lightId);
 
-    if(!m_enable || !m_enableRender)
+    if(!m_enable)
         return;
 
     // set ambient color
@@ -190,12 +210,12 @@ Light::Type Light::GetType() const
     return m_type;
 }
 
-DiriLight::DiriLight() : Light(DIRI)
+DiriLight::DiriLight(LightParallelScene* scene) : Light(scene, DIRI)
 {
 
 }
 
-PointLight::PointLight() : Light(POINT)
+PointLight::PointLight(LightParallelScene* scene) : Light(scene, POINT)
 {
 
 }

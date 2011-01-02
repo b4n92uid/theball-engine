@@ -150,7 +150,7 @@ void GuiManager::TrasmitEvent(EventManager& e)
 {
     if(m_currentSession != m_sessions.end())
         for(Control::Map::iterator it = m_currentSession->second->m_ctrls.begin();
-            it != m_currentSession->second->m_ctrls.end(); it++)
+            it != m_currentSession->second->m_ctrls.end(); ++it)
             if(it->second->OnEvent(e))
             {
                 e.notify = EventManager::EVENT_NO_EVENT;
