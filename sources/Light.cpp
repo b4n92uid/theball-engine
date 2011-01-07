@@ -74,6 +74,8 @@ Light::~Light()
 {
     if(m_lightId != -1)
         glDisable(m_lightId);
+
+    m_parallelScene->UnRegister(this);
 }
 
 Light& Light::operator =(const Light& copy)
