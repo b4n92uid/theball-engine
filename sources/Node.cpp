@@ -252,8 +252,11 @@ Iterator<Node*> Node::GetChildIterator()
 
 void Node::ClearAllChild()
 {
-    for(unsigned i = 0; i < m_childs.size(); i++)
-        delete m_childs[i];
+    // Copie de pointeur pour éviter les probleme d'étiration
+    // lors de la supprésion
 
-    m_childs.clear();
+    Node::Array dtor = m_childs;
+
+    for(unsigned i = 0; i < dtor.size(); i++)
+        delete dtor[i];
 }
