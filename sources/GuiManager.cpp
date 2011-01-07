@@ -65,6 +65,13 @@ void GuiManager::Setup(Vector2i scrsize)
     }
 }
 
+void GuiManager::UpdateLayout()
+{
+    for_each(m_currentSession->second->m_headLayouts.begin(),
+             m_currentSession->second->m_headLayouts.end(),
+             mem_fun(&Layout::Update));
+}
+
 void GuiManager::Render()
 {
     // Passage en Ortho 2D
@@ -85,9 +92,7 @@ void GuiManager::Render()
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_LIGHTING);
 
-    for_each(m_currentSession->second->m_headLayouts.begin(),
-             m_currentSession->second->m_headLayouts.end(),
-             mem_fun(&Layout::Update));
+    UpdateLayout();
 
     for(Control::Map::iterator itt = m_currentSession->second->m_ctrls.begin();
         itt != m_currentSession->second->m_ctrls.end(); itt++)

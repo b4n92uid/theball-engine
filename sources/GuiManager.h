@@ -147,6 +147,8 @@ public:
 
     Vector2f GetScreenSize() const;
 
+    void UpdateLayout();
+
     template<typename T> T* ReleaseControl(std::string name)
     {
         return(T*)ReleaseControl(name);

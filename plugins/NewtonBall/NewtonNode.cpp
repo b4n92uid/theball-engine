@@ -118,7 +118,7 @@ void NewtonNode::BuildBoxNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // DonneÃ©s utilisateur
+    // Donneés utilisateur
     NewtonBodySetUserData(m_body, this);
 
     // Callback
@@ -152,7 +152,7 @@ void NewtonNode::BuildSphereNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // DonneÃ©s utilisateur
+    // Donneés utilisateur
     NewtonBodySetUserData(m_body, this);
 
     // Callback
@@ -184,7 +184,7 @@ void NewtonNode::BuildCylinderNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // DonneÃ©s utilisateur
+    // Donneés utilisateur
     NewtonBodySetUserData(m_body, this);
 
     // Callback
@@ -263,7 +263,7 @@ void NewtonNode::BuildTreeNode(const Face::Array& faces)
     }
 
     // 1 = optimisation
-    NewtonTreeCollisionEndBuild(nCollision, 1);
+    NewtonTreeCollisionEndBuild(nCollision, 0);
     m_body = NewtonCreateBody(m_newtonWorld, nCollision);
     NewtonReleaseCollision(m_newtonWorld, nCollision);
 
