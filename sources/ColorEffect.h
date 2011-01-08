@@ -39,13 +39,17 @@ public:
 
     void SetFusionMode(FusionMode fusionMode);
     FusionMode GetFusionMode() const;
-    
+
     void SetColor(Vector4f color);
     Vector4f GetColor() const;
+
+    void SetInternalPass(bool internalPass);
+    bool IsInternalPass() const;
 
 private:
     Vector4f m_color;
     FusionMode m_fusionMode;
+    bool m_internalPass;
 };
 
 }

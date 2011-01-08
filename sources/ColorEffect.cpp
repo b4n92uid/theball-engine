@@ -65,6 +65,7 @@ ColorEffect::ColorEffect()
     m_processShader.LoadProgram();
 
     m_fusionMode = BLACK_WHITE;
+    m_internalPass = false;
 }
 
 ColorEffect::~ColorEffect()
@@ -73,21 +74,53 @@ ColorEffect::~ColorEffect()
 
 void ColorEffect::Process(Rtt* rtt)
 {
-    rtt->Use(true);
-    m_processShader.Use(true);
-    rtt->GetColor().Use(true);
+    if(m_internalPass)
+    {
+        m_workRtt->Use(true);
 
-    glPushAttrib(GL_ENABLE_BIT);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        m_processShader.Use(true);
+        rtt->GetColor().Use(true);
 
-    m_layer.Draw();
+        m_layer.Draw();
 
-    glPopAttrib();
+        rtt->GetColor().Use(false);
+        m_processShader.Use(false);
 
-    rtt->GetColor().Use(false);
-    m_processShader.Use(false);
-    rtt->Use(false);
+        m_workRtt->Use(false);
+
+        rtt->Use(true);
+
+        glPushAttrib(GL_ENABLE_BIT);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        m_workRtt->GetColor().Use(true);
+        m_layer.Draw();
+        m_workRtt->GetColor().Use(false);
+
+        glPopAttrib();
+
+        rtt->Use(false);
+    }
+
+    else
+    {
+        rtt->Use(true);
+        m_processShader.Use(true);
+        rtt->GetColor().Use(true);
+
+        glPushAttrib(GL_ENABLE_BIT);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        m_layer.Draw();
+
+        glPopAttrib();
+
+        rtt->GetColor().Use(false);
+        m_processShader.Use(false);
+        rtt->Use(false);
+    }
 }
 
 void ColorEffect::SetFusionMode(ColorEffect::FusionMode fusionMode)
@@ -116,4 +149,12 @@ void ColorEffect::SetColor(Vector4f color)
 Vector4f ColorEffect::GetColor() const
 {
     return m_color;
+}
+void ColorEffect::SetInternalPass(bool internalPass)
+{
+    this->m_internalPass = internalPass;
+}
+bool ColorEffect::IsInternalPass() const
+{
+    return m_internalPass;
 }
