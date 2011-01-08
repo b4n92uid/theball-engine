@@ -107,7 +107,7 @@ void NewtonNode::BuildBoxNode(Vector3f size, float masse)
 
     // Corp de collision
     NewtonCollision* collision = NewtonCreateBox(m_newtonWorld, size.x, size.y, size.z, 0, NULL);
-    m_body = NewtonCreateBody(m_newtonWorld, collision);
+    m_body = NewtonCreateBody(m_newtonWorld, collision, *m_updatedMatrix);
 
     // Masse & Inertia & Inertia
     Vector3f origine;
@@ -141,7 +141,7 @@ void NewtonNode::BuildSphereNode(Vector3f size, float masse)
 
     // Corp de collision
     NewtonCollision * collision = NewtonCreateSphere(m_newtonWorld, size.x, size.y, size.z, 0, NULL);
-    m_body = NewtonCreateBody(m_newtonWorld, collision);
+    m_body = NewtonCreateBody(m_newtonWorld, collision, *m_updatedMatrix);
 
     // Masse & Inertia
     Vector3f origine;
@@ -173,7 +173,7 @@ void NewtonNode::BuildCylinderNode(Vector3f size, float masse)
 
     // Corp de collision
     NewtonCollision * collision = NewtonCreateCylinder(m_newtonWorld, size.y, size.z, 0, NULL);
-    m_body = NewtonCreateBody(m_newtonWorld, collision);
+    m_body = NewtonCreateBody(m_newtonWorld, collision, *m_updatedMatrix);
 
     // Masse & Inertia
     Vector3f origine;
@@ -217,7 +217,7 @@ void NewtonNode::BuildConvexNode(const Vertex::Array& vertexes, float masse)
 
     // Corp de collision
     NewtonCollision* collision = NewtonCreateConvexHull(m_newtonWorld, vertexes.size(), &onlyPos[0].x, sizeof (Vector3f), 0, 0, NULL);
-    m_body = NewtonCreateBody(m_newtonWorld, collision);
+    m_body = NewtonCreateBody(m_newtonWorld, collision, *m_updatedMatrix);
 
     // Masse & Inertia
     Vector3f origine;
@@ -264,7 +264,7 @@ void NewtonNode::BuildTreeNode(const Face::Array& faces)
 
     // 1 = optimisation
     NewtonTreeCollisionEndBuild(nCollision, 0);
-    m_body = NewtonCreateBody(m_newtonWorld, nCollision);
+    m_body = NewtonCreateBody(m_newtonWorld, nCollision, *m_updatedMatrix);
     NewtonReleaseCollision(m_newtonWorld, nCollision);
 
     // Donne utilisateur
