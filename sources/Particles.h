@@ -106,9 +106,6 @@ public:
     Particle* BeginParticlesPosProcess();
     void EndParticlesPosProcess();
 
-    static void BeginSpiritDraw(float fovy, float viewportHeight);
-    static void EndSpiritDraw();
-
     static bool CheckHardware();
 
 protected:

@@ -378,51 +378,6 @@ void ParticlesEmiter::EndParticlesPosProcess()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void ParticlesEmiter::BeginSpiritDraw(float fovy, float viewportHeight)
-{
-    glPushAttrib(GL_ENABLE_BIT | GL_DEPTH_BITS | GL_POINT_BIT);
-
-    glEnable(GL_POINT_SPRITE); // Active le remplacement du point par la texture
-    glEnable(GL_TEXTURE_2D);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_BLEND);
-    glEnable(GL_DEPTH_TEST);
-
-    glDisable(GL_LIGHTING);
-
-    const float POINT_SIZE_CURRENT = 256;
-    const float size = 128;
-
-    float pixelPerUnit = viewportHeight / (2.0f * tan(fovy * 0.5f));
-    float sqrtC = POINT_SIZE_CURRENT / (size * pixelPerUnit);
-
-    Vector3f distAtt(0, 0, sqrtC * sqrtC);
-
-    // Configuration de la taille des points suivant la formule :
-    // derived_size = size * sqrt (1 / (a + b * d + c * d), d : distance en Z par rapport à l'écran.
-    glPointParameterfvARB(GL_POINT_DISTANCE_ATTENUATION_ARB, distAtt);
-
-    // Activer le remplacement du poit par la texture
-    glTexEnvf(GL_POINT_SPRITE_ARB, GL_COORD_REPLACE_ARB, GL_TRUE);
-
-    // Taille Maximal supporte par la Carte Graphique
-    float maxSize = 0;
-    glGetFloatv(GL_POINT_SIZE_MAX_ARB, &maxSize);
-
-    // Limit Max/Min taille
-    glPointParameterfARB(GL_POINT_SIZE_MIN_ARB, 1.0f);
-    glPointParameterfARB(GL_POINT_SIZE_MAX_ARB, maxSize);
-
-    // Fondue depuis le centre
-    glPointParameterfARB(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 60.0f);
-}
-
-void ParticlesEmiter::EndSpiritDraw()
-{
-    glPopAttrib();
-
-}
-
 bool ParticlesEmiter::CheckHardware()
 {
     return GLEE_ARB_point_sprite;
