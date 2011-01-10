@@ -29,10 +29,7 @@ public:
     void Free()
     {
         for(iterator itt = begin(); itt != end(); itt++)
-        {
-            cout << "MANAGER Free texture : " << itt->first->GetFilename() << endl;
             itt->first->Delete();
-        }
 
         clear();
     }
@@ -98,11 +95,7 @@ void Texture::Release()
         manager.erase(this);
 
         if(!manager.IsExist(m_filename))
-        {
-            cout << "Free texture : " << m_filename << endl;
-
             Delete();
-        }
     }
 }
 
