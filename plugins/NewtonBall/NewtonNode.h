@@ -41,10 +41,10 @@ public:
     void DestroyBody();
 
     /// Recuperation Objet NewtonBody
-    NewtonBody* GetBody();
+    NewtonBody* GetBody() const;
 
     /// Test de collision
-    bool IsCollidWith(const NewtonNode* target);
+    bool IsCollidWith(const NewtonNode* target) const;
 
     /// Masse
     float GetMasse();

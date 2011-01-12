@@ -249,7 +249,7 @@ void NewtonNode::BuildTreeNode(const Face::Array& faces)
 
     // Corp de collision
 
-    NewtonCollision * nCollision = NewtonCreateTreeCollision(m_newtonWorld, 0);
+    NewtonCollision* nCollision = NewtonCreateTreeCollision(m_newtonWorld, 0);
     NewtonTreeCollisionBeginBuild(nCollision);
 
     for(unsigned int i = 0; i < faces.size(); i++)
@@ -285,25 +285,14 @@ void NewtonNode::DestroyBody()
     }
 }
 
-bool NewtonNode::IsCollidWith(const NewtonNode* target)
+bool NewtonNode::IsCollidWith(const NewtonNode* target) const
 {
-    float contact[3], normal[3], penetration, matrix1[16], matrix2[16];
+    Vector3f contact, normal, penetration;
 
-    NewtonBodyGetMatrix(m_body, matrix1);
-    NewtonBodyGetMatrix(target->m_body, matrix2);
-
-    return NewtonCollisionCollide(
-                                  NewtonBodyGetWorld(m_body),
-                                  1,
-                                  NewtonBodyGetCollision(m_body),
-                                  matrix1,
-                                  NewtonBodyGetCollision(target->m_body),
-                                  matrix2,
-                                  contact,
-                                  normal,
-                                  &penetration,
-                                  0
-                                  );
+    return NewtonCollisionCollide(m_parallelScene->GetNewtonWorld(), 1,
+                                  NewtonBodyGetCollision(m_body), m_matrix,
+                                  NewtonBodyGetCollision(target->m_body), target->m_matrix,
+                                  contact, normal, penetration, 0);
 }
 
 void NewtonNode::Render()
@@ -360,7 +349,7 @@ Vector3f NewtonNode::GetVelocity()
     return vel;
 }
 
-NewtonBody* NewtonNode::GetBody()
+NewtonBody* NewtonNode::GetBody() const
 {
     return m_body;
 }

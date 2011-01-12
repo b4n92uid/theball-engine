@@ -12,6 +12,7 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
     glGenBuffers(1, &m_renderId);
 
     m_number = 0;
+    m_drawNumber = 0;
 
     m_lifeInit = 1;
     m_lifeDown = 0.1;
