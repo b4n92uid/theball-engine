@@ -479,8 +479,6 @@ void Mesh::Process()
         return;
 
     for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::Process));
-
-    m_parallelScene->PushToDraw(this);
 }
 
 Vector3f RayCastTriangle(Vector3f p, Vector3f d, Vector3f v0, Vector3f v1, Vector3f v2)

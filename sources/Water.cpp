@@ -354,7 +354,10 @@ Water* Water::Clone()
 
 void Water::Process()
 {
+    if(!m_enable)
+        return;
 
+    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::Process));
 }
 
 void Water::Render()

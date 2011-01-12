@@ -57,11 +57,9 @@ void WaterParallelScene::Render()
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
 
-    while(!m_rendredNodes.empty())
-    {
-        m_rendredNodes.front()->Render();
-        m_rendredNodes.pop_front();
-    }
+    for(unsigned i = 0; i < m_nodes.size(); i++)
+        if(m_nodes[i]->HasParent())
+            m_nodes[i]->Render();
 
     glPopAttrib();
 }
