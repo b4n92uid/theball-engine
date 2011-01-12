@@ -50,6 +50,7 @@ void ParticlesParallelScene::Render()
     glEnable(GL_DEPTH_TEST);
 
     glDisable(GL_LIGHTING);
+    glDisable(GL_FOG);
 
     // Configuration de la taille des points suivant la formule :
     // derived_size = size * sqrt (1 / (a + b * d + c * d), d : distance en Z par rapport à l'écran.
