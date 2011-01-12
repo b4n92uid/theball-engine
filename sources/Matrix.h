@@ -174,6 +174,11 @@ public:
         return GetPos();
     }
 
+    operator const T*() const
+    {
+        return m_matrix;
+    }
+
     operator T*()
     {
         return m_matrix;
