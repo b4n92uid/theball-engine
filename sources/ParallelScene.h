@@ -63,10 +63,14 @@ public:
         Clear();
     }
 
+    unsigned Count()
+    {
+        return m_nodes.size();
+    }
+
     void Clear()
     {
         m_nodes.clear();
-        m_rendredNodes.clear();
     }
 
     void Register(T* node)
@@ -94,23 +98,12 @@ public:
         m_nodes.erase(it);
     }
 
-    void PushToDraw(T* node)
-    {
-        const std::type_info& ti = typeid (node);
-
-        if(std::find(m_rendredNodes.begin(), m_rendredNodes.end(), node) != m_rendredNodes.end())
-            throw Exception("NodeRegister::PushToDraw<%s>; child already push", ti.name());
-
-        m_rendredNodes.push_back(node);
-    }
-
     Iterator<T*> GetIterator()
     {
         return Iterator<T*>(m_nodes);
     }
 
 protected:
-    std::list<T*> m_rendredNodes;
     std::vector<T*> m_nodes;
 };
 

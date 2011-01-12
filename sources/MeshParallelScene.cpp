@@ -54,20 +54,22 @@ void MeshParallelScene::Render()
 
     static DepthSortMeshFunc sortFunc;
     sortFunc.camPos = m_sceneManager->GetCurCamera()->GetPos();
-    m_rendredNodes.sort(sortFunc);
+    std::sort(m_nodes.begin(), m_nodes.end(), sortFunc);
 
-    while(!m_rendredNodes.empty())
+    for(Mesh::Array::iterator it = m_nodes.begin(); it != m_nodes.end(); ++it)
     {
-        Node* it = m_rendredNodes.front();
-        m_rendredNodes.pop_front();
+        Node* node = *it;
 
-        if(m_enableFrustumTest && !frustum->IsInside(it))
+        if(!node->HasParent())
+            continue;
+
+        if(m_enableFrustumTest && !frustum->IsInside(node))
         {
             m_frustumCullingCount++;
             continue;
         }
 
-        it->Render();
+        node->Render();
     }
 }
 

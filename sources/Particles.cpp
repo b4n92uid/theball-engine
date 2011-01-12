@@ -131,8 +131,7 @@ void ParticlesEmiter::Process()
     if(!m_enable)
         return;
 
-    for(unsigned i = 0; i < m_childs.size(); i++)
-        m_childs[i]->Process();
+    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::Process));
 
     if(m_deadEmiter && !m_autoRebuild)
         return;
@@ -176,8 +175,6 @@ void ParticlesEmiter::Process()
     glUnmapBuffer(GL_ARRAY_BUFFER);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    m_parallelScene->PushToDraw(this);
 }
 
 void ParticlesEmiter::Render()

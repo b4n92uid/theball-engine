@@ -115,10 +115,7 @@ void Light::Process()
     if(!m_enable)
         return;
 
-    m_parallelScene->PushToDraw(this);
-
-    for(unsigned i = 0; i < m_childs.size(); i++)
-        m_childs[i]->Process();
+    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::Process));
 }
 
 void Light::Render()

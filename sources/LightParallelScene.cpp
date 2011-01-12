@@ -21,10 +21,7 @@ LightParallelScene::~LightParallelScene()
 
 void LightParallelScene::Render()
 {
-    // Mise a jour des lumieres
-    while(!m_rendredNodes.empty())
-    {
-        m_rendredNodes.front()->Render();
-        m_rendredNodes.pop_front();
-    }
+    for(unsigned i = 0; i < m_nodes.size(); i++)
+        if(m_nodes[i]->HasParent())
+            m_nodes[i]->Render();
 }

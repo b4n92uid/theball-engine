@@ -64,11 +64,9 @@ void ParticlesParallelScene::Render()
 
     glPointParameterfvARB(GL_POINT_DISTANCE_ATTENUATION_ARB, distAtt);
 
-    while(!m_rendredNodes.empty())
-    {
-        m_rendredNodes.front()->Render();
-        m_rendredNodes.pop_front();
-    }
+    for(unsigned i = 0; i < m_nodes.size(); i++)
+        if(m_nodes[i]->HasParent())
+            m_nodes[i]->Render();
 
     glPopAttrib();
 }
