@@ -17,8 +17,6 @@ NewtonParallelScene::NewtonParallelScene()
 {
     m_newtonWorld = NewtonCreate();
 
-    NewtonSetSolverModel(m_newtonWorld, 1);
-    NewtonSetFrictionModel(m_newtonWorld, 1);
     NewtonWorldSetUserData(m_newtonWorld, this);
 
     SetWorldSize(AABB(-100, 100));
