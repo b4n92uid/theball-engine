@@ -59,6 +59,11 @@ inline std::string makeRelatifTo(std::string absfile, const std::string& relfile
     return absfile.substr(0, pos + 1) + relfile;
 }
 
+template<typename T> T clamp(const T& value, const T& min, const T& max)
+{
+    return std::max(min, std::min(value, max));
+}
+
 template<typename T> void erase(std::vector<T>& vec, unsigned index)
 {
     vec.erase(vec.begin() + index);
