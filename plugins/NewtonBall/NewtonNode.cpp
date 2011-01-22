@@ -263,7 +263,7 @@ void NewtonNode::BuildTreeNode(const Face::Array& faces)
     }
 
     // 1 = optimisation
-    NewtonTreeCollisionEndBuild(nCollision, 1);
+    NewtonTreeCollisionEndBuild(nCollision, 0);
     m_body = NewtonCreateBody(m_newtonWorld, nCollision, *m_updatedMatrix);
     NewtonReleaseCollision(m_newtonWorld, nCollision);
 
