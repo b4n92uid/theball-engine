@@ -124,6 +124,16 @@ void SceneParser::LoadScene(const std::string& filepath)
             ParseNode(rel);
         }
 
+        else if(buffer.substr(0, 8) == ".include")
+        {
+            string modelFilepath(buffer, 9);
+
+            if(modelFilepath.find(':') == string::npos)
+                modelFilepath = tools::makeRelatifTo(m_fileName, modelFilepath);
+
+            LoadScene(modelFilepath);
+        }
+
         else if(buffer.substr(0, 6) == "/class")
         {
             RecordClass(file, buffer.substr(7));
