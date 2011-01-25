@@ -45,7 +45,9 @@ Light::Light(LightParallelScene* scene, Type type)
 
     m_type = type;
 
-    m_parallelScene = scene;
+    Node::m_parallelScene = m_parallelScene = scene;
+    m_sceneManager = m_parallelScene->GetSceneManager();
+    
     m_parallelScene->Register(this);
 }
 
@@ -100,7 +102,9 @@ Light& Light::operator =(const Light& copy)
 
     m_type = copy.m_type;
 
-    m_parallelScene = copy.m_parallelScene;
+    Node::m_parallelScene = m_parallelScene = copy.m_parallelScene;
+
+    m_sceneManager = m_parallelScene->GetSceneManager();
 
     return *this;
 }

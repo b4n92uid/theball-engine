@@ -149,7 +149,9 @@ Water::Water(WaterParallelScene* scene)
 
     m_uvDecal = 0;
 
-    m_parallelScene = scene;
+    Node::m_parallelScene = m_parallelScene = scene;
+    m_sceneManager = m_parallelScene->GetSceneManager();
+
     m_parallelScene->Register(this);
 }
 
@@ -206,8 +208,9 @@ Water& Water::operator=(const Water& copy)
     m_blend = copy.m_blend;
     m_deform = copy.m_deform;
     m_speed = copy.m_speed;
+    m_sceneManager = copy.m_sceneManager;
 
-    m_parallelScene = copy.m_parallelScene;
+    Node::m_parallelScene = m_parallelScene = copy.m_parallelScene;
 
     return *this;
 }

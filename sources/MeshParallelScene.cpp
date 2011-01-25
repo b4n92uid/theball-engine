@@ -60,7 +60,7 @@ void MeshParallelScene::Render()
     {
         Node* node = *it;
 
-        if(!node->HasParent())
+        if(!node->IsAttached())
             continue;
 
         if(m_enableFrustumTest && !frustum->IsInside(node))

@@ -35,6 +35,7 @@ SceneManager::SceneManager()
     m_fovy = m_zNear = m_zFar = m_ratio = 0;
 
     m_rootNode = new BullNode;
+    m_rootNode->SetSceneManager(this);
 }
 
 SceneManager::~SceneManager()

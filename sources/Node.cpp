@@ -22,6 +22,16 @@ Node::Node()
     m_parent = NULL;
 }
 
+void Node::SetSceneManager(SceneManager* sceneManager)
+{
+    this->m_sceneManager = sceneManager;
+}
+
+SceneManager* Node::GetSceneManager() const
+{
+    return m_sceneManager;
+}
+
 Node::Node(const Node& copy)
 {
     m_parent = NULL;
@@ -43,6 +53,7 @@ Node& Node::operator =(const Node& copy)
     m_matrix = copy.m_matrix;
     m_enable = copy.m_enable;
     m_aabb = copy.m_aabb;
+    m_sceneManager = copy.m_sceneManager;
 
     ClearAllChild();
 
@@ -143,7 +154,15 @@ std::string Node::GetName() const
     return m_name;
 }
 
-bool Node::HasParent() const
+bool Node::IsRoot() const
+{
+    if(m_sceneManager)
+        return (this == m_sceneManager->GetRootNode());
+    else
+        return false;
+}
+
+bool Node::IsAttached() const
 {
     return m_parent;
 }
