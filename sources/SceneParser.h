@@ -26,7 +26,7 @@ class SceneManager;
 class ClassFactory
 {
 public:
-    virtual Mesh* Instance(std::string type) = 0;
+    virtual Mesh* Instance(std::string type, MeshParallelScene* meshScene) = 0;
 };
 
 class SceneParser
@@ -81,6 +81,8 @@ private:
     std::string m_mapName;
 
     SceneManager* m_sceneManager;
+    Node* m_rootNode;
+
     LightParallelScene* m_lightScene;
     MeshParallelScene* m_meshScene;
     ParticlesParallelScene* m_particlesScene;

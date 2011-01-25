@@ -22,6 +22,6 @@ LightParallelScene::~LightParallelScene()
 void LightParallelScene::Render()
 {
     for(unsigned i = 0; i < m_nodes.size(); i++)
-        if(m_nodes[i]->HasParent())
+        if(m_nodes[i]->IsAttached())
             m_nodes[i]->Render();
 }

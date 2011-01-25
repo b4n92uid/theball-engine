@@ -17,11 +17,13 @@ using namespace std;
 
 Mesh::Mesh(MeshParallelScene* scene)
 {
-    m_parallelScene = scene;
     m_triangulate = true;
     m_withNormal = false;
     m_withTexCoord = false;
     m_visible = true;
+
+    Node::m_parallelScene = m_parallelScene = scene;
+    m_sceneManager = m_parallelScene->GetSceneManager();
 
     m_parallelScene->Register(this);
 }
@@ -45,7 +47,8 @@ Mesh& Mesh::operator=(const Mesh& copy)
 {
     Node::operator=(copy);
 
-    m_parallelScene = copy.m_parallelScene;
+    Node::m_parallelScene = m_parallelScene = copy.m_parallelScene;
+
     m_triangulate = copy.m_triangulate;
     m_withNormal = copy.m_withNormal;
     m_withTexCoord = copy.m_withTexCoord;

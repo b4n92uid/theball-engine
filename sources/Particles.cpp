@@ -26,7 +26,9 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
 
     m_blendEq = ADDITIVE;
 
-    m_parallelScene = scene;
+    Node::m_parallelScene = m_parallelScene = scene;
+    m_sceneManager = m_parallelScene->GetSceneManager();
+    
     m_parallelScene->Register(this);
 }
 
@@ -73,7 +75,7 @@ ParticlesEmiter& ParticlesEmiter::operator=(const ParticlesEmiter& copy)
     m_blendEq = copy.m_blendEq;
     m_texture = copy.m_texture;
 
-    m_parallelScene = copy.m_parallelScene;
+    Node::m_parallelScene = m_parallelScene = copy.m_parallelScene;
 
     if(copy.m_enable)
         Build();

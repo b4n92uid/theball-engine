@@ -20,6 +20,7 @@ namespace scene
 {
 
 class ParallelScene;
+class SceneManager;
 
 /**
  * \brief Class de base pour la représentation d'une entité
@@ -61,13 +62,17 @@ public:
     void SetParallelScene(ParallelScene* parallelScene);
     ParallelScene* GetParallelScene() const;
 
+    void SetSceneManager(SceneManager* sceneManager);
+    SceneManager* GetSceneManager() const;
+
     /// Racourcie pour sépcifier la postion de la matrice du noeud
     void SetPos(Vector3f pos);
     Vector3f GetPos() const;
 
     Vector3f MapFromGlobal(Vector3f pos);
 
-    bool HasParent() const;
+    bool IsRoot() const;
+    bool IsAttached() const;
     void ReleaseParent();
 
     void SetParent(Node* parent);
@@ -100,6 +105,7 @@ public:
 
 protected:
     ParallelScene* m_parallelScene;
+    SceneManager* m_sceneManager;
     std::string m_name;
     Matrix4f m_matrix;
     bool m_enable;

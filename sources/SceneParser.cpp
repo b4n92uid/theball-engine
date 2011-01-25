@@ -20,7 +20,7 @@ using namespace tbe;
 using namespace tbe::scene;
 
 SceneParser::SceneParser(SceneManager* sceneManager)
-: m_sceneManager(sceneManager),
+: m_sceneManager(sceneManager), m_rootNode(sceneManager->GetRootNode()),
 m_lightScene(NULL), m_meshScene(NULL), m_particlesScene(NULL), m_waterScene(NULL),
 m_classFactory(NULL)
 {
@@ -230,10 +230,12 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
     if(m_classRec.count(type))
     {
-        Mesh* node = m_classFactory ? m_classFactory->Instance(type) : new Mesh(m_meshScene);
+        Mesh* node = m_classFactory ? m_classFactory->Instance(type, m_meshScene) : new Mesh(m_meshScene);
 
         if(parent)
-            node->SetParent(parent);
+            parent->AddChild(node);
+        else
+            m_rootNode->AddChild(node);
 
         if(rel.attr.count("matrix"))
             node->SetMatrix(rel.attr["matrix"]);
@@ -261,8 +263,6 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
             modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["open"]);
 
         node->Open(modelFilepath);
-
-        m_meshScene->Register(node);
 
         current = node;
     }
@@ -295,8 +295,6 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
         emiter->Build();
 
-        m_particlesScene->Register(emiter);
-
         current = emiter;
     }
 
@@ -324,8 +322,6 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         light->SetDiffuse(tools::StrToVec4<float>(rel.attr["diffuse"], true));
         light->SetSpecular(tools::StrToVec4<float>(rel.attr["specular"], true));
 
-        m_lightScene->Register(light);
-
         current = light;
     }
 
@@ -335,7 +331,9 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
 
     if(parent)
-        current->SetParent(parent);
+        parent->AddChild(current);
+    else
+        m_rootNode->AddChild(current);
 
     if(rel.attr.count("name"))
         current->SetName(rel.attr["name"]);
