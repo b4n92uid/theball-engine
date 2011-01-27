@@ -36,7 +36,7 @@ public:
 
     void SetSkin(const GuiSkin& skin);
 
-    void Write(Text text);
+    void Write(GuiString text);
 
     void SetDefinedSize(bool definedSize);
     bool IsDefinedSize() const;
@@ -49,7 +49,7 @@ public:
 
     void SetTextAlign(TextAlign textAlign);
     TextAlign GetTextAlign() const;
-    
+
     void SetTextureRepeat(Vector2f textureRepeat);
     Vector2f GetTextureRepeat() const;
 
@@ -58,16 +58,15 @@ protected:
     void ObjectRender();
 
 protected:
-    unsigned m_offsetLine;
     Vector2f m_backgroundPadding;
     TextAlign m_textAlign;
     bool m_definedSize;
-    Vector2f m_textureRepeat;
 
 private:
-    Text m_text;
-    Text m_textDisplay;
+    GuiString m_text;
+    GuiString m_textDisplay;
     unsigned m_offsetMax;
+    unsigned m_offsetLine;
 };
 
 }
