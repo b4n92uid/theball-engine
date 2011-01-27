@@ -18,7 +18,6 @@ TextBox::TextBox()
     m_offsetLine = 0;
     m_definedSize = false;
     m_textAlign = CENTER;
-    m_textureRepeat = 1;
 }
 
 TextBox::TextBox(std::string path, int size)
@@ -26,7 +25,6 @@ TextBox::TextBox(std::string path, int size)
     m_offsetMax = 0;
     m_offsetLine = 0;
     m_definedSize = false;
-    m_textureRepeat = 1;
 
     m_pencil.Load(path, size);
 }
@@ -41,7 +39,7 @@ void TextBox::ObjectRender()
     {
         m_background.Use(true);
 
-        DrawSurface(m_pos, m_size, 0, m_textureRepeat);
+        DrawSurface(m_pos, m_size, 0, 1);
 
         m_background.Use(false);
     }
@@ -64,10 +62,10 @@ void TextBox::ObjectRender()
                 backupback = m_textDisplay.back();
 
         if(m_offsetLine > 0)
-            m_textDisplay.back() = "< Diffilement en haut";
+            m_textDisplay.back() = "<<<";
 
         if(m_offsetLine < m_offsetMax)
-            m_textDisplay.front() = "> Diffilement en bas";
+            m_textDisplay.front() = ">>>";
 
         m_pencil.Display(pos, m_textDisplay);
 
@@ -82,7 +80,7 @@ void TextBox::ObjectRender()
         m_pencil.Display(pos, m_textDisplay);
 }
 
-void TextBox::Write(Text text)
+void TextBox::Write(GuiString text)
 {
     m_text = text;
 
@@ -143,16 +141,6 @@ void TextBox::SetTextAlign(TextAlign textAlign)
 TextBox::TextAlign TextBox::GetTextAlign() const
 {
     return m_textAlign;
-}
-
-void TextBox::SetTextureRepeat(Vector2f textureRepeat)
-{
-    this->m_textureRepeat = textureRepeat;
-}
-
-Vector2f TextBox::GetTextureRepeat() const
-{
-    return m_textureRepeat;
 }
 
 bool TextBox::OnEvent(const EventManager& event)
