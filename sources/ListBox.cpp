@@ -136,6 +136,11 @@ void ListBox::Clear()
         delete m_totalItems[i];
 
     m_totalItems.clear();
+
+    for(unsigned i = 0; i < m_displayItems.size(); i++)
+        delete m_displayItems[i];
+
+    m_displayItems.clear();
 }
 
 void ListBox::SetSkin(const GuiSkin& gui)
@@ -205,6 +210,9 @@ bool ListBox::OnEvent(const EventManager& event)
 
 void ListBox::Update()
 {
+    for(unsigned i = 0; i < m_displayItems.size(); i++)
+        delete m_displayItems[i];
+
     m_displayItems.clear();
     m_lay.Clear();
 
@@ -220,8 +228,8 @@ void ListBox::Update()
             if(m_displayItems.size() >= displayLines)
                 break;
 
-            m_lay.AddControl(m_totalItems[i]);
-            m_displayItems.push_back(m_totalItems[i]);
+            m_displayItems.push_back(new Item(*m_totalItems[i]));
+            m_lay.AddControl(m_displayItems.back());
 
             string label = m_displayItems.back()->GetLabel();
             label = m_pencil.WrapeLine(label, m_size.x - m_backgroundPadding.x * 2.0f, true);
@@ -232,14 +240,20 @@ void ListBox::Update()
             m_offsetMax = min(m_totalItems.size() - displayLines, (unsigned)0);
         else
             m_offsetMax = max(m_totalItems.size() - displayLines, (unsigned)0);
+
+        if(m_offset > 0)
+            m_displayItems.front()->SetLabel("<<<");
+
+        if(m_offset < m_offsetMax)
+            m_displayItems.back()->SetLabel(">>>");
     }
 
     else
     {
         for(unsigned i = 0; i < m_totalItems.size(); i++)
         {
-            m_lay.AddControl(m_totalItems[i]);
-            m_displayItems.push_back(m_totalItems[i]);
+            m_displayItems.push_back(new Item(*m_totalItems[i]));
+            m_lay.AddControl(m_displayItems.back());
         }
 
         m_lay.Update();
