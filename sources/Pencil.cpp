@@ -16,7 +16,7 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-#define CharCount (256)
+#define PENCIL_CHAR_COUNT (256)
 
 using namespace std;
 using namespace tbe;
@@ -54,8 +54,6 @@ Pencil::Pencil()
     m_tabSize = 4;
     m_fontSize = 0;
     m_charList = 0;
-
-    m_charsWidth.resize(CharCount);
 }
 
 Pencil::Pencil(std::string font, int size)
@@ -65,8 +63,6 @@ Pencil::Pencil(std::string font, int size)
     m_tabSize = 4;
     m_fontSize = 0;
     m_charList = 0;
-
-    m_charsWidth.resize(CharCount);
 
     Load(font, size);
 }
@@ -148,7 +144,7 @@ std::vector<std::string> Pencil::GetWrapedLines(std::string str, float width) co
     return widthOverflow;
 }
 
-Vector2f Pencil::CenterOf(Text text, Vector2f pos, Vector2f size) const
+Vector2f Pencil::CenterOf(GuiString text, Vector2f pos, Vector2f size) const
 {
     Vector2f textSize = SizeOf(text);
 
@@ -172,7 +168,7 @@ Vector2f Pencil::CenterOf(std::string str, Vector2f pos, Vector2f size) const
     return textPos;
 }
 
-Vector2f Pencil::SizeOf(Text text) const
+Vector2f Pencil::SizeOf(GuiString text) const
 {
     Vector2f returnSize;
     float maxWidth = 0;
@@ -197,13 +193,17 @@ Vector2f Pencil::SizeOf(std::string str) const
     for(unsigned i = 0; i < str.size(); i++)
     {
         unsigned char c = str[i];
-        size.x += m_charsWidth[c < (int)m_charsWidth.size() ? c : 32];
+
+        if(c < (int)m_charsWidth.size())
+            size.x += m_charsWidth[c];
+        else
+            size.x += m_charsWidth[32];
     }
 
     return size;
 }
 
-void Pencil::Display(Vector2f pos, Text text)
+void Pencil::Display(Vector2f pos, GuiString text)
 {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -255,6 +255,15 @@ void Pencil::Display(Vector2f pos, Text text)
 
 void Pencil::Load(std::string path, int size)
 {
+    vector<unsigned> charindex;
+
+    charindex.resize(PENCIL_CHAR_COUNT);
+
+    for(unsigned i = 0; i < PENCIL_CHAR_COUNT; i++)
+        charindex[i] = i;
+
+    m_charsWidth.resize(charindex.size());
+
     // The Node In Which FreeType Holds Information On A Given
     // Font Is Called A "face".
     FT_Face face;
@@ -276,17 +285,18 @@ void Pencil::Load(std::string path, int size)
     // Here We Ask OpenGL To Allocate Resources For
     // All The Textures And Display Lists Which We
     // Are About To Create.
-    m_charList = glGenLists(CharCount);
-    GLuint textures[CharCount];
-    glGenTextures(CharCount, textures);
+    m_charList = glGenLists(charindex.size());
+    GLuint textures[charindex.size()];
+    glGenTextures(charindex.size(), textures);
 
     // This Is Where We Actually Create Each Of The Fonts Display Lists.
-    for(unsigned i = 0; i < CharCount; i++)
+    for(unsigned i = 0; i < charindex.size(); i++)
     {
         // The First Thing We Do Is Get FreeType To Render Our Character
         // Into A Bitmap. This Actually Requires A Couple Of FreeType Commands:
         // Load The Glyph For Our Character.
-        if(FT_Load_Glyph(face, FT_Get_Char_Index(face, i), FT_LOAD_DEFAULT))
+
+        if(FT_Load_Glyph(face, FT_Get_Char_Index(face, charindex[i]), FT_LOAD_DEFAULT))
             throw Exception("Pencil::Load; FT_Load_Glyph failed");
 
         // Move The Face's Glyph Into A Glyph Node.
@@ -466,11 +476,11 @@ Vector4f Pencil::GetColor() const
 
 // Text ------------------------------------------------------------------------
 
-Text::Text()
+GuiString::GuiString()
 {
 }
 
-Text::Text(const char* str, ...)
+GuiString::GuiString(const char* str, ...)
 {
     char* output = new char[strlen(str) + 1024];
 
@@ -484,7 +494,7 @@ Text::Text(const char* str, ...)
     delete output;
 }
 
-Text::Text(std::string str, ...)
+GuiString::GuiString(std::string str, ...)
 {
     char* output = new char[str.size() + 1024];
 
@@ -498,7 +508,7 @@ Text::Text(std::string str, ...)
     delete output;
 }
 
-void Text::Format(std::string str)
+void GuiString::Format(std::string str)
 {
     unsigned offset = 0;
 
@@ -517,7 +527,7 @@ void Text::Format(std::string str)
     push_back(string(str, offset, string::npos));
 }
 
-void Text::LoadFromFile(std::string filepath)
+void GuiString::LoadFromFile(std::string filepath)
 {
     ifstream file(filepath.c_str());
 

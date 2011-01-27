@@ -23,12 +23,12 @@ namespace gui
 /**
  * \brief Gestion du texte multi-ligne
  */
-class Text : public std::vector<std::string>
+class GuiString : public std::vector<std::string>
 {
 public:
-    Text();
-    Text(std::string str, ...);
-    Text(const char* str, ...);
+    GuiString();
+    GuiString(std::string str, ...);
+    GuiString(const char* str, ...);
 
     void LoadFromFile(std::string filepath);
 
@@ -59,16 +59,16 @@ public:
     void Delete();
 
     /// Rendue
-    void Display(Vector2f pos, Text text);
+    void Display(Vector2f pos, GuiString text);
 
     /// Renvois la position centrer de text pa rapport a pos et pos+size
-    Vector2f CenterOf(Text text, Vector2f pos, Vector2f size) const;
+    Vector2f CenterOf(GuiString text, Vector2f pos, Vector2f size) const;
 
     /// Renvois la position centrer de str pa rapport a pos et pos+size
     Vector2f CenterOf(std::string str, Vector2f pos, Vector2f size) const;
 
     /// Renvois la taille occuper par text avec la police en cour
-    Vector2f SizeOf(Text text) const;
+    Vector2f SizeOf(GuiString text) const;
 
     /// Renvois la taille occuper par str avec la police en cour
     Vector2f SizeOf(std::string str) const;
