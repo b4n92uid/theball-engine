@@ -38,8 +38,6 @@ public:
     void SetFrustumCullingCount(unsigned frustumCullingCount);
     unsigned GetFrustumCullingCount() const;
 
-    Iterator<Mesh*> GetIterator();
-
 protected:
     AABB getSceneAabb();
 

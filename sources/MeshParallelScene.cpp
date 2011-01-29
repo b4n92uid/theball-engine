@@ -113,11 +113,6 @@ void MeshParallelScene::SetInFloor(Node* node)
     node->SetPos(pos);
 }
 
-Iterator<Mesh*> MeshParallelScene::GetIterator()
-{
-    return Iterator<Mesh*>(m_nodes);
-}
-
 AABB MeshParallelScene::getSceneAabb()
 {
     AABB sceneAabb;

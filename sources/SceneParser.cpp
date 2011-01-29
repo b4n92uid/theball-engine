@@ -14,6 +14,7 @@
 #include "Skybox.h"
 #include "Tools.h"
 #include "Particles.h"
+#include "Water.h"
 
 using namespace std;
 using namespace tbe;
@@ -76,6 +77,26 @@ void SceneParser::SaveScene(const std::string& filepath)
         file << "left=" << skyTexs[4].GetFilename() << endl;
         file << "right=" << skyTexs[5].GetFilename() << endl;
         file << endl;
+    }
+
+    for(Iterator<Mesh*> it = m_meshScene->GetIterator(); it; it++)
+    {
+
+    }
+
+    for(Iterator<Water*> it = m_waterScene->GetIterator(); it; it++)
+    {
+
+    }
+
+    for(Iterator<ParticlesEmiter*> it = m_particlesScene->GetIterator(); it; it++)
+    {
+
+    }
+
+    for(Iterator<Light*> it = m_lightScene->GetIterator(); it; it++)
+    {
+
     }
 
     file.close();
