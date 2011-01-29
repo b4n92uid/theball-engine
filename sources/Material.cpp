@@ -94,7 +94,7 @@ std::string Material::GetTangentLocation() const
 
 bool Material::IsTransparent()
 {
-    return(m_renderFlags & BLEND_ADD)
+    return (m_renderFlags & BLEND_ADD)
             || (m_renderFlags & BLEND_MUL)
             || (m_renderFlags & BLEND_MOD)
             || (m_renderFlags & ALPHA);
@@ -207,7 +207,7 @@ Vector4f Material::GetAmbient() const
 
 bool Material::IsEnable(unsigned flag)
 {
-    return(m_renderFlags & flag);
+    return (m_renderFlags & flag);
 }
 
 void Material::Enable(unsigned flag)

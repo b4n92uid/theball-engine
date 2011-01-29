@@ -59,6 +59,7 @@ public:
     void Clear();
 
     float GetSize() const;
+    Vector3f GetCenter() const;
 
     Vector3f min;
     Vector3f max;
