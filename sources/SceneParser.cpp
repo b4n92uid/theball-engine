@@ -198,12 +198,12 @@ void SceneParser::ParseFog(AttribMap& att)
 void SceneParser::ParseSkyBox(AttribMap& att)
 {
     Texture skyTex[6] = {
-        att["front"],
-        att["back"],
-        att["top"],
-        att["bottom"],
-        att["left"],
-        att["right"]
+        tools::makeRelatifTo(m_fileName, att["front"]),
+        tools::makeRelatifTo(m_fileName, att["back"]),
+        tools::makeRelatifTo(m_fileName, att["top"]),
+        tools::makeRelatifTo(m_fileName, att["bottom"]),
+        tools::makeRelatifTo(m_fileName, att["left"]),
+        tools::makeRelatifTo(m_fileName, att["right"])
     };
 
     scene::SkyBox* sky = m_sceneManager->GetSkybox();
