@@ -176,6 +176,22 @@ void Node::ReleaseParent()
     m_parent = NULL;
 }
 
+unsigned Node::DeepPosition() const
+{
+    unsigned deep = 0;
+
+    const Node* it = this;
+
+    do
+    {
+        it = it->m_parent;
+        if(it) deep++;
+    }
+    while(it);
+
+    return deep;
+}
+
 void Node::SetParent(Node* parent)
 {
     parent->AddChild(this);
@@ -195,6 +211,7 @@ void Node::AddChild(Node* child)
         child->m_parent->ReleaseChild(child);
 
     child->m_parent = this;
+    child->m_sceneManager = m_sceneManager;
 
     m_childs.push_back(child);
 
@@ -246,6 +263,11 @@ void Node::DeleteChild(unsigned index)
     m_childs.erase(m_childs.begin() + index);
 }
 
+unsigned Node::GetChildCount() const
+{
+    return m_childs.size();
+}
+
 Node* Node::GetChild(unsigned index) const
 {
     if(index >= m_childs.size())
@@ -278,4 +300,14 @@ void Node::ClearAllChild()
 
     for(unsigned i = 0; i < dtor.size(); i++)
         delete dtor[i];
+}
+
+Node::CtorMap Node::ConstructionMap()
+{
+    Node::CtorMap ctormap;
+
+    ctormap["name"] = m_name;
+    ctormap["matrix"] = Matrix4ToStr(m_matrix);
+
+    return ctormap;
 }

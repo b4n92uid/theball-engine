@@ -40,12 +40,33 @@ void SceneParser::SaveScene()
     SaveScene(m_fileName);
 }
 
+void SceneParser::OutpuNodeConstruction(std::ofstream& file, Node* node)
+{
+    Node::CtorMap ctormap = node->ConstructionMap();
+
+    string indent((node->DeepPosition() - 1) * 4, ' ');
+
+    file << indent << "+node" << endl;
+
+    for(Node::CtorMap::iterator it = ctormap.begin(); it != ctormap.end(); it++)
+        file << indent << it->first << "=" << it->second << endl;
+
+    for(Iterator<Node*> it = node->GetChildIterator(); it; it++)
+    {
+        file << ">" << endl;
+        OutpuNodeConstruction(file, *it);
+    }
+
+    if(node->GetParent()->IsRoot())
+        file << endl;
+}
+
 void SceneParser::SaveScene(const std::string& filepath)
 {
     ofstream file(filepath.c_str());
 
     if(!file)
-        throw tbe::Exception("BLDLoader::SaveScene; Open file error (%s)", filepath.c_str());
+        throw tbe::Exception("SceneParser::SaveScene; Open file error (%s)", filepath.c_str());
 
     file << "*map" << endl;
     file << "name=" << m_mapName << endl;
@@ -79,27 +100,64 @@ void SceneParser::SaveScene(const std::string& filepath)
         file << endl;
     }
 
-    for(Iterator<Mesh*> it = m_meshScene->GetIterator(); it; it++)
-    {
+    Node* rootNode = m_sceneManager->GetRootNode();
 
-    }
-
-    for(Iterator<Water*> it = m_waterScene->GetIterator(); it; it++)
-    {
-
-    }
-
-    for(Iterator<ParticlesEmiter*> it = m_particlesScene->GetIterator(); it; it++)
-    {
-
-    }
-
-    for(Iterator<Light*> it = m_lightScene->GetIterator(); it; it++)
-    {
-
-    }
+    for(Iterator<Node*> it = rootNode->GetChildIterator(); it; it++)
+        OutpuNodeConstruction(file, *it);
 
     file.close();
+}
+
+bool SceneParser::parseBlock(std::ifstream& file, Relation& rel, unsigned& line)
+{
+    string buffer;
+    while(tools::getline(file, buffer))
+    {
+        line++;
+
+        if(buffer.empty())
+            return true;
+
+        if(buffer[0] == '>')
+        {
+            if(rel.deep == 0)
+                continue;
+            else
+                return false;
+        }
+
+        if(buffer[0] == '#')
+            continue;
+
+        int deep = buffer.find("+node");
+
+        if(deep > rel.deep)
+        {
+            Relation subrel(deep);
+
+            bool endofsec = parseBlock(file, subrel, line);
+
+            rel.child.push_back(subrel);
+
+            if(endofsec)
+                return true;
+            else
+                continue;
+        }
+
+        string subbuffer = buffer.substr(rel.deep);
+
+        unsigned sep = subbuffer.find_first_of('=');
+
+        if(sep == string::npos)
+            throw tbe::Exception("SceneParser::ParseRelation; invalid assignement %d (%s)", line, buffer.c_str());
+
+        string key(subbuffer, 0, sep), value(subbuffer, sep + 1);
+
+        rel.attr[key] = value;
+    }
+
+    return true;
 }
 
 void SceneParser::LoadScene(const std::string& filepath)
@@ -120,28 +178,28 @@ void SceneParser::LoadScene(const std::string& filepath)
         if(buffer == "*map")
         {
             Relation rel;
-            ParseRelation(file, rel);
+            parseBlock(file, rel, line);
             ParseMap(rel.attr);
         }
 
         else if(buffer == "*fog")
         {
             Relation rel;
-            ParseRelation(file, rel);
+            parseBlock(file, rel, line);
             ParseFog(rel.attr);
         }
 
         else if(buffer == "*skybox")
         {
             Relation rel;
-            ParseRelation(file, rel);
+            parseBlock(file, rel, line);
             ParseSkyBox(rel.attr);
         }
 
         else if(buffer == "+node")
         {
             Relation rel;
-            ParseRelation(file, rel);
+            parseBlock(file, rel, line);
             ParseNode(rel);
         }
 
@@ -149,15 +207,18 @@ void SceneParser::LoadScene(const std::string& filepath)
         {
             string modelFilepath(buffer, 9);
 
-            if(modelFilepath.find(':') == string::npos)
-                modelFilepath = tools::makeRelatifTo(m_fileName, modelFilepath);
+            //            if(modelFilepath.find(':') == string::npos)
+            //                modelFilepath = tools::makeRelatifTo(m_fileName, modelFilepath);
 
             LoadScene(modelFilepath);
         }
 
         else if(buffer.substr(0, 6) == "/class")
         {
-            RecordClass(file, buffer.substr(7));
+            Relation rel;
+            parseBlock(file, rel, line);
+
+            m_classRec[buffer.substr(7)] = rel.child;
         }
 
         else
@@ -198,12 +259,18 @@ void SceneParser::ParseFog(AttribMap& att)
 void SceneParser::ParseSkyBox(AttribMap& att)
 {
     Texture skyTex[6] = {
-        tools::makeRelatifTo(m_fileName, att["front"]),
-        tools::makeRelatifTo(m_fileName, att["back"]),
-        tools::makeRelatifTo(m_fileName, att["top"]),
-        tools::makeRelatifTo(m_fileName, att["bottom"]),
-        tools::makeRelatifTo(m_fileName, att["left"]),
-        tools::makeRelatifTo(m_fileName, att["right"])
+        //        tools::makeRelatifTo(m_fileName, att["front"]),
+        //        tools::makeRelatifTo(m_fileName, att["back"]),
+        //        tools::makeRelatifTo(m_fileName, att["top"]),
+        //        tools::makeRelatifTo(m_fileName, att["bottom"]),
+        //        tools::makeRelatifTo(m_fileName, att["left"]),
+        //        tools::makeRelatifTo(m_fileName, att["right"])
+        att["front"],
+        att["back"],
+        att["top"],
+        att["bottom"],
+        att["left"],
+        att["right"]
     };
 
     scene::SkyBox* sky = m_sceneManager->GetSkybox();
@@ -211,57 +278,13 @@ void SceneParser::ParseSkyBox(AttribMap& att)
     sky->SetEnable(true);
 }
 
-void SceneParser::ParseRelation(std::ifstream& file, Relation& rel)
-{
-    string buffer;
-
-    while(tools::getline(file, buffer))
-    {
-        if(buffer.empty())
-            break;
-
-        buffer = buffer.substr(rel.deep);
-
-        if(buffer.empty())
-            break;
-
-        if(buffer[0] == '#' || tools::isspace(buffer))
-            continue;
-
-        int deep = buffer.find("+node");
-
-        if(deep > rel.deep)
-        {
-            Relation subrel(deep);
-            ParseRelation(file, subrel);
-
-            rel.child.push_back(subrel);
-
-            continue;
-        }
-
-        string key(buffer, 0, buffer.find_first_of('=')),
-                value(buffer, buffer.find_first_of('=') + 1);
-
-        rel.attr[key] = value;
-    }
-}
-
-void SceneParser::RecordClass(std::ifstream& file, std::string type)
-{
-    Relation rel;
-    ParseRelation(file, rel);
-
-    m_classRec[type] = rel.child;
-}
-
 void SceneParser::ParseNode(Relation& rel, Node* parent)
 {
-    const string& type = rel.attr["type"];
+    const string& nlass = rel.attr["class"];
 
-    if(m_classRec.count(type))
+    if(m_classRec.count(nlass))
     {
-        Mesh* node = m_classFactory ? m_classFactory->Instance(type, m_meshScene) : new Mesh(m_meshScene);
+        Mesh* node = m_classFactory ? m_classFactory->Instance(nlass, m_meshScene) : new Mesh(m_meshScene);
 
         if(parent)
             parent->AddChild(node);
@@ -274,44 +297,42 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         if(rel.attr.count("name"))
             node->SetName(rel.attr["name"]);
 
-        for(unsigned i = 0; i < m_classRec[type].size(); i++)
-            ParseNode(m_classRec[type][i], node);
+        for(unsigned i = 0; i < m_classRec[nlass].size(); i++)
+            ParseNode(m_classRec[nlass][i], node);
 
         return;
     }
 
     Node* current = NULL;
 
-    if(type == "OBJMesh")
+    if(nlass == "OBJMesh")
     {
         OBJMesh* node = new OBJMesh(m_meshScene);
 
         string modelFilepath;
 
-        if(rel.attr["open"].find(':') != string::npos)
-            modelFilepath = rel.attr["open"];
-        else
-            modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["open"]);
+        //        if(rel.attr["filename"].find(':') != string::npos)
+        modelFilepath = rel.attr["filename"];
+        //        else
+        //            modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["filename"]);
 
         node->Open(modelFilepath);
 
         current = node;
     }
 
-    else if(type == "ParticlesEmiter")
+    else if(nlass == "ParticlesEmiter")
     {
         ParticlesEmiter* emiter = new ParticlesEmiter(m_particlesScene);
 
         string modelFilepath;
 
-        if(rel.attr["open"].find(':') != string::npos)
-            modelFilepath = rel.attr["open"];
-        else
-            modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["open"]);
+        //        if(rel.attr["texture"].find(':') != string::npos)
+        modelFilepath = rel.attr["texture"];
+        //        else
+        //            modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["texture"]);
 
         emiter->SetTexture(modelFilepath);
-
-        emiter->SetEndPos(tools::StrToVec3<float>(rel.attr["endPos"], true));
 
         emiter->SetLifeInit(tools::StrToNum<float>(rel.attr["lifeInit"]));
         emiter->SetLifeDown(tools::StrToNum<float>(rel.attr["lifeDown"]));
@@ -320,25 +341,25 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
         emiter->SetNumber(tools::StrToNum<int>(rel.attr["number"]));
 
-        emiter->SetFreeMove(tools::StrToNum<float>(rel.attr["freemove"]));
+        emiter->SetFreeMove(tools::StrToNum<float>(rel.attr["freeMove"]));
 
-        emiter->SetContinousMode(tools::StrToNum<bool>(rel.attr["continous"]));
+        emiter->SetContinousMode(tools::StrToNum<bool>(rel.attr["continousMode"]));
 
         emiter->Build();
 
         current = emiter;
     }
 
-    else if(type == "Light")
+    else if(nlass == "Light")
     {
         Light* light = NULL;
 
-        if(rel.attr["class"] == "Diri")
+        if(rel.attr["type"] == "Diri")
         {
             light = new DiriLight(m_lightScene);
         }
 
-        else if(rel.attr["class"] == "Point")
+        else if(rel.attr["type"] == "Point")
         {
             float radius = tools::StrToNum<float>(rel.attr["radius"]);
 
@@ -347,7 +368,7 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         }
 
         else
-            throw tbe::Exception("SceneParser::ParseNode; Unknown light type (%s)", rel.attr["class"].c_str());
+            throw tbe::Exception("SceneParser::ParseNode; Unknown light type (%s)", rel.attr["type"].c_str());
 
         light->SetAmbient(tools::StrToVec4<float>(rel.attr["ambient"], true));
         light->SetDiffuse(tools::StrToVec4<float>(rel.attr["diffuse"], true));
@@ -356,10 +377,12 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         current = light;
     }
 
-
     else
-        throw tbe::Exception("BLDLoader::ParseNode; Unknown node type (%s)", type.c_str());
+    {
+        BullNode* node = new BullNode;
 
+        current = node;
+    }
 
     if(parent)
         parent->AddChild(current);

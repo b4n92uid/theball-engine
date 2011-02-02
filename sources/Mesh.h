@@ -136,6 +136,8 @@ public:
      */
     static bool CheckHardware();
 
+    CtorMap ConstructionMap();
+
     typedef std::map<std::string, Mesh*> Map;
     typedef std::vector<Mesh*> Array;
 

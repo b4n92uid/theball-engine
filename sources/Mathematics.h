@@ -74,6 +74,42 @@ template<typename T> inline std::ostream & operator <<(std::ostream& stream, tbe
     return stream;
 }
 
+template<typename T> inline std::string Matrix4ToStr(const Matrix4<T>& mat)
+{
+    std::stringstream stream;
+    for(unsigned i = 0; i < 15; i++)
+        stream << mat[i] << ",";
+
+    stream << mat[15];
+
+    return stream.str();
+}
+
+template<typename T> inline std::string Vector2ToStr(const Vector2<T>& vec)
+{
+    std::stringstream stream;
+    stream << vec.x << ", " << vec.y;
+
+    return stream.str();
+}
+
+template<typename T> inline std::string Vector3ToStr(const Vector3<T>& vec)
+{
+    std::stringstream stream;
+    stream << vec.x << ", " << vec.y << ", " << vec.z;
+
+    return stream.str();
+}
+
+template<typename T> inline std::string Vector4ToStr(const Vector4<T>& vec)
+{
+    std::stringstream stream;
+    stream << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w;
+
+    return stream.str();
+}
+
+
 }
 
 #endif	/* _MATHEMATICS_H */
