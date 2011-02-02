@@ -28,7 +28,7 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
 
     Node::m_parallelScene = m_parallelScene = scene;
     m_sceneManager = m_parallelScene->GetSceneManager();
-    
+
     m_parallelScene->Register(this);
 }
 
@@ -381,4 +381,21 @@ void ParticlesEmiter::EndParticlesPosProcess()
 bool ParticlesEmiter::CheckHardware()
 {
     return GLEE_ARB_point_sprite;
+}
+
+Node::CtorMap ParticlesEmiter::ConstructionMap()
+{
+    Node::CtorMap ctormap = Node::ConstructionMap();
+
+    ctormap["class"] = "ParticlesEmiter";
+
+    ctormap["texture"] = m_texture.GetFilename();
+    ctormap["lifeInit"] = tools::numToStr(m_lifeInit);
+    ctormap["lifeDown"] = tools::numToStr(m_lifeDown);
+    ctormap["number"] = tools::numToStr(m_number);
+    ctormap["gravity"] = tools::numToStr(m_gravity);
+    ctormap["freeMove"] = tools::numToStr(m_freeMove);
+    ctormap["continousMode"] = tools::numToStr(m_continousMode);
+
+    return ctormap;
 }

@@ -57,6 +57,8 @@ public:
     void SetType(Type type);
     Type GetType() const;
 
+    CtorMap ConstructionMap();
+    
     typedef std::vector<scene::Light*> Array;
 
 protected:

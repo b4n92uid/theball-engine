@@ -108,6 +108,8 @@ public:
 
     static bool CheckHardware();
 
+    CtorMap ConstructionMap();
+
 protected:
     virtual void Build(Particle& p);
 

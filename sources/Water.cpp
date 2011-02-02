@@ -147,8 +147,6 @@ Water::Water(WaterParallelScene* scene)
 
     m_buffer.Compile();
 
-    m_uvDecal = 0;
-
     Node::m_parallelScene = m_parallelScene = scene;
     m_sceneManager = m_parallelScene->GetSceneManager();
 
@@ -448,4 +446,20 @@ void Water::SetSize(Vector2f size)
 Vector2f Water::GetSize() const
 {
     return m_size;
+}
+
+Node::CtorMap Water::ConstructionMap()
+{
+    Node::CtorMap ctormap = Node::ConstructionMap();
+
+    ctormap["class"] = "Water";
+
+    ctormap["normalMap"] = m_normalMap.GetFilename();
+    ctormap["size"] = m_size;
+    ctormap["speed"] = m_speed;
+    ctormap["deform"] = m_deform;
+    ctormap["blend"] = m_blend;
+    ctormap["uvRepeat"] = m_uvRepeat;
+
+    return ctormap;
 }

@@ -73,8 +73,9 @@ protected:
     void ParseNode(Relation& att, Node* parent = NULL);
 
 private:
-    void ParseRelation(std::ifstream& file, Relation& rel);
-    void RecordClass(std::ifstream& file, std::string type);
+    bool parseBlock(std::ifstream& file, Relation& rel, unsigned& line);
+
+    void OutpuNodeConstruction(std::ofstream& file, Node* node);
 
     std::string m_fileName;
 

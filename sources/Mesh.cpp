@@ -710,3 +710,10 @@ bool Mesh::IsVisible() const
 {
     return m_visible;
 }
+
+Node::CtorMap Mesh::ConstructionMap()
+{
+    Node::CtorMap ctormap = Node::ConstructionMap();
+
+    return ctormap;
+}

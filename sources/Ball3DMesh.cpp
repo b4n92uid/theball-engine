@@ -90,7 +90,7 @@ void Ball3DMesh::ReadMaterial(std::ifstream& file, Material* mat)
         else if(opcode == "tex")
         {
             unsigned index = tools::StrToNum<float>(value);
-            string filepath = tools::makeRelatifTo(m_filepath, value.substr(value.find(' ') + 1));
+            string filepath = tools::makeRelatifTo(m_filename, value.substr(value.find(' ') + 1));
 
             mat->SetTexture(Texture(filepath, true), index);
             mat->Enable(Material::TEXTURE);
@@ -114,7 +114,7 @@ void Ball3DMesh::Open(std::string filepath)
     if(buffer != ".ball3d.")
         throw Exception("Ball3DMesh::Open; Invalid file format (%s)", filepath.c_str());
 
-    m_filepath = filepath;
+    m_filename = filepath;
     m_name = tools::basename(filepath, false);
 
     Material* curMaterial;
@@ -155,7 +155,18 @@ void Ball3DMesh::Open(std::string filepath)
     file.close();
 }
 
-std::string Ball3DMesh::GetFilePath()
+std::string Ball3DMesh::GetFilename()
 {
-    return m_filepath;
+    return m_filename;
+}
+
+Node::CtorMap Ball3DMesh::ConstructionMap()
+{
+    Node::CtorMap ctormap = Mesh::ConstructionMap();
+
+    ctormap["class"] = "Ball3DMesh";
+
+    ctormap["filename"] = m_filename;
+
+    return ctormap;
 }

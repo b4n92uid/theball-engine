@@ -34,14 +34,16 @@ public:
 
     void Open(std::string filepath);
 
-    std::string GetFilePath();
+    std::string GetFilename();
+
+    Node::CtorMap ConstructionMap();
 
 private:
     void ReadMaterial(std::ifstream& file, Material* mat);
     void ReadVertexs(std::ifstream& file);
 
 private:
-    std::string m_filepath;
+    std::string m_filename;
 };
 
 }

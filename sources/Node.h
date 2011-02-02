@@ -75,11 +75,14 @@ public:
     bool IsAttached() const;
     void ReleaseParent();
 
+    unsigned DeepPosition() const;
+
     void SetParent(Node* parent);
     Node* GetParent() const;
 
     void AddChild(Node* child);
     Node* GetChild(unsigned index) const;
+    unsigned GetChildCount() const;
 
     void ClearAllChild();
 
@@ -99,6 +102,10 @@ public:
 
     void SetUserData(Any userData);
     Any GetUserData() const;
+
+    typedef std::map<std::string, std::string> CtorMap;
+
+    virtual CtorMap ConstructionMap();
 
     typedef std::map<std::string, Node*> Map;
     typedef std::vector<Node*> Array;

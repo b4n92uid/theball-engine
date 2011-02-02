@@ -27,10 +27,10 @@ public:
 
     void Open(const std::string& path);
 
-    std::string GetFilePath() const;
+    std::string GetFilename() const;
 
 protected:
-    std::string m_filePath;
+    std::string m_filename;
     OBJMesh* m_parent;
 };
 
@@ -52,10 +52,12 @@ public:
 
     void Open(const std::string& path);
 
-    std::string GetFilepath() const;
+    std::string GetFilename() const;
+
+    Node::CtorMap ConstructionMap();
 
 protected:
-    std::string m_filepath;
+    std::string m_filename;
     MTLFile m_mtlfile;
 };
 

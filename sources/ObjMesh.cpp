@@ -39,7 +39,7 @@ OBJMesh& OBJMesh::operator=(const OBJMesh& copy)
 {
     Mesh::operator=(copy);
 
-    m_filepath = copy.m_filepath;
+    m_filename = copy.m_filename;
     m_mtlfile = copy.m_mtlfile;
 
     return *this;
@@ -58,7 +58,7 @@ void OBJMesh::Open(const std::string& path)
     if(!file)
         throw tbe::Exception("OBJMesh::Open; Open OBJ File Error; (%s)", path.c_str());
 
-    manager[this] = m_filepath = path;
+    manager[this] = m_filename = path;
 
     m_name = tools::basename(path, false);
 
@@ -82,7 +82,7 @@ void OBJMesh::Open(const std::string& path)
 
         if(opcode == "mtllib")
         {
-            string mtlFilename = tools::makeRelatifTo(m_filepath, value);
+            string mtlFilename = tools::makeRelatifTo(m_filename, value);
             m_mtlfile.Open(mtlFilename);
         }
 
@@ -219,9 +219,20 @@ void OBJMesh::Open(const std::string& path)
     ComputeAabb();
 }
 
-std::string OBJMesh::GetFilepath() const
+std::string OBJMesh::GetFilename() const
 {
-    return m_filepath;
+    return m_filename;
+}
+
+Node::CtorMap OBJMesh::ConstructionMap()
+{
+    Node::CtorMap ctormap = Mesh::ConstructionMap();
+
+    ctormap["class"] = "OBJMesh";
+
+    ctormap["filename"] = m_filename;
+
+    return ctormap;
 }
 
 // MTLFile ---------------------------------------------------------------------
@@ -249,7 +260,7 @@ MTLFile::MTLFile(const MTLFile& copy)
 
 MTLFile& MTLFile::operator=(const MTLFile& copy)
 {
-    m_filePath = copy.m_filePath;
+    m_filename = copy.m_filename;
 
     return *this;
 }
@@ -263,7 +274,7 @@ void MTLFile::Open(const std::string& path)
 
     cout << "Load mtl file : " << path << endl;
 
-    m_filePath = path;
+    m_filename = path;
 
     Material * material = NULL;
 
@@ -357,7 +368,7 @@ void MTLFile::Open(const std::string& path)
     file.close();
 }
 
-std::string MTLFile::GetFilePath() const
+std::string MTLFile::GetFilename() const
 {
-    return m_filePath;
+    return m_filename;
 }

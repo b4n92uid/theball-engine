@@ -74,6 +74,8 @@ public:
     void SetUvRepeat(Vector2f uvRepeat);
     Vector2f GetUvRepeat() const;
 
+    CtorMap ConstructionMap();
+
     typedef std::vector<Water*> Array;
 
 protected:
@@ -90,7 +92,6 @@ protected:
     float m_blend;
     float m_deform;
     float m_speed;
-    float m_uvDecal;
 
     WaterParallelScene* m_parallelScene;
 };

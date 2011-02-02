@@ -47,7 +47,7 @@ Light::Light(LightParallelScene* scene, Type type)
 
     Node::m_parallelScene = m_parallelScene = scene;
     m_sceneManager = m_parallelScene->GetSceneManager();
-    
+
     m_parallelScene->Register(this);
 }
 
@@ -211,6 +211,26 @@ void Light::SetType(Type type)
 Light::Type Light::GetType() const
 {
     return m_type;
+}
+
+Node::CtorMap Light::ConstructionMap()
+{
+    Node::CtorMap ctormap = Node::ConstructionMap();
+
+    ctormap["class"] = "Light";
+
+    if(m_type == Light::DIRI)
+        ctormap["type"] = "Diri";
+    else if(m_type == Light::POINT)
+        ctormap["type"] = "Point";
+    else
+        ctormap["type"] = tools::numToStr(m_type);
+
+    ctormap["ambient"] = Vector4ToStr(m_ambient);
+    ctormap["diffuse"] = Vector4ToStr(m_diffuse);
+    ctormap["specular"] = Vector4ToStr(m_specular);
+
+    return ctormap;
 }
 
 DiriLight::DiriLight(LightParallelScene* scene) : Light(scene, DIRI)
