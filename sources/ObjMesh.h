@@ -54,7 +54,7 @@ public:
 
     std::string GetFilename() const;
 
-    Node::CtorMap ConstructionMap();
+    Node::CtorMap ConstructionMap(std::string root);
 
 protected:
     std::string m_filename;

@@ -160,13 +160,13 @@ std::string Ball3DMesh::GetFilename()
     return m_filename;
 }
 
-Node::CtorMap Ball3DMesh::ConstructionMap()
+Node::CtorMap Ball3DMesh::ConstructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Mesh::ConstructionMap();
+    Node::CtorMap ctormap = Mesh::ConstructionMap(root);
 
     ctormap["class"] = "Ball3DMesh";
 
-    ctormap["filename"] = m_filename;
+    ctormap["filename"] = tools::makeRelatifTo(root, m_filename);
 
     return ctormap;
 }

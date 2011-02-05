@@ -32,33 +32,37 @@ SceneParser::~SceneParser()
     delete m_classFactory;
 }
 
-void SceneParser::SaveScene()
-{
-    if(m_fileName.empty())
-        return;
-
-    SaveScene(m_fileName);
-}
-
 void SceneParser::OutpuNodeConstruction(std::ofstream& file, Node* node)
 {
-    Node::CtorMap ctormap = node->ConstructionMap();
+    Node::CtorMap ctormap = node->ConstructionMap(m_fileName);
 
     string indent((node->DeepPosition() - 1) * 4, ' ');
 
-    file << indent << "+node" << endl;
+    if(node->GetParent()->IsRoot())
+        file << indent << "+node" << endl;
 
     for(Node::CtorMap::iterator it = ctormap.begin(); it != ctormap.end(); it++)
         file << indent << it->first << "=" << it->second << endl;
 
     for(Iterator<Node*> it = node->GetChildIterator(); it; it++)
     {
-        file << ">" << endl;
+        string subindent((it->DeepPosition() - 1) * 4, ' ');
+
+        file << subindent << "<" << endl;
         OutpuNodeConstruction(file, *it);
+        file << subindent << ">" << endl;
     }
 
     if(node->GetParent()->IsRoot())
         file << endl;
+}
+
+void SceneParser::SaveScene()
+{
+    if(m_fileName.empty())
+        return;
+
+    SaveScene(m_fileName);
 }
 
 void SceneParser::SaveScene(const std::string& filepath)
@@ -91,12 +95,12 @@ void SceneParser::SaveScene(const std::string& filepath)
         Texture* skyTexs = sky->GetTextures();
 
         file << "*skybox" << endl;
-        file << "front=" << skyTexs[0].GetFilename() << endl;
-        file << "back=" << skyTexs[1].GetFilename() << endl;
-        file << "top=" << skyTexs[2].GetFilename() << endl;
-        file << "bottom=" << skyTexs[3].GetFilename() << endl;
-        file << "left=" << skyTexs[4].GetFilename() << endl;
-        file << "right=" << skyTexs[5].GetFilename() << endl;
+        file << "front=" << tools::makeRelatifTo(m_fileName, skyTexs[0].GetFilename()) << endl;
+        file << "back=" << tools::makeRelatifTo(m_fileName, skyTexs[1].GetFilename()) << endl;
+        file << "top=" << tools::makeRelatifTo(m_fileName, skyTexs[2].GetFilename()) << endl;
+        file << "bottom=" << tools::makeRelatifTo(m_fileName, skyTexs[3].GetFilename()) << endl;
+        file << "left=" << tools::makeRelatifTo(m_fileName, skyTexs[4].GetFilename()) << endl;
+        file << "right=" << tools::makeRelatifTo(m_fileName, skyTexs[5].GetFilename()) << endl;
         file << endl;
     }
 
@@ -118,18 +122,13 @@ bool SceneParser::parseBlock(std::ifstream& file, Relation& rel, unsigned& line)
         if(buffer.empty())
             return true;
 
-        if(buffer[0] == '>')
-        {
-            if(rel.deep == 0)
-                continue;
-            else
-                return false;
-        }
-
         if(buffer[0] == '#')
             continue;
 
-        int deep = buffer.find("+node");
+        if(buffer[rel.deep] == '>')
+            return false;
+
+        int deep = buffer.find("<");
 
         if(deep > rel.deep)
         {
@@ -141,20 +140,21 @@ bool SceneParser::parseBlock(std::ifstream& file, Relation& rel, unsigned& line)
 
             if(endofsec)
                 return true;
-            else
-                continue;
         }
 
-        string subbuffer = buffer.substr(rel.deep);
+        else
+        {
+            string subbuffer = buffer.substr(rel.deep);
 
-        unsigned sep = subbuffer.find_first_of('=');
+            unsigned sep = subbuffer.find_first_of('=');
 
-        if(sep == string::npos)
-            throw tbe::Exception("SceneParser::ParseRelation; invalid assignement %d (%s)", line, buffer.c_str());
+            if(sep == string::npos)
+                throw tbe::Exception("SceneParser::ParseRelation; invalid assignement %d (%s)", line, buffer.c_str());
 
-        string key(subbuffer, 0, sep), value(subbuffer, sep + 1);
+            string key(subbuffer, 0, sep), value(subbuffer, sep + 1);
 
-        rel.attr[key] = value;
+            rel.attr[key] = value;
+        }
     }
 
     return true;
@@ -207,8 +207,8 @@ void SceneParser::LoadScene(const std::string& filepath)
         {
             string modelFilepath(buffer, 9);
 
-            //            if(modelFilepath.find(':') == string::npos)
-            //                modelFilepath = tools::makeRelatifTo(m_fileName, modelFilepath);
+            if(modelFilepath.find(':') == string::npos)
+                modelFilepath = tools::makeRelatifTo(m_fileName, modelFilepath);
 
             LoadScene(modelFilepath);
         }
@@ -259,18 +259,12 @@ void SceneParser::ParseFog(AttribMap& att)
 void SceneParser::ParseSkyBox(AttribMap& att)
 {
     Texture skyTex[6] = {
-        //        tools::makeRelatifTo(m_fileName, att["front"]),
-        //        tools::makeRelatifTo(m_fileName, att["back"]),
-        //        tools::makeRelatifTo(m_fileName, att["top"]),
-        //        tools::makeRelatifTo(m_fileName, att["bottom"]),
-        //        tools::makeRelatifTo(m_fileName, att["left"]),
-        //        tools::makeRelatifTo(m_fileName, att["right"])
-        att["front"],
-        att["back"],
-        att["top"],
-        att["bottom"],
-        att["left"],
-        att["right"]
+        tools::makeRelatifTo(m_fileName, att["front"]),
+        tools::makeRelatifTo(m_fileName, att["back"]),
+        tools::makeRelatifTo(m_fileName, att["top"]),
+        tools::makeRelatifTo(m_fileName, att["bottom"]),
+        tools::makeRelatifTo(m_fileName, att["left"]),
+        tools::makeRelatifTo(m_fileName, att["right"])
     };
 
     scene::SkyBox* sky = m_sceneManager->GetSkybox();
@@ -311,10 +305,10 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
         string modelFilepath;
 
-        //        if(rel.attr["filename"].find(':') != string::npos)
-        modelFilepath = rel.attr["filename"];
-        //        else
-        //            modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["filename"]);
+        if(rel.attr["filename"].find(':') != string::npos)
+            modelFilepath = rel.attr["filename"];
+        else
+            modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["filename"]);
 
         node->Open(modelFilepath);
 
@@ -327,10 +321,10 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
         string modelFilepath;
 
-        //        if(rel.attr["texture"].find(':') != string::npos)
-        modelFilepath = rel.attr["texture"];
-        //        else
-        //            modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["texture"]);
+        if(rel.attr["texture"].find(':') != string::npos)
+            modelFilepath = rel.attr["texture"];
+        else
+            modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["texture"]);
 
         emiter->SetTexture(modelFilepath);
 

@@ -74,7 +74,7 @@ public:
     void SetUvRepeat(Vector2f uvRepeat);
     Vector2f GetUvRepeat() const;
 
-    CtorMap ConstructionMap();
+    CtorMap ConstructionMap(std::string root);
 
     typedef std::vector<Water*> Array;
 

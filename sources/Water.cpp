@@ -448,9 +448,9 @@ Vector2f Water::GetSize() const
     return m_size;
 }
 
-Node::CtorMap Water::ConstructionMap()
+Node::CtorMap Water::ConstructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Node::ConstructionMap();
+    Node::CtorMap ctormap = Node::ConstructionMap(root);
 
     ctormap["class"] = "Water";
 

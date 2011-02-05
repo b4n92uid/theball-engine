@@ -105,7 +105,7 @@ public:
 
     typedef std::map<std::string, std::string> CtorMap;
 
-    virtual CtorMap ConstructionMap();
+    virtual CtorMap ConstructionMap(std::string root);
 
     typedef std::map<std::string, Node*> Map;
     typedef std::vector<Node*> Array;

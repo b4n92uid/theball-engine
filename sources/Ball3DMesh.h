@@ -36,7 +36,7 @@ public:
 
     std::string GetFilename();
 
-    Node::CtorMap ConstructionMap();
+    Node::CtorMap ConstructionMap(std::string root);
 
 private:
     void ReadMaterial(std::ifstream& file, Material* mat);
