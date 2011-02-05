@@ -56,7 +56,7 @@ static const char blurFragShader[] =
         "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,-offset));"
         "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,offset));"
 
-        "final /= 9;"
+        "final /= vec4(9);"
 
         "if(final == 0)"
         "   discard;"
