@@ -27,7 +27,7 @@ static const char *fragmentShader =
         "{"
         "vec4 color0 = texture2D(texture0, gl_TexCoord[0].st);"
         "vec4 color1 = texture2D(texture1, gl_TexCoord[0].st);"
-        "gl_FragColor = mix(color0, color1, intensity);"
+        "gl_FragColor = mix(color0, color1, vec4(intensity));"
         "}";
 
 MotionBlurEffect::MotionBlurEffect()
