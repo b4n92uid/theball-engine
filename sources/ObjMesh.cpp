@@ -224,13 +224,13 @@ std::string OBJMesh::GetFilename() const
     return m_filename;
 }
 
-Node::CtorMap OBJMesh::ConstructionMap()
+Node::CtorMap OBJMesh::ConstructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Mesh::ConstructionMap();
+    Node::CtorMap ctormap = Mesh::ConstructionMap(root);
 
     ctormap["class"] = "OBJMesh";
 
-    ctormap["filename"] = m_filename;
+    ctormap["filename"] = tools::makeRelatifTo(root, m_filename);
 
     return ctormap;
 }

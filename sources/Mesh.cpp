@@ -711,9 +711,9 @@ bool Mesh::IsVisible() const
     return m_visible;
 }
 
-Node::CtorMap Mesh::ConstructionMap()
+Node::CtorMap Mesh::ConstructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Node::ConstructionMap();
+    Node::CtorMap ctormap = Node::ConstructionMap(root);
 
     return ctormap;
 }

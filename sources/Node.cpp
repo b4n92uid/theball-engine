@@ -302,7 +302,7 @@ void Node::ClearAllChild()
         delete dtor[i];
 }
 
-Node::CtorMap Node::ConstructionMap()
+Node::CtorMap Node::ConstructionMap(std::string root)
 {
     Node::CtorMap ctormap;
 

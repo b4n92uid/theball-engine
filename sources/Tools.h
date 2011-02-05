@@ -45,7 +45,7 @@ inline std::string basename(std::string filename, bool withExt = true)
         return filename.substr(pos + 1, filename.find_last_of('.'));
 }
 
-inline std::string makeRelatifTo(std::string absfile, const std::string& relfile)
+inline std::string makeRelatifTo(std::string absfile, std::string relfile)
 {
     unsigned reppos;
     while((reppos = absfile.find('\\')) != std::string::npos)
@@ -56,7 +56,26 @@ inline std::string makeRelatifTo(std::string absfile, const std::string& relfile
     if(pos == std::string::npos)
         pos = absfile.find_last_of('/');
 
-    return absfile.substr(0, pos + 1) + relfile;
+    std::string abspath = absfile.substr(0, pos + 1);
+
+    for(unsigned i = 0, cut = 0; i < absfile.size(); i++)
+    {
+        if(abspath[i] == relfile[i])
+        {
+            if(abspath[i] == '/')
+            {
+                abspath.erase(0, cut + 1);
+                relfile.erase(0, cut + 1);
+                cut = 0;
+            }
+            else
+                cut++;
+        }
+
+        else break;
+    }
+
+    return abspath + relfile;
 }
 
 template<typename T> T clamp(const T& value, const T& min, const T& max)

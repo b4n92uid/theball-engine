@@ -383,13 +383,13 @@ bool ParticlesEmiter::CheckHardware()
     return GLEE_ARB_point_sprite;
 }
 
-Node::CtorMap ParticlesEmiter::ConstructionMap()
+Node::CtorMap ParticlesEmiter::ConstructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Node::ConstructionMap();
+    Node::CtorMap ctormap = Node::ConstructionMap(root);
 
     ctormap["class"] = "ParticlesEmiter";
 
-    ctormap["texture"] = m_texture.GetFilename();
+    ctormap["texture"] = tools::makeRelatifTo(root, m_texture.GetFilename());
     ctormap["lifeInit"] = tools::numToStr(m_lifeInit);
     ctormap["lifeDown"] = tools::numToStr(m_lifeDown);
     ctormap["number"] = tools::numToStr(m_number);

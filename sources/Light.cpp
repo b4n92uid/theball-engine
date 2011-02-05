@@ -213,9 +213,9 @@ Light::Type Light::GetType() const
     return m_type;
 }
 
-Node::CtorMap Light::ConstructionMap()
+Node::CtorMap Light::ConstructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Node::ConstructionMap();
+    Node::CtorMap ctormap = Node::ConstructionMap(root);
 
     ctormap["class"] = "Light";
 

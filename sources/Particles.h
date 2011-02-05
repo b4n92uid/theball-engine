@@ -108,7 +108,7 @@ public:
 
     static bool CheckHardware();
 
-    CtorMap ConstructionMap();
+    CtorMap ConstructionMap(std::string root);
 
 protected:
     virtual void Build(Particle& p);
