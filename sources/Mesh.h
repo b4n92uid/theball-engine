@@ -128,14 +128,6 @@ public:
     /// Renvois le buffer graphique de rendue
     HardwareBuffer& GetHardwareBuffer();
 
-    /**
-     * Vérifier le support des extention requis
-     * par la carte graphique pour le rendue
-     *
-     * @return
-     */
-    static bool CheckHardware();
-
     CtorMap ConstructionMap(std::string root);
 
     typedef std::map<std::string, Mesh*> Map;
