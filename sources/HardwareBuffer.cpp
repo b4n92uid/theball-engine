@@ -6,6 +6,7 @@
  */
 
 #include "HardwareBuffer.h"
+#include "Exception.h"
 
 #include <algorithm>
 #include <iostream>
@@ -24,22 +25,32 @@ using namespace std;
 
 HardwareBuffer::HardwareBuffer()
 {
-    glGenBuffers(1, &m_bufferId);
+    m_bufferId = 0;
+
+    glGenBuffersARB(1, &m_bufferId);
+
+    if(!m_bufferId)
+        throw Exception("HardwareBuffer::HardwareBuffer; Buffer generation failed");
 
     m_vertexCount = 0;
     m_bufferSize = 0;
 }
 
-HardwareBuffer::~HardwareBuffer()
-{
-    glDeleteBuffers(1, &m_bufferId);
-}
-
 HardwareBuffer::HardwareBuffer(const HardwareBuffer& hb)
 {
-    glGenBuffers(1, &m_bufferId);
+    m_bufferId = 0;
+
+    glGenBuffersARB(1, &m_bufferId);
+
+    if(!m_bufferId)
+        throw Exception("HardwareBuffer::HardwareBuffer; Buffer generation failed");
 
     *this = hb;
+}
+
+HardwareBuffer::~HardwareBuffer()
+{
+    glDeleteBuffersARB(1, &m_bufferId);
 }
 
 HardwareBuffer& HardwareBuffer::operator=(const HardwareBuffer& hb)
@@ -53,16 +64,16 @@ HardwareBuffer& HardwareBuffer::operator=(const HardwareBuffer& hb)
 
 Vertex* HardwareBuffer::Lock(GLenum usage)
 {
-    glBindBuffer(GL_ARRAY_BUFFER, m_bufferId);
-    Vertex* offset = static_cast<Vertex*>(glMapBuffer(GL_ARRAY_BUFFER, usage));
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
+    Vertex* offset = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, usage));
 
     return offset;
 }
 
 void HardwareBuffer::UnLock()
 {
-    glUnmapBuffer(GL_ARRAY_BUFFER);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
 bool HardwareBuffer::IsEmpty()
@@ -94,22 +105,22 @@ void HardwareBuffer::Compile(GLenum usage)
 {
     m_usage = usage;
     m_vertexCount = m_vertex.size();
-    m_bufferSize = m_vertex.size() * sizeof(Vertex);
+    m_bufferSize = m_vertex.size() * sizeof (Vertex);
 
     if(m_vertex.size() % 3 > 0)
         cout << "HardwareBuffer::Compile; Mesh faces are not triangulated" << endl;
 
-    glBindBuffer(GL_ARRAY_BUFFER, m_bufferId);
-    glBufferData(GL_ARRAY_BUFFER, m_bufferSize, &m_vertex[0], usage);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
+    glBufferDataARB(GL_ARRAY_BUFFER_ARB, m_bufferSize, &m_vertex[0], usage);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
 void HardwareBuffer::BindBuffer(bool state)
 {
     if(state)
     {
-        glBindBuffer(GL_ARRAY_BUFFER, m_bufferId);
+        glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
 
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, vertexStrid, posOffset);
@@ -119,7 +130,7 @@ void HardwareBuffer::BindBuffer(bool state)
     {
         glDisableClientState(GL_VERTEX_ARRAY);
 
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
     }
 }
 
@@ -200,7 +211,7 @@ unsigned HardwareBuffer::GetVertexCount() const
 
 inline bool VertexComparePredicat(Vertex& v1, Vertex& v2)
 {
-    return(v1.pos == v2.pos);
+    return (v1.pos == v2.pos);
 }
 
 Face::Array HardwareBuffer::GetAllFace()
@@ -208,7 +219,7 @@ Face::Array HardwareBuffer::GetAllFace()
     Face::Array faceArray;
     faceArray.reserve(m_vertexCount / 3);
 
-    Vertex* vertex = Lock(GL_READ_ONLY);
+    Vertex* vertex = Lock(GL_READ_ONLY_ARB);
 
     for(unsigned i = 0; i < m_vertexCount; i += 3)
     {
@@ -229,7 +240,7 @@ Vertex::Array HardwareBuffer::GetAllVertex(bool makeUnique)
 {
     Vertex::Array allVertexs;
 
-    Vertex* vertex = Lock(GL_READ_ONLY);
+    Vertex* vertex = Lock(GL_READ_ONLY_ARB);
     allVertexs.assign(vertex, vertex + m_vertexCount);
     UnLock();
 
@@ -240,6 +251,11 @@ Vertex::Array HardwareBuffer::GetAllVertex(bool makeUnique)
     }
 
     return allVertexs;
+}
+
+bool HardwareBuffer::CheckHardware()
+{
+    return GLEE_ARB_vertex_buffer_object;
 }
 
 // Vertex ----------------------------------------------------------------------

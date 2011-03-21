@@ -56,7 +56,7 @@ public:
 
     HardwareBuffer(const HardwareBuffer& hb);
 
-    HardwareBuffer& operator=(const HardwareBuffer& hb);
+    HardwareBuffer & operator=(const HardwareBuffer& hb);
 
     Vertex* Lock(GLenum usage = GL_READ_WRITE);
     void UnLock();
@@ -88,6 +88,14 @@ public:
     Face::Array GetAllFace();
 
     Vertex::Array GetAllVertex(bool makeUnique = false);
+
+    /**
+     * Vérifier le support des extention requis
+     * par la carte graphique pour le rendue
+     *
+     * @return
+     */
+    static bool CheckHardware();
 
 protected:
     GLuint m_bufferId;

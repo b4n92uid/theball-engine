@@ -47,20 +47,22 @@ void Device::Init()
             << "Vendor: " << glGetString(GL_VENDOR) << endl
             << "Render: " << glGetString(GL_RENDERER) << endl
             << "OpenGL: " << glGetString(GL_VERSION) << endl
-            << "Shader: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl
+            // << "Shader: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl
             << endl;
 
     if(!FrameBufferObject::CheckHardware())
-        cout << "Device::Setup; Frame buffer object not supported" << endl;
+        cout << "*** WARNING *** Device::Setup; Frame buffer object not supported" << endl;
 
     if(!Shader::CheckHardware())
-        cout << "Device::Setup; Shaders not supported" << endl;
+        cout << "*** WARNING *** Device::Setup; Shaders not supported" << endl;
 
-    if(!scene::Mesh::CheckHardware())
-        cout << "Device::Setup; Vertex buffer object not supported" << endl;
+    if(!HardwareBuffer::CheckHardware())
+        cout << "*** WARNING *** Device::Setup; Vertex buffer object not supported" << endl;
 
     if(!scene::ParticlesEmiter::CheckHardware())
-        cout << "Device::Setup; Point sprite particles not supported" << endl;
+        cout << "*** WARNING *** Device::Setup; Point sprite particles not supported" << endl;
+
+    cout << endl;
 
     if(m_eventManager)
         new(m_eventManager)EventManager;

@@ -9,7 +9,12 @@ using namespace tbe::scene;
 
 ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
 {
-    glGenBuffers(1, &m_renderId);
+    m_renderId = 0;
+
+    glGenBuffersARB(1, &m_renderId);
+
+    if(!m_renderId)
+        throw Exception("ParticlesEmiter::ParticlesEmiter; Buffer generation failed");
 
     m_number = 0;
     m_drawNumber = 0;
@@ -34,7 +39,12 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
 
 ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
 {
-    glGenBuffers(1, &m_renderId);
+    m_renderId = 0;
+
+    glGenBuffersARB(1, &m_renderId);
+
+    if(!m_renderId)
+        throw Exception("ParticlesEmiter::ParticlesEmiter; Buffer generation failed");
 
     *this = copy;
 
@@ -47,7 +57,7 @@ ParticlesEmiter::~ParticlesEmiter()
 
     m_parallelScene->UnRegister(this);
 
-    glDeleteBuffers(1, &m_renderId);
+    glDeleteBuffersARB(1, &m_renderId);
 }
 
 ParticlesEmiter& ParticlesEmiter::operator=(const ParticlesEmiter& copy)
@@ -115,10 +125,10 @@ void ParticlesEmiter::Build()
         m_particles.push_back(p);
     }
 
-    glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
-    glBufferData(GL_ARRAY_BUFFER, sizeof (Particle) * m_number, &m_particles[0], GL_STREAM_DRAW);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
+    glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof (Particle) * m_number, &m_particles[0], GL_STATIC_DRAW);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 
     m_enable = true;
     m_deadEmiter = false;
@@ -139,9 +149,9 @@ void ParticlesEmiter::Process()
     if(m_deadEmiter && !m_autoRebuild)
         return;
 
-    glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
 
-    Particle* particles = static_cast<Particle*>(glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE));
+    Particle* particles = static_cast<Particle*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_READ_WRITE_ARB));
 
     m_deadEmiter = true;
 
@@ -175,9 +185,9 @@ void ParticlesEmiter::Process()
         m_aabb.Count(p.pos);
     }
 
-    glUnmapBuffer(GL_ARRAY_BUFFER);
+    glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
 void ParticlesEmiter::Render()
@@ -195,7 +205,7 @@ void ParticlesEmiter::Render()
             break;
     }
 
-    glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
 
     glPushMatrix();
 
@@ -227,7 +237,7 @@ void ParticlesEmiter::Render()
 
     glPopMatrix();
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
 void ParticlesEmiter::Destroy()
@@ -368,19 +378,19 @@ Texture ParticlesEmiter::GetTexture() const
 
 Particle* ParticlesEmiter::BeginParticlesPosProcess()
 {
-    glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
-    return static_cast<Particle*>(glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE));
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
+    return static_cast<Particle*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_READ_WRITE_ARB));
 }
 
 void ParticlesEmiter::EndParticlesPosProcess()
 {
-    glUnmapBuffer(GL_ARRAY_BUFFER);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
 bool ParticlesEmiter::CheckHardware()
 {
-    return GLEE_ARB_point_sprite;
+    return GLEE_ARB_point_sprite && GLEE_ARB_point_parameters;
 }
 
 Node::CtorMap ParticlesEmiter::ConstructionMap(std::string root)

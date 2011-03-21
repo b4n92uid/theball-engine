@@ -43,7 +43,7 @@ void ParticlesParallelScene::Render()
 {
     glPushAttrib(GL_ENABLE_BIT | GL_DEPTH_BITS | GL_POINT_BIT);
 
-    glEnable(GL_POINT_SPRITE); // Active le remplacement du point par la texture
+    glEnable(GL_POINT_SPRITE_ARB); // Active le remplacement du point par la texture
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_BLEND);

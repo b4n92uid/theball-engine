@@ -696,11 +696,6 @@ HardwareBuffer& Mesh::GetHardwareBuffer()
     return m_hardwareBuffer;
 }
 
-bool Mesh::CheckHardware()
-{
-    return GLEE_ARB_vertex_buffer_object;
-}
-
 void Mesh::SetVisible(bool visible)
 {
     this->m_visible = visible;
