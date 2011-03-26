@@ -205,6 +205,8 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
         glEnable(GL_CULL_FACE);
         glCullFace(GL_FRONT);
     }
+    else
+        glDisable(GL_CULL_FACE);
 
     // Sort polygones ----------------------------------------------------------
 

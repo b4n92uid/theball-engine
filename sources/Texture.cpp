@@ -8,6 +8,7 @@
 #include <IL/il.h>
 
 #include "Exception.h"
+#include "Tools.h"
 
 using namespace std;
 using namespace tbe;
@@ -174,6 +175,9 @@ void Texture::Load(std::string filename, bool genMipMap, bool upperLeftOrigin)
     m_size.x = ilGetInteger(IL_IMAGE_WIDTH);
     m_size.y = ilGetInteger(IL_IMAGE_HEIGHT);
 
+    if(!tools::isPowerOf2(m_size.x) || !tools::isPowerOf2(m_size.y))
+        cout << "***WARNING*** Texture::Load; Texture is not pow2 dim (" << filename << ")" << endl;
+
     m_genMipMap = genMipMap;
     m_upperLeftOrigin = upperLeftOrigin;
 
@@ -227,8 +231,11 @@ void Texture::Fill(Vector4i color)
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::Build(Vector2i size, Vector4i color, GLint internalFormat, GLenum format, GLenum type)
+void Texture::Build(Vector2i size, Vector4i color, GLint internalFormat, GLenum format)
 {
+    if(!tools::isPowerOf2(size.x) || !tools::isPowerOf2(size.y))
+        cout << "***WARNING*** Texture::Build; Texture is not pow2 dim " << size << endl;
+
     m_size = size;
 
     glGenTextures(1, &m_textureName);
@@ -246,13 +253,13 @@ void Texture::Build(Vector2i size, Vector4i color, GLint internalFormat, GLenum 
         pixels[i + 3] = color.w;
     }
 
-    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_size.x, m_size.y, 0, format, type, pixels);
-
-    SetFiltring(Texture::LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_size.x, m_size.y, 0, format, GL_UNSIGNED_BYTE, pixels);
 
     delete[] pixels;
 
     glBindTexture(GL_TEXTURE_2D, 0);
+
+    SetFiltring(Texture::LINEAR);
 }
 
 void Texture::Use(bool state)

@@ -22,6 +22,11 @@ namespace tbe
 namespace tools
 {
 
+template<typename T> inline bool isPowerOf2(T value)
+{
+    return (value != 0) && !(value & (value - 1));
+}
+
 inline std::string pathname(std::string filename)
 {
     unsigned pos = filename.find_last_of('\\');

@@ -24,7 +24,7 @@ public:
     virtual ~Texture();
 
     /// Construit un texture avec la valuer et la taille spécifier
-    void Build(Vector2i size, Vector4i color = 0, GLint internalFormat = 4, GLenum format = GL_RGBA, GLenum type = GL_UNSIGNED_BYTE);
+    void Build(Vector2i size, Vector4i color = 0, GLint internalFormat = 4, GLenum format = GL_RGBA);
 
     /// Chargement depuis un fichier
     void Load(std::string filename, bool genMipMap = false, bool upperLeftOrigin = true);
