@@ -151,10 +151,7 @@ void Rtt::Use(bool state)
                 m_textureMethod.depth.Use(false);
             }
 
-            glClear(GL_COLOR_BUFFER_BIT);
-
-            if(m_captureDepth)
-                glClear(GL_DEPTH_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             glPopAttrib();
         }
