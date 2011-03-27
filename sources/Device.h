@@ -7,6 +7,7 @@
 #include <GL/glu.h>
 
 #include "Mathematics.h"
+#include "Clock.h"
 
 namespace tbe
 {
@@ -93,6 +94,8 @@ protected:
     ticks::FpsManager* m_fpsManager;
     gui::GuiManager* m_guiManager;
     EventManager* m_eventManager;
+    
+    ticks::Clock m_timestamp;
 
     Vector2i m_viewportSize;
 };

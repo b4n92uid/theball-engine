@@ -110,6 +110,8 @@ public:
 
     std::map<int, bool> keyState;
     std::map<int, bool> mouseState;
+
+    long lastPollTimestamp;
 };
 
 }
