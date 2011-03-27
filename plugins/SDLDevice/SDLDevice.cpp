@@ -223,6 +223,8 @@ void SDLDevice::PollEvent()
 
     if(eventOccur)
         m_guiManager->TrasmitEvent(*m_eventManager);
+
+    m_eventManager->lastPollTimestamp = m_timestamp.GetEsplanedTime();
 }
 
 int SDLDevice::GetWinBits() const
