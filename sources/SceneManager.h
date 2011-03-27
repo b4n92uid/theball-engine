@@ -137,6 +137,8 @@ public:
     Vector3f ScreenToWorld(Vector2i target);
     Vector3f ScreenToWorld(Vector2i target, Rtt* rtt);
 
+    Matrix4f computeBillboard(Vector3f objpos, Vector3f initRot);
+
 protected:
 
     ParallelScene::Array m_parallelScenes;
