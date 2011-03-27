@@ -84,6 +84,20 @@ public:
     UserCamera();
     virtual ~UserCamera();
     virtual void OnEvent(EventManager* event) = 0;
+
+    struct Moves
+    {
+        int FORWARD;
+        int BACKWARD;
+        int STRAFLEFT;
+        int STRAFRIGHT;
+
+        int UP;
+        int DOWN;
+
+        int SPEED;
+
+    } keybind;
 };
 
 /**

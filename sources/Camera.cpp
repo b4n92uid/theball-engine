@@ -178,6 +178,15 @@ Camera::CameraType Camera::GetCameraType() const
 
 UserCamera::UserCamera() : Camera(TARGET_RELATIVE)
 {
+    keybind.FORWARD = 'z';
+    keybind.BACKWARD = 's';
+    keybind.STRAFLEFT = 'q';
+    keybind.STRAFRIGHT = 'd';
+
+    keybind.UP = EventManager::KEY_SPACE;
+    keybind.DOWN = EventManager::KEY_LCTRL;
+
+    keybind.SPEED = EventManager::KEY_LSHIFT;
 }
 
 UserCamera::~UserCamera()
@@ -188,6 +197,9 @@ UserCamera::~UserCamera()
 
 OrbitalCamera::OrbitalCamera()
 {
+    keybind.FORWARD = EventManager::MOUSE_BUTTON_WHEEL_UP;
+    keybind.BACKWARD = EventManager::MOUSE_BUTTON_WHEEL_DOWN;
+
     m_distance = 16;
     m_pos = -m_target * m_distance + m_center;
 }
@@ -197,11 +209,16 @@ void OrbitalCamera::OnEvent(EventManager* event)
     if(event->notify == EventManager::EVENT_MOUSE_MOVE)
         SetRelRotate(event->mousePosRel);
 
-    if(event->mouseState[EventManager::MOUSE_BUTTON_WHEEL_DOWN])
-        m_distance += m_distance * 0.1;
+    float speed = 0.1;
 
-    if(event->mouseState[EventManager::MOUSE_BUTTON_WHEEL_UP] && m_distance > 0)
-        m_distance -= m_distance * 0.1;
+    if(event->mouseState[keybind.SPEED])
+        speed *= 4;
+
+    if(event->mouseState[keybind.FORWARD] && m_distance > 0)
+        m_distance -= m_distance * speed;
+
+    if(event->mouseState[keybind.BACKWARD])
+        m_distance += m_distance * speed;
 
     m_pos = m_center - m_target * m_distance;
 }
@@ -242,12 +259,32 @@ void FreeFlyCamera::OnEvent(EventManager* event)
     if(event->notify == EventManager::EVENT_MOUSE_MOVE)
         SetRelRotate(event->mousePosRel);
 
-    if(event->keyState[EventManager::KEY_SPACE]) m_pos.y += m_speed;
-    if(event->keyState[EventManager::KEY_LCTRL]) m_pos.y -= m_speed;
-    if(event->keyState['z']) m_pos += m_target * m_speed;
-    if(event->keyState['s']) m_pos -= m_target * m_speed;
-    if(event->keyState['q']) m_pos -= m_left * m_speed;
-    if(event->keyState['d']) m_pos += m_left * m_speed;
+    if(event->lastPollTimestamp > 0)
+    {
+        float speed = m_speed;
+
+        if(event->keyState[keybind.SPEED])
+            speed *= 4;
+
+        if(event->keyState[keybind.FORWARD])
+            m_pos += 1.0f / event->lastPollTimestamp * m_target * speed;
+
+        if(event->keyState[keybind.BACKWARD])
+            m_pos -= 1.0f / event->lastPollTimestamp * m_target * speed;
+
+        if(event->keyState[keybind.STRAFLEFT])
+            m_pos -= 1.0f / event->lastPollTimestamp * m_left * speed;
+
+        if(event->keyState[keybind.STRAFRIGHT])
+            m_pos += 1.0f / event->lastPollTimestamp * m_left * speed;
+
+        if(event->keyState[keybind.UP])
+            m_pos.y += 1.0f / event->lastPollTimestamp * speed;
+
+        if(event->keyState[keybind.DOWN])
+            m_pos.y -= 1.0f / event->lastPollTimestamp * speed;
+
+    }
 }
 
 void FreeFlyCamera::SetSpeed(float speed)
