@@ -206,6 +206,7 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
         glCullFace(GL_FRONT);
     }
     else
+        // NOTE OpenGL 1.4
         glDisable(GL_CULL_FACE);
 
     // Sort polygones ----------------------------------------------------------
@@ -443,6 +444,9 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
     }
 
     m_hardwareBuffer.BindBuffer(false);
+
+    // NOTE OpenGL 1.4
+    glColor4f(1, 1, 1, 1);
 
     glPopAttrib();
 }
