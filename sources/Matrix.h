@@ -67,6 +67,35 @@ public:
         m_matrix[0] = m_matrix[5] = m_matrix[10] = m_matrix[15] = 1.0f;
     }
 
+    void Transpose()
+    {
+        T t;
+
+        t = m_matrix[ 1];
+        m_matrix[ 1] = m_matrix[ 4];
+        m_matrix[ 4] = t;
+
+        t = m_matrix[ 2];
+        m_matrix[ 2] = m_matrix[ 8];
+        m_matrix[ 8] = t;
+
+        t = m_matrix[ 3];
+        m_matrix[ 3] = m_matrix[12];
+        m_matrix[12] = t;
+
+        t = m_matrix[ 6];
+        m_matrix[ 6] = m_matrix[ 9];
+        m_matrix[ 9] = t;
+
+        t = m_matrix[ 7];
+        m_matrix[ 7] = m_matrix[13];
+        m_matrix[13] = t;
+
+        t = m_matrix[11];
+        m_matrix[11] = m_matrix[14];
+        m_matrix[14] = t;
+    }
+
     /// Operateur d'assignement
 
     bool operator=(const Matrix4& copy)
@@ -167,6 +196,37 @@ public:
         SetRotateX(v.x);
         SetRotateY(v.y);
         SetRotateZ(v.z);
+    }
+
+    void SetRotate(float angle, Vector3<T> axe)
+    {
+        float c = cos(angle);
+        float s = sin(angle);
+
+        float &x = axe.x, &y = axe.y, &z = axe.z;
+
+        Matrix4<T> rotation;
+        rotation[ 0] = x * x * (1 - c) + c;
+        rotation[ 1] = y * x * (1 - c) + z * s;
+        rotation[ 2] = x * z * (1 - c) - y * s;
+        rotation[ 3] = 0;
+
+        rotation[ 4] = x * y * (1 - c) - z * s;
+        rotation[ 5] = y * y * (1 - c) + c;
+        rotation[ 6] = y * z * (1 - c) + x * s;
+        rotation[ 7] = 0;
+
+        rotation[ 8] = x * z * (1 - c) + y * s;
+        rotation[ 9] = y * z * (1 - c) - x * s;
+        rotation[10] = z * z * (1 - c) + c;
+        rotation[11] = 0;
+
+        rotation[12] = 0;
+        rotation[13] = 0;
+        rotation[14] = 0;
+        rotation[15] = 1;
+
+        *this *= rotation;
     }
 
     operator Vector3<T>()
