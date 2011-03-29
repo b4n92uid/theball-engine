@@ -37,7 +37,7 @@ static const char fragmentShader[] =
         "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,-offset));"
         "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,offset));"
 
-        "final /= 9.0;"
+        "final /= vec4(9.0);"
 
         "gl_FragColor = final;"
 
