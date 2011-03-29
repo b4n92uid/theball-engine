@@ -25,6 +25,7 @@ class AABB
 {
 public:
     AABB();
+    AABB(float minmax);
     AABB(Vector3f min, Vector3f max);
     virtual ~AABB();
 
