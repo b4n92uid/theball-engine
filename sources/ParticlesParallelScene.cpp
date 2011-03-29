@@ -19,20 +19,25 @@ using namespace tbe::scene;
 
 ParticlesParallelScene::ParticlesParallelScene()
 {
-    // Activer le remplacement du poit par la texture
-    glTexEnvf(GL_POINT_SPRITE_ARB, GL_COORD_REPLACE_ARB, GL_TRUE);
+    m_pointSprite = ParticlesEmiter::CheckHardware();
 
     m_particleMinSize = 1.0;
 
-    // Taille Maximal supporte par la Carte Graphique
-    glGetFloatv(GL_POINT_SIZE_MAX_ARB, &m_particleMaxSize);
+    if(m_pointSprite)
+    {
+        // Activer le remplacement du poit par la texture
+        glTexEnvf(GL_POINT_SPRITE_ARB, GL_COORD_REPLACE_ARB, GL_TRUE);
 
-    // Limit Max/Min taille
-    glPointParameterfARB(GL_POINT_SIZE_MIN_ARB, m_particleMinSize);
-    glPointParameterfARB(GL_POINT_SIZE_MAX_ARB, m_particleMaxSize);
+        // Taille Maximal supporte par la Carte Graphique
+        glGetFloatv(GL_POINT_SIZE_MAX_ARB, &m_particleMaxSize);
 
-    // Fondue depuis le centre
-    glPointParameterfARB(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 60.0f);
+        // Limit Max/Min taille
+        glPointParameterfARB(GL_POINT_SIZE_MIN_ARB, m_particleMinSize);
+        glPointParameterfARB(GL_POINT_SIZE_MAX_ARB, m_particleMaxSize);
+
+        // Fondue depuis le centre
+        glPointParameterfARB(GL_POINT_FADE_THRESHOLD_SIZE_ARB, 60.0f);
+    }
 }
 
 ParticlesParallelScene::~ParticlesParallelScene()
@@ -43,7 +48,9 @@ void ParticlesParallelScene::Render()
 {
     glPushAttrib(GL_ENABLE_BIT | GL_DEPTH_BITS | GL_POINT_BIT);
 
-    glEnable(GL_POINT_SPRITE_ARB); // Active le remplacement du point par la texture
+    if(m_pointSprite)
+        glEnable(GL_POINT_SPRITE_ARB); // Active le remplacement du point par la texture
+
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_BLEND);
@@ -52,18 +59,21 @@ void ParticlesParallelScene::Render()
     glDisable(GL_LIGHTING);
     glDisable(GL_FOG);
 
-    // Configuration de la taille des points suivant la formule :
-    // derived_size = size * sqrt (1 / (a + b * d + c * d), d : distance en Z par rapport à l'écran.
+    if(m_pointSprite)
+    {
+        // Configuration de la taille des points suivant la formule :
+        // derived_size = size * sqrt (1 / (a + b * d + c * d), d : distance en Z par rapport à l'écran.
 
-    float height = m_sceneManager->GetViewport().y;
-    float fovy = m_sceneManager->GetFovy();
+        float height = m_sceneManager->GetViewport().y;
+        float fovy = m_sceneManager->GetFovy();
 
-    float pixelPerUnit = height / (2.0f * tan(fovy * 0.5f));
-    float sqrtC = POINT_SIZE_CURRENT / (POINT_SIZE * pixelPerUnit);
+        float pixelPerUnit = height / (2.0f * tan(fovy * 0.5f));
+        float sqrtC = POINT_SIZE_CURRENT / (POINT_SIZE * pixelPerUnit);
 
-    Vector3f distAtt(0, 0, sqrtC * sqrtC);
+        Vector3f distAtt(0, 0, sqrtC * sqrtC);
 
-    glPointParameterfvARB(GL_POINT_DISTANCE_ATTENUATION_ARB, distAtt);
+        glPointParameterfvARB(GL_POINT_DISTANCE_ATTENUATION_ARB, distAtt);
+    }
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
         if(m_nodes[i]->IsAttached())
@@ -80,7 +90,9 @@ void ParticlesParallelScene::HardwareParticleMaxSize()
 void ParticlesParallelScene::SetParticleMaxSize(float particleMaxSize)
 {
     this->m_particleMaxSize = particleMaxSize;
-    glPointParameterfARB(GL_POINT_SIZE_MAX_ARB, m_particleMaxSize);
+
+    if(m_pointSprite)
+        glPointParameterfARB(GL_POINT_SIZE_MAX_ARB, m_particleMaxSize);
 }
 
 float ParticlesParallelScene::GetParticleMaxSize() const
@@ -91,7 +103,9 @@ float ParticlesParallelScene::GetParticleMaxSize() const
 void ParticlesParallelScene::SetParticleMinSize(float particleMinSize)
 {
     this->m_particleMinSize = particleMinSize;
-    glPointParameterfARB(GL_POINT_SIZE_MIN_ARB, m_particleMinSize);
+
+    if(m_pointSprite)
+        glPointParameterfARB(GL_POINT_SIZE_MIN_ARB, m_particleMinSize);
 }
 
 float ParticlesParallelScene::GetParticleMinSize() const
