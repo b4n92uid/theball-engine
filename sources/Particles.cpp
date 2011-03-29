@@ -1,6 +1,8 @@
 #include "Particles.h"
 #include "Tools.h"
 
+#include "SceneManager.h"
+
 using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
@@ -9,23 +11,20 @@ using namespace tbe::scene;
 
 ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
 {
+    m_pointsprite = CheckHardware();
+
     m_renderId = 0;
+    m_auxRenderId = 0;
 
-    glGenBuffersARB(1, &m_renderId);
-
-    if(!m_renderId)
-        throw Exception("ParticlesEmiter::ParticlesEmiter; Buffer generation failed");
+    if(m_pointsprite)
+        glGenBuffersARB(1, &m_renderId);
+    else
+        glGenBuffersARB(1, &m_auxRenderId);
 
     m_number = 0;
     m_drawNumber = 0;
 
-    m_lifeInit = 1;
-    m_lifeDown = 0.1;
-    m_freeMove = 0;
-
-    m_autoRebuild = true;
     m_deadEmiter = false;
-    m_continousMode = false;
     m_enable = false;
     m_depthTest = false;
 
@@ -39,12 +38,15 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
 
 ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
 {
+    m_pointsprite = CheckHardware();
+
     m_renderId = 0;
+    m_auxRenderId = 0;
 
-    glGenBuffersARB(1, &m_renderId);
-
-    if(!m_renderId)
-        throw Exception("ParticlesEmiter::ParticlesEmiter; Buffer generation failed");
+    if(m_pointsprite)
+        glGenBuffersARB(1, &m_renderId);
+    else
+        glGenBuffersARB(1, &m_auxRenderId);
 
     *this = copy;
 
@@ -64,19 +66,9 @@ ParticlesEmiter& ParticlesEmiter::operator=(const ParticlesEmiter& copy)
 {
     Node::operator=(copy);
 
-    m_lifeInit = copy.m_lifeInit;
-    m_lifeDown = copy.m_lifeDown;
-
-    m_freeMove = copy.m_freeMove;
-
-    m_continousMode = copy.m_continousMode;
     m_deadEmiter = copy.m_deadEmiter;
-    m_autoRebuild = copy.m_autoRebuild;
 
     m_depthTest = copy.m_depthTest;
-
-    m_gravity = copy.m_gravity;
-    m_endPos = copy.m_endPos;
 
     m_number = copy.m_number;
 
@@ -93,25 +85,6 @@ ParticlesEmiter& ParticlesEmiter::operator=(const ParticlesEmiter& copy)
     return *this;
 }
 
-void ParticlesEmiter::Build(Particle& p)
-{
-    p.life = 1;
-    p.color = 1;
-    p.diriction = tools::rand(Vector3f(-m_freeMove), Vector3f(m_freeMove));
-    p.diriction.Normalize() *= m_freeMove;
-    p.gravity = m_gravity;
-
-    if(m_endPos)
-        p.pos = tools::rand(Vector3f(0), m_endPos);
-    else
-        p.pos = 0;
-
-    if(m_continousMode)
-        p.life = tools::rand(0.0f, m_lifeInit);
-    else
-        p.life = m_lifeInit;
-}
-
 void ParticlesEmiter::Build()
 {
     Destroy();
@@ -120,13 +93,37 @@ void ParticlesEmiter::Build()
     {
         Particle p;
 
-        Build(p);
+        SetupBullet(p);
 
         m_particles.push_back(p);
     }
 
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
-    glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof (Particle) * m_number, &m_particles[0], GL_STATIC_DRAW);
+    if(m_pointsprite)
+    {
+        glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
+
+        glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof (Particle) * m_number, &m_particles[0], GL_DYNAMIC_DRAW);
+    }
+
+    else
+    {
+        // -- Construction du rendue auxiliaire
+
+        glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_auxRenderId);
+
+        vector<Vertex> faces;
+        faces.resize(m_number * 4);
+
+        for(unsigned i = 0; i < faces.size(); i += 4)
+        {
+            faces[i + 0].texCoord(0, 1);
+            faces[i + 1].texCoord(1, 1);
+            faces[i + 2].texCoord(1, 0);
+            faces[i + 3].texCoord(0, 0);
+        }
+
+        glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof (Vertex) * faces.size(), &faces[0], GL_DYNAMIC_DRAW);
+    }
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 
@@ -134,65 +131,9 @@ void ParticlesEmiter::Build()
     m_deadEmiter = false;
 }
 
-Node* ParticlesEmiter::Clone()
-{
-    return new ParticlesEmiter(*this);
-}
-
-void ParticlesEmiter::Process()
-{
-    if(!m_enable)
-        return;
-
-    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::Process));
-
-    if(m_deadEmiter && !m_autoRebuild)
-        return;
-
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
-
-    Particle* particles = static_cast<Particle*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_READ_WRITE_ARB));
-
-    m_deadEmiter = true;
-
-    m_aabb.Clear();
-
-    for(unsigned i = 0; i < m_drawNumber; i++)
-    {
-        Particle& p = particles[i];
-
-        p.color(1, 1, 1, p.life);
-
-        p.diriction += p.gravity;
-
-        if(p.life < 0)
-        {
-            if(m_autoRebuild)
-                Build(p);
-
-            else
-                continue;
-        }
-
-        else
-        {
-            p.life -= m_lifeDown;
-            p.pos += p.diriction;
-
-            m_deadEmiter = false;
-        }
-
-        m_aabb.Count(p.pos);
-    }
-
-    glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
-
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
-}
-
 void ParticlesEmiter::Render()
 {
-    if(!m_enable || (m_deadEmiter && !m_autoRebuild))
+    if(!m_enable || m_deadEmiter)
         return;
 
     switch(m_blendEq)
@@ -205,7 +146,38 @@ void ParticlesEmiter::Render()
             break;
     }
 
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
+    if(m_pointsprite)
+    {
+        glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
+    }
+
+    else
+    {
+        glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_auxRenderId);
+
+        Vertex* auxParticles = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_READ_WRITE_ARB));
+
+        Matrix4f absolute = GetAbsoluteMatrix();
+
+        for(unsigned i = 0; i < m_drawNumber * 4; i += 4)
+        {
+            Matrix4f rot = m_sceneManager->computeBillboard(absolute * m_particles[i / 4].pos);
+
+            float size = m_parallelScene->GetParticleMinSize() / 2.0f;
+
+            auxParticles[i + 0].pos = m_particles[i / 4].pos + rot * Vector3f(size, -size, 0);
+            auxParticles[i + 1].pos = m_particles[i / 4].pos + rot * Vector3f(-size, -size, 0);
+            auxParticles[i + 2].pos = m_particles[i / 4].pos + rot * Vector3f(-size, size, 0);
+            auxParticles[i + 3].pos = m_particles[i / 4].pos + rot * Vector3f(size, size, 0);
+
+            auxParticles[i + 0].color = m_particles[i / 4].color;
+            auxParticles[i + 1].color = m_particles[i / 4].color;
+            auxParticles[i + 2].color = m_particles[i / 4].color;
+            auxParticles[i + 3].color = m_particles[i / 4].color;
+        }
+
+        glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
+    }
 
     glPushMatrix();
 
@@ -214,9 +186,6 @@ void ParticlesEmiter::Render()
 
     glMultMatrixf(m_matrix);
 
-    #define POSITION_OFFSET (void*)0
-    #define COLOR_OFFSET (void*)sizeof(Vector3f)
-
     glDepthMask(m_depthTest);
 
     m_texture.Use();
@@ -224,16 +193,36 @@ void ParticlesEmiter::Render()
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
 
-    glVertexPointer(3, GL_FLOAT, sizeof (Particle), POSITION_OFFSET);
-    glColorPointer(4, GL_FLOAT, sizeof (Particle), COLOR_OFFSET);
+    if(m_pointsprite)
+    {
+        const void* POSITION_OFFSET = (void*)0;
+        const void* COLOR_OFFSET = (void*)(sizeof (Vector3f));
 
-    glDrawArrays(GL_POINTS, 0, m_drawNumber);
+        glVertexPointer(3, GL_FLOAT, sizeof (Particle), POSITION_OFFSET);
+        glColorPointer(4, GL_FLOAT, sizeof (Particle), COLOR_OFFSET);
+
+        glDrawArrays(GL_POINTS, 0, m_drawNumber);
+    }
+    else
+    {
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+        const void* POSITION_OFFSET = (void*)0;
+        const void* COLOR_OFFSET = (void*)(sizeof (Vector3f) *2);
+        const void* UV_OFFSET = (void*)(sizeof (Vector3f)*2 + sizeof (Vector4f));
+
+        glVertexPointer(3, GL_FLOAT, sizeof (Vertex), POSITION_OFFSET);
+        glColorPointer(4, GL_FLOAT, sizeof (Vertex), COLOR_OFFSET);
+        glTexCoordPointer(2, GL_FLOAT, sizeof (Vertex), UV_OFFSET);
+
+        glDrawArrays(GL_QUADS, 0, m_drawNumber * 4);
+    }
 
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
 
-    #undef POSITION_OFFSET
-    #undef COLOR_OFFSET
+    if(!m_pointsprite)
+        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
     glPopMatrix();
 
@@ -243,16 +232,6 @@ void ParticlesEmiter::Render()
 void ParticlesEmiter::Destroy()
 {
     m_particles.clear();
-}
-
-void ParticlesEmiter::SetEndPos(Vector3f endPos)
-{
-    this->m_endPos = endPos;
-}
-
-Vector3f ParticlesEmiter::GetEndPos() const
-{
-    return m_endPos;
 }
 
 void ParticlesEmiter::SetDepthTest(bool depthTest)
@@ -285,26 +264,6 @@ ParticlesEmiter::BlendEq ParticlesEmiter::GetBlendEq() const
     return m_blendEq;
 }
 
-void ParticlesEmiter::SetLifeInit(float lifeInit)
-{
-    this->m_lifeInit = lifeInit;
-}
-
-float ParticlesEmiter::GetLifeInit() const
-{
-    return m_lifeInit;
-}
-
-void ParticlesEmiter::SetAutoRebuild(bool autoRebuild)
-{
-    this->m_autoRebuild = autoRebuild;
-}
-
-bool ParticlesEmiter::IsAutoRebuild() const
-{
-    return m_autoRebuild;
-}
-
 void ParticlesEmiter::SetDeadEmiter(bool deadEmiter)
 {
     this->m_deadEmiter = deadEmiter;
@@ -326,46 +285,6 @@ unsigned ParticlesEmiter::GetNumber() const
     return m_number;
 }
 
-void ParticlesEmiter::SetFreeMove(float freeMove)
-{
-    this->m_freeMove = freeMove;
-}
-
-float ParticlesEmiter::GetFreeMove() const
-{
-    return m_freeMove;
-}
-
-void ParticlesEmiter::SetContinousMode(bool continousMode)
-{
-    this->m_continousMode = continousMode;
-}
-
-bool ParticlesEmiter::IsContinousMode() const
-{
-    return m_continousMode;
-}
-
-void ParticlesEmiter::SetLifeDown(float lifeDown)
-{
-    this->m_lifeDown = lifeDown;
-}
-
-float ParticlesEmiter::GetLifeDown() const
-{
-    return m_lifeDown;
-}
-
-void ParticlesEmiter::SetGravity(Vector3f gravity)
-{
-    this->m_gravity = gravity;
-}
-
-Vector3f ParticlesEmiter::GetGravity() const
-{
-    return m_gravity;
-}
-
 void ParticlesEmiter::SetTexture(Texture texture)
 {
     this->m_texture = texture;
@@ -378,14 +297,22 @@ Texture ParticlesEmiter::GetTexture() const
 
 Particle* ParticlesEmiter::BeginParticlesPosProcess()
 {
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
-    return static_cast<Particle*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_READ_WRITE_ARB));
+    if(m_pointsprite)
+    {
+        glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
+        return static_cast<Particle*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_READ_WRITE_ARB));
+    }
+    else
+        return &m_particles[0];
 }
 
 void ParticlesEmiter::EndParticlesPosProcess()
 {
-    glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+    if(m_pointsprite)
+    {
+        glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
+        glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+    }
 }
 
 bool ParticlesEmiter::CheckHardware()
@@ -400,12 +327,7 @@ Node::CtorMap ParticlesEmiter::ConstructionMap(std::string root)
     ctormap["class"] = "ParticlesEmiter";
 
     ctormap["texture"] = tools::makeRelatifTo(root, m_texture.GetFilename());
-    ctormap["lifeInit"] = tools::numToStr(m_lifeInit);
-    ctormap["lifeDown"] = tools::numToStr(m_lifeDown);
     ctormap["number"] = tools::numToStr(m_number);
-    ctormap["gravity"] = tools::numToStr(m_gravity);
-    ctormap["freeMove"] = tools::numToStr(m_freeMove);
-    ctormap["continousMode"] = tools::numToStr(m_continousMode);
 
     return ctormap;
 }

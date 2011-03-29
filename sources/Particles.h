@@ -50,40 +50,15 @@ public:
 
     void Build();
 
-    void Process();
-
     void Render();
 
-    Node* Clone();
-
     void Destroy();
-
-    void SetAutoRebuild(bool autoRebuild);
-    bool IsAutoRebuild() const;
 
     void SetDeadEmiter(bool deadEmiter);
     bool IsDeadEmiter() const;
 
     void SetNumber(unsigned number);
     unsigned GetNumber() const;
-
-    void SetFreeMove(float freeMove);
-    float GetFreeMove() const;
-
-    void SetContinousMode(bool continousMode);
-    bool IsContinousMode() const;
-
-    void SetLifeDown(float lifeDown);
-    float GetLifeDown() const;
-
-    void SetLifeInit(float lifeInit);
-    float GetLifeInit() const;
-
-    void SetGravity(Vector3f gravity);
-    Vector3f GetGravity() const;
-
-    void SetEndPos(Vector3f endPos);
-    Vector3f GetEndPos() const;
 
     void SetTexture(Texture texture);
     Texture GetTexture() const;
@@ -103,41 +78,36 @@ public:
     void SetBlendEq(BlendEq blendEq);
     BlendEq GetBlendEq() const;
 
-    Particle* BeginParticlesPosProcess();
-    void EndParticlesPosProcess();
-
     static bool CheckHardware();
 
     CtorMap ConstructionMap(std::string root);
 
-protected:
-    virtual void Build(Particle& p);
+    Particle* BeginParticlesPosProcess();
+    void EndParticlesPosProcess();
 
 protected:
-    float m_lifeInit;
-    float m_lifeDown;
-    float m_freeMove;
+    virtual void SetupBullet(Particle& p) = 0;
 
-    bool m_continousMode;
+protected:
     bool m_deadEmiter;
-    bool m_autoRebuild;
     bool m_depthTest;
-
-    Vector3f m_gravity;
-    Vector3f m_endPos;
 
     unsigned m_number;
     unsigned m_drawNumber;
 
     BlendEq m_blendEq;
 
-    Particle::Array m_particles;
-
     Texture m_texture;
 
-    GLuint m_renderId;
-
     ParticlesParallelScene* m_parallelScene;
+
+private:
+    Particle::Array m_particles;
+
+    GLuint m_renderId;
+    GLuint m_auxRenderId;
+
+    bool m_pointsprite;
 };
 
 }
