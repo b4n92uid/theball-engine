@@ -39,6 +39,7 @@ public:
 private:
     float m_particleMinSize;
     float m_particleMaxSize;
+    bool m_pointSprite;
 };
 
 }
