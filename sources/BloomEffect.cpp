@@ -58,7 +58,7 @@ static const char blurFragShader[] =
 
         "final /= vec4(9);"
 
-        "if(final == 0)"
+        "if(final == vec4(0))"
         "   discard;"
 
         "gl_FragColor = final;"
