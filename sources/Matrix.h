@@ -96,6 +96,14 @@ public:
         m_matrix[14] = t;
     }
 
+    static Matrix4<T> Transpose(Matrix4<T> mat)
+    {
+        Matrix4<T> ini = mat;
+        ini.Transpose();
+
+        return ini;
+    }
+
     /// Operateur d'assignement
 
     bool operator=(const Matrix4& copy)
@@ -254,7 +262,7 @@ public:
         return m_matrix[i];
     }
 
-    Matrix4 operator*=(const Matrix4& mat)
+    Matrix4 & operator*=(const Matrix4& mat)
     {
         *this = *this * mat;
         return *this;
@@ -300,6 +308,38 @@ public:
                 m_matrix[1] * vec[0] + m_matrix[5] * vec[1] + m_matrix[9] * vec[2] + m_matrix[13],
                 m_matrix[2] * vec[0] + m_matrix[6] * vec[1] + m_matrix[10] * vec[2] + m_matrix[14]
                 );
+    }
+
+    void Translate(Vector3<T> pos)
+    {
+        m_matrix[12] += pos.x;
+        m_matrix[13] += pos.y;
+        m_matrix[14] += pos.z;
+    }
+
+    static Matrix4<T> Translate(Matrix4<T> mat, Vector3<T> pos)
+    {
+        mat.Translate(pos);
+        return mat;
+    }
+
+    static Matrix4<T> ExtractRotation(Matrix4<T> mat)
+    {
+        Matrix4<T> rot;
+
+        rot[ 1] = mat[ 1];
+        rot[ 2] = mat[ 2];
+        rot[ 3] = mat[ 3];
+
+        rot[ 5] = mat[ 5];
+        rot[ 6] = mat[ 6];
+        rot[ 7] = mat[ 7];
+
+        rot[ 9] = mat[ 9];
+        rot[10] = mat[10];
+        rot[11] = mat[11];
+
+        return rot;
     }
 
 private:
