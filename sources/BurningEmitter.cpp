@@ -25,6 +25,16 @@ BurningEmitter::BurningEmitter(ParticlesParallelScene* scene) : ParticlesEmiter(
     m_continousMode = false;
 }
 
+void BurningEmitter::SetBoxSize(Vector3f boxSize)
+{
+    this->m_boxSize = boxSize;
+}
+
+Vector3f BurningEmitter::GetBoxSize() const
+{
+    return m_boxSize;
+}
+
 BurningEmitter::BurningEmitter(const BurningEmitter& copy) : ParticlesEmiter(copy)
 {
     *this = copy;
@@ -45,7 +55,7 @@ BurningEmitter& BurningEmitter::operator=(const BurningEmitter& copy)
     m_autoRebuild = copy.m_autoRebuild;
 
     m_gravity = copy.m_gravity;
-    m_endPos = copy.m_endPos;
+    m_boxSize = copy.m_boxSize;
 
     return *this;
 }
@@ -63,8 +73,8 @@ void BurningEmitter::SetupBullet(Particle& p)
     p.diriction.Normalize() *= m_freeMove;
     p.gravity = m_gravity;
 
-    if(m_endPos)
-        p.pos = tools::rand(Vector3f(0), m_endPos);
+    if(m_boxSize)
+        p.pos = tools::rand(Vector3f(0), m_boxSize);
     else
         p.pos = 0;
 
@@ -179,16 +189,6 @@ void BurningEmitter::SetAutoRebuild(bool autoRebuild)
 bool BurningEmitter::IsAutoRebuild() const
 {
     return m_autoRebuild;
-}
-
-void BurningEmitter::SetEndPos(Vector3f endPos)
-{
-    this->m_endPos = endPos;
-}
-
-Vector3f BurningEmitter::GetEndPos() const
-{
-    return m_endPos;
 }
 
 Node::CtorMap BurningEmitter::ConstructionMap(std::string root)
