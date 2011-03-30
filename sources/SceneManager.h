@@ -137,7 +137,7 @@ public:
     Vector3f ScreenToWorld(Vector2i target);
     Vector3f ScreenToWorld(Vector2i target, Rtt* rtt);
 
-    Matrix4f computeBillboard(Vector3f objpos, Vector3f initRot);
+    Matrix4f computeBillboard(Vector3f obj, Matrix4f local = Matrix4f(), Matrix4f init = Matrix4f());
 
 protected:
 

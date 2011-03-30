@@ -335,17 +335,14 @@ Vector3f SceneManager::ScreenToWorld(Vector2i target)
     return Vector3f(float(pick.x), float(pick.y), float(pick.z));
 }
 
-Matrix4f SceneManager::computeBillboard(Vector3f objpos, Vector3f initRot)
+Matrix4f SceneManager::computeBillboard(Vector3f obj, Matrix4f local, Matrix4f init)
 {
-    Matrix4f rotation;
-
-    if(!initRot.IsNull())
-        rotation.SetRotate(initRot);
+    Matrix4f rotation = init;
 
     Vector3f look(0, 0, 1);
     Vector3f campos = (*m_currentCamera)->GetPos();
 
-    Vector3f proj = campos - objpos;
+    Vector3f proj = campos - obj;
     proj.y = 0;
     proj.Normalize();
 
@@ -354,7 +351,7 @@ Matrix4f SceneManager::computeBillboard(Vector3f objpos, Vector3f initRot)
 
     float rotateH = Vector3f::Dot(look, proj);
 
-    Vector3f proj2 = campos - objpos;
+    Vector3f proj2 = campos - obj;
     proj2.Normalize();
 
     float rotateV = Vector3f::Dot(proj, proj2);
