@@ -116,10 +116,10 @@ void ParticlesEmiter::Build()
 
         for(unsigned i = 0; i < faces.size(); i += 4)
         {
-            faces[i + 0].texCoord(0, 1);
-            faces[i + 1].texCoord(1, 1);
-            faces[i + 2].texCoord(1, 0);
-            faces[i + 3].texCoord(0, 0);
+            faces[i + 0].texCoord(1, 1);
+            faces[i + 1].texCoord(0, 1);
+            faces[i + 2].texCoord(0, 0);
+            faces[i + 3].texCoord(1, 0);
         }
 
         glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof (Vertex) * faces.size(), &faces[0], GL_DYNAMIC_DRAW);
@@ -146,29 +146,35 @@ void ParticlesEmiter::Render()
             break;
     }
 
+
     if(m_pointsprite)
     {
         glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
+
+        glPushMatrix();
+        glMultMatrixf(GetAbsoluteMatrix());
     }
 
     else
     {
         glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_auxRenderId);
 
-        Vertex* auxParticles = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_READ_WRITE_ARB));
+        Matrix4f absolute = m_parent->GetAbsoluteMatrix();
 
-        Matrix4f absolute = GetAbsoluteMatrix();
+        float size = m_parallelScene->GetParticleMinSize() / 2.0f;
+
+        Vertex* auxParticles = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_READ_WRITE_ARB));
 
         for(unsigned i = 0; i < m_drawNumber * 4; i += 4)
         {
-            Matrix4f rot = m_sceneManager->computeBillboard(absolute * m_particles[i / 4].pos);
+            Vector3f abspos = absolute * (m_matrix * m_particles[i / 4].pos);
 
-            float size = m_parallelScene->GetParticleMinSize() / 2.0f;
+            Matrix4f rot = m_sceneManager->computeBillboard(abspos);
 
-            auxParticles[i + 0].pos = m_particles[i / 4].pos + rot * Vector3f(size, -size, 0);
-            auxParticles[i + 1].pos = m_particles[i / 4].pos + rot * Vector3f(-size, -size, 0);
-            auxParticles[i + 2].pos = m_particles[i / 4].pos + rot * Vector3f(-size, size, 0);
-            auxParticles[i + 3].pos = m_particles[i / 4].pos + rot * Vector3f(size, size, 0);
+            auxParticles[i + 0].pos = abspos + rot * Vector3f(size, -size, 0);
+            auxParticles[i + 1].pos = abspos + rot * Vector3f(-size, -size, 0);
+            auxParticles[i + 2].pos = abspos + rot * Vector3f(-size, size, 0);
+            auxParticles[i + 3].pos = abspos + rot * Vector3f(size, size, 0);
 
             auxParticles[i + 0].color = m_particles[i / 4].color;
             auxParticles[i + 1].color = m_particles[i / 4].color;
@@ -179,12 +185,6 @@ void ParticlesEmiter::Render()
         glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
     }
 
-    glPushMatrix();
-
-    if(m_parent)
-        glMultMatrixf(m_parent->GetAbsoluteMatrix());
-
-    glMultMatrixf(m_matrix);
 
     glDepthMask(m_depthTest);
 
@@ -221,10 +221,11 @@ void ParticlesEmiter::Render()
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
 
-    if(!m_pointsprite)
-        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
-    glPopMatrix();
+    if(m_pointsprite)
+        glPopMatrix();
+    else
+        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
