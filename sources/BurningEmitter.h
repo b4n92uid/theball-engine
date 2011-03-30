@@ -36,7 +36,7 @@ public:
     BurningEmitter & operator=(const BurningEmitter& copy);
 
     Node* Clone();
-    
+
     void Process();
 
     void SetFreeMove(float freeMove);
@@ -57,8 +57,8 @@ public:
     void SetGravity(Vector3f gravity);
     Vector3f GetGravity() const;
 
-    void SetEndPos(Vector3f endPos);
-    Vector3f GetEndPos() const;
+    void SetBoxSize(Vector3f boxSize);
+    Vector3f GetBoxSize() const;
 
     CtorMap ConstructionMap(std::string root);
 
@@ -74,7 +74,7 @@ private:
     bool m_autoRebuild;
 
     Vector3f m_gravity;
-    Vector3f m_endPos;
+    Vector3f m_boxSize;
 };
 
 }
