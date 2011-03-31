@@ -30,7 +30,7 @@ public:
     bool IsEsplanedTime(long time);
 
     /// Renvois le temp depuis le dernier appelle de la fonction
-    long GetEsplanedTime();
+    long GetEsplanedTime(bool snapshoot = true);
 
     /// Enregistre le temp courant pour le comparer a l'appele de la fonction IsEsplanedTime
     void SnapShoot();
