@@ -94,6 +94,11 @@ void BurningEmitter::Process()
     if(m_deadEmiter && !m_autoRebuild)
         return;
 
+    long timestamp = m_timestamp.GetEsplanedTime();
+
+    if(timestamp <= 0)
+        return;
+
     Particle* particles = BeginParticlesPosProcess();
 
     m_deadEmiter = true;
@@ -119,8 +124,9 @@ void BurningEmitter::Process()
 
         else
         {
-            p.life -= m_lifeDown;
-            p.pos += p.diriction;
+
+            p.life -= m_lifeDown * (1.0f / timestamp);
+            p.pos += p.diriction * (1.0f / timestamp);
 
             m_deadEmiter = false;
         }
