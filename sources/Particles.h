@@ -9,6 +9,7 @@
 #include "Node.h"
 #include "Material.h"
 #include "ParticlesParallelScene.h"
+#include "Clock.h"
 
 namespace tbe
 {
@@ -100,6 +101,8 @@ protected:
     Texture m_texture;
 
     ParticlesParallelScene* m_parallelScene;
+
+    ticks::Clock m_timestamp;
 
 private:
     Particle::Array m_particles;
