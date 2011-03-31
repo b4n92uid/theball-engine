@@ -24,10 +24,10 @@ std::string glStrCheckFramebufferStatus()
             return "Incomplete attachment. (GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT)";
         case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT:
             return "Incomplete missing attachment. (GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT)";
-            case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT:
-                return "Incomplete dimensions. (GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT)";
-            case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:
-                return "Incomplete formats. (GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT)";
+        case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT:
+            return "Incomplete dimensions. (GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT)";
+        case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:
+            return "Incomplete formats. (GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT)";
         case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT:
             return "Incomplete draw buffer. (GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT)";
         case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT:
@@ -230,6 +230,17 @@ void FrameBufferObject::Clear()
 
 void FrameBufferObject::SetFrameSize(Vector2i frameSize)
 {
+    int maxRenderbufferSize;
+    glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE_EXT, &maxRenderbufferSize);
+
+    if(frameSize.x > maxRenderbufferSize || frameSize.y > maxRenderbufferSize)
+    {
+        cout << "*** WARNING *** FrameBufferObject::SetFrameSize; fbo framesize to big SET="
+                << frameSize << " MAX=" << maxRenderbufferSize << endl;
+
+        frameSize = maxRenderbufferSize;
+    }
+
     this->m_frameSize = frameSize;
 
     if(unsigned attachedCompenent = m_attachedCompenent)
