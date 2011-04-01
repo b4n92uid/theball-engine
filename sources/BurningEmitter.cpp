@@ -125,8 +125,8 @@ void BurningEmitter::Process()
         else
         {
 
-            p.life -= m_lifeDown * (1.0f / timestamp);
-            p.pos += p.diriction * (1.0f / timestamp);
+            p.life -= m_lifeDown * (timestamp * 0.001f);
+            p.pos += p.diriction * (timestamp * 0.001f);
 
             m_deadEmiter = false;
         }
