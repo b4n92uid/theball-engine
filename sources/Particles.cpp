@@ -129,6 +129,8 @@ void ParticlesEmiter::Build()
 
     m_enable = true;
     m_deadEmiter = false;
+
+    m_timestamp.SnapShoot();
 }
 
 void ParticlesEmiter::Render()
