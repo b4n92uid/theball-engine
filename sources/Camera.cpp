@@ -267,22 +267,22 @@ void FreeFlyCamera::OnEvent(EventManager* event)
             speed *= 4;
 
         if(event->keyState[keybind.FORWARD])
-            m_pos += 1.0f / event->lastPollTimestamp * m_target * speed;
+            m_pos += event->lastPollTimestamp * 0.001f * m_target * speed;
 
         if(event->keyState[keybind.BACKWARD])
-            m_pos -= 1.0f / event->lastPollTimestamp * m_target * speed;
+            m_pos -= event->lastPollTimestamp * 0.001f * m_target * speed;
 
         if(event->keyState[keybind.STRAFLEFT])
-            m_pos -= 1.0f / event->lastPollTimestamp * m_left * speed;
+            m_pos -= event->lastPollTimestamp * 0.001f * m_left * speed;
 
         if(event->keyState[keybind.STRAFRIGHT])
-            m_pos += 1.0f / event->lastPollTimestamp * m_left * speed;
+            m_pos += event->lastPollTimestamp * 0.001f * m_left * speed;
 
         if(event->keyState[keybind.UP])
-            m_pos.y += 1.0f / event->lastPollTimestamp * speed;
+            m_pos.y += event->lastPollTimestamp * 0.001f * speed;
 
         if(event->keyState[keybind.DOWN])
-            m_pos.y -= 1.0f / event->lastPollTimestamp * speed;
+            m_pos.y -= event->lastPollTimestamp * 0.001f * speed;
 
     }
 }
