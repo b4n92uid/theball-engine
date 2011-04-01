@@ -37,6 +37,8 @@ Device::~Device()
 
 void Device::Init()
 {
+    const char * shaderver = Shader::CheckHardware() ?
+            (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION) : "N/A";
     cout
 
             #ifdef TBE_COMPILE_DEBUG
@@ -47,7 +49,7 @@ void Device::Init()
             << "Vendor: " << glGetString(GL_VENDOR) << endl
             << "Render: " << glGetString(GL_RENDERER) << endl
             << "OpenGL: " << glGetString(GL_VERSION) << endl
-            // << "Shader: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl
+            << "Shader: " << shaderver << endl
             << endl;
 
     if(!FrameBufferObject::CheckHardware())
