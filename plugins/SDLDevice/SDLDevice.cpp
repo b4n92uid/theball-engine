@@ -29,7 +29,7 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
 {
     using namespace std;
 
-    // NOTE Requis pour respï¿½cifier le multisampling
+    // NOTE Requis pour ré-appliquer le multisampling
     if(SDL_WasInit(SDL_INIT_VIDEO))
     {
         SDL_QuitSubSystem(SDL_INIT_VIDEO);
@@ -37,6 +37,12 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
         SDL_EnableUNICODE(true);
     }
     // --
+
+    const SDL_version* sdlv = SDL_Linked_Version();
+
+    cout << "SDL Init" << endl;
+    cout << "Version: " << (int)sdlv->major << "." << (int)sdlv->minor << "." << (int)sdlv->minor << endl;
+    cout << endl;
 
     m_caption = caption;
     m_viewportSize = winsize;
@@ -64,8 +70,9 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
         cout << "SDLDevice::Window; Multisamples setting failed " << m_winMultiSamples << endl;
 
     returnState = SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
     if(returnState == -1)
-        cout << "SDLDevice::Window; Double Buffer setting failed 1" << endl;
+        cout << "*** WARNING *** SDLDevice::Window; Double Buffer setting failed" << endl;
 
     SDL_WM_SetCaption(caption.c_str(), 0);
 
@@ -73,17 +80,21 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
         throw Exception("SDLDevice::Window; Couldn't set specified video mode : %s", SDL_GetError());
 
     SDL_GL_GetAttribute(SDL_GL_MULTISAMPLESAMPLES, &returnState);
+
     if(returnState != m_winMultiSamples)
-        cout << "SDLDevice::Window; Multisamples incorrect value " << returnState << endl;
+        cout << "*** WARNING *** SDLDevice::Window; Multisamples incorrect value " << returnState << endl;
 
     SDL_GL_GetAttribute(SDL_GL_DOUBLEBUFFER, &returnState);
+
     if(returnState != 1)
-        cout << "SDLDevice::Window; Double Buffer incorrect value " << returnState << endl;
+        cout << "*** WARNING *** SDLDevice::Window; Double Buffer incorrect value " << returnState << endl;
 
     char* error = SDL_GetError();
 
     if(strlen(error))
-        cout << "SDLDevice::Window; SDL error: " << error << endl;
+        cout << "*** WARNING *** SDLDevice::Window; " << error << endl;
+
+    cout << endl;
 
     Init();
 
