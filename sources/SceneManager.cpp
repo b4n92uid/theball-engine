@@ -335,7 +335,7 @@ Vector3f SceneManager::ScreenToWorld(Vector2i target)
     return Vector3f(float(pick.x), float(pick.y), float(pick.z));
 }
 
-Matrix4f SceneManager::computeBillboard(Vector3f obj, Matrix4f local, Matrix4f init)
+Matrix4f SceneManager::computeBillboard(Vector3f obj, Matrix4f init)
 {
     Matrix4f rotation = init;
 
@@ -356,7 +356,7 @@ Matrix4f SceneManager::computeBillboard(Vector3f obj, Matrix4f local, Matrix4f i
 
     float rotateV = Vector3f::Dot(proj, proj2);
 
-    if(campos.y < 0)
+    if(campos.y < obj.y)
         rotation.SetRotate(acos(rotateV), Vector3f(1, 0, 0));
     else
         rotation.SetRotate(acos(rotateV), Vector3f(-1, 0, 0));
