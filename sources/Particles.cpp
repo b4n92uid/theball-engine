@@ -14,12 +14,8 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
     m_pointsprite = CheckHardware();
 
     m_renderId = 0;
-    m_auxRenderId = 0;
 
-    if(m_pointsprite)
-        glGenBuffersARB(1, &m_renderId);
-    else
-        glGenBuffersARB(1, &m_auxRenderId);
+    glGenBuffersARB(1, &m_renderId);
 
     m_number = 0;
     m_drawNumber = 0;
@@ -41,12 +37,8 @@ ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
     m_pointsprite = CheckHardware();
 
     m_renderId = 0;
-    m_auxRenderId = 0;
 
-    if(m_pointsprite)
-        glGenBuffersARB(1, &m_renderId);
-    else
-        glGenBuffersARB(1, &m_auxRenderId);
+    glGenBuffersARB(1, &m_renderId);
 
     *this = copy;
 
@@ -98,19 +90,15 @@ void ParticlesEmiter::Build()
         m_particles.push_back(p);
     }
 
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
+
     if(m_pointsprite)
     {
-        glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
-
         glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof (Particle) * m_number, &m_particles[0], GL_DYNAMIC_DRAW);
     }
 
     else
     {
-        // -- Construction du rendue auxiliaire
-
-        glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_auxRenderId);
-
         vector<Vertex> faces;
         faces.resize(m_number * 4);
 
@@ -148,24 +136,21 @@ void ParticlesEmiter::Render()
             break;
     }
 
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
 
     if(m_pointsprite)
     {
-        glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
-
         glPushMatrix();
         glMultMatrixf(GetAbsoluteMatrix());
     }
 
     else
     {
-        glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_auxRenderId);
-
         Matrix4f absolute = m_parent->GetAbsoluteMatrix();
 
         float size = m_parallelScene->GetParticleMinSize() / 2.0f;
 
-        Vertex* auxParticles = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_READ_WRITE_ARB));
+        Vertex* auxParticles = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB));
 
         for(unsigned i = 0; i < m_drawNumber * 4; i += 4)
         {

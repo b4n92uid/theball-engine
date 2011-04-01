@@ -106,10 +106,7 @@ protected:
 
 private:
     Particle::Array m_particles;
-
     GLuint m_renderId;
-    GLuint m_auxRenderId;
-
     bool m_pointsprite;
 };
 
