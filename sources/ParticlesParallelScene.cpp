@@ -22,6 +22,7 @@ ParticlesParallelScene::ParticlesParallelScene()
     m_pointSprite = ParticlesEmiter::CheckHardware();
 
     m_particleMinSize = 1.0;
+    m_particleMaxSize = 64.0;
 
     if(m_pointSprite)
     {
