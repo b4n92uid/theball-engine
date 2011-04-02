@@ -24,10 +24,8 @@ Frustum::~Frustum()
 
 bool Frustum::IsInside(Node* node)
 {
-    const Matrix4f& mat = node->GetMatrix();
-    const AABB& box = node->GetAabb();
-
-    return IsInside(AABB(mat * box.min, mat * box.max));
+    const AABB& box = node->GetAbsolutAabb();
+    return IsInside(box);
 }
 
 bool Frustum::IsInside(const AABB& aabb)
