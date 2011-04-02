@@ -19,8 +19,8 @@ AABB::AABB()
 
 AABB::AABB(float minmax)
 {
-    this->min = minmax;
     this->max = minmax;
+    this->min = -minmax;
 }
 
 AABB::AABB(Vector3f min, Vector3f max)
