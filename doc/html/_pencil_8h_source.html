@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Pencil.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Pencil.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_pencil_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   Pencil.h</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 11 mai 2010, 19:12</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef _PENCIL_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define _PENCIL_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;algorithm&gt;</span>
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="_mathematics_8h.html">Mathematics.h</a>&quot;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="_exception_8h.html">Exception.h</a>&quot;</span>
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018 <span class="keyword">namespace </span>tbe
+<a name="l00019"></a>00019 {
+<a name="l00020"></a>00020 <span class="keyword">namespace </span>gui
+<a name="l00021"></a>00021 {
+<a name="l00022"></a>00022 
+<a name="l00026"></a><a class="code" href="classtbe_1_1gui_1_1_gui_string.html">00026</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1gui_1_1_gui_string.html" title="Gestion du texte multi-ligne.">GuiString</a> : <span class="keyword">public</span> std::vector&lt;std::string&gt;
+<a name="l00027"></a>00027 {
+<a name="l00028"></a>00028 <span class="keyword">public</span>:
+<a name="l00029"></a>00029     <a class="code" href="classtbe_1_1gui_1_1_gui_string.html#a65a7c3e22cd81ef0f1a5a9fadd9c47da">GuiString</a>();
+<a name="l00030"></a>00030     <a class="code" href="classtbe_1_1gui_1_1_gui_string.html#a65a7c3e22cd81ef0f1a5a9fadd9c47da">GuiString</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str, ...);
+<a name="l00031"></a>00031     <a class="code" href="classtbe_1_1gui_1_1_gui_string.html#a65a7c3e22cd81ef0f1a5a9fadd9c47da">GuiString</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, ...);
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_gui_string.html#a853d77b9249beb1fbd641bd7f8110bef">LoadFromFile</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filepath);
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 <span class="keyword">private</span>:
+<a name="l00036"></a>00036     <span class="keywordtype">void</span> Format(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str);
+<a name="l00037"></a>00037 };
+<a name="l00038"></a>00038 
+<a name="l00043"></a><a class="code" href="classtbe_1_1gui_1_1_pencil.html">00043</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1gui_1_1_pencil.html" title="Gestion du texte dans l&#39;interface graphique contine la couleur, taille et police du texte...">Pencil</a>
+<a name="l00044"></a>00044 {
+<a name="l00045"></a>00045 <span class="keyword">public</span>:
+<a name="l00046"></a>00046     <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a0dbfad3eebde26e9d5dacace449d9e14">Pencil</a>();
+<a name="l00047"></a>00047     <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a0dbfad3eebde26e9d5dacace449d9e14">Pencil</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> path, <span class="keywordtype">int</span> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>);
+<a name="l00048"></a>00048     <a class="code" href="classtbe_1_1gui_1_1_pencil.html#acb035596d44b2d603b1480caa7a2ef0d">~Pencil</a>();
+<a name="l00049"></a>00049 
+<a name="l00051"></a>00051     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a55f5c418e85dbedf50e60759307be377" title="Charge une police .ttf.">Load</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> font, <span class="keywordtype">int</span> size);
+<a name="l00052"></a>00052 
+<a name="l00053"></a><a class="code" href="classtbe_1_1gui_1_1_pencil.html#a8b363790d2cb5f4416083dbf8e6e8e3d">00053</a>     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a8b363790d2cb5f4416083dbf8e6e8e3d">operator()</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> font, <span class="keywordtype">int</span> size)
+<a name="l00054"></a>00054     {
+<a name="l00055"></a>00055         <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a55f5c418e85dbedf50e60759307be377" title="Charge une police .ttf.">Load</a>(font, size);
+<a name="l00056"></a>00056     }
+<a name="l00057"></a>00057 
+<a name="l00059"></a>00059     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#ad23e50dfef2e31432b9dbea49269d3c0" title="Libération mémoire, appler par le déstructeur.">Delete</a>();
+<a name="l00060"></a>00060 
+<a name="l00062"></a>00062     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a3bbba83568a3e592e6c42ae90f362262" title="Rendue.">Display</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <a class="code" href="classtbe_1_1gui_1_1_gui_string.html" title="Gestion du texte multi-ligne.">GuiString</a> text);
+<a name="l00063"></a>00063 
+<a name="l00065"></a>00065     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a4f4a5511a82bcd7ca74ec628b72d4512" title="Renvois la position centrer de text pa rapport a pos et pos+size.">CenterOf</a>(<a class="code" href="classtbe_1_1gui_1_1_gui_string.html" title="Gestion du texte multi-ligne.">GuiString</a> text, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> size) <span class="keyword">const</span>;
+<a name="l00066"></a>00066 
+<a name="l00068"></a>00068     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a4f4a5511a82bcd7ca74ec628b72d4512" title="Renvois la position centrer de text pa rapport a pos et pos+size.">CenterOf</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> size) <span class="keyword">const</span>;
+<a name="l00069"></a>00069 
+<a name="l00071"></a>00071     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#afeb74e70a5484c7188a94c7edc3511df" title="Renvois la taille occuper par text avec la police en cour.">SizeOf</a>(<a class="code" href="classtbe_1_1gui_1_1_gui_string.html" title="Gestion du texte multi-ligne.">GuiString</a> text) <span class="keyword">const</span>;
+<a name="l00072"></a>00072 
+<a name="l00074"></a>00074     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#afeb74e70a5484c7188a94c7edc3511df" title="Renvois la taille occuper par text avec la police en cour.">SizeOf</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str) <span class="keyword">const</span>;
+<a name="l00075"></a>00075 
+<a name="l00086"></a>00086     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a72fcfec1f8387db2491cfbd18f0586fd">WrapeLine</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#ac112eef468530a44b7a653ddac190a22">width</a>, <span class="keywordtype">bool</span> takeEnd = <span class="keyword">true</span>) <span class="keyword">const</span>;
+<a name="l00087"></a>00087 
+<a name="l00096"></a>00096     std::vector&lt;std::string&gt; <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a5137f3887f3a093eaa17f82f8eb1ae18">GetWrapedLines</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#ac112eef468530a44b7a653ddac190a22">width</a>) <span class="keyword">const</span>;
+<a name="l00097"></a>00097 
+<a name="l00099"></a>00099     <a class="code" href="classtbe_1_1gui_1_1_pencil.html#ad5db2e3163ae9607a2a958e590f7aee1" title="Renvoi true si le chargement de la police a réussi.">operator bool</a>();
+<a name="l00100"></a>00100     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a2f9174410aed5240b60e1dad3fc39020">operator!</a>();
+<a name="l00101"></a>00101     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#aa8f85d3f266c4ee0e23a681a2ead3bb0">IsReady</a>();
+<a name="l00102"></a>00102 
+<a name="l00104"></a>00104     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#ad4438dfd3311150978a2b51ac1160d91" title="Spécifier la taille de la police.">SetFontSize</a>(<span class="keywordtype">int</span> fontsize);
+<a name="l00105"></a>00105     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a086a8122ed0b35bd7dd75c62c3cf3144">GetFontSize</a>() <span class="keyword">const</span>;
+<a name="l00106"></a>00106 
+<a name="l00108"></a>00108     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a2fa62d085c3f2cf1c04ac4d1b49642af" title="Spécifier la taille d&#39;une tabulation.">SetTabSize</a>(<span class="keywordtype">int</span> tabSize);
+<a name="l00109"></a>00109     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#acda09a1cdc11b4057681dd843f4c1198">GetTabSize</a>() <span class="keyword">const</span>;
+<a name="l00110"></a>00110 
+<a name="l00112"></a>00112     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a1740da70ace33eb2ce25b6a45ffc34d1" title="Spécifier la taille de l&#39;espace entre les lignes.">SetLineSpace</a>(<span class="keywordtype">int</span> lineSpace);
+<a name="l00113"></a>00113     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#aa48bbc334888bf56fd71b3ffa7fd9289">GetLineSpace</a>() <span class="keyword">const</span>;
+<a name="l00114"></a>00114 
+<a name="l00116"></a>00116     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#abdd2f4a839a8ab2efcc5eba85a4598f0" title="Spécifier la couleur d&#39;écriture.">SetColor</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>);
+<a name="l00117"></a>00117     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a55b9a680fbc6075b6794d1e5ab881312">GetColor</a>() <span class="keyword">const</span>;
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119 <span class="keyword">protected</span>:
+<a name="l00120"></a><a class="code" href="classtbe_1_1gui_1_1_pencil.html#acaa00b94e822aa5e03ec4033c132f0cb">00120</a>     std::vector&lt;unsigned &gt; <a class="code" href="classtbe_1_1gui_1_1_pencil.html#acaa00b94e822aa5e03ec4033c132f0cb">m_charsWidth</a>;
+<a name="l00121"></a>00121 
+<a name="l00122"></a><a class="code" href="classtbe_1_1gui_1_1_pencil.html#a54a1423a4c8b5b6cd84f66a6623eb65f">00122</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a54a1423a4c8b5b6cd84f66a6623eb65f">m_fontPath</a>;
+<a name="l00123"></a><a class="code" href="classtbe_1_1gui_1_1_pencil.html#ab7392fde6d51edf4f47b4dbab3bea9e0">00123</a>     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#ab7392fde6d51edf4f47b4dbab3bea9e0">m_fontSize</a>;
+<a name="l00124"></a><a class="code" href="classtbe_1_1gui_1_1_pencil.html#a435d2ab6c7733b251d65bbcd021d8515">00124</a>     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a435d2ab6c7733b251d65bbcd021d8515">m_tabSize</a>;
+<a name="l00125"></a><a class="code" href="classtbe_1_1gui_1_1_pencil.html#ab563a1af254fe9022e57cc38a187cc30">00125</a>     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#ab563a1af254fe9022e57cc38a187cc30">m_lineSpace</a>;
+<a name="l00126"></a>00126 
+<a name="l00127"></a><a class="code" href="classtbe_1_1gui_1_1_pencil.html#a95d45210604a3828da655c1023f15937">00127</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a95d45210604a3828da655c1023f15937">m_charList</a>;
+<a name="l00128"></a>00128 
+<a name="l00129"></a><a class="code" href="classtbe_1_1gui_1_1_pencil.html#a2519e2877e62a2509f6aca6d62120d2c">00129</a>     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1gui_1_1_pencil.html#a2519e2877e62a2509f6aca6d62120d2c">m_color</a>;
+<a name="l00130"></a>00130 };
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132 }
+<a name="l00133"></a>00133 }
+<a name="l00134"></a>00134 
+<a name="l00135"></a>00135 <span class="preprocessor">#endif  </span><span class="comment">/* _PENCIL_H */</span>
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/AABB.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/AABB.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_a_a_b_b_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   AABB.h</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 24 novembre 2009, 18:53</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef _AABB_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define _AABB_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="_mathematics_8h.html">Mathematics.h</a>&quot;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="_hardware_buffer_8h.html">HardwareBuffer.h</a>&quot;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a><a class="code" href="namespacetbe.html">00014</a> <span class="keyword">namespace </span>tbe
+<a name="l00015"></a>00015 {
+<a name="l00016"></a>00016 
+<a name="l00017"></a><a class="code" href="namespacetbe_1_1scene.html">00017</a> <span class="keyword">namespace </span>scene
+<a name="l00018"></a>00018 {
+<a name="l00019"></a>00019 <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>;
+<a name="l00020"></a>00020 }
+<a name="l00021"></a>00021 
+<a name="l00023"></a>00023 
+<a name="l00024"></a><a class="code" href="classtbe_1_1_a_a_b_b.html">00024</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>
+<a name="l00025"></a>00025 {
+<a name="l00026"></a>00026 <span class="keyword">public</span>:
+<a name="l00027"></a>00027     <a class="code" href="classtbe_1_1_a_a_b_b.html#a5f5baf6c533905aa1456b3a3eb57bab2">AABB</a>();
+<a name="l00028"></a>00028     <a class="code" href="classtbe_1_1_a_a_b_b.html#a5f5baf6c533905aa1456b3a3eb57bab2">AABB</a>(<span class="keywordtype">float</span> minmax);
+<a name="l00029"></a>00029     <a class="code" href="classtbe_1_1_a_a_b_b.html#a5f5baf6c533905aa1456b3a3eb57bab2">AABB</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_a_a_b_b.html#ab699aed87c56cfafe94ec22c0d4105b3">min</a>, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>);
+<a name="l00030"></a>00030     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1_a_a_b_b.html#afd5f4956a2043597167ff66821f7b223">~AABB</a>();
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; <a class="code" href="classtbe_1_1_a_a_b_b.html#a91d2dec24e65cbf3b6c48f6695f8f5ef">Count</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">scene::Node</a>* node);
+<a name="l00033"></a>00033     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; <a class="code" href="classtbe_1_1_a_a_b_b.html#a91d2dec24e65cbf3b6c48f6695f8f5ef">Count</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb);
+<a name="l00034"></a>00034     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; <a class="code" href="classtbe_1_1_a_a_b_b.html#a91d2dec24e65cbf3b6c48f6695f8f5ef">Count</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>);
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; <a class="code" href="classtbe_1_1_a_a_b_b.html#abd193af30306071835fb7798afad6468">operator()</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; min, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; max);
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; <a class="code" href="classtbe_1_1_a_a_b_b.html#ab4ea26886aa3de3ceb35c8cd7a5ab4a6">Add</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; pos);
+<a name="l00039"></a>00039     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; <a class="code" href="classtbe_1_1_a_a_b_b.html#ab4ea26886aa3de3ceb35c8cd7a5ab4a6">Add</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb);
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; <a class="code" href="classtbe_1_1_a_a_b_b.html#a94b8009a800c3d33eacb52597156fdd9">Sub</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; pos);
+<a name="l00042"></a>00042     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; <a class="code" href="classtbe_1_1_a_a_b_b.html#a94b8009a800c3d33eacb52597156fdd9">Sub</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb);
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; <a class="code" href="classtbe_1_1_a_a_b_b.html#a16c831c386f9cd39dd8f78ce05e3b976">operator+=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; pos);
+<a name="l00045"></a>00045     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; <a class="code" href="classtbe_1_1_a_a_b_b.html#a16c831c386f9cd39dd8f78ce05e3b976">operator+=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb);
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; <a class="code" href="classtbe_1_1_a_a_b_b.html#abab065b2ee5e708d3febab3440063443">operator-=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; pos);
+<a name="l00048"></a>00048     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; <a class="code" href="classtbe_1_1_a_a_b_b.html#abab065b2ee5e708d3febab3440063443">operator-=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb);
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> <a class="code" href="classtbe_1_1_a_a_b_b.html#a1e1560849a134bf9e38d7b798b147f21">operator+</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
+<a name="l00051"></a>00051     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> <a class="code" href="classtbe_1_1_a_a_b_b.html#a1e1560849a134bf9e38d7b798b147f21">operator+</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb);
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> <a class="code" href="classtbe_1_1_a_a_b_b.html#a9cca3d30c552a9d57e342968a67c4bb6">operator-</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; value);
+<a name="l00054"></a>00054     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> <a class="code" href="classtbe_1_1_a_a_b_b.html#a9cca3d30c552a9d57e342968a67c4bb6">operator-</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb);
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_a_a_b_b.html#a4ca4399172a279fab06ed4b8e905cb08">IsInner</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">scene::Node</a>* node) <span class="keyword">const</span>;
+<a name="l00057"></a>00057     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_a_a_b_b.html#a4ca4399172a279fab06ed4b8e905cb08">IsInner</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb) <span class="keyword">const</span>;
+<a name="l00058"></a>00058     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_a_a_b_b.html#a4ca4399172a279fab06ed4b8e905cb08">IsInner</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; point) <span class="keyword">const</span>;
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_a_a_b_b.html#a76615dc73ea1dc723fbaa46e3eb83404">Clear</a>();
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1_a_a_b_b.html#ad40b364b3fd436764dd297336a902040">GetSize</a>() <span class="keyword">const</span>;
+<a name="l00063"></a>00063     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_a_a_b_b.html#a240e51e6841dad8084c0a4917cc7e2ac">GetCenter</a>() <span class="keyword">const</span>;
+<a name="l00064"></a>00064 
+<a name="l00065"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#ab699aed87c56cfafe94ec22c0d4105b3">00065</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_a_a_b_b.html#ab699aed87c56cfafe94ec22c0d4105b3">min</a>;
+<a name="l00066"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">00066</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>;
+<a name="l00067"></a>00067 };
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 }
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071 <span class="preprocessor">#endif  </span><span class="comment">/* _AABB_H */</span>
+<a name="l00072"></a>00072 
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:55 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

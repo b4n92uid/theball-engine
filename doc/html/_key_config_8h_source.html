@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/KeyConfig.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/KeyConfig.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_key_config_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   KeyConfig.h</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 5 février 2010, 11:50</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef _KEYCONFIG_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define _KEYCONFIG_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span>
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;<a class="code" href="_control_8h.html">Control.h</a>&quot;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="_pencil_8h.html">Pencil.h</a>&quot;</span>
+<a name="l00015"></a>00015 
+<a name="l00016"></a>00016 <span class="keyword">namespace </span>tbe
+<a name="l00017"></a>00017 {
+<a name="l00018"></a>00018 <span class="keyword">namespace </span>gui
+<a name="l00019"></a>00019 {
+<a name="l00020"></a>00020 
+<a name="l00026"></a><a class="code" href="classtbe_1_1gui_1_1_key_config.html">00026</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1gui_1_1_key_config.html" title="Controle de configuration d&#39;une touche enregistre le nom et le code de la touche entrer.">KeyConfig</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>
+<a name="l00027"></a>00027 {
+<a name="l00028"></a>00028 <span class="keyword">public</span>:
+<a name="l00029"></a>00029     <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a072f390adf2f334e7666fb13573ef600">KeyConfig</a>();
+<a name="l00030"></a>00030     <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a072f390adf2f334e7666fb13573ef600">KeyConfig</a>(<a class="code" href="classtbe_1_1gui_1_1_pencil.html" title="Gestion du texte dans l&#39;interface graphique contine la couleur, taille et police du texte...">Pencil</a> font, <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> background);
+<a name="l00031"></a>00031     <a class="code" href="classtbe_1_1gui_1_1_key_config.html#ae7125c884ce336cd982500f8cd3f3af0">~KeyConfig</a>();
+<a name="l00032"></a>00032 
+<a name="l00034"></a>00034     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#aeb7eda12e547a36b93b388e1c92ecead" title="Changer l&#39;apparance du controle.">SetSkin</a>(<span class="keyword">const</span> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html" title="Structure contenant l&#39;apparence et la configuration des controles de l&#39;interface graphique.">GuiSkin</a>&amp; skin);
+<a name="l00035"></a>00035 
+<a name="l00037"></a>00037     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a062c5f9e400e540c94bc89480712262a" title="Fonction appler lors d&#39;un evenement.">OnEvent</a>(<span class="keyword">const</span> <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp; event);
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a89f72fa586fae581a06d5b52829d20ae">SetKeyCode</a>(<span class="keywordtype">int</span> keyCode, <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> keyName = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00040"></a>00040     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a9e17fab2091f4b9d7a8a2fa60af9404f">GetKeyCode</a>() <span class="keyword">const</span>;
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a5c4dbc9d0b7da3848c3bf22a3fc004f2">SetMouseCode</a>(<span class="keywordtype">int</span> mouseCode, <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> buttonName = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00043"></a>00043     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a1a90dcfead740766bc1197832a9b40c4">GetMouseCode</a>() <span class="keyword">const</span>;
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045 <span class="keyword">protected</span>:
+<a name="l00046"></a>00046     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a09bbd54312586c6a3ce699b84728a9a5">ObjectRender</a>();
+<a name="l00047"></a>00047 
+<a name="l00048"></a><a class="code" href="classtbe_1_1gui_1_1_key_config.html#a4e058f66cd8a7edcbe4d155ec8454bc8">00048</a>     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a4e058f66cd8a7edcbe4d155ec8454bc8">m_keyCode</a>;
+<a name="l00049"></a><a class="code" href="classtbe_1_1gui_1_1_key_config.html#ad993d2b7876a3b2db4730cf5267bfb88">00049</a>     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#ad993d2b7876a3b2db4730cf5267bfb88">m_mouseCode</a>;
+<a name="l00050"></a>00050 
+<a name="l00051"></a><a class="code" href="classtbe_1_1gui_1_1_key_config.html#ad37670832d2597f82bc6d6b43b57a1d2">00051</a>     <span class="keyword">enum</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#ad37670832d2597f82bc6d6b43b57a1d2">State</a>
+<a name="l00052"></a>00052     {
+<a name="l00053"></a><a class="code" href="classtbe_1_1gui_1_1_key_config.html#ad37670832d2597f82bc6d6b43b57a1d2a8a607b867981ab5eaa656fff287f6bc8">00053</a>         <a class="code" href="classtbe_1_1gui_1_1_key_config.html#ad37670832d2597f82bc6d6b43b57a1d2a008dbb847a94add85938b3d6a3c6378a">NO_EVENT</a>, <a class="code" href="classtbe_1_1gui_1_1_key_config.html#ad37670832d2597f82bc6d6b43b57a1d2a8a607b867981ab5eaa656fff287f6bc8">OVER</a>, <a class="code" href="classtbe_1_1gui_1_1_key_config.html#ad37670832d2597f82bc6d6b43b57a1d2af11d856044d0211e8d87cf6fb85385c3">EDIT</a>
+<a name="l00054"></a>00054     } <a class="code" href="classtbe_1_1gui_1_1_key_config.html#adf491bab3ca8fefeea904e8c0600bfbe">m_state</a>;
+<a name="l00055"></a>00055 };
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057 }
+<a name="l00058"></a>00058 }
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060 <span class="preprocessor">#endif  </span><span class="comment">/* _KEYCONFIG_H */</span>
+<a name="l00061"></a>00061 
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

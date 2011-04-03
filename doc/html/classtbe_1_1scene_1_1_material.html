@@ -1,0 +1,1281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine: Référence de la classe tbe::scene::Material</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Liste&#160;des&#160;classes</span></a></li>
+      <li><a href="hierarchy.html"><span>Hiérarchie&#160;des&#160;classes</span></a></li>
+      <li><a href="functions.html"><span>Membres&#160;de&#160;classe</span></a></li>
+    </ul>
+  </div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacetbe.html">tbe</a>      </li>
+      <li class="navelem"><a class="el" href="namespacetbe_1_1scene.html">scene</a>      </li>
+      <li class="navelem"><a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a>      </li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Types publics</a> &#124;
+<a href="#pub-methods">Fonctions membres publiques</a> &#124;
+<a href="#pro-attribs">Attributs protégés</a> &#124;
+<a href="#friends">Amis</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence de la classe tbe::scene::Material</div>  </div>
+</div>
+<div class="contents">
+<!-- doxytag: class="tbe::scene::Material" -->
+<p>Représentation d'un matériau Stock les propriétés de rendue d'un maillage.  
+ <a href="classtbe_1_1scene_1_1_material.html#details">Plus de détails...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_material_8h_source.html">Material.h</a>&gt;</code></p>
+
+<p><a href="classtbe_1_1scene_1_1_material-members.html">Liste de tous les membres</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-types"></a>
+Types publics</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a> { <br/>
+&#160;&#160;<a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea0635cb4ee051445c277bae1201b86300">QUADS</a> =  GL_QUADS, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea3106cf2a4c01d85fa6d34d6cb7ea9f05">TRIANGLES</a> =  GL_TRIANGLES, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea52aafa9583e740807cbe06d9e494b704">TRIANGLE_STRIP</a> =  GL_TRIANGLE_STRIP, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea1dad2ee6a9c811cf553a321af2242f4d">POLYGON</a> =  GL_POLYGON, 
+<br/>
+&#160;&#160;<a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965eafb70dd59a3cf3c0ba87ccec12dd3126f">LINES</a> =  GL_LINES, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965eae227fab93076fb47db3e71b2150c41eb">LINE_STRIP</a> =  GL_LINE_STRIP, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea777a7c1df01e61bb7de0cc5f3771204f">LINE_LOOP</a> =  GL_LINE_LOOP
+<br/>
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br/>
+&#160;&#160;<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea4e6fa15b5463d259edd09438be453b6f">LIGHT</a> =  0x1, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea5a02f47fa2ce4d829cf898a155bb75bb">TEXTURE</a> =  0x2, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea72a0aa450f6cdde51d235868d725162b">COLOR</a> =  0x4, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea0c5eda082269b4e000f80cc28cc7b896">SHADER</a> =  0x8, 
+<br/>
+&#160;&#160;<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea659a4b27948afd0faf9cd9060b00d5db">TANGENT</a> =  0x10, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea4b5a258b5a0676389466e841b25683fa">AOCC</a> =  0x2000, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea82cbd2e3aebd7e504783b2ee8c9d5ebd">VERTEX_SORT</a> =  0x20, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea5c952364d669b8a72db688b0b3ddb388">VERTEX_SORT_CULL_TRICK</a> =  0x40, 
+<br/>
+&#160;&#160;<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea32690371d6335e40f3868724f84cb78d">BLEND_ADD</a> =  0x80, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eace6908227ebc50855acc3c6724892468">BLEND_MUL</a> =  0x100, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea2b0344fac36bd462632e07e44e50b5fe">BLEND_MOD</a> =  0x200, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eae385079e7bb1bd2e9c3f0c4fd7be0236">ALPHA</a> =  0x400, 
+<br/>
+&#160;&#160;<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ead8779d616591f2aa2327b88c3457c45b">FRONTFACE_CULL</a> =  0x800, 
+<a class="el" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea8bbf2076ab12022abfa5dd4c19f8b763">BACKFACE_CULL</a> =  0x1000
+<br/>
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; <a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">Array</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; <a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>, <br class="typebreak"/>
+<a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#ad84ffc7b17364b85ced7e4ca5e2efa1d">Map</a></td></tr>
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Fonctions membres publiques</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a137e987401b63eb7c6c27c3e38bc74b5">Material</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a17c0def36f6af0c4665b1dd92dafb235">Material</a> (const <a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> &amp;copy)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a2c19452d71f54075df8f5405b03129f4">~Material</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#aa575aafa3a3a860e9053beb2aaf70766">operator=</a> (const <a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> &amp;copy)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a8c8d4595f54cc3e936d542b9a98eb980">SetRenderFlags</a> (unsigned renderFlags)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#ac480fb855e5882f9897a0b0a371225ac">GetRenderFlags</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a02dca2282b99f3e234cc8a55f3ef7da7">IsEnable</a> (unsigned flag)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a5f626a6782d1809fc575f47afab2ef06">Enable</a> (unsigned flag)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a3eff6a2ed93fd1b47f8ec9e81ad1cf50">Disable</a> (unsigned flag)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#ac1aaae6b65e87dd6d0167f8bd1c2f373">SetTexture</a> (<a class="el" href="classtbe_1_1_texture.html">Texture</a> <a class="el" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>, unsigned <a class="el" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a00abbf05fc2b376727cca55d5ca89e9e">GetTexture</a> (unsigned <a class="el" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>=0) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#ae3628f8be6e1a1f7a4d9af5e1b90e2de">GetTexturesCount</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a255b43de5c9f381cc9f6b84f71af3287">SetShininess</a> (float shininess)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a27d724af8a76dc8d64f8ffeb555aa00e">GetShininess</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a2fa98e137f8d0259d111851e2dc95324">SetSpecular</a> (<a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> specular)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a504da534a54163cce80ccff7ee085930">GetSpecular</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#abf87e6226ad426b59291124a6db65de1">SetDiffuse</a> (<a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> diffuse)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#ade68eceeaf328bdcd76f40380b5f5f13">GetDiffuse</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a89fd2560c96b62119c8b2199b5b8a749">SetAmbient</a> (<a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> ambient)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#af6514c1779d80dc4d27fd5b56b43d736">GetAmbient</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a7684f643c94961726686c86f82e7917e">SetShader</a> (const <a class="el" href="classtbe_1_1_shader.html">Shader</a> &amp;<a class="el" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_shader.html">Shader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#aa753ff49394dabcd3d3df073b04f7b41">GetShader</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#ae7a7f00bf062a0b8af8315eb6d3d1021">SetRendWithShader</a> (bool rendWithShader)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a730867e1e926fac5840996cf223791e7">IsRendWithShader</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#afaaf98fd0ce17f13e9c65ad49f1349dc">SetRendWithTexture</a> (bool rendWithTexture)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a127f04293c70cd367fae5d42314d6a79">IsRendWithTexture</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#aa4d3239dbb3668fc56e61ec87d91144d">SetLineWidth</a> (float lineWidth)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#acc667841eda4788618b5d6aa58e1e958">GetLineWidth</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#aabbadaf4944c2282b6693e926a316f0f">SetName</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a2ee727f561b47466788834db893e981c">GetName</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a1cca25542cafa4793e1cd1201d7e396e">SetAlphaThershold</a> (float alphaThershold)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a668290213f5b5a40de270933de9c57b1">GetAlphaThershold</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#aa1a31da7c3e1f754534e47e79d390e2f">IsTransparent</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a68d071f46ffeb54c82826e0b91cd4cf0">SetFrameSortWait</a> (unsigned frameSortWait)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a4c3264bd5057e3510047f91ae923090a">GetFrameSortWait</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a0181498ac2298bc8aa93d49e201d79b3">SetTangentLocation</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> tangentLocation)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#adf4dc520790575571c84b5a04a380813">GetTangentLocation</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#aa2202e5cec3bd03ceac0bde827858ed7">SetAoccLocation</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> aoccLocation)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a6b704225a2a9a2d7b8ced9a1498df776">GetAoccLocation</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#acf177c396e3ff1012d37bc46b8932777">SetFaceType</a> (<a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a> faceType)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a72b0c321b2eeff34363707959bab7bdd">GetFaceType</a> () const </td></tr>
+<tr><td colspan="2"><h2><a name="pro-attribs"></a>
+Attributs protégés</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a0334a5f3ab0014a401c46c3c2ee8d094">m_name</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a44811dac5d63f8069fa70be14578e685">m_aoccLocation</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a91235fca2b94cdad3090b81cee4a5853">m_tangentLocation</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a979c86bc286f2434e1b90da93f7ef55e">m_ambient</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a97b23359a66346f1d8f1590580900e2f">m_diffuse</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a3955b865a9e43212ed7d1666e1878a9a">m_specular</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#ab859db576f6fda1d3d81e7730bb31a3d">m_shininess</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html#a923039f7548562f78526e4b201f4495b">Texture::Map</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a5c3f3750f9320034ccd553b02f4ca28f">m_textures</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_shader.html">Shader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#ac6e2741d3c9a9fddaca6b09adb8f436e">m_shader</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a9a07197ea1b0ea29f770bdb31a77dc18">m_faceType</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a9d6387c161a6b841937f724d24ee2bf4">m_frameSortWait</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a13c55930920015d78eda809b2aa51432">m_lineWidth</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#a12bca0cd0f3ca8db5314653256878e1e">m_alphaThershold</a></td></tr>
+<tr><td colspan="2"><h2><a name="friends"></a>
+Amis</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_material.html#aa41a130f156b145bffb3f4b5172c4c93">Mesh</a></td></tr>
+</table>
+<hr/><a name="details" id="details"></a><h2>Description détaillée</h2>
+<div class="textblock"><p>Représentation d'un matériau Stock les propriétés de rendue d'un maillage. </p>
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00027">27</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+</div><hr/><h2>Documentation des définitions de type membres</h2>
+<a class="anchor" id="af493ad6050ca10fff7d53cceebfd25aa"></a><!-- doxytag: member="tbe::scene::Material::Array" ref="af493ad6050ca10fff7d53cceebfd25aa" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::vector&lt;<a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a>*&gt; <a class="el" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">tbe::scene::Material::Array</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00127">127</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad84ffc7b17364b85ced7e4ca5e2efa1d"></a><!-- doxytag: member="tbe::scene::Material::Map" ref="ad84ffc7b17364b85ced7e4ca5e2efa1d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>, <a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a>*&gt; <a class="el" href="classtbe_1_1scene_1_1_material.html#ad84ffc7b17364b85ced7e4ca5e2efa1d">tbe::scene::Material::Map</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00128">128</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des énumérations membres</h2>
+<a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65e"></a><!-- doxytag: member="tbe::scene::Material::@0" ref="ad46adc37ade01ba6f18d4dd8f6c1f65e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl><dt><b>Valeurs énumérées: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65ea4e6fa15b5463d259edd09438be453b6f"></a><!-- doxytag: member="LIGHT" ref="ad46adc37ade01ba6f18d4dd8f6c1f65ea4e6fa15b5463d259edd09438be453b6f" args="" -->LIGHT</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65ea5a02f47fa2ce4d829cf898a155bb75bb"></a><!-- doxytag: member="TEXTURE" ref="ad46adc37ade01ba6f18d4dd8f6c1f65ea5a02f47fa2ce4d829cf898a155bb75bb" args="" -->TEXTURE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65ea72a0aa450f6cdde51d235868d725162b"></a><!-- doxytag: member="COLOR" ref="ad46adc37ade01ba6f18d4dd8f6c1f65ea72a0aa450f6cdde51d235868d725162b" args="" -->COLOR</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65ea0c5eda082269b4e000f80cc28cc7b896"></a><!-- doxytag: member="SHADER" ref="ad46adc37ade01ba6f18d4dd8f6c1f65ea0c5eda082269b4e000f80cc28cc7b896" args="" -->SHADER</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65ea659a4b27948afd0faf9cd9060b00d5db"></a><!-- doxytag: member="TANGENT" ref="ad46adc37ade01ba6f18d4dd8f6c1f65ea659a4b27948afd0faf9cd9060b00d5db" args="" -->TANGENT</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65ea4b5a258b5a0676389466e841b25683fa"></a><!-- doxytag: member="AOCC" ref="ad46adc37ade01ba6f18d4dd8f6c1f65ea4b5a258b5a0676389466e841b25683fa" args="" -->AOCC</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65ea82cbd2e3aebd7e504783b2ee8c9d5ebd"></a><!-- doxytag: member="VERTEX_SORT" ref="ad46adc37ade01ba6f18d4dd8f6c1f65ea82cbd2e3aebd7e504783b2ee8c9d5ebd" args="" -->VERTEX_SORT</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65ea5c952364d669b8a72db688b0b3ddb388"></a><!-- doxytag: member="VERTEX_SORT_CULL_TRICK" ref="ad46adc37ade01ba6f18d4dd8f6c1f65ea5c952364d669b8a72db688b0b3ddb388" args="" -->VERTEX_SORT_CULL_TRICK</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65ea32690371d6335e40f3868724f84cb78d"></a><!-- doxytag: member="BLEND_ADD" ref="ad46adc37ade01ba6f18d4dd8f6c1f65ea32690371d6335e40f3868724f84cb78d" args="" -->BLEND_ADD</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65eace6908227ebc50855acc3c6724892468"></a><!-- doxytag: member="BLEND_MUL" ref="ad46adc37ade01ba6f18d4dd8f6c1f65eace6908227ebc50855acc3c6724892468" args="" -->BLEND_MUL</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65ea2b0344fac36bd462632e07e44e50b5fe"></a><!-- doxytag: member="BLEND_MOD" ref="ad46adc37ade01ba6f18d4dd8f6c1f65ea2b0344fac36bd462632e07e44e50b5fe" args="" -->BLEND_MOD</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65eae385079e7bb1bd2e9c3f0c4fd7be0236"></a><!-- doxytag: member="ALPHA" ref="ad46adc37ade01ba6f18d4dd8f6c1f65eae385079e7bb1bd2e9c3f0c4fd7be0236" args="" -->ALPHA</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65ead8779d616591f2aa2327b88c3457c45b"></a><!-- doxytag: member="FRONTFACE_CULL" ref="ad46adc37ade01ba6f18d4dd8f6c1f65ead8779d616591f2aa2327b88c3457c45b" args="" -->FRONTFACE_CULL</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ad46adc37ade01ba6f18d4dd8f6c1f65ea8bbf2076ab12022abfa5dd4c19f8b763"></a><!-- doxytag: member="BACKFACE_CULL" ref="ad46adc37ade01ba6f18d4dd8f6c1f65ea8bbf2076ab12022abfa5dd4c19f8b763" args="" -->BACKFACE_CULL</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00104">104</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abde433eced8079e3c3f85d02337b965e"></a><!-- doxytag: member="tbe::scene::Material::FaceType" ref="abde433eced8079e3c3f85d02337b965e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">tbe::scene::Material::FaceType</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl><dt><b>Valeurs énumérées: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="abde433eced8079e3c3f85d02337b965ea0635cb4ee051445c277bae1201b86300"></a><!-- doxytag: member="QUADS" ref="abde433eced8079e3c3f85d02337b965ea0635cb4ee051445c277bae1201b86300" args="" -->QUADS</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="abde433eced8079e3c3f85d02337b965ea3106cf2a4c01d85fa6d34d6cb7ea9f05"></a><!-- doxytag: member="TRIANGLES" ref="abde433eced8079e3c3f85d02337b965ea3106cf2a4c01d85fa6d34d6cb7ea9f05" args="" -->TRIANGLES</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="abde433eced8079e3c3f85d02337b965ea52aafa9583e740807cbe06d9e494b704"></a><!-- doxytag: member="TRIANGLE_STRIP" ref="abde433eced8079e3c3f85d02337b965ea52aafa9583e740807cbe06d9e494b704" args="" -->TRIANGLE_STRIP</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="abde433eced8079e3c3f85d02337b965ea1dad2ee6a9c811cf553a321af2242f4d"></a><!-- doxytag: member="POLYGON" ref="abde433eced8079e3c3f85d02337b965ea1dad2ee6a9c811cf553a321af2242f4d" args="" -->POLYGON</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="abde433eced8079e3c3f85d02337b965eafb70dd59a3cf3c0ba87ccec12dd3126f"></a><!-- doxytag: member="LINES" ref="abde433eced8079e3c3f85d02337b965eafb70dd59a3cf3c0ba87ccec12dd3126f" args="" -->LINES</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="abde433eced8079e3c3f85d02337b965eae227fab93076fb47db3e71b2150c41eb"></a><!-- doxytag: member="LINE_STRIP" ref="abde433eced8079e3c3f85d02337b965eae227fab93076fb47db3e71b2150c41eb" args="" -->LINE_STRIP</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="abde433eced8079e3c3f85d02337b965ea777a7c1df01e61bb7de0cc5f3771204f"></a><!-- doxytag: member="LINE_LOOP" ref="abde433eced8079e3c3f85d02337b965ea777a7c1df01e61bb7de0cc5f3771204f" args="" -->LINE_LOOP</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00090">90</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des constructeurs et destructeur</h2>
+<a class="anchor" id="a137e987401b63eb7c6c27c3e38bc74b5"></a><!-- doxytag: member="tbe::scene::Material::Material" ref="a137e987401b63eb7c6c27c3e38bc74b5" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Material::Material </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00013">13</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a17c0def36f6af0c4665b1dd92dafb235"></a><!-- doxytag: member="tbe::scene::Material::Material" ref="a17c0def36f6af0c4665b1dd92dafb235" args="(const Material &amp;copy)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Material::Material </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00028">28</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2c19452d71f54075df8f5405b03129f4"></a><!-- doxytag: member="tbe::scene::Material::~Material" ref="a2c19452d71f54075df8f5405b03129f4" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Material::~Material </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00033">33</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des fonctions membres</h2>
+<a class="anchor" id="a3eff6a2ed93fd1b47f8ec9e81ad1cf50"></a><!-- doxytag: member="tbe::scene::Material::Disable" ref="a3eff6a2ed93fd1b47f8ec9e81ad1cf50" args="(unsigned flag)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::Disable </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00218">218</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5f626a6782d1809fc575f47afab2ef06"></a><!-- doxytag: member="tbe::scene::Material::Enable" ref="a5f626a6782d1809fc575f47afab2ef06" args="(unsigned flag)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::Enable </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00213">213</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a668290213f5b5a40de270933de9c57b1"></a><!-- doxytag: member="tbe::scene::Material::GetAlphaThershold" ref="a668290213f5b5a40de270933de9c57b1" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Material::GetAlphaThershold </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00108">108</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af6514c1779d80dc4d27fd5b56b43d736"></a><!-- doxytag: member="tbe::scene::Material::GetAmbient" ref="af6514c1779d80dc4d27fd5b56b43d736" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> Material::GetAmbient </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00203">203</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6b704225a2a9a2d7b8ced9a1498df776"></a><!-- doxytag: member="tbe::scene::Material::GetAoccLocation" ref="a6b704225a2a9a2d7b8ced9a1498df776" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Material::GetAoccLocation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00070">70</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ade68eceeaf328bdcd76f40380b5f5f13"></a><!-- doxytag: member="tbe::scene::Material::GetDiffuse" ref="ade68eceeaf328bdcd76f40380b5f5f13" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> Material::GetDiffuse </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00193">193</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a72b0c321b2eeff34363707959bab7bdd"></a><!-- doxytag: member="tbe::scene::Material::GetFaceType" ref="a72b0c321b2eeff34363707959bab7bdd" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">Material::FaceType</a> Material::GetFaceType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00228">228</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4c3264bd5057e3510047f91ae923090a"></a><!-- doxytag: member="tbe::scene::Material::GetFrameSortWait" ref="a4c3264bd5057e3510047f91ae923090a" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned Material::GetFrameSortWait </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00080">80</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acc667841eda4788618b5d6aa58e1e958"></a><!-- doxytag: member="tbe::scene::Material::GetLineWidth" ref="acc667841eda4788618b5d6aa58e1e958" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Material::GetLineWidth </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00138">138</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2ee727f561b47466788834db893e981c"></a><!-- doxytag: member="tbe::scene::Material::GetName" ref="a2ee727f561b47466788834db893e981c" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Material::GetName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00148">148</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac480fb855e5882f9897a0b0a371225ac"></a><!-- doxytag: member="tbe::scene::Material::GetRenderFlags" ref="ac480fb855e5882f9897a0b0a371225ac" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned Material::GetRenderFlags </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00118">118</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa753ff49394dabcd3d3df073b04f7b41"></a><!-- doxytag: member="tbe::scene::Material::GetShader" ref="aa753ff49394dabcd3d3df073b04f7b41" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_shader.html">Shader</a> Material::GetShader </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00128">128</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a27d724af8a76dc8d64f8ffeb555aa00e"></a><!-- doxytag: member="tbe::scene::Material::GetShininess" ref="a27d724af8a76dc8d64f8ffeb555aa00e" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Material::GetShininess </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00173">173</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a504da534a54163cce80ccff7ee085930"></a><!-- doxytag: member="tbe::scene::Material::GetSpecular" ref="a504da534a54163cce80ccff7ee085930" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> Material::GetSpecular </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00183">183</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adf4dc520790575571c84b5a04a380813"></a><!-- doxytag: member="tbe::scene::Material::GetTangentLocation" ref="adf4dc520790575571c84b5a04a380813" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Material::GetTangentLocation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00090">90</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a00abbf05fc2b376727cca55d5ca89e9e"></a><!-- doxytag: member="tbe::scene::Material::GetTexture" ref="a00abbf05fc2b376727cca55d5ca89e9e" args="(unsigned index=0) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_texture.html">Texture</a> Material::GetTexture </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>index</em> = <code>0</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00158">158</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae3628f8be6e1a1f7a4d9af5e1b90e2de"></a><!-- doxytag: member="tbe::scene::Material::GetTexturesCount" ref="ae3628f8be6e1a1f7a4d9af5e1b90e2de" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned Material::GetTexturesCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00163">163</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a02dca2282b99f3e234cc8a55f3ef7da7"></a><!-- doxytag: member="tbe::scene::Material::IsEnable" ref="a02dca2282b99f3e234cc8a55f3ef7da7" args="(unsigned flag)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Material::IsEnable </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00208">208</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a730867e1e926fac5840996cf223791e7"></a><!-- doxytag: member="tbe::scene::Material::IsRendWithShader" ref="a730867e1e926fac5840996cf223791e7" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tbe::scene::Material::IsRendWithShader </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a127f04293c70cd367fae5d42314d6a79"></a><!-- doxytag: member="tbe::scene::Material::IsRendWithTexture" ref="a127f04293c70cd367fae5d42314d6a79" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tbe::scene::Material::IsRendWithTexture </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa1a31da7c3e1f754534e47e79d390e2f"></a><!-- doxytag: member="tbe::scene::Material::IsTransparent" ref="aa1a31da7c3e1f754534e47e79d390e2f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Material::IsTransparent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00095">95</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa575aafa3a3a860e9053beb2aaf70766"></a><!-- doxytag: member="tbe::scene::Material::operator=" ref="aa575aafa3a3a860e9053beb2aaf70766" args="(const Material &amp;copy)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> &amp; Material::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00037">37</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1cca25542cafa4793e1cd1201d7e396e"></a><!-- doxytag: member="tbe::scene::Material::SetAlphaThershold" ref="a1cca25542cafa4793e1cd1201d7e396e" args="(float alphaThershold)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetAlphaThershold </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alphaThershold</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00103">103</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a89fd2560c96b62119c8b2199b5b8a749"></a><!-- doxytag: member="tbe::scene::Material::SetAmbient" ref="a89fd2560c96b62119c8b2199b5b8a749" args="(Vector4f ambient)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetAmbient </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td>
+          <td class="paramname"><em>ambient</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00198">198</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa2202e5cec3bd03ceac0bde827858ed7"></a><!-- doxytag: member="tbe::scene::Material::SetAoccLocation" ref="aa2202e5cec3bd03ceac0bde827858ed7" args="(std::string aoccLocation)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetAoccLocation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>aoccLocation</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00065">65</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abf87e6226ad426b59291124a6db65de1"></a><!-- doxytag: member="tbe::scene::Material::SetDiffuse" ref="abf87e6226ad426b59291124a6db65de1" args="(Vector4f diffuse)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetDiffuse </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td>
+          <td class="paramname"><em>diffuse</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00188">188</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acf177c396e3ff1012d37bc46b8932777"></a><!-- doxytag: member="tbe::scene::Material::SetFaceType" ref="acf177c396e3ff1012d37bc46b8932777" args="(FaceType faceType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetFaceType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a>&#160;</td>
+          <td class="paramname"><em>faceType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00223">223</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a68d071f46ffeb54c82826e0b91cd4cf0"></a><!-- doxytag: member="tbe::scene::Material::SetFrameSortWait" ref="a68d071f46ffeb54c82826e0b91cd4cf0" args="(unsigned frameSortWait)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetFrameSortWait </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>frameSortWait</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00075">75</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa4d3239dbb3668fc56e61ec87d91144d"></a><!-- doxytag: member="tbe::scene::Material::SetLineWidth" ref="aa4d3239dbb3668fc56e61ec87d91144d" args="(float lineWidth)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetLineWidth </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>lineWidth</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00133">133</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aabbadaf4944c2282b6693e926a316f0f"></a><!-- doxytag: member="tbe::scene::Material::SetName" ref="aabbadaf4944c2282b6693e926a316f0f" args="(std::string name)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00143">143</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8c8d4595f54cc3e936d542b9a98eb980"></a><!-- doxytag: member="tbe::scene::Material::SetRenderFlags" ref="a8c8d4595f54cc3e936d542b9a98eb980" args="(unsigned renderFlags)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetRenderFlags </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>renderFlags</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00113">113</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae7a7f00bf062a0b8af8315eb6d3d1021"></a><!-- doxytag: member="tbe::scene::Material::SetRendWithShader" ref="ae7a7f00bf062a0b8af8315eb6d3d1021" args="(bool rendWithShader)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tbe::scene::Material::SetRendWithShader </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>rendWithShader</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afaaf98fd0ce17f13e9c65ad49f1349dc"></a><!-- doxytag: member="tbe::scene::Material::SetRendWithTexture" ref="afaaf98fd0ce17f13e9c65ad49f1349dc" args="(bool rendWithTexture)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tbe::scene::Material::SetRendWithTexture </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>rendWithTexture</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7684f643c94961726686c86f82e7917e"></a><!-- doxytag: member="tbe::scene::Material::SetShader" ref="a7684f643c94961726686c86f82e7917e" args="(const Shader &amp;shader)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetShader </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1_shader.html">Shader</a> &amp;&#160;</td>
+          <td class="paramname"><em>shader</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00123">123</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a255b43de5c9f381cc9f6b84f71af3287"></a><!-- doxytag: member="tbe::scene::Material::SetShininess" ref="a255b43de5c9f381cc9f6b84f71af3287" args="(float shininess)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetShininess </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>shininess</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00168">168</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2fa98e137f8d0259d111851e2dc95324"></a><!-- doxytag: member="tbe::scene::Material::SetSpecular" ref="a2fa98e137f8d0259d111851e2dc95324" args="(Vector4f specular)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetSpecular </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td>
+          <td class="paramname"><em>specular</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00178">178</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0181498ac2298bc8aa93d49e201d79b3"></a><!-- doxytag: member="tbe::scene::Material::SetTangentLocation" ref="a0181498ac2298bc8aa93d49e201d79b3" args="(std::string tangentLocation)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetTangentLocation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>tangentLocation</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00085">85</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac1aaae6b65e87dd6d0167f8bd1c2f373"></a><!-- doxytag: member="tbe::scene::Material::SetTexture" ref="ac1aaae6b65e87dd6d0167f8bd1c2f373" args="(Texture texture, unsigned index=0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Material::SetTexture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>index</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8cpp_source.html#l00153">153</a> du fichier <a class="el" href="_material_8cpp_source.html">Material.cpp</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des fonctions amies et associées</h2>
+<a class="anchor" id="aa41a130f156b145bffb3f4b5172c4c93"></a><!-- doxytag: member="tbe::scene::Material::Mesh" ref="aa41a130f156b145bffb3f4b5172c4c93" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classtbe_1_1scene_1_1_mesh.html">Mesh</a><code> [friend]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00130">130</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des données membres</h2>
+<a class="anchor" id="a12bca0cd0f3ca8db5314653256878e1e"></a><!-- doxytag: member="tbe::scene::Material::m_alphaThershold" ref="a12bca0cd0f3ca8db5314653256878e1e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classtbe_1_1scene_1_1_material.html#a12bca0cd0f3ca8db5314653256878e1e">tbe::scene::Material::m_alphaThershold</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00151">151</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a979c86bc286f2434e1b90da93f7ef55e"></a><!-- doxytag: member="tbe::scene::Material::m_ambient" ref="a979c86bc286f2434e1b90da93f7ef55e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="el" href="classtbe_1_1scene_1_1_material.html#a979c86bc286f2434e1b90da93f7ef55e">tbe::scene::Material::m_ambient</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00138">138</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a44811dac5d63f8069fa70be14578e685"></a><!-- doxytag: member="tbe::scene::Material::m_aoccLocation" ref="a44811dac5d63f8069fa70be14578e685" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="classtbe_1_1scene_1_1_material.html#a44811dac5d63f8069fa70be14578e685">tbe::scene::Material::m_aoccLocation</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00135">135</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a97b23359a66346f1d8f1590580900e2f"></a><!-- doxytag: member="tbe::scene::Material::m_diffuse" ref="a97b23359a66346f1d8f1590580900e2f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="el" href="classtbe_1_1scene_1_1_material.html#a97b23359a66346f1d8f1590580900e2f">tbe::scene::Material::m_diffuse</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00138">138</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9a07197ea1b0ea29f770bdb31a77dc18"></a><!-- doxytag: member="tbe::scene::Material::m_faceType" ref="a9a07197ea1b0ea29f770bdb31a77dc18" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a> <a class="el" href="classtbe_1_1scene_1_1_material.html#a9a07197ea1b0ea29f770bdb31a77dc18">tbe::scene::Material::m_faceType</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00145">145</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9d6387c161a6b841937f724d24ee2bf4"></a><!-- doxytag: member="tbe::scene::Material::m_frameSortWait" ref="a9d6387c161a6b841937f724d24ee2bf4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned <a class="el" href="classtbe_1_1scene_1_1_material.html#a9d6387c161a6b841937f724d24ee2bf4">tbe::scene::Material::m_frameSortWait</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00149">149</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a13c55930920015d78eda809b2aa51432"></a><!-- doxytag: member="tbe::scene::Material::m_lineWidth" ref="a13c55930920015d78eda809b2aa51432" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classtbe_1_1scene_1_1_material.html#a13c55930920015d78eda809b2aa51432">tbe::scene::Material::m_lineWidth</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00150">150</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0334a5f3ab0014a401c46c3c2ee8d094"></a><!-- doxytag: member="tbe::scene::Material::m_name" ref="a0334a5f3ab0014a401c46c3c2ee8d094" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="classtbe_1_1scene_1_1_material.html#a0334a5f3ab0014a401c46c3c2ee8d094">tbe::scene::Material::m_name</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00133">133</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a168efef2a4acecf06d995ec7f5ab71f1"></a><!-- doxytag: member="tbe::scene::Material::m_renderFlags" ref="a168efef2a4acecf06d995ec7f5ab71f1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned <a class="el" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">tbe::scene::Material::m_renderFlags</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00147">147</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac6e2741d3c9a9fddaca6b09adb8f436e"></a><!-- doxytag: member="tbe::scene::Material::m_shader" ref="ac6e2741d3c9a9fddaca6b09adb8f436e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_shader.html">Shader</a> <a class="el" href="classtbe_1_1scene_1_1_material.html#ac6e2741d3c9a9fddaca6b09adb8f436e">tbe::scene::Material::m_shader</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00143">143</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab859db576f6fda1d3d81e7730bb31a3d"></a><!-- doxytag: member="tbe::scene::Material::m_shininess" ref="ab859db576f6fda1d3d81e7730bb31a3d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classtbe_1_1scene_1_1_material.html#ab859db576f6fda1d3d81e7730bb31a3d">tbe::scene::Material::m_shininess</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00139">139</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3955b865a9e43212ed7d1666e1878a9a"></a><!-- doxytag: member="tbe::scene::Material::m_specular" ref="a3955b865a9e43212ed7d1666e1878a9a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="el" href="classtbe_1_1scene_1_1_material.html#a3955b865a9e43212ed7d1666e1878a9a">tbe::scene::Material::m_specular</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00138">138</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a91235fca2b94cdad3090b81cee4a5853"></a><!-- doxytag: member="tbe::scene::Material::m_tangentLocation" ref="a91235fca2b94cdad3090b81cee4a5853" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="classtbe_1_1scene_1_1_material.html#a91235fca2b94cdad3090b81cee4a5853">tbe::scene::Material::m_tangentLocation</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00136">136</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5c3f3750f9320034ccd553b02f4ca28f"></a><!-- doxytag: member="tbe::scene::Material::m_textures" ref="a5c3f3750f9320034ccd553b02f4ca28f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_texture.html#a923039f7548562f78526e4b201f4495b">Texture::Map</a> <a class="el" href="classtbe_1_1scene_1_1_material.html#a5c3f3750f9320034ccd553b02f4ca28f">tbe::scene::Material::m_textures</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_material_8h_source.html#l00141">141</a> du fichier <a class="el" href="_material_8h_source.html">Material.h</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir des fichiers suivants :<ul>
+<li>D:/projets/cpp/tbengine/sources/<a class="el" href="_material_8h_source.html">Material.h</a></li>
+<li>D:/projets/cpp/tbengine/sources/<a class="el" href="_material_8cpp_source.html">Material.cpp</a></li>
+</ul>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:04 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

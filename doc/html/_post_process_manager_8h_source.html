@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/PostProcessManager.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/PostProcessManager.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_post_process_manager_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   PostProcessManager.h</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 4 janvier 2010, 14:39</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef _POSTPROCESSMANAGER_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define _POSTPROCESSMANAGER_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="_mathematics_8h.html">Mathematics.h</a>&quot;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="_shader_8h.html">Shader.h</a>&quot;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="_rtt_8h.html">Rtt.h</a>&quot;</span>
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018 <span class="keyword">namespace </span>tbe
+<a name="l00019"></a>00019 {
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021 <span class="keyword">namespace </span>scene
+<a name="l00022"></a>00022 {
+<a name="l00023"></a>00023 <span class="keyword">class </span>SceneManager;
+<a name="l00024"></a>00024 }
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026 <span class="keyword">namespace </span>ppe
+<a name="l00027"></a>00027 {
+<a name="l00028"></a>00028 
+<a name="l00032"></a><a class="code" href="classtbe_1_1ppe_1_1_layer.html">00032</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1ppe_1_1_layer.html" title="Affichage de couche pour la superposition des effets apres-traitement.">Layer</a>
+<a name="l00033"></a>00033 {
+<a name="l00034"></a>00034 <span class="keyword">public</span>:
+<a name="l00035"></a>00035     <a class="code" href="classtbe_1_1ppe_1_1_layer.html#a8f623c7c4737dc29ecc86978d243ac6f">Layer</a>();
+<a name="l00036"></a>00036     <a class="code" href="classtbe_1_1ppe_1_1_layer.html#a1b1ba4804451dfe6cc357194e42762ae">~Layer</a>();
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ppe_1_1_layer.html#a04fc84fa32c03a4c8b85634ec3503b5e">Begin</a>();
+<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ppe_1_1_layer.html#aa7955d1bcabdb1c6ffcaf078f61df89d">Draw</a>(<span class="keywordtype">bool</span> autoSetup = <span class="keyword">true</span>);
+<a name="l00040"></a>00040     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ppe_1_1_layer.html#a8917f3776ff13d83d1003c0b61b6149e">End</a>();
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042 <span class="keyword">protected</span>:
+<a name="l00043"></a><a class="code" href="classtbe_1_1ppe_1_1_layer.html#a44fe2739a0c60b09077fa8152720d0cc">00043</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1ppe_1_1_layer.html#a44fe2739a0c60b09077fa8152720d0cc">m_renderId</a>;
+<a name="l00044"></a>00044 };
+<a name="l00045"></a>00045 
+<a name="l00049"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html">00049</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1ppe_1_1_effect.html" title="Class de base pour tout les effets apres-traitement.">Effect</a>
+<a name="l00050"></a>00050 {
+<a name="l00051"></a>00051 <span class="keyword">public</span>:
+<a name="l00052"></a>00052     <a class="code" href="classtbe_1_1ppe_1_1_effect.html#a4dae74244f59936a49847da9217b4126">Effect</a>();
+<a name="l00053"></a>00053     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1ppe_1_1_effect.html#ac26c0a394247e14c9081f875522b5b66">~Effect</a>();
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ppe_1_1_effect.html#aefc04dfa8ef2dcf08650bf0bf57b26be">Process</a>(<a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* rtt) = 0;
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ppe_1_1_effect.html#aa51952db1f16d4472c4ec11d61119a85">SetEnable</a>(<span class="keywordtype">bool</span> enable);
+<a name="l00058"></a>00058     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1ppe_1_1_effect.html#a939be5701671f710bad20d2fafd1f86a">IsEnable</a>() <span class="keyword">const</span>;
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ppe_1_1_effect.html#a3b775d0da853663ec465e893d9783c89">SetRttFrameSize</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>);
+<a name="l00061"></a>00061     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1ppe_1_1_effect.html#abdcb80f4e730f8f82dd9891626ca55d0">GetRttFrameSize</a>();
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html#a95f9f16cd1c47142f269b38edd89023d">00063</a>     <span class="keyword">typedef</span> std::map&lt;std::string, Effect*&gt; <a class="code" href="classtbe_1_1ppe_1_1_effect.html#a95f9f16cd1c47142f269b38edd89023d">Map</a>;
+<a name="l00064"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html#a77ca9214e2188d0876aead193e65e21a">00064</a>     <span class="keyword">typedef</span> std::vector&lt;Effect*&gt; <a class="code" href="classtbe_1_1ppe_1_1_effect.html#a77ca9214e2188d0876aead193e65e21a">Array</a>;
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066 <span class="keyword">protected</span>:
+<a name="l00067"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html#a1a7933265a5117adc7ce17dc156fb4bf">00067</a>     <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> <a class="code" href="classtbe_1_1ppe_1_1_effect.html#a1a7933265a5117adc7ce17dc156fb4bf">m_processShader</a>;
+<a name="l00068"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html#a012a0aa95c802fff47435d63801729ca">00068</a>     <a class="code" href="classtbe_1_1ppe_1_1_layer.html" title="Affichage de couche pour la superposition des effets apres-traitement.">Layer</a> <a class="code" href="classtbe_1_1ppe_1_1_effect.html#a012a0aa95c802fff47435d63801729ca">m_layer</a>;
+<a name="l00069"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html#a08ee8d3ddbdbfffc74eac8f2459b55f9">00069</a>     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* <a class="code" href="classtbe_1_1ppe_1_1_effect.html#a08ee8d3ddbdbfffc74eac8f2459b55f9">m_workRtt</a>;
+<a name="l00070"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html#a96fb82b12eb3d5dca4843f060401488e">00070</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1ppe_1_1_effect.html#a96fb82b12eb3d5dca4843f060401488e">m_enable</a>;
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072 };
+<a name="l00073"></a>00073 
+<a name="l00077"></a><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html">00077</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html" title="Gestionnaire d&#39;effets apres-traitement.">PostProcessManager</a>
+<a name="l00078"></a>00078 {
+<a name="l00079"></a>00079 <span class="keyword">public</span>:
+<a name="l00080"></a>00080     <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a229c8feae2f303aeddd7ba4d3e278c5b">PostProcessManager</a>();
+<a name="l00081"></a>00081     <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a229c8feae2f303aeddd7ba4d3e278c5b">PostProcessManager</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html" title="Gestionnaire d&#39;effets apres-traitement.">PostProcessManager</a>&amp; orig);
+<a name="l00082"></a>00082     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a1fb597dd35c813a933e9fbc177f22183">~PostProcessManager</a>();
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a4fc70138e28b9043e23410b4772a309e">Setup</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> screenSize);
+<a name="l00085"></a>00085     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a7b6c9c7b6a769de4ea341e354b30b320">Render</a>();
+<a name="l00086"></a>00086     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#aee6afdbea4dd33b38b753d0c6cd2a595">ClearAll</a>();
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#aebc1e873978288985ade479bb1072e18">AddPostEffect</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1ppe_1_1_effect.html" title="Class de base pour tout les effets apres-traitement.">Effect</a>* effect);
+<a name="l00089"></a>00089     <a class="code" href="classtbe_1_1ppe_1_1_effect.html" title="Class de base pour tout les effets apres-traitement.">Effect</a>* <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a6e5b919015c2005115679f9e3eaad99f">GetPostEffect</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a9bf9ef6783c0e9c7eb1ae3324616fa8b">BeginPostProcess</a>();
+<a name="l00092"></a>00092     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a482adc6eeeaf8e745ff85fde0871d794">EndPostProcess</a>();
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a37e70d732086ee932b82b862ebb51c67">GetRtt</a>() <span class="keyword">const</span>;
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096 <span class="keyword">private</span>:
+<a name="l00097"></a>00097     <a class="code" href="classtbe_1_1ppe_1_1_effect.html#a95f9f16cd1c47142f269b38edd89023d">Effect::Map</a> m_postEffects;
+<a name="l00098"></a>00098     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> m_screenSize;
+<a name="l00099"></a>00099     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* m_rttRender;
+<a name="l00100"></a>00100     <a class="code" href="classtbe_1_1ppe_1_1_layer.html" title="Affichage de couche pour la superposition des effets apres-traitement.">Layer</a> m_layer;
+<a name="l00101"></a>00101 };
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103 }
+<a name="l00104"></a>00104 }
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106 <span class="preprocessor">#endif  </span><span class="comment">/* _POSTPROCESSMANAGER_H */</span>
+<a name="l00107"></a>00107 
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

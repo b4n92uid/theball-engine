@@ -1,0 +1,475 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/SceneParser.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/SceneParser.cpp</div>  </div>
+</div>
+<div class="contents">
+<a href="_scene_parser_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   SceneParser.cpp</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> * </span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 5 novembre 2010, 14:19</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;<a class="code" href="_scene_parser_8h.html">SceneParser.h</a>&quot;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="_obj_mesh_8h.html">ObjMesh.h</a>&quot;</span>
+<a name="l00010"></a>00010 
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;fstream&gt;</span>
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;<a class="code" href="_scene_manager_8h.html">SceneManager.h</a>&quot;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="_skybox_8h.html">Skybox.h</a>&quot;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="_tools_8h.html">Tools.h</a>&quot;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="_particles_8h.html">Particles.h</a>&quot;</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="_water_8h.html">Water.h</a>&quot;</span>
+<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;<a class="code" href="_burning_emitter_8h.html">BurningEmitter.h</a>&quot;</span>
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 <span class="keyword">using namespace </span>std;
+<a name="l00021"></a>00021 <span class="keyword">using namespace </span>tbe;
+<a name="l00022"></a>00022 <span class="keyword">using namespace </span>tbe::scene;
+<a name="l00023"></a>00023 
+<a name="l00024"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a9a73b85bd353af0424653fb40c01e9aa">00024</a> SceneParser::SceneParser(<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html" title="Gestionnaire de scene inclus des fonctions de gestion des scenes parallel, des lumiers et encapsule l...">SceneManager</a>* sceneManager)
+<a name="l00025"></a>00025 : m_sceneManager(sceneManager), m_rootNode(sceneManager-&gt;GetRootNode()),
+<a name="l00026"></a>00026 m_lightScene(NULL), m_meshScene(NULL), m_particlesScene(NULL), m_waterScene(NULL),
+<a name="l00027"></a>00027 m_classFactory(NULL)
+<a name="l00028"></a>00028 {
+<a name="l00029"></a>00029 }
+<a name="l00030"></a>00030 
+<a name="l00031"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#af5809864333132e558dc1627f39170fe">00031</a> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#af5809864333132e558dc1627f39170fe">SceneParser::~SceneParser</a>()
+<a name="l00032"></a>00032 {
+<a name="l00033"></a>00033     <span class="keyword">delete</span> m_classFactory;
+<a name="l00034"></a>00034 }
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="keywordtype">void</span> SceneParser::OutpuNodeConstruction(std::ofstream&amp; file, <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* node)
+<a name="l00037"></a>00037 {
+<a name="l00038"></a>00038     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">Node::CtorMap</a> ctormap = node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a3e11df7d7d1cef5c977f36f91d9233c5">ConstructionMap</a>(m_fileName);
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040     <span class="keywordtype">string</span> indent((node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a77b72a449977dbb00950359fa4a79a9f">DeepPosition</a>() - 1) * 4, <span class="charliteral">&#39; &#39;</span>);
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042     <span class="keywordflow">if</span>(node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#aaca5909bc7e27be8adfa058f471bd4de">GetParent</a>()-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a7340d79586c6fa260c33f0beb6f40636">IsRoot</a>())
+<a name="l00043"></a>00043         file &lt;&lt; indent &lt;&lt; <span class="stringliteral">&quot;+node&quot;</span> &lt;&lt; endl;
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045     <span class="keywordflow">for</span>(Node::CtorMap::iterator it = ctormap.begin(); it != ctormap.end(); it++)
+<a name="l00046"></a>00046         file &lt;&lt; indent &lt;&lt; it-&gt;first &lt;&lt; <span class="stringliteral">&quot;=&quot;</span> &lt;&lt; it-&gt;second &lt;&lt; endl;
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048     <span class="keywordflow">for</span>(<a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;Node*&gt;</a> it = node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ac074260c666e3ef88b738ff0281a5395">GetChildIterator</a>(); it; it++)
+<a name="l00049"></a>00049     {
+<a name="l00050"></a>00050         <span class="keywordtype">string</span> subindent((it-&gt;DeepPosition() - 1) * 4, <span class="charliteral">&#39; &#39;</span>);
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052         file &lt;&lt; subindent &lt;&lt; <span class="stringliteral">&quot;&lt;&quot;</span> &lt;&lt; endl;
+<a name="l00053"></a>00053         OutpuNodeConstruction(file, *it);
+<a name="l00054"></a>00054         file &lt;&lt; subindent &lt;&lt; <span class="stringliteral">&quot;&gt;&quot;</span> &lt;&lt; endl;
+<a name="l00055"></a>00055     }
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057     <span class="keywordflow">if</span>(node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#aaca5909bc7e27be8adfa058f471bd4de">GetParent</a>()-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a7340d79586c6fa260c33f0beb6f40636">IsRoot</a>())
+<a name="l00058"></a>00058         file &lt;&lt; endl;
+<a name="l00059"></a>00059 }
+<a name="l00060"></a>00060 
+<a name="l00061"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#acf8bddfaa7821beaa1930a00ed670571">00061</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#acf8bddfaa7821beaa1930a00ed670571">SceneParser::SaveScene</a>()
+<a name="l00062"></a>00062 {
+<a name="l00063"></a>00063     <span class="keywordflow">if</span>(m_fileName.empty())
+<a name="l00064"></a>00064         <span class="keywordflow">return</span>;
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066     <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#acf8bddfaa7821beaa1930a00ed670571">SaveScene</a>(m_fileName);
+<a name="l00067"></a>00067 }
+<a name="l00068"></a>00068 
+<a name="l00069"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a5c772c41ecb1a287c267dbfabbdc1f49">00069</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#acf8bddfaa7821beaa1930a00ed670571">SceneParser::SaveScene</a>(<span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; filepath)
+<a name="l00070"></a>00070 {
+<a name="l00071"></a>00071     ofstream file(filepath.c_str());
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073     <span class="keywordflow">if</span>(!file)
+<a name="l00074"></a>00074         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">tbe::Exception</a>(<span class="stringliteral">&quot;SceneParser::SaveScene; Open file error (%s)&quot;</span>, filepath.c_str());
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076     file &lt;&lt; <span class="stringliteral">&quot;*map&quot;</span> &lt;&lt; endl;
+<a name="l00077"></a>00077     file &lt;&lt; <span class="stringliteral">&quot;name=&quot;</span> &lt;&lt; m_mapName &lt;&lt; endl;
+<a name="l00078"></a>00078     file &lt;&lt; <span class="stringliteral">&quot;ambient=&quot;</span> &lt;&lt; m_sceneManager-&gt;<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#aef38aac2302abb28b4e6382f29bf92c1" title="Renvois la composant ambient de la scene.">GetAmbientLight</a>() &lt;&lt; endl;
+<a name="l00079"></a>00079     file &lt;&lt; endl;
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081     <a class="code" href="classtbe_1_1scene_1_1_fog.html" title="Gestion du brouiallrd.">Fog</a>* fog = m_sceneManager-&gt;<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a927458f067e4e59868857ea25a2c74d3">GetFog</a>();
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083     <span class="keywordflow">if</span>(fog)
+<a name="l00084"></a>00084     {
+<a name="l00085"></a>00085         file &lt;&lt; <span class="stringliteral">&quot;*fog&quot;</span> &lt;&lt; endl;
+<a name="l00086"></a>00086         file &lt;&lt; <span class="stringliteral">&quot;color=&quot;</span> &lt;&lt; fog-&gt;<a class="code" href="classtbe_1_1scene_1_1_fog.html#a62f3a94e5171cb6110595075ef7a4552">GetColor</a>() &lt;&lt; endl;
+<a name="l00087"></a>00087         file &lt;&lt; <span class="stringliteral">&quot;start=&quot;</span> &lt;&lt; fog-&gt;<a class="code" href="classtbe_1_1scene_1_1_fog.html#ac3ccadb7e0cdcf03ec53b54c55c97b39">GetStart</a>() &lt;&lt; endl;
+<a name="l00088"></a>00088         file &lt;&lt; <span class="stringliteral">&quot;end=&quot;</span> &lt;&lt; fog-&gt;<a class="code" href="classtbe_1_1scene_1_1_fog.html#afdb78e201f6b5ad9902fd4a27b4fa57a">GetEnd</a>() &lt;&lt; endl;
+<a name="l00089"></a>00089         file &lt;&lt; endl;
+<a name="l00090"></a>00090     }
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092     <a class="code" href="classtbe_1_1scene_1_1_sky_box.html" title="Class de représentation d&#39;un Skybox Ordre des texture : Devant, Derrier, Haut, Bas, Gauche, Droit.">SkyBox</a>* sky = m_sceneManager-&gt;<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a9680857b8d680aa471fda4db23d285e6">GetSkybox</a>();
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094     <span class="keywordflow">if</span>(sky)
+<a name="l00095"></a>00095     {
+<a name="l00096"></a>00096         <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a>* skyTexs = sky-&gt;<a class="code" href="classtbe_1_1scene_1_1_sky_box.html#ab7f1539aa7a444b0fce18aa730cb7cc7">GetTextures</a>();
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098         file &lt;&lt; <span class="stringliteral">&quot;*skybox&quot;</span> &lt;&lt; endl;
+<a name="l00099"></a>00099         file &lt;&lt; <span class="stringliteral">&quot;front=&quot;</span> &lt;&lt; <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, skyTexs[0].GetFilename()) &lt;&lt; endl;
+<a name="l00100"></a>00100         file &lt;&lt; <span class="stringliteral">&quot;back=&quot;</span> &lt;&lt; <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, skyTexs[1].GetFilename()) &lt;&lt; endl;
+<a name="l00101"></a>00101         file &lt;&lt; <span class="stringliteral">&quot;top=&quot;</span> &lt;&lt; <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, skyTexs[2].GetFilename()) &lt;&lt; endl;
+<a name="l00102"></a>00102         file &lt;&lt; <span class="stringliteral">&quot;bottom=&quot;</span> &lt;&lt; <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, skyTexs[3].GetFilename()) &lt;&lt; endl;
+<a name="l00103"></a>00103         file &lt;&lt; <span class="stringliteral">&quot;left=&quot;</span> &lt;&lt; <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, skyTexs[4].GetFilename()) &lt;&lt; endl;
+<a name="l00104"></a>00104         file &lt;&lt; <span class="stringliteral">&quot;right=&quot;</span> &lt;&lt; <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, skyTexs[5].GetFilename()) &lt;&lt; endl;
+<a name="l00105"></a>00105         file &lt;&lt; endl;
+<a name="l00106"></a>00106     }
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* rootNode = m_sceneManager-&gt;<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a19131142217b48f46f0928ae78c340aa">GetRootNode</a>();
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110     <span class="keywordflow">for</span>(<a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;Node*&gt;</a> it = rootNode-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ac074260c666e3ef88b738ff0281a5395">GetChildIterator</a>(); it; it++)
+<a name="l00111"></a>00111         OutpuNodeConstruction(file, *it);
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113     file.close();
+<a name="l00114"></a>00114 }
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116 <span class="keywordtype">bool</span> SceneParser::parseBlock(std::ifstream&amp; file, Relation&amp; rel, <span class="keywordtype">unsigned</span>&amp; line)
+<a name="l00117"></a>00117 {
+<a name="l00118"></a>00118     <span class="keywordtype">string</span> <a class="code" href="_g_lee_8h.html#a733a5bdfdc9a28e222d32bfd45e724c5">buffer</a>;
+<a name="l00119"></a>00119     <span class="keywordflow">while</span>(<a class="code" href="namespacetbe_1_1tools.html#ac33bbed29d089e7aa68d7687cdaa066b">tools::getline</a>(file, buffer))
+<a name="l00120"></a>00120     {
+<a name="l00121"></a>00121         line++;
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123         <span class="keywordflow">if</span>(buffer.empty())
+<a name="l00124"></a>00124             <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126         <span class="keywordflow">if</span>(buffer[0] == <span class="charliteral">&#39;#&#39;</span>)
+<a name="l00127"></a>00127             <span class="keywordflow">continue</span>;
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129         <span class="keywordflow">if</span>(buffer[rel.deep] == <span class="charliteral">&#39;&gt;&#39;</span>)
+<a name="l00130"></a>00130             <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132         <span class="keywordtype">int</span> deep = buffer.find(<span class="stringliteral">&quot;&lt;&quot;</span>);
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134         <span class="keywordflow">if</span>(deep &gt; rel.deep)
+<a name="l00135"></a>00135         {
+<a name="l00136"></a>00136             Relation subrel(deep);
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138             <span class="keywordtype">bool</span> endofsec = parseBlock(file, subrel, line);
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140             rel.child.push_back(subrel);
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142             <span class="keywordflow">if</span>(endofsec)
+<a name="l00143"></a>00143                 <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00144"></a>00144         }
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146         <span class="keywordflow">else</span>
+<a name="l00147"></a>00147         {
+<a name="l00148"></a>00148             <span class="keywordtype">string</span> subbuffer = buffer.substr(rel.deep);
+<a name="l00149"></a>00149 
+<a name="l00150"></a>00150             <span class="keywordtype">unsigned</span> sep = subbuffer.find_first_of(<span class="charliteral">&#39;=&#39;</span>);
+<a name="l00151"></a>00151 
+<a name="l00152"></a>00152             <span class="keywordflow">if</span>(sep == string::npos)
+<a name="l00153"></a>00153                 <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">tbe::Exception</a>(<span class="stringliteral">&quot;SceneParser::ParseRelation; invalid assignement %d (%s)&quot;</span>, line, buffer.c_str());
+<a name="l00154"></a>00154 
+<a name="l00155"></a>00155             <span class="keywordtype">string</span> key(subbuffer, 0, sep), <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>(subbuffer, sep + 1);
+<a name="l00156"></a>00156 
+<a name="l00157"></a>00157             rel.attr[key] = <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
+<a name="l00158"></a>00158         }
+<a name="l00159"></a>00159     }
+<a name="l00160"></a>00160 
+<a name="l00161"></a>00161     <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00162"></a>00162 }
+<a name="l00163"></a>00163 
+<a name="l00164"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#af4b30b886d3aee78bac50a74fb822189">00164</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#af4b30b886d3aee78bac50a74fb822189">SceneParser::LoadScene</a>(<span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; filepath)
+<a name="l00165"></a>00165 {
+<a name="l00166"></a>00166     ifstream file(filepath.c_str());
+<a name="l00167"></a>00167 
+<a name="l00168"></a>00168     <span class="keywordflow">if</span>(!file)
+<a name="l00169"></a>00169         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">tbe::Exception</a>(<span class="stringliteral">&quot;BLDLoader::LoadScene; Open file error (%s)&quot;</span>, filepath.c_str());
+<a name="l00170"></a>00170 
+<a name="l00171"></a>00171     m_fileName = filepath;
+<a name="l00172"></a>00172 
+<a name="l00173"></a>00173     <span class="keywordtype">string</span> <a class="code" href="_g_lee_8h.html#a733a5bdfdc9a28e222d32bfd45e724c5">buffer</a>;
+<a name="l00174"></a>00174     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> line = 0; <a class="code" href="namespacetbe_1_1tools.html#ac33bbed29d089e7aa68d7687cdaa066b">tools::getline</a>(file, buffer); line++)
+<a name="l00175"></a>00175     {
+<a name="l00176"></a>00176         <span class="keywordflow">if</span>(buffer.empty() || buffer[0] == <span class="charliteral">&#39;#&#39;</span>)
+<a name="l00177"></a>00177             <span class="keywordflow">continue</span>;
+<a name="l00178"></a>00178 
+<a name="l00179"></a>00179         <span class="keywordflow">if</span>(buffer == <span class="stringliteral">&quot;*map&quot;</span>)
+<a name="l00180"></a>00180         {
+<a name="l00181"></a>00181             <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html">Relation</a> rel;
+<a name="l00182"></a>00182             parseBlock(file, rel, line);
+<a name="l00183"></a>00183             <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a1eff4dea0eaf5283e6e606c616b9520a">ParseMap</a>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>);
+<a name="l00184"></a>00184         }
+<a name="l00185"></a>00185 
+<a name="l00186"></a>00186         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(buffer == <span class="stringliteral">&quot;*fog&quot;</span>)
+<a name="l00187"></a>00187         {
+<a name="l00188"></a>00188             <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html">Relation</a> rel;
+<a name="l00189"></a>00189             parseBlock(file, rel, line);
+<a name="l00190"></a>00190             <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a174213ed691f504f180de27de19c08cc">ParseFog</a>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>);
+<a name="l00191"></a>00191         }
+<a name="l00192"></a>00192 
+<a name="l00193"></a>00193         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(buffer == <span class="stringliteral">&quot;*skybox&quot;</span>)
+<a name="l00194"></a>00194         {
+<a name="l00195"></a>00195             <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html">Relation</a> rel;
+<a name="l00196"></a>00196             parseBlock(file, rel, line);
+<a name="l00197"></a>00197             <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a80fcbbb95721f2a382f8789d055c83f0">ParseSkyBox</a>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>);
+<a name="l00198"></a>00198         }
+<a name="l00199"></a>00199 
+<a name="l00200"></a>00200         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(buffer == <span class="stringliteral">&quot;+node&quot;</span>)
+<a name="l00201"></a>00201         {
+<a name="l00202"></a>00202             <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html">Relation</a> rel;
+<a name="l00203"></a>00203             parseBlock(file, rel, line);
+<a name="l00204"></a>00204             <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#ad237249376cddefd48ec51d9a6afa1c0">ParseNode</a>(rel);
+<a name="l00205"></a>00205         }
+<a name="l00206"></a>00206 
+<a name="l00207"></a>00207         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(buffer.substr(0, 8) == <span class="stringliteral">&quot;.include&quot;</span>)
+<a name="l00208"></a>00208         {
+<a name="l00209"></a>00209             <span class="keywordtype">string</span> modelFilepath(buffer, 9);
+<a name="l00210"></a>00210 
+<a name="l00211"></a>00211             <span class="keywordflow">if</span>(modelFilepath.find(<span class="charliteral">&#39;:&#39;</span>) == string::npos)
+<a name="l00212"></a>00212                 modelFilepath = <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, modelFilepath);
+<a name="l00213"></a>00213 
+<a name="l00214"></a>00214             <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#af4b30b886d3aee78bac50a74fb822189">LoadScene</a>(modelFilepath);
+<a name="l00215"></a>00215         }
+<a name="l00216"></a>00216 
+<a name="l00217"></a>00217         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(buffer.substr(0, 6) == <span class="stringliteral">&quot;/class&quot;</span>)
+<a name="l00218"></a>00218         {
+<a name="l00219"></a>00219             <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html">Relation</a> rel;
+<a name="l00220"></a>00220             parseBlock(file, rel, line);
+<a name="l00221"></a>00221 
+<a name="l00222"></a>00222             m_classRec[buffer.substr(7)] = rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#a1459bdc16a1299b2e3e650e44cf1bb33">child</a>;
+<a name="l00223"></a>00223         }
+<a name="l00224"></a>00224 
+<a name="l00225"></a>00225         <span class="keywordflow">else</span>
+<a name="l00226"></a>00226             <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">tbe::Exception</a>(<span class="stringliteral">&quot;SceneParser::LoadScene; Parse error %d (%s)&quot;</span>, line, buffer.c_str());
+<a name="l00227"></a>00227     }
+<a name="l00228"></a>00228 
+<a name="l00229"></a>00229     file.close();
+<a name="l00230"></a>00230 }
+<a name="l00231"></a>00231 
+<a name="l00232"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a1eff4dea0eaf5283e6e606c616b9520a">00232</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a1eff4dea0eaf5283e6e606c616b9520a">SceneParser::ParseMap</a>(<a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a9335de0df0cdd04a1380da2d810970e4">AttribMap</a>&amp; att)
+<a name="l00233"></a>00233 {
+<a name="l00234"></a>00234     m_mapName = att[<span class="stringliteral">&quot;name&quot;</span>];
+<a name="l00235"></a>00235     m_sceneManager-&gt;<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2daf30b0281dfa0f5312e4d50fbb0ab8" title="Specifer la composant ambient de la scene.">SetAmbientLight</a>(<a class="code" href="namespacetbe.html#a063f0b9b3c5aea235a66141844aa6988">vec34</a>(tools::StrToVec3&lt;float&gt;(att[<span class="stringliteral">&quot;ambient&quot;</span>], <span class="keyword">true</span>)));
+<a name="l00236"></a>00236 
+<a name="l00237"></a>00237     m_lightScene = <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_light_parallel_scene.html">LightParallelScene</a>;
+<a name="l00238"></a>00238     m_sceneManager-&gt;<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ab5272006a107a313930da72a1ce56c2c" title="Ajouter une sous-scene.">AddParallelScene</a>(m_lightScene);
+<a name="l00239"></a>00239 
+<a name="l00240"></a>00240     m_meshScene = <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>;
+<a name="l00241"></a>00241     m_sceneManager-&gt;<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ab5272006a107a313930da72a1ce56c2c" title="Ajouter une sous-scene.">AddParallelScene</a>(m_meshScene);
+<a name="l00242"></a>00242 
+<a name="l00243"></a>00243     m_particlesScene = <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html" title="Scene parallele de rendue des particules.">ParticlesParallelScene</a>;
+<a name="l00244"></a>00244     m_sceneManager-&gt;<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ab5272006a107a313930da72a1ce56c2c" title="Ajouter une sous-scene.">AddParallelScene</a>(m_particlesScene);
+<a name="l00245"></a>00245 }
+<a name="l00246"></a>00246 
+<a name="l00247"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a174213ed691f504f180de27de19c08cc">00247</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a174213ed691f504f180de27de19c08cc">SceneParser::ParseFog</a>(<a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a9335de0df0cdd04a1380da2d810970e4">AttribMap</a>&amp; att)
+<a name="l00248"></a>00248 {
+<a name="l00249"></a>00249     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a> = tools::StrToVec4&lt;float&gt;(att[<span class="stringliteral">&quot;color&quot;</span>], <span class="keyword">true</span>);
+<a name="l00250"></a>00250     <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a13be19455586e95d5a42ed8f054afad2">start</a> = tools::StrToNum&lt;float&gt;(att[<span class="stringliteral">&quot;start&quot;</span>]);
+<a name="l00251"></a>00251     <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a432111147038972f06e049e18a837002">end</a> = tools::StrToNum&lt;float&gt;(att[<span class="stringliteral">&quot;end&quot;</span>]);
+<a name="l00252"></a>00252 
+<a name="l00253"></a>00253     <a class="code" href="classtbe_1_1scene_1_1_fog.html" title="Gestion du brouiallrd.">scene::Fog</a>* fog = m_sceneManager-&gt;<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a927458f067e4e59868857ea25a2c74d3">GetFog</a>();
+<a name="l00254"></a>00254     fog-&gt;<a class="code" href="classtbe_1_1scene_1_1_fog.html#a85764044c6fdf866a83648a3988f4c1b">SetColor</a>(color);
+<a name="l00255"></a>00255     fog-&gt;SetStart(start);
+<a name="l00256"></a>00256     fog-&gt;SetEnd(end);
+<a name="l00257"></a>00257     fog-&gt;SetEnable(<span class="keyword">true</span>);
+<a name="l00258"></a>00258 }
+<a name="l00259"></a>00259 
+<a name="l00260"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a80fcbbb95721f2a382f8789d055c83f0">00260</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a80fcbbb95721f2a382f8789d055c83f0">SceneParser::ParseSkyBox</a>(<a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a9335de0df0cdd04a1380da2d810970e4">AttribMap</a>&amp; att)
+<a name="l00261"></a>00261 {
+<a name="l00262"></a>00262     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> skyTex[6] = {
+<a name="l00263"></a>00263         <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, att[<span class="stringliteral">&quot;front&quot;</span>]),
+<a name="l00264"></a>00264         <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, att[<span class="stringliteral">&quot;back&quot;</span>]),
+<a name="l00265"></a>00265         <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, att[<span class="stringliteral">&quot;top&quot;</span>]),
+<a name="l00266"></a>00266         <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, att[<span class="stringliteral">&quot;bottom&quot;</span>]),
+<a name="l00267"></a>00267         <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, att[<span class="stringliteral">&quot;left&quot;</span>]),
+<a name="l00268"></a>00268         <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, att[<span class="stringliteral">&quot;right&quot;</span>])
+<a name="l00269"></a>00269     };
+<a name="l00270"></a>00270 
+<a name="l00271"></a>00271     <a class="code" href="classtbe_1_1scene_1_1_sky_box.html" title="Class de représentation d&#39;un Skybox Ordre des texture : Devant, Derrier, Haut, Bas, Gauche, Droit.">scene::SkyBox</a>* sky = m_sceneManager-&gt;<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a9680857b8d680aa471fda4db23d285e6">GetSkybox</a>();
+<a name="l00272"></a>00272     sky-&gt;<a class="code" href="classtbe_1_1scene_1_1_sky_box.html#a17f4a2b1522cdbe5a236945b5edefccf" title="Tableaux de 6 texture pour l&#39;affichage.">SetTextures</a>(skyTex);
+<a name="l00273"></a>00273     sky-&gt;<a class="code" href="classtbe_1_1scene_1_1_sky_box.html#ac4997c1f653727130ba75a6644c4ed9c">SetEnable</a>(<span class="keyword">true</span>);
+<a name="l00274"></a>00274 }
+<a name="l00275"></a>00275 
+<a name="l00276"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#ad237249376cddefd48ec51d9a6afa1c0">00276</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#ad237249376cddefd48ec51d9a6afa1c0">SceneParser::ParseNode</a>(<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html">Relation</a>&amp; rel, <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* parent)
+<a name="l00277"></a>00277 {
+<a name="l00278"></a>00278     <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; nlass = rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;class&quot;</span>];
+<a name="l00279"></a>00279 
+<a name="l00280"></a>00280     <span class="keywordflow">if</span>(m_classRec.count(nlass))
+<a name="l00281"></a>00281     {
+<a name="l00282"></a>00282         <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>* node = m_classFactory ? m_classFactory-&gt;<a class="code" href="classtbe_1_1scene_1_1_class_factory.html#a5b974eae04e57dcaefe07429b065d8d0">Instance</a>(nlass, m_meshScene) : <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>(m_meshScene);
+<a name="l00283"></a>00283 
+<a name="l00284"></a>00284         <span class="keywordflow">if</span>(parent)
+<a name="l00285"></a>00285             parent-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#aaa0fc820f6d7aa9d752fef133e231de4">AddChild</a>(node);
+<a name="l00286"></a>00286         <span class="keywordflow">else</span>
+<a name="l00287"></a>00287             m_rootNode-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#aaa0fc820f6d7aa9d752fef133e231de4">AddChild</a>(node);
+<a name="l00288"></a>00288 
+<a name="l00289"></a>00289         <span class="keywordflow">if</span>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>.count(<span class="stringliteral">&quot;matrix&quot;</span>))
+<a name="l00290"></a>00290             node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#acef3c2d850c4850b03b6610a4862ee44" title="Matrice du noeud.">SetMatrix</a>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;matrix&quot;</span>]);
+<a name="l00291"></a>00291 
+<a name="l00292"></a>00292         <span class="keywordflow">if</span>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>.count(<span class="stringliteral">&quot;name&quot;</span>))
+<a name="l00293"></a>00293             node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a9b1802f40cf63be1cf5b919e7c2349d7" title="Identifiant du noeud.">SetName</a>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;name&quot;</span>]);
+<a name="l00294"></a>00294 
+<a name="l00295"></a>00295         <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_classRec[nlass].size(); i++)
+<a name="l00296"></a>00296             <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#ad237249376cddefd48ec51d9a6afa1c0">ParseNode</a>(m_classRec[nlass][i], node);
+<a name="l00297"></a>00297 
+<a name="l00298"></a>00298         <span class="keywordflow">return</span>;
+<a name="l00299"></a>00299     }
+<a name="l00300"></a>00300 
+<a name="l00301"></a>00301     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* current = NULL;
+<a name="l00302"></a>00302 
+<a name="l00303"></a>00303     <span class="keywordflow">if</span>(nlass == <span class="stringliteral">&quot;OBJMesh&quot;</span>)
+<a name="l00304"></a>00304     {
+<a name="l00305"></a>00305         <a class="code" href="classtbe_1_1scene_1_1_o_b_j_mesh.html" title="Loader de fichier Wavefront OBJ (.obj)">OBJMesh</a>* node = <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_o_b_j_mesh.html" title="Loader de fichier Wavefront OBJ (.obj)">OBJMesh</a>(m_meshScene);
+<a name="l00306"></a>00306 
+<a name="l00307"></a>00307         <span class="keywordtype">string</span> modelFilepath;
+<a name="l00308"></a>00308 
+<a name="l00309"></a>00309         <span class="keywordflow">if</span>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;filename&quot;</span>].find(<span class="charliteral">&#39;:&#39;</span>) != string::npos)
+<a name="l00310"></a>00310             modelFilepath = rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;filename&quot;</span>];
+<a name="l00311"></a>00311         <span class="keywordflow">else</span>
+<a name="l00312"></a>00312             modelFilepath = <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;filename&quot;</span>]);
+<a name="l00313"></a>00313 
+<a name="l00314"></a>00314         node-&gt;<a class="code" href="classtbe_1_1scene_1_1_o_b_j_mesh.html#aa84ac31a19095a0b7b08971386ec49d0">Open</a>(modelFilepath);
+<a name="l00315"></a>00315 
+<a name="l00316"></a>00316         current = node;
+<a name="l00317"></a>00317     }
+<a name="l00318"></a>00318 
+<a name="l00319"></a>00319     <span class="keywordflow">else</span> <span class="keywordflow">if</span>(nlass == <span class="stringliteral">&quot;ParticlesEmiter&quot;</span>)
+<a name="l00320"></a>00320     {
+<a name="l00321"></a>00321         <a class="code" href="classtbe_1_1scene_1_1_burning_emitter.html">BurningEmitter</a>* emiter = <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_burning_emitter.html">BurningEmitter</a>(m_particlesScene);
+<a name="l00322"></a>00322 
+<a name="l00323"></a>00323         <span class="keywordtype">string</span> modelFilepath;
+<a name="l00324"></a>00324 
+<a name="l00325"></a>00325         <span class="keywordflow">if</span>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;texture&quot;</span>].find(<span class="charliteral">&#39;:&#39;</span>) != string::npos)
+<a name="l00326"></a>00326             modelFilepath = rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;texture&quot;</span>];
+<a name="l00327"></a>00327         <span class="keywordflow">else</span>
+<a name="l00328"></a>00328             modelFilepath = <a class="code" href="namespacetbe_1_1tools.html#a8fc6ac85ffbb6f9541d1b6e5c687514e">tools::makeRelatifTo</a>(m_fileName, rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;texture&quot;</span>]);
+<a name="l00329"></a>00329 
+<a name="l00330"></a>00330         emiter-&gt;<a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a5dcda5245fb80f7c3b762988e5044f12">SetTexture</a>(modelFilepath);
+<a name="l00331"></a>00331 
+<a name="l00332"></a>00332         emiter-&gt;<a class="code" href="classtbe_1_1scene_1_1_burning_emitter.html#afd798b1b127c87ee23efc13e0964d1d1">SetLifeInit</a>(tools::StrToNum&lt;float&gt;(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;lifeInit&quot;</span>]));
+<a name="l00333"></a>00333         emiter-&gt;<a class="code" href="classtbe_1_1scene_1_1_burning_emitter.html#a0613a47c00c44270aafc753c88883fb5">SetLifeDown</a>(tools::StrToNum&lt;float&gt;(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;lifeDown&quot;</span>]));
+<a name="l00334"></a>00334 
+<a name="l00335"></a>00335         emiter-&gt;<a class="code" href="classtbe_1_1scene_1_1_burning_emitter.html#a235c2372e227d9bf05021ac7655999b4">SetGravity</a>(tools::StrToVec3&lt;float&gt;(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;gravity&quot;</span>], <span class="keyword">true</span>));
+<a name="l00336"></a>00336 
+<a name="l00337"></a>00337         emiter-&gt;<a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a99d1ec8e8877756235c503fb719f1f5e">SetNumber</a>(tools::StrToNum&lt;int&gt;(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;number&quot;</span>]));
+<a name="l00338"></a>00338 
+<a name="l00339"></a>00339         emiter-&gt;<a class="code" href="classtbe_1_1scene_1_1_burning_emitter.html#aeb58616faea912852a52c4ec9e03c088">SetFreeMove</a>(tools::StrToNum&lt;float&gt;(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;freeMove&quot;</span>]));
+<a name="l00340"></a>00340 
+<a name="l00341"></a>00341         emiter-&gt;<a class="code" href="classtbe_1_1scene_1_1_burning_emitter.html#a028c0ba7289fd622786aae18251c55fb">SetContinousMode</a>(tools::StrToNum&lt;bool&gt;(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;continousMode&quot;</span>]));
+<a name="l00342"></a>00342 
+<a name="l00343"></a>00343         emiter-&gt;<a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#afbe30105eadad2f84357c8c389a42020">Build</a>();
+<a name="l00344"></a>00344 
+<a name="l00345"></a>00345         current = emiter;
+<a name="l00346"></a>00346     }
+<a name="l00347"></a>00347 
+<a name="l00348"></a>00348     <span class="keywordflow">else</span> <span class="keywordflow">if</span>(nlass == <span class="stringliteral">&quot;Light&quot;</span>)
+<a name="l00349"></a>00349     {
+<a name="l00350"></a>00350         <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a>* light = NULL;
+<a name="l00351"></a>00351 
+<a name="l00352"></a>00352         <span class="keywordflow">if</span>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;Diri&quot;</span>)
+<a name="l00353"></a>00353         {
+<a name="l00354"></a>00354             light = <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_diri_light.html" title="Lumiere dirictionelle.">DiriLight</a>(m_lightScene);
+<a name="l00355"></a>00355         }
+<a name="l00356"></a>00356 
+<a name="l00357"></a>00357         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;type&quot;</span>] == <span class="stringliteral">&quot;Point&quot;</span>)
+<a name="l00358"></a>00358         {
+<a name="l00359"></a>00359             <span class="keywordtype">float</span> radius = tools::StrToNum&lt;float&gt;(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;radius&quot;</span>]);
+<a name="l00360"></a>00360 
+<a name="l00361"></a>00361             light = <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_point_light.html" title="Lumiere pointctuelle.">PointLight</a>(m_lightScene);
+<a name="l00362"></a>00362             light-&gt;SetRadius(radius);
+<a name="l00363"></a>00363         }
+<a name="l00364"></a>00364 
+<a name="l00365"></a>00365         <span class="keywordflow">else</span>
+<a name="l00366"></a>00366             <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">tbe::Exception</a>(<span class="stringliteral">&quot;SceneParser::ParseNode; Unknown light type (%s)&quot;</span>, rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;type&quot;</span>].c_str());
+<a name="l00367"></a>00367 
+<a name="l00368"></a>00368         light-&gt;<a class="code" href="classtbe_1_1scene_1_1_light.html#ab92bf81b0af8ce2cacada963146b0f37">SetAmbient</a>(tools::StrToVec4&lt;float&gt;(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;ambient&quot;</span>], <span class="keyword">true</span>));
+<a name="l00369"></a>00369         light-&gt;<a class="code" href="classtbe_1_1scene_1_1_light.html#ab20605376bcfe29f051ec413ee048c00">SetDiffuse</a>(tools::StrToVec4&lt;float&gt;(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;diffuse&quot;</span>], <span class="keyword">true</span>));
+<a name="l00370"></a>00370         light-&gt;<a class="code" href="classtbe_1_1scene_1_1_light.html#a74b7f3232766c0d28b4e970ddd4bc253">SetSpecular</a>(tools::StrToVec4&lt;float&gt;(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;specular&quot;</span>], <span class="keyword">true</span>));
+<a name="l00371"></a>00371 
+<a name="l00372"></a>00372         current = light;
+<a name="l00373"></a>00373     }
+<a name="l00374"></a>00374 
+<a name="l00375"></a>00375     <span class="keywordflow">else</span>
+<a name="l00376"></a>00376     {
+<a name="l00377"></a>00377         <a class="code" href="classtbe_1_1scene_1_1_bull_node.html">BullNode</a>* node = <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_bull_node.html">BullNode</a>;
+<a name="l00378"></a>00378 
+<a name="l00379"></a>00379         current = node;
+<a name="l00380"></a>00380     }
+<a name="l00381"></a>00381 
+<a name="l00382"></a>00382     <span class="keywordflow">if</span>(parent)
+<a name="l00383"></a>00383         parent-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#aaa0fc820f6d7aa9d752fef133e231de4">AddChild</a>(current);
+<a name="l00384"></a>00384     <span class="keywordflow">else</span>
+<a name="l00385"></a>00385         m_rootNode-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#aaa0fc820f6d7aa9d752fef133e231de4">AddChild</a>(current);
+<a name="l00386"></a>00386 
+<a name="l00387"></a>00387     <span class="keywordflow">if</span>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>.count(<span class="stringliteral">&quot;name&quot;</span>))
+<a name="l00388"></a>00388         current-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a9b1802f40cf63be1cf5b919e7c2349d7" title="Identifiant du noeud.">SetName</a>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;name&quot;</span>]);
+<a name="l00389"></a>00389 
+<a name="l00390"></a>00390     <span class="keywordflow">if</span>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>.count(<span class="stringliteral">&quot;matrix&quot;</span>))
+<a name="l00391"></a>00391         current-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#acef3c2d850c4850b03b6610a4862ee44" title="Matrice du noeud.">SetMatrix</a>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>[<span class="stringliteral">&quot;matrix&quot;</span>]);
+<a name="l00392"></a>00392 
+<a name="l00393"></a>00393     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#a1459bdc16a1299b2e3e650e44cf1bb33">child</a>.size(); i++)
+<a name="l00394"></a>00394         <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#ad237249376cddefd48ec51d9a6afa1c0">ParseNode</a>(rel.<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#a1459bdc16a1299b2e3e650e44cf1bb33">child</a>[i], current);
+<a name="l00395"></a>00395 }
+<a name="l00396"></a>00396 
+<a name="l00397"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a465e986a0e4984d709ce09c9842c5e6d">00397</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a465e986a0e4984d709ce09c9842c5e6d">SceneParser::SetClassFactory</a>(<a class="code" href="classtbe_1_1scene_1_1_class_factory.html">ClassFactory</a>* classFactory)
+<a name="l00398"></a>00398 {
+<a name="l00399"></a>00399     this-&gt;m_classFactory = classFactory;
+<a name="l00400"></a>00400 }
+<a name="l00401"></a>00401 
+<a name="l00402"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a94842cc4a143424259180540c0caa696">00402</a> <a class="code" href="classtbe_1_1scene_1_1_class_factory.html">ClassFactory</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a94842cc4a143424259180540c0caa696">SceneParser::GetClassFactory</a>()<span class="keyword"> const</span>
+<a name="l00403"></a>00403 <span class="keyword"></span>{
+<a name="l00404"></a>00404     <span class="keywordflow">return</span> m_classFactory;
+<a name="l00405"></a>00405 }
+<a name="l00406"></a>00406 
+<a name="l00407"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a18174c695613c7fc76f7ecb89d1e4d48">00407</a> <a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html" title="Scene parallele de rendue des particules.">ParticlesParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a18174c695613c7fc76f7ecb89d1e4d48">SceneParser::GetParticlesScene</a>()<span class="keyword"> const</span>
+<a name="l00408"></a>00408 <span class="keyword"></span>{
+<a name="l00409"></a>00409     <span class="keywordflow">return</span> m_particlesScene;
+<a name="l00410"></a>00410 }
+<a name="l00411"></a>00411 
+<a name="l00412"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#afc6645bb739ad0d3210fbf4ac1132fe2">00412</a> <a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#afc6645bb739ad0d3210fbf4ac1132fe2">SceneParser::GetMeshScene</a>()<span class="keyword"> const</span>
+<a name="l00413"></a>00413 <span class="keyword"></span>{
+<a name="l00414"></a>00414     <span class="keywordflow">return</span> m_meshScene;
+<a name="l00415"></a>00415 }
+<a name="l00416"></a>00416 
+<a name="l00417"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a991449b9f476c026dec94eb853eb223e">00417</a> <a class="code" href="classtbe_1_1scene_1_1_water_parallel_scene.html" title="Scene parallel pour la gestion des plans d&#39;eau.">WaterParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a991449b9f476c026dec94eb853eb223e">SceneParser::GetWaterScene</a>()<span class="keyword"> const</span>
+<a name="l00418"></a>00418 <span class="keyword"></span>{
+<a name="l00419"></a>00419     <span class="keywordflow">return</span> m_waterScene;
+<a name="l00420"></a>00420 }
+<a name="l00421"></a>00421 
+<a name="l00422"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a4a78242f50f4093f1ce0e033622791f0">00422</a> <a class="code" href="classtbe_1_1scene_1_1_light_parallel_scene.html">LightParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a4a78242f50f4093f1ce0e033622791f0">SceneParser::GetLightScene</a>()<span class="keyword"> const</span>
+<a name="l00423"></a>00423 <span class="keyword"></span>{
+<a name="l00424"></a>00424     <span class="keywordflow">return</span> m_lightScene;
+<a name="l00425"></a>00425 }
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

@@ -1,0 +1,900 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine: Référence de la classe tbe::Texture</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Liste&#160;des&#160;classes</span></a></li>
+      <li><a href="hierarchy.html"><span>Hiérarchie&#160;des&#160;classes</span></a></li>
+      <li><a href="functions.html"><span>Membres&#160;de&#160;classe</span></a></li>
+    </ul>
+  </div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacetbe.html">tbe</a>      </li>
+      <li class="navelem"><a class="el" href="classtbe_1_1_texture.html">Texture</a>      </li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Types publics</a> &#124;
+<a href="#pub-methods">Fonctions membres publiques</a> &#124;
+<a href="#pub-static-methods">Fonctions membres publiques statiques</a> &#124;
+<a href="#pro-attribs">Attributs protégés</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence de la classe tbe::Texture</div>  </div>
+</div>
+<div class="contents">
+<!-- doxytag: class="tbe::Texture" -->
+<p>Class de manipulation des texture utilise DevIL.  
+ <a href="classtbe_1_1_texture.html#details">Plus de détails...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_texture_8h_source.html">Texture.h</a>&gt;</code></p>
+
+<p><a href="classtbe_1_1_texture-members.html">Liste de tous les membres</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-types"></a>
+Types publics</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7">Filtring</a> { <a class="el" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7a66d5ae2d2ba0427d26e2e548447e1a04">NEAREST</a>, 
+<a class="el" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7aac2d126e127815ed80274189eb435c83">LINEAR</a>, 
+<a class="el" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7a87b6eff44c6540a50ef0e7ce02e6b362">MIPMAP</a>
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; unsigned, <br class="typebreak"/>
+<a class="el" href="classtbe_1_1_texture.html">Texture</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a923039f7548562f78526e4b201f4495b">Map</a></td></tr>
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Fonctions membres publiques</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a6c275e3f186675ff6ed73ccf970e552f">Texture</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#abdf82a7e3262db9452fb0fd994d01c69">Texture</a> (const <a class="el" href="classtbe_1_1_texture.html">Texture</a> &amp;copy)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#ae12e9a9a1bda07417f67ceb425e40004">Texture</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filename, bool genMipMap=false, bool upperLeftOrigin=true)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#ac2854f5a032334603e1d43643c06bda3">Texture</a> (const char *filename, bool genMipMap=false, bool upperLeftOrigin=true)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a09c4bcb7462f64c1d20fa69dba3cee8a">~Texture</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a9fa82e5129bd1f4b5d029dcc90da7eea">Build</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>, <a class="el" href="classtbe_1_1_vector4.html">Vector4i</a> <a class="el" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>=0, GLint <a class="el" href="_g_lee_8h.html#adfa3e9c3e9fe1bf0a67a9e77a0bac5d8">internalFormat</a>=4, GLenum <a class="el" href="_g_lee_8h.html#a86f086d889f7cdb4d6461497ae891265">format</a>=GL_RGBA)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit un texture avec la valuer et la taille spécifier.  <a href="#a9fa82e5129bd1f4b5d029dcc90da7eea"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#af643c32f721bb02a697f015e42f4f5d2">Load</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filename, bool genMipMap=false, bool upperLeftOrigin=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Chargement depuis un fichier.  <a href="#af643c32f721bb02a697f015e42f4f5d2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a4fd2e83f7c9635b711868af9e5505eba">operator()</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filename, bool genMipMap=false, bool upperLeftOrigin=true)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a4e4682616b6a5f038b79cbbca97fb6ee">operator=</a> (const <a class="el" href="classtbe_1_1_texture.html">Texture</a> &amp;copy)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Operateur d'assignement pour chemin de fichier.  <a href="#a4e4682616b6a5f038b79cbbca97fb6ee"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a40b2d04c1a4967713a1d38a8f1eba3f0">operator=</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a3dc3417781195087e665ad864ac20b8b">operator=</a> (const char *<a class="el" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#af51dd436092b7db95609d2f5e59af4c1">operator!</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Verification de statue.  <a href="#af51dd436092b7db95609d2f5e59af4c1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#aa6db7ff19a67e2582496017828f6e73f">operator bool</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a4d10a199d301cb99b91e1bcec175abd5">SetTextureName</a> (GLuint textureName)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Récuperation d'identifiant.  <a href="#a4d10a199d301cb99b91e1bcec175abd5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#aeba3bdef5062577711d39043d2a20e1a">GetTextureName</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a072543115162852263c73c2462cd895d">operator GLuint</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a307e04b72938f48b6e1ebadf6ec22f3c">SetSize</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille de la texture.  <a href="#a307e04b72938f48b6e1ebadf6ec22f3c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#aa0a732f9ca7fd258e7b7151e5440fac2">GetSize</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#aeaef6bc03e7f5f656dad70f54c75e08a">Use</a> (bool state=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Utilisation de la texture.  <a href="#aeaef6bc03e7f5f656dad70f54c75e08a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a9262c7fa9242a06ad4900d93d186a941">Release</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a653216bcd1509432e28502d9fc7826ce">Delete</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#aef86bf3355f6f72920dc73876bd0be05">Fill</a> (<a class="el" href="classtbe_1_1_vector4.html">Vector4i</a> <a class="el" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplis la texture par la valeur color [0;255].  <a href="#aef86bf3355f6f72920dc73876bd0be05"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a4ec705c4054c1022cdc093233f73cd2a">SetFiltring</a> (unsigned filtring)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Spécifier le filtring appliquer a la texture.  <a href="#a4ec705c4054c1022cdc093233f73cd2a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a0a1cd322e93c4a2c32d2611f0b88df4e">GetFiltring</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#acd25926064a6473c3848506a9279d736">IsUpperLeftOrigin</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a242710eaedb5a39aef5c94a980e8e9c0">IsGenMipMap</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a9101f850e25f1aadd5679fc926554422">GetFilename</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois le chemin d'accée a la texture par un fichier.  <a href="#a9101f850e25f1aadd5679fc926554422"></a><br/></td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-methods"></a>
+Fonctions membres publiques statiques</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#af0313fe06f0d4adaeccefce1d92ceb78">ResetCache</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pro-attribs"></a>
+Attributs protégés</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a0def637a391dd58b4179e683f297a06c">m_filename</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a4936831339dbecb770e6783424f63ee3">m_textureName</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#ad019788605f7132e03f42f1a52361fd8">m_size</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a78f1f68695064609575484cbf33b000e">m_filtring</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#a898066bece88b5afa8a427ea1d00ce87">m_genMipMap</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_texture.html#aeff5e0bb527e56700c4af1526d32d495">m_upperLeftOrigin</a></td></tr>
+</table>
+<hr/><a name="details" id="details"></a><h2>Description détaillée</h2>
+<div class="textblock"><p>Class de manipulation des texture utilise DevIL. </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8h_source.html#l00016">16</a> du fichier <a class="el" href="_texture_8h_source.html">Texture.h</a>.</p>
+</div><hr/><h2>Documentation des définitions de type membres</h2>
+<a class="anchor" id="a923039f7548562f78526e4b201f4495b"></a><!-- doxytag: member="tbe::Texture::Map" ref="a923039f7548562f78526e4b201f4495b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;unsigned, <a class="el" href="classtbe_1_1_texture.html">Texture</a>&gt; <a class="el" href="classtbe_1_1_texture.html#a923039f7548562f78526e4b201f4495b">tbe::Texture::Map</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8h_source.html#l00102">102</a> du fichier <a class="el" href="_texture_8h_source.html">Texture.h</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des énumérations membres</h2>
+<a class="anchor" id="af41bb38dcfda79f540ea454e793736d7"></a><!-- doxytag: member="tbe::Texture::Filtring" ref="af41bb38dcfda79f540ea454e793736d7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7">tbe::Texture::Filtring</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl><dt><b>Valeurs énumérées: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="af41bb38dcfda79f540ea454e793736d7a66d5ae2d2ba0427d26e2e548447e1a04"></a><!-- doxytag: member="NEAREST" ref="af41bb38dcfda79f540ea454e793736d7a66d5ae2d2ba0427d26e2e548447e1a04" args="" -->NEAREST</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="af41bb38dcfda79f540ea454e793736d7aac2d126e127815ed80274189eb435c83"></a><!-- doxytag: member="LINEAR" ref="af41bb38dcfda79f540ea454e793736d7aac2d126e127815ed80274189eb435c83" args="" -->LINEAR</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="af41bb38dcfda79f540ea454e793736d7a87b6eff44c6540a50ef0e7ce02e6b362"></a><!-- doxytag: member="MIPMAP" ref="af41bb38dcfda79f540ea454e793736d7a87b6eff44c6540a50ef0e7ce02e6b362" args="" -->MIPMAP</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+<p>Définition à la ligne <a class="el" href="_texture_8h_source.html#l00093">93</a> du fichier <a class="el" href="_texture_8h_source.html">Texture.h</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des constructeurs et destructeur</h2>
+<a class="anchor" id="a6c275e3f186675ff6ed73ccf970e552f"></a><!-- doxytag: member="tbe::Texture::Texture" ref="a6c275e3f186675ff6ed73ccf970e552f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Texture::Texture </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00055">55</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abdf82a7e3262db9452fb0fd994d01c69"></a><!-- doxytag: member="tbe::Texture::Texture" ref="abdf82a7e3262db9452fb0fd994d01c69" args="(const Texture &amp;copy)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Texture::Texture </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1_texture.html">Texture</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00063">63</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae12e9a9a1bda07417f67ceb425e40004"></a><!-- doxytag: member="tbe::Texture::Texture" ref="ae12e9a9a1bda07417f67ceb425e40004" args="(std::string filename, bool genMipMap=false, bool upperLeftOrigin=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Texture::Texture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>genMipMap</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>upperLeftOrigin</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00068">68</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac2854f5a032334603e1d43643c06bda3"></a><!-- doxytag: member="tbe::Texture::Texture" ref="ac2854f5a032334603e1d43643c06bda3" args="(const char *filename, bool genMipMap=false, bool upperLeftOrigin=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Texture::Texture </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>genMipMap</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>upperLeftOrigin</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00073">73</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a09c4bcb7462f64c1d20fa69dba3cee8a"></a><!-- doxytag: member="tbe::Texture::~Texture" ref="a09c4bcb7462f64c1d20fa69dba3cee8a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Texture::~Texture </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00078">78</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des fonctions membres</h2>
+<a class="anchor" id="a9fa82e5129bd1f4b5d029dcc90da7eea"></a><!-- doxytag: member="tbe::Texture::Build" ref="a9fa82e5129bd1f4b5d029dcc90da7eea" args="(Vector2i size, Vector4i color=0, GLint internalFormat=4, GLenum format=GL_RGBA)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::Build </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector4.html">Vector4i</a>&#160;</td>
+          <td class="paramname"><em>color</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLint&#160;</td>
+          <td class="paramname"><em>internalFormat</em> = <code>4</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>format</em> = <code>GL_RGBA</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Construit un texture avec la valuer et la taille spécifier. </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00234">234</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a653216bcd1509432e28502d9fc7826ce"></a><!-- doxytag: member="tbe::Texture::Delete" ref="a653216bcd1509432e28502d9fc7826ce" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::Delete </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Supprime la texture directement note : utiliser <a class="el" href="classtbe_1_1_texture.html#a9262c7fa9242a06ad4900d93d186a941">Release()</a> ai lieu </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00083">83</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aef86bf3355f6f72920dc73876bd0be05"></a><!-- doxytag: member="tbe::Texture::Fill" ref="aef86bf3355f6f72920dc73876bd0be05" args="(Vector4i color)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::Fill </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector4.html">Vector4i</a>&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Remplis la texture par la valeur color [0;255]. </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00214">214</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9101f850e25f1aadd5679fc926554422"></a><!-- doxytag: member="tbe::Texture::GetFilename" ref="a9101f850e25f1aadd5679fc926554422" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Texture::GetFilename </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Renvois le chemin d'accée a la texture par un fichier. </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00348">348</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0a1cd322e93c4a2c32d2611f0b88df4e"></a><!-- doxytag: member="tbe::Texture::GetFiltring" ref="a0a1cd322e93c4a2c32d2611f0b88df4e" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned Texture::GetFiltring </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00333">333</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa0a732f9ca7fd258e7b7151e5440fac2"></a><!-- doxytag: member="tbe::Texture::GetSize" ref="aa0a732f9ca7fd258e7b7151e5440fac2" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> Texture::GetSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00287">287</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeba3bdef5062577711d39043d2a20e1a"></a><!-- doxytag: member="tbe::Texture::GetTextureName" ref="aeba3bdef5062577711d39043d2a20e1a" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint Texture::GetTextureName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00297">297</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a242710eaedb5a39aef5c94a980e8e9c0"></a><!-- doxytag: member="tbe::Texture::IsGenMipMap" ref="a242710eaedb5a39aef5c94a980e8e9c0" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Texture::IsGenMipMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Renvois true si les couches du mipmap ont été générer durant le chargement de l texture </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00343">343</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acd25926064a6473c3848506a9279d736"></a><!-- doxytag: member="tbe::Texture::IsUpperLeftOrigin" ref="acd25926064a6473c3848506a9279d736" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Texture::IsUpperLeftOrigin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Renvois true si la texture a été position de facon a ce que les coordonnés 0,0 font référence au coin superieur a gauche de la texture </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00338">338</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af643c32f721bb02a697f015e42f4f5d2"></a><!-- doxytag: member="tbe::Texture::Load" ref="af643c32f721bb02a697f015e42f4f5d2" args="(std::string filename, bool genMipMap=false, bool upperLeftOrigin=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::Load </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>genMipMap</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>upperLeftOrigin</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Chargement depuis un fichier. </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00131">131</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa6db7ff19a67e2582496017828f6e73f"></a><!-- doxytag: member="tbe::Texture::operator bool" ref="aa6db7ff19a67e2582496017828f6e73f" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Texture::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00358">358</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a072543115162852263c73c2462cd895d"></a><!-- doxytag: member="tbe::Texture::operator GLuint" ref="a072543115162852263c73c2462cd895d" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Texture::operator GLuint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00363">363</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af51dd436092b7db95609d2f5e59af4c1"></a><!-- doxytag: member="tbe::Texture::operator!" ref="af51dd436092b7db95609d2f5e59af4c1" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Texture::operator! </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Verification de statue. </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00353">353</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4fd2e83f7c9635b711868af9e5505eba"></a><!-- doxytag: member="tbe::Texture::operator()" ref="a4fd2e83f7c9635b711868af9e5505eba" args="(std::string filename, bool genMipMap=false, bool upperLeftOrigin=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tbe::Texture::operator() </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>genMipMap</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>upperLeftOrigin</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8h_source.html#l00032">32</a> du fichier <a class="el" href="_texture_8h_source.html">Texture.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4e4682616b6a5f038b79cbbca97fb6ee"></a><!-- doxytag: member="tbe::Texture::operator=" ref="a4e4682616b6a5f038b79cbbca97fb6ee" args="(const Texture &amp;copy)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_texture.html">Texture</a> &amp; Texture::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1_texture.html">Texture</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Operateur d'assignement pour chemin de fichier. </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00103">103</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a40b2d04c1a4967713a1d38a8f1eba3f0"></a><!-- doxytag: member="tbe::Texture::operator=" ref="a40b2d04c1a4967713a1d38a8f1eba3f0" args="(std::string texture)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_texture.html">Texture</a> &amp; Texture::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>texture</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00124">124</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3dc3417781195087e665ad864ac20b8b"></a><!-- doxytag: member="tbe::Texture::operator=" ref="a3dc3417781195087e665ad864ac20b8b" args="(const char *texture)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_texture.html">Texture</a> &amp; Texture::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>texture</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00117">117</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9262c7fa9242a06ad4900d93d186a941"></a><!-- doxytag: member="tbe::Texture::Release" ref="a9262c7fa9242a06ad4900d93d186a941" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::Release </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Supprime la texture si pas d'instance utiliser note : plus sure que <a class="el" href="classtbe_1_1_texture.html#a653216bcd1509432e28502d9fc7826ce">Delete()</a> </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00092">92</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af0313fe06f0d4adaeccefce1d92ceb78"></a><!-- doxytag: member="tbe::Texture::ResetCache" ref="af0313fe06f0d4adaeccefce1d92ceb78" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::ResetCache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00050">50</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4ec705c4054c1022cdc093233f73cd2a"></a><!-- doxytag: member="tbe::Texture::SetFiltring" ref="a4ec705c4054c1022cdc093233f73cd2a" args="(unsigned filtring)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::SetFiltring </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>filtring</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Spécifier le filtring appliquer a la texture. </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00302">302</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a307e04b72938f48b6e1ebadf6ec22f3c"></a><!-- doxytag: member="tbe::Texture::SetSize" ref="a307e04b72938f48b6e1ebadf6ec22f3c" args="(Vector2i size)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::SetSize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Taille de la texture. </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00282">282</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4d10a199d301cb99b91e1bcec175abd5"></a><!-- doxytag: member="tbe::Texture::SetTextureName" ref="a4d10a199d301cb99b91e1bcec175abd5" args="(GLuint textureName)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::SetTextureName </td>
+          <td>(</td>
+          <td class="paramtype">GLuint&#160;</td>
+          <td class="paramname"><em>textureName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Récuperation d'identifiant. </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00292">292</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeaef6bc03e7f5f656dad70f54c75e08a"></a><!-- doxytag: member="tbe::Texture::Use" ref="aeaef6bc03e7f5f656dad70f54c75e08a" args="(bool state=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::Use </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>state</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Utilisation de la texture. </p>
+
+<p>Définition à la ligne <a class="el" href="_texture_8cpp_source.html#l00265">265</a> du fichier <a class="el" href="_texture_8cpp_source.html">Texture.cpp</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des données membres</h2>
+<a class="anchor" id="a0def637a391dd58b4179e683f297a06c"></a><!-- doxytag: member="tbe::Texture::m_filename" ref="a0def637a391dd58b4179e683f297a06c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="classtbe_1_1_texture.html#a0def637a391dd58b4179e683f297a06c">tbe::Texture::m_filename</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8h_source.html#l00105">105</a> du fichier <a class="el" href="_texture_8h_source.html">Texture.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a78f1f68695064609575484cbf33b000e"></a><!-- doxytag: member="tbe::Texture::m_filtring" ref="a78f1f68695064609575484cbf33b000e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned <a class="el" href="classtbe_1_1_texture.html#a78f1f68695064609575484cbf33b000e">tbe::Texture::m_filtring</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8h_source.html#l00108">108</a> du fichier <a class="el" href="_texture_8h_source.html">Texture.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a898066bece88b5afa8a427ea1d00ce87"></a><!-- doxytag: member="tbe::Texture::m_genMipMap" ref="a898066bece88b5afa8a427ea1d00ce87" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classtbe_1_1_texture.html#a898066bece88b5afa8a427ea1d00ce87">tbe::Texture::m_genMipMap</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8h_source.html#l00109">109</a> du fichier <a class="el" href="_texture_8h_source.html">Texture.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad019788605f7132e03f42f1a52361fd8"></a><!-- doxytag: member="tbe::Texture::m_size" ref="ad019788605f7132e03f42f1a52361fd8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="el" href="classtbe_1_1_texture.html#ad019788605f7132e03f42f1a52361fd8">tbe::Texture::m_size</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8h_source.html#l00107">107</a> du fichier <a class="el" href="_texture_8h_source.html">Texture.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4936831339dbecb770e6783424f63ee3"></a><!-- doxytag: member="tbe::Texture::m_textureName" ref="a4936831339dbecb770e6783424f63ee3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint <a class="el" href="classtbe_1_1_texture.html#a4936831339dbecb770e6783424f63ee3">tbe::Texture::m_textureName</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8h_source.html#l00106">106</a> du fichier <a class="el" href="_texture_8h_source.html">Texture.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeff5e0bb527e56700c4af1526d32d495"></a><!-- doxytag: member="tbe::Texture::m_upperLeftOrigin" ref="aeff5e0bb527e56700c4af1526d32d495" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classtbe_1_1_texture.html#aeff5e0bb527e56700c4af1526d32d495">tbe::Texture::m_upperLeftOrigin</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_texture_8h_source.html#l00110">110</a> du fichier <a class="el" href="_texture_8h_source.html">Texture.h</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir des fichiers suivants :<ul>
+<li>D:/projets/cpp/tbengine/sources/<a class="el" href="_texture_8h_source.html">Texture.h</a></li>
+<li>D:/projets/cpp/tbengine/sources/<a class="el" href="_texture_8cpp_source.html">Texture.cpp</a></li>
+</ul>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:03 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

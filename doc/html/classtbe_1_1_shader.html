@@ -1,0 +1,669 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine: Référence de la classe tbe::Shader</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Liste&#160;des&#160;classes</span></a></li>
+      <li><a href="hierarchy.html"><span>Hiérarchie&#160;des&#160;classes</span></a></li>
+      <li><a href="functions.html"><span>Membres&#160;de&#160;classe</span></a></li>
+    </ul>
+  </div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacetbe.html">tbe</a>      </li>
+      <li class="navelem"><a class="el" href="classtbe_1_1_shader.html">Shader</a>      </li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Fonctions membres publiques</a> &#124;
+<a href="#pub-static-methods">Fonctions membres publiques statiques</a> &#124;
+<a href="#pro-attribs">Attributs protégés</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence de la classe tbe::Shader</div>  </div>
+</div>
+<div class="contents">
+<!-- doxytag: class="tbe::Shader" -->
+<p>Class d'utilisation des shader GLSL.  
+ <a href="classtbe_1_1_shader.html#details">Plus de détails...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_shader_8h_source.html">Shader.h</a>&gt;</code></p>
+
+<p><a href="classtbe_1_1_shader-members.html">Liste de tous les membres</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Fonctions membres publiques</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a0d654ebaca4e0555197c0724c6d30610">Shader</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a055d46d84b983cd53162a07a1878a5cf">Shader</a> (const <a class="el" href="classtbe_1_1_shader.html">Shader</a> &amp;copy)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#aff01df87e8a102f270b5b135a295e59d">~Shader</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_shader.html">Shader</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#aa063c2927dcec3561f0a4598263daba5">operator=</a> (const <a class="el" href="classtbe_1_1_shader.html">Shader</a> &amp;copy)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a8cd54dfd3e45e419d6929cd032de5231">ParseFragmentShader</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> content)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Chargement d'un FragmentShader depuis content.  <a href="#a8cd54dfd3e45e419d6929cd032de5231"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a5080011ecc331fb691b30b964f323bb2">ParseVertexShader</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> content)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Chargement d'un VertexShader depuis content.  <a href="#a5080011ecc331fb691b30b964f323bb2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a49bfbd4136b5bf69120697cf534357f8">LoadFragmentShader</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filepath)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Chargement d'un FragmentShader depuis un fichier.  <a href="#a49bfbd4136b5bf69120697cf534357f8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a08ebaf5e1e61f99dd550976aac8a36f1">LoadVertexShader</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filepath)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Chargement d'un VertexShader depuis un fichier.  <a href="#a08ebaf5e1e61f99dd550976aac8a36f1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#ae645a335aa70fcefdb39debb27af8ade">LoadProgram</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Chargement du program.  <a href="#ae645a335aa70fcefdb39debb27af8ade"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a967abc428bc5980a2ff93f0fe2e1434b">Use</a> (bool use=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Utilisation du program.  <a href="#a967abc428bc5980a2ff93f0fe2e1434b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#acef8473ef7b3f07b5c90c354fd33e41e">SetUniform</a> (const char *<a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, int <a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmet une variable au shader.  <a href="#acef8473ef7b3f07b5c90c354fd33e41e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a473beccc33d7901ca25ec34a6801a1df">SetUniform</a> (const char *<a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, float <a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#ae9642c0fdbada764152e522bf2794495">SetUniform</a> (const char *<a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a5c174b3d133979af750d5afcd6ed3852">SetUniform</a> (const char *<a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="el" href="classtbe_1_1_vector3.html">Vector3i</a> <a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#ab6564ad5191a95646977e41c1b2b2f7b">SetUniform</a> (const char *<a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a329c1577bb3bacd5dc5662c63fd74b88">SetUniform</a> (const char *<a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="el" href="classtbe_1_1_vector4.html">Vector4i</a> <a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#ad6600235ad2a06e5b606ab5b9485698b">SetUniform</a> (const char *<a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a98db7bc5d836a219400d372674b1d653">SetUniform</a> (const char *<a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a4cc931c5d1503fd8563f8382151978e2">operator bool</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#ae5cc226fa12f658f31aec3fa7069735f">operator!</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a0f7187701e28e7e6fa96c0df650077ad">operator GLuint</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-methods"></a>
+Fonctions membres publiques statiques</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#ae37a5adf0e941b9092550bd35bb19bba">CheckHardware</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pro-attribs"></a>
+Attributs protégés</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a4cd843020b8c03be54048538524169ba">m_program</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#aef04fc23151c168dec34d104d6c1e2cc">m_frag_shader</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_shader.html#a2d66b72e432f0a9957d36430a5ed2417">m_vert_shader</a></td></tr>
+</table>
+<hr/><a name="details" id="details"></a><h2>Description détaillée</h2>
+<div class="textblock"><p>Class d'utilisation des shader GLSL. </p>
+
+<p>Définition à la ligne <a class="el" href="_shader_8h_source.html#l00014">14</a> du fichier <a class="el" href="_shader_8h_source.html">Shader.h</a>.</p>
+</div><hr/><h2>Documentation des constructeurs et destructeur</h2>
+<a class="anchor" id="a0d654ebaca4e0555197c0724c6d30610"></a><!-- doxytag: member="tbe::Shader::Shader" ref="a0d654ebaca4e0555197c0724c6d30610" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Shader::Shader </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00027">27</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a055d46d84b983cd53162a07a1878a5cf"></a><!-- doxytag: member="tbe::Shader::Shader" ref="a055d46d84b983cd53162a07a1878a5cf" args="(const Shader &amp;copy)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Shader::Shader </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1_shader.html">Shader</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00034">34</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aff01df87e8a102f270b5b135a295e59d"></a><!-- doxytag: member="tbe::Shader::~Shader" ref="aff01df87e8a102f270b5b135a295e59d" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Shader::~Shader </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00043">43</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des fonctions membres</h2>
+<a class="anchor" id="ae37a5adf0e941b9092550bd35bb19bba"></a><!-- doxytag: member="tbe::Shader::CheckHardware" ref="ae37a5adf0e941b9092550bd35bb19bba" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Shader::CheckHardware </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00275">275</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a49bfbd4136b5bf69120697cf534357f8"></a><!-- doxytag: member="tbe::Shader::LoadFragmentShader" ref="a49bfbd4136b5bf69120697cf534357f8" args="(std::string filepath)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::LoadFragmentShader </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>filepath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Chargement d'un FragmentShader depuis un fichier. </p>
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00119">119</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae645a335aa70fcefdb39debb27af8ade"></a><!-- doxytag: member="tbe::Shader::LoadProgram" ref="ae645a335aa70fcefdb39debb27af8ade" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::LoadProgram </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Chargement du program. </p>
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00141">141</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a08ebaf5e1e61f99dd550976aac8a36f1"></a><!-- doxytag: member="tbe::Shader::LoadVertexShader" ref="a08ebaf5e1e61f99dd550976aac8a36f1" args="(std::string filepath)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::LoadVertexShader </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>filepath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Chargement d'un VertexShader depuis un fichier. </p>
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00102">102</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4cc931c5d1503fd8563f8382151978e2"></a><!-- doxytag: member="tbe::Shader::operator bool" ref="a4cc931c5d1503fd8563f8382151978e2" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tbe::Shader::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8h_source.html#l00052">52</a> du fichier <a class="el" href="_shader_8h_source.html">Shader.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0f7187701e28e7e6fa96c0df650077ad"></a><!-- doxytag: member="tbe::Shader::operator GLuint" ref="a0f7187701e28e7e6fa96c0df650077ad" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tbe::Shader::operator GLuint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8h_source.html#l00062">62</a> du fichier <a class="el" href="_shader_8h_source.html">Shader.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae5cc226fa12f658f31aec3fa7069735f"></a><!-- doxytag: member="tbe::Shader::operator!" ref="ae5cc226fa12f658f31aec3fa7069735f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool tbe::Shader::operator! </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8h_source.html#l00057">57</a> du fichier <a class="el" href="_shader_8h_source.html">Shader.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa063c2927dcec3561f0a4598263daba5"></a><!-- doxytag: member="tbe::Shader::operator=" ref="aa063c2927dcec3561f0a4598263daba5" args="(const Shader &amp;copy)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_shader.html">Shader</a> &amp; Shader::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1_shader.html">Shader</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00047">47</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8cd54dfd3e45e419d6929cd032de5231"></a><!-- doxytag: member="tbe::Shader::ParseFragmentShader" ref="a8cd54dfd3e45e419d6929cd032de5231" args="(std::string content)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::ParseFragmentShader </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>content</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Chargement d'un FragmentShader depuis content. </p>
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00097">97</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5080011ecc331fb691b30b964f323bb2"></a><!-- doxytag: member="tbe::Shader::ParseVertexShader" ref="a5080011ecc331fb691b30b964f323bb2" args="(std::string content)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::ParseVertexShader </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>content</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Chargement d'un VertexShader depuis content. </p>
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00092">92</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab6564ad5191a95646977e41c1b2b2f7b"></a><!-- doxytag: member="tbe::Shader::SetUniform" ref="ab6564ad5191a95646977e41c1b2b2f7b" args="(const char *name, Vector4f value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::SetUniform </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00215">215</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a98db7bc5d836a219400d372674b1d653"></a><!-- doxytag: member="tbe::Shader::SetUniform" ref="a98db7bc5d836a219400d372674b1d653" args="(const char *name, Vector2i value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::SetUniform </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00265">265</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a329c1577bb3bacd5dc5662c63fd74b88"></a><!-- doxytag: member="tbe::Shader::SetUniform" ref="a329c1577bb3bacd5dc5662c63fd74b88" args="(const char *name, Vector4i value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::SetUniform </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector4.html">Vector4i</a>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00225">225</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad6600235ad2a06e5b606ab5b9485698b"></a><!-- doxytag: member="tbe::Shader::SetUniform" ref="ad6600235ad2a06e5b606ab5b9485698b" args="(const char *name, Vector2f value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::SetUniform </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00255">255</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a473beccc33d7901ca25ec34a6801a1df"></a><!-- doxytag: member="tbe::Shader::SetUniform" ref="a473beccc33d7901ca25ec34a6801a1df" args="(const char *name, float value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::SetUniform </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00195">195</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae9642c0fdbada764152e522bf2794495"></a><!-- doxytag: member="tbe::Shader::SetUniform" ref="ae9642c0fdbada764152e522bf2794495" args="(const char *name, Vector3f value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::SetUniform </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00235">235</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acef8473ef7b3f07b5c90c354fd33e41e"></a><!-- doxytag: member="tbe::Shader::SetUniform" ref="acef8473ef7b3f07b5c90c354fd33e41e" args="(const char *name, int value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::SetUniform </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Transmet une variable au shader. </p>
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00205">205</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5c174b3d133979af750d5afcd6ed3852"></a><!-- doxytag: member="tbe::Shader::SetUniform" ref="a5c174b3d133979af750d5afcd6ed3852" args="(const char *name, Vector3i value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::SetUniform </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3i</a>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00245">245</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a967abc428bc5980a2ff93f0fe2e1434b"></a><!-- doxytag: member="tbe::Shader::Use" ref="a967abc428bc5980a2ff93f0fe2e1434b" args="(bool use=true)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::Use </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>use</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Utilisation du program. </p>
+
+<p>Définition à la ligne <a class="el" href="_shader_8cpp_source.html#l00136">136</a> du fichier <a class="el" href="_shader_8cpp_source.html">Shader.cpp</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des données membres</h2>
+<a class="anchor" id="aef04fc23151c168dec34d104d6c1e2cc"></a><!-- doxytag: member="tbe::Shader::m_frag_shader" ref="aef04fc23151c168dec34d104d6c1e2cc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint <a class="el" href="classtbe_1_1_shader.html#aef04fc23151c168dec34d104d6c1e2cc">tbe::Shader::m_frag_shader</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8h_source.html#l00071">71</a> du fichier <a class="el" href="_shader_8h_source.html">Shader.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4cd843020b8c03be54048538524169ba"></a><!-- doxytag: member="tbe::Shader::m_program" ref="a4cd843020b8c03be54048538524169ba" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint <a class="el" href="classtbe_1_1_shader.html#a4cd843020b8c03be54048538524169ba">tbe::Shader::m_program</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8h_source.html#l00070">70</a> du fichier <a class="el" href="_shader_8h_source.html">Shader.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2d66b72e432f0a9957d36430a5ed2417"></a><!-- doxytag: member="tbe::Shader::m_vert_shader" ref="a2d66b72e432f0a9957d36430a5ed2417" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint <a class="el" href="classtbe_1_1_shader.html#a2d66b72e432f0a9957d36430a5ed2417">tbe::Shader::m_vert_shader</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_shader_8h_source.html#l00072">72</a> du fichier <a class="el" href="_shader_8h_source.html">Shader.h</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir des fichiers suivants :<ul>
+<li>D:/projets/cpp/tbengine/sources/<a class="el" href="_shader_8h_source.html">Shader.h</a></li>
+<li>D:/projets/cpp/tbengine/sources/<a class="el" href="_shader_8cpp_source.html">Shader.cpp</a></li>
+</ul>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:03 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

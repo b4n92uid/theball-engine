@@ -1,0 +1,720 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine: Référence de la classe tbe::scene::Camera</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Liste&#160;des&#160;classes</span></a></li>
+      <li><a href="hierarchy.html"><span>Hiérarchie&#160;des&#160;classes</span></a></li>
+      <li><a href="functions.html"><span>Membres&#160;de&#160;classe</span></a></li>
+    </ul>
+  </div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacetbe.html">tbe</a>      </li>
+      <li class="navelem"><a class="el" href="namespacetbe_1_1scene.html">scene</a>      </li>
+      <li class="navelem"><a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a>      </li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Types publics</a> &#124;
+<a href="#pub-methods">Fonctions membres publiques</a> &#124;
+<a href="#pro-attribs">Attributs protégés</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence de la classe tbe::scene::Camera</div>  </div>
+</div>
+<div class="contents">
+<!-- doxytag: class="tbe::scene::Camera" -->
+<p>Gestion de la <a class="el" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a> Objet qui represant le poit de vue de la scene inclus une fonction de rotation.  
+ <a href="classtbe_1_1scene_1_1_camera.html#details">Plus de détails...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_camera_8h_source.html">Camera.h</a>&gt;</code></p>
+<div class="dynheader">
+Graphe d'héritage de tbe::scene::Camera:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classtbe_1_1scene_1_1_camera.png" usemap="#tbe::scene::Camera_map" alt=""/>
+  <map id="tbe::scene::Camera_map" name="tbe::scene::Camera_map">
+<area href="classtbe_1_1scene_1_1_user_camera.html" title="Class de base pour les cameras pré-conçue." alt="tbe::scene::UserCamera" shape="rect" coords="87,56,251,80"/>
+<area href="classtbe_1_1scene_1_1_free_fly_camera.html" title="Caméra pré-conçue pour la vue en libre mouvements (Free Fly)" alt="tbe::scene::FreeFlyCamera" shape="rect" coords="0,112,164,136"/>
+<area href="classtbe_1_1scene_1_1_orbital_camera.html" title="Caméra pré-conçue pour la vue en orbite." alt="tbe::scene::OrbitalCamera" shape="rect" coords="174,112,338,136"/>
+</map>
+ </div></div>
+
+<p><a href="classtbe_1_1scene_1_1_camera-members.html">Liste de tous les membres</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-types"></a>
+Types publics</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a32d42c0c8a44c1b5c080c4f486e657d1">CameraType</a> { <a class="el" href="classtbe_1_1scene_1_1_camera.html#a32d42c0c8a44c1b5c080c4f486e657d1a95579dfa81cc538f71684ca964bbec5d">TARGET_RELATIVE</a>, 
+<a class="el" href="classtbe_1_1scene_1_1_camera.html#a32d42c0c8a44c1b5c080c4f486e657d1a4db0e14850e925461afc6cf32e97235d">TARGET_ABSOLUTE</a>
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; <a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a5d960a0acdf7170bb0dec591eed0f21e">Array</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; <a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>, <br class="typebreak"/>
+<a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a3a5d4865b7a4f620325e91514a84ae6c">Map</a></td></tr>
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Fonctions membres publiques</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a91dea2584f04994ba201a6f46d3e84fc">Camera</a> (<a class="el" href="classtbe_1_1scene_1_1_camera.html#a32d42c0c8a44c1b5c080c4f486e657d1">CameraType</a> <a class="el" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a>=TARGET_ABSOLUTE, <a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> posistion=0, <a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_g_lee_8h.html#af9d0cbbbeb7414e786c41899e5a856d7">target</a>=<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>(0, 0, 1), float sensivity=0.1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#ad1897942d0ccf91052386388a497349f">~Camera</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a830303d566ac27ba7f83bfebc424963f">Engine</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#aef23d8327cbb49dc5a75a19a7898a872">Push</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#ad35aa1350ea2848cf7ee1828bb751917">Pop</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#ac50c359f6fa15bb4ce35a2373d2bbcb1">SetRotate</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> rel)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotation du vecteur target (en degres)  <a href="#ac50c359f6fa15bb4ce35a2373d2bbcb1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a60748f4874b27dedac4bec6bf5dd240c">SetRelRotate</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> rel)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotation relative du vecteur target (en degres)  <a href="#a60748f4874b27dedac4bec6bf5dd240c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a3a93a1a346731cf9d60893f36f664cb8">SetSensivity</a> (float <a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#ac75476edd73fb02ecba21a94b1a957cc">GetSensivity</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a3d0c6bd225bc22f4efcbc22a602d85bb">SetUp</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> up)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a1c1f0db337a02d2691cb629f7b3fa027">GetUp</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#aca23beca89882ea88caf675065b7171b">SetLeft</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_g_lee_8h.html#a85b8f6c07fbc1fb5d77c2ae090f21995">left</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a36f5ecc3b8dcf6df4caf557268563f92">GetLeft</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a203319b011ea3188d1f66dd7dc2ced3d">SetTarget</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_g_lee_8h.html#af9d0cbbbeb7414e786c41899e5a856d7">target</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a8c956a29307621225adff1c9e5d5ea8b">GetTarget</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#afb3f8bb5cd34e187dd5d644d6c54c686">SetPos</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a1207a3d1f05cef72c1cea1379ac90f29">GetPos</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a0e7c2bf5c35222802e421e805c292119">SetCameraType</a> (<a class="el" href="classtbe_1_1scene_1_1_camera.html#a32d42c0c8a44c1b5c080c4f486e657d1">CameraType</a> cameraType)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a32d42c0c8a44c1b5c080c4f486e657d1">CameraType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a7eaba0571d7dd97d1b7e666e51d33a0a">GetCameraType</a> () const </td></tr>
+<tr><td colspan="2"><h2><a name="pro-attribs"></a>
+Attributs protégés</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a32d42c0c8a44c1b5c080c4f486e657d1">CameraType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#ac7cea05360f36d476bc1707240f67f11">m_cameraType</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#af84c9f18752955937308a59776f4d413">m_pos</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a3c4c0035deff506305742f370351d59d">m_target</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#ad2ef3bbf4ec9f9990f6e7dba55458717">m_left</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a8e1b4f81279d4b053a9a598933707b70">m_up</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#aec918c1f3cee0468e9be632bbc9aa65d">m_theta</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#ac17a973475ef69c0ae2c4859feeb9a70">m_phi</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a7ae38e1fe2f30e497601c825c4f71ea3">m_sensivity</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::stack&lt; <a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a1fb38544dd423dc05f49e93e85ede9a7">m_stackVector</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::stack&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a3c5bac6560857e96781e60096088c21a">m_stackFloat</a></td></tr>
+</table>
+<hr/><a name="details" id="details"></a><h2>Description détaillée</h2>
+<div class="textblock"><p>Gestion de la <a class="el" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a> Objet qui represant le poit de vue de la scene inclus une fonction de rotation. </p>
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00022">22</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+</div><hr/><h2>Documentation des définitions de type membres</h2>
+<a class="anchor" id="a5d960a0acdf7170bb0dec591eed0f21e"></a><!-- doxytag: member="tbe::scene::Camera::Array" ref="a5d960a0acdf7170bb0dec591eed0f21e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::vector&lt;<a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a>*&gt; <a class="el" href="classtbe_1_1scene_1_1_camera.html#a5d960a0acdf7170bb0dec591eed0f21e">tbe::scene::Camera::Array</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00026">26</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3a5d4865b7a4f620325e91514a84ae6c"></a><!-- doxytag: member="tbe::scene::Camera::Map" ref="a3a5d4865b7a4f620325e91514a84ae6c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>, <a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a>*&gt; <a class="el" href="classtbe_1_1scene_1_1_camera.html#a3a5d4865b7a4f620325e91514a84ae6c">tbe::scene::Camera::Map</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00027">27</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des énumérations membres</h2>
+<a class="anchor" id="a32d42c0c8a44c1b5c080c4f486e657d1"></a><!-- doxytag: member="tbe::scene::Camera::CameraType" ref="a32d42c0c8a44c1b5c080c4f486e657d1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classtbe_1_1scene_1_1_camera.html#a32d42c0c8a44c1b5c080c4f486e657d1">tbe::scene::Camera::CameraType</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl><dt><b>Valeurs énumérées: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="a32d42c0c8a44c1b5c080c4f486e657d1a95579dfa81cc538f71684ca964bbec5d"></a><!-- doxytag: member="TARGET_RELATIVE" ref="a32d42c0c8a44c1b5c080c4f486e657d1a95579dfa81cc538f71684ca964bbec5d" args="" -->TARGET_RELATIVE</em>&nbsp;</td><td>
+<p>le vecteur 'target' est relative au vecteur 'pos' </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a32d42c0c8a44c1b5c080c4f486e657d1a4db0e14850e925461afc6cf32e97235d"></a><!-- doxytag: member="TARGET_ABSOLUTE" ref="a32d42c0c8a44c1b5c080c4f486e657d1a4db0e14850e925461afc6cf32e97235d" args="" -->TARGET_ABSOLUTE</em>&nbsp;</td><td>
+<p>le vecteur 'target' est absolue </p>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00029">29</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des constructeurs et destructeur</h2>
+<a class="anchor" id="a91dea2584f04994ba201a6f46d3e84fc"></a><!-- doxytag: member="tbe::scene::Camera::Camera" ref="a91dea2584f04994ba201a6f46d3e84fc" args="(CameraType type=TARGET_ABSOLUTE, Vector3f posistion=0, Vector3f target=Vector3f(0, 0, 1), float sensivity=0.1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Camera::Camera </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a32d42c0c8a44c1b5c080c4f486e657d1">CameraType</a>&#160;</td>
+          <td class="paramname"><em>type</em> = <code>TARGET_ABSOLUTE</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>posistion</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>target</em> = <code><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>(0,&#160;0,&#160;1)</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>sensivity</em> = <code>0.1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00009">9</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad1897942d0ccf91052386388a497349f"></a><!-- doxytag: member="tbe::scene::Camera::~Camera" ref="ad1897942d0ccf91052386388a497349f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Camera::~Camera </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00024">24</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des fonctions membres</h2>
+<a class="anchor" id="a830303d566ac27ba7f83bfebc424963f"></a><!-- doxytag: member="tbe::scene::Camera::Engine" ref="a830303d566ac27ba7f83bfebc424963f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::Engine </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00060">60</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7eaba0571d7dd97d1b7e666e51d33a0a"></a><!-- doxytag: member="tbe::scene::Camera::GetCameraType" ref="a7eaba0571d7dd97d1b7e666e51d33a0a" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a32d42c0c8a44c1b5c080c4f486e657d1">Camera::CameraType</a> Camera::GetCameraType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00172">172</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a36f5ecc3b8dcf6df4caf557268563f92"></a><!-- doxytag: member="tbe::scene::Camera::GetLeft" ref="a36f5ecc3b8dcf6df4caf557268563f92" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> Camera::GetLeft </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00142">142</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1207a3d1f05cef72c1cea1379ac90f29"></a><!-- doxytag: member="tbe::scene::Camera::GetPos" ref="a1207a3d1f05cef72c1cea1379ac90f29" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> Camera::GetPos </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00162">162</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac75476edd73fb02ecba21a94b1a957cc"></a><!-- doxytag: member="tbe::scene::Camera::GetSensivity" ref="ac75476edd73fb02ecba21a94b1a957cc" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Camera::GetSensivity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00122">122</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8c956a29307621225adff1c9e5d5ea8b"></a><!-- doxytag: member="tbe::scene::Camera::GetTarget" ref="a8c956a29307621225adff1c9e5d5ea8b" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> Camera::GetTarget </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00152">152</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1c1f0db337a02d2691cb629f7b3fa027"></a><!-- doxytag: member="tbe::scene::Camera::GetUp" ref="a1c1f0db337a02d2691cb629f7b3fa027" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> Camera::GetUp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00132">132</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad35aa1350ea2848cf7ee1828bb751917"></a><!-- doxytag: member="tbe::scene::Camera::Pop" ref="ad35aa1350ea2848cf7ee1828bb751917" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::Pop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00041">41</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aef23d8327cbb49dc5a75a19a7898a872"></a><!-- doxytag: member="tbe::scene::Camera::Push" ref="aef23d8327cbb49dc5a75a19a7898a872" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::Push </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00029">29</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0e7c2bf5c35222802e421e805c292119"></a><!-- doxytag: member="tbe::scene::Camera::SetCameraType" ref="a0e7c2bf5c35222802e421e805c292119" args="(CameraType cameraType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::SetCameraType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a32d42c0c8a44c1b5c080c4f486e657d1">CameraType</a>&#160;</td>
+          <td class="paramname"><em>cameraType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00167">167</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aca23beca89882ea88caf675065b7171b"></a><!-- doxytag: member="tbe::scene::Camera::SetLeft" ref="aca23beca89882ea88caf675065b7171b" args="(Vector3f left)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::SetLeft </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>left</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00137">137</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afb3f8bb5cd34e187dd5d644d6c54c686"></a><!-- doxytag: member="tbe::scene::Camera::SetPos" ref="afb3f8bb5cd34e187dd5d644d6c54c686" args="(Vector3f pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::SetPos </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00157">157</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a60748f4874b27dedac4bec6bf5dd240c"></a><!-- doxytag: member="tbe::scene::Camera::SetRelRotate" ref="a60748f4874b27dedac4bec6bf5dd240c" args="(Vector2f rel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::SetRelRotate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td>
+          <td class="paramname"><em>rel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Rotation relative du vecteur target (en degres) </p>
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00097">97</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac50c359f6fa15bb4ce35a2373d2bbcb1"></a><!-- doxytag: member="tbe::scene::Camera::SetRotate" ref="ac50c359f6fa15bb4ce35a2373d2bbcb1" args="(Vector2f rel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::SetRotate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td>
+          <td class="paramname"><em>rel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Rotation du vecteur target (en degres) </p>
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00077">77</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3a93a1a346731cf9d60893f36f664cb8"></a><!-- doxytag: member="tbe::scene::Camera::SetSensivity" ref="a3a93a1a346731cf9d60893f36f664cb8" args="(float value)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::SetSensivity </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00117">117</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a203319b011ea3188d1f66dd7dc2ced3d"></a><!-- doxytag: member="tbe::scene::Camera::SetTarget" ref="a203319b011ea3188d1f66dd7dc2ced3d" args="(Vector3f target)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::SetTarget </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>target</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00147">147</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3d0c6bd225bc22f4efcbc22a602d85bb"></a><!-- doxytag: member="tbe::scene::Camera::SetUp" ref="a3d0c6bd225bc22f4efcbc22a602d85bb" args="(Vector3f up)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::SetUp </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>up</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00127">127</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des données membres</h2>
+<a class="anchor" id="ac7cea05360f36d476bc1707240f67f11"></a><!-- doxytag: member="tbe::scene::Camera::m_cameraType" ref="ac7cea05360f36d476bc1707240f67f11" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_camera.html#a32d42c0c8a44c1b5c080c4f486e657d1">CameraType</a> <a class="el" href="classtbe_1_1scene_1_1_camera.html#ac7cea05360f36d476bc1707240f67f11">tbe::scene::Camera::m_cameraType</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00070">70</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad2ef3bbf4ec9f9990f6e7dba55458717"></a><!-- doxytag: member="tbe::scene::Camera::m_left" ref="ad2ef3bbf4ec9f9990f6e7dba55458717" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="classtbe_1_1scene_1_1_camera.html#ad2ef3bbf4ec9f9990f6e7dba55458717">tbe::scene::Camera::m_left</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00071">71</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac17a973475ef69c0ae2c4859feeb9a70"></a><!-- doxytag: member="tbe::scene::Camera::m_phi" ref="ac17a973475ef69c0ae2c4859feeb9a70" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classtbe_1_1scene_1_1_camera.html#ac17a973475ef69c0ae2c4859feeb9a70">tbe::scene::Camera::m_phi</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00072">72</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af84c9f18752955937308a59776f4d413"></a><!-- doxytag: member="tbe::scene::Camera::m_pos" ref="af84c9f18752955937308a59776f4d413" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="classtbe_1_1scene_1_1_camera.html#af84c9f18752955937308a59776f4d413">tbe::scene::Camera::m_pos</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00071">71</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7ae38e1fe2f30e497601c825c4f71ea3"></a><!-- doxytag: member="tbe::scene::Camera::m_sensivity" ref="a7ae38e1fe2f30e497601c825c4f71ea3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classtbe_1_1scene_1_1_camera.html#a7ae38e1fe2f30e497601c825c4f71ea3">tbe::scene::Camera::m_sensivity</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00072">72</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3c5bac6560857e96781e60096088c21a"></a><!-- doxytag: member="tbe::scene::Camera::m_stackFloat" ref="a3c5bac6560857e96781e60096088c21a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::stack&lt;float&gt; <a class="el" href="classtbe_1_1scene_1_1_camera.html#a3c5bac6560857e96781e60096088c21a">tbe::scene::Camera::m_stackFloat</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00074">74</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1fb38544dd423dc05f49e93e85ede9a7"></a><!-- doxytag: member="tbe::scene::Camera::m_stackVector" ref="a1fb38544dd423dc05f49e93e85ede9a7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::stack&lt;<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&gt; <a class="el" href="classtbe_1_1scene_1_1_camera.html#a1fb38544dd423dc05f49e93e85ede9a7">tbe::scene::Camera::m_stackVector</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00073">73</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3c4c0035deff506305742f370351d59d"></a><!-- doxytag: member="tbe::scene::Camera::m_target" ref="a3c4c0035deff506305742f370351d59d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="classtbe_1_1scene_1_1_camera.html#a3c4c0035deff506305742f370351d59d">tbe::scene::Camera::m_target</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00071">71</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aec918c1f3cee0468e9be632bbc9aa65d"></a><!-- doxytag: member="tbe::scene::Camera::m_theta" ref="aec918c1f3cee0468e9be632bbc9aa65d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classtbe_1_1scene_1_1_camera.html#aec918c1f3cee0468e9be632bbc9aa65d">tbe::scene::Camera::m_theta</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00072">72</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8e1b4f81279d4b053a9a598933707b70"></a><!-- doxytag: member="tbe::scene::Camera::m_up" ref="a8e1b4f81279d4b053a9a598933707b70" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="classtbe_1_1scene_1_1_camera.html#a8e1b4f81279d4b053a9a598933707b70">tbe::scene::Camera::m_up</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00071">71</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir des fichiers suivants :<ul>
+<li>D:/projets/cpp/tbengine/sources/<a class="el" href="_camera_8h_source.html">Camera.h</a></li>
+<li>D:/projets/cpp/tbengine/sources/<a class="el" href="_camera_8cpp_source.html">Camera.cpp</a></li>
+</ul>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:04 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/PostProcessManager.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/PostProcessManager.cpp</div>  </div>
+</div>
+<div class="contents">
+<a href="_post_process_manager_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   PostProcessManager.cpp</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 4 janvier 2010, 14:39</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;<a class="code" href="_post_process_manager_8h.html">PostProcessManager.h</a>&quot;</span>
+<a name="l00009"></a>00009 
+<a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="_tools_8h.html">Tools.h</a>&quot;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="_exception_8h.html">Exception.h</a>&quot;</span>
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="keyword">using namespace </span>std;
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 <span class="keyword">using namespace </span>tbe;
+<a name="l00018"></a>00018 <span class="keyword">using namespace </span>tbe::ppe;
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021 <span class="comment">// PostProcessManager ----------------------------------------------------------</span>
+<a name="l00022"></a>00022 
+<a name="l00023"></a><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a229c8feae2f303aeddd7ba4d3e278c5b">00023</a> PostProcessManager::PostProcessManager()
+<a name="l00024"></a>00024 {
+<a name="l00025"></a>00025     m_rttRender = NULL;
+<a name="l00026"></a>00026 }
+<a name="l00027"></a>00027 
+<a name="l00028"></a><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#aa62e02040400699cf601569be8130165">00028</a> PostProcessManager::PostProcessManager(<span class="keyword">const</span> <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html" title="Gestionnaire d&#39;effets apres-traitement.">PostProcessManager</a>&amp; orig)
+<a name="l00029"></a>00029 {
+<a name="l00030"></a>00030 }
+<a name="l00031"></a>00031 
+<a name="l00032"></a><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a1fb597dd35c813a933e9fbc177f22183">00032</a> PostProcessManager::~PostProcessManager()
+<a name="l00033"></a>00033 {
+<a name="l00034"></a>00034     ClearAll();
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036     <span class="keyword">delete</span> m_rttRender;
+<a name="l00037"></a>00037 }
+<a name="l00038"></a>00038 
+<a name="l00039"></a><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#aee6afdbea4dd33b38b753d0c6cd2a595">00039</a> <span class="keywordtype">void</span> PostProcessManager::ClearAll()
+<a name="l00040"></a>00040 {
+<a name="l00041"></a>00041     <span class="keywordflow">for</span>(Effect::Map::iterator itt = m_postEffects.begin(); itt != m_postEffects.end(); itt++)
+<a name="l00042"></a>00042         <span class="keyword">delete</span> itt-&gt;second;
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044     m_postEffects.clear();
+<a name="l00045"></a>00045 }
+<a name="l00046"></a>00046 
+<a name="l00047"></a><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a4fc70138e28b9043e23410b4772a309e">00047</a> <span class="keywordtype">void</span> PostProcessManager::Setup(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> screenSize)
+<a name="l00048"></a>00048 {
+<a name="l00049"></a>00049     m_screenSize = <a class="code" href="namespacetbe_1_1tools.html#aa1d05ef784b28fe2a2d8cb2c60551c11">tools::next_p2</a>(screenSize) / 2;
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051     <span class="keywordflow">if</span>(!m_rttRender)
+<a name="l00052"></a>00052     {
+<a name="l00053"></a>00053         m_rttRender = <span class="keyword">new</span> <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>(m_screenSize);
+<a name="l00054"></a>00054         m_rttRender-&gt;SetCaptureColor(<span class="keyword">true</span>);
+<a name="l00055"></a>00055         m_rttRender-&gt;SetCaptureDepth(<span class="keyword">true</span>);
+<a name="l00056"></a>00056     }
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058     <span class="keywordflow">else</span>
+<a name="l00059"></a>00059         m_rttRender-&gt;SetFrameSize(m_screenSize);
+<a name="l00060"></a>00060 }
+<a name="l00061"></a>00061 
+<a name="l00062"></a><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a6e5b919015c2005115679f9e3eaad99f">00062</a> <a class="code" href="classtbe_1_1ppe_1_1_effect.html" title="Class de base pour tout les effets apres-traitement.">Effect</a>* PostProcessManager::GetPostEffect(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
+<a name="l00063"></a>00063 {
+<a name="l00064"></a>00064     <span class="keywordflow">if</span>(m_postEffects.find(name) == m_postEffects.end())
+<a name="l00065"></a>00065         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;PostProcessManager::GetPostEffect; PostEffect not found (%s)&quot;</span>, name.c_str());
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     <span class="keywordflow">return</span> m_postEffects[<a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>];
+<a name="l00068"></a>00068 }
+<a name="l00069"></a>00069 
+<a name="l00070"></a><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a37e70d732086ee932b82b862ebb51c67">00070</a> <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* PostProcessManager::GetRtt()<span class="keyword"> const</span>
+<a name="l00071"></a>00071 <span class="keyword"></span>{
+<a name="l00072"></a>00072     <span class="keywordflow">return</span> m_rttRender;
+<a name="l00073"></a>00073 }
+<a name="l00074"></a>00074 
+<a name="l00075"></a><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#aebc1e873978288985ade479bb1072e18">00075</a> <span class="keywordtype">void</span> PostProcessManager::AddPostEffect(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1ppe_1_1_effect.html" title="Class de base pour tout les effets apres-traitement.">Effect</a>* effect)
+<a name="l00076"></a>00076 {
+<a name="l00077"></a>00077     <span class="keywordflow">if</span>(name.empty())
+<a name="l00078"></a>00078         name = <a class="code" href="namespacetbe_1_1tools.html#a60e847ef5678a16f02d806d44d59581b">tools::NameGen</a>(m_postEffects);
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080     <span class="keywordflow">else</span> <span class="keywordflow">if</span>(m_postEffects.find(name) != m_postEffects.end())
+<a name="l00081"></a>00081         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;PostProcessManager::AddPostEffect; PostEffect already exits (%s)&quot;</span>, name.c_str());
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083     m_postEffects[<a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>] = effect;
+<a name="l00084"></a>00084 }
+<a name="l00085"></a>00085 
+<a name="l00086"></a><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a9bf9ef6783c0e9c7eb1ae3324616fa8b">00086</a> <span class="keywordtype">void</span> PostProcessManager::BeginPostProcess()
+<a name="l00087"></a>00087 {
+<a name="l00088"></a>00088     glPushAttrib(GL_ENABLE_BIT | GL_CURRENT_BIT);
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090     glDisable(GL_DEPTH_TEST);
+<a name="l00091"></a>00091     glDisable(GL_LIGHTING);
+<a name="l00092"></a>00092     glDisable(GL_BLEND);
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094     glEnable(GL_TEXTURE_2D);
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096     glMatrixMode(GL_PROJECTION);
+<a name="l00097"></a>00097     glPushMatrix();
+<a name="l00098"></a>00098     glLoadIdentity();
+<a name="l00099"></a>00099     gluOrtho2D(0, 1, 0, 1);
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101     glMatrixMode(GL_MODELVIEW);
+<a name="l00102"></a>00102     glLoadIdentity();
+<a name="l00103"></a>00103 }
+<a name="l00104"></a>00104 
+<a name="l00105"></a><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a482adc6eeeaf8e745ff85fde0871d794">00105</a> <span class="keywordtype">void</span> PostProcessManager::EndPostProcess()
+<a name="l00106"></a>00106 {
+<a name="l00107"></a>00107     glMatrixMode(GL_PROJECTION);
+<a name="l00108"></a>00108     glPopMatrix();
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110     glMatrixMode(GL_MODELVIEW);
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112     glPopAttrib();
+<a name="l00113"></a>00113 }
+<a name="l00114"></a>00114 
+<a name="l00115"></a><a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html#a7b6c9c7b6a769de4ea341e354b30b320">00115</a> <span class="keywordtype">void</span> PostProcessManager::Render()
+<a name="l00116"></a>00116 {
+<a name="l00117"></a>00117     <span class="comment">/*</span>
+<a name="l00118"></a>00118 <span class="comment">     * Etape des effets apres traitement :</span>
+<a name="l00119"></a>00119 <span class="comment">     * -----------------------------------</span>
+<a name="l00120"></a>00120 <span class="comment">     * Passage en 2D</span>
+<a name="l00121"></a>00121 <span class="comment">     * Pour chaque effet : traitement sur fbo</span>
+<a name="l00122"></a>00122 <span class="comment">     * Rendue fbo -&gt; écran</span>
+<a name="l00123"></a>00123 <span class="comment">     */</span>
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125     BeginPostProcess();
+<a name="l00126"></a>00126 
+<a name="l00127"></a>00127     <span class="keywordtype">bool</span> usingRB = FrameBufferObject::CheckHardware()
+<a name="l00128"></a>00128             &amp;&amp; m_rttRender-&gt;FBO_IsUseRenderBuffer();
+<a name="l00129"></a>00129 
+<a name="l00130"></a>00130     <span class="keywordflow">if</span>(usingRB)
+<a name="l00131"></a>00131     {
+<a name="l00132"></a>00132         m_rttRender-&gt;FBO_BlitToTexutre();
+<a name="l00133"></a>00133         m_rttRender-&gt;FBO_SetUseRenderBuffer(<span class="keyword">false</span>);
+<a name="l00134"></a>00134     }
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136     <span class="keywordflow">for</span>(Effect::Map::iterator itt = m_postEffects.begin(); itt != m_postEffects.end(); itt++)
+<a name="l00137"></a>00137         <span class="keywordflow">if</span>(itt-&gt;second-&gt;IsEnable())
+<a name="l00138"></a>00138             itt-&gt;second-&gt;Process(m_rttRender);
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140     m_rttRender-&gt;GetColor().Use(<span class="keyword">true</span>);
+<a name="l00141"></a>00141     m_layer.Draw();
+<a name="l00142"></a>00142 
+<a name="l00143"></a>00143     <span class="keywordflow">if</span>(usingRB)
+<a name="l00144"></a>00144     {
+<a name="l00145"></a>00145         m_rttRender-&gt;FBO_SetUseRenderBuffer(<span class="keyword">true</span>);
+<a name="l00146"></a>00146     }
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148     EndPostProcess();
+<a name="l00149"></a>00149 }
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151 <span class="comment">// Effect ----------------------------------------------------------------------</span>
+<a name="l00152"></a>00152 
+<a name="l00153"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html#a4dae74244f59936a49847da9217b4126">00153</a> Effect::Effect()
+<a name="l00154"></a>00154 {
+<a name="l00155"></a>00155     m_workRtt = <span class="keyword">new</span> <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>(127);
+<a name="l00156"></a>00156     m_workRtt-&gt;SetCaptureColor(<span class="keyword">true</span>);
+<a name="l00157"></a>00157     m_workRtt-&gt;SetCaptureDepth(<span class="keyword">true</span>);
+<a name="l00158"></a>00158 
+<a name="l00159"></a>00159     m_enable = <span class="keyword">true</span>;
+<a name="l00160"></a>00160 }
+<a name="l00161"></a>00161 
+<a name="l00162"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html#ac26c0a394247e14c9081f875522b5b66">00162</a> Effect::~Effect()
+<a name="l00163"></a>00163 {
+<a name="l00164"></a>00164     <span class="keyword">delete</span> m_workRtt;
+<a name="l00165"></a>00165 }
+<a name="l00166"></a>00166 
+<a name="l00167"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html#a3b775d0da853663ec465e893d9783c89">00167</a> <span class="keywordtype">void</span> Effect::SetRttFrameSize(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)
+<a name="l00168"></a>00168 {
+<a name="l00169"></a>00169     m_workRtt-&gt;SetFrameSize(size);
+<a name="l00170"></a>00170 }
+<a name="l00171"></a>00171 
+<a name="l00172"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html#abdcb80f4e730f8f82dd9891626ca55d0">00172</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> Effect::GetRttFrameSize()
+<a name="l00173"></a>00173 {
+<a name="l00174"></a>00174     <span class="keywordflow">return</span> m_workRtt-&gt;GetFrameSize();
+<a name="l00175"></a>00175 }
+<a name="l00176"></a>00176 
+<a name="l00177"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html#aa51952db1f16d4472c4ec11d61119a85">00177</a> <span class="keywordtype">void</span> Effect::SetEnable(<span class="keywordtype">bool</span> enable)
+<a name="l00178"></a>00178 {
+<a name="l00179"></a>00179     this-&gt;m_enable = enable;
+<a name="l00180"></a>00180 }
+<a name="l00181"></a>00181 
+<a name="l00182"></a><a class="code" href="classtbe_1_1ppe_1_1_effect.html#a939be5701671f710bad20d2fafd1f86a">00182</a> <span class="keywordtype">bool</span> Effect::IsEnable()<span class="keyword"> const</span>
+<a name="l00183"></a>00183 <span class="keyword"></span>{
+<a name="l00184"></a>00184     <span class="keywordflow">return</span> m_enable;
+<a name="l00185"></a>00185 }
+<a name="l00186"></a>00186 
+<a name="l00187"></a>00187 <span class="comment">// Layer -----------------------------------------------------------------------</span>
+<a name="l00188"></a>00188 
+<a name="l00189"></a><a class="code" href="classtbe_1_1ppe_1_1_layer.html#a8f623c7c4737dc29ecc86978d243ac6f">00189</a> Layer::Layer()
+<a name="l00190"></a>00190 {
+<a name="l00191"></a>00191     <span class="keywordtype">float</span> vertexs[8] = {0, 0, 1, 0, 0, 1, 1, 1};
+<a name="l00192"></a>00192 
+<a name="l00193"></a>00193     <a class="code" href="_g_lee_8h.html#a1b33d322b89d94ad4938461db0a0424a">glGenBuffers</a>(1, &amp;m_renderId);
+<a name="l00194"></a>00194     <a class="code" href="_g_lee_8h.html#a3b3a3f8200f094b781e9f61e2f19fc50">glBindBuffer</a>(<a class="code" href="_g_lee_8h.html#a7180045dcb52b22af2cd0366026bc3ed">GL_ARRAY_BUFFER</a>, m_renderId);
+<a name="l00195"></a>00195     <a class="code" href="_g_lee_8h.html#a9419a03f5c46e2758f884e9c56d92b6a">glBufferData</a>(<a class="code" href="_g_lee_8h.html#a7180045dcb52b22af2cd0366026bc3ed">GL_ARRAY_BUFFER</a>, 8 * <span class="keyword">sizeof</span>(<span class="keywordtype">float</span>), vertexs, <a class="code" href="_g_lee_8h.html#ab7dffdc215fbbe75b6ccacfecfc14648">GL_STATIC_DRAW</a>);
+<a name="l00196"></a>00196 }
+<a name="l00197"></a>00197 
+<a name="l00198"></a><a class="code" href="classtbe_1_1ppe_1_1_layer.html#a1b1ba4804451dfe6cc357194e42762ae">00198</a> Layer::~Layer()
+<a name="l00199"></a>00199 {
+<a name="l00200"></a>00200     <a class="code" href="_g_lee_8h.html#a55652a3f087bb13267a5481b6ff1fe19">glDeleteBuffers</a>(1, &amp;m_renderId);
+<a name="l00201"></a>00201 }
+<a name="l00202"></a>00202 
+<a name="l00203"></a><a class="code" href="classtbe_1_1ppe_1_1_layer.html#a04fc84fa32c03a4c8b85634ec3503b5e">00203</a> <span class="keywordtype">void</span> Layer::Begin()
+<a name="l00204"></a>00204 {
+<a name="l00205"></a>00205     <a class="code" href="_g_lee_8h.html#a3b3a3f8200f094b781e9f61e2f19fc50">glBindBuffer</a>(<a class="code" href="_g_lee_8h.html#a7180045dcb52b22af2cd0366026bc3ed">GL_ARRAY_BUFFER</a>, m_renderId);
+<a name="l00206"></a>00206 
+<a name="l00207"></a>00207     glEnableClientState(GL_VERTEX_ARRAY);
+<a name="l00208"></a>00208     glVertexPointer(2, GL_FLOAT, 0, 0);
+<a name="l00209"></a>00209 
+<a name="l00210"></a>00210     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+<a name="l00211"></a>00211     glTexCoordPointer(2, GL_FLOAT, 0, 0);
+<a name="l00212"></a>00212 }
+<a name="l00213"></a>00213 
+<a name="l00214"></a><a class="code" href="classtbe_1_1ppe_1_1_layer.html#aa7955d1bcabdb1c6ffcaf078f61df89d">00214</a> <span class="keywordtype">void</span> Layer::Draw(<span class="keywordtype">bool</span> autoSetup)
+<a name="l00215"></a>00215 {
+<a name="l00216"></a>00216     <span class="keywordflow">if</span>(autoSetup)
+<a name="l00217"></a>00217         Begin();
+<a name="l00218"></a>00218 
+<a name="l00219"></a>00219     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+<a name="l00220"></a>00220 
+<a name="l00221"></a>00221     <span class="keywordflow">if</span>(autoSetup)
+<a name="l00222"></a>00222         End();
+<a name="l00223"></a>00223 }
+<a name="l00224"></a>00224 
+<a name="l00225"></a><a class="code" href="classtbe_1_1ppe_1_1_layer.html#a8917f3776ff13d83d1003c0b61b6149e">00225</a> <span class="keywordtype">void</span> Layer::End()
+<a name="l00226"></a>00226 {
+<a name="l00227"></a>00227     glDisableClientState(GL_VERTEX_ARRAY);
+<a name="l00228"></a>00228     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+<a name="l00229"></a>00229 
+<a name="l00230"></a>00230     <a class="code" href="_g_lee_8h.html#a3b3a3f8200f094b781e9f61e2f19fc50">glBindBuffer</a>(<a class="code" href="_g_lee_8h.html#a7180045dcb52b22af2cd0366026bc3ed">GL_ARRAY_BUFFER</a>, 0);
+<a name="l00231"></a>00231 }
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

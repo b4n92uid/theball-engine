@@ -1,0 +1,1192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine: Référence de la classe tbe::scene::Node</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Liste&#160;des&#160;classes</span></a></li>
+      <li><a href="hierarchy.html"><span>Hiérarchie&#160;des&#160;classes</span></a></li>
+      <li><a href="functions.html"><span>Membres&#160;de&#160;classe</span></a></li>
+    </ul>
+  </div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacetbe.html">tbe</a>      </li>
+      <li class="navelem"><a class="el" href="namespacetbe_1_1scene.html">scene</a>      </li>
+      <li class="navelem"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a>      </li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Types publics</a> &#124;
+<a href="#pub-methods">Fonctions membres publiques</a> &#124;
+<a href="#pro-attribs">Attributs protégés</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence de la classe tbe::scene::Node</div>  </div>
+</div>
+<div class="contents">
+<!-- doxytag: class="tbe::scene::Node" -->
+<p>Class de base pour la représentation d'une entité qui inclus une matrice, un <a class="el" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> et un nom.  
+ <a href="classtbe_1_1scene_1_1_node.html#details">Plus de détails...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_node_8h_source.html">Node.h</a>&gt;</code></p>
+<div class="dynheader">
+Graphe d'héritage de tbe::scene::Node:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classtbe_1_1scene_1_1_node.png" usemap="#tbe::scene::Node_map" alt=""/>
+  <map id="tbe::scene::Node_map" name="tbe::scene::Node_map">
+<area href="classtbe_1_1scene_1_1_bull_node.html" alt="tbe::scene::BullNode" shape="rect" coords="0,56,159,80"/>
+<area href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres." alt="tbe::scene::Light" shape="rect" coords="169,56,328,80"/>
+<area href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af..." alt="tbe::scene::Mesh" shape="rect" coords="507,56,666,80"/>
+<area href="classtbe_1_1scene_1_1_particles_emiter.html" title="Emitter de particules. Encapsule tout les propriétés de génération." alt="tbe::scene::ParticlesEmiter" shape="rect" coords="845,56,1004,80"/>
+<area href="classtbe_1_1scene_1_1_water.html" title="Représentation d&#39;un plan d&#39;eau." alt="tbe::scene::Water" shape="rect" coords="1014,56,1173,80"/>
+<area href="classtbe_1_1scene_1_1_diri_light.html" title="Lumiere dirictionelle." alt="tbe::scene::DiriLight" shape="rect" coords="338,112,497,136"/>
+<area href="classtbe_1_1scene_1_1_point_light.html" title="Lumiere pointctuelle." alt="tbe::scene::PointLight" shape="rect" coords="338,168,497,192"/>
+<area href="classtbe_1_1scene_1_1_axes.html" title="Axes aligner en X, Y, Z." alt="tbe::scene::Axes" shape="rect" coords="676,112,835,136"/>
+<area href="classtbe_1_1scene_1_1_ball3_d_mesh.html" alt="tbe::scene::Ball3DMesh" shape="rect" coords="676,168,835,192"/>
+<area href="classtbe_1_1scene_1_1_box.html" title="Primitive de type cube." alt="tbe::scene::Box" shape="rect" coords="676,224,835,248"/>
+<area href="classtbe_1_1scene_1_1_heightmap.html" title="Loader de fichier Heightmap (.raw)" alt="tbe::scene::Heightmap" shape="rect" coords="676,280,835,304"/>
+<area href="classtbe_1_1scene_1_1_o_b_j_mesh.html" title="Loader de fichier Wavefront OBJ (.obj)" alt="tbe::scene::OBJMesh" shape="rect" coords="676,336,835,360"/>
+<area href="classtbe_1_1scene_1_1_plane.html" title="Primitives de type Plan." alt="tbe::scene::Plane" shape="rect" coords="676,392,835,416"/>
+<area href="classtbe_1_1scene_1_1_sphere.html" title="Primitive de type Sphere." alt="tbe::scene::Sphere" shape="rect" coords="676,448,835,472"/>
+<area href="classtbe_1_1scene_1_1_burning_emitter.html" alt="tbe::scene::BurningEmitter" shape="rect" coords="845,112,1004,136"/>
+</map>
+ </div></div>
+
+<p><a href="classtbe_1_1scene_1_1_node-members.html">Liste de tous les membres</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-types"></a>
+Types publics</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; <a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>, <br class="typebreak"/>
+<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; <a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>, <br class="typebreak"/>
+<a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a5c173ba0dcb14bd216253537113317ad">Map</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; <a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a2999d055ea6712ab4d6a273a99303cde">Array</a></td></tr>
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Fonctions membres publiques</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#ad7a34779cad45d997bfd6d3d8043c75f">Node</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a6b91228bafcff370bcf1809bf1cbcaab">Node</a> (const <a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> &amp;copy)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#aa0840c3cb5c7159be6d992adecd2097c">~Node</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#aac43d240768c5f3e07abe208a81e4e81">operator=</a> (const <a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> &amp;copy)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a85863000140e1cdb4a23298262e60de0">operator==</a> (<a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *node) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Operateur de comparaison par nom (m_name)  <a href="#a85863000140e1cdb4a23298262e60de0"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#abb5a570f84d3ccdd2dc4d22189f7366f">operator==</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_a_a_b_b.html">AABB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#ab4018d65cffc18773255c901d408feea">GetAabb</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois le <a class="el" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> du noeud.  <a href="#ab4018d65cffc18773255c901d408feea"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_a_a_b_b.html">AABB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a5f278195dc303165271c6531374246cf">GetAbsolutAabb</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a054d4b01608297597c83e97feb79493c">SetEnable</a> (bool enbale)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifier si l'objet est activer.  <a href="#a054d4b01608297597c83e97feb79493c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a1dac7ca69935311cbd023a839c95c32a">IsEnable</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a9b1802f40cf63be1cf5b919e7c2349d7">SetName</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifiant du noeud.  <a href="#a9b1802f40cf63be1cf5b919e7c2349d7"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a418aabced8e011e49077148f6dc66ef6">GetName</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#acef3c2d850c4850b03b6610a4862ee44">SetMatrix</a> (const <a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a> &amp;<a class="el" href="_g_lee_8h.html#a7b24a3f2f56eb1244ae69dacb4fecb6f">matrix</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrice du noeud.  <a href="#acef3c2d850c4850b03b6610a4862ee44"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a068a1c1828010daebc3dfff20e79223e">MulMatrix</a> (const <a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a> &amp;<a class="el" href="_g_lee_8h.html#a7b24a3f2f56eb1244ae69dacb4fecb6f">matrix</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a236bb6a8d77f224287a4f224e31d0e72">GetAbsoluteMatrix</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#add121eb6d8079729a58685718aea239b">GetMatrix</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a8e09a64fb4766ff3f66a56fe1e14e9ea">SetParallelScene</a> (<a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *parallelScene)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Spécifier la scene parallel parent.  <a href="#a8e09a64fb4766ff3f66a56fe1e14e9ea"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a73afefb7f637cc0633fa6c50a895b9f1">GetParallelScene</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a104e96d63d5b87c542c2c2484b25c48d">SetSceneManager</a> (<a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> *sceneManager)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a89d2f01c71ee8a5ec02f23b9d395cede">GetSceneManager</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a0be01ac75660f8c38898df309361a656">SetPos</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Racourcie pour sépcifier la postion de la matrice du noeud.  <a href="#a0be01ac75660f8c38898df309361a656"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a3b93d70a9cc25d5afa8a4cc4d33c74f2">GetPos</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a8d2229ea6ff0c3640d5c9d5e03717c9d">MapFromGlobal</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a7340d79586c6fa260c33f0beb6f40636">IsRoot</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a4dba92fa4b3d1f01ed4027d26e0541b2">IsAttached</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#acdcc6398c17257ca586f47c5e74944b4">ReleaseParent</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a77b72a449977dbb00950359fa4a79a9f">DeepPosition</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a50723866b36f214de7d3544aaee3d327">SetParent</a> (<a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *parent)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#aaca5909bc7e27be8adfa058f471bd4de">GetParent</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#aaa0fc820f6d7aa9d752fef133e231de4">AddChild</a> (<a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *child)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a95cdf4f2fc4203326baa5807110e4d5a">GetChild</a> (unsigned <a class="el" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a6d3c9dbbf1e6e93448100ec2d579dde2">GetChildCount</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#afd25bc1d78887c9ca3307afa2e4e80dc">ClearAllChild</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt; <a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac074260c666e3ef88b738ff0281a5395">GetChildIterator</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac19ba8d039add0253acbf54b5684300b">ReleaseChild</a> (<a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *child)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a5d5e1fb1ba29dd205339c693c33c4e98">ReleaseChild</a> (unsigned <a class="el" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a37dc3dddcb76c260e4558f91a5828b4f">DeleteChild</a> (<a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *child)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac6e0d5772988abb28780a2492b8bfbf6">DeleteChild</a> (unsigned <a class="el" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a618cf8258583f6fbde8e222f74530882">Clone</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#aed8e845b6efa0ce1ee6e241412902866">Process</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#afcc93286aed5d5f6369e47192ac33725">Render</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a598eb9d11b5135b431d6d2409a0f7a0b">SetUserData</a> (<a class="el" href="classtbe_1_1_any.html">Any</a> userData)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_any.html">Any</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a46f22b9076a53715aecd0613e9a7a207">GetUserData</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a3e11df7d7d1cef5c977f36f91d9233c5">ConstructionMap</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root)</td></tr>
+<tr><td colspan="2"><h2><a name="pro-attribs"></a>
+Attributs protégés</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a90431205e5035b7fdb1c445bac2f8a12">m_parallelScene</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac729e342e44a4314bb5e51bf0b4c968b">m_sceneManager</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a0d9c7beec95981c1eace9ee98493ae48">m_name</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a7f2420cfab5d67a1b6d4de34c8aaad3a">m_matrix</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a7992ade912f78d8d94560639af863048">m_enable</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_a_a_b_b.html">AABB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">m_aabb</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">m_parent</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_node.html#a2999d055ea6712ab4d6a273a99303cde">Node::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#a6d285b20d93526c60141e3979ca381ad">m_childs</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_any.html">Any</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_node.html#af1e3ea82ac13f5d24055a60458287459">m_userData</a></td></tr>
+</table>
+<hr/><a name="details" id="details"></a><h2>Description détaillée</h2>
+<div class="textblock"><p>Class de base pour la représentation d'une entité qui inclus une matrice, un <a class="el" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> et un nom. </p>
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00029">29</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+</div><hr/><h2>Documentation des définitions de type membres</h2>
+<a class="anchor" id="a2999d055ea6712ab4d6a273a99303cde"></a><!-- doxytag: member="tbe::scene::Node::Array" ref="a2999d055ea6712ab4d6a273a99303cde" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::vector&lt;<a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a>*&gt; <a class="el" href="classtbe_1_1scene_1_1_node.html#a2999d055ea6712ab4d6a273a99303cde">tbe::scene::Node::Array</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Réimplémentée dans <a class="el" href="classtbe_1_1scene_1_1_light.html#ab386ac7f0b7b415883c7aa9f648ce5c3">tbe::scene::Light</a>, <a class="el" href="classtbe_1_1scene_1_1_mesh.html#a0f5640b675f4e8e22ebcb20529cda664">tbe::scene::Mesh</a>, <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#aadcbe792347460020b5b4fc50397d20d">tbe::scene::ParticlesEmiter</a>, et <a class="el" href="classtbe_1_1scene_1_1_water.html#adf79f9c270528f520132dc8a529bca11">tbe::scene::Water</a>.</p>
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00111">111</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac5e20a2f403c22f97e9262caef8efa09"></a><!-- doxytag: member="tbe::scene::Node::CtorMap" ref="ac5e20a2f403c22f97e9262caef8efa09" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>, <a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&gt; <a class="el" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">tbe::scene::Node::CtorMap</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00106">106</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5c173ba0dcb14bd216253537113317ad"></a><!-- doxytag: member="tbe::scene::Node::Map" ref="a5c173ba0dcb14bd216253537113317ad" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef std::map&lt;<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>, <a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a>*&gt; <a class="el" href="classtbe_1_1scene_1_1_node.html#a5c173ba0dcb14bd216253537113317ad">tbe::scene::Node::Map</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Réimplémentée dans <a class="el" href="classtbe_1_1scene_1_1_mesh.html#a59090541d1b20d6d194cdc1dca1bf099">tbe::scene::Mesh</a>, et <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a715cc472323f2fefa22839d418e8ea7c">tbe::scene::ParticlesEmiter</a>.</p>
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00110">110</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des constructeurs et destructeur</h2>
+<a class="anchor" id="ad7a34779cad45d997bfd6d3d8043c75f"></a><!-- doxytag: member="tbe::scene::Node::Node" ref="ad7a34779cad45d997bfd6d3d8043c75f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Node::Node </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00018">18</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6b91228bafcff370bcf1809bf1cbcaab"></a><!-- doxytag: member="tbe::scene::Node::Node" ref="a6b91228bafcff370bcf1809bf1cbcaab" args="(const Node &amp;copy)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Node::Node </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00035">35</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa0840c3cb5c7159be6d992adecd2097c"></a><!-- doxytag: member="tbe::scene::Node::~Node" ref="aa0840c3cb5c7159be6d992adecd2097c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Node::~Node </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00042">42</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des fonctions membres</h2>
+<a class="anchor" id="aaa0fc820f6d7aa9d752fef133e231de4"></a><!-- doxytag: member="tbe::scene::Node::AddChild" ref="aaa0fc820f6d7aa9d752fef133e231de4" args="(Node *child)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::AddChild </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>child</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00205">205</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afd25bc1d78887c9ca3307afa2e4e80dc"></a><!-- doxytag: member="tbe::scene::Node::ClearAllChild" ref="afd25bc1d78887c9ca3307afa2e4e80dc" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::ClearAllChild </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00294">294</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a618cf8258583f6fbde8e222f74530882"></a><!-- doxytag: member="tbe::scene::Node::Clone" ref="a618cf8258583f6fbde8e222f74530882" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a>* tbe::scene::Node::Clone </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implémenté dans <a class="el" href="classtbe_1_1scene_1_1_burning_emitter.html#aac52e86ea45c2ab76c05617323d46540">tbe::scene::BurningEmitter</a>, <a class="el" href="classtbe_1_1scene_1_1_light.html#a61517d99af2f1aea0e84a9d44337812e">tbe::scene::Light</a>, <a class="el" href="classtbe_1_1scene_1_1_mesh.html#a5c24ddcb1b3780b25181193f03e61596">tbe::scene::Mesh</a>, et <a class="el" href="classtbe_1_1scene_1_1_water.html#aa544a7871ebcaec3f0d18bf978be1d17">tbe::scene::Water</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3e11df7d7d1cef5c977f36f91d9233c5"></a><!-- doxytag: member="tbe::scene::Node::ConstructionMap" ref="a3e11df7d7d1cef5c977f36f91d9233c5" args="(std::string root)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">Node::CtorMap</a> Node::ConstructionMap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>root</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Réimplémentée dans <a class="el" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#ad240be61c11196c7b43cd34376ce4ad7">tbe::scene::Ball3DMesh</a>, <a class="el" href="classtbe_1_1scene_1_1_burning_emitter.html#a034af81b7e2029269aa19bb3a96a8769">tbe::scene::BurningEmitter</a>, <a class="el" href="classtbe_1_1scene_1_1_light.html#a563a9e6a56f1324eb8b80e554c98029b">tbe::scene::Light</a>, <a class="el" href="classtbe_1_1scene_1_1_mesh.html#a5d6cd3898f1af824284cbe796e13dc29">tbe::scene::Mesh</a>, <a class="el" href="classtbe_1_1scene_1_1_o_b_j_mesh.html#a700dd2ef5e799cad6f7a56ce66932f7e">tbe::scene::OBJMesh</a>, <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a19119f0c331c4f169cc0c35dd2be596a">tbe::scene::ParticlesEmiter</a>, et <a class="el" href="classtbe_1_1scene_1_1_water.html#a2504437a1eb4c4099030a8552184d75b">tbe::scene::Water</a>.</p>
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00305">305</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a77b72a449977dbb00950359fa4a79a9f"></a><!-- doxytag: member="tbe::scene::Node::DeepPosition" ref="a77b72a449977dbb00950359fa4a79a9f" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned Node::DeepPosition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00179">179</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a37dc3dddcb76c260e4558f91a5828b4f"></a><!-- doxytag: member="tbe::scene::Node::DeleteChild" ref="a37dc3dddcb76c260e4558f91a5828b4f" args="(Node *child)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::DeleteChild </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>child</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00246">246</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac6e0d5772988abb28780a2492b8bfbf6"></a><!-- doxytag: member="tbe::scene::Node::DeleteChild" ref="ac6e0d5772988abb28780a2492b8bfbf6" args="(unsigned index)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::DeleteChild </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00257">257</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab4018d65cffc18773255c901d408feea"></a><!-- doxytag: member="tbe::scene::Node::GetAabb" ref="ab4018d65cffc18773255c901d408feea" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_a_a_b_b.html">AABB</a> Node::GetAabb </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Renvois le <a class="el" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> du noeud. </p>
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00132">132</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5f278195dc303165271c6531374246cf"></a><!-- doxytag: member="tbe::scene::Node::GetAbsolutAabb" ref="a5f278195dc303165271c6531374246cf" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_a_a_b_b.html">AABB</a> Node::GetAbsolutAabb </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00126">126</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a236bb6a8d77f224287a4f224e31d0e72"></a><!-- doxytag: member="tbe::scene::Node::GetAbsoluteMatrix" ref="a236bb6a8d77f224287a4f224e31d0e72" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a> Node::GetAbsoluteMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00106">106</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a95cdf4f2fc4203326baa5807110e4d5a"></a><!-- doxytag: member="tbe::scene::Node::GetChild" ref="a95cdf4f2fc4203326baa5807110e4d5a" args="(unsigned index) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> * Node::GetChild </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00271">271</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6d3c9dbbf1e6e93448100ec2d579dde2"></a><!-- doxytag: member="tbe::scene::Node::GetChildCount" ref="a6d3c9dbbf1e6e93448100ec2d579dde2" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned Node::GetChildCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00266">266</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac074260c666e3ef88b738ff0281a5395"></a><!-- doxytag: member="tbe::scene::Node::GetChildIterator" ref="ac074260c666e3ef88b738ff0281a5395" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt; <a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> * &gt; Node::GetChildIterator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00289">289</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="add121eb6d8079729a58685718aea239b"></a><!-- doxytag: member="tbe::scene::Node::GetMatrix" ref="add121eb6d8079729a58685718aea239b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a> &amp; Node::GetMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00111">111</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a418aabced8e011e49077148f6dc66ef6"></a><!-- doxytag: member="tbe::scene::Node::GetName" ref="a418aabced8e011e49077148f6dc66ef6" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Node::GetName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00152">152</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a73afefb7f637cc0633fa6c50a895b9f1"></a><!-- doxytag: member="tbe::scene::Node::GetParallelScene" ref="a73afefb7f637cc0633fa6c50a895b9f1" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> * Node::GetParallelScene </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00121">121</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaca5909bc7e27be8adfa058f471bd4de"></a><!-- doxytag: member="tbe::scene::Node::GetParent" ref="aaca5909bc7e27be8adfa058f471bd4de" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> * Node::GetParent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00200">200</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3b93d70a9cc25d5afa8a4cc4d33c74f2"></a><!-- doxytag: member="tbe::scene::Node::GetPos" ref="a3b93d70a9cc25d5afa8a4cc4d33c74f2" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> Node::GetPos </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00083">83</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a89d2f01c71ee8a5ec02f23b9d395cede"></a><!-- doxytag: member="tbe::scene::Node::GetSceneManager" ref="a89d2f01c71ee8a5ec02f23b9d395cede" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> * Node::GetSceneManager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00030">30</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a46f22b9076a53715aecd0613e9a7a207"></a><!-- doxytag: member="tbe::scene::Node::GetUserData" ref="a46f22b9076a53715aecd0613e9a7a207" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_any.html">Any</a> Node::GetUserData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00284">284</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4dba92fa4b3d1f01ed4027d26e0541b2"></a><!-- doxytag: member="tbe::scene::Node::IsAttached" ref="a4dba92fa4b3d1f01ed4027d26e0541b2" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Node::IsAttached </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00165">165</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1dac7ca69935311cbd023a839c95c32a"></a><!-- doxytag: member="tbe::scene::Node::IsEnable" ref="a1dac7ca69935311cbd023a839c95c32a" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Node::IsEnable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00142">142</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7340d79586c6fa260c33f0beb6f40636"></a><!-- doxytag: member="tbe::scene::Node::IsRoot" ref="a7340d79586c6fa260c33f0beb6f40636" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Node::IsRoot </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00157">157</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8d2229ea6ff0c3640d5c9d5e03717c9d"></a><!-- doxytag: member="tbe::scene::Node::MapFromGlobal" ref="a8d2229ea6ff0c3640d5c9d5e03717c9d" args="(Vector3f pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> Node::MapFromGlobal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00088">88</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a068a1c1828010daebc3dfff20e79223e"></a><!-- doxytag: member="tbe::scene::Node::MulMatrix" ref="a068a1c1828010daebc3dfff20e79223e" args="(const Matrix4f &amp;matrix)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::MulMatrix </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a> &amp;&#160;</td>
+          <td class="paramname"><em>matrix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00096">96</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aac43d240768c5f3e07abe208a81e4e81"></a><!-- doxytag: member="tbe::scene::Node::operator=" ref="aac43d240768c5f3e07abe208a81e4e81" args="(const Node &amp;copy)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> &amp; Node::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00050">50</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a85863000140e1cdb4a23298262e60de0"></a><!-- doxytag: member="tbe::scene::Node::operator==" ref="a85863000140e1cdb4a23298262e60de0" args="(Node *node) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Node::operator== </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Operateur de comparaison par nom (m_name) </p>
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00073">73</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abb5a570f84d3ccdd2dc4d22189f7366f"></a><!-- doxytag: member="tbe::scene::Node::operator==" ref="abb5a570f84d3ccdd2dc4d22189f7366f" args="(std::string name) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Node::operator== </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00068">68</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aed8e845b6efa0ce1ee6e241412902866"></a><!-- doxytag: member="tbe::scene::Node::Process" ref="aed8e845b6efa0ce1ee6e241412902866" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void tbe::scene::Node::Process </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implémenté dans <a class="el" href="classtbe_1_1scene_1_1_burning_emitter.html#a9e16e344f1b3093e52e0d57c06ad728b">tbe::scene::BurningEmitter</a>, <a class="el" href="classtbe_1_1scene_1_1_light.html#aaa798fc76a7d3fec06ddc8e74cce54ed">tbe::scene::Light</a>, <a class="el" href="classtbe_1_1scene_1_1_mesh.html#a182d82e681402c6ec9311cd03b08a274">tbe::scene::Mesh</a>, et <a class="el" href="classtbe_1_1scene_1_1_water.html#a7c66f2d30e92c0724ecb1daa91cfe13e">tbe::scene::Water</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac19ba8d039add0253acbf54b5684300b"></a><!-- doxytag: member="tbe::scene::Node::ReleaseChild" ref="ac19ba8d039add0253acbf54b5684300b" args="(Node *child)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::ReleaseChild </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>child</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00221">221</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5d5e1fb1ba29dd205339c693c33c4e98"></a><!-- doxytag: member="tbe::scene::Node::ReleaseChild" ref="a5d5e1fb1ba29dd205339c693c33c4e98" args="(unsigned index)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> * Node::ReleaseChild </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00233">233</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acdcc6398c17257ca586f47c5e74944b4"></a><!-- doxytag: member="tbe::scene::Node::ReleaseParent" ref="acdcc6398c17257ca586f47c5e74944b4" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::ReleaseParent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00170">170</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afcc93286aed5d5f6369e47192ac33725"></a><!-- doxytag: member="tbe::scene::Node::Render" ref="afcc93286aed5d5f6369e47192ac33725" args="()=0" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void tbe::scene::Node::Render </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implémenté dans <a class="el" href="classtbe_1_1scene_1_1_light.html#a44550ae09e953731d0bf262a2c443e5d">tbe::scene::Light</a>, <a class="el" href="classtbe_1_1scene_1_1_mesh.html#a75e66bcd90c09492676a4cfe5b23c3af">tbe::scene::Mesh</a>, <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a9b466453a708f70eac7c3890fd957d12">tbe::scene::ParticlesEmiter</a>, et <a class="el" href="classtbe_1_1scene_1_1_water.html#a703be38223bac312b39559b22445242f">tbe::scene::Water</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a054d4b01608297597c83e97feb79493c"></a><!-- doxytag: member="tbe::scene::Node::SetEnable" ref="a054d4b01608297597c83e97feb79493c" args="(bool enbale)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::SetEnable </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enbale</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Specifier si l'objet est activer. </p>
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00137">137</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acef3c2d850c4850b03b6610a4862ee44"></a><!-- doxytag: member="tbe::scene::Node::SetMatrix" ref="acef3c2d850c4850b03b6610a4862ee44" args="(const Matrix4f &amp;matrix)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::SetMatrix </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a> &amp;&#160;</td>
+          <td class="paramname"><em>matrix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Matrice du noeud. </p>
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00101">101</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9b1802f40cf63be1cf5b919e7c2349d7"></a><!-- doxytag: member="tbe::scene::Node::SetName" ref="a9b1802f40cf63be1cf5b919e7c2349d7" args="(std::string name)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::SetName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Identifiant du noeud. </p>
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00147">147</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8e09a64fb4766ff3f66a56fe1e14e9ea"></a><!-- doxytag: member="tbe::scene::Node::SetParallelScene" ref="a8e09a64fb4766ff3f66a56fe1e14e9ea" args="(ParallelScene *parallelScene)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::SetParallelScene </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *&#160;</td>
+          <td class="paramname"><em>parallelScene</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Spécifier la scene parallel parent. </p>
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00116">116</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a50723866b36f214de7d3544aaee3d327"></a><!-- doxytag: member="tbe::scene::Node::SetParent" ref="a50723866b36f214de7d3544aaee3d327" args="(Node *parent)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::SetParent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00195">195</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0be01ac75660f8c38898df309361a656"></a><!-- doxytag: member="tbe::scene::Node::SetPos" ref="a0be01ac75660f8c38898df309361a656" args="(Vector3f pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::SetPos </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Racourcie pour sépcifier la postion de la matrice du noeud. </p>
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00078">78</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a104e96d63d5b87c542c2c2484b25c48d"></a><!-- doxytag: member="tbe::scene::Node::SetSceneManager" ref="a104e96d63d5b87c542c2c2484b25c48d" args="(SceneManager *sceneManager)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::SetSceneManager </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> *&#160;</td>
+          <td class="paramname"><em>sceneManager</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00025">25</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a598eb9d11b5135b431d6d2409a0f7a0b"></a><!-- doxytag: member="tbe::scene::Node::SetUserData" ref="a598eb9d11b5135b431d6d2409a0f7a0b" args="(Any userData)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Node::SetUserData </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_any.html">Any</a>&#160;</td>
+          <td class="paramname"><em>userData</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8cpp_source.html#l00279">279</a> du fichier <a class="el" href="_node_8cpp_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des données membres</h2>
+<a class="anchor" id="a15b4a9820ce3f4ca847d59f1733569ed"></a><!-- doxytag: member="tbe::scene::Node::m_aabb" ref="a15b4a9820ce3f4ca847d59f1733569ed" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_a_a_b_b.html">AABB</a> <a class="el" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">tbe::scene::Node::m_aabb</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00119">119</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6d285b20d93526c60141e3979ca381ad"></a><!-- doxytag: member="tbe::scene::Node::m_childs" ref="a6d285b20d93526c60141e3979ca381ad" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html#a2999d055ea6712ab4d6a273a99303cde">Node::Array</a> <a class="el" href="classtbe_1_1scene_1_1_node.html#a6d285b20d93526c60141e3979ca381ad">tbe::scene::Node::m_childs</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00122">122</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7992ade912f78d8d94560639af863048"></a><!-- doxytag: member="tbe::scene::Node::m_enable" ref="a7992ade912f78d8d94560639af863048" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classtbe_1_1scene_1_1_node.html#a7992ade912f78d8d94560639af863048">tbe::scene::Node::m_enable</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00118">118</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7f2420cfab5d67a1b6d4de34c8aaad3a"></a><!-- doxytag: member="tbe::scene::Node::m_matrix" ref="a7f2420cfab5d67a1b6d4de34c8aaad3a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a> <a class="el" href="classtbe_1_1scene_1_1_node.html#a7f2420cfab5d67a1b6d4de34c8aaad3a">tbe::scene::Node::m_matrix</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00117">117</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0d9c7beec95981c1eace9ee98493ae48"></a><!-- doxytag: member="tbe::scene::Node::m_name" ref="a0d9c7beec95981c1eace9ee98493ae48" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="classtbe_1_1scene_1_1_node.html#a0d9c7beec95981c1eace9ee98493ae48">tbe::scene::Node::m_name</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00116">116</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a90431205e5035b7fdb1c445bac2f8a12"></a><!-- doxytag: member="tbe::scene::Node::m_parallelScene" ref="a90431205e5035b7fdb1c445bac2f8a12" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a>* <a class="el" href="classtbe_1_1scene_1_1_node.html#a90431205e5035b7fdb1c445bac2f8a12">tbe::scene::Node::m_parallelScene</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Réimplémentée dans <a class="el" href="classtbe_1_1scene_1_1_light.html#aab7700c3cac8e1e1520a5bedc6cef3d5">tbe::scene::Light</a>, <a class="el" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">tbe::scene::Mesh</a>, <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a8114b313e172025b65af6232db46d2b3">tbe::scene::ParticlesEmiter</a>, et <a class="el" href="classtbe_1_1scene_1_1_water.html#acbbde3ef4f65d93591f5576395734fd7">tbe::scene::Water</a>.</p>
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00114">114</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a25c6975814e4ae4df8446c219e4753a4"></a><!-- doxytag: member="tbe::scene::Node::m_parent" ref="a25c6975814e4ae4df8446c219e4753a4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a>* <a class="el" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">tbe::scene::Node::m_parent</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00121">121</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac729e342e44a4314bb5e51bf0b4c968b"></a><!-- doxytag: member="tbe::scene::Node::m_sceneManager" ref="ac729e342e44a4314bb5e51bf0b4c968b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a>* <a class="el" href="classtbe_1_1scene_1_1_node.html#ac729e342e44a4314bb5e51bf0b4c968b">tbe::scene::Node::m_sceneManager</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00115">115</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af1e3ea82ac13f5d24055a60458287459"></a><!-- doxytag: member="tbe::scene::Node::m_userData" ref="af1e3ea82ac13f5d24055a60458287459" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_any.html">Any</a> <a class="el" href="classtbe_1_1scene_1_1_node.html#af1e3ea82ac13f5d24055a60458287459">tbe::scene::Node::m_userData</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_node_8h_source.html#l00124">124</a> du fichier <a class="el" href="_node_8h_source.html">Node.h</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir des fichiers suivants :<ul>
+<li>D:/projets/cpp/tbengine/sources/<a class="el" href="_node_8h_source.html">Node.h</a></li>
+<li>D:/projets/cpp/tbengine/sources/<a class="el" href="_node_8cpp_source.html">Node.cpp</a></li>
+</ul>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:05 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

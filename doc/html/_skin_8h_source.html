@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Skin.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Skin.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_skin_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef SKIN_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define SKIN_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="_pencil_8h.html">Pencil.h</a>&quot;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a>00007 <span class="keyword">namespace </span>tbe
+<a name="l00008"></a>00008 {
+<a name="l00009"></a>00009 <span class="keyword">namespace </span>gui
+<a name="l00010"></a>00010 {
+<a name="l00011"></a>00011 
+<a name="l00017"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html">00017</a> <span class="keyword">struct </span><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html" title="Structure contenant l&#39;apparence et la configuration des controles de l&#39;interface graphique.">GuiSkin</a>
+<a name="l00018"></a>00018 {
+<a name="l00019"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#ac1b387087e4db7c1dee74a935b4d0835">00019</a>     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#ac1b387087e4db7c1dee74a935b4d0835">button</a>;
+<a name="l00020"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a6da4020b89fb38f806b7952e8ae05d6b">00020</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a6da4020b89fb38f806b7952e8ae05d6b">buttonSize</a>;
+<a name="l00021"></a>00021 
+<a name="l00022"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a549019568ad2fafc02aaa0dc9f54eb21">00022</a>     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a549019568ad2fafc02aaa0dc9f54eb21">gauge</a>;
+<a name="l00023"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#ab7272c988cfc38e6923862ce0f895f46">00023</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#ab7272c988cfc38e6923862ce0f895f46">gaugeSize</a>;
+<a name="l00024"></a>00024 
+<a name="l00025"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a741c74811f50f1de9f870757c0c66581">00025</a>     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a741c74811f50f1de9f870757c0c66581">editBox</a>;
+<a name="l00026"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a8ac65b45da7927c42f740c4c9d7dffa3">00026</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a8ac65b45da7927c42f740c4c9d7dffa3">editBoxSize</a>;
+<a name="l00027"></a>00027 
+<a name="l00028"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a5b3de03045b8d455d62766d29e3252d0">00028</a>     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a5b3de03045b8d455d62766d29e3252d0">switchBox</a>;
+<a name="l00029"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a8c46d92cd3cc5ded300090d4bd42ef23">00029</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a8c46d92cd3cc5ded300090d4bd42ef23">switchBoxSize</a>;
+<a name="l00030"></a>00030 
+<a name="l00031"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a1f23a5d797a759e1593d17d29a392900">00031</a>     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a1f23a5d797a759e1593d17d29a392900">vectorBox</a>;
+<a name="l00032"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#ac9a047f7900030f449e62b4598b3f081">00032</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#ac9a047f7900030f449e62b4598b3f081">vectorBoxSize</a>;
+<a name="l00033"></a>00033 
+<a name="l00034"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a889f7ad33bf76da2916c32c18438a0a0">00034</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a889f7ad33bf76da2916c32c18438a0a0">stateShowSize</a>;
+<a name="l00035"></a>00035 
+<a name="l00036"></a><a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a4bf7a29779d0f128986b1aab45613785">00036</a>     <a class="code" href="classtbe_1_1gui_1_1_pencil.html" title="Gestion du texte dans l&#39;interface graphique contine la couleur, taille et police du texte...">Pencil</a> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a4bf7a29779d0f128986b1aab45613785">pencile</a>;
+<a name="l00037"></a>00037 };
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 }
+<a name="l00040"></a>00040 }
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042 <span class="preprocessor">#endif // SKIN_H</span>
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

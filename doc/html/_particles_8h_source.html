@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Particles.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Particles.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_particles_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _TBE_PARTICLES_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _TBE_PARTICLES_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="_mathematics_8h.html">Mathematics.h</a>&quot;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="_node_8h.html">Node.h</a>&quot;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="_material_8h.html">Material.h</a>&quot;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="_particles_parallel_scene_8h.html">ParticlesParallelScene.h</a>&quot;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="_clock_8h.html">Clock.h</a>&quot;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="keyword">namespace </span>tbe
+<a name="l00015"></a>00015 {
+<a name="l00016"></a>00016 <span class="keyword">namespace </span>scene
+<a name="l00017"></a>00017 {
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="keyword">class </span>ParticlesParallelScene;
+<a name="l00020"></a>00020 
+<a name="l00024"></a><a class="code" href="structtbe_1_1scene_1_1_particle.html">00024</a> <span class="keyword">struct </span><a class="code" href="structtbe_1_1scene_1_1_particle.html" title="Représentation d&#39;une particule.">Particle</a>
+<a name="l00025"></a>00025 {
+<a name="l00026"></a><a class="code" href="structtbe_1_1scene_1_1_particle.html#aa13ecb0f3a9cffc11fd3c98362c1f30f">00026</a>     <span class="keyword">typedef</span> std::vector&lt;Particle&gt; <a class="code" href="structtbe_1_1scene_1_1_particle.html#aa13ecb0f3a9cffc11fd3c98362c1f30f">Array</a>;
+<a name="l00027"></a>00027 
+<a name="l00028"></a><a class="code" href="structtbe_1_1scene_1_1_particle.html#a872556cccdc82db853adfb51e2890230">00028</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="structtbe_1_1scene_1_1_particle.html#a872556cccdc82db853adfb51e2890230">pos</a>;
+<a name="l00029"></a><a class="code" href="structtbe_1_1scene_1_1_particle.html#a23c82096b5b6670d430d870c23ade234">00029</a>     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="structtbe_1_1scene_1_1_particle.html#a23c82096b5b6670d430d870c23ade234">color</a>;
+<a name="l00030"></a><a class="code" href="structtbe_1_1scene_1_1_particle.html#a1f388b1212aa7e5bcb51f5b60ffd44df">00030</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="structtbe_1_1scene_1_1_particle.html#a1f388b1212aa7e5bcb51f5b60ffd44df">diriction</a>;
+<a name="l00031"></a><a class="code" href="structtbe_1_1scene_1_1_particle.html#a706793fadd538c939c9166c5116eee3b">00031</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="structtbe_1_1scene_1_1_particle.html#a706793fadd538c939c9166c5116eee3b">gravity</a>;
+<a name="l00032"></a><a class="code" href="structtbe_1_1scene_1_1_particle.html#a5a74a7c65e26058cd2d81dbf59b7b675">00032</a>     <span class="keywordtype">float</span> <a class="code" href="structtbe_1_1scene_1_1_particle.html#a5a74a7c65e26058cd2d81dbf59b7b675">life</a>;
+<a name="l00033"></a>00033 };
+<a name="l00034"></a>00034 
+<a name="l00039"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html">00039</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html" title="Emitter de particules. Encapsule tout les propriétés de génération.">ParticlesEmiter</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>
+<a name="l00040"></a>00040 {
+<a name="l00041"></a>00041 <span class="keyword">public</span>:
+<a name="l00042"></a>00042 
+<a name="l00043"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a715cc472323f2fefa22839d418e8ea7c">00043</a>     <span class="keyword">typedef</span> std::map&lt;std::string, ParticlesEmiter*&gt; <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a715cc472323f2fefa22839d418e8ea7c">Map</a>;
+<a name="l00044"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#aadcbe792347460020b5b4fc50397d20d">00044</a>     <span class="keyword">typedef</span> std::vector&lt;ParticlesEmiter*&gt; <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#aadcbe792347460020b5b4fc50397d20d">Array</a>;
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046     <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a0a90df40a39e16df97d7222cc431b9aa">ParticlesEmiter</a>(<a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html" title="Scene parallele de rendue des particules.">ParticlesParallelScene</a>* scene);
+<a name="l00047"></a>00047     <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a0a90df40a39e16df97d7222cc431b9aa">ParticlesEmiter</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html" title="Emitter de particules. Encapsule tout les propriétés de génération.">ParticlesEmiter</a>&amp; copy);
+<a name="l00048"></a>00048     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a500e077141ac004df0b96939b00d518d">~ParticlesEmiter</a>();
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050     <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html" title="Emitter de particules. Encapsule tout les propriétés de génération.">ParticlesEmiter</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#abef7644dcf3ebd7c2673f4fa032f93b8">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html" title="Emitter de particules. Encapsule tout les propriétés de génération.">ParticlesEmiter</a>&amp; copy);
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#afbe30105eadad2f84357c8c389a42020">Build</a>();
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a9b466453a708f70eac7c3890fd957d12">Render</a>();
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a1b49564702fc2e61ef7df077221f9d92">Destroy</a>();
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a72bc993a3b76642c721cece364582781">SetDeadEmiter</a>(<span class="keywordtype">bool</span> deadEmiter);
+<a name="l00059"></a>00059     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a266d62d8c50edea3ed0bbeeb0f0796e2">IsDeadEmiter</a>() <span class="keyword">const</span>;
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a99d1ec8e8877756235c503fb719f1f5e">SetNumber</a>(<span class="keywordtype">unsigned</span> number);
+<a name="l00062"></a>00062     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#af44cfbcab66c157507e084e78691f99d">GetNumber</a>() <span class="keyword">const</span>;
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a5dcda5245fb80f7c3b762988e5044f12">SetTexture</a>(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>);
+<a name="l00065"></a>00065     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#aa26bb475aec7e4d084f04d7ce1ae89f0">GetTexture</a>() <span class="keyword">const</span>;
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a5f21a8361eb33c96803b1bd88ba1c694">SetDrawNumber</a>(<span class="keywordtype">unsigned</span> drawNumber);
+<a name="l00068"></a>00068     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a599bfab34a29e057045c35e9ce0f79bd">GetDrawNumber</a>() <span class="keyword">const</span>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a6a93fb690451ccfddf88a21584a88e3e">SetDepthTest</a>(<span class="keywordtype">bool</span> depthTest);
+<a name="l00071"></a>00071     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a3ec761acec74e6c29fd42174f4a3a135">IsDepthTest</a>() <span class="keyword">const</span>;
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">00073</a>     <span class="keyword">enum</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a>
+<a name="l00074"></a>00074     {
+<a name="l00075"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665a37b65b49970179360b938b41c0e139fa">00075</a>         <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665a37b65b49970179360b938b41c0e139fa">MODULAR</a>,
+<a name="l00076"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665a370190e2e655b480648a03f0d6795c2c">00076</a>         <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665a370190e2e655b480648a03f0d6795c2c">ADDITIVE</a>,
+<a name="l00077"></a>00077     };
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a22557b77d60c70d3ba6d840fa985029e">SetBlendEq</a>(<a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a> blendEq);
+<a name="l00080"></a>00080     <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a49d524fdb795dbe1da9e7a82f67b594d">GetBlendEq</a>() <span class="keyword">const</span>;
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082     <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a98c15d173239311af8b426c411e10f8e">CheckHardware</a>();
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a19119f0c331c4f169cc0c35dd2be596a">ConstructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086     <a class="code" href="structtbe_1_1scene_1_1_particle.html" title="Représentation d&#39;une particule.">Particle</a>* <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a0e47951146e192048b277581ae3ad9ce">BeginParticlesPosProcess</a>();
+<a name="l00087"></a>00087     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a29e8c61298236c002741c6f9cba549ac">EndParticlesPosProcess</a>();
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089 <span class="keyword">protected</span>:
+<a name="l00090"></a>00090     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a550cbc2c248a607f29a7165c54f22c7f">SetupBullet</a>(<a class="code" href="structtbe_1_1scene_1_1_particle.html" title="Représentation d&#39;une particule.">Particle</a>&amp; <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>) = 0;
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092 <span class="keyword">protected</span>:
+<a name="l00093"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a66a1fbaef6397084d3c618d922a9e1bc">00093</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a66a1fbaef6397084d3c618d922a9e1bc">m_deadEmiter</a>;
+<a name="l00094"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a19c044c69d9f30dd6da3cb70a8eebfe5">00094</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a19c044c69d9f30dd6da3cb70a8eebfe5">m_depthTest</a>;
+<a name="l00095"></a>00095 
+<a name="l00096"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a5bbfced45b5e1c9bb821f9391d19a3cc">00096</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a5bbfced45b5e1c9bb821f9391d19a3cc">m_number</a>;
+<a name="l00097"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#abf5976416ffdccece25c74479fe50ec4">00097</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#abf5976416ffdccece25c74479fe50ec4">m_drawNumber</a>;
+<a name="l00098"></a>00098 
+<a name="l00099"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a09521d38aea13642b0fa79b660a79cc4">00099</a>     <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a09521d38aea13642b0fa79b660a79cc4">m_blendEq</a>;
+<a name="l00100"></a>00100 
+<a name="l00101"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#addbcecbcbb524fba332b2f96d3d042c8">00101</a>     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#addbcecbcbb524fba332b2f96d3d042c8">m_texture</a>;
+<a name="l00102"></a>00102 
+<a name="l00103"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a8114b313e172025b65af6232db46d2b3">00103</a>     <a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html" title="Scene parallele de rendue des particules.">ParticlesParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a8114b313e172025b65af6232db46d2b3">m_parallelScene</a>;
+<a name="l00104"></a>00104 
+<a name="l00105"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a51f1bd1d6aabfe39a8ee0604ee1fb17e">00105</a>     <a class="code" href="classtbe_1_1ticks_1_1_clock.html" title="Gestion du temps Inclus des fonctions statique pour le formatage des dates et de controle du processu...">ticks::Clock</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a51f1bd1d6aabfe39a8ee0604ee1fb17e">m_timestamp</a>;
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107 <span class="keyword">private</span>:
+<a name="l00108"></a>00108     <a class="code" href="structtbe_1_1scene_1_1_particle.html#aa13ecb0f3a9cffc11fd3c98362c1f30f">Particle::Array</a> m_particles;
+<a name="l00109"></a>00109     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> m_renderId;
+<a name="l00110"></a>00110     <span class="keywordtype">bool</span> m_pointsprite;
+<a name="l00111"></a>00111 };
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113 }
+<a name="l00114"></a>00114 }
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116 <span class="preprocessor">#endif</span>
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>
