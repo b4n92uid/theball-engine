@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine: Référence de la classe tbe::scene::Frustum</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Liste&#160;des&#160;classes</span></a></li>
+      <li><a href="hierarchy.html"><span>Hiérarchie&#160;des&#160;classes</span></a></li>
+      <li><a href="functions.html"><span>Membres&#160;de&#160;classe</span></a></li>
+    </ul>
+  </div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacetbe.html">tbe</a>      </li>
+      <li class="navelem"><a class="el" href="namespacetbe_1_1scene.html">scene</a>      </li>
+      <li class="navelem"><a class="el" href="classtbe_1_1scene_1_1_frustum.html">Frustum</a>      </li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Fonctions membres publiques</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence de la classe tbe::scene::Frustum</div>  </div>
+</div>
+<div class="contents">
+<!-- doxytag: class="tbe::scene::Frustum" -->
+<p>Représentation du frustum culling inclus des fonction de test.  
+ <a href="classtbe_1_1scene_1_1_frustum.html#details">Plus de détails...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_frustum_8h_source.html">Frustum.h</a>&gt;</code></p>
+
+<p><a href="classtbe_1_1scene_1_1_frustum-members.html">Liste de tous les membres</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Fonctions membres publiques</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_frustum.html#a172ae3492592e3ac891642299d628494">Frustum</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_frustum.html#ab02405770e9189e2e8edf51a3955bde2">~Frustum</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_frustum.html#a0d09c35dcd94e5faaa97bb1ba596f05a">ExtractPlane</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_frustum.html#aa1a0895d79133ef46d69e2e754d259ff">IsInside</a> (<a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *node)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_frustum.html#aa0e145c1fe8d57be2ccecf5348af4ea8">IsInside</a> (const <a class="el" href="classtbe_1_1_a_a_b_b.html">AABB</a> &amp;aabb)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_frustum.html#a17186701008a8c10696558ea4d7c7e26">IsInside</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> point)</td></tr>
+</table>
+<hr/><a name="details" id="details"></a><h2>Description détaillée</h2>
+<div class="textblock"><p>Représentation du frustum culling inclus des fonction de test. </p>
+
+<p>Définition à la ligne <a class="el" href="_frustum_8h_source.html#l00026">26</a> du fichier <a class="el" href="_frustum_8h_source.html">Frustum.h</a>.</p>
+</div><hr/><h2>Documentation des constructeurs et destructeur</h2>
+<a class="anchor" id="a172ae3492592e3ac891642299d628494"></a><!-- doxytag: member="tbe::scene::Frustum::Frustum" ref="a172ae3492592e3ac891642299d628494" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Frustum::Frustum </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_frustum_8cpp_source.html#l00017">17</a> du fichier <a class="el" href="_frustum_8cpp_source.html">Frustum.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab02405770e9189e2e8edf51a3955bde2"></a><!-- doxytag: member="tbe::scene::Frustum::~Frustum" ref="ab02405770e9189e2e8edf51a3955bde2" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Frustum::~Frustum </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_frustum_8cpp_source.html#l00021">21</a> du fichier <a class="el" href="_frustum_8cpp_source.html">Frustum.cpp</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Documentation des fonctions membres</h2>
+<a class="anchor" id="a0d09c35dcd94e5faaa97bb1ba596f05a"></a><!-- doxytag: member="tbe::scene::Frustum::ExtractPlane" ref="a0d09c35dcd94e5faaa97bb1ba596f05a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Frustum::ExtractPlane </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_frustum_8cpp_source.html#l00084">84</a> du fichier <a class="el" href="_frustum_8cpp_source.html">Frustum.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a17186701008a8c10696558ea4d7c7e26"></a><!-- doxytag: member="tbe::scene::Frustum::IsInside" ref="a17186701008a8c10696558ea4d7c7e26" args="(Vector3f point)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Frustum::IsInside </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>point</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_frustum_8cpp_source.html#l00067">67</a> du fichier <a class="el" href="_frustum_8cpp_source.html">Frustum.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa0e145c1fe8d57be2ccecf5348af4ea8"></a><!-- doxytag: member="tbe::scene::Frustum::IsInside" ref="aa0e145c1fe8d57be2ccecf5348af4ea8" args="(const AABB &amp;aabb)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Frustum::IsInside </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1_a_a_b_b.html">AABB</a> &amp;&#160;</td>
+          <td class="paramname"><em>aabb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_frustum_8cpp_source.html#l00033">33</a> du fichier <a class="el" href="_frustum_8cpp_source.html">Frustum.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa1a0895d79133ef46d69e2e754d259ff"></a><!-- doxytag: member="tbe::scene::Frustum::IsInside" ref="aa1a0895d79133ef46d69e2e754d259ff" args="(Node *node)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Frustum::IsInside </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_frustum_8cpp_source.html#l00025">25</a> du fichier <a class="el" href="_frustum_8cpp_source.html">Frustum.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>La documentation de cette classe a été générée à partir des fichiers suivants :<ul>
+<li>D:/projets/cpp/tbengine/sources/<a class="el" href="_frustum_8h_source.html">Frustum.h</a></li>
+<li>D:/projets/cpp/tbengine/sources/<a class="el" href="_frustum_8cpp_source.html">Frustum.cpp</a></li>
+</ul>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:04 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

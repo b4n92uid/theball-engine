@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Gauge.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Gauge.cpp</div>  </div>
+</div>
+<div class="contents">
+<a href="_gauge_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &quot;<a class="code" href="_gauge_8h.html">Gauge.h</a>&quot;</span>
+<a name="l00002"></a>00002 <span class="preprocessor">#include &quot;<a class="code" href="_skin_8h.html">Skin.h</a>&quot;</span>
+<a name="l00003"></a>00003 
+<a name="l00004"></a><a class="code" href="_gauge_8cpp.html#ae52a7fbb00ada42ef2bb7933039280cc">00004</a> <span class="preprocessor">#define META_COUNT (2)</span>
+<a name="l00005"></a><a class="code" href="_gauge_8cpp.html#aa1f2f2081a2949053cf74cd4ad47a8d2">00005</a> <span class="preprocessor"></span><span class="preprocessor">#define META_UNIT (1.0f/META_COUNT)</span>
+<a name="l00006"></a>00006 <span class="preprocessor"></span>
+<a name="l00007"></a>00007 <span class="keyword">using namespace </span>tbe;
+<a name="l00008"></a>00008 <span class="keyword">using namespace </span>tbe::gui;
+<a name="l00009"></a>00009 <span class="keyword">using namespace </span>std;
+<a name="l00010"></a>00010 
+<a name="l00011"></a><a class="code" href="classtbe_1_1gui_1_1_gauge.html#a8b9199653ba1e7e9f6d32eb442f74a23">00011</a> Gauge::Gauge()
+<a name="l00012"></a>00012 {
+<a name="l00013"></a>00013     m_value = 0;
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015     m_smooth = <span class="keyword">false</span>;
+<a name="l00016"></a>00016     m_smoothSpeed = 0;
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018     m_valueTarget = 0;
+<a name="l00019"></a>00019 }
+<a name="l00020"></a>00020 
+<a name="l00021"></a><a class="code" href="classtbe_1_1gui_1_1_gauge.html#a463a3db1414855b4eb893fd60363b53a">00021</a> Gauge::Gauge(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> label, <a class="code" href="classtbe_1_1gui_1_1_pencil.html" title="Gestion du texte dans l&#39;interface graphique contine la couleur, taille et police du texte...">Pencil</a> font, <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> background)
+<a name="l00022"></a>00022 {
+<a name="l00023"></a>00023     SetLabel(label);
+<a name="l00024"></a>00024     SetPencil(font);
+<a name="l00025"></a>00025     SetBackground(background);
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027     m_value = 0;
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029     m_smooth = <span class="keyword">false</span>;
+<a name="l00030"></a>00030     m_smoothSpeed = 0;
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032     m_valueTarget = 0;
+<a name="l00033"></a>00033 }
+<a name="l00034"></a>00034 
+<a name="l00035"></a><a class="code" href="classtbe_1_1gui_1_1_gauge.html#a0c79439c73a0b1be4f770d957c5a015d">00035</a> Gauge::~Gauge()
+<a name="l00036"></a>00036 {
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 }
+<a name="l00039"></a>00039 
+<a name="l00040"></a><a class="code" href="classtbe_1_1gui_1_1_gauge.html#a5efc0179c2ea1a49f80207f24c8f5b2d">00040</a> <span class="keywordtype">bool</span> Gauge::OnEvent(<span class="keyword">const</span> <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp; event)
+<a name="l00041"></a>00041 {
+<a name="l00042"></a>00042     <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00043"></a>00043 }
+<a name="l00044"></a>00044 
+<a name="l00045"></a><a class="code" href="classtbe_1_1gui_1_1_gauge.html#a273fac2ac9d0bc235981a4ccf80583b5">00045</a> <span class="keywordtype">void</span> Gauge::ObjectRender()
+<a name="l00046"></a>00046 {
+<a name="l00047"></a>00047     glBindTexture(GL_TEXTURE_2D, m_background);
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049     DrawSurface(m_pos, m_size, 0, <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(1, <a class="code" href="_gauge_8cpp.html#aa1f2f2081a2949053cf74cd4ad47a8d2">META_UNIT</a>));
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051     <span class="keywordflow">if</span>(m_smooth)
+<a name="l00052"></a>00052     {
+<a name="l00053"></a>00053         <span class="keywordflow">if</span>(m_valueTarget &gt; m_value)
+<a name="l00054"></a>00054             m_value = min(m_value + m_smoothSpeed, m_valueTarget);
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056         <span class="keywordflow">if</span>(m_valueTarget &lt; m_value)
+<a name="l00057"></a>00057             m_value = <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>(m_value - m_smoothSpeed, m_valueTarget);
+<a name="l00058"></a>00058     }
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060     DrawSurface(
+<a name="l00061"></a>00061                 m_pos,
+<a name="l00062"></a>00062                 <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(m_value * m_size.x / 100.0f, m_size.y),
+<a name="l00063"></a>00063                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a>(0, <a class="code" href="_gauge_8cpp.html#aa1f2f2081a2949053cf74cd4ad47a8d2">META_UNIT</a>),
+<a name="l00064"></a>00064                 <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(m_value / 100.0<a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a>, <a class="code" href="_gauge_8cpp.html#aa1f2f2081a2949053cf74cd4ad47a8d2">META_UNIT</a> * 2)
+<a name="l00065"></a>00065                 );
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     <span class="keywordflow">if</span>(m_pencil)
+<a name="l00068"></a>00068     {
+<a name="l00069"></a>00069         m_pencil.Display(m_pencil.CenterOf(m_label, m_pos, m_size), m_label);
+<a name="l00070"></a>00070     }
+<a name="l00071"></a>00071 }
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="classtbe_1_1gui_1_1_gauge.html#a914cf418dd38b6f88d5c38e5dd497e30">00073</a> <span class="keywordtype">void</span> Gauge::SetValue(<span class="keywordtype">int</span> <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, <span class="keywordtype">bool</span> rel)
+<a name="l00074"></a>00074 {
+<a name="l00075"></a>00075 <span class="preprocessor">    #ifdef TBE_COMPILE_DEBUG</span>
+<a name="l00076"></a>00076 <span class="preprocessor"></span>    <span class="keywordflow">if</span>(value &lt; 0 &amp;&amp; !rel)
+<a name="l00077"></a>00077         cout &lt;&lt; <span class="stringliteral">&quot;Gauge::SetValue; Warning : value &lt; 0 &amp;&amp; rel == false&quot;</span> &lt;&lt; endl;
+<a name="l00078"></a>00078 <span class="preprocessor">    #endif</span>
+<a name="l00079"></a>00079 <span class="preprocessor"></span>
+<a name="l00080"></a>00080     <span class="keywordflow">if</span>(m_smooth)
+<a name="l00081"></a>00081     {
+<a name="l00082"></a>00082         <span class="keywordflow">if</span>(rel)
+<a name="l00083"></a>00083             m_valueTarget += <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085         <span class="keywordflow">else</span>
+<a name="l00086"></a>00086             m_valueTarget = <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088         <span class="keywordflow">if</span>(m_valueTarget &gt; 100) m_valueTarget = 100;
+<a name="l00089"></a>00089         <span class="keywordflow">if</span>(m_valueTarget &lt; 0) m_valueTarget = 0;
+<a name="l00090"></a>00090     }
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092     <span class="keywordflow">else</span>
+<a name="l00093"></a>00093     {
+<a name="l00094"></a>00094         <span class="keywordflow">if</span>(rel)
+<a name="l00095"></a>00095             m_value += <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097         <span class="keywordflow">else</span>
+<a name="l00098"></a>00098             m_value = <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100         <span class="keywordflow">if</span>(m_value &gt; 100) m_value = 100;
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102         <span class="keywordflow">if</span>(m_value &lt; 0) m_value = 0;
+<a name="l00103"></a>00103     }
+<a name="l00104"></a>00104 }
+<a name="l00105"></a>00105 
+<a name="l00106"></a><a class="code" href="classtbe_1_1gui_1_1_gauge.html#ae33b626474d04ac90792af3355d4ab33">00106</a> <span class="keywordtype">int</span> Gauge::GetValue()
+<a name="l00107"></a>00107 {
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109     <span class="keywordflow">return</span> m_value;
+<a name="l00110"></a>00110 }
+<a name="l00111"></a>00111 
+<a name="l00112"></a><a class="code" href="classtbe_1_1gui_1_1_gauge.html#af2d09a9ec029bf333b088af56bf18e3a">00112</a> <span class="keywordtype">void</span> Gauge::SetSkin(<span class="keyword">const</span> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html" title="Structure contenant l&#39;apparence et la configuration des controles de l&#39;interface graphique.">GuiSkin</a>&amp; skin)
+<a name="l00113"></a>00113 {
+<a name="l00114"></a>00114     SetPencil(skin.<a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a4bf7a29779d0f128986b1aab45613785">pencile</a>);
+<a name="l00115"></a>00115     SetBackground(skin.<a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a549019568ad2fafc02aaa0dc9f54eb21">gauge</a>);
+<a name="l00116"></a>00116     SetSize(skin.<a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#ab7272c988cfc38e6923862ce0f895f46">gaugeSize</a>);
+<a name="l00117"></a>00117 }
+<a name="l00118"></a>00118 
+<a name="l00119"></a><a class="code" href="classtbe_1_1gui_1_1_gauge.html#a7af74c68fa316c619e87f8e0679a83b0">00119</a> <span class="keywordtype">void</span> Gauge::SetSmooth(<span class="keywordtype">bool</span> <a class="code" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>, <span class="keywordtype">int</span> speed)
+<a name="l00120"></a>00120 {
+<a name="l00121"></a>00121     m_smooth = <a class="code" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>;
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123 <span class="preprocessor">    #ifdef TBE_COMPILE_DEBUG</span>
+<a name="l00124"></a>00124 <span class="preprocessor"></span>    <span class="keywordflow">if</span>(b &amp;&amp; speed &lt; 1)
+<a name="l00125"></a>00125         cout &lt;&lt; <span class="stringliteral">&quot;Gauge::SetSmooth; nWarning : speed &lt; 1&quot;</span> &lt;&lt; endl;
+<a name="l00126"></a>00126 <span class="preprocessor">    #endif</span>
+<a name="l00127"></a>00127 <span class="preprocessor"></span>
+<a name="l00128"></a>00128     m_smoothSpeed = speed;
+<a name="l00129"></a>00129 }
+<a name="l00130"></a>00130 
+<a name="l00131"></a><a class="code" href="classtbe_1_1gui_1_1_gauge.html#ac7050636d29620bbcedc05056f2bd816">00131</a> <span class="keywordtype">bool</span> Gauge::IsSmooth()
+<a name="l00132"></a>00132 {
+<a name="l00133"></a>00133     <span class="keywordflow">return</span> m_smoothSpeed;
+<a name="l00134"></a>00134 }
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:56 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

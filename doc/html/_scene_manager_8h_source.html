@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/SceneManager.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/SceneManager.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_scene_manager_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef SCENEMANAGER_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define SCENEMANAGER_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;iostream&gt;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="_mathematics_8h.html">Mathematics.h</a>&quot;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="_exception_8h.html">Exception.h</a>&quot;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="_parallel_scene_8h.html">ParallelScene.h</a>&quot;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="_light_8h.html">Light.h</a>&quot;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="_camera_8h.html">Camera.h</a>&quot;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="_frustum_8h.html">Frustum.h</a>&quot;</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="_fog_8h.html">Fog.h</a>&quot;</span>
+<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;<a class="code" href="_post_process_manager_8h.html">PostProcessManager.h</a>&quot;</span>
+<a name="l00019"></a>00019 <span class="preprocessor">#include &quot;<a class="code" href="_iterator_8h.html">Iterator.h</a>&quot;</span>
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021 <span class="keyword">namespace </span>tbe
+<a name="l00022"></a>00022 {
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 <span class="keyword">namespace </span>scene
+<a name="l00025"></a>00025 {
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027 <span class="keyword">class </span>SkyBox;
+<a name="l00028"></a>00028 
+<a name="l00037"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html">00037</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html" title="Gestionnaire de scene inclus des fonctions de gestion des scenes parallel, des lumiers et encapsule l...">SceneManager</a>
+<a name="l00038"></a>00038 {
+<a name="l00039"></a>00039 <span class="keyword">public</span>:
+<a name="l00040"></a>00040 
+<a name="l00042"></a>00042     <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a52085e6737c23b491c228e86781af808" title="Ctor.">SceneManager</a>();
+<a name="l00043"></a>00043 
+<a name="l00045"></a>00045     <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2bb376a85d29e85f47753e26c7539229" title="Dtor.">~SceneManager</a>();
+<a name="l00046"></a>00046 
+<a name="l00048"></a>00048     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#acc9cd2578976686bd57ccdb1481b4299" title="Supprime tout les scene paralleles.">ClearParallelScenes</a>();
+<a name="l00049"></a>00049 
+<a name="l00051"></a>00051     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ac98c164a0a57f4307996da97d1e69cf4" title="Supprime tout les caméras.">ClearCameras</a>();
+<a name="l00052"></a>00052 
+<a name="l00054"></a>00054     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ad754d5b62b372a82a01988a54e4ecbe4" title="Vide tout la scene.">ClearAll</a>();
+<a name="l00055"></a>00055 
+<a name="l00057"></a>00057     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ab6cde47cf68a7432c200fd914966a9b0" title="Configuration.">Setup</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> viewport, <span class="keywordtype">float</span> ratio, <span class="keywordtype">float</span> fovy, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a12d99226e590bbaaf0be69169eeb4834">zNear</a>, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a18a2583fe65967bceff8903e2769f8e2">zFar</a>);
+<a name="l00058"></a>00058 
+<a name="l00060"></a>00060     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ab5272006a107a313930da72a1ce56c2c" title="Ajouter une sous-scene.">AddParallelScene</a>(<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* scene);
+<a name="l00061"></a>00061 
+<a name="l00063"></a>00063     <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ad426fc179a772304a667e9138ea085e6" title="Accès a une sous-scene.">GetParallelScene</a>(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>);
+<a name="l00064"></a>00064 
+<a name="l00066"></a>00066     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a25c4148ddfbb8ff0406be479225d75e6" title="Destruite une scene parallele.">DeleteParallelScene</a>(<span class="keywordtype">unsigned</span> index);
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a25c4148ddfbb8ff0406be479225d75e6" title="Destruite une scene parallele.">DeleteParallelScene</a>(<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* scene);
+<a name="l00068"></a>00068 
+<a name="l00070"></a>00070     <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a7e066c1da18bc40ca37a06ff740e29bc" title="Détache une scene parallele du gestionnaire.">ReleaseParallelScene</a>(<span class="keywordtype">unsigned</span> index);
+<a name="l00071"></a>00071     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a7e066c1da18bc40ca37a06ff740e29bc" title="Détache une scene parallele du gestionnaire.">ReleaseParallelScene</a>(<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* scene);
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073     <a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;ParallelScene*&gt;</a> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a4ce2714541c220e6e950d1b813f79732">GetParallelSceneIterator</a>();
+<a name="l00074"></a>00074 
+<a name="l00076"></a>00076     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a363d7cd532197f801d259bf1e24ab0f5" title="Rendue.">Render</a>(<span class="keywordtype">bool</span> setupView = <span class="keyword">true</span>);
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078     <span class="comment">// Node --------------------------------------------------------------------</span>
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a19131142217b48f46f0928ae78c340aa">GetRootNode</a>() <span class="keyword">const</span>;
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082     <span class="comment">// Camera ------------------------------------------------------------------</span>
+<a name="l00083"></a>00083 
+<a name="l00085"></a>00085     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a727892547c3fc1281780ed111111b61d" title="Ajoute une camera.">AddCamera</a>(<a class="code" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a>* camera);
+<a name="l00086"></a>00086 
+<a name="l00088"></a>00088     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ae90f056ea8e97c43649a73ecf307ea49" title="Specifier la camera courante.">SetCurCamera</a>(<a class="code" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a>* camera);
+<a name="l00089"></a>00089 
+<a name="l00091"></a>00091     <a class="code" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ad3aa8e32997a79db8e44b47cc4295cd6" title="Accès a la camera courante.">GetCurCamera</a>();
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#aca0c147cb97e82a6868518ac068dd9c9">DeleteCamera</a>(<a class="code" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a>* camera);
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a05a670a565d8a7d8ac6a13834a28daeb">ReleaseCamera</a>(<a class="code" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a>* camera);
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097     <a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;Camera*&gt;</a> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a994d475af3d73058dc62ce0db05d1460">GetCameraIterator</a>();
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099     <span class="comment">// Light -------------------------------------------------------------------</span>
+<a name="l00100"></a>00100 
+<a name="l00102"></a>00102     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2daf30b0281dfa0f5312e4d50fbb0ab8" title="Specifer la composant ambient de la scene.">SetAmbientLight</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>);
+<a name="l00103"></a>00103 
+<a name="l00105"></a>00105     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#aef38aac2302abb28b4e6382f29bf92c1" title="Renvois la composant ambient de la scene.">GetAmbientLight</a>() <span class="keyword">const</span>;
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107     <span class="comment">// External Manipulator ----------------------------------------------------</span>
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109     <a class="code" href="classtbe_1_1scene_1_1_frustum.html" title="Représentation du frustum culling inclus des fonction de test.">Frustum</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a5fc89b88742ae7d7a6c8b85d20ebd8f8">GetFrustum</a>() <span class="keyword">const</span>;
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111     <a class="code" href="classtbe_1_1scene_1_1_sky_box.html" title="Class de représentation d&#39;un Skybox Ordre des texture : Devant, Derrier, Haut, Bas, Gauche, Droit.">SkyBox</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a9680857b8d680aa471fda4db23d285e6">GetSkybox</a>() <span class="keyword">const</span>;
+<a name="l00112"></a>00112 
+<a name="l00113"></a>00113     <a class="code" href="classtbe_1_1scene_1_1_fog.html" title="Gestion du brouiallrd.">Fog</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a927458f067e4e59868857ea25a2c74d3">GetFog</a>() <span class="keyword">const</span>;
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115     <span class="comment">// Video mode attributs ----------------------------------------------------</span>
+<a name="l00116"></a>00116 
+<a name="l00117"></a>00117     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#aea3189433074d3897bf959ec118bba0e">SetViewport</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> viewport);
+<a name="l00118"></a>00118     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ad115a41870d3e4dab0521182fadb661f">GetViewport</a>() <span class="keyword">const</span>;
+<a name="l00119"></a>00119 
+<a name="l00120"></a>00120     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a92f46aa074245d7f921608d34094dfa0">GetFovy</a>() <span class="keyword">const</span>;
+<a name="l00121"></a>00121     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a1690ecd61edbc0cc7d5a63dbd5f005b7">SetFovy</a>(<span class="keywordtype">float</span> fovy);
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a72703fb4c7e6e97d07e5c9c6f76d1c37">SetZNear</a>(<span class="keywordtype">float</span> zNear);
+<a name="l00124"></a>00124     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a5dfb458903b2cf258b019f4a9ce26efd">GetZNear</a>() <span class="keyword">const</span>;
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ae413a91d1855147434a1e269c263be08">SetZFar</a>(<span class="keywordtype">float</span> zFar);
+<a name="l00127"></a>00127     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a6c72847bc8bfec738fe342652ec51070">GetZFar</a>() <span class="keyword">const</span>;
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2f5965347d584f5568b3ca9ff7f3b197">SetRatio</a>(<span class="keywordtype">float</span> ratio);
+<a name="l00130"></a>00130     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#adea98c5a807ed7ae5624524c34669013">GetRatio</a>() <span class="keyword">const</span>;
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#af2bde6c66496045ef9e81548570f1e16">UpdateViewParameter</a>();
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134     <span class="comment">// Picking -----------------------------------------------------------------</span>
+<a name="l00135"></a>00135 
+<a name="l00137"></a>00137     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a63e0f5ab44ca4a3aa34c1d827dd018db" title="Fonction de picking 2D-&gt;3D.">ScreenToWorld</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="_g_lee_8h.html#af9d0cbbbeb7414e786c41899e5a856d7">target</a>);
+<a name="l00138"></a>00138     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a63e0f5ab44ca4a3aa34c1d827dd018db" title="Fonction de picking 2D-&gt;3D.">ScreenToWorld</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> target, <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* rtt);
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4f</a> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a3fe8e13e12aa85a93775d9d2f7982a9e">computeBillboard</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#a0c0d4701a6c89f4f7f0640715d27ab26">obj</a>, <a class="code" href="classtbe_1_1_matrix4.html">Matrix4f</a> init = <a class="code" href="namespacetbe.html#ab5be5f3fb6e804e800c7564d688d2019">Matrix4f</a>());
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142 <span class="keyword">protected</span>:
+<a name="l00143"></a>00143 
+<a name="l00144"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a25dce61eed00bbacc1bea3dbb0ded777">00144</a>     <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html#af6bc475feac0cc601108a1c3961122f9">ParallelScene::Array</a> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a25dce61eed00bbacc1bea3dbb0ded777">m_parallelScenes</a>;
+<a name="l00145"></a>00145 
+<a name="l00146"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2c812783ff22005cfcdcd3c10024213a">00146</a>     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2c812783ff22005cfcdcd3c10024213a">m_ambientLight</a>;
+<a name="l00147"></a>00147 
+<a name="l00148"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a7da773c7e40ddaaf5dcb5e30f6761249">00148</a>     <a class="code" href="classtbe_1_1scene_1_1_camera.html#a5d960a0acdf7170bb0dec591eed0f21e">Camera::Array</a> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a7da773c7e40ddaaf5dcb5e30f6761249">m_cameras</a>;
+<a name="l00149"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a4f57ea021e02756b700dcf32678c8f0b">00149</a>     Camera::Array::iterator <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a4f57ea021e02756b700dcf32678c8f0b">m_currentCamera</a>;
+<a name="l00150"></a>00150 
+<a name="l00151"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a0c04762bc60cd2dfa87a700502e1cd87">00151</a>     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a0c04762bc60cd2dfa87a700502e1cd87">m_rootNode</a>;
+<a name="l00152"></a>00152 
+<a name="l00153"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a1fbb3002c05184fb6467a63e22d60490">00153</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a1fbb3002c05184fb6467a63e22d60490">m_viewport</a>;
+<a name="l00154"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a94b47f5d2152692eaa0d04966036ced7">00154</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2b2321034e84df4064a393714ce06bdd">m_fovy</a>, <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a94b47f5d2152692eaa0d04966036ced7">m_zNear</a>, <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ad9fbb96a0350d6297884145f5836eb43">m_zFar</a>, <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#aa5cac00dd332bfd24abd709690895652">m_ratio</a>;
+<a name="l00155"></a>00155 
+<a name="l00156"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a00fe6dda505999c06a970a83d573a5bf">00156</a>     <a class="code" href="classtbe_1_1scene_1_1_frustum.html" title="Représentation du frustum culling inclus des fonction de test.">Frustum</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a00fe6dda505999c06a970a83d573a5bf">m_frustum</a>;
+<a name="l00157"></a>00157 
+<a name="l00158"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ada9c9edd0fa0bf8e073b607709245074">00158</a>     <a class="code" href="classtbe_1_1scene_1_1_fog.html" title="Gestion du brouiallrd.">Fog</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ada9c9edd0fa0bf8e073b607709245074">m_fog</a>;
+<a name="l00159"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a24f95726b4eab05d2e05514f266d9e97">00159</a>     <a class="code" href="classtbe_1_1scene_1_1_sky_box.html" title="Class de représentation d&#39;un Skybox Ordre des texture : Devant, Derrier, Haut, Bas, Gauche, Droit.">SkyBox</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a24f95726b4eab05d2e05514f266d9e97">m_skybox</a>;
+<a name="l00160"></a>00160 };
+<a name="l00161"></a>00161 
+<a name="l00162"></a>00162 }
+<a name="l00163"></a>00163 }
+<a name="l00164"></a>00164 
+<a name="l00165"></a>00165 <span class="preprocessor">#endif // SCENEMANAGER_H</span>
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

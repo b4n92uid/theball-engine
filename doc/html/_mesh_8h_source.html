@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Mesh.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Mesh.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_mesh_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   Mesh.h</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 28 avril 2010, 18:36</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef _MESH_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define _MESH_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="_node_8h.html">Node.h</a>&quot;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="_material_8h.html">Material.h</a>&quot;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="keyword">namespace </span>tbe
+<a name="l00016"></a>00016 {
+<a name="l00017"></a>00017 <span class="keyword">namespace </span>scene
+<a name="l00018"></a>00018 {
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 <span class="keyword">class </span>MeshParallelScene;
+<a name="l00021"></a>00021 
+<a name="l00027"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html">00027</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>
+<a name="l00028"></a>00028 {
+<a name="l00029"></a>00029 <span class="keyword">public</span>:
+<a name="l00030"></a>00030     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a422f59935ef81039d8f49975bf031160">Mesh</a>(<a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* scene);
+<a name="l00031"></a>00031     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a422f59935ef81039d8f49975bf031160">Mesh</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>&amp; copy);
+<a name="l00032"></a>00032     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a5efe4da1a4c0971cfb037bd70304c303">~Mesh</a>();
+<a name="l00033"></a>00033 
+<a name="l00035"></a>00035     <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a6f3675745ab8f0b175afef169fba7fd8" title="Opérateur d&#39;assignation.">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>&amp; copy);
+<a name="l00036"></a>00036 
+<a name="l00038"></a>00038     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a5c24ddcb1b3780b25181193f03e61596" title="Méthode polymorphique de clonage du noueud.">Clone</a>();
+<a name="l00039"></a>00039 
+<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a75e66bcd90c09492676a4cfe5b23c3af" title="Rendue.">Render</a>();
+<a name="l00042"></a>00042 
+<a name="l00044"></a>00044     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a182d82e681402c6ec9311cd03b08a274" title="Traitement.">Process</a>();
+<a name="l00045"></a>00045 
+<a name="l00047"></a>00047     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a83beb1ae915146cbccec18230119a19d" title="Calcule l&#39;AABB du mesh.">ComputeAabb</a>();
+<a name="l00048"></a>00048 
+<a name="l00050"></a>00050     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a119b6a2f78b7de3b9f1cc72614fde54b" title="Calcule l&#39;espace tangente des vertex du mesh.">ComputeTangent</a>();
+<a name="l00051"></a>00051 
+<a name="l00053"></a>00053     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a6e640686cf9dedb9d58c03544eec443d" title="Calcule l&#39;occlusion ambiante.">ComputeAocc</a>();
+<a name="l00054"></a>00054 
+<a name="l00056"></a>00056     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#af2c28f6f6a7c6aad70f4825b19aac7d6" title="Renvois la position y des coordonnés x z dans le repere local du mesh.">FindFloor</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <span class="keywordtype">bool</span> global);
+<a name="l00057"></a>00057 
+<a name="l00059"></a>00059     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a7df534750837062b4b48c5100e108373" title="Ajout un materieux au noeud.">AddMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* material);
+<a name="l00060"></a>00060 
+<a name="l00062"></a>00062     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0fd1b99f7ede3f7592e019a261c8d145" title="Renvois le nombre de materials assosier au noeud.">GetMaterialCount</a>();
+<a name="l00063"></a>00063 
+<a name="l00071"></a>00071     <a class="code" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Vector2i::Array</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#af36ec086b1ae099221a11512084b5ca6">GetMaterialApply</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
+<a name="l00072"></a>00072 
+<a name="l00074"></a>00074     <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a15e0b2cad9f7c24d2bbcf0e1626b4c72" title="Renvois le materieux identifier par son nom.">GetMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
+<a name="l00075"></a>00075 
+<a name="l00077"></a>00077     <a class="code" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">Material::Array</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a160f8073a7584dc41fc5a2cdc455f777" title="Renvois tout les materials du mesh.">GetAllMaterial</a>();
+<a name="l00078"></a>00078 
+<a name="l00080"></a>00080     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a057d7afd1041cf4116e8dcbfa1338fef" title="Applique un shader a tout les materieux du mesh.">ApplyShader</a>(<a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> <a class="code" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>);
+<a name="l00081"></a>00081 
+<a name="l00083"></a>00083     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae35ce88a09293429880272dbf64fd9a6" title="Applique une couleur a tout les vertecies du mesh.">ApplyColor</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> materialName, <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>);
+<a name="l00084"></a>00084 
+<a name="l00086"></a>00086     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#aa08178f97526dd243384cd60da962de3" title="Supprime le materieux name.">DeleteMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
+<a name="l00087"></a>00087 
+<a name="l00089"></a>00089     <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a442cd89e1b48ffd840cb573e5d5e0c67" title="Déttache le materieux name du noeud.">ReleaseMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
+<a name="l00090"></a>00090 
+<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a657f8bfafaf4b4d354a6b229235fae29" title="Contien les coordonnés pour l&#39;application d&#39;une texture.">SetWithTexCoord</a>(<span class="keywordtype">bool</span> withTexCoord);
+<a name="l00093"></a>00093     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a578892e9088b16ef2bc57fac67be6830">IsWithTexCoord</a>() <span class="keyword">const</span>;
+<a name="l00094"></a>00094 
+<a name="l00096"></a>00096     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a521744aeb5f325a204714c8fa4d89e2c" title="Contien les vecteur des normlas pour les faces.">SetWithNormal</a>(<span class="keywordtype">bool</span> withNotmal);
+<a name="l00097"></a>00097     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#aba0369bf0252d9e2940de2bc839d3ff3">IsWithNormal</a>() <span class="keyword">const</span>;
+<a name="l00098"></a>00098 
+<a name="l00100"></a>00100     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a334effbd2dd53a996bbc683071b97691" title="Triangulation des face du model.">SetTriangulate</a>(<span class="keywordtype">bool</span> triangulate);
+<a name="l00101"></a>00101     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae29b94ffd35dfa170769a1d4cffa6424">IsTriangulate</a>() <span class="keyword">const</span>;
+<a name="l00102"></a>00102 
+<a name="l00111"></a>00111     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a39203c84d94e3db0b341d16874c845d2">ApplyMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>);
+<a name="l00112"></a>00112 
+<a name="l00120"></a>00120     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a39203c84d94e3db0b341d16874c845d2">ApplyMaterial</a>(<a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* material, <span class="keywordtype">unsigned</span> offset, <span class="keywordtype">unsigned</span> size);
+<a name="l00121"></a>00121 
+<a name="l00123"></a>00123     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9120406aab8763dbedd150fa34c959bf" title="Renvoi &#39;true&#39; si le mesh contien un materieu transparent.">IsTransparent</a>();
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a7ab17698ddd91cdacaa1a04b35b54615">SetVisible</a>(<span class="keywordtype">bool</span> visible);
+<a name="l00126"></a>00126     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a570976d71b2bda2c52d39ba0d165d9bf">IsVisible</a>() <span class="keyword">const</span>;
+<a name="l00127"></a>00127 
+<a name="l00129"></a>00129     <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae9c65799ed03efbaf0a1617f21d25f35" title="Renvois le buffer graphique de rendue.">GetHardwareBuffer</a>();
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a5d6cd3898f1af824284cbe796e13dc29">ConstructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
+<a name="l00132"></a>00132 
+<a name="l00133"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a59090541d1b20d6d194cdc1dca1bf099">00133</a>     <span class="keyword">typedef</span> std::map&lt;std::string, Mesh*&gt; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a59090541d1b20d6d194cdc1dca1bf099">Map</a>;
+<a name="l00134"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0f5640b675f4e8e22ebcb20529cda664">00134</a>     <span class="keyword">typedef</span> std::vector&lt;Mesh*&gt; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0f5640b675f4e8e22ebcb20529cda664">Array</a>;
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136 <span class="keyword">protected</span>:
+<a name="l00137"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#ab37f2ef03c7150858266d6f1c547a639">00137</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ab37f2ef03c7150858266d6f1c547a639">m_triangulate</a>;
+<a name="l00138"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9f450ba50810ce901bcc5ff5a64f4f39">00138</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9f450ba50810ce901bcc5ff5a64f4f39">m_withNormal</a>;
+<a name="l00139"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad7ecc8dd85c6b3d7f5c01e96e3a8998d">00139</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad7ecc8dd85c6b3d7f5c01e96e3a8998d">m_withTexCoord</a>;
+<a name="l00140"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a96083e04f965f730bdcea94d5ec07d4c">00140</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a96083e04f965f730bdcea94d5ec07d4c">m_visible</a>;
+<a name="l00141"></a>00141 
+<a name="l00142"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">00142</a>     <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>;
+<a name="l00143"></a>00143 
+<a name="l00144"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">00144</a>     <a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">m_parallelScene</a>;
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a237a3f0b04943de2792a13fd1d7f6465">RayCast</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> rayStart, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> rayDiri,
+<a name="l00147"></a>00147                  <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; intersect, <span class="keywordtype">bool</span> global);
+<a name="l00148"></a>00148 
+<a name="l00149"></a>00149 <span class="keyword">private</span>:
+<a name="l00150"></a>00150     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a75e66bcd90c09492676a4cfe5b23c3af" title="Rendue.">Render</a>(<a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* material, <span class="keywordtype">unsigned</span> offset, <span class="keywordtype">unsigned</span> size);
+<a name="l00151"></a>00151 
+<a name="l00152"></a>00152     <span class="keyword">struct </span>RenderProcess
+<a name="l00153"></a>00153     {
+<a name="l00154"></a>00154         <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>* parent;
+<a name="l00155"></a>00155         <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> applyMaterial;
+<a name="l00156"></a>00156         <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>;
+<a name="l00157"></a>00157         <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>;
+<a name="l00158"></a>00158 
+<a name="l00159"></a>00159         <span class="keyword">typedef</span> std::vector&lt;RenderProcess&gt; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0f5640b675f4e8e22ebcb20529cda664">Array</a>;
+<a name="l00160"></a>00160     };
+<a name="l00161"></a>00161 
+<a name="l00162"></a>00162     <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">bool</span> RenderProcessSortFunc(<span class="keyword">const</span> RenderProcess&amp; rp1, <span class="keyword">const</span> RenderProcess&amp;)
+<a name="l00163"></a>00163     {
+<a name="l00164"></a>00164         <span class="keywordflow">return</span> !rp1.parent-&gt;m_materials[rp1.applyMaterial]-&gt;IsTransparent();
+<a name="l00165"></a>00165     }
+<a name="l00166"></a>00166 
+<a name="l00167"></a>00167     RenderProcess::Array m_renderProess;
+<a name="l00168"></a>00168     <a class="code" href="classtbe_1_1scene_1_1_material.html#ad84ffc7b17364b85ced7e4ca5e2efa1d">Material::Map</a> m_materials;
+<a name="l00169"></a>00169 };
+<a name="l00170"></a>00170 
+<a name="l00171"></a>00171 }
+<a name="l00172"></a>00172 }
+<a name="l00173"></a>00173 
+<a name="l00174"></a>00174 <span class="preprocessor">#endif  </span><span class="comment">/* _MESH_H */</span>
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

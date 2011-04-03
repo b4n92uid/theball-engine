@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Mathematics.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Mathematics.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_mathematics_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   Mathematics.h</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 24 janvier 2010, 19:02</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef _MATHEMATICS_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define _MATHEMATICS_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;cmath&gt;</span>
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;<a class="code" href="_vector2_8h.html">Vector2.h</a>&quot;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="_vector3_8h.html">Vector3.h</a>&quot;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="_vector4_8h.html">Vector4.h</a>&quot;</span>
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="_matrix_8h.html">Matrix.h</a>&quot;</span>
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="keyword">namespace </span>tbe
+<a name="l00020"></a>00020 {
+<a name="l00021"></a>00021 
+<a name="l00022"></a><a class="code" href="namespacetbe.html#a7100345218193581c4999dc81169de95">00022</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classtbe_1_1_vector2.html" title="Template 2D Vector.">tbe::Vector2&lt;T&gt;</a> <a class="code" href="namespacetbe.html#a7100345218193581c4999dc81169de95">vec32</a>(<a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">tbe::Vector3&lt;T&gt;</a> vec3)
+<a name="l00023"></a>00023 {
+<a name="l00024"></a>00024     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector2.html" title="Template 2D Vector.">tbe::Vector2&lt;T &gt;</a> (vec3.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>, vec3.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>);
+<a name="l00025"></a>00025 }
+<a name="l00026"></a>00026 
+<a name="l00027"></a><a class="code" href="namespacetbe.html#ada8fb7d8f3ce00b9052d954e7eb1105d">00027</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classtbe_1_1_vector2.html" title="Template 2D Vector.">tbe::Vector2&lt;T&gt;</a> <a class="code" href="namespacetbe.html#ada8fb7d8f3ce00b9052d954e7eb1105d">vec23</a>(<a class="code" href="classtbe_1_1_vector2.html" title="Template 2D Vector.">tbe::Vector2&lt;T&gt;</a> vec2)
+<a name="l00028"></a>00028 {
+<a name="l00029"></a>00029     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">tbe::Vector3&lt;T &gt;</a> (vec2.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, vec2.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>, 0);
+<a name="l00030"></a>00030 }
+<a name="l00031"></a>00031 
+<a name="l00032"></a><a class="code" href="namespacetbe.html#af1a8041fbbff4ec60885212e44b20a87">00032</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classtbe_1_1_vector2.html" title="Template 2D Vector.">tbe::Vector2&lt;T&gt;</a> <a class="code" href="namespacetbe.html#af1a8041fbbff4ec60885212e44b20a87">vec42</a>(<a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">tbe::Vector4&lt;T&gt;</a> vec4)
+<a name="l00033"></a>00033 {
+<a name="l00034"></a>00034     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector2.html" title="Template 2D Vector.">tbe::Vector2&lt;T &gt;</a> (vec4.<a class="code" href="classtbe_1_1_vector4.html#aa6be7cd99a3e03eebc027c1a884e5e6c">x</a>, vec4.<a class="code" href="classtbe_1_1_vector4.html#aface36f2dcc34e197f67f5199b687bd0">y</a>);
+<a name="l00035"></a>00035 }
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="namespacetbe.html#a1d2f4a799379ac3afe6cb0ecff6529a2">00037</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">tbe::Vector4&lt;T&gt;</a> <a class="code" href="namespacetbe.html#a1d2f4a799379ac3afe6cb0ecff6529a2">vec24</a>(<a class="code" href="classtbe_1_1_vector2.html" title="Template 2D Vector.">tbe::Vector2&lt;T&gt;</a> vec2)
+<a name="l00038"></a>00038 {
+<a name="l00039"></a>00039     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">tbe::Vector4&lt;T &gt;</a> (vec2.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, vec2.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>, 0, 1);
+<a name="l00040"></a>00040 }
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="namespacetbe.html#ac7c9e19458f67f830e8ba6e982e769c5">00042</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">tbe::Vector3&lt;T&gt;</a> <a class="code" href="namespacetbe.html#ac7c9e19458f67f830e8ba6e982e769c5">vec43</a>(<a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">tbe::Vector4&lt;T&gt;</a> vec4)
+<a name="l00043"></a>00043 {
+<a name="l00044"></a>00044     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">tbe::Vector3&lt;T &gt;</a> (vec4.<a class="code" href="classtbe_1_1_vector4.html#aa6be7cd99a3e03eebc027c1a884e5e6c">x</a>, vec4.<a class="code" href="classtbe_1_1_vector4.html#aface36f2dcc34e197f67f5199b687bd0">y</a>, vec4.<a class="code" href="classtbe_1_1_vector4.html#a5d2edf2e290418a1465cc5c3c0af9537">z</a>);
+<a name="l00045"></a>00045 }
+<a name="l00046"></a>00046 
+<a name="l00047"></a><a class="code" href="namespacetbe.html#a063f0b9b3c5aea235a66141844aa6988">00047</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">tbe::Vector4&lt;T&gt;</a> <a class="code" href="namespacetbe.html#a063f0b9b3c5aea235a66141844aa6988">vec34</a>(<a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">tbe::Vector3&lt;T&gt;</a> vec3)
+<a name="l00048"></a>00048 {
+<a name="l00049"></a>00049     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">tbe::Vector4&lt;T &gt;</a> (vec3.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>, vec3.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>, vec3.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>, 1);
+<a name="l00050"></a>00050 }
+<a name="l00051"></a>00051 
+<a name="l00052"></a><a class="code" href="namespacetbe.html#ae4bcb22b29c0a2b979061b1f32e7f8d2">00052</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> std::istream &amp; <a class="code" href="namespacetbe.html#ae4bcb22b29c0a2b979061b1f32e7f8d2">operator &gt;&gt;</a>(std::istream&amp; stream, <a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">tbe::Vector4&lt;T&gt;</a>&amp; vec)
+<a name="l00053"></a>00053 {
+<a name="l00054"></a>00054     <span class="keywordtype">char</span> sep;
+<a name="l00055"></a>00055     <span class="keywordflow">return</span> stream &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector4.html#aa6be7cd99a3e03eebc027c1a884e5e6c">x</a> &gt;&gt; sep &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector4.html#aface36f2dcc34e197f67f5199b687bd0">y</a> &gt;&gt; sep &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector4.html#a5d2edf2e290418a1465cc5c3c0af9537">z</a> &gt;&gt; sep &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector4.html#a4b6096615dabddb32d186a735e03ff32">w</a>;
+<a name="l00056"></a>00056 }
+<a name="l00057"></a>00057 
+<a name="l00058"></a><a class="code" href="namespacetbe.html#aa1d12c6a9ddf97b865ebc59954ac2535">00058</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> std::istream &amp; <a class="code" href="namespacetbe.html#ae4bcb22b29c0a2b979061b1f32e7f8d2">operator &gt;&gt;</a>(std::istream&amp; stream, <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">tbe::Vector3&lt;T&gt;</a>&amp; vec)
+<a name="l00059"></a>00059 {
+<a name="l00060"></a>00060     <span class="keywordtype">char</span> sep;
+<a name="l00061"></a>00061     <span class="keywordflow">return</span> stream &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> &gt;&gt; sep &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> &gt;&gt; sep &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>;
+<a name="l00062"></a>00062 }
+<a name="l00063"></a>00063 
+<a name="l00064"></a><a class="code" href="namespacetbe.html#ab33270fdf9146facf2620bc62a0ae5c0">00064</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> std::istream &amp; <a class="code" href="namespacetbe.html#ae4bcb22b29c0a2b979061b1f32e7f8d2">operator &gt;&gt;</a>(std::istream&amp; stream, <a class="code" href="classtbe_1_1_vector2.html" title="Template 2D Vector.">tbe::Vector2&lt;T&gt;</a>&amp; vec)
+<a name="l00065"></a>00065 {
+<a name="l00066"></a>00066     <span class="keywordtype">char</span> sep;
+<a name="l00067"></a>00067     <span class="keywordflow">return</span> stream &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> &gt;&gt; sep &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
+<a name="l00068"></a>00068 }
+<a name="l00069"></a>00069 
+<a name="l00070"></a><a class="code" href="namespacetbe.html#ae00e69aff879e0ff34c402b8ef5a25b8">00070</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> std::istream &amp; <a class="code" href="namespacetbe.html#ae4bcb22b29c0a2b979061b1f32e7f8d2">operator &gt;&gt;</a>(std::istream&amp; stream, <a class="code" href="classtbe_1_1_matrix4.html" title="Template Matrice 4x4.">tbe::Matrix4&lt;T&gt;</a>&amp; mat)
+<a name="l00071"></a>00071 {
+<a name="l00072"></a>00072     <span class="keywordtype">char</span> sep;
+<a name="l00073"></a>00073     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; 15; i++)
+<a name="l00074"></a>00074         stream &gt;&gt; mat[i] &gt;&gt; sep;
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076     stream &gt;&gt; mat[15];
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078     <span class="keywordflow">return</span> stream;
+<a name="l00079"></a>00079 }
+<a name="l00080"></a>00080 
+<a name="l00081"></a><a class="code" href="namespacetbe.html#a51c89386fdd9cb5d7551f62ed25a0091">00081</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> std::ostream &amp; operator &lt;&lt;(std::ostream&amp; stream, tbe::Vector4&lt;T&gt; vec)
+<a name="l00082"></a>00082 {
+<a name="l00083"></a>00083     <span class="keywordflow">return</span> stream &lt;&lt; vec.x &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; vec.y &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; vec.z &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; vec.w;
+<a name="l00084"></a>00084 }
+<a name="l00085"></a>00085 
+<a name="l00086"></a><a class="code" href="namespacetbe.html#ada39e544b07fbca8378d443c3df46080">00086</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> std::ostream &amp; operator &lt;&lt;(std::ostream&amp; stream, tbe::Vector3&lt;T&gt; vec)
+<a name="l00087"></a>00087 {
+<a name="l00088"></a>00088     <span class="keywordflow">return</span> stream &lt;&lt; vec.x &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; vec.y &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; vec.z;
+<a name="l00089"></a>00089 }
+<a name="l00090"></a>00090 
+<a name="l00091"></a><a class="code" href="namespacetbe.html#aba5f04e7d52622b3938289dd4ddce700">00091</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> std::ostream &amp; operator &lt;&lt;(std::ostream&amp; stream, tbe::Vector2&lt;T&gt; vec)
+<a name="l00092"></a>00092 {
+<a name="l00093"></a>00093     <span class="keywordflow">return</span> stream &lt;&lt; vec.x &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; vec.y;
+<a name="l00094"></a>00094 }
+<a name="l00095"></a>00095 
+<a name="l00096"></a><a class="code" href="namespacetbe.html#a8b7b25928c5c1f8e496b0062a8e7e14b">00096</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> std::ostream &amp; operator &lt;&lt;(std::ostream&amp; stream, tbe::Matrix4&lt;T&gt; mat)
+<a name="l00097"></a>00097 {
+<a name="l00098"></a>00098     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; 15; i++)
+<a name="l00099"></a>00099         stream &lt;&lt; mat[i] &lt;&lt; <span class="stringliteral">&quot;,&quot;</span>;
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101     stream &lt;&lt; mat[15];
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103     <span class="keywordflow">return</span> stream;
+<a name="l00104"></a>00104 }
+<a name="l00105"></a>00105 
+<a name="l00106"></a><a class="code" href="namespacetbe.html#a49ae35da1649800986865bcc1ce2372e">00106</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="namespacetbe.html#a49ae35da1649800986865bcc1ce2372e">Matrix4ToStr</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_matrix4.html" title="Template Matrice 4x4.">Matrix4&lt;T&gt;</a>&amp; mat)
+<a name="l00107"></a>00107 {
+<a name="l00108"></a>00108     std::stringstream stream;
+<a name="l00109"></a>00109     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; 15; i++)
+<a name="l00110"></a>00110         stream &lt;&lt; mat[i] &lt;&lt; <span class="stringliteral">&quot;,&quot;</span>;
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112     stream &lt;&lt; mat[15];
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114     <span class="keywordflow">return</span> stream.str();
+<a name="l00115"></a>00115 }
+<a name="l00116"></a>00116 
+<a name="l00117"></a><a class="code" href="namespacetbe.html#a82b86f42d727a6f01d31507553608a9f">00117</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="namespacetbe.html#a82b86f42d727a6f01d31507553608a9f">Vector2ToStr</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector2.html" title="Template 2D Vector.">Vector2&lt;T&gt;</a>&amp; vec)
+<a name="l00118"></a>00118 {
+<a name="l00119"></a>00119     std::stringstream stream;
+<a name="l00120"></a>00120     stream &lt;&lt; vec.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; vec.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122     <span class="keywordflow">return</span> stream.str();
+<a name="l00123"></a>00123 }
+<a name="l00124"></a>00124 
+<a name="l00125"></a><a class="code" href="namespacetbe.html#a061e009698b25c25fbae87a403753c4e">00125</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="namespacetbe.html#a061e009698b25c25fbae87a403753c4e">Vector3ToStr</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3&lt;T&gt;</a>&amp; vec)
+<a name="l00126"></a>00126 {
+<a name="l00127"></a>00127     std::stringstream stream;
+<a name="l00128"></a>00128     stream &lt;&lt; vec.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; vec.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; vec.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>;
+<a name="l00129"></a>00129 
+<a name="l00130"></a>00130     <span class="keywordflow">return</span> stream.str();
+<a name="l00131"></a>00131 }
+<a name="l00132"></a>00132 
+<a name="l00133"></a><a class="code" href="namespacetbe.html#aa14d4e643d67a9ce856e68d30c1a83ef">00133</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">inline</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="namespacetbe.html#aa14d4e643d67a9ce856e68d30c1a83ef">Vector4ToStr</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">Vector4&lt;T&gt;</a>&amp; vec)
+<a name="l00134"></a>00134 {
+<a name="l00135"></a>00135     std::stringstream stream;
+<a name="l00136"></a>00136     stream &lt;&lt; vec.<a class="code" href="classtbe_1_1_vector4.html#aa6be7cd99a3e03eebc027c1a884e5e6c">x</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; vec.<a class="code" href="classtbe_1_1_vector4.html#aface36f2dcc34e197f67f5199b687bd0">y</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; vec.<a class="code" href="classtbe_1_1_vector4.html#a5d2edf2e290418a1465cc5c3c0af9537">z</a> &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; vec.<a class="code" href="classtbe_1_1_vector4.html#a4b6096615dabddb32d186a735e03ff32">w</a>;
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138     <span class="keywordflow">return</span> stream.str();
+<a name="l00139"></a>00139 }
+<a name="l00140"></a>00140 
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142 }
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144 <span class="preprocessor">#endif  </span><span class="comment">/* _MATHEMATICS_H */</span>
+<a name="l00145"></a>00145 
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Control.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Control.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_control_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _CONTROL_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _CONTROL_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="_g_lee_8h.html">GLee.h</a>&quot;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;iostream&gt;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00008"></a>00008 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &lt;sstream&gt;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;cstdarg&gt;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;exception&gt;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="_any_8h.html">Any.h</a>&quot;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="_mathematics_8h.html">Mathematics.h</a>&quot;</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="_eventrecv_8h.html">Eventrecv.h</a>&quot;</span>
+<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;<a class="code" href="_exception_8h.html">Exception.h</a>&quot;</span>
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 <span class="preprocessor">#include &quot;<a class="code" href="_pencil_8h.html">Pencil.h</a>&quot;</span>
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022 <span class="keyword">namespace </span>tbe
+<a name="l00023"></a>00023 {
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025 <span class="keyword">class </span>EventManager;
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027 <span class="keyword">namespace </span>gui
+<a name="l00028"></a>00028 {
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030 <span class="keyword">struct </span>GuiSkin;
+<a name="l00031"></a>00031 
+<a name="l00033"></a>00033 
+<a name="l00034"></a><a class="code" href="classtbe_1_1gui_1_1_control.html">00034</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>
+<a name="l00035"></a>00035 {
+<a name="l00036"></a>00036 <span class="keyword">public</span>:
+<a name="l00037"></a>00037     <a class="code" href="classtbe_1_1gui_1_1_control.html#aa730aeda4517f40bc48ba1e46ebded77">Control</a>();
+<a name="l00038"></a>00038     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#aedda1328c4f8b8d49bca8f0812d3bfd1">~Control</a>();
+<a name="l00039"></a>00039 
+<a name="l00040"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#a5ee7dbf994fd535ea161b5ce77c1fdb2">00040</a>     <span class="keyword">typedef</span> std::map&lt;std::string, Control*&gt; <a class="code" href="classtbe_1_1gui_1_1_control.html#a5ee7dbf994fd535ea161b5ce77c1fdb2">Map</a>;
+<a name="l00041"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#a40cf859148b3ddd95c598285fc02ea07">00041</a>     <span class="keyword">typedef</span> std::vector&lt;Control*&gt; <a class="code" href="classtbe_1_1gui_1_1_control.html#a40cf859148b3ddd95c598285fc02ea07">Array</a>;
+<a name="l00042"></a>00042 
+<a name="l00044"></a>00044     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a4d049d984fc7160fd9e016ceadfb0da9" title="Fonction appler par GuiManager lors d&#39;un evenement.">OnEvent</a>(<span class="keyword">const</span> <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp;) = 0;
+<a name="l00045"></a>00045 
+<a name="l00047"></a>00047     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a90ce9c753143c8b6ce078686b634a059" title="Specifier une apparence du controle.">SetSkin</a>(<span class="keyword">const</span> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html" title="Structure contenant l&#39;apparence et la configuration des controles de l&#39;interface graphique.">GuiSkin</a>&amp;);
+<a name="l00048"></a>00048 
+<a name="l00050"></a>00050     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a37bcb301bd589ba835aa39c6c117ea51" title="Rendue.">Render</a>();
+<a name="l00051"></a>00051 
+<a name="l00053"></a>00053     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a7940641de41c3b942ed490424315a393" title="Label du controle.">SetLabel</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> label);
+<a name="l00054"></a>00054     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1gui_1_1_control.html#aea571c8fd1366b911d4a337d900f8126">GetLabel</a>();
+<a name="l00055"></a>00055 
+<a name="l00057"></a>00057     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a8c325dc23078950dc2b7ac001d31276d" title="Etat du controle (allumer, éteint)">SetEnable</a>(<span class="keywordtype">bool</span> enable);
+<a name="l00058"></a>00058     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#ab8c2a940cb5ee1fec36628268ad1a6fc">IsEnable</a>() <span class="keyword">const</span>;
+<a name="l00059"></a>00059 
+<a name="l00061"></a>00061     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a6a5582b97a378ca3edf9742cb6f0f7dd" title="Etat du controle (étirable, fixe)">SetStretch</a>(<span class="keywordtype">bool</span> stretch);
+<a name="l00062"></a>00062     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a124fc81d35bb8fcce7f7e686dd5bf196">IsStretch</a>() <span class="keyword">const</span>;
+<a name="l00063"></a>00063 
+<a name="l00065"></a>00065     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a4421295f7ef8bcfac78bd1376c5de049" title="Etat du controle (actif, inactife)">SetActivate</a>(<span class="keywordtype">bool</span> activate);
+<a name="l00066"></a>00066     <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a33af33ad1707a2187e8a1f488c957155">IsActivate</a>() <span class="keyword">const</span>;
+<a name="l00067"></a>00067 
+<a name="l00069"></a>00069     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a4e603bf7d55e36c30f1f7ea95f758461" title="Position du controle.">Move</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> relPos);
+<a name="l00070"></a>00070     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a8828afae5b9f6c82ec5e6a1e5b00849d">SetPos</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>);
+<a name="l00071"></a>00071     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1gui_1_1_control.html#ae3db523b645d81195ea660a19975f579">GetPos</a>() <span class="keyword">const</span>;
+<a name="l00072"></a>00072 
+<a name="l00074"></a>00074     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a93ba6cbeeedd1bbceef2c473a15658c9" title="Taille du controle.">SetSize</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>);
+<a name="l00075"></a>00075     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1gui_1_1_control.html#a367cae394268a1b02b808cf0ca9263d7">GetSize</a>() <span class="keyword">const</span>;
+<a name="l00076"></a>00076 
+<a name="l00078"></a>00078     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#ae2941056f0130e6e39b8a6425acce4bb" title="Specifier l&#39;arrier plan du controle.">SetBackground</a>(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> background);
+<a name="l00079"></a>00079     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1gui_1_1_control.html#a2e0a9b38b8cf69187195ed79f2d9f516">GetBackground</a>() <span class="keyword">const</span>;
+<a name="l00080"></a>00080 
+<a name="l00082"></a>00082     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a247ea13291c3f204c00d8aa434c8325b" title="Spécifier la police d&#39;écriture.">SetPencil</a>(<a class="code" href="classtbe_1_1gui_1_1_pencil.html" title="Gestion du texte dans l&#39;interface graphique contine la couleur, taille et police du texte...">Pencil</a> pencil);
+<a name="l00083"></a>00083     <a class="code" href="classtbe_1_1gui_1_1_pencil.html" title="Gestion du texte dans l&#39;interface graphique contine la couleur, taille et police du texte...">Pencil</a> <a class="code" href="classtbe_1_1gui_1_1_control.html#a0c7fc6e8d3daab134de60dbb7dc2ebe4">GetPencil</a>() <span class="keyword">const</span>;
+<a name="l00084"></a>00084 
+<a name="l00086"></a>00086     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a2356de68a610795d228612daa90f3759" title="Spécifier l&#39;état de la transparence alpha.">SetEnableAlpha</a>(<span class="keywordtype">bool</span> enableAlpha);
+<a name="l00087"></a>00087     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a9ae741ac67834734f750cecf05d70080">IsEnableAlpha</a>() <span class="keyword">const</span>;
+<a name="l00088"></a>00088 
+<a name="l00090"></a>00090     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a4fd943500a98a6be2216ea9956e356f2" title="Spécifier l&#39;état de l&#39;arrier plan.">SetEnableBackground</a>(<span class="keywordtype">bool</span> enableBackground);
+<a name="l00091"></a>00091     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a4261cb8b1f7a245166c1110325938ed8">IsEnableBackground</a>() <span class="keyword">const</span>;
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a73e48cdc1581fd123efd654bc5ce596f">SetOpacity</a>(<span class="keywordtype">float</span> opacity);
+<a name="l00094"></a>00094     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#aaa7fc74542b7ae5bb8c221237d364b00">GetOpacity</a>() <span class="keyword">const</span>;
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a930ff177eb89cafc213bcf773e14a6de">SetName</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>);
+<a name="l00097"></a>00097     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1gui_1_1_control.html#afa02f622fd9a92dc2d9d568d47005ee3">GetName</a>() <span class="keyword">const</span>;
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099 <span class="keyword">protected</span>:
+<a name="l00100"></a>00100     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a4fb90008e761e3e58d2758ffd5d7fa01">ObjectRender</a>() = 0;
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a310a91cfd4b159da8420ef3181fd1e53">DrawSurface</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>[], <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> st[], <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a3ae8bf9d2f2d075f326e6ed513ca2fcb">draw</a>);
+<a name="l00103"></a>00103     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a310a91cfd4b159da8420ef3181fd1e53">DrawSurface</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> tcOffset, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> tcLength);
+<a name="l00104"></a>00104 
+<a name="l00105"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#a27fef275ce288b0fb8087822a9625f87">00105</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1gui_1_1_control.html#a27fef275ce288b0fb8087822a9625f87">m_name</a>;
+<a name="l00106"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#a54c7b9fb41e764628c17ae5b4bbf4f3f">00106</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1gui_1_1_control.html#a54c7b9fb41e764628c17ae5b4bbf4f3f">m_label</a>;
+<a name="l00107"></a>00107 
+<a name="l00108"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#abe79250186d082386a7139bdbd90a8e8">00108</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#abe79250186d082386a7139bdbd90a8e8">m_enable</a>;
+<a name="l00109"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#a27d8f195126b7310bd9e91fe2b765b50">00109</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a27d8f195126b7310bd9e91fe2b765b50">m_enableAlpha</a>;
+<a name="l00110"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#aa77515d80b7c107bbe1e9be37fb41402">00110</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#aa77515d80b7c107bbe1e9be37fb41402">m_enableBackground</a>;
+<a name="l00111"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#a4420f95c8dd1e7201201ac865b85ea68">00111</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a4420f95c8dd1e7201201ac865b85ea68">m_activate</a>;
+<a name="l00112"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#a696b3fbb0f3b46882c8c7545719b8c72">00112</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a696b3fbb0f3b46882c8c7545719b8c72">m_stretch</a>;
+<a name="l00113"></a>00113 
+<a name="l00114"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#afa5214ac478b24c77bad9fa9453d05ff">00114</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1gui_1_1_control.html#afa5214ac478b24c77bad9fa9453d05ff">m_pos</a>;
+<a name="l00115"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#a1eb1e2a15ab4c7b477ca07e86c47371d">00115</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1gui_1_1_control.html#a1eb1e2a15ab4c7b477ca07e86c47371d">m_size</a>;
+<a name="l00116"></a>00116 
+<a name="l00117"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#a7d8323d8d3a1099977f5d80f1cecef3f">00117</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1gui_1_1_control.html#a7d8323d8d3a1099977f5d80f1cecef3f">m_opacity</a>;
+<a name="l00118"></a>00118 
+<a name="l00119"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#a4e8302c4e0299e889e861875a601e698">00119</a>     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1gui_1_1_control.html#a4e8302c4e0299e889e861875a601e698">m_background</a>;
+<a name="l00120"></a><a class="code" href="classtbe_1_1gui_1_1_control.html#a682d9c4cd25e82a61c4db680dfb4349e">00120</a>     <a class="code" href="classtbe_1_1gui_1_1_pencil.html" title="Gestion du texte dans l&#39;interface graphique contine la couleur, taille et police du texte...">Pencil</a> <a class="code" href="classtbe_1_1gui_1_1_control.html#a682d9c4cd25e82a61c4db680dfb4349e">m_pencil</a>;
+<a name="l00121"></a>00121 };
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123 }
+<a name="l00124"></a>00124 }
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126 <span class="preprocessor">#endif // _CONTROL_H</span>
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:55 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

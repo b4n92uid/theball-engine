@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Switch.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Switch.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_switch_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef SWITCH_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define SWITCH_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="_tools_8h.html">Tools.h</a>&quot;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="_control_8h.html">Control.h</a>&quot;</span>
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;<a class="code" href="_pencil_8h.html">Pencil.h</a>&quot;</span>
+<a name="l00009"></a>00009 
+<a name="l00010"></a>00010 <span class="keyword">namespace </span>tbe
+<a name="l00011"></a>00011 {
+<a name="l00012"></a>00012 <span class="keyword">namespace </span>gui
+<a name="l00013"></a>00013 {
+<a name="l00014"></a>00014 
+<a name="l00019"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html">00019</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1gui_1_1_switch.html" title="Class abstraite pour la gestion des Switch Controle de choix unique.">Switch</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>
+<a name="l00020"></a>00020 {
+<a name="l00021"></a>00021 <span class="keyword">public</span>:
+<a name="l00022"></a>00022     <a class="code" href="classtbe_1_1gui_1_1_switch.html#a54db96db46113c6a4904553796d183ce">Switch</a>();
+<a name="l00023"></a>00023     <a class="code" href="classtbe_1_1gui_1_1_switch.html#a54db96db46113c6a4904553796d183ce">Switch</a>(<a class="code" href="classtbe_1_1gui_1_1_pencil.html" title="Gestion du texte dans l&#39;interface graphique contine la couleur, taille et police du texte...">Pencil</a> font, <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> background);
+<a name="l00024"></a>00024     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1gui_1_1_switch.html#ac9e0d5810af5ea21572d5dd7248baed8">~Switch</a>();
+<a name="l00025"></a>00025 
+<a name="l00027"></a>00027     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_switch.html#abea26ed4072af647aa43037b33cde636" title="Evenement.">OnEvent</a>(<span class="keyword">const</span> <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp; event);
+<a name="l00028"></a>00028 
+<a name="l00030"></a>00030     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch.html#ac781e18ed9b6370a2a66986028f1ab9e" title="GuiSkin.">SetSkin</a>(<span class="keyword">const</span> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html" title="Structure contenant l&#39;apparence et la configuration des controles de l&#39;interface graphique.">GuiSkin</a>&amp; skin);
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch.html#a32a7d6480fb915eb9548e0cc50c0ddab">Increment</a>() = 0;
+<a name="l00033"></a>00033     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch.html#a139cc34f808160d310cc30cea8c86a05">Decrement</a>() = 0;
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 <span class="keyword">protected</span>:
+<a name="l00036"></a>00036     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch.html#a8ec01c11275bd2ab80cc6addb8301c5a">SetupRender</a>();
+<a name="l00037"></a>00037     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch.html#a6c8ab0120f730de66424e3b832b93d42">ObjectRender</a>();
+<a name="l00038"></a>00038 
+<a name="l00039"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#aecf33476fbd68fee1d6a4008ec6bfc36">00039</a>     <span class="keyword">enum</span> <a class="code" href="classtbe_1_1gui_1_1_switch.html#aecf33476fbd68fee1d6a4008ec6bfc36">State</a>
+<a name="l00040"></a>00040     {
+<a name="l00041"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#aecf33476fbd68fee1d6a4008ec6bfc36ad4cceb7bbeb19d0f3b7db61fbda029de">00041</a>         <a class="code" href="classtbe_1_1gui_1_1_switch.html#aecf33476fbd68fee1d6a4008ec6bfc36ad4cceb7bbeb19d0f3b7db61fbda029de">DEAD</a>,
+<a name="l00042"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#aecf33476fbd68fee1d6a4008ec6bfc36aedb3edb435f815d60b8bee0a006faeb0">00042</a>         <a class="code" href="classtbe_1_1gui_1_1_switch.html#aecf33476fbd68fee1d6a4008ec6bfc36aedb3edb435f815d60b8bee0a006faeb0">OVER_LEFT</a>,
+<a name="l00043"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#aecf33476fbd68fee1d6a4008ec6bfc36ae5cd1d6e10becb8029defdc2c9abb0cc">00043</a>         <a class="code" href="classtbe_1_1gui_1_1_switch.html#aecf33476fbd68fee1d6a4008ec6bfc36ae5cd1d6e10becb8029defdc2c9abb0cc">OVER_RIGHT</a>,
+<a name="l00044"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#aecf33476fbd68fee1d6a4008ec6bfc36aae3dc447e51a70cbb1dcb75095b393af">00044</a>         <a class="code" href="classtbe_1_1gui_1_1_switch.html#aecf33476fbd68fee1d6a4008ec6bfc36aae3dc447e51a70cbb1dcb75095b393af">PUSH_LEFT</a>,
+<a name="l00045"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#aecf33476fbd68fee1d6a4008ec6bfc36a8c22b5f2ded98d7ce5beda2b4863ac8f">00045</a>         <a class="code" href="classtbe_1_1gui_1_1_switch.html#aecf33476fbd68fee1d6a4008ec6bfc36a8c22b5f2ded98d7ce5beda2b4863ac8f">PUSH_RIGHT</a>,
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047     } <a class="code" href="classtbe_1_1gui_1_1_switch.html#ae4e3c0dcb66f4223f0297be8cde2222f">m_state</a>;
+<a name="l00048"></a>00048 };
+<a name="l00049"></a>00049 
+<a name="l00053"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html">00053</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1gui_1_1_switch_string.html" title="Peut contenire plusieur élément de type string pour un Switch.">SwitchString</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1gui_1_1_switch.html" title="Class abstraite pour la gestion des Switch Controle de choix unique.">Switch</a>
+<a name="l00054"></a>00054 {
+<a name="l00055"></a>00055 <span class="keyword">public</span>:
+<a name="l00056"></a>00056     <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#aabfb2f274354e0756ee8eff88a3668b2">SwitchString</a>();
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#ab889430fa0dd30ba856d607ac014093b">SetString</a>(<span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; str);
+<a name="l00059"></a>00059     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a6d4b594f4dfb3ba04aae04ae0fbb26e8">GetString</a>() <span class="keyword">const</span>;
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#ab889430fa0dd30ba856d607ac014093b">SetString</a>(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>, <span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; str);
+<a name="l00062"></a>00062     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a6d4b594f4dfb3ba04aae04ae0fbb26e8">GetString</a>(<span class="keywordtype">unsigned</span> index) <span class="keyword">const</span>;
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a6422ba01da4076019e3ac87d68bbd28a">SetData</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>);
+<a name="l00065"></a>00065     <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a423ed5c0d616015dcbe6073f423eb3c9">GetData</a>() <span class="keyword">const</span>;
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a6422ba01da4076019e3ac87d68bbd28a">SetData</a>(<span class="keywordtype">unsigned</span> index, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; data);
+<a name="l00068"></a>00068     <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a423ed5c0d616015dcbe6073f423eb3c9">GetData</a>(<span class="keywordtype">unsigned</span> index) <span class="keyword">const</span>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a6422ba01da4076019e3ac87d68bbd28a">SetData</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; data);
+<a name="l00071"></a>00071     <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a423ed5c0d616015dcbe6073f423eb3c9">GetData</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str) <span class="keyword">const</span>;
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a93dd29b11d4d7072ed069b3c3330bdbc">SetCurrent</a>(<span class="keywordtype">unsigned</span> index);
+<a name="l00074"></a>00074     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#abb248ab84c177db6aa8171ed57c64532">GetCurrent</a>();
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076     <a class="code" href="classtbe_1_1gui_1_1_switch_string.html" title="Peut contenire plusieur élément de type string pour un Switch.">SwitchString</a>&amp; <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a69fc4e78034e2180e63f5ee97fc6f61b">Push</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str);
+<a name="l00077"></a>00077     <a class="code" href="classtbe_1_1gui_1_1_switch_string.html" title="Peut contenire plusieur élément de type string pour un Switch.">SwitchString</a>&amp; <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a69fc4e78034e2180e63f5ee97fc6f61b">Push</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; data);
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a7a29c8447d684593d05d2c3427e666f4">DeleteAll</a>();
+<a name="l00080"></a>00080     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a1c99e9633c34ccaf1100c4fb85a6e06e">Delete</a>(<span class="keywordtype">unsigned</span> index);
+<a name="l00081"></a>00081     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a1c99e9633c34ccaf1100c4fb85a6e06e">Delete</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str);
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a0ecbecb3dcda6b6fc433f3073057442e">GetCount</a>() <span class="keyword">const</span>;
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a4470a4a2ffba071440336531837a9580">Increment</a>();
+<a name="l00086"></a>00086     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a9acabc26271b01d20d3e5f45684f0afd">Decrement</a>();
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088 <span class="keyword">protected</span>:
+<a name="l00089"></a>00089 
+<a name="l00090"></a><a class="code" href="structtbe_1_1gui_1_1_switch_string_1_1_entry.html">00090</a>     <span class="keyword">struct </span><a class="code" href="structtbe_1_1gui_1_1_switch_string_1_1_entry.html">Entry</a>
+<a name="l00091"></a>00091     {
+<a name="l00092"></a><a class="code" href="structtbe_1_1gui_1_1_switch_string_1_1_entry.html#ac9815dc0e835fc614035d370238001ff">00092</a>         <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="structtbe_1_1gui_1_1_switch_string_1_1_entry.html#ac9815dc0e835fc614035d370238001ff">str</a>;
+<a name="l00093"></a><a class="code" href="structtbe_1_1gui_1_1_switch_string_1_1_entry.html#a6fbcd2c2e36ed84c6999f648a8ea7d75">00093</a>         <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> <a class="code" href="structtbe_1_1gui_1_1_switch_string_1_1_entry.html#a6fbcd2c2e36ed84c6999f648a8ea7d75">data</a>;
+<a name="l00094"></a>00094     };
+<a name="l00095"></a>00095 
+<a name="l00096"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#aa52787f7a337ef4369b0b8e2e3400651">00096</a>     std::vector&lt;Entry &gt; <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#aa52787f7a337ef4369b0b8e2e3400651">m_content</a>;
+<a name="l00097"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a2022227243979da3c1ceaa87a1b72b22">00097</a>     std::vector&lt;Entry &gt;::iterator <a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a2022227243979da3c1ceaa87a1b72b22">m_it</a>;
+<a name="l00098"></a>00098 };
+<a name="l00099"></a>00099 
+<a name="l00103"></a>00103 <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+<a name="l00104"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html">00104</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html" title="Template pour l&#39;utilisation des Switch a l&#39;état numérique.">SwitchNumeric</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1gui_1_1_switch.html" title="Class abstraite pour la gestion des Switch Controle de choix unique.">Switch</a>
+<a name="l00105"></a>00105 {
+<a name="l00106"></a>00106 <span class="keyword">public</span>:
+<a name="l00107"></a>00107 
+<a name="l00111"></a><a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html">00111</a>     <span class="keyword">struct </span><a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html" title="Structure pour la verification des valeurs permise.">Range</a>
+<a name="l00112"></a>00112     {
+<a name="l00113"></a>00113 
+<a name="l00114"></a><a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#ae91ce9d3ab8bbff427ee973fcac24da9">00114</a>         <a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#ae91ce9d3ab8bbff427ee973fcac24da9">Range</a>(T <a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#a40658e4b5c6e0212a68286228d0d8c9f">min</a>, T <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)
+<a name="l00115"></a>00115         {
+<a name="l00116"></a>00116             this-&gt;min = <a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#a40658e4b5c6e0212a68286228d0d8c9f">min</a>;
+<a name="l00117"></a>00117             this-&gt;max = <a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#ab6366c25655e2125ece4229c00d5b191">max</a>;
+<a name="l00118"></a>00118         }
+<a name="l00119"></a>00119 
+<a name="l00120"></a><a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#a3e8f364345aaad3c6652e82daa39a96c">00120</a>         T <a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#a3e8f364345aaad3c6652e82daa39a96c">Check</a>(T <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00121"></a>00121         {
+<a name="l00122"></a>00122             <span class="keywordflow">return</span> <a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#a40658e4b5c6e0212a68286228d0d8c9f">std::min</a>(<a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">std::max</a>(value, <a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#a40658e4b5c6e0212a68286228d0d8c9f">min</a>), <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>);
+<a name="l00123"></a>00123         }
+<a name="l00124"></a>00124 
+<a name="l00125"></a><a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#a40658e4b5c6e0212a68286228d0d8c9f">00125</a>         T <a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#a40658e4b5c6e0212a68286228d0d8c9f">min</a>;
+<a name="l00126"></a><a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#ab6366c25655e2125ece4229c00d5b191">00126</a>         T <a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#ab6366c25655e2125ece4229c00d5b191">max</a>;
+<a name="l00127"></a>00127     };
+<a name="l00128"></a>00128 
+<a name="l00129"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a75abc5f857263782a1d9c94b9155f768">00129</a>     <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a75abc5f857263782a1d9c94b9155f768">SwitchNumeric</a>()
+<a name="l00130"></a>00130     {
+<a name="l00131"></a>00131         <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">m_range</a> = NULL;
+<a name="l00132"></a>00132         <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a14f278d9bc30287e47630b443d73d41f">m_step</a> = T(1);
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134         <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a008434d1c63a0ba51508cb1923cb6181">SetValue</a>(0);
+<a name="l00135"></a>00135     }
+<a name="l00136"></a>00136 
+<a name="l00137"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a6d8751a39fa577eb97062f16f586e0e2">00137</a>     <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a6d8751a39fa577eb97062f16f586e0e2">~SwitchNumeric</a>()
+<a name="l00138"></a>00138     {
+<a name="l00139"></a>00139         <span class="keywordflow">if</span>(<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">m_range</a>)
+<a name="l00140"></a>00140             <span class="keyword">delete</span> <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">m_range</a>;
+<a name="l00141"></a>00141     }
+<a name="l00142"></a>00142 
+<a name="l00143"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a7bc8076b69ec6d23a2c50f238ba2b482">00143</a>     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a7bc8076b69ec6d23a2c50f238ba2b482">Increment</a>()
+<a name="l00144"></a>00144     {
+<a name="l00145"></a>00145         <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a008434d1c63a0ba51508cb1923cb6181">SetValue</a>(<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a590d0e9193c398e2f81f2c287a0baeb7">m_value</a> + <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a14f278d9bc30287e47630b443d73d41f">m_step</a>);
+<a name="l00146"></a>00146     }
+<a name="l00147"></a>00147 
+<a name="l00148"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a7da12efb9e40b7a02cd503458c99ae4d">00148</a>     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a7da12efb9e40b7a02cd503458c99ae4d">Decrement</a>()
+<a name="l00149"></a>00149     {
+<a name="l00150"></a>00150         <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a008434d1c63a0ba51508cb1923cb6181">SetValue</a>(<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a590d0e9193c398e2f81f2c287a0baeb7">m_value</a> - <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a14f278d9bc30287e47630b443d73d41f">m_step</a>);
+<a name="l00151"></a>00151     }
+<a name="l00152"></a>00152 
+<a name="l00153"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a94fc741e49a075533868c4ccf3a3989c">00153</a>     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a94fc741e49a075533868c4ccf3a3989c">SetStep</a>(T step)
+<a name="l00154"></a>00154     {
+<a name="l00155"></a>00155         this-&gt;<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a14f278d9bc30287e47630b443d73d41f">m_step</a> = step;
+<a name="l00156"></a>00156     }
+<a name="l00157"></a>00157 
+<a name="l00158"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#abd87ce2e19e0c7f4123384119ffea8d6">00158</a>     T <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#abd87ce2e19e0c7f4123384119ffea8d6">GetStep</a>()<span class="keyword"> const</span>
+<a name="l00159"></a>00159 <span class="keyword">    </span>{
+<a name="l00160"></a>00160         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a14f278d9bc30287e47630b443d73d41f">m_step</a>;
+<a name="l00161"></a>00161     }
+<a name="l00162"></a>00162 
+<a name="l00163"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a008434d1c63a0ba51508cb1923cb6181">00163</a>     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a008434d1c63a0ba51508cb1923cb6181">SetValue</a>(T <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00164"></a>00164     {
+<a name="l00165"></a>00165         this-&gt;<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a590d0e9193c398e2f81f2c287a0baeb7">m_value</a> = (<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">m_range</a> ? <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">m_range</a>-&gt;<a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#a3e8f364345aaad3c6652e82daa39a96c">Check</a>(value) : <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
+<a name="l00166"></a>00166         <a class="code" href="namespacetbe_1_1tools.html#a4dbf3afcb0a44526aa1b487ad7e9c0b6">tools::round</a>(this-&gt;<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a590d0e9193c398e2f81f2c287a0baeb7">m_value</a>, <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a14f278d9bc30287e47630b443d73d41f">m_step</a>);
+<a name="l00167"></a>00167         <a class="code" href="classtbe_1_1gui_1_1_control.html#a54c7b9fb41e764628c17ae5b4bbf4f3f">m_label</a> = <a class="code" href="namespacetbe_1_1tools.html#a9924c47ffb3744b5a4f5766e44fd5af9">tools::numToStr</a>(<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a590d0e9193c398e2f81f2c287a0baeb7">m_value</a>);
+<a name="l00168"></a>00168     }
+<a name="l00169"></a>00169 
+<a name="l00170"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a639eccebe19ccfd1477368e7a7c65fa5">00170</a>     T <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a639eccebe19ccfd1477368e7a7c65fa5">GetValue</a>()<span class="keyword"> const</span>
+<a name="l00171"></a>00171 <span class="keyword">    </span>{
+<a name="l00172"></a>00172         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a590d0e9193c398e2f81f2c287a0baeb7">m_value</a>;
+<a name="l00173"></a>00173     }
+<a name="l00174"></a>00174 
+<a name="l00175"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#abc6f2c2866fe31bd5c8fc737df2ca2f7">00175</a>     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#abc6f2c2866fe31bd5c8fc737df2ca2f7">SetRange</a>(Range* <a class="code" href="_g_lee_8h.html#a7b8ad0b27a927682837f95528fa454f5">range</a>)
+<a name="l00176"></a>00176     {
+<a name="l00177"></a>00177         <span class="keywordflow">if</span>(<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">m_range</a>)
+<a name="l00178"></a>00178             <span class="keyword">delete</span> <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">m_range</a>;
+<a name="l00179"></a>00179 
+<a name="l00180"></a>00180         this-&gt;<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">m_range</a> = <a class="code" href="_g_lee_8h.html#a7b8ad0b27a927682837f95528fa454f5">range</a>;
+<a name="l00181"></a>00181 
+<a name="l00182"></a>00182         <span class="keywordflow">if</span>(<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">m_range</a>)
+<a name="l00183"></a>00183         {
+<a name="l00184"></a>00184             <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a590d0e9193c398e2f81f2c287a0baeb7">m_value</a> = <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">m_range</a>-&gt;<a class="code" href="structtbe_1_1gui_1_1_switch_numeric_1_1_range.html#a3e8f364345aaad3c6652e82daa39a96c">Check</a>(<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a590d0e9193c398e2f81f2c287a0baeb7">m_value</a>);
+<a name="l00185"></a>00185             <a class="code" href="classtbe_1_1gui_1_1_control.html#a54c7b9fb41e764628c17ae5b4bbf4f3f">m_label</a> = <a class="code" href="namespacetbe_1_1tools.html#a9924c47ffb3744b5a4f5766e44fd5af9">tools::numToStr</a>(<a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a590d0e9193c398e2f81f2c287a0baeb7">m_value</a>);
+<a name="l00186"></a>00186         }
+<a name="l00187"></a>00187     }
+<a name="l00188"></a>00188 
+<a name="l00189"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a22e51e3b32494501114f91f5d17f5e2a">00189</a>     Range* <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a22e51e3b32494501114f91f5d17f5e2a">GetRange</a>()<span class="keyword"> const</span>
+<a name="l00190"></a>00190 <span class="keyword">    </span>{
+<a name="l00191"></a>00191         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">m_range</a>;
+<a name="l00192"></a>00192     }
+<a name="l00193"></a>00193 
+<a name="l00194"></a>00194 <span class="keyword">protected</span>:
+<a name="l00195"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a590d0e9193c398e2f81f2c287a0baeb7">00195</a>     T <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a590d0e9193c398e2f81f2c287a0baeb7">m_value</a>;
+<a name="l00196"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a14f278d9bc30287e47630b443d73d41f">00196</a>     T <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#a14f278d9bc30287e47630b443d73d41f">m_step</a>;
+<a name="l00197"></a><a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">00197</a>     Range* <a class="code" href="classtbe_1_1gui_1_1_switch_numeric.html#aef8efd99152d436a92b8696e9b27b34f">m_range</a>;
+<a name="l00198"></a>00198 };
+<a name="l00199"></a>00199 
+<a name="l00200"></a>00200 }
+<a name="l00201"></a>00201 }
+<a name="l00202"></a>00202 
+<a name="l00203"></a>00203 <span class="preprocessor">#endif // SWITCH_H</span>
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

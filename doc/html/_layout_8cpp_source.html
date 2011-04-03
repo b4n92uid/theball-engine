@@ -1,0 +1,474 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Layout.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Layout.cpp</div>  </div>
+</div>
+<div class="contents">
+<a href="_layout_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &quot;<a class="code" href="_layout_8h.html">Layout.h</a>&quot;</span>
+<a name="l00002"></a>00002 
+<a name="l00003"></a>00003 <span class="keyword">using namespace </span>tbe;
+<a name="l00004"></a>00004 <span class="keyword">using namespace </span>tbe::gui;
+<a name="l00005"></a>00005 
+<a name="l00006"></a><a class="code" href="class_spacer.html">00006</a> <span class="keyword">class </span><a class="code" href="class_spacer.html">Spacer</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>
+<a name="l00007"></a>00007 {
+<a name="l00008"></a>00008 <span class="keyword">public</span>:
+<a name="l00009"></a>00009 
+<a name="l00010"></a><a class="code" href="class_spacer.html#a633ff31f694cbefad661ba67c0a4b11b">00010</a>     <a class="code" href="class_spacer.html">Spacer</a>()
+<a name="l00011"></a>00011     {
+<a name="l00012"></a>00012         m_size = 1;
+<a name="l00013"></a>00013     }
+<a name="l00014"></a>00014 
+<a name="l00015"></a><a class="code" href="class_spacer.html#a762c8b16def5a08c18160209b115d8f5">00015</a>     <span class="keywordtype">bool</span> OnEvent(<span class="keyword">const</span> <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp;)
+<a name="l00016"></a>00016     {
+<a name="l00017"></a>00017         <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00018"></a>00018     }
+<a name="l00019"></a>00019 
+<a name="l00020"></a><a class="code" href="class_spacer.html#a548472bccf1e1f03efc1f819fb52d47f">00020</a>     <span class="keywordtype">void</span> ObjectRender()
+<a name="l00021"></a>00021     {
+<a name="l00022"></a>00022     }
+<a name="l00023"></a>00023 };
+<a name="l00024"></a>00024 
+<a name="l00025"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#ac06930c8df23e6f96dbbaaa100ad1878">00025</a> Layout::Layout(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> scrsize, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a02c6e7bba1429df9dc35325cdfb8e30b">border</a>, <span class="keywordtype">float</span> space, <a class="code" href="classtbe_1_1gui_1_1_layout.html#a633d7fd9d9b6006454f6ba572dcc484b">Orientation</a> <a class="code" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a>)
+<a name="l00026"></a>00026 {
+<a name="l00027"></a>00027     m_screenSize = scrsize;
+<a name="l00028"></a>00028     m_border = <a class="code" href="_g_lee_8h.html#a02c6e7bba1429df9dc35325cdfb8e30b">border</a>;
+<a name="l00029"></a>00029     m_space = space;
+<a name="l00030"></a>00030     m_orientation = <a class="code" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a>;
+<a name="l00031"></a>00031     m_align = BEFORE;
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033     m_parent = NULL;
+<a name="l00034"></a>00034 }
+<a name="l00035"></a>00035 
+<a name="l00036"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a9f53a76fe9a45d0f6325b42eadf51fa9">00036</a> Layout::~Layout()
+<a name="l00037"></a>00037 {
+<a name="l00038"></a>00038     Clear();
+<a name="l00039"></a>00039 }
+<a name="l00040"></a>00040 
+<a name="l00041"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a1f7a7958d6ce90d8f630bd3da9b0ac28">00041</a> <span class="keywordtype">void</span> Layout::Clear()
+<a name="l00042"></a>00042 {
+<a name="l00043"></a>00043     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_childControlsTmp.size(); i++)
+<a name="l00044"></a>00044         <span class="keyword">delete</span> m_childControlsTmp[i];
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046     m_childControlsTmp.clear();
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_childControls.size(); i++)
+<a name="l00049"></a>00049         <span class="keyword">delete</span> m_childControls[i];
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051     m_childControls.clear();
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_childLayout.size(); i++)
+<a name="l00054"></a>00054         <span class="keyword">delete</span> m_childLayout[i];
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056     m_childLayout.clear();
+<a name="l00057"></a>00057 }
+<a name="l00058"></a>00058 
+<a name="l00059"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a754dcaae41d8781ca24e88ea9f7ecc47">00059</a> <span class="keywordtype">void</span> Layout::AddStretchSpace()
+<a name="l00060"></a>00060 {
+<a name="l00061"></a>00061     <a class="code" href="class_spacer.html">Spacer</a>* <span class="keywordtype">object</span> = <span class="keyword">new</span> <a class="code" href="class_spacer.html">Spacer</a>;
+<a name="l00062"></a>00062     <span class="keywordtype">object</span>-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a93ba6cbeeedd1bbceef2c473a15658c9" title="Taille du controle.">SetSize</a>(1);
+<a name="l00063"></a>00063     <span class="keywordtype">object</span>-&gt;SetStretch(<span class="keyword">true</span>);
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065     m_childControls.push_back(<span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html">Item</a>(<span class="keywordtype">object</span>));
+<a name="l00066"></a>00066     m_childControlsTmp.push_back(<span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html">Item</a>(<span class="keywordtype">object</span>));
+<a name="l00067"></a>00067 }
+<a name="l00068"></a>00068 
+<a name="l00069"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a2ae07e432e7c2c98f21e175fca5cdab2">00069</a> <span class="keywordtype">void</span> Layout::AddSpace(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)
+<a name="l00070"></a>00070 {
+<a name="l00071"></a>00071     <a class="code" href="class_spacer.html">Spacer</a>* <span class="keywordtype">object</span> = <span class="keyword">new</span> <a class="code" href="class_spacer.html">Spacer</a>;
+<a name="l00072"></a>00072     <span class="keywordtype">object</span>-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a93ba6cbeeedd1bbceef2c473a15658c9" title="Taille du controle.">SetSize</a>(size);
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074     m_childControls.push_back(<span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html">Item</a>(<span class="keywordtype">object</span>));
+<a name="l00075"></a>00075     m_childControlsTmp.push_back(<span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html">Item</a>(<span class="keywordtype">object</span>));
+<a name="l00076"></a>00076 }
+<a name="l00077"></a>00077 
+<a name="l00078"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a4a9fb28b6c415a56700c2a9c3c7bba04">00078</a> <span class="keywordtype">void</span> Layout::AddLayout(<a class="code" href="classtbe_1_1gui_1_1_layout.html" title="Gestion de l&#39;alingement des controle de l&#39;interface graphique.">Layout</a>* <span class="keywordtype">object</span>)
+<a name="l00079"></a>00079 {
+<a name="l00080"></a>00080     <span class="keywordtype">object</span>-&gt;m_screenSize -= m_border * 2.0f;
+<a name="l00081"></a>00081     <span class="keywordtype">object</span>-&gt;m_parent = <span class="keyword">this</span>;
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083     m_childLayout.push_back(<span class="keywordtype">object</span>);
+<a name="l00084"></a>00084     m_childControls.push_back(<span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html">Item</a>(<span class="keywordtype">object</span>));
+<a name="l00085"></a>00085 }
+<a name="l00086"></a>00086 
+<a name="l00087"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#ad86fa50b5632ef2e4b16b3522ca2cb80">00087</a> <span class="keywordtype">void</span> Layout::ReleaseControl(<a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>* <span class="keywordtype">object</span>)
+<a name="l00088"></a>00088 {
+<a name="l00089"></a>00089     <span class="keyword">using namespace </span>std;
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091     Item::Array::iterator it = find_if(m_childControls.begin(),
+<a name="l00092"></a>00092                                        m_childControls.end(),
+<a name="l00093"></a>00093                                        bind2nd(ptr_fun(&amp;Item::FindByControl), <span class="keywordtype">object</span>));
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095     <span class="keywordflow">if</span>(it == m_childControls.end())
+<a name="l00096"></a>00096         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;Layout::ReleaseControl; Control not found (%p)&quot;</span>, <span class="keywordtype">object</span>);
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098     m_childControls.erase(it);
+<a name="l00099"></a>00099 }
+<a name="l00100"></a>00100 
+<a name="l00101"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a25ca616a9a13c8f877601a09d3c03307">00101</a> <span class="keywordtype">void</span> Layout::InsertFront(<a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>* <span class="keywordtype">object</span>)
+<a name="l00102"></a>00102 {
+<a name="l00103"></a>00103     m_childControls.insert(m_childControls.begin(), <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html">Item</a>(<span class="keywordtype">object</span>));
+<a name="l00104"></a>00104 }
+<a name="l00105"></a>00105 
+<a name="l00106"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#aecf88834ef847b5c2403798fdffc8f78">00106</a> <span class="keywordtype">void</span> Layout::AddControl(<a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>* <span class="keywordtype">object</span>)
+<a name="l00107"></a>00107 {
+<a name="l00108"></a>00108     m_childControls.push_back(<span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html">Item</a>(<span class="keywordtype">object</span>));
+<a name="l00109"></a>00109 }
+<a name="l00110"></a>00110 
+<a name="l00111"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a582cbf3b0507d50beae8bcd3fe761aa1">00111</a> <span class="keywordtype">void</span> Layout::Update()
+<a name="l00112"></a>00112 {
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_childLayout.size(); i++)
+<a name="l00115"></a>00115         m_childLayout[i]-&gt;Update();
+<a name="l00116"></a>00116 
+<a name="l00117"></a>00117     <span class="keywordflow">if</span>(m_childControls.empty())
+<a name="l00118"></a>00118         <span class="keywordflow">return</span>;
+<a name="l00119"></a>00119 
+<a name="l00120"></a>00120     m_size = 0;
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122     <span class="keywordflow">if</span>(m_orientation == Vertical)
+<a name="l00123"></a>00123     {
+<a name="l00124"></a>00124         <span class="keywordtype">float</span> noneStretchControlSize = 0; <span class="comment">// Taille de tout les objet NON m_stretch</span>
+<a name="l00125"></a>00125         <span class="keywordtype">float</span> stretchControlSize = 0; <span class="comment">// Taille de tout les objet m_stretch</span>
+<a name="l00126"></a>00126         <span class="keywordtype">int</span> stretchControlCount = 0; <span class="comment">// Nombre d&#39;objet m_stretch</span>
+<a name="l00127"></a>00127 
+<a name="l00128"></a>00128         <span class="comment">// On calcule la Taille de tout les objet NON m_stretch</span>
+<a name="l00129"></a>00129 
+<a name="l00130"></a>00130         <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_childControls.size(); i++)
+<a name="l00131"></a>00131         {
+<a name="l00132"></a>00132             <span class="keywordflow">if</span>(m_childControls[i]-&gt;IsStretch())
+<a name="l00133"></a>00133                 stretchControlCount++;
+<a name="l00134"></a>00134 
+<a name="l00135"></a>00135             <span class="keywordflow">else</span>
+<a name="l00136"></a>00136                 noneStretchControlSize += m_childControls[i]-&gt;GetSize().y + m_space;
+<a name="l00137"></a>00137         }
+<a name="l00138"></a>00138 
+<a name="l00139"></a>00139         noneStretchControlSize -= m_space;
+<a name="l00140"></a>00140 
+<a name="l00141"></a>00141         <span class="comment">// Taille de tout les objet m_stretch</span>
+<a name="l00142"></a>00142 
+<a name="l00143"></a>00143         <span class="keywordflow">if</span>(!stretchControlCount)
+<a name="l00144"></a>00144             stretchControlCount = 1;
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146         stretchControlSize = (m_screenSize.y - m_border.y * 2 - noneStretchControlSize) / stretchControlCount;
+<a name="l00147"></a>00147 
+<a name="l00148"></a>00148         <span class="comment">// Mise a jour des position</span>
+<a name="l00149"></a>00149         <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_childControls.size(); i++)
+<a name="l00150"></a>00150         {
+<a name="l00151"></a>00151             <span class="keywordflow">if</span>(m_childControls[i]-&gt;IsStretch())
+<a name="l00152"></a>00152             {
+<a name="l00153"></a>00153                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> newSize = m_childControls[i]-&gt;GetSize();
+<a name="l00154"></a>00154                 newSize.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> = stretchControlSize;
+<a name="l00155"></a>00155 
+<a name="l00156"></a>00156                 <span class="keywordflow">if</span>(newSize.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> &lt;= 0) newSize.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> = 1;
+<a name="l00157"></a>00157                 <span class="keywordflow">if</span>(newSize.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> &lt;= 0) newSize.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> = 1;
+<a name="l00158"></a>00158 
+<a name="l00159"></a>00159                 m_childControls[i]-&gt;SetSize(newSize);
+<a name="l00160"></a>00160             }
+<a name="l00161"></a>00161 
+<a name="l00162"></a>00162             <span class="keywordflow">if</span>(!i)
+<a name="l00163"></a>00163             {
+<a name="l00164"></a>00164                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>(m_pos.x + m_border.x, m_pos.y + m_border.y);
+<a name="l00165"></a>00165 
+<a name="l00166"></a>00166                 m_childControls[i]-&gt;SetPos(pos);
+<a name="l00167"></a>00167             }
+<a name="l00168"></a>00168 
+<a name="l00169"></a>00169             <span class="keywordflow">else</span>
+<a name="l00170"></a>00170             {
+<a name="l00171"></a>00171                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a> = m_childControls[i - 1]-&gt;GetPos();
+<a name="l00172"></a>00172                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a> = m_childControls[i - 1]-&gt;GetSize();
+<a name="l00173"></a>00173 
+<a name="l00174"></a>00174                 <span class="keywordflow">if</span>(!m_childControls[i - 1]-&gt;IsStretch())
+<a name="l00175"></a>00175                     size.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> += m_space;
+<a name="l00176"></a>00176 
+<a name="l00177"></a>00177                 m_childControls[i]-&gt;SetPos(<a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(pos.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, pos.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> + size.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>));
+<a name="l00178"></a>00178 
+<a name="l00179"></a>00179                 m_size.y += size.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
+<a name="l00180"></a>00180 
+<a name="l00181"></a>00181                 <span class="keywordflow">if</span>(m_size.x &lt; size.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>)
+<a name="l00182"></a>00182                     m_size.x = size.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>;
+<a name="l00183"></a>00183             }
+<a name="l00184"></a>00184 
+<a name="l00185"></a>00185         }
+<a name="l00186"></a>00186 
+<a name="l00187"></a>00187         <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a> = m_childControls.back()-&gt;GetSize();
+<a name="l00188"></a>00188 
+<a name="l00189"></a>00189         <span class="keywordflow">if</span>(m_size.x &lt; size.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>)
+<a name="l00190"></a>00190             m_size.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> = size.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>;
+<a name="l00191"></a>00191 
+<a name="l00192"></a>00192         <span class="comment">// Alignement</span>
+<a name="l00193"></a>00193         <span class="keywordflow">if</span>(m_align != BEFORE)
+<a name="l00194"></a>00194             <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_childControls.size(); i++)
+<a name="l00195"></a>00195             {
+<a name="l00196"></a>00196                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a> = m_childControls[i]-&gt;GetPos();
+<a name="l00197"></a>00197                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> size = m_childControls[i]-&gt;GetSize();
+<a name="l00198"></a>00198 
+<a name="l00199"></a>00199                 <span class="keywordflow">if</span>(m_align == AFTER)
+<a name="l00200"></a>00200                     pos.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> = pos.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> + m_size.x - size.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>;
+<a name="l00201"></a>00201                 <span class="keywordflow">else</span> <span class="keywordflow">if</span>(m_align == MIDDLE)
+<a name="l00202"></a>00202                     pos.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> = pos.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> + (m_size.x / 2 - size.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> / 2);
+<a name="l00203"></a>00203 
+<a name="l00204"></a>00204                 m_childControls[i]-&gt;SetPos(pos);
+<a name="l00205"></a>00205             }
+<a name="l00206"></a>00206     }
+<a name="l00207"></a>00207 
+<a name="l00208"></a>00208     <span class="keywordflow">else</span> <span class="keywordflow">if</span>(m_orientation == Horizental)
+<a name="l00209"></a>00209     {
+<a name="l00210"></a>00210         <span class="keywordtype">float</span> noneStretchControlSize = 0; <span class="comment">// Taille de tout les objet NON m_stretch</span>
+<a name="l00211"></a>00211         <span class="keywordtype">float</span> stretchControlSize = 0; <span class="comment">// Taille de tout les objet m_stretch</span>
+<a name="l00212"></a>00212         <span class="keywordtype">int</span> stretchControlCount = 0; <span class="comment">// Nombre d&#39;objet m_stretch</span>
+<a name="l00213"></a>00213 
+<a name="l00214"></a>00214         <span class="comment">// On calcule la Taille de tout les objet NON m_stretch</span>
+<a name="l00215"></a>00215 
+<a name="l00216"></a>00216         <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_childControls.size(); i++)
+<a name="l00217"></a>00217         {
+<a name="l00218"></a>00218             <span class="keywordflow">if</span>(m_childControls[i]-&gt;IsStretch())
+<a name="l00219"></a>00219                 stretchControlCount++;
+<a name="l00220"></a>00220 
+<a name="l00221"></a>00221             <span class="keywordflow">else</span>
+<a name="l00222"></a>00222                 noneStretchControlSize += m_childControls[i]-&gt;GetSize().x + m_space;
+<a name="l00223"></a>00223         }
+<a name="l00224"></a>00224 
+<a name="l00225"></a>00225         noneStretchControlSize -= m_space;
+<a name="l00226"></a>00226 
+<a name="l00227"></a>00227         <span class="comment">// Taille de tout les objet m_stretch</span>
+<a name="l00228"></a>00228 
+<a name="l00229"></a>00229         <span class="keywordflow">if</span>(!stretchControlCount)
+<a name="l00230"></a>00230             stretchControlCount = 1;
+<a name="l00231"></a>00231 
+<a name="l00232"></a>00232         stretchControlSize = (m_screenSize.x - m_border.x * 2 - noneStretchControlSize) / stretchControlCount;
+<a name="l00233"></a>00233 
+<a name="l00234"></a>00234         <span class="comment">// Mise a jour des position</span>
+<a name="l00235"></a>00235         <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_childControls.size(); i++)
+<a name="l00236"></a>00236         {
+<a name="l00237"></a>00237             <span class="keywordflow">if</span>(m_childControls[i]-&gt;IsStretch())
+<a name="l00238"></a>00238             {
+<a name="l00239"></a>00239                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> newSize = m_childControls[i]-&gt;GetSize();
+<a name="l00240"></a>00240                 newSize.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> = stretchControlSize;
+<a name="l00241"></a>00241 
+<a name="l00242"></a>00242                 <span class="keywordflow">if</span>(newSize.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> &lt;= 0) newSize.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> = 1;
+<a name="l00243"></a>00243                 <span class="keywordflow">if</span>(newSize.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> &lt;= 0) newSize.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> = 1;
+<a name="l00244"></a>00244 
+<a name="l00245"></a>00245                 m_childControls[i]-&gt;SetSize(newSize);
+<a name="l00246"></a>00246             }
+<a name="l00247"></a>00247 
+<a name="l00248"></a>00248             <span class="keywordflow">if</span>(!i)
+<a name="l00249"></a>00249             {
+<a name="l00250"></a>00250                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> newSize(m_pos.x + m_border.x, m_pos.y + m_border.y);
+<a name="l00251"></a>00251 
+<a name="l00252"></a>00252                 m_childControls[i]-&gt;SetPos(newSize);
+<a name="l00253"></a>00253             }
+<a name="l00254"></a>00254 
+<a name="l00255"></a>00255             <span class="keywordflow">else</span>
+<a name="l00256"></a>00256             {
+<a name="l00257"></a>00257                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a> = m_childControls[i - 1]-&gt;GetPos();
+<a name="l00258"></a>00258                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a> = m_childControls[i - 1]-&gt;GetSize();
+<a name="l00259"></a>00259 
+<a name="l00260"></a>00260                 <span class="keywordflow">if</span>(!m_childControls[i - 1]-&gt;IsStretch())
+<a name="l00261"></a>00261                     size.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> += m_space;
+<a name="l00262"></a>00262 
+<a name="l00263"></a>00263                 m_childControls[i]-&gt;SetPos(<a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(pos.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> + size.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, pos.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>));
+<a name="l00264"></a>00264 
+<a name="l00265"></a>00265                 m_size.x += size.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>;
+<a name="l00266"></a>00266 
+<a name="l00267"></a>00267                 <span class="keywordflow">if</span>(m_size.y &lt; size.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>)
+<a name="l00268"></a>00268                     m_size.y = size.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
+<a name="l00269"></a>00269             }
+<a name="l00270"></a>00270         }
+<a name="l00271"></a>00271 
+<a name="l00272"></a>00272         <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a> = m_childControls.back()-&gt;GetSize();
+<a name="l00273"></a>00273 
+<a name="l00274"></a>00274         <span class="keywordflow">if</span>(m_size.y &lt; size.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>)
+<a name="l00275"></a>00275             m_size.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> = size.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
+<a name="l00276"></a>00276 
+<a name="l00277"></a>00277         <span class="comment">// Alignement</span>
+<a name="l00278"></a>00278         <span class="keywordflow">if</span>(m_align != BEFORE)
+<a name="l00279"></a>00279             <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_childControls.size(); i++)
+<a name="l00280"></a>00280             {
+<a name="l00281"></a>00281                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a> = m_childControls[i]-&gt;GetPos();
+<a name="l00282"></a>00282                 <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> size = m_childControls[i]-&gt;GetSize();
+<a name="l00283"></a>00283 
+<a name="l00284"></a>00284                 <span class="keywordflow">if</span>(m_align == AFTER)
+<a name="l00285"></a>00285                     pos.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> = pos.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> + m_size.y - size.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
+<a name="l00286"></a>00286                 <span class="keywordflow">else</span> <span class="keywordflow">if</span>(m_align == MIDDLE)
+<a name="l00287"></a>00287                     pos.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> = pos.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> + (m_size.y / 2 - size.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> / 2);
+<a name="l00288"></a>00288 
+<a name="l00289"></a>00289                 m_childControls[i]-&gt;SetPos(pos);
+<a name="l00290"></a>00290             }
+<a name="l00291"></a>00291     }
+<a name="l00292"></a>00292 }
+<a name="l00293"></a>00293 
+<a name="l00294"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a9b21c425fd80a2fb05e37098e4f7ed5a">00294</a> <span class="keywordtype">void</span> Layout::SetAlign(<a class="code" href="classtbe_1_1gui_1_1_layout.html#a96d8a20232b151bd23ffc35173989360">Align</a> align)
+<a name="l00295"></a>00295 {
+<a name="l00296"></a>00296     this-&gt;m_align = align;
+<a name="l00297"></a>00297 }
+<a name="l00298"></a>00298 
+<a name="l00299"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a5b28ce12dac75fe958bfae317820aaa2">00299</a> <a class="code" href="classtbe_1_1gui_1_1_layout.html#a96d8a20232b151bd23ffc35173989360">Layout::Align</a> Layout::GetAlign()<span class="keyword"> const</span>
+<a name="l00300"></a>00300 <span class="keyword"></span>{
+<a name="l00301"></a>00301     <span class="keywordflow">return</span> m_align;
+<a name="l00302"></a>00302 }
+<a name="l00303"></a>00303 
+<a name="l00304"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a284d7ff6b6b37cd8fdfa45f77e15dda6">00304</a> <span class="keywordtype">void</span> Layout::SetParent(<a class="code" href="classtbe_1_1gui_1_1_layout.html" title="Gestion de l&#39;alingement des controle de l&#39;interface graphique.">Layout</a>* parent)
+<a name="l00305"></a>00305 {
+<a name="l00306"></a>00306     this-&gt;m_parent = parent;
+<a name="l00307"></a>00307 }
+<a name="l00308"></a>00308 
+<a name="l00309"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a1007c40e097419546e38f20fbf3bbc3a">00309</a> <a class="code" href="classtbe_1_1gui_1_1_layout.html" title="Gestion de l&#39;alingement des controle de l&#39;interface graphique.">Layout</a>* Layout::GetParent()
+<a name="l00310"></a>00310 {
+<a name="l00311"></a>00311     <span class="keywordflow">return</span> m_parent;
+<a name="l00312"></a>00312 }
+<a name="l00313"></a>00313 
+<a name="l00314"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a498a3807b296f191829ca04010156189">00314</a> <span class="keywordtype">void</span> Layout::SetSpace(<span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)
+<a name="l00315"></a>00315 {
+<a name="l00316"></a>00316     m_space = <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>;
+<a name="l00317"></a>00317 }
+<a name="l00318"></a>00318 
+<a name="l00319"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#aaf05eb71ff40d38124e75f439c54e95e">00319</a> <span class="keywordtype">float</span> Layout::GetSpace()<span class="keyword"> const</span>
+<a name="l00320"></a>00320 <span class="keyword"></span>{
+<a name="l00321"></a>00321     <span class="keywordflow">return</span> m_space;
+<a name="l00322"></a>00322 }
+<a name="l00323"></a>00323 
+<a name="l00324"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a1a1cb660ae813811223449c34ab4ddcd">00324</a> <span class="keywordtype">void</span> Layout::SetBorder(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)
+<a name="l00325"></a>00325 {
+<a name="l00326"></a>00326     m_border = <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>;
+<a name="l00327"></a>00327 }
+<a name="l00328"></a>00328 
+<a name="l00329"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a0305d70caac89a3874d34ffe5b84164c">00329</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> Layout::GetBorder()<span class="keyword"> const</span>
+<a name="l00330"></a>00330 <span class="keyword"></span>{
+<a name="l00331"></a>00331     <span class="keywordflow">return</span> m_border;
+<a name="l00332"></a>00332 }
+<a name="l00333"></a>00333 
+<a name="l00334"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#aca5779b8663c6e7da40e5a466b93b0a1">00334</a> <span class="keywordtype">void</span> Layout::SetScreenSize(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> screenSize)
+<a name="l00335"></a>00335 {
+<a name="l00336"></a>00336     this-&gt;m_screenSize = screenSize;
+<a name="l00337"></a>00337 }
+<a name="l00338"></a>00338 
+<a name="l00339"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#ac8714ec9dfa151de350221f527aef103">00339</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> Layout::GetScreenSize()<span class="keyword"> const</span>
+<a name="l00340"></a>00340 <span class="keyword"></span>{
+<a name="l00341"></a>00341     <span class="keywordflow">return</span> m_screenSize;
+<a name="l00342"></a>00342 }
+<a name="l00343"></a>00343 
+<a name="l00344"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a8fab9f62b1fe1a6758a995ec931d7fdf">00344</a> <span class="keywordtype">void</span> Layout::SetSize(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)
+<a name="l00345"></a>00345 {
+<a name="l00346"></a>00346     this-&gt;m_size = <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>;
+<a name="l00347"></a>00347 }
+<a name="l00348"></a>00348 
+<a name="l00349"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#acfb01d6f1c8255ec72fcdc24c323a230">00349</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> Layout::GetSize()<span class="keyword"> const</span>
+<a name="l00350"></a>00350 <span class="keyword"></span>{
+<a name="l00351"></a>00351     <span class="keywordflow">return</span> m_size;
+<a name="l00352"></a>00352 }
+<a name="l00353"></a>00353 
+<a name="l00354"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a5c774c7e772f125b9039c7adba9ee1e0">00354</a> <span class="keywordtype">void</span> Layout::SetPos(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
+<a name="l00355"></a>00355 {
+<a name="l00356"></a>00356     this-&gt;m_pos = <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>;
+<a name="l00357"></a>00357 
+<a name="l00358"></a>00358     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_childLayout.size(); i++)
+<a name="l00359"></a>00359         m_childLayout[i]-&gt;SetPos(m_pos + m_childLayout[i]-&gt;GetPos());
+<a name="l00360"></a>00360 }
+<a name="l00361"></a>00361 
+<a name="l00362"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#ac12e01274d1c543ef7b4c1f6fa4aad99">00362</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> Layout::GetPos()<span class="keyword"> const</span>
+<a name="l00363"></a>00363 <span class="keyword"></span>{
+<a name="l00364"></a>00364     <span class="keywordflow">return</span> m_pos;
+<a name="l00365"></a>00365 }
+<a name="l00366"></a>00366 
+<a name="l00367"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#a387094b07dfa25644d13718e4cc4ae4d">00367</a> <span class="keywordtype">void</span> Layout::SetOrientation(<a class="code" href="classtbe_1_1gui_1_1_layout.html#a633d7fd9d9b6006454f6ba572dcc484b">Layout::Orientation</a> <a class="code" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a>)
+<a name="l00368"></a>00368 {
+<a name="l00369"></a>00369     m_orientation = <a class="code" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a>;
+<a name="l00370"></a>00370 }
+<a name="l00371"></a>00371 
+<a name="l00372"></a><a class="code" href="classtbe_1_1gui_1_1_layout.html#aa061fc68901791fd60cf172f9261edfd">00372</a> <a class="code" href="classtbe_1_1gui_1_1_layout.html#a633d7fd9d9b6006454f6ba572dcc484b">Layout::Orientation</a> Layout::GetOrientation()<span class="keyword"> const</span>
+<a name="l00373"></a>00373 <span class="keyword"></span>{
+<a name="l00374"></a>00374     <span class="keywordflow">return</span> m_orientation;
+<a name="l00375"></a>00375 }
+<a name="l00376"></a>00376 
+<a name="l00377"></a>00377 <span class="comment">// Layout::Item ----------------------------------------------------------------</span>
+<a name="l00378"></a>00378 
+<a name="l00379"></a><a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html#a0b098c36faa87433e9e09aee6c6438e3">00379</a> Layout::Item::Item(<a class="code" href="classtbe_1_1gui_1_1_layout.html" title="Gestion de l&#39;alingement des controle de l&#39;interface graphique.">Layout</a>* layout)
+<a name="l00380"></a>00380 {
+<a name="l00381"></a>00381     m_ctrl = 0;
+<a name="l00382"></a>00382     m_lay = layout;
+<a name="l00383"></a>00383 }
+<a name="l00384"></a>00384 
+<a name="l00385"></a><a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html#a2ba28a8e630bbe6075213e60b775e4c5">00385</a> Layout::Item::Item(<a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>* ctrl)
+<a name="l00386"></a>00386 {
+<a name="l00387"></a>00387     m_ctrl = ctrl;
+<a name="l00388"></a>00388     m_lay = 0;
+<a name="l00389"></a>00389 }
+<a name="l00390"></a>00390 
+<a name="l00391"></a><a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html#a06df3cc7a755c8e4181e203e35a7597d">00391</a> Layout::Item::~Item()
+<a name="l00392"></a>00392 {
+<a name="l00393"></a>00393 
+<a name="l00394"></a>00394 }
+<a name="l00395"></a>00395 
+<a name="l00396"></a><a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html#abeed9441833d1737634865abe9ec0175">00396</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> Layout::Item::GetPos()
+<a name="l00397"></a>00397 {
+<a name="l00398"></a>00398     <span class="keywordflow">return</span> m_ctrl ? m_ctrl-&gt;GetPos() : m_lay-&gt;GetPos();
+<a name="l00399"></a>00399 }
+<a name="l00400"></a>00400 
+<a name="l00401"></a><a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html#abd052c26d91f9b948bba3b552a83d8b6">00401</a> <span class="keywordtype">void</span> Layout::Item::SetPos(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
+<a name="l00402"></a>00402 {
+<a name="l00403"></a>00403     m_ctrl ? m_ctrl-&gt;SetPos(pos) : m_lay-&gt;SetPos(pos);
+<a name="l00404"></a>00404 }
+<a name="l00405"></a>00405 
+<a name="l00406"></a><a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html#ab029dfa1e09ca80d1d24100600e3926b">00406</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> Layout::Item::GetSize()
+<a name="l00407"></a>00407 {
+<a name="l00408"></a>00408     <span class="keywordflow">return</span> m_ctrl ? m_ctrl-&gt;GetSize() : m_lay-&gt;GetSize();
+<a name="l00409"></a>00409 }
+<a name="l00410"></a>00410 
+<a name="l00411"></a><a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html#a1b04ee74132c4c095f999c441013762d">00411</a> <span class="keywordtype">void</span> Layout::Item::SetSize(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)
+<a name="l00412"></a>00412 {
+<a name="l00413"></a>00413     m_ctrl ? m_ctrl-&gt;SetSize(size) : m_lay-&gt;SetSize(size);
+<a name="l00414"></a>00414 }
+<a name="l00415"></a>00415 
+<a name="l00416"></a><a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html#a5a1c010c9a36914af44a30fa16589c84">00416</a> <span class="keywordtype">bool</span> Layout::Item::IsStretch()
+<a name="l00417"></a>00417 {
+<a name="l00418"></a>00418     <span class="keywordflow">return</span> m_ctrl ? m_ctrl-&gt;IsStretch() : <span class="keyword">false</span>;
+<a name="l00419"></a>00419 }
+<a name="l00420"></a>00420 
+<a name="l00421"></a><a class="code" href="classtbe_1_1gui_1_1_layout_1_1_item.html#a59e7d6d8c2495949a74f8eb7fefa6fa7">00421</a> <span class="keywordtype">bool</span> Layout::Item::IsEnable()
+<a name="l00422"></a>00422 {
+<a name="l00423"></a>00423     <span class="keywordflow">return</span> m_ctrl ? m_ctrl-&gt;IsEnable() : <span class="keyword">true</span>;
+<a name="l00424"></a>00424 }
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

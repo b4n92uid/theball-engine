@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Device.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Device.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_device_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef TBE_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define TBE_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;iostream&gt;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="_g_lee_8h.html">GLee.h</a>&quot;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;GL/glu.h&gt;</span>
+<a name="l00008"></a>00008 
+<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="_mathematics_8h.html">Mathematics.h</a>&quot;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="_clock_8h.html">Clock.h</a>&quot;</span>
+<a name="l00011"></a>00011 
+<a name="l00012"></a>00012 <span class="keyword">namespace </span>tbe
+<a name="l00013"></a>00013 {
+<a name="l00014"></a>00014 
+<a name="l00015"></a>00015 <span class="keyword">class </span>EventManager;
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 <span class="keyword">namespace </span>ppe
+<a name="l00018"></a>00018 {
+<a name="l00019"></a>00019 <span class="keyword">class </span>PostProcessManager;
+<a name="l00020"></a>00020 }
+<a name="l00021"></a>00021 
+<a name="l00022"></a>00022 <span class="keyword">namespace </span>scene
+<a name="l00023"></a>00023 {
+<a name="l00024"></a>00024 <span class="keyword">class </span>SceneManager;
+<a name="l00025"></a>00025 }
+<a name="l00026"></a>00026 
+<a name="l00027"></a>00027 <span class="keyword">namespace </span>gui
+<a name="l00028"></a>00028 {
+<a name="l00029"></a>00029 <span class="keyword">class </span>GuiManager;
+<a name="l00030"></a>00030 }
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032 <span class="keyword">namespace </span>ticks
+<a name="l00033"></a>00033 {
+<a name="l00034"></a>00034 <span class="keyword">class </span>FpsManager;
+<a name="l00035"></a>00035 }
+<a name="l00036"></a>00036 
+<a name="l00048"></a><a class="code" href="classtbe_1_1_device.html">00048</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_device.html" title="Class d&#39;interface generale du moteur.">Device</a>
+<a name="l00049"></a>00049 {
+<a name="l00050"></a>00050 <span class="keyword">public</span>:
+<a name="l00051"></a>00051 
+<a name="l00053"></a>00053     <a class="code" href="classtbe_1_1_device.html#a64ba12dcc5f4267486c5d545d04dcf68" title="Constructeur.">Device</a>();
+<a name="l00054"></a>00054 
+<a name="l00056"></a>00056     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1_device.html#a9dabc419c8d8df3a686c33ce042bc99a" title="Destructeur.">~Device</a>();
+<a name="l00057"></a>00057 
+<a name="l00059"></a>00059     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_device.html#a3dbd460ee1a3e6abc90b859061098dd9" title="Efface la scene.">BeginScene</a>();
+<a name="l00060"></a>00060 
+<a name="l00062"></a>00062     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_device.html#a342dd6551b88b2fb20eec3f1d66643a9" title="Rendue de la scene.">EndScene</a>();
+<a name="l00063"></a>00063 
+<a name="l00065"></a>00065     <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>* <a class="code" href="classtbe_1_1_device.html#a4a5dadfb9e0d97c7201a69c83140b1c5" title="Accès au evenement récpere.">GetEventManager</a>();
+<a name="l00066"></a>00066 
+<a name="l00068"></a>00068     <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html" title="Gestionnaire de scene inclus des fonctions de gestion des scenes parallel, des lumiers et encapsule l...">scene::SceneManager</a>* <a class="code" href="classtbe_1_1_device.html#a863b999111a0892ebd6ca934680260f9" title="Accès aux gestionnaire de SCENE.">GetSceneManager</a>();
+<a name="l00069"></a>00069 
+<a name="l00071"></a>00071     <a class="code" href="classtbe_1_1gui_1_1_gui_manager.html" title="Gestionnaire de l&#39;interface graphique.">gui::GuiManager</a>* <a class="code" href="classtbe_1_1_device.html#a9a964cc2f781c7c33cbe28e81d7545be" title="Accès aux gestionnaire de GUI.">GetGuiManager</a>();
+<a name="l00072"></a>00072 
+<a name="l00074"></a>00074     <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html" title="Gestionnaire FPS Pour la l&#39;affichage et la limitation du framerate.">ticks::FpsManager</a>* <a class="code" href="classtbe_1_1_device.html#aca7ed37b1965bb743aa62be98307549c" title="Accès aux gestionnaire du FPS.">GetFpsManager</a>();
+<a name="l00075"></a>00075 
+<a name="l00077"></a>00077     <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html" title="Gestionnaire d&#39;effets apres-traitement.">ppe::PostProcessManager</a>* <a class="code" href="classtbe_1_1_device.html#a66e06cb2a2c1d795b1bca89c296b8c66" title="Accès aux gestionnaire d&#39;effets apres traitement.">GetPostProcessManager</a>() <span class="keyword">const</span>;
+<a name="l00078"></a>00078 
+<a name="l00080"></a>00080     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_device.html#a2eea135a13ca73f33859511648198891" title="Initilisation.">Init</a>();
+<a name="l00081"></a>00081 
+<a name="l00083"></a>00083     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_device.html#ac277101de09516b2ed6d03986ee505a1" title="Taille du viewport.">SetViewportSize</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> viewportSize);
+<a name="l00084"></a>00084     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1_device.html#a6d3941e8218dc7e3f03927cde293d897">GetViewportSize</a>() <span class="keyword">const</span>;
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086     <span class="comment">// Static ------------------------------------------------------------------</span>
+<a name="l00087"></a>00087 
+<a name="l00089"></a>00089     <span class="keyword">static</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1_device.html#a69914dde06942dcb734bb867d1ed4462" title="Renvoi la version du moteur (Build Date)">GetVersion</a>();
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091 <span class="keyword">protected</span>:
+<a name="l00092"></a><a class="code" href="classtbe_1_1_device.html#a65d1fa99e07b57ac40680f36beb9dffd">00092</a>     <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html" title="Gestionnaire de scene inclus des fonctions de gestion des scenes parallel, des lumiers et encapsule l...">scene::SceneManager</a>* <a class="code" href="classtbe_1_1_device.html#a65d1fa99e07b57ac40680f36beb9dffd">m_sceneManager</a>;
+<a name="l00093"></a><a class="code" href="classtbe_1_1_device.html#ae87289c28ac5db264755f05e7c581559">00093</a>     <a class="code" href="classtbe_1_1ppe_1_1_post_process_manager.html" title="Gestionnaire d&#39;effets apres-traitement.">ppe::PostProcessManager</a>* <a class="code" href="classtbe_1_1_device.html#ae87289c28ac5db264755f05e7c581559">m_postProcessManager</a>;
+<a name="l00094"></a><a class="code" href="classtbe_1_1_device.html#a014767c50a4763705e7c60b67188dcf5">00094</a>     <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html" title="Gestionnaire FPS Pour la l&#39;affichage et la limitation du framerate.">ticks::FpsManager</a>* <a class="code" href="classtbe_1_1_device.html#a014767c50a4763705e7c60b67188dcf5">m_fpsManager</a>;
+<a name="l00095"></a><a class="code" href="classtbe_1_1_device.html#a4da3c815882f78cb3e8f30f779040f25">00095</a>     <a class="code" href="classtbe_1_1gui_1_1_gui_manager.html" title="Gestionnaire de l&#39;interface graphique.">gui::GuiManager</a>* <a class="code" href="classtbe_1_1_device.html#a4da3c815882f78cb3e8f30f779040f25">m_guiManager</a>;
+<a name="l00096"></a><a class="code" href="classtbe_1_1_device.html#a2d8300ed65ca7dd1bb2a0acff8c4ee04">00096</a>     <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>* <a class="code" href="classtbe_1_1_device.html#a2d8300ed65ca7dd1bb2a0acff8c4ee04">m_eventManager</a>;
+<a name="l00097"></a>00097     
+<a name="l00098"></a><a class="code" href="classtbe_1_1_device.html#a636ef5b4fd4f1438cb5955957f2eed60">00098</a>     <a class="code" href="classtbe_1_1ticks_1_1_clock.html" title="Gestion du temps Inclus des fonctions statique pour le formatage des dates et de controle du processu...">ticks::Clock</a> <a class="code" href="classtbe_1_1_device.html#a636ef5b4fd4f1438cb5955957f2eed60">m_timestamp</a>;
+<a name="l00099"></a>00099 
+<a name="l00100"></a><a class="code" href="classtbe_1_1_device.html#af875690b400be88a9cda560bd2da5064">00100</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1_device.html#af875690b400be88a9cda560bd2da5064">m_viewportSize</a>;
+<a name="l00101"></a>00101 };
+<a name="l00102"></a>00102 
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104 }
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106 <span class="preprocessor">#endif // TBE_H</span>
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:55 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

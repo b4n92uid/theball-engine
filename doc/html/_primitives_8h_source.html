@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Primitives.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Primitives.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_primitives_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   Primitives.h</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 24 novembre 2009, 17:34</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef _PRIMITIVES_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define _PRIMITIVES_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="_mesh_8h.html">Mesh.h</a>&quot;</span>
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="keyword">namespace </span>tbe
+<a name="l00014"></a>00014 {
+<a name="l00015"></a>00015 <span class="keyword">namespace </span>scene
+<a name="l00016"></a>00016 {
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018 <span class="keyword">class </span>MeshParallelScene;
+<a name="l00019"></a>00019 
+<a name="l00023"></a><a class="code" href="classtbe_1_1scene_1_1_box.html">00023</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_box.html" title="Primitive de type cube.">Box</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>
+<a name="l00024"></a>00024 {
+<a name="l00025"></a>00025 <span class="keyword">public</span>:
+<a name="l00026"></a>00026     <a class="code" href="classtbe_1_1scene_1_1_box.html#a1a042c977bcd90b2f6a623b7148853e1">Box</a>(<a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* scene);
+<a name="l00027"></a>00027     <a class="code" href="classtbe_1_1scene_1_1_box.html#a1a042c977bcd90b2f6a623b7148853e1">Box</a>(<a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* scene, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>, <span class="keywordtype">bool</span> quadFace = <span class="keyword">false</span>);
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_box.html#aea53c806d3aa2c7ff033d25b3b928714">Setup</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> size, <span class="keywordtype">bool</span> quadFace = <span class="keyword">false</span>);
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_box.html#ad3608d87c69e3fbb031964119fb87926">GetSize</a>() <span class="keyword">const</span>;
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033 <span class="keyword">protected</span>:
+<a name="l00034"></a><a class="code" href="classtbe_1_1scene_1_1_box.html#afd9e6cb0cbfcc5d8dc1f647434c3135f">00034</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_box.html#afd9e6cb0cbfcc5d8dc1f647434c3135f">m_size</a>;
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 };
+<a name="l00037"></a>00037 
+<a name="l00041"></a><a class="code" href="classtbe_1_1scene_1_1_sphere.html">00041</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_sphere.html" title="Primitive de type Sphere.">Sphere</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>
+<a name="l00042"></a>00042 {
+<a name="l00043"></a>00043 <span class="keyword">public</span>:
+<a name="l00044"></a>00044     <a class="code" href="classtbe_1_1scene_1_1_sphere.html#ab7a683d16d3b00a2b4533042c02d3ec6">Sphere</a>(<a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* scene);
+<a name="l00045"></a>00045     <a class="code" href="classtbe_1_1scene_1_1_sphere.html#ab7a683d16d3b00a2b4533042c02d3ec6">Sphere</a>(<a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* scene, <span class="keywordtype">float</span> radius, <span class="keywordtype">unsigned</span> slices, <span class="keywordtype">unsigned</span> stackes);
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_sphere.html#ab6fd9fdde729bf07f221803b7e86a550">Setup</a>(<span class="keywordtype">float</span> radius, <span class="keywordtype">unsigned</span> slices, <span class="keywordtype">unsigned</span> stackes);
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_sphere.html#a1d4f6a23d22792622745b3f931fca2e5">GetRadius</a>() <span class="keyword">const</span>;
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051 <span class="keyword">protected</span>:
+<a name="l00052"></a><a class="code" href="classtbe_1_1scene_1_1_sphere.html#aab5b0951bdd15d4f7e2df4dc41151f32">00052</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_sphere.html#aab5b0951bdd15d4f7e2df4dc41151f32">m_radius</a>;
+<a name="l00053"></a>00053 };
+<a name="l00054"></a>00054 
+<a name="l00058"></a><a class="code" href="classtbe_1_1scene_1_1_axes.html">00058</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_axes.html" title="Axes aligner en X, Y, Z.">Axes</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>
+<a name="l00059"></a>00059 {
+<a name="l00060"></a>00060 <span class="keyword">public</span>:
+<a name="l00061"></a>00061     <a class="code" href="classtbe_1_1scene_1_1_axes.html#affaf9aadc63c2bb7dadb39a90aef1381">Axes</a>(<a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* scene);
+<a name="l00062"></a>00062     <a class="code" href="classtbe_1_1scene_1_1_axes.html#affaf9aadc63c2bb7dadb39a90aef1381">Axes</a>(<a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* scene, <span class="keywordtype">float</span> lineWidth, <span class="keywordtype">float</span> lineLength);
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_axes.html#a1811ec65ad9da1332a8056cb6072b9b9">Setup</a>(<span class="keywordtype">float</span> lineWidth, <span class="keywordtype">float</span> lineLength);
+<a name="l00065"></a>00065 
+<a name="l00066"></a>00066     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_axes.html#a7a8d3db12ac231a9a6db13d732f244c8">GetLineLength</a>() <span class="keyword">const</span>;
+<a name="l00067"></a>00067     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_axes.html#a4deb990ef9cdb8a2bf35c9ece6a1a28e">GetLineWidth</a>() <span class="keyword">const</span>;
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 <span class="keyword">protected</span>:
+<a name="l00070"></a><a class="code" href="classtbe_1_1scene_1_1_axes.html#a9661a53d03c64fc14582fb98229c0abd">00070</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_axes.html#a9661a53d03c64fc14582fb98229c0abd">m_lineWidth</a>;
+<a name="l00071"></a><a class="code" href="classtbe_1_1scene_1_1_axes.html#a66356b04c54de2202889d63e42e87d86">00071</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_axes.html#a66356b04c54de2202889d63e42e87d86">m_lineLength</a>;
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073 };
+<a name="l00074"></a>00074 
+<a name="l00078"></a><a class="code" href="classtbe_1_1scene_1_1_plane.html">00078</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_plane.html" title="Primitives de type Plan.">Plane</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>
+<a name="l00079"></a>00079 {
+<a name="l00080"></a>00080 <span class="keyword">public</span>:
+<a name="l00081"></a>00081     <a class="code" href="classtbe_1_1scene_1_1_plane.html#a5036bd32042ddfcfc1661814d82fef6a">Plane</a>(<a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* scene);
+<a name="l00082"></a>00082     <a class="code" href="classtbe_1_1scene_1_1_plane.html#a5036bd32042ddfcfc1661814d82fef6a">Plane</a>(<a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* scene, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>, <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> cut);
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_plane.html#aa8ff5b8b1975d131684e8f486dabc44a">Setup</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> size, <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> cut);
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1scene_1_1_plane.html#a8b256f0eff400915ff788b9103e29ed9">GetCut</a>() <span class="keyword">const</span>;
+<a name="l00087"></a>00087     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1scene_1_1_plane.html#a1804cdda3447630bf0657278dc5bd26b">GetSize</a>() <span class="keyword">const</span>;
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089 <span class="keyword">protected</span>:
+<a name="l00090"></a><a class="code" href="classtbe_1_1scene_1_1_plane.html#ae02490bc8eba54497dff1286b87241da">00090</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1scene_1_1_plane.html#ae02490bc8eba54497dff1286b87241da">m_size</a>;
+<a name="l00091"></a><a class="code" href="classtbe_1_1scene_1_1_plane.html#adb0fef40b22fca35e23ac0131b153f95">00091</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1scene_1_1_plane.html#adb0fef40b22fca35e23ac0131b153f95">m_cut</a>;
+<a name="l00092"></a>00092 };
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096 }
+<a name="l00097"></a>00097 }
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099 <span class="preprocessor">#endif  </span><span class="comment">/* _PRIMITIVES_H */</span>
+<a name="l00100"></a>00100 
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

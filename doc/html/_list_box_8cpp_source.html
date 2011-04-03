@@ -1,0 +1,382 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/ListBox.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/ListBox.cpp</div>  </div>
+</div>
+<div class="contents">
+<a href="_list_box_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   ListBox.cpp</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 15 juin 2010, 21:41</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;<a class="code" href="_list_box_8h.html">ListBox.h</a>&quot;</span>
+<a name="l00009"></a>00009 
+<a name="l00010"></a>00010 <span class="keyword">using namespace </span>std;
+<a name="l00011"></a>00011 <span class="keyword">using namespace </span>tbe;
+<a name="l00012"></a>00012 <span class="keyword">using namespace </span>tbe::gui;
+<a name="l00013"></a>00013 
+<a name="l00014"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a3b655463591ba60f0aaa54a961d86d9e">00014</a> ListBox::ListBox()
+<a name="l00015"></a>00015 {
+<a name="l00016"></a>00016     m_lay.SetOrientation(Layout::Vertical);
+<a name="l00017"></a>00017     m_lay.SetSpace(4);
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019     m_offset = 0;
+<a name="l00020"></a>00020     m_offsetMax = 0;
+<a name="l00021"></a>00021     m_backgroundPadding = 0;
+<a name="l00022"></a>00022     m_definedSize = <span class="keyword">false</span>;
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024     m_currentItem = NULL;
+<a name="l00025"></a>00025 }
+<a name="l00026"></a>00026 
+<a name="l00027"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a71376a469c4b6a97b100d227fd8704ce">00027</a> ListBox::~ListBox()
+<a name="l00028"></a>00028 {
+<a name="l00029"></a>00029     Clear();
+<a name="l00030"></a>00030 }
+<a name="l00031"></a>00031 
+<a name="l00032"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a20c91f31bbb31edca486c9c53e3032bb">00032</a> <a class="code" href="classtbe_1_1gui_1_1_list_box.html" title="List d&#39;élément.">ListBox</a>&amp; ListBox::Push(<span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; label)
+<a name="l00033"></a>00033 {
+<a name="l00034"></a>00034     <a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html">Item</a>* it = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html">Item</a>(label);
+<a name="l00035"></a>00035     it-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a247ea13291c3f204c00d8aa434c8325b" title="Spécifier la police d&#39;écriture.">SetPencil</a>(m_pencil);
+<a name="l00036"></a>00036     it-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a93ba6cbeeedd1bbceef2c473a15658c9" title="Taille du controle.">SetSize</a>(m_pencil.SizeOf(label));
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038     m_totalItems.push_back(it);
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00041"></a>00041 }
+<a name="l00042"></a>00042 
+<a name="l00043"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#ac67489c11a9fd3b83928315c1385c2b8">00043</a> <a class="code" href="classtbe_1_1gui_1_1_list_box.html" title="List d&#39;élément.">ListBox</a>&amp; ListBox::Push(<span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; label, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
+<a name="l00044"></a>00044 {
+<a name="l00045"></a>00045     <a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html">Item</a>* it = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html">Item</a>(label, data);
+<a name="l00046"></a>00046     it-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a247ea13291c3f204c00d8aa434c8325b" title="Spécifier la police d&#39;écriture.">SetPencil</a>(m_pencil);
+<a name="l00047"></a>00047     it-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a93ba6cbeeedd1bbceef2c473a15658c9" title="Taille du controle.">SetSize</a>(m_pencil.SizeOf(label));
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049     m_totalItems.push_back(it);
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00052"></a>00052 }
+<a name="l00053"></a>00053 
+<a name="l00054"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a9f537d4f6667efc1e7913ec86dc84480">00054</a> <span class="keywordtype">void</span> ListBox::CancelSelection()
+<a name="l00055"></a>00055 {
+<a name="l00056"></a>00056     <span class="keywordflow">if</span>(!m_currentItem)
+<a name="l00057"></a>00057         <span class="keywordflow">return</span>;
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059     m_currentItem-&gt;SetSelected(<span class="keyword">false</span>);
+<a name="l00060"></a>00060     m_currentItem = NULL;
+<a name="l00061"></a>00061 }
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#afc617aeb826f555aab94722941924d11">00063</a> <span class="keywordtype">bool</span> ListBox::IsSelection()
+<a name="l00064"></a>00064 {
+<a name="l00065"></a>00065     <span class="keywordflow">return</span> m_currentItem;
+<a name="l00066"></a>00066 }
+<a name="l00067"></a>00067 
+<a name="l00068"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a989350ef1c9411735496bff4cbc6684e">00068</a> <span class="keywordtype">void</span> ListBox::SetDefinedSize(<span class="keywordtype">bool</span> definedSize)
+<a name="l00069"></a>00069 {
+<a name="l00070"></a>00070     this-&gt;m_definedSize = definedSize;
+<a name="l00071"></a>00071 }
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a621ed111cd4fde550c8893d1e78c449e">00073</a> <span class="keywordtype">bool</span> ListBox::IsDefinedSize()<span class="keyword"> const</span>
+<a name="l00074"></a>00074 <span class="keyword"></span>{
+<a name="l00075"></a>00075     <span class="keywordflow">return</span> m_definedSize;
+<a name="l00076"></a>00076 }
+<a name="l00077"></a>00077 
+<a name="l00078"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a6bf7f4ff709e047a7fd4e954bcae16df">00078</a> <span class="keywordtype">void</span> ListBox::SetCurrentString(<span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; str)
+<a name="l00079"></a>00079 {
+<a name="l00080"></a>00080     m_currentItem-&gt;SetLabel(str);
+<a name="l00081"></a>00081 }
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a11aab5f3d84672c229e674d4a6c765ac">00083</a> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> ListBox::GetCurrentString()
+<a name="l00084"></a>00084 {
+<a name="l00085"></a>00085     <span class="keywordflow">return</span> m_currentItem-&gt;GetLabel();
+<a name="l00086"></a>00086 }
+<a name="l00087"></a>00087 
+<a name="l00088"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#ace9bd68a398a8483253e1c9fec0bb345">00088</a> <span class="keywordtype">void</span> ListBox::SetCurrentIndex(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
+<a name="l00089"></a>00089 {
+<a name="l00090"></a>00090     m_currentItem = m_totalItems[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>];
+<a name="l00091"></a>00091 }
+<a name="l00092"></a>00092 
+<a name="l00093"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a957549b91b24c62fbcfbff8e6870fb65">00093</a> <span class="keywordtype">unsigned</span> ListBox::GetCurrentIndex()
+<a name="l00094"></a>00094 {
+<a name="l00095"></a>00095     <span class="keywordflow">return</span> <a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">find</a>(m_totalItems.begin(), m_totalItems.end(), m_currentItem) - m_totalItems.begin();
+<a name="l00096"></a>00096 }
+<a name="l00097"></a>00097 
+<a name="l00098"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a0b070388b1ad0663edab2e5409048b9a">00098</a> <span class="keywordtype">void</span> ListBox::SetCurrentData(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
+<a name="l00099"></a>00099 {
+<a name="l00100"></a>00100     m_currentItem-&gt;SetData(data);
+<a name="l00101"></a>00101 }
+<a name="l00102"></a>00102 
+<a name="l00103"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#acc3e3c7d87b0bc4e5a33b7e0f0dbe718">00103</a> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> ListBox::GetCurrentData()
+<a name="l00104"></a>00104 {
+<a name="l00105"></a>00105     <span class="keywordflow">return</span> m_currentItem-&gt;GetData();
+<a name="l00106"></a>00106 }
+<a name="l00107"></a>00107 
+<a name="l00108"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a326979fa1f5ab822ef96ce944c49381b">00108</a> <span class="keywordtype">void</span> ListBox::SetString(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>, <span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; str)
+<a name="l00109"></a>00109 {
+<a name="l00110"></a>00110     m_totalItems[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>]-&gt;SetLabel(str);
+<a name="l00111"></a>00111 }
+<a name="l00112"></a>00112 
+<a name="l00113"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#ad69f1e4e53cd7aeeb9ad8ffe16b9440d">00113</a> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> ListBox::GetString(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
+<a name="l00114"></a>00114 {
+<a name="l00115"></a>00115     <span class="keywordflow">return</span> m_totalItems[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>]-&gt;GetLabel();
+<a name="l00116"></a>00116 }
+<a name="l00117"></a>00117 
+<a name="l00118"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a53628084f79fd2a90cda7969b6111a2c">00118</a> <span class="keywordtype">void</span> ListBox::SetData(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
+<a name="l00119"></a>00119 {
+<a name="l00120"></a>00120     m_totalItems[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>]-&gt;SetData(data);
+<a name="l00121"></a>00121 }
+<a name="l00122"></a>00122 
+<a name="l00123"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#ad10dc6d887f0e8c3405ba74ae3f93b29">00123</a> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> ListBox::GetData(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
+<a name="l00124"></a>00124 {
+<a name="l00125"></a>00125     <span class="keywordflow">return</span> m_totalItems[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>]-&gt;GetData();
+<a name="l00126"></a>00126 }
+<a name="l00127"></a>00127 
+<a name="l00128"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#ade174db27006b61c6d9707c43b0dba0e">00128</a> <span class="keywordtype">unsigned</span> ListBox::GetCount()
+<a name="l00129"></a>00129 {
+<a name="l00130"></a>00130     <span class="keywordflow">return</span> m_totalItems.size();
+<a name="l00131"></a>00131 }
+<a name="l00132"></a>00132 
+<a name="l00133"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a9b6fb2b6c0bef7bbcdbb239d3020313b">00133</a> <span class="keywordtype">void</span> ListBox::Clear()
+<a name="l00134"></a>00134 {
+<a name="l00135"></a>00135     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_totalItems.size(); i++)
+<a name="l00136"></a>00136         <span class="keyword">delete</span> m_totalItems[i];
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138     m_totalItems.clear();
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_displayItems.size(); i++)
+<a name="l00141"></a>00141         <span class="keyword">delete</span> m_displayItems[i];
+<a name="l00142"></a>00142 
+<a name="l00143"></a>00143     m_displayItems.clear();
+<a name="l00144"></a>00144 }
+<a name="l00145"></a>00145 
+<a name="l00146"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a4f4bf8a42d740aeb6a61abc88b53a8a9">00146</a> <span class="keywordtype">void</span> ListBox::SetSkin(<span class="keyword">const</span> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html" title="Structure contenant l&#39;apparence et la configuration des controles de l&#39;interface graphique.">GuiSkin</a>&amp; gui)
+<a name="l00147"></a>00147 {
+<a name="l00148"></a>00148     SetPencil(gui.<a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a4bf7a29779d0f128986b1aab45613785">pencile</a>);
+<a name="l00149"></a>00149 
+<a name="l00150"></a>00150     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_totalItems.size(); i++)
+<a name="l00151"></a>00151         m_totalItems[i]-&gt;SetPencil(m_pencil);
+<a name="l00152"></a>00152 }
+<a name="l00153"></a>00153 
+<a name="l00154"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a047a74567ebc6ea0fb0c332ed5d0674c">00154</a> <span class="keywordtype">void</span> ListBox::SetBackgroundPadding(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> backgroundPadding)
+<a name="l00155"></a>00155 {
+<a name="l00156"></a>00156     this-&gt;m_backgroundPadding = backgroundPadding;
+<a name="l00157"></a>00157 
+<a name="l00158"></a>00158     m_lay.SetBorder(m_backgroundPadding);
+<a name="l00159"></a>00159 }
+<a name="l00160"></a>00160 
+<a name="l00161"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#ac7fe97ca124d5d0507fcfcebdd14ca67">00161</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> ListBox::GetBackgroundPadding()<span class="keyword"> const</span>
+<a name="l00162"></a>00162 <span class="keyword"></span>{
+<a name="l00163"></a>00163     <span class="keywordflow">return</span> m_backgroundPadding;
+<a name="l00164"></a>00164 }
+<a name="l00165"></a>00165 
+<a name="l00166"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#a4dbe4cf824519f46a23762b4d531dbf8">00166</a> <span class="keywordtype">bool</span> ListBox::OnEvent(<span class="keyword">const</span> <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp; event)
+<a name="l00167"></a>00167 {
+<a name="l00168"></a>00168     m_activate = <span class="keyword">false</span>;
+<a name="l00169"></a>00169 
+<a name="l00170"></a>00170     <span class="keywordflow">if</span>(!<a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(event.<a class="code" href="structtbe_1_1_event_manager.html#abbf1e3ad03e71684712bb813d35eff88">mousePos</a>).<a class="code" href="classtbe_1_1_vector2.html#a25f12689fc216f40d82bada8666179f9">IsInsinde</a>(m_pos, m_size))
+<a name="l00171"></a>00171         <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00172"></a>00172 
+<a name="l00173"></a>00173     <span class="keywordflow">if</span>(event.<a class="code" href="structtbe_1_1_event_manager.html#a8474e50f23ea64707bd1c3dd6e4f7331">notify</a> != EventManager::EVENT_MOUSE_DOWN)
+<a name="l00174"></a>00174         <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00175"></a>00175 
+<a name="l00176"></a>00176     <span class="keywordflow">switch</span>(event.<a class="code" href="structtbe_1_1_event_manager.html#a9af46743b9f600824f103e07b1c47e7c">lastActiveMouse</a>.first)
+<a name="l00177"></a>00177     {
+<a name="l00178"></a>00178         <span class="keywordflow">case</span> EventManager::MOUSE_BUTTON_LEFT:
+<a name="l00179"></a>00179             <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_displayItems.size(); i++)
+<a name="l00180"></a>00180                 <span class="keywordflow">if</span>(m_displayItems[i]-&gt;OnEvent(event))
+<a name="l00181"></a>00181                 {
+<a name="l00182"></a>00182                     m_currentItem = m_displayItems[i];
+<a name="l00183"></a>00183 
+<a name="l00184"></a>00184                     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> j = 0; j &lt; m_displayItems.size(); j++)
+<a name="l00185"></a>00185                         m_totalItems[j]-&gt;SetSelected(<span class="keyword">false</span>);
+<a name="l00186"></a>00186 
+<a name="l00187"></a>00187                     m_currentItem-&gt;SetSelected(<span class="keyword">true</span>);
+<a name="l00188"></a>00188 
+<a name="l00189"></a>00189                     <span class="keywordflow">return</span> m_activate = <span class="keyword">true</span>;
+<a name="l00190"></a>00190                 }
+<a name="l00191"></a>00191             <span class="keywordflow">break</span>;
+<a name="l00192"></a>00192 
+<a name="l00193"></a>00193         <span class="keywordflow">case</span> EventManager::MOUSE_BUTTON_WHEEL_UP:
+<a name="l00194"></a>00194             <span class="keywordflow">if</span>(m_offset &lt; m_offsetMax)
+<a name="l00195"></a>00195                 m_offset++;
+<a name="l00196"></a>00196 
+<a name="l00197"></a>00197             Update();
+<a name="l00198"></a>00198             <span class="keywordflow">break</span>;
+<a name="l00199"></a>00199 
+<a name="l00200"></a>00200         <span class="keywordflow">case</span> EventManager::MOUSE_BUTTON_WHEEL_DOWN:
+<a name="l00201"></a>00201             <span class="keywordflow">if</span>(m_offset &gt; 0)
+<a name="l00202"></a>00202                 m_offset--;
+<a name="l00203"></a>00203 
+<a name="l00204"></a>00204             Update();
+<a name="l00205"></a>00205             <span class="keywordflow">break</span>;
+<a name="l00206"></a>00206     }
+<a name="l00207"></a>00207 
+<a name="l00208"></a>00208     <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00209"></a>00209 }
+<a name="l00210"></a>00210 
+<a name="l00211"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#ac73650ca6693ae5592ffcc07f9f46cec">00211</a> <span class="keywordtype">void</span> ListBox::Update()
+<a name="l00212"></a>00212 {
+<a name="l00213"></a>00213     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_displayItems.size(); i++)
+<a name="l00214"></a>00214         <span class="keyword">delete</span> m_displayItems[i];
+<a name="l00215"></a>00215 
+<a name="l00216"></a>00216     m_displayItems.clear();
+<a name="l00217"></a>00217     m_lay.Clear();
+<a name="l00218"></a>00218 
+<a name="l00219"></a>00219     <span class="keywordflow">if</span>(m_definedSize)
+<a name="l00220"></a>00220     {
+<a name="l00221"></a>00221         <span class="keywordtype">unsigned</span> displayLines = unsigned(
+<a name="l00222"></a>00222                 (m_size.y - m_backgroundPadding.y * 2.0f)
+<a name="l00223"></a>00223                 / (m_pencil.GetFontSize() + m_lay.GetSpace())
+<a name="l00224"></a>00224                 );
+<a name="l00225"></a>00225 
+<a name="l00226"></a>00226         <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = m_offset; i &lt; m_totalItems.size(); i++)
+<a name="l00227"></a>00227         {
+<a name="l00228"></a>00228             <span class="keywordflow">if</span>(m_displayItems.size() &gt;= displayLines)
+<a name="l00229"></a>00229                 <span class="keywordflow">break</span>;
+<a name="l00230"></a>00230 
+<a name="l00231"></a>00231             m_displayItems.push_back(<span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html">Item</a>(*m_totalItems[i]));
+<a name="l00232"></a>00232             m_lay.AddControl(m_displayItems.back());
+<a name="l00233"></a>00233 
+<a name="l00234"></a>00234             <span class="keywordtype">string</span> label = m_displayItems.back()-&gt;GetLabel();
+<a name="l00235"></a>00235             label = m_pencil.WrapeLine(label, m_size.x - m_backgroundPadding.x * 2.0f, <span class="keyword">true</span>);
+<a name="l00236"></a>00236             m_displayItems.back()-&gt;SetLabel(label);
+<a name="l00237"></a>00237         }
+<a name="l00238"></a>00238 
+<a name="l00239"></a>00239         <span class="keywordflow">if</span>(displayLines &gt; m_displayItems.size())
+<a name="l00240"></a>00240             m_offsetMax = min(m_totalItems.size() - displayLines, (unsigned)0);
+<a name="l00241"></a>00241         <span class="keywordflow">else</span>
+<a name="l00242"></a>00242             m_offsetMax = <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>(m_totalItems.size() - displayLines, (unsigned)0);
+<a name="l00243"></a>00243 
+<a name="l00244"></a>00244         <span class="keywordflow">if</span>(m_offset &gt; 0)
+<a name="l00245"></a>00245             m_displayItems.front()-&gt;SetLabel(<span class="stringliteral">&quot;&lt;&lt;&lt;&quot;</span>);
+<a name="l00246"></a>00246 
+<a name="l00247"></a>00247         <span class="keywordflow">if</span>(m_offset &lt; m_offsetMax)
+<a name="l00248"></a>00248             m_displayItems.back()-&gt;SetLabel(<span class="stringliteral">&quot;&gt;&gt;&gt;&quot;</span>);
+<a name="l00249"></a>00249     }
+<a name="l00250"></a>00250 
+<a name="l00251"></a>00251     <span class="keywordflow">else</span>
+<a name="l00252"></a>00252     {
+<a name="l00253"></a>00253         <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_totalItems.size(); i++)
+<a name="l00254"></a>00254         {
+<a name="l00255"></a>00255             m_displayItems.push_back(<span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html">Item</a>(*m_totalItems[i]));
+<a name="l00256"></a>00256             m_lay.AddControl(m_displayItems.back());
+<a name="l00257"></a>00257         }
+<a name="l00258"></a>00258 
+<a name="l00259"></a>00259         m_lay.Update();
+<a name="l00260"></a>00260 
+<a name="l00261"></a>00261         m_size = m_lay.GetSize()
+<a name="l00262"></a>00262                 + m_backgroundPadding * 2.0f
+<a name="l00263"></a>00263                 + m_lay.GetBorder() * <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(0, 1);
+<a name="l00264"></a>00264     }
+<a name="l00265"></a>00265 
+<a name="l00266"></a>00266     reverse(m_displayItems.begin(), m_displayItems.end());
+<a name="l00267"></a>00267 }
+<a name="l00268"></a>00268 
+<a name="l00269"></a><a class="code" href="classtbe_1_1gui_1_1_list_box.html#ab3f4bd10896a113d2bdec526a9db69b5">00269</a> <span class="keywordtype">void</span> ListBox::ObjectRender()
+<a name="l00270"></a>00270 {
+<a name="l00271"></a>00271     <span class="keywordflow">if</span>(m_enableBackground &amp;&amp; m_background)
+<a name="l00272"></a>00272     {
+<a name="l00273"></a>00273         m_background.Use(<span class="keyword">true</span>);
+<a name="l00274"></a>00274         DrawSurface(m_pos, m_size, 0, 1);
+<a name="l00275"></a>00275         m_background.Use(<span class="keyword">false</span>);
+<a name="l00276"></a>00276     }
+<a name="l00277"></a>00277 
+<a name="l00278"></a>00278     m_lay.SetPos(m_pos);
+<a name="l00279"></a>00279     m_lay.Update();
+<a name="l00280"></a>00280 
+<a name="l00281"></a>00281     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_displayItems.size(); i++)
+<a name="l00282"></a>00282         m_displayItems[i]-&gt;Render();
+<a name="l00283"></a>00283 }
+<a name="l00284"></a>00284 
+<a name="l00285"></a><a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#a0e6d11f266cf47b2f39448412c586f8e">00285</a> ListBox::Item::Item(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> label)
+<a name="l00286"></a>00286 {
+<a name="l00287"></a>00287     m_label = label;
+<a name="l00288"></a>00288     m_selected = <span class="keyword">false</span>;
+<a name="l00289"></a>00289 }
+<a name="l00290"></a>00290 
+<a name="l00291"></a><a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#a784845ecb38fb1af423796cdc89004c8">00291</a> ListBox::Item::Item(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> label, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
+<a name="l00292"></a>00292 {
+<a name="l00293"></a>00293     m_label = label;
+<a name="l00294"></a>00294     m_selected = <span class="keyword">false</span>;
+<a name="l00295"></a>00295     m_data = <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>;
+<a name="l00296"></a>00296 }
+<a name="l00297"></a>00297 
+<a name="l00298"></a><a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#a73ce42dfbda522501b38163394607b51">00298</a> ListBox::Item::~Item()
+<a name="l00299"></a>00299 {
+<a name="l00300"></a>00300 
+<a name="l00301"></a>00301 }
+<a name="l00302"></a>00302 
+<a name="l00303"></a><a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#a9457ff4a005d5eb148247852c0760734">00303</a> <span class="keywordtype">void</span> ListBox::Item::SetData(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
+<a name="l00304"></a>00304 {
+<a name="l00305"></a>00305     this-&gt;m_data = <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>;
+<a name="l00306"></a>00306 }
+<a name="l00307"></a>00307 
+<a name="l00308"></a><a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#add93039754b1811a9bf1bd8d718c9f78">00308</a> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> ListBox::Item::GetData()<span class="keyword"> const</span>
+<a name="l00309"></a>00309 <span class="keyword"></span>{
+<a name="l00310"></a>00310     <span class="keywordflow">return</span> m_data;
+<a name="l00311"></a>00311 }
+<a name="l00312"></a>00312 
+<a name="l00313"></a><a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#a9561688c8503560bf695dcb8020cc2ac">00313</a> <span class="keywordtype">void</span> ListBox::Item::SetSelected(<span class="keywordtype">bool</span> selected)
+<a name="l00314"></a>00314 {
+<a name="l00315"></a>00315     this-&gt;m_selected = selected;
+<a name="l00316"></a>00316     m_pencil.SetColor(selected ? <a class="code" href="namespacetbe.html#a80c23738140c1901dcea22d4672e61eb">Vector4f</a>(0, 0, 1, 1) : <a class="code" href="namespacetbe.html#a80c23738140c1901dcea22d4672e61eb">Vector4f</a>(1));
+<a name="l00317"></a>00317 }
+<a name="l00318"></a>00318 
+<a name="l00319"></a><a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#a3ee3e2377533ecc02ae7570600c73aa0">00319</a> <span class="keywordtype">bool</span> ListBox::Item::IsSelected()<span class="keyword"> const</span>
+<a name="l00320"></a>00320 <span class="keyword"></span>{
+<a name="l00321"></a>00321     <span class="keywordflow">return</span> m_selected;
+<a name="l00322"></a>00322 }
+<a name="l00323"></a>00323 
+<a name="l00324"></a><a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#a43dcf8f6e6271866d1f34b0fdc1a9c4c">00324</a> <span class="keywordtype">bool</span> ListBox::Item::OnEvent(<span class="keyword">const</span> <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp; event)
+<a name="l00325"></a>00325 {
+<a name="l00326"></a>00326     <span class="keywordflow">return</span> <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(event.<a class="code" href="structtbe_1_1_event_manager.html#abbf1e3ad03e71684712bb813d35eff88">mousePos</a>).<a class="code" href="classtbe_1_1_vector2.html#a25f12689fc216f40d82bada8666179f9">IsInsinde</a>(m_pos, m_size);
+<a name="l00327"></a>00327 }
+<a name="l00328"></a>00328 
+<a name="l00329"></a><a class="code" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#a4b075560c4f8bed7c0a9b539e6559362">00329</a> <span class="keywordtype">void</span> ListBox::Item::ObjectRender()
+<a name="l00330"></a>00330 {
+<a name="l00331"></a>00331     m_pencil.Display(m_pos, m_label);
+<a name="l00332"></a>00332 }
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

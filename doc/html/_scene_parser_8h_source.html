@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/SceneParser.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/SceneParser.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_scene_parser_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   SceneParser.h</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 5 novembre 2010, 14:19</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef SCENEPARSER_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define SCENEPARSER_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="_light_parallel_scene_8h.html">LightParallelScene.h</a>&quot;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="_mesh_parallel_scene_8h.html">MeshParallelScene.h</a>&quot;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="_particles_parallel_scene_8h.html">ParticlesParallelScene.h</a>&quot;</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="_water_parallel_scene_8h.html">WaterParallelScene.h</a>&quot;</span>
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="keyword">namespace </span>tbe
+<a name="l00020"></a>00020 {
+<a name="l00021"></a>00021 <span class="keyword">namespace </span>scene
+<a name="l00022"></a>00022 {
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 <span class="keyword">class </span>SceneManager;
+<a name="l00025"></a>00025 
+<a name="l00026"></a><a class="code" href="classtbe_1_1scene_1_1_class_factory.html">00026</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_class_factory.html">ClassFactory</a>
+<a name="l00027"></a>00027 {
+<a name="l00028"></a>00028 <span class="keyword">public</span>:
+<a name="l00029"></a>00029     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>* <a class="code" href="classtbe_1_1scene_1_1_class_factory.html#a5b974eae04e57dcaefe07429b065d8d0">Instance</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a>, <a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* meshScene) = 0;
+<a name="l00030"></a>00030 };
+<a name="l00031"></a>00031 
+<a name="l00032"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html">00032</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html">SceneParser</a>
+<a name="l00033"></a>00033 {
+<a name="l00034"></a>00034 <span class="keyword">public</span>:
+<a name="l00035"></a>00035     <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a9a73b85bd353af0424653fb40c01e9aa">SceneParser</a>(<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html" title="Gestionnaire de scene inclus des fonctions de gestion des scenes parallel, des lumiers et encapsule l...">SceneManager</a>* sceneManager);
+<a name="l00036"></a>00036     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#af5809864333132e558dc1627f39170fe">~SceneParser</a>();
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#af4b30b886d3aee78bac50a74fb822189">LoadScene</a>(<span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; filepath);
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#acf8bddfaa7821beaa1930a00ed670571">SaveScene</a>();
+<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#acf8bddfaa7821beaa1930a00ed670571">SaveScene</a>(<span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; filepath);
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a465e986a0e4984d709ce09c9842c5e6d">SetClassFactory</a>(<a class="code" href="classtbe_1_1scene_1_1_class_factory.html">ClassFactory</a>* classFactory);
+<a name="l00044"></a>00044     <a class="code" href="classtbe_1_1scene_1_1_class_factory.html">ClassFactory</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a94842cc4a143424259180540c0caa696">GetClassFactory</a>() <span class="keyword">const</span>;
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046     <a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#afc6645bb739ad0d3210fbf4ac1132fe2">GetMeshScene</a>() <span class="keyword">const</span>;
+<a name="l00047"></a>00047     <a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html" title="Scene parallele de rendue des particules.">ParticlesParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a18174c695613c7fc76f7ecb89d1e4d48">GetParticlesScene</a>() <span class="keyword">const</span>;
+<a name="l00048"></a>00048     <a class="code" href="classtbe_1_1scene_1_1_light_parallel_scene.html">LightParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a4a78242f50f4093f1ce0e033622791f0">GetLightScene</a>() <span class="keyword">const</span>;
+<a name="l00049"></a>00049     <a class="code" href="classtbe_1_1scene_1_1_water_parallel_scene.html" title="Scene parallel pour la gestion des plans d&#39;eau.">WaterParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a991449b9f476c026dec94eb853eb223e">GetWaterScene</a>() <span class="keyword">const</span>;
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051 <span class="keyword">protected</span>:
+<a name="l00052"></a>00052 
+<a name="l00053"></a><a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a9335de0df0cdd04a1380da2d810970e4">00053</a>     <span class="keyword">typedef</span> std::map&lt;std::string, std::string&gt; <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a9335de0df0cdd04a1380da2d810970e4">AttribMap</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a><a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html">00055</a>     <span class="keyword">struct </span><a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html">Relation</a>
+<a name="l00056"></a>00056     {
+<a name="l00057"></a>00057 
+<a name="l00058"></a><a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#adc6a928e2938f6e3262582800873b62c">00058</a>         <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#adc6a928e2938f6e3262582800873b62c">Relation</a>(<span class="keywordtype">unsigned</span> <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ab77b13b6449fd9eb030d8dce6f3cc9a0">deep</a> = 0)
+<a name="l00059"></a>00059         {
+<a name="l00060"></a>00060             this-&gt;<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ab77b13b6449fd9eb030d8dce6f3cc9a0">deep</a> = <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ab77b13b6449fd9eb030d8dce6f3cc9a0">deep</a>;
+<a name="l00061"></a>00061         }
+<a name="l00062"></a>00062 
+<a name="l00063"></a><a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#a91fb8a2e3e16c32a1619589969e5fc06">00063</a>         <span class="keyword">typedef</span> std::vector&lt;Relation&gt; <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#a91fb8a2e3e16c32a1619589969e5fc06">Child</a>;
+<a name="l00064"></a>00064 
+<a name="l00065"></a><a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">00065</a>         <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a9335de0df0cdd04a1380da2d810970e4">AttribMap</a> <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ac657266bb000ed582cf2b1b5f74a27e1">attr</a>;
+<a name="l00066"></a><a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#a1459bdc16a1299b2e3e650e44cf1bb33">00066</a>         <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#a91fb8a2e3e16c32a1619589969e5fc06">Child</a> <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#a1459bdc16a1299b2e3e650e44cf1bb33">child</a>;
+<a name="l00067"></a><a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ab77b13b6449fd9eb030d8dce6f3cc9a0">00067</a>         <span class="keywordtype">int</span> <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html#ab77b13b6449fd9eb030d8dce6f3cc9a0">deep</a>;
+<a name="l00068"></a>00068     };
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a1eff4dea0eaf5283e6e606c616b9520a">ParseMap</a>(<a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a9335de0df0cdd04a1380da2d810970e4">AttribMap</a>&amp; att);
+<a name="l00071"></a>00071     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a174213ed691f504f180de27de19c08cc">ParseFog</a>(<a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a9335de0df0cdd04a1380da2d810970e4">AttribMap</a>&amp; att);
+<a name="l00072"></a>00072     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a80fcbbb95721f2a382f8789d055c83f0">ParseSkyBox</a>(<a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#a9335de0df0cdd04a1380da2d810970e4">AttribMap</a>&amp; att);
+<a name="l00073"></a>00073     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_scene_parser.html#ad237249376cddefd48ec51d9a6afa1c0">ParseNode</a>(<a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html">Relation</a>&amp; att, <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* parent = NULL);
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075 <span class="keyword">private</span>:
+<a name="l00076"></a>00076     <span class="keywordtype">bool</span> parseBlock(std::ifstream&amp; file, <a class="code" href="structtbe_1_1scene_1_1_scene_parser_1_1_relation.html">Relation</a>&amp; rel, <span class="keywordtype">unsigned</span>&amp; line);
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078     <span class="keywordtype">void</span> OutpuNodeConstruction(std::ofstream&amp; file, <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* node);
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> m_fileName;
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> m_mapName;
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084     <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html" title="Gestionnaire de scene inclus des fonctions de gestion des scenes parallel, des lumiers et encapsule l...">SceneManager</a>* m_sceneManager;
+<a name="l00085"></a>00085     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* m_rootNode;
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087     <a class="code" href="classtbe_1_1scene_1_1_light_parallel_scene.html">LightParallelScene</a>* m_lightScene;
+<a name="l00088"></a>00088     <a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* m_meshScene;
+<a name="l00089"></a>00089     <a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html" title="Scene parallele de rendue des particules.">ParticlesParallelScene</a>* m_particlesScene;
+<a name="l00090"></a>00090     <a class="code" href="classtbe_1_1scene_1_1_water_parallel_scene.html" title="Scene parallel pour la gestion des plans d&#39;eau.">WaterParallelScene</a>* m_waterScene;
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092     <span class="keyword">typedef</span> std::map&lt;std::string, Relation::Child&gt; ClassRec;
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094     ClassRec m_classRec;
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096     <a class="code" href="classtbe_1_1scene_1_1_class_factory.html">ClassFactory</a>* m_classFactory;
+<a name="l00097"></a>00097 };
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099 }
+<a name="l00100"></a>00100 }
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102 <span class="preprocessor">#endif  </span><span class="comment">/* SCENEPARSER_H */</span>
+<a name="l00103"></a>00103 
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

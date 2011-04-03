@@ -1,0 +1,770 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Mesh.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Mesh.cpp</div>  </div>
+</div>
+<div class="contents">
+<a href="_mesh_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   Mesh.cpp</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 28 avril 2010, 18:36</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;<a class="code" href="_mesh_8h.html">Mesh.h</a>&quot;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="_parallel_scene_8h.html">ParallelScene.h</a>&quot;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="_scene_manager_8h.html">SceneManager.h</a>&quot;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="_mesh_parallel_scene_8h.html">MeshParallelScene.h</a>&quot;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="_tools_8h.html">Tools.h</a>&quot;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="keyword">using namespace </span>tbe;
+<a name="l00015"></a>00015 <span class="keyword">using namespace </span>tbe::scene;
+<a name="l00016"></a>00016 <span class="keyword">using namespace </span>std;
+<a name="l00017"></a>00017 
+<a name="l00018"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a422f59935ef81039d8f49975bf031160">00018</a> Mesh::Mesh(<a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* scene)
+<a name="l00019"></a>00019 {
+<a name="l00020"></a>00020     m_triangulate = <span class="keyword">true</span>;
+<a name="l00021"></a>00021     m_withNormal = <span class="keyword">false</span>;
+<a name="l00022"></a>00022     m_withTexCoord = <span class="keyword">false</span>;
+<a name="l00023"></a>00023     m_visible = <span class="keyword">true</span>;
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025     Node::m_parallelScene = m_parallelScene = scene;
+<a name="l00026"></a>00026     m_sceneManager = m_parallelScene-&gt;<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html#ada7acea9a8841107d83703b3489e1744">GetSceneManager</a>();
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028     m_parallelScene-&gt;Register(<span class="keyword">this</span>);
+<a name="l00029"></a>00029 }
+<a name="l00030"></a>00030 
+<a name="l00031"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a127d72c7d09c3f9e8cf13cb9bb2d11fb">00031</a> Mesh::Mesh(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>&amp; copy) : <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>(copy)
+<a name="l00032"></a>00032 {
+<a name="l00033"></a>00033     *<span class="keyword">this</span> = copy;
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">m_parallelScene</a>-&gt;<a class="code" href="classtbe_1_1scene_1_1_parallel_scene_register.html#a70e6d86db2108330f614d34a436ea37e">Register</a>(<span class="keyword">this</span>);
+<a name="l00036"></a>00036 }
+<a name="l00037"></a>00037 
+<a name="l00038"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a5efe4da1a4c0971cfb037bd70304c303">00038</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a5efe4da1a4c0971cfb037bd70304c303">Mesh::~Mesh</a>()
+<a name="l00039"></a>00039 {
+<a name="l00040"></a>00040     <span class="keywordflow">for</span>(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
+<a name="l00041"></a>00041         <span class="keyword">delete</span> it-&gt;second;
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">m_parallelScene</a>-&gt;<a class="code" href="classtbe_1_1scene_1_1_parallel_scene_register.html#aee810386dc12873e967af07e6218689f">UnRegister</a>(<span class="keyword">this</span>);
+<a name="l00044"></a>00044 }
+<a name="l00045"></a>00045 
+<a name="l00046"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a6f3675745ab8f0b175afef169fba7fd8">00046</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a6f3675745ab8f0b175afef169fba7fd8" title="Opérateur d&#39;assignation.">Mesh::operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>&amp; copy)
+<a name="l00047"></a>00047 {
+<a name="l00048"></a>00048     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a6f3675745ab8f0b175afef169fba7fd8" title="Opérateur d&#39;assignation.">Node::operator=</a>(copy);
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050     <a class="code" href="classtbe_1_1scene_1_1_node.html#a90431205e5035b7fdb1c445bac2f8a12">Node::m_parallelScene</a> = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">m_parallelScene</a> = copy.<a class="code" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">m_parallelScene</a>;
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ab37f2ef03c7150858266d6f1c547a639">m_triangulate</a> = copy.<a class="code" href="classtbe_1_1scene_1_1_mesh.html#ab37f2ef03c7150858266d6f1c547a639">m_triangulate</a>;
+<a name="l00053"></a>00053     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9f450ba50810ce901bcc5ff5a64f4f39">m_withNormal</a> = copy.<a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9f450ba50810ce901bcc5ff5a64f4f39">m_withNormal</a>;
+<a name="l00054"></a>00054     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad7ecc8dd85c6b3d7f5c01e96e3a8998d">m_withTexCoord</a> = copy.<a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad7ecc8dd85c6b3d7f5c01e96e3a8998d">m_withTexCoord</a>;
+<a name="l00055"></a>00055     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a96083e04f965f730bdcea94d5ec07d4c">m_visible</a> = copy.<a class="code" href="classtbe_1_1scene_1_1_mesh.html#a96083e04f965f730bdcea94d5ec07d4c">m_visible</a>;
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a> = copy.<a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>;
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059     <span class="keywordflow">for</span>(Material::Map::const_iterator it = m_materials.begin(); it != m_materials.end(); ++it)
+<a name="l00060"></a>00060         <span class="keyword">delete</span> it-&gt;second;
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062     m_materials.clear();
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064     <span class="keywordflow">for</span>(Material::Map::const_iterator it = copy.m_materials.begin(); it != copy.m_materials.end(); ++it)
+<a name="l00065"></a>00065         m_materials[it-&gt;first] = <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>(*it-&gt;second);
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     m_renderProess = copy.m_renderProess;
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_renderProess.size(); i++)
+<a name="l00070"></a>00070         m_renderProess[i].parent = <span class="keyword">this</span>;
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00073"></a>00073 }
+<a name="l00074"></a>00074 
+<a name="l00075"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a5c24ddcb1b3780b25181193f03e61596">00075</a> <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a5c24ddcb1b3780b25181193f03e61596" title="Méthode polymorphique de clonage du noueud.">Mesh::Clone</a>()
+<a name="l00076"></a>00076 {
+<a name="l00077"></a>00077     <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a422f59935ef81039d8f49975bf031160">Mesh</a>(*<span class="keyword">this</span>);
+<a name="l00078"></a>00078 }
+<a name="l00079"></a>00079 
+<a name="l00080"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a83beb1ae915146cbccec18230119a19d">00080</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a83beb1ae915146cbccec18230119a19d" title="Calcule l&#39;AABB du mesh.">Mesh::ComputeAabb</a>()
+<a name="l00081"></a>00081 {
+<a name="l00082"></a>00082     <a class="code" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">m_aabb</a>.<a class="code" href="classtbe_1_1_a_a_b_b.html#a76615dc73ea1dc723fbaa46e3eb83404">Clear</a>();
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084     <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>* vertex = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a270d05309f0ea16f468b9791064411b9">Lock</a>();
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a1070fa40c21848a7ee2f359b702f08d8">GetVertexCount</a>(); i++)
+<a name="l00087"></a>00087         <a class="code" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">m_aabb</a>.<a class="code" href="classtbe_1_1_a_a_b_b.html#a91d2dec24e65cbf3b6c48f6695f8f5ef">Count</a>(vertex[i].<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>);
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#ac8d9f43286321deff01fba5bd42573f6">UnLock</a>();
+<a name="l00090"></a>00090 }
+<a name="l00091"></a>00091 
+<a name="l00092"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a119b6a2f78b7de3b9f1cc72614fde54b">00092</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a119b6a2f78b7de3b9f1cc72614fde54b" title="Calcule l&#39;espace tangente des vertex du mesh.">Mesh::ComputeTangent</a>()
+<a name="l00093"></a>00093 {
+<a name="l00094"></a>00094     <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>* vertex = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a270d05309f0ea16f468b9791064411b9">Lock</a>();
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096     <span class="keywordtype">unsigned</span> vertexCount = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a1070fa40c21848a7ee2f359b702f08d8">GetVertexCount</a>();
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098     <a class="code" href="classtbe_1_1_vector3.html#a0e1674e5336e53361b312931e9193bc7">Vector3f::Array</a> tan1(vertexCount);
+<a name="l00099"></a>00099     <a class="code" href="classtbe_1_1_vector3.html#a0e1674e5336e53361b312931e9193bc7">Vector3f::Array</a> tan2(vertexCount);
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; vertexCount; i += 3)
+<a name="l00102"></a>00102     {
+<a name="l00103"></a>00103         <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_g_lee_8h.html#aabdd9aabede45fcf97cea04f88d2ad60">v1</a> = vertex[i + 0].<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>;
+<a name="l00104"></a>00104         <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_g_lee_8h.html#ae35401c8c2fcdcc48c20ba325ee473ea">v2</a> = vertex[i + 1].<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>;
+<a name="l00105"></a>00105         <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_g_lee_8h.html#ac2343f93cabb4191bf67057b0d22167c">v3</a> = vertex[i + 2].<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>;
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107         <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a>&amp; <a class="code" href="_g_lee_8h.html#ab5b747bf5adb1f9134337c30b9a4ce84">w1</a> = vertex[i + 0].<a class="code" href="classtbe_1_1_vertex.html#aa0d711a38a6f2c13ee9c44103f03d011">texCoord</a>;
+<a name="l00108"></a>00108         <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a>&amp; <a class="code" href="_g_lee_8h.html#a1ca5aca787be24213d9591fdf074b094">w2</a> = vertex[i + 1].<a class="code" href="classtbe_1_1_vertex.html#aa0d711a38a6f2c13ee9c44103f03d011">texCoord</a>;
+<a name="l00109"></a>00109         <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a>&amp; w3 = vertex[i + 2].<a class="code" href="classtbe_1_1_vertex.html#aa0d711a38a6f2c13ee9c44103f03d011">texCoord</a>;
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111         <span class="keywordtype">float</span> x1 = v2.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> - v1.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>;
+<a name="l00112"></a>00112         <span class="keywordtype">float</span> y1 = v2.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> - v1.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>;
+<a name="l00113"></a>00113         <span class="keywordtype">float</span> z1 = v2.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> - v1.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>;
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115         <span class="keywordtype">float</span> x2 = v3.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> - v1.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>;
+<a name="l00116"></a>00116         <span class="keywordtype">float</span> y2 = v3.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> - v1.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>;
+<a name="l00117"></a>00117         <span class="keywordtype">float</span> z2 = v3.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> - v1.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>;
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119         <span class="keywordtype">float</span> s1 = w2.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> - w1.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>;
+<a name="l00120"></a>00120         <span class="keywordtype">float</span> s2 = w3.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> - w1.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>;
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122         <span class="keywordtype">float</span> t1 = w2.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> - w1.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
+<a name="l00123"></a>00123         <span class="keywordtype">float</span> t2 = w3.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> - w1.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125         <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a28666c5860e73f899079b4ee29200aec">r</a> = 1.0F / (s1 * t2 - s2 * t1);
+<a name="l00126"></a>00126 
+<a name="l00127"></a>00127         <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> sdir((t2 * x1 - t1 * x2) * r, (t2 * y1 - t1 * y2) * r,
+<a name="l00128"></a>00128                       (t2 * z1 - t1 * z2) * r);
+<a name="l00129"></a>00129         <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> tdir((s1 * x2 - s2 * x1) * r, (s1 * y2 - s2 * y1) * r,
+<a name="l00130"></a>00130                       (s1 * z2 - s2 * z1) * r);
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132         tan1[i + 0] += sdir;
+<a name="l00133"></a>00133         tan1[i + 1] += sdir;
+<a name="l00134"></a>00134         tan1[i + 2] += sdir;
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136         tan2[i + 0] += tdir;
+<a name="l00137"></a>00137         tan2[i + 1] += tdir;
+<a name="l00138"></a>00138         tan2[i + 2] += tdir;
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140         <span class="keywordflow">if</span>(i + 3 &gt;= vertexCount)
+<a name="l00141"></a>00141             <span class="keywordflow">break</span>;
+<a name="l00142"></a>00142     }
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; vertexCount; i++)
+<a name="l00145"></a>00145     {
+<a name="l00146"></a>00146         <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_g_lee_8h.html#a830e6eb5d1b77f7226a78592ba9d2613">n</a> = vertex[i].<a class="code" href="classtbe_1_1_vertex.html#af5648111d05788620db6e8961fda13ef">normal</a>;
+<a name="l00147"></a>00147         <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_g_lee_8h.html#a653819996e713edf9c01a5b564199189">t</a> = tan1[i];
+<a name="l00148"></a>00148 
+<a name="l00149"></a>00149         <span class="comment">// Gram-Schmidt orthogonalize</span>
+<a name="l00150"></a>00150         vertex[i].<a class="code" href="classtbe_1_1_vertex.html#a7c9dc1462cb2041db12eb082c0169499">tangent</a> = (t - n * <a class="code" href="classtbe_1_1_vector3.html#a30cd9ff57dc9d002e945dbfbb6142f44">Vector3f::Dot</a>(n, t));
+<a name="l00151"></a>00151         vertex[i].<a class="code" href="classtbe_1_1_vertex.html#a7c9dc1462cb2041db12eb082c0169499">tangent</a>.<a class="code" href="classtbe_1_1_vector3.html#a417cd513dc9cd1b943e3f3e284d470bf">Normalize</a>();
+<a name="l00152"></a>00152     }
+<a name="l00153"></a>00153 
+<a name="l00154"></a>00154     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#ac8d9f43286321deff01fba5bd42573f6">UnLock</a>();
+<a name="l00155"></a>00155 }
+<a name="l00156"></a>00156 
+<a name="l00157"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a6e640686cf9dedb9d58c03544eec443d">00157</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a6e640686cf9dedb9d58c03544eec443d" title="Calcule l&#39;occlusion ambiante.">Mesh::ComputeAocc</a>()
+<a name="l00158"></a>00158 {
+<a name="l00159"></a>00159 
+<a name="l00160"></a>00160 }
+<a name="l00161"></a>00161 
+<a name="l00162"></a><a class="code" href="struct_triangle_face.html">00162</a> <span class="keyword">struct </span><a class="code" href="struct_triangle_face.html">TriangleFace</a>
+<a name="l00163"></a>00163 {
+<a name="l00164"></a><a class="code" href="struct_triangle_face.html#a3caae3cba2fa8e857d7bc984c00ab756">00164</a>     <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a> <a class="code" href="struct_triangle_face.html#a3caae3cba2fa8e857d7bc984c00ab756">v1</a>;
+<a name="l00165"></a><a class="code" href="struct_triangle_face.html#a9373a5d461e7493d7e77a689862ab5d2">00165</a>     <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a> <a class="code" href="struct_triangle_face.html#a9373a5d461e7493d7e77a689862ab5d2">v2</a>;
+<a name="l00166"></a><a class="code" href="struct_triangle_face.html#a02beed0fbb3844a41b3d0a9fddf0194a">00166</a>     <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a> <a class="code" href="struct_triangle_face.html#a02beed0fbb3844a41b3d0a9fddf0194a">v3</a>;
+<a name="l00167"></a>00167 
+<a name="l00168"></a><a class="code" href="struct_triangle_face.html#a2ad86b2c13af0ef8782b028823c1170e">00168</a>     <span class="keyword">typedef</span> vector&lt;TriangleFace&gt; <a class="code" href="struct_triangle_face.html#a2ad86b2c13af0ef8782b028823c1170e">Array</a>;
+<a name="l00169"></a>00169 };
+<a name="l00170"></a>00170 
+<a name="l00171"></a><a class="code" href="struct_depth_sort_vertex_func.html">00171</a> <span class="keyword">struct </span><a class="code" href="struct_depth_sort_vertex_func.html">DepthSortVertexFunc</a>
+<a name="l00172"></a>00172 {
+<a name="l00173"></a>00173 
+<a name="l00174"></a><a class="code" href="struct_depth_sort_vertex_func.html#a10a5d46bca4441eb7c930975bf5ccc74">00174</a>     <span class="keywordtype">bool</span> operator()(<span class="keyword">const</span> <a class="code" href="struct_triangle_face.html">TriangleFace</a>&amp; face1, <span class="keyword">const</span> <a class="code" href="struct_triangle_face.html">TriangleFace</a> &amp; face2)
+<a name="l00175"></a>00175     {
+<a name="l00176"></a>00176         <span class="keywordflow">return</span> (meshPos + (face1.<a class="code" href="struct_triangle_face.html#a3caae3cba2fa8e857d7bc984c00ab756">v1</a>.<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a> + face1.<a class="code" href="struct_triangle_face.html#a9373a5d461e7493d7e77a689862ab5d2">v2</a>.<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a> + face1.<a class="code" href="struct_triangle_face.html#a02beed0fbb3844a41b3d0a9fddf0194a">v3</a>.<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>) / 3.0f - camPos) &gt;
+<a name="l00177"></a>00177                 (meshPos + (face2.<a class="code" href="struct_triangle_face.html#a3caae3cba2fa8e857d7bc984c00ab756">v1</a>.<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a> + face2.<a class="code" href="struct_triangle_face.html#a9373a5d461e7493d7e77a689862ab5d2">v2</a>.<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a> + face2.<a class="code" href="struct_triangle_face.html#a02beed0fbb3844a41b3d0a9fddf0194a">v3</a>.<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>) / 3.0<a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a> - camPos);
+<a name="l00178"></a>00178     }
+<a name="l00179"></a>00179 
+<a name="l00180"></a><a class="code" href="struct_depth_sort_vertex_func.html#a77f6a71ac9b6cc59b62bc9848fda25ec">00180</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="struct_depth_sort_vertex_func.html#a77f6a71ac9b6cc59b62bc9848fda25ec">camPos</a>;
+<a name="l00181"></a><a class="code" href="struct_depth_sort_vertex_func.html#a7b5b757417dd390cb59b88c99c1badbf">00181</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="struct_depth_sort_vertex_func.html#a7b5b757417dd390cb59b88c99c1badbf">meshPos</a>;
+<a name="l00182"></a>00182 };
+<a name="l00183"></a>00183 
+<a name="l00184"></a>00184 <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a75e66bcd90c09492676a4cfe5b23c3af" title="Rendue.">Mesh::Render</a>(<a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* material, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)
+<a name="l00185"></a>00185 {
+<a name="l00186"></a>00186     <a class="code" href="_g_lee_8h.html#ad7d52e5ca8136e2cf8340e024dbcb6cf">GLint</a> tangentAttribIndex = -1, aoccAttribIndex = -1;
+<a name="l00187"></a>00187 
+<a name="l00188"></a>00188     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#aafc7c03293ae3333158f0de417edc859">BindBuffer</a>();
+<a name="l00189"></a>00189 
+<a name="l00190"></a>00190     glPushAttrib(GL_ENABLE_BIT);
+<a name="l00191"></a>00191 
+<a name="l00192"></a>00192     glEnable(GL_DEPTH_TEST);
+<a name="l00193"></a>00193     glDepthMask(<span class="keyword">true</span>);
+<a name="l00194"></a>00194 
+<a name="l00195"></a>00195     <span class="comment">// Culling -----------------------------------------------------------------</span>
+<a name="l00196"></a>00196 
+<a name="l00197"></a>00197     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea8bbf2076ab12022abfa5dd4c19f8b763">Material::BACKFACE_CULL</a>)
+<a name="l00198"></a>00198     {
+<a name="l00199"></a>00199         glEnable(GL_CULL_FACE);
+<a name="l00200"></a>00200         glCullFace(GL_BACK);
+<a name="l00201"></a>00201     }
+<a name="l00202"></a>00202 
+<a name="l00203"></a>00203     <span class="keywordflow">else</span> <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ead8779d616591f2aa2327b88c3457c45b">Material::FRONTFACE_CULL</a>)
+<a name="l00204"></a>00204     {
+<a name="l00205"></a>00205         glEnable(GL_CULL_FACE);
+<a name="l00206"></a>00206         glCullFace(GL_FRONT);
+<a name="l00207"></a>00207     }
+<a name="l00208"></a>00208     <span class="keywordflow">else</span>
+<a name="l00209"></a>00209         <span class="comment">// NOTE OpenGL 1.4</span>
+<a name="l00210"></a>00210         glDisable(GL_CULL_FACE);
+<a name="l00211"></a>00211 
+<a name="l00212"></a>00212     <span class="comment">// Sort polygones ----------------------------------------------------------</span>
+<a name="l00213"></a>00213 
+<a name="l00214"></a>00214     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea82cbd2e3aebd7e504783b2ee8c9d5ebd">Material::VERTEX_SORT</a>)
+<a name="l00215"></a>00215     {
+<a name="l00216"></a>00216         <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a9d6387c161a6b841937f724d24ee2bf4">m_frameSortWait</a> &lt;= 0)
+<a name="l00217"></a>00217         {
+<a name="l00218"></a>00218             <span class="keyword">static</span> <a class="code" href="struct_depth_sort_vertex_func.html">DepthSortVertexFunc</a> cmp;
+<a name="l00219"></a>00219             cmp.<a class="code" href="struct_depth_sort_vertex_func.html#a77f6a71ac9b6cc59b62bc9848fda25ec">camPos</a> = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">m_parallelScene</a>-&gt;<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html#ada7acea9a8841107d83703b3489e1744">GetSceneManager</a>()-&gt;<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ad3aa8e32997a79db8e44b47cc4295cd6" title="Accès a la camera courante.">GetCurCamera</a>()-&gt;<a class="code" href="classtbe_1_1scene_1_1_camera.html#a1207a3d1f05cef72c1cea1379ac90f29">GetPos</a>();
+<a name="l00220"></a>00220             cmp.<a class="code" href="struct_depth_sort_vertex_func.html#a7b5b757417dd390cb59b88c99c1badbf">meshPos</a> = <a class="code" href="classtbe_1_1scene_1_1_node.html#a7f2420cfab5d67a1b6d4de34c8aaad3a">m_matrix</a>.<a class="code" href="classtbe_1_1_matrix4.html#a5772984379a2e99c36b6bd31c9c097f4" title="Renvoi la position de la matrice.">GetPos</a>();
+<a name="l00221"></a>00221 
+<a name="l00222"></a>00222             <a class="code" href="struct_triangle_face.html">TriangleFace</a>* vertexes = <span class="keyword">static_cast&lt;</span><a class="code" href="struct_triangle_face.html">TriangleFace</a>*<span class="keyword">&gt;</span>(<a class="code" href="_g_lee_8h.html#a88f951d9fb1bd55e28bc3c8581adf2eb">glMapBuffer</a>(<a class="code" href="_g_lee_8h.html#a7180045dcb52b22af2cd0366026bc3ed">GL_ARRAY_BUFFER</a>, <a class="code" href="_g_lee_8h.html#aa5fd429fd2b79f5936c1421afb205dcd">GL_READ_WRITE</a>));
+<a name="l00223"></a>00223             <a class="code" href="struct_triangle_face.html">TriangleFace</a>* <a class="code" href="_g_lee_8h.html#a13be19455586e95d5a42ed8f054afad2">start</a> = vertexes + offset / 3;
+<a name="l00224"></a>00224             <a class="code" href="struct_triangle_face.html">TriangleFace</a>* <a class="code" href="_g_lee_8h.html#a432111147038972f06e049e18a837002">end</a> = start + size / 3;
+<a name="l00225"></a>00225 
+<a name="l00226"></a>00226             std::sort(start, end, cmp);
+<a name="l00227"></a>00227 
+<a name="l00228"></a>00228             <a class="code" href="_g_lee_8h.html#ae6a0a2dca1b86176367fab8941e9ab8f">glUnmapBuffer</a>(<a class="code" href="_g_lee_8h.html#a7180045dcb52b22af2cd0366026bc3ed">GL_ARRAY_BUFFER</a>);
+<a name="l00229"></a>00229 
+<a name="l00230"></a>00230             material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a9d6387c161a6b841937f724d24ee2bf4">m_frameSortWait</a> = 16;
+<a name="l00231"></a>00231         }
+<a name="l00232"></a>00232 
+<a name="l00233"></a>00233         material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a9d6387c161a6b841937f724d24ee2bf4">m_frameSortWait</a>--;
+<a name="l00234"></a>00234     }
+<a name="l00235"></a>00235 
+<a name="l00236"></a>00236     <span class="keywordflow">else</span> <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea5c952364d669b8a72db688b0b3ddb388">Material::VERTEX_SORT_CULL_TRICK</a>)
+<a name="l00237"></a>00237     {
+<a name="l00238"></a>00238         glEnable(GL_CULL_FACE);
+<a name="l00239"></a>00239         glCullFace(GL_FRONT);
+<a name="l00240"></a>00240 
+<a name="l00241"></a>00241         glDepthMask(<span class="keyword">false</span>);
+<a name="l00242"></a>00242     }
+<a name="l00243"></a>00243 
+<a name="l00244"></a>00244     <span class="comment">// Shader ------------------------------------------------------------------</span>
+<a name="l00245"></a>00245 
+<a name="l00246"></a>00246     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea0c5eda082269b4e000f80cc28cc7b896">Material::SHADER</a>)
+<a name="l00247"></a>00247     {
+<a name="l00248"></a>00248         <span class="comment">// Tangent -------------------------------------------------------------</span>
+<a name="l00249"></a>00249 
+<a name="l00250"></a>00250         <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea659a4b27948afd0faf9cd9060b00d5db">Material::TANGENT</a>)
+<a name="l00251"></a>00251         {
+<a name="l00252"></a>00252             tangentAttribIndex = <a class="code" href="_g_lee_8h.html#a20f33502cbda8885498352fcdbf71fe8">glGetAttribLocation</a>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#ac6e2741d3c9a9fddaca6b09adb8f436e">m_shader</a>, material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a91235fca2b94cdad3090b81cee4a5853">m_tangentLocation</a>.c_str());
+<a name="l00253"></a>00253 
+<a name="l00254"></a>00254             <span class="keywordflow">if</span>(tangentAttribIndex == -1)
+<a name="l00255"></a>00255                 <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;MeshConstruction::Render; Invalid tangent location (%s)&quot;</span>, material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a91235fca2b94cdad3090b81cee4a5853">m_tangentLocation</a>.c_str());
+<a name="l00256"></a>00256 
+<a name="l00257"></a>00257             <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#aaabdb464324af47ef5cfc8d7e9f11da4">BindTangent</a>(<span class="keyword">true</span>, tangentAttribIndex);
+<a name="l00258"></a>00258 
+<a name="l00259"></a>00259 <span class="preprocessor">            #if 0</span>
+<a name="l00260"></a>00260 <span class="preprocessor"></span>            <span class="comment">// NOTE Debug render tangent space</span>
+<a name="l00261"></a>00261 
+<a name="l00262"></a>00262             <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>* vertexes = <span class="keyword">static_cast&lt;</span><a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>*<span class="keyword">&gt;</span>(<a class="code" href="_g_lee_8h.html#a88f951d9fb1bd55e28bc3c8581adf2eb">glMapBuffer</a>(<a class="code" href="_g_lee_8h.html#a7180045dcb52b22af2cd0366026bc3ed">GL_ARRAY_BUFFER</a>, <a class="code" href="_g_lee_8h.html#aa5fd429fd2b79f5936c1421afb205dcd">GL_READ_WRITE</a>));
+<a name="l00263"></a>00263 
+<a name="l00264"></a>00264             glPushAttrib(GL_ENABLE_BIT | GL_CURRENT_BIT);
+<a name="l00265"></a>00265             glDisable(GL_LIGHTING);
+<a name="l00266"></a>00266             glDisable(GL_TEXTURE_2D);
+<a name="l00267"></a>00267             glDisable(GL_BLEND);
+<a name="l00268"></a>00268 
+<a name="l00269"></a>00269             <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a1070fa40c21848a7ee2f359b702f08d8">GetVertexCount</a>(); i++)
+<a name="l00270"></a>00270             {
+<a name="l00271"></a>00271                 glPushMatrix();
+<a name="l00272"></a>00272                 glTranslatef(vertexes[i].<a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, vertexes[i].<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>, vertexes[i].<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>);
+<a name="l00273"></a>00273 
+<a name="l00274"></a>00274                 glBegin(GL_LINES);
+<a name="l00275"></a>00275 
+<a name="l00276"></a>00276                 glColor3f(1, 0, 0);
+<a name="l00277"></a>00277                 glVertex3f(0, 0, 0);
+<a name="l00278"></a>00278                 glVertex3fv(vertexes[i].tangent * 0.1<a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a>);
+<a name="l00279"></a>00279 
+<a name="l00280"></a>00280                 glColor3f(0, 1, 0);
+<a name="l00281"></a>00281                 glVertex3f(0, 0, 0);
+<a name="l00282"></a>00282                 glVertex3fv(vertexes[i].normal * 0.1<a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a>);
+<a name="l00283"></a>00283 
+<a name="l00284"></a>00284                 glEnd();
+<a name="l00285"></a>00285 
+<a name="l00286"></a>00286                 glPopMatrix();
+<a name="l00287"></a>00287             }
+<a name="l00288"></a>00288 
+<a name="l00289"></a>00289             glPopAttrib();
+<a name="l00290"></a>00290 
+<a name="l00291"></a>00291             <a class="code" href="_g_lee_8h.html#ae6a0a2dca1b86176367fab8941e9ab8f">glUnmapBuffer</a>(<a class="code" href="_g_lee_8h.html#a7180045dcb52b22af2cd0366026bc3ed">GL_ARRAY_BUFFER</a>);
+<a name="l00292"></a>00292 <span class="preprocessor">            #endif</span>
+<a name="l00293"></a>00293 <span class="preprocessor"></span>        }
+<a name="l00294"></a>00294 
+<a name="l00295"></a>00295         <span class="comment">// Amobient occlusion --------------------------------------------------</span>
+<a name="l00296"></a>00296 
+<a name="l00297"></a>00297         <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea4b5a258b5a0676389466e841b25683fa">Material::AOCC</a>)
+<a name="l00298"></a>00298         {
+<a name="l00299"></a>00299             aoccAttribIndex = <a class="code" href="_g_lee_8h.html#a20f33502cbda8885498352fcdbf71fe8">glGetAttribLocation</a>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#ac6e2741d3c9a9fddaca6b09adb8f436e">m_shader</a>, material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a44811dac5d63f8069fa70be14578e685">m_aoccLocation</a>.c_str());
+<a name="l00300"></a>00300 
+<a name="l00301"></a>00301             <span class="keywordflow">if</span>(aoccAttribIndex == -1)
+<a name="l00302"></a>00302                 <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;MeshConstruction::Render; Invalid tangent location (%s)&quot;</span>, material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a44811dac5d63f8069fa70be14578e685">m_aoccLocation</a>.c_str());
+<a name="l00303"></a>00303 
+<a name="l00304"></a>00304             <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#ae204b36865312dc677b2bb61366cd150">BindAocc</a>(<span class="keyword">true</span>, aoccAttribIndex);
+<a name="l00305"></a>00305         }
+<a name="l00306"></a>00306 
+<a name="l00307"></a>00307         material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#ac6e2741d3c9a9fddaca6b09adb8f436e">m_shader</a>.<a class="code" href="classtbe_1_1_shader.html#a967abc428bc5980a2ff93f0fe2e1434b" title="Utilisation du program.">Use</a>(<span class="keyword">true</span>);
+<a name="l00308"></a>00308     }
+<a name="l00309"></a>00309 
+<a name="l00310"></a>00310     <span class="comment">// Texture -----------------------------------------------------------------</span>
+<a name="l00311"></a>00311 
+<a name="l00312"></a>00312     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea5a02f47fa2ce4d829cf898a155bb75bb">Material::TEXTURE</a>)
+<a name="l00313"></a>00313     {
+<a name="l00314"></a>00314         <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a9a924200aa664d0bcf74f8e6afce723c">BindTexture</a>();
+<a name="l00315"></a>00315 
+<a name="l00316"></a>00316         <a class="code" href="classtbe_1_1_texture.html#a923039f7548562f78526e4b201f4495b">Texture::Map</a>&amp; <a class="code" href="_g_lee_8h.html#a450062c0770127a605331b58382bfa3b">textures</a> = material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a5c3f3750f9320034ccd553b02f4ca28f">m_textures</a>;
+<a name="l00317"></a>00317 
+<a name="l00318"></a>00318         <span class="keywordflow">for</span>(Texture::Map::iterator itt = textures.begin();
+<a name="l00319"></a>00319             itt != textures.end(); itt++)
+<a name="l00320"></a>00320         {
+<a name="l00321"></a>00321             <span class="keywordflow">if</span>(!itt-&gt;second)
+<a name="l00322"></a>00322                 <span class="keywordflow">continue</span>;
+<a name="l00323"></a>00323 
+<a name="l00324"></a>00324             <span class="keywordtype">unsigned</span> textureIndex = <a class="code" href="_g_lee_8h.html#a16cc91096144fc7048b45e2add14915b">GL_TEXTURE0</a> + itt-&gt;first;
+<a name="l00325"></a>00325 
+<a name="l00326"></a>00326             <a class="code" href="_g_lee_8h.html#a21827cd469c04eaf79c6f64b24104ae6">glClientActiveTexture</a>(textureIndex);
+<a name="l00327"></a>00327             <a class="code" href="_g_lee_8h.html#af15266b67de988f5ddf442bbbdd1b3fc">glActiveTexture</a>(textureIndex);
+<a name="l00328"></a>00328             glEnable(GL_TEXTURE_2D);
+<a name="l00329"></a>00329 
+<a name="l00330"></a>00330             itt-&gt;second.Use(<span class="keyword">true</span>);
+<a name="l00331"></a>00331         }
+<a name="l00332"></a>00332     }
+<a name="l00333"></a>00333 
+<a name="l00334"></a>00334     <span class="comment">// Lumiere -----------------------------------------------------------------</span>
+<a name="l00335"></a>00335 
+<a name="l00336"></a>00336     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea4e6fa15b5463d259edd09438be453b6f">Material::LIGHT</a>)
+<a name="l00337"></a>00337     {
+<a name="l00338"></a>00338         <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a1cca836dc542b8bb2f815373e8f04df5">BindNormal</a>();
+<a name="l00339"></a>00339 
+<a name="l00340"></a>00340         glEnable(GL_LIGHTING);
+<a name="l00341"></a>00341 
+<a name="l00342"></a>00342         glMaterialfv(GL_FRONT, GL_AMBIENT, material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a979c86bc286f2434e1b90da93f7ef55e">m_ambient</a>);
+<a name="l00343"></a>00343         glMaterialfv(GL_FRONT, GL_DIFFUSE, material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a97b23359a66346f1d8f1590580900e2f">m_diffuse</a>);
+<a name="l00344"></a>00344         glMaterialfv(GL_FRONT, GL_SPECULAR, material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a3955b865a9e43212ed7d1666e1878a9a">m_specular</a>);
+<a name="l00345"></a>00345         glMaterialf(GL_FRONT, GL_SHININESS, material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#ab859db576f6fda1d3d81e7730bb31a3d">m_shininess</a>);
+<a name="l00346"></a>00346     }
+<a name="l00347"></a>00347 
+<a name="l00348"></a>00348     <span class="comment">// Color -------------------------------------------------------------------</span>
+<a name="l00349"></a>00349 
+<a name="l00350"></a>00350     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea72a0aa450f6cdde51d235868d725162b">Material::COLOR</a>)
+<a name="l00351"></a>00351     {
+<a name="l00352"></a>00352         <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a8300686cefa6442542a59c327c15c756">BindColor</a>();
+<a name="l00353"></a>00353 
+<a name="l00354"></a>00354         glEnable(GL_COLOR_MATERIAL);
+<a name="l00355"></a>00355     }
+<a name="l00356"></a>00356 
+<a name="l00357"></a>00357     <span class="comment">// Blend -------------------------------------------------------------------</span>
+<a name="l00358"></a>00358 
+<a name="l00359"></a>00359     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea32690371d6335e40f3868724f84cb78d">Material::BLEND_ADD</a>)
+<a name="l00360"></a>00360     {
+<a name="l00361"></a>00361         glEnable(GL_BLEND);
+<a name="l00362"></a>00362         glBlendFunc(GL_ONE, GL_ONE);
+<a name="l00363"></a>00363     }
+<a name="l00364"></a>00364 
+<a name="l00365"></a>00365     <span class="keywordflow">else</span> <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eace6908227ebc50855acc3c6724892468">Material::BLEND_MUL</a>)
+<a name="l00366"></a>00366     {
+<a name="l00367"></a>00367         glEnable(GL_BLEND);
+<a name="l00368"></a>00368         glBlendFunc(GL_DST_ALPHA, GL_SRC_COLOR);
+<a name="l00369"></a>00369 
+<a name="l00370"></a>00370     }
+<a name="l00371"></a>00371 
+<a name="l00372"></a>00372     <span class="keywordflow">else</span> <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea2b0344fac36bd462632e07e44e50b5fe">Material::BLEND_MOD</a>)
+<a name="l00373"></a>00373     {
+<a name="l00374"></a>00374         glEnable(GL_BLEND);
+<a name="l00375"></a>00375         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+<a name="l00376"></a>00376 
+<a name="l00377"></a>00377     }
+<a name="l00378"></a>00378 
+<a name="l00379"></a>00379     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eae385079e7bb1bd2e9c3f0c4fd7be0236">Material::ALPHA</a>)
+<a name="l00380"></a>00380     {
+<a name="l00381"></a>00381         glEnable(GL_ALPHA_TEST);
+<a name="l00382"></a>00382         glAlphaFunc(GL_GREATER, material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a12bca0cd0f3ca8db5314653256878e1e">m_alphaThershold</a>);
+<a name="l00383"></a>00383     }
+<a name="l00384"></a>00384 
+<a name="l00385"></a>00385     <span class="comment">// Line width --------------------------------------------------------------</span>
+<a name="l00386"></a>00386 
+<a name="l00387"></a>00387     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a13c55930920015d78eda809b2aa51432">m_lineWidth</a>)
+<a name="l00388"></a>00388         glLineWidth(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a13c55930920015d78eda809b2aa51432">m_lineWidth</a>);
+<a name="l00389"></a>00389 
+<a name="l00390"></a>00390     <span class="comment">// Rendue ------------------------------------------------------------------</span>
+<a name="l00391"></a>00391 
+<a name="l00392"></a>00392     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#affadcfee220e80abd31097b695e9234e">Render</a>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a9a07197ea1b0ea29f770bdb31a77dc18">m_faceType</a>, offset, size);
+<a name="l00393"></a>00393 
+<a name="l00394"></a>00394     <span class="comment">// Réstorations ------------------------------------------------------------</span>
+<a name="l00395"></a>00395 
+<a name="l00396"></a>00396     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea5c952364d669b8a72db688b0b3ddb388">Material::VERTEX_SORT_CULL_TRICK</a>)
+<a name="l00397"></a>00397     {
+<a name="l00398"></a>00398         glCullFace(GL_BACK);
+<a name="l00399"></a>00399         glDrawArrays(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a9a07197ea1b0ea29f770bdb31a77dc18">m_faceType</a>, offset, size);
+<a name="l00400"></a>00400 
+<a name="l00401"></a>00401         glDepthMask(<span class="keyword">true</span>);
+<a name="l00402"></a>00402     }
+<a name="l00403"></a>00403 
+<a name="l00404"></a>00404     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea0c5eda082269b4e000f80cc28cc7b896">Material::SHADER</a>)
+<a name="l00405"></a>00405     {
+<a name="l00406"></a>00406         <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea659a4b27948afd0faf9cd9060b00d5db">Material::TANGENT</a>)
+<a name="l00407"></a>00407             <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#aaabdb464324af47ef5cfc8d7e9f11da4">BindTangent</a>(<span class="keyword">false</span>, tangentAttribIndex);
+<a name="l00408"></a>00408 
+<a name="l00409"></a>00409         <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea4b5a258b5a0676389466e841b25683fa">Material::AOCC</a>)
+<a name="l00410"></a>00410             <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#ae204b36865312dc677b2bb61366cd150">BindAocc</a>(<span class="keyword">false</span>, aoccAttribIndex);
+<a name="l00411"></a>00411 
+<a name="l00412"></a>00412 
+<a name="l00413"></a>00413         material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#ac6e2741d3c9a9fddaca6b09adb8f436e">m_shader</a>.<a class="code" href="classtbe_1_1_shader.html#a967abc428bc5980a2ff93f0fe2e1434b" title="Utilisation du program.">Use</a>(<span class="keyword">false</span>);
+<a name="l00414"></a>00414     }
+<a name="l00415"></a>00415 
+<a name="l00416"></a>00416     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea5a02f47fa2ce4d829cf898a155bb75bb">Material::TEXTURE</a>)
+<a name="l00417"></a>00417     {
+<a name="l00418"></a>00418         <a class="code" href="classtbe_1_1_texture.html#a923039f7548562f78526e4b201f4495b">Texture::Map</a>&amp; textures = material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a5c3f3750f9320034ccd553b02f4ca28f">m_textures</a>;
+<a name="l00419"></a>00419 
+<a name="l00420"></a>00420         <span class="keywordflow">for</span>(Texture::Map::reverse_iterator itt = textures.rbegin();
+<a name="l00421"></a>00421             itt != textures.rend(); itt++)
+<a name="l00422"></a>00422         {
+<a name="l00423"></a>00423             <span class="keywordflow">if</span>(!itt-&gt;second)
+<a name="l00424"></a>00424                 <span class="keywordflow">continue</span>;
+<a name="l00425"></a>00425 
+<a name="l00426"></a>00426             <span class="keywordtype">unsigned</span> textureIndex = <a class="code" href="_g_lee_8h.html#a16cc91096144fc7048b45e2add14915b">GL_TEXTURE0</a> + itt-&gt;first;
+<a name="l00427"></a>00427 
+<a name="l00428"></a>00428             <a class="code" href="_g_lee_8h.html#a21827cd469c04eaf79c6f64b24104ae6">glClientActiveTexture</a>(textureIndex);
+<a name="l00429"></a>00429             <a class="code" href="_g_lee_8h.html#af15266b67de988f5ddf442bbbdd1b3fc">glActiveTexture</a>(textureIndex);
+<a name="l00430"></a>00430             glDisable(GL_TEXTURE_2D);
+<a name="l00431"></a>00431         }
+<a name="l00432"></a>00432 
+<a name="l00433"></a>00433         <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a9a924200aa664d0bcf74f8e6afce723c">BindTexture</a>(<span class="keyword">false</span>);
+<a name="l00434"></a>00434     }
+<a name="l00435"></a>00435 
+<a name="l00436"></a>00436     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea4e6fa15b5463d259edd09438be453b6f">Material::LIGHT</a>)
+<a name="l00437"></a>00437     {
+<a name="l00438"></a>00438         <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a1cca836dc542b8bb2f815373e8f04df5">BindNormal</a>(<span class="keyword">false</span>);
+<a name="l00439"></a>00439     }
+<a name="l00440"></a>00440 
+<a name="l00441"></a>00441     <span class="keywordflow">if</span>(material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea72a0aa450f6cdde51d235868d725162b">Material::COLOR</a>)
+<a name="l00442"></a>00442     {
+<a name="l00443"></a>00443         <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a8300686cefa6442542a59c327c15c756">BindColor</a>(<span class="keyword">false</span>);
+<a name="l00444"></a>00444     }
+<a name="l00445"></a>00445 
+<a name="l00446"></a>00446     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#aafc7c03293ae3333158f0de417edc859">BindBuffer</a>(<span class="keyword">false</span>);
+<a name="l00447"></a>00447 
+<a name="l00448"></a>00448     <span class="comment">// NOTE OpenGL 1.4</span>
+<a name="l00449"></a>00449     glColor4f(1, 1, 1, 1);
+<a name="l00450"></a>00450 
+<a name="l00451"></a>00451     glPopAttrib();
+<a name="l00452"></a>00452 }
+<a name="l00453"></a>00453 
+<a name="l00454"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a75e66bcd90c09492676a4cfe5b23c3af">00454</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a75e66bcd90c09492676a4cfe5b23c3af" title="Rendue.">Mesh::Render</a>()
+<a name="l00455"></a>00455 {
+<a name="l00456"></a>00456     <span class="keywordflow">if</span>(!<a class="code" href="classtbe_1_1scene_1_1_node.html#a7992ade912f78d8d94560639af863048">m_enable</a> || <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a35eb1fe5358554c56393a1c6cace1252">IsEmpty</a>() || !<a class="code" href="classtbe_1_1scene_1_1_mesh.html#a96083e04f965f730bdcea94d5ec07d4c">m_visible</a>)
+<a name="l00457"></a>00457         <span class="keywordflow">return</span>;
+<a name="l00458"></a>00458 
+<a name="l00459"></a>00459     glPushMatrix();
+<a name="l00460"></a>00460 
+<a name="l00461"></a>00461     <span class="keywordflow">if</span>(<a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">m_parent</a>)
+<a name="l00462"></a>00462         glMultMatrixf(<a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">m_parent</a>-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a236bb6a8d77f224287a4f224e31d0e72">GetAbsoluteMatrix</a>());
+<a name="l00463"></a>00463 
+<a name="l00464"></a>00464     glMultMatrixf(<a class="code" href="classtbe_1_1scene_1_1_node.html#a7f2420cfab5d67a1b6d4de34c8aaad3a">m_matrix</a>);
+<a name="l00465"></a>00465 
+<a name="l00466"></a>00466     <span class="keywordflow">if</span>(m_renderProess.empty())
+<a name="l00467"></a>00467     {
+<a name="l00468"></a>00468         <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a> defaultMateral;
+<a name="l00469"></a>00469         <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a75e66bcd90c09492676a4cfe5b23c3af" title="Rendue.">Render</a>(&amp;defaultMateral, 0, <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a1070fa40c21848a7ee2f359b702f08d8">GetVertexCount</a>());
+<a name="l00470"></a>00470     }
+<a name="l00471"></a>00471 
+<a name="l00472"></a>00472     <span class="keywordflow">else</span>
+<a name="l00473"></a>00473     {
+<a name="l00474"></a>00474         std::sort(m_renderProess.begin(), m_renderProess.end(), RenderProcessSortFunc);
+<a name="l00475"></a>00475 
+<a name="l00476"></a>00476         <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_renderProess.size(); i++)
+<a name="l00477"></a>00477             <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a75e66bcd90c09492676a4cfe5b23c3af" title="Rendue.">Render</a>(m_materials[m_renderProess[i].applyMaterial],
+<a name="l00478"></a>00478                    m_renderProess[i].offset, m_renderProess[i].size);
+<a name="l00479"></a>00479 
+<a name="l00480"></a>00480     }
+<a name="l00481"></a>00481 
+<a name="l00482"></a>00482     glPopMatrix();
+<a name="l00483"></a>00483 }
+<a name="l00484"></a>00484 
+<a name="l00485"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a182d82e681402c6ec9311cd03b08a274">00485</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a182d82e681402c6ec9311cd03b08a274" title="Traitement.">Mesh::Process</a>()
+<a name="l00486"></a>00486 {
+<a name="l00487"></a>00487     <span class="keywordflow">if</span>(!<a class="code" href="classtbe_1_1scene_1_1_node.html#a7992ade912f78d8d94560639af863048">m_enable</a>)
+<a name="l00488"></a>00488         <span class="keywordflow">return</span>;
+<a name="l00489"></a>00489 
+<a name="l00490"></a>00490     for_each(<a class="code" href="classtbe_1_1scene_1_1_node.html#a6d285b20d93526c60141e3979ca381ad">m_childs</a>.begin(), <a class="code" href="classtbe_1_1scene_1_1_node.html#a6d285b20d93526c60141e3979ca381ad">m_childs</a>.end(), mem_fun(&amp;<a class="code" href="classtbe_1_1scene_1_1_node.html#aed8e845b6efa0ce1ee6e241412902866">Node::Process</a>));
+<a name="l00491"></a>00491 }
+<a name="l00492"></a>00492 
+<a name="l00493"></a><a class="code" href="_mesh_8cpp.html#a26cf5598133904fad1f608dd2850131b">00493</a> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_mesh_8cpp.html#a26cf5598133904fad1f608dd2850131b">RayCastTriangle</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> d, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#aa13d73852e3d050fbad707978af4ce40">v0</a>, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#aabdd9aabede45fcf97cea04f88d2ad60">v1</a>, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#ae35401c8c2fcdcc48c20ba325ee473ea">v2</a>)
+<a name="l00494"></a>00494 {
+<a name="l00495"></a>00495     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> e1, e2, <a class="code" href="_g_lee_8h.html#afdb89eb8f3f04e3f311b84bafe6f7d0d">h</a>, <a class="code" href="_g_lee_8h.html#ad585a1393cfa368fa9dc3d8ebff640d5">s</a>, <a class="code" href="_g_lee_8h.html#afb30bc844faa48275d1c84294956a44b">q</a>;
+<a name="l00496"></a>00496 
+<a name="l00497"></a>00497     <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, <a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a>, u, <a class="code" href="_g_lee_8h.html#a14cfbe2fc2234f5504618905b69d1e06">v</a>;
+<a name="l00498"></a>00498 
+<a name="l00499"></a>00499     e1 = v1 - <a class="code" href="_g_lee_8h.html#aa13d73852e3d050fbad707978af4ce40">v0</a>;
+<a name="l00500"></a>00500     e2 = v2 - <a class="code" href="_g_lee_8h.html#aa13d73852e3d050fbad707978af4ce40">v0</a>;
+<a name="l00501"></a>00501 
+<a name="l00502"></a>00502     h = <a class="code" href="classtbe_1_1_vector3.html#a75aaddb20980513ebfcb11c986da8a7d">Vector3f::Cross</a>(d, e2);
+<a name="l00503"></a>00503 
+<a name="l00504"></a>00504     a = <a class="code" href="classtbe_1_1_vector3.html#a30cd9ff57dc9d002e945dbfbb6142f44">Vector3f::Dot</a>(e1, h);
+<a name="l00505"></a>00505 
+<a name="l00506"></a>00506     <span class="keywordflow">if</span>(a &gt; -0.00001 &amp;&amp; a &lt; 0.00001)
+<a name="l00507"></a>00507         <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
+<a name="l00508"></a>00508 
+<a name="l00509"></a>00509     f = 1.0f / <a class="code" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>;
+<a name="l00510"></a>00510     s = p - <a class="code" href="_g_lee_8h.html#aa13d73852e3d050fbad707978af4ce40">v0</a>;
+<a name="l00511"></a>00511     u = f * (<a class="code" href="classtbe_1_1_vector3.html#a30cd9ff57dc9d002e945dbfbb6142f44">Vector3f::Dot</a>(s, h));
+<a name="l00512"></a>00512 
+<a name="l00513"></a>00513     <span class="keywordflow">if</span>(u &lt; 0.0 || u &gt; 1.0)
+<a name="l00514"></a>00514         <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
+<a name="l00515"></a>00515 
+<a name="l00516"></a>00516     q = <a class="code" href="classtbe_1_1_vector3.html#a75aaddb20980513ebfcb11c986da8a7d">Vector3f::Cross</a>(s, e1);
+<a name="l00517"></a>00517 
+<a name="l00518"></a>00518     v = f * <a class="code" href="classtbe_1_1_vector3.html#a30cd9ff57dc9d002e945dbfbb6142f44">Vector3f::Dot</a>(d, q);
+<a name="l00519"></a>00519 
+<a name="l00520"></a>00520     <span class="keywordflow">if</span>(<a class="code" href="_g_lee_8h.html#a14cfbe2fc2234f5504618905b69d1e06">v &lt; 0.0 || u + v &gt;</a> 1.0)
+<a name="l00521"></a>00521         <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
+<a name="l00522"></a>00522 
+<a name="l00523"></a>00523     <span class="comment">// at this stage we can compute t to find out where</span>
+<a name="l00524"></a>00524     <span class="comment">// the intersection point is on the line</span>
+<a name="l00525"></a>00525     <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a653819996e713edf9c01a5b564199189">t</a> = f * Vector3f::Dot(e2, q);
+<a name="l00526"></a>00526 
+<a name="l00527"></a>00527     <span class="keywordflow">if</span>(t &gt; 0.00001) <span class="comment">// ray intersection</span>
+<a name="l00528"></a>00528         <span class="keywordflow">return</span> p + <a class="code" href="classtbe_1_1_vector3.html#a417cd513dc9cd1b943e3f3e284d470bf">Vector3f::Normalize</a>(d) * <a class="code" href="_g_lee_8h.html#a653819996e713edf9c01a5b564199189">t</a>;
+<a name="l00529"></a>00529 
+<a name="l00530"></a>00530         <span class="comment">// this means that there is a line intersection</span>
+<a name="l00531"></a>00531         <span class="comment">// but not a ray intersection</span>
+<a name="l00532"></a>00532     <span class="keywordflow">else</span>
+<a name="l00533"></a>00533         <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
+<a name="l00534"></a>00534 }
+<a name="l00535"></a>00535 
+<a name="l00536"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a237a3f0b04943de2792a13fd1d7f6465">00536</a> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a237a3f0b04943de2792a13fd1d7f6465">Mesh::RayCast</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> rayStart, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> rayDiri, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; intersect, <span class="keywordtype">bool</span> global)
+<a name="l00537"></a>00537 {
+<a name="l00538"></a>00538     <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>* vertex = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a270d05309f0ea16f468b9791064411b9">Lock</a>();
+<a name="l00539"></a>00539 
+<a name="l00540"></a>00540     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4f</a> absmat = <a class="code" href="classtbe_1_1scene_1_1_node.html#a236bb6a8d77f224287a4f224e31d0e72">GetAbsoluteMatrix</a>();
+<a name="l00541"></a>00541 
+<a name="l00542"></a>00542     <span class="keyword">const</span> <span class="keywordtype">unsigned</span> vertexCount = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a1070fa40c21848a7ee2f359b702f08d8">GetVertexCount</a>();
+<a name="l00543"></a>00543 
+<a name="l00544"></a>00544     <a class="code" href="classtbe_1_1_vector3.html#a0e1674e5336e53361b312931e9193bc7">Vector3f::Array</a> hits;
+<a name="l00545"></a>00545 
+<a name="l00546"></a>00546     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; vertexCount; i += 3)
+<a name="l00547"></a>00547     {
+<a name="l00548"></a>00548         <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> pos0 = vertex[i].<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>,
+<a name="l00549"></a>00549                 pos1 = vertex[i + 1].<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>,
+<a name="l00550"></a>00550                 pos2 = vertex[i + 2].<a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>;
+<a name="l00551"></a>00551 
+<a name="l00552"></a>00552         <span class="keywordflow">if</span>(global)
+<a name="l00553"></a>00553         {
+<a name="l00554"></a>00554             pos0 = absmat * pos0;
+<a name="l00555"></a>00555             pos1 = absmat * pos1;
+<a name="l00556"></a>00556             pos2 = absmat * pos2;
+<a name="l00557"></a>00557         }
+<a name="l00558"></a>00558 
+<a name="l00559"></a>00559         <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> intr = <a class="code" href="_mesh_8cpp.html#a26cf5598133904fad1f608dd2850131b">RayCastTriangle</a>(rayStart, rayDiri, pos0, pos1, pos2);
+<a name="l00560"></a>00560 
+<a name="l00561"></a>00561         <span class="keywordflow">if</span>(intr != rayStart)
+<a name="l00562"></a>00562             hits.push_back(intr);
+<a name="l00563"></a>00563     }
+<a name="l00564"></a>00564 
+<a name="l00565"></a>00565     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#ac8d9f43286321deff01fba5bd42573f6">UnLock</a>();
+<a name="l00566"></a>00566 
+<a name="l00567"></a>00567     <span class="keywordflow">if</span>(hits.empty())
+<a name="l00568"></a>00568     {
+<a name="l00569"></a>00569         <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00570"></a>00570     }
+<a name="l00571"></a>00571 
+<a name="l00572"></a>00572     <span class="keywordflow">else</span>
+<a name="l00573"></a>00573     {
+<a name="l00574"></a>00574         intersect = *std::max_element(hits.begin(), hits.end());
+<a name="l00575"></a>00575 
+<a name="l00576"></a>00576         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00577"></a>00577     }
+<a name="l00578"></a>00578 }
+<a name="l00579"></a>00579 
+<a name="l00580"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#af2c28f6f6a7c6aad70f4825b19aac7d6">00580</a> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#af2c28f6f6a7c6aad70f4825b19aac7d6" title="Renvois la position y des coordonnés x z dans le repere local du mesh.">Mesh::FindFloor</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <span class="keywordtype">bool</span> global)
+<a name="l00581"></a>00581 {
+<a name="l00582"></a>00582     <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> = global ? (<a class="code" href="classtbe_1_1scene_1_1_node.html#a236bb6a8d77f224287a4f224e31d0e72">GetAbsoluteMatrix</a>() * <a class="code" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">m_aabb</a>.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>).y + 1 : <a class="code" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">m_aabb</a>.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> + 1;
+<a name="l00583"></a>00583 
+<a name="l00584"></a>00584     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a237a3f0b04943de2792a13fd1d7f6465">RayCast</a>(<a class="code" href="namespacetbe.html#a03849da3ab180ba7842fe5013b543d35">Vector3f</a>(pos.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>, y, pos.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>),
+<a name="l00585"></a>00585                    <a class="code" href="namespacetbe.html#a03849da3ab180ba7842fe5013b543d35">Vector3f</a>(0, -1, 0), <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, global);
+<a name="l00586"></a>00586 }
+<a name="l00587"></a>00587 
+<a name="l00588"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9120406aab8763dbedd150fa34c959bf">00588</a> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9120406aab8763dbedd150fa34c959bf" title="Renvoi &#39;true&#39; si le mesh contien un materieu transparent.">Mesh::IsTransparent</a>()
+<a name="l00589"></a>00589 {
+<a name="l00590"></a>00590     <span class="keywordflow">for</span>(Material::Map::iterator itt = m_materials.begin(); itt != m_materials.end(); itt++)
+<a name="l00591"></a>00591         <span class="keywordflow">if</span>(itt-&gt;second-&gt;IsTransparent())
+<a name="l00592"></a>00592             <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00593"></a>00593 
+<a name="l00594"></a>00594     <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00595"></a>00595 }
+<a name="l00596"></a>00596 
+<a name="l00597"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a7df534750837062b4b48c5100e108373">00597</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a7df534750837062b4b48c5100e108373" title="Ajout un materieux au noeud.">Mesh::AddMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* material)
+<a name="l00598"></a>00598 {
+<a name="l00599"></a>00599     m_materials[<a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>] = material;
+<a name="l00600"></a>00600 
+<a name="l00601"></a>00601     material-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#aabbadaf4944c2282b6693e926a316f0f">SetName</a>(name);
+<a name="l00602"></a>00602 }
+<a name="l00603"></a>00603 
+<a name="l00604"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#aa08178f97526dd243384cd60da962de3">00604</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#aa08178f97526dd243384cd60da962de3" title="Supprime le materieux name.">Mesh::DeleteMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
+<a name="l00605"></a>00605 {
+<a name="l00606"></a>00606     m_materials.erase(name);
+<a name="l00607"></a>00607 }
+<a name="l00608"></a>00608 
+<a name="l00609"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0fd1b99f7ede3f7592e019a261c8d145">00609</a> <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0fd1b99f7ede3f7592e019a261c8d145" title="Renvois le nombre de materials assosier au noeud.">Mesh::GetMaterialCount</a>()
+<a name="l00610"></a>00610 {
+<a name="l00611"></a>00611     <span class="keywordflow">return</span> m_materials.size();
+<a name="l00612"></a>00612 }
+<a name="l00613"></a>00613 
+<a name="l00614"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae35ce88a09293429880272dbf64fd9a6">00614</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae35ce88a09293429880272dbf64fd9a6" title="Applique une couleur a tout les vertecies du mesh.">Mesh::ApplyColor</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> materialName, <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>)
+<a name="l00615"></a>00615 {
+<a name="l00616"></a>00616     <a class="code" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Vector2i::Array</a> apply = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#af36ec086b1ae099221a11512084b5ca6">GetMaterialApply</a>(materialName);
+<a name="l00617"></a>00617 
+<a name="l00618"></a>00618     <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>* vertex = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a270d05309f0ea16f468b9791064411b9">Lock</a>();
+<a name="l00619"></a>00619 
+<a name="l00620"></a>00620     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; apply.size(); i++)
+<a name="l00621"></a>00621         <span class="keywordflow">for</span>(<span class="keywordtype">int</span> j = 0; j &lt; apply[i].y; j++)
+<a name="l00622"></a>00622             vertex[j + apply[i].<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a>].color = color;
+<a name="l00623"></a>00623 
+<a name="l00624"></a>00624     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#ac8d9f43286321deff01fba5bd42573f6">UnLock</a>();
+<a name="l00625"></a>00625 }
+<a name="l00626"></a>00626 
+<a name="l00627"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a057d7afd1041cf4116e8dcbfa1338fef">00627</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a057d7afd1041cf4116e8dcbfa1338fef" title="Applique un shader a tout les materieux du mesh.">Mesh::ApplyShader</a>(<a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> <a class="code" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>)
+<a name="l00628"></a>00628 {
+<a name="l00629"></a>00629     <span class="keywordflow">for</span>(Material::Map::iterator itt = m_materials.begin(); itt != m_materials.end(); itt++)
+<a name="l00630"></a>00630     {
+<a name="l00631"></a>00631         itt-&gt;second-&gt;SetShader(shader);
+<a name="l00632"></a>00632         itt-&gt;second-&gt;Enable(<a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea0c5eda082269b4e000f80cc28cc7b896">Material::SHADER</a>);
+<a name="l00633"></a>00633     }
+<a name="l00634"></a>00634 }
+<a name="l00635"></a>00635 
+<a name="l00636"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a160f8073a7584dc41fc5a2cdc455f777">00636</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">Material::Array</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a160f8073a7584dc41fc5a2cdc455f777" title="Renvois tout les materials du mesh.">Mesh::GetAllMaterial</a>()
+<a name="l00637"></a>00637 {
+<a name="l00638"></a>00638     std::vector&lt;Material*&gt; ret;
+<a name="l00639"></a>00639     ret.reserve(m_materials.size());
+<a name="l00640"></a>00640 
+<a name="l00641"></a>00641     <span class="keywordflow">for</span>(Material::Map::iterator itt = m_materials.begin(); itt != m_materials.end(); itt++)
+<a name="l00642"></a>00642         ret.push_back(itt-&gt;second);
+<a name="l00643"></a>00643 
+<a name="l00644"></a>00644     <span class="keywordflow">return</span> ret;
+<a name="l00645"></a>00645 }
+<a name="l00646"></a>00646 
+<a name="l00647"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#af36ec086b1ae099221a11512084b5ca6">00647</a> <a class="code" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Vector2i::Array</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#af36ec086b1ae099221a11512084b5ca6">Mesh::GetMaterialApply</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
+<a name="l00648"></a>00648 {
+<a name="l00649"></a>00649     <a class="code" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Vector2i::Array</a> <a class="code" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>;
+<a name="l00650"></a>00650 
+<a name="l00651"></a>00651     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_renderProess.size(); i++)
+<a name="l00652"></a>00652     {
+<a name="l00653"></a>00653         <span class="keyword">const</span> RenderProcess&amp; rp = m_renderProess[i];
+<a name="l00654"></a>00654 
+<a name="l00655"></a>00655         <span class="keywordflow">if</span>(rp.applyMaterial == name)
+<a name="l00656"></a>00656             offset.push_back(<a class="code" href="namespacetbe.html#a469fc38bcbc1f75e33818d1ea41acd95">Vector2i</a>(rp.offset, rp.size));
+<a name="l00657"></a>00657     }
+<a name="l00658"></a>00658 
+<a name="l00659"></a>00659     <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>;
+<a name="l00660"></a>00660 }
+<a name="l00661"></a>00661 
+<a name="l00662"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a15e0b2cad9f7c24d2bbcf0e1626b4c72">00662</a> <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a15e0b2cad9f7c24d2bbcf0e1626b4c72" title="Renvois le materieux identifier par son nom.">Mesh::GetMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
+<a name="l00663"></a>00663 {
+<a name="l00664"></a>00664     <span class="keywordflow">if</span>(m_materials.find(name) == m_materials.end())
+<a name="l00665"></a>00665         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">tbe::Exception</a>(<span class="stringliteral">&quot;Mesh::GetMaterial; Material not found (%s)&quot;</span>, name.c_str());
+<a name="l00666"></a>00666 
+<a name="l00667"></a>00667     <span class="keywordflow">return</span> m_materials[<a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>];
+<a name="l00668"></a>00668 }
+<a name="l00669"></a>00669 
+<a name="l00670"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a442cd89e1b48ffd840cb573e5d5e0c67">00670</a> <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a442cd89e1b48ffd840cb573e5d5e0c67" title="Déttache le materieux name du noeud.">Mesh::ReleaseMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
+<a name="l00671"></a>00671 {
+<a name="l00672"></a>00672     <span class="keywordflow">if</span>(m_materials.find(name) == m_materials.end())
+<a name="l00673"></a>00673         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">tbe::Exception</a>(<span class="stringliteral">&quot;Mesh::ReleaseMaterial; Material not found (%s)&quot;</span>, name.c_str());
+<a name="l00674"></a>00674 
+<a name="l00675"></a>00675     <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* toRet = m_materials[<a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>];
+<a name="l00676"></a>00676     m_materials.erase(name);
+<a name="l00677"></a>00677     <span class="keywordflow">return</span> toRet;
+<a name="l00678"></a>00678 }
+<a name="l00679"></a>00679 
+<a name="l00680"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a39203c84d94e3db0b341d16874c845d2">00680</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a39203c84d94e3db0b341d16874c845d2">Mesh::ApplyMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <span class="keywordtype">unsigned</span> offset, <span class="keywordtype">unsigned</span> size)
+<a name="l00681"></a>00681 {
+<a name="l00682"></a>00682     RenderProcess rp = {<span class="keyword">this</span>, <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>, size};
+<a name="l00683"></a>00683     m_renderProess.push_back(rp);
+<a name="l00684"></a>00684 }
+<a name="l00685"></a>00685 
+<a name="l00686"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a8ed1f849f16d8a88b798822c996ffe00">00686</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a39203c84d94e3db0b341d16874c845d2">Mesh::ApplyMaterial</a>(<a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* material, <span class="keywordtype">unsigned</span> offset, <span class="keywordtype">unsigned</span> size)
+<a name="l00687"></a>00687 {
+<a name="l00688"></a>00688     <span class="keywordflow">for</span>(Material::Map::iterator it = m_materials.begin();
+<a name="l00689"></a>00689         it != m_materials.end(); ++it)
+<a name="l00690"></a>00690         <span class="keywordflow">if</span>(it-&gt;second == material)
+<a name="l00691"></a>00691         {
+<a name="l00692"></a>00692             RenderProcess rp = {<span class="keyword">this</span>, it-&gt;first, <a class="code" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>, size};
+<a name="l00693"></a>00693             m_renderProess.push_back(rp);
+<a name="l00694"></a>00694             <span class="keywordflow">return</span>;
+<a name="l00695"></a>00695         }
+<a name="l00696"></a>00696 
+<a name="l00697"></a>00697     <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">tbe::Exception</a>(<span class="stringliteral">&quot;Mesh::ApplyMaterial; Material ptr not found&quot;</span>);
+<a name="l00698"></a>00698 }
+<a name="l00699"></a>00699 
+<a name="l00700"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae9c65799ed03efbaf0a1617f21d25f35">00700</a> <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae9c65799ed03efbaf0a1617f21d25f35" title="Renvois le buffer graphique de rendue.">Mesh::GetHardwareBuffer</a>()
+<a name="l00701"></a>00701 {
+<a name="l00702"></a>00702     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>;
+<a name="l00703"></a>00703 }
+<a name="l00704"></a>00704 
+<a name="l00705"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a7ab17698ddd91cdacaa1a04b35b54615">00705</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a7ab17698ddd91cdacaa1a04b35b54615">Mesh::SetVisible</a>(<span class="keywordtype">bool</span> visible)
+<a name="l00706"></a>00706 {
+<a name="l00707"></a>00707     this-&gt;<a class="code" href="classtbe_1_1scene_1_1_mesh.html#a96083e04f965f730bdcea94d5ec07d4c">m_visible</a> = visible;
+<a name="l00708"></a>00708 }
+<a name="l00709"></a>00709 
+<a name="l00710"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a570976d71b2bda2c52d39ba0d165d9bf">00710</a> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a570976d71b2bda2c52d39ba0d165d9bf">Mesh::IsVisible</a>()<span class="keyword"> const</span>
+<a name="l00711"></a>00711 <span class="keyword"></span>{
+<a name="l00712"></a>00712     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a96083e04f965f730bdcea94d5ec07d4c">m_visible</a>;
+<a name="l00713"></a>00713 }
+<a name="l00714"></a>00714 
+<a name="l00715"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a5d6cd3898f1af824284cbe796e13dc29">00715</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">Node::CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a5d6cd3898f1af824284cbe796e13dc29">Mesh::ConstructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root)
+<a name="l00716"></a>00716 {
+<a name="l00717"></a>00717     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">Node::CtorMap</a> ctormap = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a5d6cd3898f1af824284cbe796e13dc29">Node::ConstructionMap</a>(root);
+<a name="l00718"></a>00718 
+<a name="l00719"></a>00719     <span class="keywordflow">return</span> ctormap;
+<a name="l00720"></a>00720 }
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>
