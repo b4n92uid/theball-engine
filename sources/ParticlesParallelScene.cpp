@@ -59,6 +59,7 @@ void ParticlesParallelScene::Render()
 
     glDisable(GL_LIGHTING);
     glDisable(GL_FOG);
+    glDisable(GL_CULL_FACE);
 
     if(m_pointSprite)
     {
