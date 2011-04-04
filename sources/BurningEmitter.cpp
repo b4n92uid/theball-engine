@@ -96,9 +96,6 @@ void BurningEmitter::Process()
 
     long timestamp = m_timestamp.GetEsplanedTime();
 
-    if(timestamp <= 0)
-        return;
-
     Particle* particles = BeginParticlesPosProcess();
 
     m_deadEmiter = true;
