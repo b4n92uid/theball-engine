@@ -337,6 +337,18 @@ Vector3f NewtonNode::GetPos()
     return m_updatedMatrix->GetPos();
 }
 
+void NewtonNode::SetOmega(Vector3f vel)
+{
+    NewtonBodySetOmega(m_body, vel);
+}
+
+Vector3f NewtonNode::GetOmega()
+{
+    Vector3f vel;
+    NewtonBodyGetOmega(m_body, vel);
+    return vel;
+}
+
 void NewtonNode::SetVelocity(Vector3f vel)
 {
     NewtonBodySetVelocity(m_body, vel);
