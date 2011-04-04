@@ -59,6 +59,9 @@ public:
     void SetVelocity(Vector3f vel);
     Vector3f GetVelocity();
 
+    void SetOmega(Vector3f vel);
+    Vector3f GetOmega();
+
     /// Mise a jour
     void Render();
 
