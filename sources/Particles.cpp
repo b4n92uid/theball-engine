@@ -141,7 +141,8 @@ void ParticlesEmiter::Render()
     if(m_pointsprite)
     {
         glPushMatrix();
-        glMultMatrixf(GetAbsoluteMatrix());
+        glMultMatrixf(m_parent->GetAbsoluteMatrix());
+        glMultMatrixf(m_matrix);
     }
 
     else
