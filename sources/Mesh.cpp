@@ -374,6 +374,7 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+        glDepthMask(false);
     }
 
     if(material->m_renderFlags & Material::ALPHA)
@@ -398,6 +399,11 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
         glCullFace(GL_BACK);
         glDrawArrays(material->m_faceType, offset, size);
 
+        glDepthMask(true);
+    }
+
+    if(material->m_renderFlags & Material::BLEND_MOD)
+    {
         glDepthMask(true);
     }
 
