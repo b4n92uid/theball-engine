@@ -74,12 +74,12 @@ public:
         return *this;
     }
 
-    T operator[](unsigned i) const
+    T operator[](unsigned i)const
     {
         switch(i)
         {
-        case 0: return x;
-        default: return y;
+            case 0: return x;
+            default: return y;
         }
     }
 
@@ -319,6 +319,16 @@ public:
     static float Dot(const Vector2& a, const Vector2& b)
     {
         return (a.x * b.x + a.y * b.y);
+    }
+
+    static Vector2 X(float value = 1)
+    {
+        return Vector2(value, 0);
+    }
+
+    static Vector2 Y(float value = 1)
+    {
+        return Vector2(0, value);
     }
 
     T x, y;
