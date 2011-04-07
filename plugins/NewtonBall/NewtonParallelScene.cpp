@@ -100,14 +100,14 @@ Vector3f NewtonParallelScene::FindZeroMassBody(Vector3f start, Vector3f end)
 {
     float intersectParam = 1.2f;
     NewtonWorldRayCast(m_newtonWorld, start, end, RayFilterZeroMassBody, &intersectParam, 0);
-    return start + (start - end) * intersectParam;
+    return start - (start - end) * intersectParam;
 }
 
 Vector3f NewtonParallelScene::FindAnyBody(Vector3f start, Vector3f end)
 {
     float intersectParam = 1.2f;
     NewtonWorldRayCast(m_newtonWorld, start, end, RayFilterAnyBody, &intersectParam, 0);
-    return start + (start - end) * intersectParam;
+    return start - (start - end) * intersectParam;
 }
 
 Vector3f NewtonParallelScene::FindFloor(Vector3f pos)
