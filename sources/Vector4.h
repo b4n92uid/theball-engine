@@ -105,10 +105,10 @@ public:
     {
         switch(i)
         {
-        case 0: return x;
-        case 1: return y;
-        case 2: return z;
-        default: return w;
+            case 0: return x;
+            case 1: return y;
+            case 2: return z;
+            default: return w;
         }
     }
 
@@ -372,6 +372,26 @@ public:
     T Unit()
     {
         return (x + y + z + w) / 4.0f;
+    }
+
+    static Vector4 X(float value = 1)
+    {
+        return Vector4(value, 0, 0, 0);
+    }
+
+    static Vector4 Y(float value = 1)
+    {
+        return Vector4(0, value, 0, 0);
+    }
+
+    static Vector4 Z(float value = 1)
+    {
+        return Vector4(0, 0, value, 0);
+    }
+
+    static Vector4 W(float value = 1)
+    {
+        return Vector4(0, 0, 0, value);
     }
 
     static float Dot(const Vector4& a, const Vector4& b)

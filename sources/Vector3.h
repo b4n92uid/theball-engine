@@ -83,13 +83,13 @@ public:
         return *this;
     }
 
-    T operator[](unsigned i) const
+    T operator[](unsigned i)const
     {
         switch(i)
         {
-        case 0: return x;
-        case 1: return y;
-        default: return z;
+            case 0: return x;
+            case 1: return y;
+            default: return z;
         }
     }
 
@@ -342,6 +342,21 @@ public:
     bool IsInside(const Vector3& min, const Vector3& max) const
     {
         return (x >= min.x && y >= min.y && z >= min.z && x <= max.x && y <= max.y && z <= max.z);
+    }
+
+    static Vector3 X(float value = 1)
+    {
+        return Vector3(value, 0, 0);
+    }
+
+    static Vector3 Y(float value = 1)
+    {
+        return Vector3(0, value, 0);
+    }
+
+    static Vector3 Z(float value = 1)
+    {
+        return Vector3(0, 0, value);
     }
 
     static float Dot(const Vector3& a, const Vector3& b)
