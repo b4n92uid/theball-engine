@@ -179,16 +179,6 @@ public:
         return (!x && !y && !z);
     }
 
-    bool IsNull()
-    {
-        return (!x && !y && !z);
-    }
-
-    operator bool() const
-    {
-        return (x || y || z);
-    }
-
     Vector3 operator-() const
     {
         return Vector3(*this) * (T) - 1;
