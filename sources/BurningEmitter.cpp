@@ -20,6 +20,7 @@ BurningEmitter::BurningEmitter(ParticlesParallelScene* scene) : ParticlesEmiter(
     m_lifeInit = 1;
     m_lifeDown = 0.1;
     m_freeMove = 0;
+    m_brustCount = -1;
 
     m_autoRebuild = true;
     m_continousMode = false;
@@ -73,15 +74,18 @@ void BurningEmitter::SetupBullet(Particle& p)
     p.diriction.Normalize() *= m_freeMove;
     p.gravity = m_gravity;
 
-    if(m_boxSize)
+    if(!!m_boxSize)
         p.pos = tools::rand(Vector3f(0), m_boxSize);
     else
-        p.pos = 0;
+        p.pos = m_emitPos;
 
     if(m_continousMode)
         p.life = tools::rand(0.0f, m_lifeInit);
     else
         p.life = m_lifeInit;
+
+    if(m_brustCount > 0)
+        m_brustCount--;
 }
 
 void BurningEmitter::Process()
@@ -94,11 +98,11 @@ void BurningEmitter::Process()
     if(m_deadEmiter && !m_autoRebuild)
         return;
 
+    m_deadEmiter = true;
+
     long timestamp = m_timestamp.GetEsplanedTime();
 
     Particle* particles = BeginParticlesPosProcess();
-
-    m_deadEmiter = true;
 
     m_aabb.Clear();
 
@@ -112,7 +116,7 @@ void BurningEmitter::Process()
 
         if(p.life < 0)
         {
-            if(m_autoRebuild)
+            if(m_autoRebuild && (m_brustCount > 0 || m_brustCount == -1))
                 SetupBullet(p);
 
             else
@@ -182,6 +186,26 @@ void BurningEmitter::SetLifeInit(float lifeInit)
 float BurningEmitter::GetLifeInit() const
 {
     return m_lifeInit;
+}
+
+void BurningEmitter::SetBrustCount(int brustCount)
+{
+    this->m_brustCount = brustCount;
+}
+
+int BurningEmitter::GetBrustCount() const
+{
+    return m_brustCount;
+}
+
+void BurningEmitter::SetEmitPos(Vector3f emitPos)
+{
+    this->m_emitPos = emitPos;
+}
+
+Vector3f BurningEmitter::GetEmitPos() const
+{
+    return m_emitPos;
 }
 
 void BurningEmitter::SetAutoRebuild(bool autoRebuild)

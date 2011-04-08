@@ -60,6 +60,12 @@ public:
     void SetBoxSize(Vector3f boxSize);
     Vector3f GetBoxSize() const;
 
+    void SetEmitPos(Vector3f emitPos);
+    Vector3f GetEmitPos() const;
+
+    void SetBrustCount(int brustCount);
+    int GetBrustCount() const;
+
     CtorMap ConstructionMap(std::string root);
 
 protected:
@@ -73,6 +79,9 @@ private:
     bool m_continousMode;
     bool m_autoRebuild;
 
+    int m_brustCount;
+
+    Vector3f m_emitPos;
     Vector3f m_gravity;
     Vector3f m_boxSize;
 };
