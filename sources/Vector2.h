@@ -160,11 +160,6 @@ public:
         return (!x && !y);
     }
 
-    operator bool() const
-    {
-        return (x && y);
-    }
-
     Vector2 operator-() const
     {
         return (*this) * (T) - 1;

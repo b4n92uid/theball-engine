@@ -455,11 +455,11 @@ Node::CtorMap Water::ConstructionMap(std::string root)
     ctormap["class"] = "Water";
 
     ctormap["normalMap"] = m_normalMap.GetFilename();
-    ctormap["size"] = m_size;
-    ctormap["speed"] = m_speed;
-    ctormap["deform"] = m_deform;
-    ctormap["blend"] = m_blend;
-    ctormap["uvRepeat"] = m_uvRepeat;
+    ctormap["size"] = tools::numToStr(m_size);
+    ctormap["speed"] = tools::numToStr(m_speed);
+    ctormap["deform"] = tools::numToStr(m_deform);
+    ctormap["blend"] = tools::numToStr(m_blend);
+    ctormap["uvRepeat"] = tools::numToStr(m_uvRepeat);
 
     return ctormap;
 }

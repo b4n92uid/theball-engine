@@ -207,11 +207,6 @@ public:
         return (!x && !y && !z && !w);
     }
 
-    operator bool() const
-    {
-        return (x && y && z && w);
-    }
-
     Vector4 operator-() const
     {
         return Vector4(*this) * -1;

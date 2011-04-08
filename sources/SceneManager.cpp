@@ -340,7 +340,7 @@ Matrix4f SceneManager::computeBillboard(Vector3f obj, Matrix4f init, Vector3f ca
     Matrix4f rotation = init;
 
     Vector3f look(0, 0, 1);
-    Vector3f campos = cam.IsNull() ? (*m_currentCamera)->GetPos() : cam;
+    Vector3f campos = !cam ? (*m_currentCamera)->GetPos() : cam;
 
     Vector3f proj = campos - obj;
     proj.y = 0;
