@@ -16,6 +16,7 @@
 #include "Mathematics.h"
 #include "Eventrecv.h"
 #include "Exception.h"
+#include "Rtt.h"
 
 #include "Pencil.h"
 
@@ -96,6 +97,9 @@ public:
     void SetName(std::string name);
     std::string GetName() const;
 
+    void SetOutput(Rtt* output);
+    Rtt* GetOutput() const;
+
 protected:
     virtual void ObjectRender() = 0;
 
@@ -118,6 +122,8 @@ protected:
 
     Texture m_background;
     Pencil m_pencil;
+
+    Rtt* m_output;
 };
 
 }

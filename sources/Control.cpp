@@ -1,4 +1,5 @@
 #include "Control.h"
+#include "Rtt.h"
 
 using namespace std;
 using namespace tbe;
@@ -12,6 +13,7 @@ Control::Control()
     m_activate = false;
     m_stretch = false;
     m_opacity = 1.0;
+    m_output = NULL;
 }
 
 Control::~Control()
@@ -88,7 +90,13 @@ void Control::Render()
         glColor4f(1, 1, 1, 1);
     }
 
+    if(m_output)
+        m_output->Use(true);
+
     ObjectRender();
+
+    if(m_output)
+        m_output->Use(false);
 }
 
 void Control::SetSkin(const GuiSkin&)
@@ -235,4 +243,14 @@ void Control::SetName(std::string name)
 std::string Control::GetName() const
 {
     return m_name;
+}
+
+void Control::SetOutput(Rtt* output)
+{
+    this->m_output = output;
+}
+
+Rtt* Control::GetOutput() const
+{
+    return m_output;
 }
