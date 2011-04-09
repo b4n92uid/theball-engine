@@ -31,19 +31,19 @@ public:
     ~KeyConfig();
 
     /// Changer l'apparance du controle
-    void SetSkin(const GuiSkin& skin);
+    void setSkin(const GuiSkin& skin);
 
     /// Fonction appler lors d'un evenement
-    bool OnEvent(const EventManager& event);
+    bool onEvent(const EventManager& event);
 
-    void SetKeyCode(int keyCode, std::string keyName = "");
-    int GetKeyCode() const;
+    void setKeyCode(int keyCode, std::string keyName = "");
+    int getKeyCode() const;
 
-    void SetMouseCode(int mouseCode, std::string buttonName = "");
-    int GetMouseCode() const;
+    void setMouseCode(int mouseCode, std::string buttonName = "");
+    int getMouseCode() const;
 
 protected:
-    void ObjectRender();
+    void objectRender();
 
     int m_keyCode;
     int m_mouseCode;

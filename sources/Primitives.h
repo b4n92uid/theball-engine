@@ -26,9 +26,9 @@ public:
     Box(MeshParallelScene* scene);
     Box(MeshParallelScene* scene, Vector3f size, bool quadFace = false);
 
-    void Setup(Vector3f size, bool quadFace = false);
+    void setup(Vector3f size, bool quadFace = false);
 
-    Vector3f GetSize() const;
+    Vector3f getSize() const;
 
 protected:
     Vector3f m_size;
@@ -44,9 +44,9 @@ public:
     Sphere(MeshParallelScene* scene);
     Sphere(MeshParallelScene* scene, float radius, unsigned slices, unsigned stackes);
 
-    void Setup(float radius, unsigned slices, unsigned stackes);
+    void setup(float radius, unsigned slices, unsigned stackes);
 
-    float GetRadius() const;
+    float getRadius() const;
 
 protected:
     float m_radius;
@@ -61,10 +61,10 @@ public:
     Axes(MeshParallelScene* scene);
     Axes(MeshParallelScene* scene, float lineWidth, float lineLength);
 
-    void Setup(float lineWidth, float lineLength);
+    void setup(float lineWidth, float lineLength);
 
-    float GetLineLength() const;
-    float GetLineWidth() const;
+    float getLineLength() const;
+    float getLineWidth() const;
 
 protected:
     float m_lineWidth;
@@ -81,10 +81,10 @@ public:
     Plane(MeshParallelScene* scene);
     Plane(MeshParallelScene* scene, Vector2f size, Vector2i cut);
 
-    void Setup(Vector2f size, Vector2i cut);
+    void setup(Vector2f size, Vector2i cut);
 
-    Vector2i GetCut() const;
-    Vector2f GetSize() const;
+    Vector2i getCut() const;
+    Vector2f getSize() const;
 
 protected:
     Vector2f m_size;

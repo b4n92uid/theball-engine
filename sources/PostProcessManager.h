@@ -35,9 +35,10 @@ public:
     Layer();
     ~Layer();
 
-    void Begin();
-    void Draw(bool autoSetup = true);
-    void End();
+    void draw(bool autoSetup = true);
+
+    void begin();
+    void end();
 
 protected:
     GLuint m_renderId;
@@ -52,13 +53,13 @@ public:
     Effect();
     virtual ~Effect();
 
-    virtual void Process(Rtt* rtt) = 0;
+    virtual void process(Rtt* rtt) = 0;
 
-    void SetEnable(bool enable);
-    bool IsEnable() const;
+    void setEnable(bool enable);
+    bool isEnable() const;
 
-    void SetRttFrameSize(Vector2i size);
-    Vector2i GetRttFrameSize();
+    void setRttFrameSize(Vector2i size);
+    Vector2i getRttFrameSize();
 
     typedef std::map<std::string, Effect*> Map;
     typedef std::vector<Effect*> Array;
@@ -81,17 +82,17 @@ public:
     PostProcessManager(const PostProcessManager& orig);
     virtual ~PostProcessManager();
 
-    void Setup(Vector2i screenSize);
-    void Render();
-    void ClearAll();
+    void setup(Vector2i screenSize);
+    void render();
+    void clearAll();
 
-    void AddPostEffect(std::string name, Effect* effect);
-    Effect* GetPostEffect(std::string name);
+    void addPostEffect(std::string name, Effect* effect);
+    Effect* getPostEffect(std::string name);
 
-    static void BeginPostProcess();
-    static void EndPostProcess();
+    static void beginPostProcess();
+    static void endPostProcess();
 
-    Rtt* GetRtt() const;
+    Rtt* getRtt() const;
 
 private:
     Effect::Map m_postEffects;

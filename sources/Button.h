@@ -20,11 +20,11 @@ public:
     Button(std::string label, Pencil font, Texture background);
     ~Button();
 
-    void SetSkin(const GuiSkin& skin);
-    bool OnEvent(const EventManager& event);
+    void setSkin(const GuiSkin& skin);
+    bool onEvent(const EventManager& event);
 
 protected:
-    void ObjectRender();
+    void objectRender();
 
     enum State
     {

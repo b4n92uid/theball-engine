@@ -23,21 +23,21 @@ public:
     Rtt(Vector2i frameSize);
     ~Rtt();
 
-    void Use(bool state);
+    void use(bool state);
 
-    void Clear();
+    void clear();
 
-    void SetCaptureDepth(bool captureDepth);
-    bool IsCaptureDepth() const;
+    void setCaptureDepth(bool captureDepth);
+    bool isCaptureDepth() const;
 
-    void SetCaptureColor(bool captureColor);
-    bool IsCaptureColor() const;
+    void setCaptureColor(bool captureColor);
+    bool isCaptureColor() const;
 
-    void SetFrameSize(Vector2i frameSize);
-    Vector2i GetFrameSize() const;
+    void setFrameSize(Vector2i frameSize);
+    Vector2i getFrameSize() const;
 
-    Texture GetColor();
-    Texture GetDepht();
+    Texture getColor();
+    Texture getDepht();
 
     // FBO Methode Functions ---------------------------------------------------
 

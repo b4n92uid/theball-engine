@@ -34,29 +34,25 @@ public:
         DEPTH_TEXTURE_2D = 16,
     };
 
-    void Attach(unsigned compenent);
-    void Detach(unsigned compenent);
+    void attach(unsigned compenent);
+    void detach(unsigned compenent);
 
-    void Blit(FrameBufferObject* dst, unsigned compenentFlags = 0);
+    void use(bool state = true);
 
-    void SetMultiSamplesCount(unsigned multiSamplesCount);
-    unsigned GetMultiSamplesCount() const;
+    void blit(FrameBufferObject* dst, unsigned compenentFlags = 0);
 
-    Texture GetTexture(Compenent compenent);
+    void clear();
 
-    Texture GetColor()
-    {
-        return GetTexture(FrameBufferObject::COLOR_TEXTURE_2D);
-    }
+    Texture getTexture(Compenent compenent);
+    Texture getColor();
 
-    virtual void SetFrameSize(Vector2i frameSize);
-    Vector2i GetFrameSize() const;
+    void setMultiSamplesCount(unsigned multiSamplesCount);
+    unsigned getMultiSamplesCount() const;
 
-    void Clear();
+    virtual void setFrameSize(Vector2i frameSize);
+    Vector2i getFrameSize() const;
 
-    void Use(bool state = true);
-
-    static bool CheckHardware();
+    static bool checkHardware();
 
 protected:
     unsigned m_attachedCompenent;

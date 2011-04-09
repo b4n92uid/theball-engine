@@ -14,77 +14,77 @@ using namespace tbe::gui;
 
 VectorBox::VectorBox()
 {
-    m_lay.SetOrientation(Layout::Horizental);
-    m_lay.AddControl(&m_xValue);
-    m_lay.AddControl(&m_yValue);
-    m_lay.AddControl(&m_zValue);
+    m_lay.setOrientation(Layout::Horizental);
+    m_lay.addControl(&m_xValue);
+    m_lay.addControl(&m_yValue);
+    m_lay.addControl(&m_zValue);
 
-    m_xValue.SetStep(0.1);
-    m_yValue.SetStep(0.1);
-    m_zValue.SetStep(0.1);
+    m_xValue.setStep(0.1);
+    m_yValue.setStep(0.1);
+    m_zValue.setStep(0.1);
 }
 
 VectorBox::~VectorBox()
 {
 }
 
-bool VectorBox::OnEvent(const EventManager& event)
+bool VectorBox::onEvent(const EventManager& event)
 {
-    m_activate = m_xValue.OnEvent(event) || m_yValue.OnEvent(event) || m_zValue.OnEvent(event);
+    m_activate = m_xValue.onEvent(event) || m_yValue.onEvent(event) || m_zValue.onEvent(event);
     return m_activate;
 }
 
-void VectorBox::SetSkin(const GuiSkin& gui)
+void VectorBox::setSkin(const GuiSkin& gui)
 {
-    SetSize(gui.vectorBoxSize);
-    m_lay.SetSize(gui.vectorBoxSize);
+    setSize(gui.vectorBoxSize);
+    m_lay.setSize(gui.vectorBoxSize);
 
     Vector2f switchSize = gui.vectorBoxSize;
     switchSize.x /= 3;
 
-    m_xValue.SetBackground(gui.vectorBox);
-    m_xValue.SetSize(switchSize);
-    m_xValue.SetPencil(gui.pencile);
+    m_xValue.setBackground(gui.vectorBox);
+    m_xValue.setSize(switchSize);
+    m_xValue.setPencil(gui.pencile);
 
-    m_yValue.SetBackground(gui.vectorBox);
-    m_yValue.SetSize(switchSize);
-    m_yValue.SetPencil(gui.pencile);
+    m_yValue.setBackground(gui.vectorBox);
+    m_yValue.setSize(switchSize);
+    m_yValue.setPencil(gui.pencile);
 
-    m_zValue.SetBackground(gui.vectorBox);
-    m_zValue.SetSize(switchSize);
-    m_zValue.SetPencil(gui.pencile);
+    m_zValue.setBackground(gui.vectorBox);
+    m_zValue.setSize(switchSize);
+    m_zValue.setPencil(gui.pencile);
 }
 
-void VectorBox::ObjectRender()
+void VectorBox::objectRender()
 {
-    m_lay.SetPos(m_pos);
-    m_lay.SetSize(m_size);
-    m_lay.Update();
+    m_lay.setPos(m_pos);
+    m_lay.setSize(m_size);
+    m_lay.update();
 
-    m_xValue.Render();
-    m_yValue.Render();
-    m_zValue.Render();
+    m_xValue.render();
+    m_yValue.render();
+    m_zValue.render();
 }
 
-void VectorBox::SetRange(float min, float max)
+void VectorBox::setRange(float min, float max)
 {
-    m_xValue.SetRange(new SwitchNumeric<float>::Range(min, max));
-    m_yValue.SetRange(new SwitchNumeric<float>::Range(min, max));
-    m_zValue.SetRange(new SwitchNumeric<float>::Range(min, max));
+    m_xValue.setRange(new SwitchNumeric<float>::Range(min, max));
+    m_yValue.setRange(new SwitchNumeric<float>::Range(min, max));
+    m_zValue.setRange(new SwitchNumeric<float>::Range(min, max));
 }
 
-void VectorBox::SetValue(Vector3f value)
+void VectorBox::setValue(Vector3f value)
 {
-    m_xValue.SetValue(value.x);
-    m_yValue.SetValue(value.y);
-    m_zValue.SetValue(value.z);
+    m_xValue.setValue(value.x);
+    m_yValue.setValue(value.y);
+    m_zValue.setValue(value.z);
 }
 
-Vector3f VectorBox::GetValue()
+Vector3f VectorBox::getValue()
 {
     return Vector3f(
-                    m_xValue.GetValue(),
-                    m_yValue.GetValue(),
-                    m_zValue.GetValue()
+                    m_xValue.getValue(),
+                    m_yValue.getValue(),
+                    m_zValue.getValue()
                     );
 }

@@ -23,16 +23,16 @@ Switch::Switch(Pencil font, Texture background)
 {
     m_state = DEAD;
 
-    SetBackground(background);
-    SetPencil(font);
-    SetupRender();
+    setBackground(background);
+    setPencil(font);
+    setupRender();
 }
 
 Switch::Switch()
 {
     m_state = DEAD;
 
-    SetupRender();
+    setupRender();
 }
 
 Switch::~Switch()
@@ -40,20 +40,20 @@ Switch::~Switch()
 
 }
 
-bool Switch::OnEvent(const EventManager& event)
+bool Switch::onEvent(const EventManager& event)
 {
-    bool inLeft = Vector2f(event.mousePos).IsInsinde(m_pos, Vector2f(m_size.x / 2, m_size.y));
-    bool inRight = Vector2f(event.mousePos).IsInsinde(Vector2f(m_pos.x + m_size.x / 2, m_pos.y), Vector2f(m_size.x / 2, m_size.y));
+    bool inLeft = Vector2f(event.mousePos).isInsinde(m_pos, Vector2f(m_size.x / 2, m_size.y));
+    bool inRight = Vector2f(event.mousePos).isInsinde(Vector2f(m_pos.x + m_size.x / 2, m_pos.y), Vector2f(m_size.x / 2, m_size.y));
 
-    if(Vector2f(event.mousePos).IsInsinde(m_pos, m_size))
+    if(Vector2f(event.mousePos).isInsinde(m_pos, m_size))
     {
         if(event.notify == EventManager::EVENT_MOUSE_DOWN)
         {
             if(event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_WHEEL_UP)
-                Increment();
+                increment();
 
             else if(event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_WHEEL_DOWN)
-                Decrement();
+                decrement();
         }
     }
 
@@ -77,7 +77,7 @@ bool Switch::OnEvent(const EventManager& event)
                 && m_activate)
         {
             m_state = OVER_LEFT;
-            Decrement();
+            decrement();
             m_activate = true;
             return true;
         }
@@ -106,7 +106,7 @@ bool Switch::OnEvent(const EventManager& event)
                 && m_activate)
         {
             m_state = OVER_RIGHT;
-            Increment();
+            increment();
             m_activate = true;
             return true;
         }
@@ -121,14 +121,14 @@ bool Switch::OnEvent(const EventManager& event)
     return false;
 }
 
-void Switch::SetSkin(const GuiSkin& skin)
+void Switch::setSkin(const GuiSkin& skin)
 {
-    SetBackground(skin.switchBox);
-    SetSize(skin.switchBoxSize);
-    SetPencil(skin.pencile);
+    setBackground(skin.switchBox);
+    setSize(skin.switchBoxSize);
+    setPencil(skin.pencile);
 }
 
-void Switch::SetupRender()
+void Switch::setupRender()
 {
     Vector2f pos[8] = {
         Vector2f(0, 0),
@@ -203,27 +203,27 @@ void Switch::SetupRender()
     }
 }
 
-void Switch::ObjectRender()
+void Switch::objectRender()
 {
-    m_background.Use();
+    m_background.use();
 
     switch(m_state)
     {
-        case DEAD: DrawSurface(switchVertex.pos, switchVertex.stOut, 8);
+        case DEAD: drawSurface(switchVertex.pos, switchVertex.stOut, 8);
             break;
-        case OVER_LEFT: DrawSurface(switchVertex.pos, switchVertex.stOverLeft, 8);
+        case OVER_LEFT: drawSurface(switchVertex.pos, switchVertex.stOverLeft, 8);
             break;
-        case OVER_RIGHT: DrawSurface(switchVertex.pos, switchVertex.stOverRight, 8);
+        case OVER_RIGHT: drawSurface(switchVertex.pos, switchVertex.stOverRight, 8);
             break;
-        case PUSH_LEFT: DrawSurface(switchVertex.pos, switchVertex.stPushLeft, 8);
+        case PUSH_LEFT: drawSurface(switchVertex.pos, switchVertex.stPushLeft, 8);
             break;
-        case PUSH_RIGHT: DrawSurface(switchVertex.pos, switchVertex.stPushRight, 8);
+        case PUSH_RIGHT: drawSurface(switchVertex.pos, switchVertex.stPushRight, 8);
             break;
     }
 
     if(m_pencil)
     {
-        m_pencil.Display(m_pencil.CenterOf(m_label, m_pos, m_size), m_label);
+        m_pencil.display(m_pencil.centerOf(m_label, m_pos, m_size), m_label);
     }
 }
 
@@ -232,7 +232,7 @@ SwitchString::SwitchString()
     m_it = m_content.end();
 }
 
-void SwitchString::SetCurrent(unsigned index)
+void SwitchString::setCurrent(unsigned index)
 {
     index = min(index, m_content.size() - 1);
 
@@ -240,52 +240,52 @@ void SwitchString::SetCurrent(unsigned index)
     m_label = m_it->str;
 }
 
-unsigned SwitchString::GetCurrent()
+unsigned SwitchString::getCurrent()
 {
     return m_it - m_content.begin();
 }
 
-void SwitchString::SetString(const std::string& str)
+void SwitchString::setString(const std::string& str)
 {
     m_it->str = str;
 }
 
-std::string SwitchString::GetString() const
+std::string SwitchString::getString() const
 {
     return m_it->str;
 }
 
-void SwitchString::SetData(const Any& data)
+void SwitchString::setData(const Any& data)
 {
     m_it->data = data;
 }
 
-Any SwitchString::GetData() const
+Any SwitchString::getData() const
 {
     return m_it->data;
 }
 
-void SwitchString::SetString(unsigned index, const std::string& str)
+void SwitchString::setString(unsigned index, const std::string& str)
 {
     m_content[index].str = str;
 }
 
-std::string SwitchString::GetString(unsigned index) const
+std::string SwitchString::getString(unsigned index) const
 {
     return m_content[index].str;
 }
 
-void SwitchString::SetData(unsigned index, const Any& data)
+void SwitchString::setData(unsigned index, const Any& data)
 {
     m_content[index].data = data;
 }
 
-Any SwitchString::GetData(unsigned index) const
+Any SwitchString::getData(unsigned index) const
 {
     return m_content[index].data;
 }
 
-void SwitchString::SetData(std::string str, const Any& data)
+void SwitchString::setData(std::string str, const Any& data)
 {
     for(unsigned i = 0; i < m_content.size(); i++)
         if(m_content[i].str == str)
@@ -295,7 +295,7 @@ void SwitchString::SetData(std::string str, const Any& data)
         }
 }
 
-Any SwitchString::GetData(std::string str) const
+Any SwitchString::getData(std::string str) const
 {
     for(unsigned i = 0; i < m_content.size(); i++)
         if(m_content[i].str == str)
@@ -304,7 +304,7 @@ Any SwitchString::GetData(std::string str) const
     return Any();
 }
 
-SwitchString& SwitchString::Push(std::string str)
+SwitchString& SwitchString::push(std::string str)
 {
     Entry e;
     e.str = str;
@@ -316,7 +316,7 @@ SwitchString& SwitchString::Push(std::string str)
     return *this;
 }
 
-SwitchString& SwitchString::Push(std::string str, const Any& data)
+SwitchString& SwitchString::push(std::string str, const Any& data)
 {
     Entry e;
     e.str = str;
@@ -330,25 +330,25 @@ SwitchString& SwitchString::Push(std::string str, const Any& data)
     return *this;
 }
 
-unsigned SwitchString::GetCount() const
+unsigned SwitchString::getCount() const
 {
     return m_content.size();
 }
 
-void SwitchString::DeleteAll()
+void SwitchString::deleteAll()
 {
     m_content.clear();
     m_it = m_content.end();
 }
 
-void SwitchString::Delete(unsigned index)
+void SwitchString::deleteOn(unsigned index)
 {
     m_content.erase(m_content.begin() + index);
 
-    Increment();
+    increment();
 }
 
-void SwitchString::Delete(std::string str)
+void SwitchString::deleteOn(std::string str)
 {
     for(unsigned i = 0; i < m_content.size(); i++)
         if(m_content[i].str == str)
@@ -357,10 +357,10 @@ void SwitchString::Delete(std::string str)
             break;
         }
 
-    Increment();
+    increment();
 }
 
-void SwitchString::Increment()
+void SwitchString::increment()
 {
     if(m_content.empty())
     {
@@ -377,7 +377,7 @@ void SwitchString::Increment()
     m_label = m_it->str;
 }
 
-void SwitchString::Decrement()
+void SwitchString::decrement()
 {
     if(m_content.empty())
     {

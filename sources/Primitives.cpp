@@ -13,10 +13,10 @@ Box::Box(MeshParallelScene* scene) : Mesh(scene)
 
 Box::Box(MeshParallelScene* scene, Vector3f size, bool quadFace) : Mesh(scene)
 {
-    Setup(size, quadFace);
+    setup(size, quadFace);
 }
 
-void Box::Setup(Vector3f size, bool quadFace)
+void Box::setup(Vector3f size, bool quadFace)
 {
     m_size = size;
 
@@ -65,18 +65,18 @@ void Box::Setup(Vector3f size, bool quadFace)
                 face.push_back(vertexs[i * 4 + j]);
             }
 
-            m_hardwareBuffer.AddFace(face);
+            m_hardwareBuffer.addFace(face);
         }
 
-        m_hardwareBuffer.Compile();
+        m_hardwareBuffer.compile();
 
-        ComputeAabb();
+        computeAabb();
 
         Material* mainMaterial = new Material;
-        mainMaterial->SetFaceType(Material::QUADS);
+        mainMaterial->setFaceType(Material::QUADS);
 
-        AddMaterial("main", mainMaterial);
-        ApplyMaterial(mainMaterial, 0, 24);
+        addMaterial("main", mainMaterial);
+        applyMaterial(mainMaterial, 0, 24);
     }
 
     else
@@ -136,23 +136,23 @@ void Box::Setup(Vector3f size, bool quadFace)
                 face.push_back(vertexs[i * 3 + j]);
             }
 
-            m_hardwareBuffer.AddFace(face);
+            m_hardwareBuffer.addFace(face);
         }
 
-        m_hardwareBuffer.Compile();
+        m_hardwareBuffer.compile();
 
-        ComputeAabb();
+        computeAabb();
 
         Material* mainMaterial = new Material;
-        mainMaterial->SetFaceType(Material::TRIANGLES);
+        mainMaterial->setFaceType(Material::TRIANGLES);
 
-        AddMaterial("main", mainMaterial);
-        ApplyMaterial(mainMaterial, 0, 36);
+        addMaterial("main", mainMaterial);
+        applyMaterial(mainMaterial, 0, 36);
     }
 
 }
 
-Vector3f Box::GetSize() const
+Vector3f Box::getSize() const
 {
     return m_size;
 }
@@ -166,10 +166,10 @@ Sphere::Sphere(MeshParallelScene* scene) : Mesh(scene)
 
 Sphere::Sphere(MeshParallelScene* scene, float radius, unsigned slices, unsigned stackes) : Mesh(scene)
 {
-    Setup(radius, slices, stackes);
+    setup(radius, slices, stackes);
 }
 
-void Sphere::Setup(float radius, unsigned slices, unsigned stackes)
+void Sphere::setup(float radius, unsigned slices, unsigned stackes)
 {
     m_radius = radius;
 
@@ -217,21 +217,21 @@ void Sphere::Setup(float radius, unsigned slices, unsigned stackes)
 
         }
 
-        m_hardwareBuffer.AddFace(face);
+        m_hardwareBuffer.addFace(face);
     }
 
-    m_hardwareBuffer.Compile();
+    m_hardwareBuffer.compile();
 
-    ComputeAabb();
+    computeAabb();
 
     Material* mainMaterial = new Material;
-    mainMaterial->SetFaceType(Material::TRIANGLE_STRIP);
+    mainMaterial->setFaceType(Material::TRIANGLE_STRIP);
 
-    AddMaterial("main", mainMaterial);
-    ApplyMaterial(mainMaterial, 0, m_hardwareBuffer.GetVertexCount());
+    addMaterial("main", mainMaterial);
+    applyMaterial(mainMaterial, 0, m_hardwareBuffer.getVertexCount());
 }
 
-float Sphere::GetRadius() const
+float Sphere::getRadius() const
 {
     return m_radius;
 }
@@ -246,10 +246,10 @@ Axes::Axes(MeshParallelScene* scene) : Mesh(scene)
 
 Axes::Axes(MeshParallelScene* scene, float lineWidth, float lineLength) : Mesh(scene)
 {
-    Setup(lineWidth, lineLength);
+    setup(lineWidth, lineLength);
 }
 
-void Axes::Setup(float lineWidth, float lineLength)
+void Axes::setup(float lineWidth, float lineLength)
 {
     m_lineWidth = lineWidth;
     m_lineLength = lineLength;
@@ -265,28 +265,28 @@ void Axes::Setup(float lineWidth, float lineLength)
     faceZ.push_back(Vertex(Vector3f(0, 0, 0), 0.0, Vector4f(0, 0, 1, 1), 0.0));
     faceZ.push_back(Vertex(Vector3f(0, 0, m_lineLength), 0.0, Vector4f(0, 0, 1, 1), 0.0));
 
-    m_hardwareBuffer.AddFace(faceX);
-    m_hardwareBuffer.AddFace(faceY);
-    m_hardwareBuffer.AddFace(faceZ);
-    m_hardwareBuffer.Compile();
+    m_hardwareBuffer.addFace(faceX);
+    m_hardwareBuffer.addFace(faceY);
+    m_hardwareBuffer.addFace(faceZ);
+    m_hardwareBuffer.compile();
 
-    ComputeAabb();
+    computeAabb();
 
     Material* mainMaterial = new Material;
-    mainMaterial->SetRenderFlags(Material::COLOR);
-    mainMaterial->SetLineWidth(m_lineWidth);
-    mainMaterial->SetFaceType(Material::LINES);
+    mainMaterial->setRenderFlags(Material::COLOR);
+    mainMaterial->setLineWidth(m_lineWidth);
+    mainMaterial->setFaceType(Material::LINES);
 
-    AddMaterial("main", mainMaterial);
-    ApplyMaterial(mainMaterial, 0, 6);
+    addMaterial("main", mainMaterial);
+    applyMaterial(mainMaterial, 0, 6);
 }
 
-float Axes::GetLineLength() const
+float Axes::getLineLength() const
 {
     return m_lineLength;
 }
 
-float Axes::GetLineWidth() const
+float Axes::getLineWidth() const
 {
     return m_lineWidth;
 }
@@ -300,10 +300,10 @@ Plane::Plane(MeshParallelScene* scene) : Mesh(scene)
 
 Plane::Plane(MeshParallelScene* scene, Vector2f size, Vector2i cut) : Mesh(scene)
 {
-    Setup(size, cut);
+    setup(size, cut);
 }
 
-void Plane::Setup(Vector2f size, Vector2i cut)
+void Plane::setup(Vector2f size, Vector2i cut)
 {
     Vector2f quadSize = size / Vector2f(cut);
 
@@ -356,28 +356,28 @@ void Plane::Setup(Vector2f size, Vector2i cut)
                 face2.push_back(vertextes[i + 3]);
             }
 
-            m_hardwareBuffer.AddFace(face);
-            m_hardwareBuffer.AddFace(face2);
+            m_hardwareBuffer.addFace(face);
+            m_hardwareBuffer.addFace(face2);
         }
 
-    m_hardwareBuffer.Compile();
+    m_hardwareBuffer.compile();
 
-    ComputeAabb();
+    computeAabb();
 
     Material* mainMaterial = new Material;
-    mainMaterial->SetFaceType(Material::TRIANGLES);
+    mainMaterial->setFaceType(Material::TRIANGLES);
 
-    AddMaterial("main", mainMaterial);
+    addMaterial("main", mainMaterial);
 
-    ApplyMaterial(mainMaterial, 0, m_hardwareBuffer.GetVertexCount());
+    applyMaterial(mainMaterial, 0, m_hardwareBuffer.getVertexCount());
 }
 
-Vector2i Plane::GetCut() const
+Vector2i Plane::getCut() const
 {
     return m_cut;
 }
 
-Vector2f Plane::GetSize() const
+Vector2f Plane::getSize() const
 {
     return m_size;
 }

@@ -32,15 +32,15 @@ public:
 
     Ball3DMesh & operator=(const Ball3DMesh& copy);
 
-    void Open(std::string filepath);
+    void open(std::string filepath);
 
-    std::string GetFilename();
+    std::string getFilename();
 
-    Node::CtorMap ConstructionMap(std::string root);
+    Node::CtorMap constructionMap(std::string root);
 
 private:
-    void ReadMaterial(std::ifstream& file, Material* mat);
-    void ReadVertexs(std::ifstream& file);
+    void readMaterial(std::ifstream& file, Material* mat);
+    void readVertexs(std::ifstream& file);
 
 private:
     std::string m_filename;

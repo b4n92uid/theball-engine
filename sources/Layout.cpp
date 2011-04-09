@@ -12,12 +12,12 @@ public:
         m_size = 1;
     }
 
-    bool OnEvent(const EventManager&)
+    bool onEvent(const EventManager&)
     {
         return false;
     }
 
-    void ObjectRender()
+    void objectRender()
     {
     }
 };
@@ -35,10 +35,10 @@ Layout::Layout(Vector2f scrsize, Vector2f border, float space, Orientation type)
 
 Layout::~Layout()
 {
-    Clear();
+    clear();
 }
 
-void Layout::Clear()
+void Layout::clear()
 {
     for(unsigned i = 0; i < m_childControlsTmp.size(); i++)
         delete m_childControlsTmp[i];
@@ -56,26 +56,26 @@ void Layout::Clear()
     m_childLayout.clear();
 }
 
-void Layout::AddStretchSpace()
+void Layout::addStretchSpace()
 {
     Spacer* object = new Spacer;
-    object->SetSize(1);
-    object->SetStretch(true);
+    object->setSize(1);
+    object->setStretch(true);
 
     m_childControls.push_back(new Item(object));
     m_childControlsTmp.push_back(new Item(object));
 }
 
-void Layout::AddSpace(Vector2f size)
+void Layout::addSpace(Vector2f size)
 {
     Spacer* object = new Spacer;
-    object->SetSize(size);
+    object->setSize(size);
 
     m_childControls.push_back(new Item(object));
     m_childControlsTmp.push_back(new Item(object));
 }
 
-void Layout::AddLayout(Layout* object)
+void Layout::addLayout(Layout* object)
 {
     object->m_screenSize -= m_border * 2.0f;
     object->m_parent = this;
@@ -84,7 +84,7 @@ void Layout::AddLayout(Layout* object)
     m_childControls.push_back(new Item(object));
 }
 
-void Layout::ReleaseControl(Control* object)
+void Layout::releaseControl(Control* object)
 {
     using namespace std;
 
@@ -98,21 +98,21 @@ void Layout::ReleaseControl(Control* object)
     m_childControls.erase(it);
 }
 
-void Layout::InsertFront(Control* object)
+void Layout::insertFront(Control* object)
 {
     m_childControls.insert(m_childControls.begin(), new Item(object));
 }
 
-void Layout::AddControl(Control* object)
+void Layout::addControl(Control* object)
 {
     m_childControls.push_back(new Item(object));
 }
 
-void Layout::Update()
+void Layout::update()
 {
 
     for(unsigned i = 0; i < m_childLayout.size(); i++)
-        m_childLayout[i]->Update();
+        m_childLayout[i]->update();
 
     if(m_childControls.empty())
         return;
@@ -291,85 +291,85 @@ void Layout::Update()
     }
 }
 
-void Layout::SetAlign(Align align)
+void Layout::setAlign(Align align)
 {
     this->m_align = align;
 }
 
-Layout::Align Layout::GetAlign() const
+Layout::Align Layout::getAlign() const
 {
     return m_align;
 }
 
-void Layout::SetParent(Layout* parent)
+void Layout::setParent(Layout* parent)
 {
     this->m_parent = parent;
 }
 
-Layout* Layout::GetParent()
+Layout* Layout::getParent()
 {
     return m_parent;
 }
 
-void Layout::SetSpace(float size)
+void Layout::setSpace(float size)
 {
     m_space = size;
 }
 
-float Layout::GetSpace() const
+float Layout::getSpace() const
 {
     return m_space;
 }
 
-void Layout::SetBorder(Vector2f size)
+void Layout::setBorder(Vector2f size)
 {
     m_border = size;
 }
 
-Vector2f Layout::GetBorder() const
+Vector2f Layout::getBorder() const
 {
     return m_border;
 }
 
-void Layout::SetScreenSize(Vector2f screenSize)
+void Layout::setScreenSize(Vector2f screenSize)
 {
     this->m_screenSize = screenSize;
 }
 
-Vector2f Layout::GetScreenSize() const
+Vector2f Layout::getScreenSize() const
 {
     return m_screenSize;
 }
 
-void Layout::SetSize(Vector2f size)
+void Layout::setSize(Vector2f size)
 {
     this->m_size = size;
 }
 
-Vector2f Layout::GetSize() const
+Vector2f Layout::getSize() const
 {
     return m_size;
 }
 
-void Layout::SetPos(Vector2f pos)
+void Layout::setPos(Vector2f pos)
 {
     this->m_pos = pos;
 
     for(unsigned i = 0; i < m_childLayout.size(); i++)
-        m_childLayout[i]->SetPos(m_pos + m_childLayout[i]->GetPos());
+        m_childLayout[i]->setPos(m_pos + m_childLayout[i]->getPos());
 }
 
-Vector2f Layout::GetPos() const
+Vector2f Layout::getPos() const
 {
     return m_pos;
 }
 
-void Layout::SetOrientation(Layout::Orientation type)
+void Layout::setOrientation(Layout::Orientation type)
 {
     m_orientation = type;
 }
 
-Layout::Orientation Layout::GetOrientation() const
+Layout::Orientation Layout::getOrientation() const
 {
     return m_orientation;
 }
@@ -395,30 +395,30 @@ Layout::Item::~Item()
 
 Vector2f Layout::Item::GetPos()
 {
-    return m_ctrl ? m_ctrl->GetPos() : m_lay->GetPos();
+    return m_ctrl ? m_ctrl->getPos() : m_lay->getPos();
 }
 
 void Layout::Item::SetPos(Vector2f pos)
 {
-    m_ctrl ? m_ctrl->SetPos(pos) : m_lay->SetPos(pos);
+    m_ctrl ? m_ctrl->setPos(pos) : m_lay->setPos(pos);
 }
 
 Vector2f Layout::Item::GetSize()
 {
-    return m_ctrl ? m_ctrl->GetSize() : m_lay->GetSize();
+    return m_ctrl ? m_ctrl->getSize() : m_lay->getSize();
 }
 
 void Layout::Item::SetSize(Vector2f size)
 {
-    m_ctrl ? m_ctrl->SetSize(size) : m_lay->SetSize(size);
+    m_ctrl ? m_ctrl->setSize(size) : m_lay->setSize(size);
 }
 
 bool Layout::Item::IsStretch()
 {
-    return m_ctrl ? m_ctrl->IsStretch() : false;
+    return m_ctrl ? m_ctrl->isStretch() : false;
 }
 
 bool Layout::Item::IsEnable()
 {
-    return m_ctrl ? m_ctrl->IsEnable() : true;
+    return m_ctrl ? m_ctrl->isEnable() : true;
 }

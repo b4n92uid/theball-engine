@@ -27,7 +27,7 @@ public:
     ~Heightmap();
 
     /// Construction depuis un fichier
-    void Open(const std::string& path);
+    void open(const std::string& path);
 
 protected:
     unsigned char* m_pixels;

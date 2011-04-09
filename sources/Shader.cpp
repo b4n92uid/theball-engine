@@ -89,17 +89,17 @@ GLuint ParseShader(const string& content, GLenum type)
     return shader;
 }
 
-void Shader::ParseVertexShader(std::string content)
+void Shader::parseVertexShader(std::string content)
 {
     m_vert_shader = ParseShader(content.c_str(), GL_VERTEX_SHADER);
 }
 
-void Shader::ParseFragmentShader(std::string content)
+void Shader::parseFragmentShader(std::string content)
 {
     m_frag_shader = ParseShader(content.c_str(), GL_FRAGMENT_SHADER);
 }
 
-void Shader::LoadVertexShader(std::string filepath)
+void Shader::loadVertexShader(std::string filepath)
 {
     cout << "Load vertex shader file : " << filepath << endl;
 
@@ -116,7 +116,7 @@ void Shader::LoadVertexShader(std::string filepath)
     m_vert_shader = ParseShader(sourceCode.str().c_str(), GL_VERTEX_SHADER);
 }
 
-void Shader::LoadFragmentShader(std::string filepath)
+void Shader::loadFragmentShader(std::string filepath)
 {
     cout << "Load fragment shader file : " << filepath << endl;
 
@@ -133,12 +133,12 @@ void Shader::LoadFragmentShader(std::string filepath)
     m_frag_shader = ParseShader(sourceCode.str().c_str(), GL_FRAGMENT_SHADER);
 }
 
-void Shader::Use(bool use)
+void Shader::use(bool use)
 {
     glUseProgram(use ? m_program : 0);
 }
 
-void Shader::LoadProgram()
+void Shader::loadProgram()
 {
     cout << "Load shader program" << endl;
 
@@ -192,7 +192,7 @@ void Shader::LoadProgram()
     manager.push_back(m_program);
 }
 
-void Shader::SetUniform(const char* name, float value)
+void Shader::uniform(const char* name, float value)
 {
     GLint id = glGetUniformLocation(m_program, name);
 
@@ -202,7 +202,7 @@ void Shader::SetUniform(const char* name, float value)
     glUniform1f(id, value);
 }
 
-void Shader::SetUniform(const char* name, int value)
+void Shader::uniform(const char* name, int value)
 {
     GLint id = glGetUniformLocation(m_program, name);
 
@@ -212,7 +212,7 @@ void Shader::SetUniform(const char* name, int value)
     glUniform1i(id, value);
 }
 
-void Shader::SetUniform(const char* name, Vector4f value)
+void Shader::uniform(const char* name, Vector4f value)
 {
     GLint id = glGetUniformLocation(m_program, name);
 
@@ -222,7 +222,7 @@ void Shader::SetUniform(const char* name, Vector4f value)
     glUniform4f(id, value.x, value.y, value.z, value.w);
 }
 
-void Shader::SetUniform(const char* name, Vector4i value)
+void Shader::uniform(const char* name, Vector4i value)
 {
     GLint id = glGetUniformLocation(m_program, name);
 
@@ -232,7 +232,7 @@ void Shader::SetUniform(const char* name, Vector4i value)
     glUniform4i(id, value.x, value.y, value.z, value.w);
 }
 
-void Shader::SetUniform(const char* name, Vector3f value)
+void Shader::uniform(const char* name, Vector3f value)
 {
     GLint id = glGetUniformLocation(m_program, name);
 
@@ -242,7 +242,7 @@ void Shader::SetUniform(const char* name, Vector3f value)
     glUniform3f(id, value.x, value.y, value.z);
 }
 
-void Shader::SetUniform(const char* name, Vector3i value)
+void Shader::uniform(const char* name, Vector3i value)
 {
     GLint id = glGetUniformLocation(m_program, name);
 
@@ -252,7 +252,7 @@ void Shader::SetUniform(const char* name, Vector3i value)
     glUniform3i(id, value.x, value.y, value.z);
 }
 
-void Shader::SetUniform(const char* name, Vector2f value)
+void Shader::uniform(const char* name, Vector2f value)
 {
     GLint id = glGetUniformLocation(m_program, name);
 
@@ -262,7 +262,7 @@ void Shader::SetUniform(const char* name, Vector2f value)
     glUniform2f(id, value.x, value.y);
 }
 
-void Shader::SetUniform(const char* name, Vector2i value)
+void Shader::uniform(const char* name, Vector2i value)
 {
     GLint id = glGetUniformLocation(m_program, name);
 
@@ -272,7 +272,7 @@ void Shader::SetUniform(const char* name, Vector2i value)
     glUniform2i(id, value.x, value.y);
 }
 
-bool Shader::CheckHardware()
+bool Shader::checkHardware()
 {
     static bool supported = GLEE_ARB_shading_language_100 && GLEE_ARB_shader_objects
             && GLEE_ARB_vertex_shader && GLEE_ARB_fragment_shader

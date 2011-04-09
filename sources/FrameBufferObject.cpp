@@ -79,10 +79,10 @@ FrameBufferObject::~FrameBufferObject()
     glDeleteFramebuffersEXT(1, &m_fboId);
 
     if(m_colorTextureId)
-        m_colorTextureId.Release();
+        m_colorTextureId.release();
 
     if(m_depthTextureId)
-        m_depthTextureId.Release();
+        m_depthTextureId.release();
 
     if(m_colorRenderBuffer)
         glDeleteRenderbuffersEXT(1, &m_colorRenderBuffer);
@@ -98,12 +98,12 @@ FrameBufferObject& FrameBufferObject::operator=(const FrameBufferObject& orig)
     m_multiSamplesCount = orig.m_multiSamplesCount;
 
     if(m_attachedCompenent)
-        Attach(m_attachedCompenent);
+        attach(m_attachedCompenent);
 
     return *this;
 }
 
-void FrameBufferObject::Attach(unsigned compenent)
+void FrameBufferObject::attach(unsigned compenent)
 {
     m_attachedCompenent |= compenent;
 
@@ -141,15 +141,15 @@ void FrameBufferObject::Attach(unsigned compenent)
     if(compenent & COLOR_TEXTURE_2D)
     {
         if(m_colorTextureId)
-            m_colorTextureId.Release();
+            m_colorTextureId.release();
 
         // Génération buffer de rendue
-        m_colorTextureId.Build(m_frameSize);
+        m_colorTextureId.build(m_frameSize);
 
-        m_colorTextureId.Use(true);
+        m_colorTextureId.use(true);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        m_colorTextureId.Use(false);
+        m_colorTextureId.use(false);
 
         // Attacher en tant que Color buffer
         glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, m_colorTextureId, 0);
@@ -158,15 +158,15 @@ void FrameBufferObject::Attach(unsigned compenent)
     if(compenent & DEPTH_TEXTURE_2D)
     {
         if(m_depthTextureId)
-            m_depthTextureId.Release();
+            m_depthTextureId.release();
 
         // Génération buffer de rendue
-        m_depthTextureId.Build(m_frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
+        m_depthTextureId.build(m_frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
 
-        m_depthTextureId.Use(true);
+        m_depthTextureId.use(true);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        m_depthTextureId.Use(false);
+        m_depthTextureId.use(false);
 
         glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_TEXTURE_2D, m_depthTextureId, 0);
     }
@@ -180,7 +180,7 @@ void FrameBufferObject::Attach(unsigned compenent)
     glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 }
 
-void FrameBufferObject::Detach(unsigned compenent)
+void FrameBufferObject::detach(unsigned compenent)
 {
     m_attachedCompenent &= ~compenent;
 
@@ -201,7 +201,7 @@ void FrameBufferObject::Detach(unsigned compenent)
     glBindFramebuffer(GL_FRAMEBUFFER_EXT, 0);
 }
 
-void FrameBufferObject::Use(bool state)
+void FrameBufferObject::use(bool state)
 {
     if(state)
     {
@@ -219,7 +219,7 @@ void FrameBufferObject::Use(bool state)
     }
 }
 
-void FrameBufferObject::Clear()
+void FrameBufferObject::clear()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -228,7 +228,7 @@ void FrameBufferObject::Clear()
         glClear(GL_DEPTH_BUFFER_BIT);
 }
 
-void FrameBufferObject::SetFrameSize(Vector2i frameSize)
+void FrameBufferObject::setFrameSize(Vector2i frameSize)
 {
     int maxRenderbufferSize;
     glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE_EXT, &maxRenderbufferSize);
@@ -245,17 +245,17 @@ void FrameBufferObject::SetFrameSize(Vector2i frameSize)
 
     if(unsigned attachedCompenent = m_attachedCompenent)
     {
-        Detach(attachedCompenent);
-        Attach(attachedCompenent);
+        detach(attachedCompenent);
+        attach(attachedCompenent);
     }
 }
 
-Vector2i FrameBufferObject::GetFrameSize() const
+Vector2i FrameBufferObject::getFrameSize() const
 {
     return m_frameSize;
 }
 
-Texture FrameBufferObject::GetTexture(Compenent compenent)
+Texture FrameBufferObject::getTexture(Compenent compenent)
 {
     switch(compenent)
     {
@@ -265,7 +265,12 @@ Texture FrameBufferObject::GetTexture(Compenent compenent)
     }
 }
 
-void FrameBufferObject::Blit(FrameBufferObject* dst, unsigned compenentFlags)
+Texture FrameBufferObject::getColor()
+{
+    return getTexture(FrameBufferObject::COLOR_TEXTURE_2D);
+}
+
+void FrameBufferObject::blit(FrameBufferObject* dst, unsigned compenentFlags)
 {
     Vector2i srcRect = m_frameSize;
     Vector2i dstRect = dst->m_frameSize;
@@ -286,23 +291,23 @@ void FrameBufferObject::Blit(FrameBufferObject* dst, unsigned compenentFlags)
     glBindFramebufferEXT(GL_DRAW_FRAMEBUFFER_EXT, 0);
 }
 
-void FrameBufferObject::SetMultiSamplesCount(unsigned multiSamplesCount)
+void FrameBufferObject::setMultiSamplesCount(unsigned multiSamplesCount)
 {
     this->m_multiSamplesCount = multiSamplesCount;
 
     if(unsigned attachedCompenent = m_attachedCompenent)
     {
-        Detach(attachedCompenent);
-        Attach(attachedCompenent);
+        detach(attachedCompenent);
+        attach(attachedCompenent);
     }
 }
 
-unsigned FrameBufferObject::GetMultiSamplesCount() const
+unsigned FrameBufferObject::getMultiSamplesCount() const
 {
     return m_multiSamplesCount;
 }
 
-bool FrameBufferObject::CheckHardware()
+bool FrameBufferObject::checkHardware()
 {
     static bool supported = GLEE_EXT_framebuffer_object && GLEE_EXT_framebuffer_blit && GLEE_EXT_framebuffer_multisample;
     return supported;

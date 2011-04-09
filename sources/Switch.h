@@ -24,17 +24,17 @@ public:
     virtual ~Switch();
 
     /// Evenement
-    bool OnEvent(const EventManager& event);
+    bool onEvent(const EventManager& event);
 
     /// GuiSkin
-    void SetSkin(const GuiSkin& skin);
+    void setSkin(const GuiSkin& skin);
 
-    virtual void Increment() = 0;
-    virtual void Decrement() = 0;
+    virtual void increment() = 0;
+    virtual void decrement() = 0;
 
 protected:
-    void SetupRender();
-    void ObjectRender();
+    void setupRender();
+    void objectRender();
 
     enum State
     {
@@ -55,35 +55,35 @@ class SwitchString : public Switch
 public:
     SwitchString();
 
-    void SetString(const std::string& str);
-    std::string GetString() const;
+    void setString(const std::string& str);
+    std::string getString() const;
 
-    void SetString(unsigned index, const std::string& str);
-    std::string GetString(unsigned index) const;
+    void setString(unsigned index, const std::string& str);
+    std::string getString(unsigned index) const;
 
-    void SetData(const Any& data);
-    Any GetData() const;
+    void setData(const Any& data);
+    Any getData() const;
 
-    void SetData(unsigned index, const Any& data);
-    Any GetData(unsigned index) const;
+    void setData(unsigned index, const Any& data);
+    Any getData(unsigned index) const;
 
-    void SetData(std::string str, const Any& data);
-    Any GetData(std::string str) const;
+    void setData(std::string str, const Any& data);
+    Any getData(std::string str) const;
 
-    void SetCurrent(unsigned index);
-    unsigned GetCurrent();
+    void setCurrent(unsigned index);
+    unsigned getCurrent();
 
-    SwitchString& Push(std::string str);
-    SwitchString& Push(std::string str, const Any& data);
+    SwitchString& push(std::string str);
+    SwitchString& push(std::string str, const Any& data);
 
-    void DeleteAll();
-    void Delete(unsigned index);
-    void Delete(std::string str);
+    void deleteAll();
+    void deleteOn(unsigned index);
+    void deleteOn(std::string str);
 
-    unsigned GetCount() const;
+    unsigned getCount() const;
 
-    void Increment();
-    void Decrement();
+    void increment();
+    void decrement();
 
 protected:
 
@@ -117,7 +117,7 @@ public:
             this->max = max;
         }
 
-        T Check(T value)
+        T check(T value)
         {
             return std::min(std::max(value, min), max);
         }
@@ -131,7 +131,7 @@ public:
         m_range = NULL;
         m_step = T(1);
 
-        SetValue(0);
+        setValue(0);
     }
 
     ~SwitchNumeric()
@@ -140,39 +140,39 @@ public:
             delete m_range;
     }
 
-    void Increment()
+    void increment()
     {
-        SetValue(m_value + m_step);
+        setValue(m_value + m_step);
     }
 
-    void Decrement()
+    void decrement()
     {
-        SetValue(m_value - m_step);
+        setValue(m_value - m_step);
     }
 
-    void SetStep(T step)
+    void setStep(T step)
     {
         this->m_step = step;
     }
 
-    T GetStep() const
+    T getStep() const
     {
         return m_step;
     }
 
-    void SetValue(T value)
+    void setValue(T value)
     {
-        this->m_value = (m_range ? m_range->Check(value) : value);
+        this->m_value = (m_range ? m_range->check(value) : value);
         tools::round(this->m_value, m_step);
         m_label = tools::numToStr(m_value);
     }
 
-    T GetValue() const
+    T getValue() const
     {
         return m_value;
     }
 
-    void SetRange(Range* range)
+    void setRange(Range* range)
     {
         if(m_range)
             delete m_range;
@@ -181,12 +181,12 @@ public:
 
         if(m_range)
         {
-            m_value = m_range->Check(m_value);
+            m_value = m_range->check(m_value);
             m_label = tools::numToStr(m_value);
         }
     }
 
-    Range* GetRange() const
+    Range* getRange() const
     {
         return m_range;
     }

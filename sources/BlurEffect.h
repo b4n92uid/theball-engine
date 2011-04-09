@@ -24,10 +24,10 @@ public:
     BlurEffect();
     virtual ~BlurEffect();
 
-    void Process(Rtt* rtt);
+    void process(Rtt* rtt);
 
-    void SetPasse(unsigned passe);
-    unsigned GetPasse() const;
+    void setPasse(unsigned passe);
+    unsigned getPasse() const;
 
 private:
     unsigned m_passe;

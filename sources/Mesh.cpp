@@ -23,16 +23,16 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_visible = true;
 
     Node::m_parallelScene = m_parallelScene = scene;
-    m_sceneManager = m_parallelScene->GetSceneManager();
+    m_sceneManager = m_parallelScene->getSceneManager();
 
-    m_parallelScene->Register(this);
+    m_parallelScene->registerNode(this);
 }
 
 Mesh::Mesh(const Mesh& copy) : Node(copy)
 {
     *this = copy;
 
-    m_parallelScene->Register(this);
+    m_parallelScene->registerNode(this);
 }
 
 Mesh::~Mesh()
@@ -40,7 +40,7 @@ Mesh::~Mesh()
     for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
         delete it->second;
 
-    m_parallelScene->UnRegister(this);
+    m_parallelScene->unregisterNode(this);
 }
 
 Mesh& Mesh::operator=(const Mesh& copy)
@@ -72,28 +72,28 @@ Mesh& Mesh::operator=(const Mesh& copy)
     return *this;
 }
 
-Node* Mesh::Clone()
+Node* Mesh::clone()
 {
     return new Mesh(*this);
 }
 
-void Mesh::ComputeAabb()
+void Mesh::computeAabb()
 {
-    m_aabb.Clear();
+    m_aabb.clear();
 
-    Vertex* vertex = m_hardwareBuffer.Lock();
+    Vertex* vertex = m_hardwareBuffer.lock();
 
-    for(unsigned i = 0; i < m_hardwareBuffer.GetVertexCount(); i++)
-        m_aabb.Count(vertex[i].pos);
+    for(unsigned i = 0; i < m_hardwareBuffer.getVertexCount(); i++)
+        m_aabb.count(vertex[i].pos);
 
-    m_hardwareBuffer.UnLock();
+    m_hardwareBuffer.unlock();
 }
 
-void Mesh::ComputeTangent()
+void Mesh::computeTangent()
 {
-    Vertex* vertex = m_hardwareBuffer.Lock();
+    Vertex* vertex = m_hardwareBuffer.lock();
 
-    unsigned vertexCount = m_hardwareBuffer.GetVertexCount();
+    unsigned vertexCount = m_hardwareBuffer.getVertexCount();
 
     Vector3f::Array tan1(vertexCount);
     Vector3f::Array tan2(vertexCount);
@@ -147,14 +147,14 @@ void Mesh::ComputeTangent()
         const Vector3f& t = tan1[i];
 
         // Gram-Schmidt orthogonalize
-        vertex[i].tangent = (t - n * Vector3f::Dot(n, t));
-        vertex[i].tangent.Normalize();
+        vertex[i].tangent = (t - n * Vector3f::dot(n, t));
+        vertex[i].tangent.normalize();
     }
 
-    m_hardwareBuffer.UnLock();
+    m_hardwareBuffer.unlock();
 }
 
-void Mesh::ComputeAocc()
+void Mesh::computeAocc()
 {
 
 }
@@ -181,11 +181,11 @@ struct DepthSortVertexFunc
     Vector3f meshPos;
 };
 
-void Mesh::Render(Material* material, unsigned offset, unsigned size)
+void Mesh::render(Material* material, unsigned offset, unsigned size)
 {
     GLint tangentAttribIndex = -1, aoccAttribIndex = -1;
 
-    m_hardwareBuffer.BindBuffer();
+    m_hardwareBuffer.bindBuffer();
 
     glPushAttrib(GL_ENABLE_BIT);
 
@@ -216,8 +216,8 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
         if(material->m_frameSortWait <= 0)
         {
             static DepthSortVertexFunc cmp;
-            cmp.camPos = m_parallelScene->GetSceneManager()->GetCurCamera()->GetPos();
-            cmp.meshPos = m_matrix.GetPos();
+            cmp.camPos = m_parallelScene->getSceneManager()->getCurCamera()->getPos();
+            cmp.meshPos = m_matrix.getPos();
 
             TriangleFace* vertexes = static_cast<TriangleFace*>(glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE));
             TriangleFace* start = vertexes + offset / 3;
@@ -254,7 +254,7 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
             if(tangentAttribIndex == -1)
                 throw Exception("MeshConstruction::Render; Invalid tangent location (%s)", material->m_tangentLocation.c_str());
 
-            m_hardwareBuffer.BindTangent(true, tangentAttribIndex);
+            m_hardwareBuffer.bindTangent(true, tangentAttribIndex);
 
             #if 0
             // NOTE Debug render tangent space
@@ -266,7 +266,7 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
             glDisable(GL_TEXTURE_2D);
             glDisable(GL_BLEND);
 
-            for(unsigned i = 0; i < m_hardwareBuffer.GetVertexCount(); i++)
+            for(unsigned i = 0; i < m_hardwareBuffer.getVertexCount(); i++)
             {
                 glPushMatrix();
                 glTranslatef(vertexes[i].pos.x, vertexes[i].pos.y, vertexes[i].pos.z);
@@ -301,17 +301,17 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
             if(aoccAttribIndex == -1)
                 throw Exception("MeshConstruction::Render; Invalid tangent location (%s)", material->m_aoccLocation.c_str());
 
-            m_hardwareBuffer.BindAocc(true, aoccAttribIndex);
+            m_hardwareBuffer.bindAocc(true, aoccAttribIndex);
         }
 
-        material->m_shader.Use(true);
+        material->m_shader.use(true);
     }
 
     // Texture -----------------------------------------------------------------
 
     if(material->m_renderFlags & Material::TEXTURE)
     {
-        m_hardwareBuffer.BindTexture();
+        m_hardwareBuffer.bindTexture();
 
         Texture::Map& textures = material->m_textures;
 
@@ -327,7 +327,7 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
             glActiveTexture(textureIndex);
             glEnable(GL_TEXTURE_2D);
 
-            itt->second.Use(true);
+            itt->second.use(true);
         }
     }
 
@@ -335,7 +335,7 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
 
     if(material->m_renderFlags & Material::LIGHT)
     {
-        m_hardwareBuffer.BindNormal();
+        m_hardwareBuffer.bindNormal();
 
         glEnable(GL_LIGHTING);
 
@@ -349,7 +349,7 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
 
     if(material->m_renderFlags & Material::COLOR)
     {
-        m_hardwareBuffer.BindColor();
+        m_hardwareBuffer.bindColor();
 
         glEnable(GL_COLOR_MATERIAL);
     }
@@ -390,7 +390,7 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
 
     // Rendue ------------------------------------------------------------------
 
-    m_hardwareBuffer.Render(material->m_faceType, offset, size);
+    m_hardwareBuffer.render(material->m_faceType, offset, size);
 
     // Réstorations ------------------------------------------------------------
 
@@ -410,13 +410,13 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
     if(material->m_renderFlags & Material::SHADER)
     {
         if(material->m_renderFlags & Material::TANGENT)
-            m_hardwareBuffer.BindTangent(false, tangentAttribIndex);
+            m_hardwareBuffer.bindTangent(false, tangentAttribIndex);
 
         if(material->m_renderFlags & Material::AOCC)
-            m_hardwareBuffer.BindAocc(false, aoccAttribIndex);
+            m_hardwareBuffer.bindAocc(false, aoccAttribIndex);
 
 
-        material->m_shader.Use(false);
+        material->m_shader.use(false);
     }
 
     if(material->m_renderFlags & Material::TEXTURE)
@@ -436,20 +436,20 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
             glDisable(GL_TEXTURE_2D);
         }
 
-        m_hardwareBuffer.BindTexture(false);
+        m_hardwareBuffer.bindTexture(false);
     }
 
     if(material->m_renderFlags & Material::LIGHT)
     {
-        m_hardwareBuffer.BindNormal(false);
+        m_hardwareBuffer.bindNormal(false);
     }
 
     if(material->m_renderFlags & Material::COLOR)
     {
-        m_hardwareBuffer.BindColor(false);
+        m_hardwareBuffer.bindColor(false);
     }
 
-    m_hardwareBuffer.BindBuffer(false);
+    m_hardwareBuffer.bindBuffer(false);
 
     // NOTE OpenGL 1.4
     glColor4f(1, 1, 1, 1);
@@ -457,30 +457,30 @@ void Mesh::Render(Material* material, unsigned offset, unsigned size)
     glPopAttrib();
 }
 
-void Mesh::Render()
+void Mesh::render()
 {
-    if(!m_enable || m_hardwareBuffer.IsEmpty() || !m_visible)
+    if(!m_enable || m_hardwareBuffer.isEmpty() || !m_visible)
         return;
 
     glPushMatrix();
 
     if(m_parent)
-        glMultMatrixf(m_parent->GetAbsoluteMatrix());
+        glMultMatrixf(m_parent->getAbsoluteMatrix());
 
     glMultMatrixf(m_matrix);
 
     if(m_renderProess.empty())
     {
         Material defaultMateral;
-        Render(&defaultMateral, 0, m_hardwareBuffer.GetVertexCount());
+        render(&defaultMateral, 0, m_hardwareBuffer.getVertexCount());
     }
 
     else
     {
-        std::sort(m_renderProess.begin(), m_renderProess.end(), RenderProcessSortFunc);
+        std::sort(m_renderProess.begin(), m_renderProess.end(), renderProcessSortFunc);
 
         for(unsigned i = 0; i < m_renderProess.size(); i++)
-            Render(m_materials[m_renderProess[i].applyMaterial],
+            render(m_materials[m_renderProess[i].applyMaterial],
                    m_renderProess[i].offset, m_renderProess[i].size);
 
     }
@@ -488,12 +488,12 @@ void Mesh::Render()
     glPopMatrix();
 }
 
-void Mesh::Process()
+void Mesh::process()
 {
     if(!m_enable)
         return;
 
-    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::Process));
+    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::process));
 }
 
 Vector3f RayCastTriangle(Vector3f p, Vector3f d, Vector3f v0, Vector3f v1, Vector3f v2)
@@ -505,33 +505,33 @@ Vector3f RayCastTriangle(Vector3f p, Vector3f d, Vector3f v0, Vector3f v1, Vecto
     e1 = v1 - v0;
     e2 = v2 - v0;
 
-    h = Vector3f::Cross(d, e2);
+    h = Vector3f::cross(d, e2);
 
-    a = Vector3f::Dot(e1, h);
+    a = Vector3f::dot(e1, h);
 
     if(a > -0.00001 && a < 0.00001)
         return p;
 
     f = 1.0f / a;
     s = p - v0;
-    u = f * (Vector3f::Dot(s, h));
+    u = f * (Vector3f::dot(s, h));
 
     if(u < 0.0 || u > 1.0)
         return p;
 
-    q = Vector3f::Cross(s, e1);
+    q = Vector3f::cross(s, e1);
 
-    v = f * Vector3f::Dot(d, q);
+    v = f * Vector3f::dot(d, q);
 
     if(v < 0.0 || u + v > 1.0)
         return p;
 
     // at this stage we can compute t to find out where
     // the intersection point is on the line
-    float t = f * Vector3f::Dot(e2, q);
+    float t = f * Vector3f::dot(e2, q);
 
     if(t > 0.00001) // ray intersection
-        return p + Vector3f::Normalize(d) * t;
+        return p + Vector3f::normalize(d) * t;
 
         // this means that there is a line intersection
         // but not a ray intersection
@@ -539,13 +539,13 @@ Vector3f RayCastTriangle(Vector3f p, Vector3f d, Vector3f v0, Vector3f v1, Vecto
         return p;
 }
 
-bool Mesh::RayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, bool global)
+bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, bool global)
 {
-    Vertex* vertex = m_hardwareBuffer.Lock();
+    Vertex* vertex = m_hardwareBuffer.lock();
 
-    Matrix4f absmat = GetAbsoluteMatrix();
+    Matrix4f absmat = getAbsoluteMatrix();
 
-    const unsigned vertexCount = m_hardwareBuffer.GetVertexCount();
+    const unsigned vertexCount = m_hardwareBuffer.getVertexCount();
 
     Vector3f::Array hits;
 
@@ -568,7 +568,7 @@ bool Mesh::RayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, boo
             hits.push_back(intr);
     }
 
-    m_hardwareBuffer.UnLock();
+    m_hardwareBuffer.unlock();
 
     if(hits.empty())
     {
@@ -583,63 +583,63 @@ bool Mesh::RayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, boo
     }
 }
 
-bool Mesh::FindFloor(Vector3f& pos, bool global)
+bool Mesh::findFloor(Vector3f& pos, bool global)
 {
-    float y = global ? (GetAbsoluteMatrix() * m_aabb.max).y + 1 : m_aabb.max.y + 1;
+    float y = global ? (getAbsoluteMatrix() * m_aabb.max).y + 1 : m_aabb.max.y + 1;
 
-    return RayCast(Vector3f(pos.x, y, pos.z),
+    return rayCast(Vector3f(pos.x, y, pos.z),
                    Vector3f(0, -1, 0), pos, global);
 }
 
-bool Mesh::IsTransparent()
+bool Mesh::isTransparent()
 {
     for(Material::Map::iterator itt = m_materials.begin(); itt != m_materials.end(); itt++)
-        if(itt->second->IsTransparent())
+        if(itt->second->isTransparent())
             return true;
 
     return false;
 }
 
-void Mesh::AddMaterial(std::string name, Material* material)
+void Mesh::addMaterial(std::string name, Material* material)
 {
     m_materials[name] = material;
 
-    material->SetName(name);
+    material->setName(name);
 }
 
-void Mesh::DeleteMaterial(std::string name)
+void Mesh::deleteMaterial(std::string name)
 {
     m_materials.erase(name);
 }
 
-unsigned Mesh::GetMaterialCount()
+unsigned Mesh::getMaterialCount()
 {
     return m_materials.size();
 }
 
-void Mesh::ApplyColor(std::string materialName, Vector4f color)
+void Mesh::applyColor(std::string materialName, Vector4f color)
 {
-    Vector2i::Array apply = GetMaterialApply(materialName);
+    Vector2i::Array apply = getMaterialApply(materialName);
 
-    Vertex* vertex = m_hardwareBuffer.Lock();
+    Vertex* vertex = m_hardwareBuffer.lock();
 
     for(unsigned i = 0; i < apply.size(); i++)
         for(int j = 0; j < apply[i].y; j++)
             vertex[j + apply[i].x].color = color;
 
-    m_hardwareBuffer.UnLock();
+    m_hardwareBuffer.unlock();
 }
 
-void Mesh::ApplyShader(Shader shader)
+void Mesh::applyShader(Shader shader)
 {
     for(Material::Map::iterator itt = m_materials.begin(); itt != m_materials.end(); itt++)
     {
-        itt->second->SetShader(shader);
-        itt->second->Enable(Material::SHADER);
+        itt->second->setShader(shader);
+        itt->second->enable(Material::SHADER);
     }
 }
 
-Material::Array Mesh::GetAllMaterial()
+Material::Array Mesh::getAllMaterial()
 {
     std::vector<Material*> ret;
     ret.reserve(m_materials.size());
@@ -650,7 +650,7 @@ Material::Array Mesh::GetAllMaterial()
     return ret;
 }
 
-Vector2i::Array Mesh::GetMaterialApply(std::string name)
+Vector2i::Array Mesh::getMaterialApply(std::string name)
 {
     Vector2i::Array offset;
 
@@ -665,7 +665,7 @@ Vector2i::Array Mesh::GetMaterialApply(std::string name)
     return offset;
 }
 
-Material* Mesh::GetMaterial(std::string name)
+Material* Mesh::getMaterial(std::string name)
 {
     if(m_materials.find(name) == m_materials.end())
         throw tbe::Exception("Mesh::GetMaterial; Material not found (%s)", name.c_str());
@@ -673,7 +673,7 @@ Material* Mesh::GetMaterial(std::string name)
     return m_materials[name];
 }
 
-Material* Mesh::ReleaseMaterial(std::string name)
+Material* Mesh::releaseMaterial(std::string name)
 {
     if(m_materials.find(name) == m_materials.end())
         throw tbe::Exception("Mesh::ReleaseMaterial; Material not found (%s)", name.c_str());
@@ -683,13 +683,13 @@ Material* Mesh::ReleaseMaterial(std::string name)
     return toRet;
 }
 
-void Mesh::ApplyMaterial(std::string name, unsigned offset, unsigned size)
+void Mesh::applyMaterial(std::string name, unsigned offset, unsigned size)
 {
     RenderProcess rp = {this, name, offset, size};
     m_renderProess.push_back(rp);
 }
 
-void Mesh::ApplyMaterial(Material* material, unsigned offset, unsigned size)
+void Mesh::applyMaterial(Material* material, unsigned offset, unsigned size)
 {
     for(Material::Map::iterator it = m_materials.begin();
         it != m_materials.end(); ++it)
@@ -703,24 +703,24 @@ void Mesh::ApplyMaterial(Material* material, unsigned offset, unsigned size)
     throw tbe::Exception("Mesh::ApplyMaterial; Material ptr not found");
 }
 
-HardwareBuffer& Mesh::GetHardwareBuffer()
+HardwareBuffer& Mesh::getHardwareBuffer()
 {
     return m_hardwareBuffer;
 }
 
-void Mesh::SetVisible(bool visible)
+void Mesh::setVisible(bool visible)
 {
     this->m_visible = visible;
 }
 
-bool Mesh::IsVisible() const
+bool Mesh::isVisible() const
 {
     return m_visible;
 }
 
-Node::CtorMap Mesh::ConstructionMap(std::string root)
+Node::CtorMap Mesh::constructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Node::ConstructionMap(root);
+    Node::CtorMap ctormap = Node::constructionMap(root);
 
     return ctormap;
 }

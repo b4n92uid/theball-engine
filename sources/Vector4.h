@@ -229,12 +229,12 @@ public:
 
     bool operator>(const Vector4& vect1) const
     {
-        return (GetMagnitude() > vect1.GetMagnitude());
+        return (getMagnitude() > vect1.getMagnitude());
     }
 
     bool operator<(const Vector4& vect1) const
     {
-        return (GetMagnitude() < vect1.GetMagnitude());
+        return (getMagnitude() < vect1.getMagnitude());
     }
 
     bool operator==(const T& value) const
@@ -249,12 +249,12 @@ public:
 
     bool operator>(const T& value) const
     {
-        return (GetMagnitude() > value);
+        return (getMagnitude() > value);
     }
 
     bool operator<(const T& value) const
     {
-        return (GetMagnitude() < value);
+        return (getMagnitude() < value);
     }
 
     Vector4 operator+(const Vector4& vect1) const
@@ -317,56 +317,51 @@ public:
         return Vector4(value) /= vec;
     }
 
-    Vector4& Rotate(T xrel, T yrel)
+    Vector4& rotate(T xrel, T yrel)
     {
-        float m = GetMagnitude();
+        float m = getMagnitude();
 
-        x = cos(yrel * M_PI / 180) * cos(xrel * M_PI / 180) * GetMagnitude();
-        y = sin(yrel * M_PI / 180) * GetMagnitude();
-        z = cos(yrel * M_PI / 180) * sin(xrel * M_PI / 180) * GetMagnitude();
+        x = cos(yrel * M_PI / 180) * cos(xrel * M_PI / 180) * getMagnitude();
+        y = sin(yrel * M_PI / 180) * getMagnitude();
+        z = cos(yrel * M_PI / 180) * sin(xrel * M_PI / 180) * getMagnitude();
 
         *this *= m;
 
         return *this;
     }
 
-    static Vector4 Rotate(const Vector4& vec, T xrel, T yrel)
+    static Vector4 rotate(const Vector4& vec, T xrel, T yrel)
     {
-        return Vector4(vec).Rotate(xrel, yrel);
+        return Vector4(vec).rotate(xrel, yrel);
     }
 
-    Vector4& Normalize()
+    Vector4& normalize()
     {
-        T length = GetMagnitude();
+        T length = getMagnitude();
 
         return (length == 0) ? (*this)(0) : (*this /= length);
     }
 
-    static Vector4 Normalize(const Vector4& vec)
+    static Vector4 normalize(const Vector4& vec)
     {
-        return Vector4(vec).Normalize();
+        return Vector4(vec).normalize();
     }
 
-    T GetMagnitude() const
+    T getMagnitude() const
     {
         return (T)sqrt(x * x + y * y + z * z);
     }
 
-    float GetAverage() const
+    float getAverage() const
     {
 
         return (x + y + z + w) / 4;
     }
 
-    bool IsInside(const Vector4& min, const Vector4& max) const
+    bool isInside(const Vector4& min, const Vector4& max) const
     {
 
         return (x >= min.x && y >= min.y && z >= min.z && x <= max.x && y <= max.y && z <= max.z);
-    }
-
-    T Unit()
-    {
-        return (x + y + z + w) / 4.0f;
     }
 
     static Vector4 X(float value = 1)
@@ -389,13 +384,12 @@ public:
         return Vector4(0, 0, 0, value);
     }
 
-    static float Dot(const Vector4& a, const Vector4& b)
+    static float dot(const Vector4& a, const Vector4& b)
     {
-
         return (a.x * b.x + a.y * b.y + a.z * b.z);
     }
 
-    static Vector4 Cross(const Vector4& a, const Vector4& b)
+    static Vector4 cross(const Vector4& a, const Vector4& b)
     {
         Vector4 n;
 

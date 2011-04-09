@@ -37,34 +37,34 @@ public:
     Camera(CameraType type = TARGET_ABSOLUTE, Vector3f posistion = 0, Vector3f target = Vector3f(0, 0, 1), float sensivity = 0.1);
     virtual ~Camera();
 
-    void Engine();
+    void look();
 
-    void Push();
-    void Pop();
+    void push();
+    void pop();
 
     /// Rotation du vecteur target (en degres)
-    void SetRotate(Vector2f rel);
+    void setRotate(Vector2f rel);
 
     /// Rotation relative du vecteur target (en degres)
-    void SetRelRotate(Vector2f rel);
+    void rotate(Vector2f rel);
 
-    void SetSensivity(float value);
-    float GetSensivity() const;
+    void setSensivity(float value);
+    float getSensivity() const;
 
-    void SetUp(Vector3f up);
-    Vector3f GetUp() const;
+    void setUp(Vector3f up);
+    Vector3f getUp() const;
 
-    void SetLeft(Vector3f left);
-    Vector3f GetLeft() const;
+    void setLeft(Vector3f left);
+    Vector3f getLeft() const;
 
-    void SetTarget(Vector3f target);
-    Vector3f GetTarget() const;
+    void setTarget(Vector3f target);
+    Vector3f getTarget() const;
 
-    void SetPos(Vector3f pos);
-    Vector3f GetPos() const;
+    void setPos(Vector3f pos);
+    Vector3f getPos() const;
 
-    void SetCameraType(CameraType cameraType);
-    CameraType GetCameraType() const;
+    void setCameraType(CameraType cameraType);
+    CameraType getCameraType() const;
 
 protected:
     CameraType m_cameraType;
@@ -83,7 +83,8 @@ class UserCamera : public Camera
 public:
     UserCamera();
     virtual ~UserCamera();
-    virtual void OnEvent(EventManager* event) = 0;
+
+    virtual void onEvent(EventManager* event) = 0;
 
     struct Moves
     {
@@ -107,13 +108,14 @@ class OrbitalCamera : public UserCamera
 {
 public:
     OrbitalCamera();
-    void OnEvent(EventManager* event);
 
-    void SetDistance(float distance);
-    float GetDistance() const;
+    void onEvent(EventManager* event);
 
-    void SetCenter(Vector3f center);
-    Vector3f GetCenter() const;
+    void setDistance(float distance);
+    float getDistance() const;
+
+    void setCenter(Vector3f center);
+    Vector3f getCenter() const;
 
 protected:
     Vector3f m_center;
@@ -127,10 +129,11 @@ class FreeFlyCamera : public UserCamera
 {
 public:
     FreeFlyCamera();
-    void OnEvent(EventManager* event);
 
-    void SetSpeed(float speed);
-    float GetSpeed() const;
+    void onEvent(EventManager* event);
+
+    void setSpeed(float speed);
+    float getSpeed() const;
 
 protected:
     float m_speed;

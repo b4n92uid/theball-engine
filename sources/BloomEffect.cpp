@@ -67,25 +67,25 @@ static const char blurFragShader[] =
 
 BloomEffect::BloomEffect()
 {
-    m_processShader.ParseVertexShader(textureVertexShader);
-    m_processShader.ParseFragmentShader(brightFragShader);
-    m_processShader.LoadProgram();
+    m_processShader.parseVertexShader(textureVertexShader);
+    m_processShader.parseFragmentShader(brightFragShader);
+    m_processShader.loadProgram();
 
-    m_blurShader.ParseVertexShader(textureVertexShader);
-    m_blurShader.ParseFragmentShader(blurFragShader);
-    m_blurShader.LoadProgram();
+    m_blurShader.parseVertexShader(textureVertexShader);
+    m_blurShader.parseFragmentShader(blurFragShader);
+    m_blurShader.loadProgram();
 
     m_blurPass = 1;
 
-    SetThreshold(0.5);
-    SetIntensity(1.0);
+    setThreshold(0.5);
+    setIntensity(1.0);
 }
 
 BloomEffect::~BloomEffect()
 {
 }
 
-void BloomEffect::Process(Rtt* rtt)
+void BloomEffect::process(Rtt* rtt)
 {
     /*
      * Etape du bloom :
@@ -97,27 +97,27 @@ void BloomEffect::Process(Rtt* rtt)
 
     // Step 1 ------------------------------------------------------------------
 
-    m_workRtt->Use(true);
+    m_workRtt->use(true);
 
-    m_processShader.Use(true);
+    m_processShader.use(true);
 
-    rtt->GetColor().Use(true);
-    m_layer.Draw();
+    rtt->getColor().use(true);
+    m_layer.draw();
 
-    m_processShader.Use(false);
+    m_processShader.use(false);
 
     // Step 2 ------------------------------------------------------------------
 
-    m_blurShader.Use(true);
+    m_blurShader.use(true);
 
-    m_workRtt->GetColor().Use(true);
+    m_workRtt->getColor().use(true);
 
     for(unsigned i = 0; i < m_blurPass; i++)
-        m_layer.Draw();
+        m_layer.draw();
 
-    m_blurShader.Use(false);
+    m_blurShader.use(false);
 
-    m_workRtt->Use(false);
+    m_workRtt->use(false);
 
     // Step 3 ------------------------------------------------------------------
 
@@ -126,56 +126,56 @@ void BloomEffect::Process(Rtt* rtt)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
-    rtt->Use(true);
+    rtt->use(true);
 
-    if(!FrameBufferObject::CheckHardware())
+    if(!FrameBufferObject::checkHardware())
     {
-        rtt->GetColor().Use(true);
-        m_layer.Draw();
+        rtt->getColor().use(true);
+        m_layer.draw();
     }
 
-    m_workRtt->GetColor().Use(true);
-    m_layer.Draw();
+    m_workRtt->getColor().use(true);
+    m_layer.draw();
 
-    rtt->Use(false);
+    rtt->use(false);
 
     glPopAttrib();
 }
 
-void BloomEffect::SetIntensity(float intensity)
+void BloomEffect::setIntensity(float intensity)
 {
     this->m_intensity = intensity;
 
-    m_processShader.Use(true);
-    m_processShader.SetUniform("intensity", intensity);
-    m_processShader.Use(false);
+    m_processShader.use(true);
+    m_processShader.uniform("intensity", intensity);
+    m_processShader.use(false);
 }
 
-float BloomEffect::GetIntensity() const
+float BloomEffect::getIntensity() const
 {
     return m_intensity;
 }
 
-void BloomEffect::SetThreshold(float threshold)
+void BloomEffect::setThreshold(float threshold)
 {
     this->m_threshold = threshold;
 
-    m_processShader.Use(true);
-    m_processShader.SetUniform("threshold", threshold);
-    m_processShader.Use(false);
+    m_processShader.use(true);
+    m_processShader.uniform("threshold", threshold);
+    m_processShader.use(false);
 }
 
-float BloomEffect::GetThreshold() const
+float BloomEffect::getThreshold() const
 {
     return m_threshold;
 }
 
-void BloomEffect::SetBlurPass(unsigned blurPass)
+void BloomEffect::setBlurPass(unsigned blurPass)
 {
     this->m_blurPass = blurPass;
 }
 
-unsigned BloomEffect::GetBlurPass() const
+unsigned BloomEffect::getBlurPass() const
 {
     return m_blurPass;
 }

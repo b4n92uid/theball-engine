@@ -33,40 +33,40 @@ struct DepthSortMeshFunc
 
     bool operator()(Mesh* node1, Mesh * node2)
     {
-        return (node1->GetPos() - camPos) > (node2->GetPos() - camPos);
+        return (node1->getPos() - camPos) > (node2->getPos() - camPos);
     }
 
     Vector3f camPos;
 };
 
-void MeshParallelScene::Render()
+void MeshParallelScene::render()
 {
-    Frustum* frustum = m_sceneManager->GetFrustum();
+    Frustum* frustum = m_sceneManager->getFrustum();
 
     m_frustumCullingCount = 0;
 
     static DepthSortMeshFunc sortFunc;
-    sortFunc.camPos = m_sceneManager->GetCurCamera()->GetPos();
+    sortFunc.camPos = m_sceneManager->getCurCamera()->getPos();
     std::sort(m_nodes.begin(), m_nodes.end(), sortFunc);
 
     for(Mesh::Array::iterator it = m_nodes.begin(); it != m_nodes.end(); ++it)
     {
         Node* node = *it;
 
-        if(!node->IsAttached())
+        if(!node->isAttached())
             continue;
 
-        if(m_enableFrustumTest && !frustum->IsInside(node))
+        if(m_enableFrustumTest && !frustum->isInside(node))
         {
             m_frustumCullingCount++;
             continue;
         }
 
-        node->Render();
+        node->render();
     }
 }
 
-bool MeshParallelScene::FindFloor(Vector3f& pos)
+bool MeshParallelScene::findFloor(Vector3f& pos)
 {
     bool atleastone = false;
 
@@ -76,7 +76,7 @@ bool MeshParallelScene::FindFloor(Vector3f& pos)
     {
         float lastY = pos.y;
 
-        if(m_nodes[i]->FindFloor(pos, true))
+        if(m_nodes[i]->findFloor(pos, true))
         {
             atleastone = true;
             pos.y = std::max(pos.y, lastY);
@@ -86,24 +86,24 @@ bool MeshParallelScene::FindFloor(Vector3f& pos)
     return atleastone;
 }
 
-void MeshParallelScene::SetInFloor(Node* node)
+void MeshParallelScene::setInFloor(Node* node)
 {
-    Vector3f pos = node->GetPos();
+    Vector3f pos = node->getPos();
 
     pos.y = getSceneAabb().min.y - 1;
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
     {
-        if(m_nodes[i] == node || !m_nodes[i]->IsEnable())
+        if(m_nodes[i] == node || !m_nodes[i]->isEnable())
             continue;
 
         float lastY = pos.y;
 
-        if(m_nodes[i]->FindFloor(pos, true))
+        if(m_nodes[i]->findFloor(pos, true))
             pos.y = std::max(pos.y, lastY);
     }
 
-    node->SetPos(pos);
+    node->setPos(pos);
 }
 
 AABB MeshParallelScene::getSceneAabb()
@@ -111,27 +111,27 @@ AABB MeshParallelScene::getSceneAabb()
     AABB sceneAabb;
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
-        sceneAabb.Count(m_nodes[i]);
+        sceneAabb.count(m_nodes[i]);
 
     return sceneAabb;
 }
 
-void MeshParallelScene::SetEnableFrustumTest(bool enableFrustumTest)
+void MeshParallelScene::setEnableFrustumTest(bool enableFrustumTest)
 {
     this->m_enableFrustumTest = enableFrustumTest;
 }
 
-bool MeshParallelScene::IsEnableFrustumTest() const
+bool MeshParallelScene::isEnableFrustumTest() const
 {
     return m_enableFrustumTest;
 }
 
-void MeshParallelScene::SetFrustumCullingCount(unsigned frustumCullingCount)
+void MeshParallelScene::setFrustumCullingCount(unsigned frustumCullingCount)
 {
     this->m_frustumCullingCount = frustumCullingCount;
 }
 
-unsigned MeshParallelScene::GetFrustumCullingCount() const
+unsigned MeshParallelScene::getFrustumCullingCount() const
 {
     return m_frustumCullingCount;
 }

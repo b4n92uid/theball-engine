@@ -57,12 +57,12 @@ HardwareBuffer& HardwareBuffer::operator=(const HardwareBuffer& hb)
 {
     m_vertex = hb.m_vertex;
 
-    Compile(hb.m_usage);
+    compile(hb.m_usage);
 
     return *this;
 }
 
-Vertex* HardwareBuffer::Lock(GLenum usage)
+Vertex* HardwareBuffer::lock(GLenum usage)
 {
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
     Vertex* offset = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, usage));
@@ -70,38 +70,38 @@ Vertex* HardwareBuffer::Lock(GLenum usage)
     return offset;
 }
 
-void HardwareBuffer::UnLock()
+void HardwareBuffer::unlock()
 {
     glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
-bool HardwareBuffer::IsEmpty()
+bool HardwareBuffer::isEmpty()
 {
     return !m_vertexCount && !m_bufferSize;
 }
 
-void HardwareBuffer::AddFace(const Face& face)
+void HardwareBuffer::addFace(const Face& face)
 {
     m_vertex.insert(m_vertex.end(), face.begin(), face.end());
 }
 
-void HardwareBuffer::AddVertex(const Vertex& vertex)
+void HardwareBuffer::addVertex(const Vertex& vertex)
 {
     m_vertex.push_back(vertex);
 }
 
-void HardwareBuffer::AddVertex(const Vertex* array, unsigned size)
+void HardwareBuffer::addVertex(const Vertex* array, unsigned size)
 {
     m_vertex.insert(m_vertex.end(), array, array + size);
 }
 
-void HardwareBuffer::AddVertex(const Vertex::Array& array)
+void HardwareBuffer::addVertex(const Vertex::Array& array)
 {
     m_vertex.insert(m_vertex.end(), array.begin(), array.end());
 }
 
-void HardwareBuffer::Compile(GLenum usage)
+void HardwareBuffer::compile(GLenum usage)
 {
     m_usage = usage;
     m_vertexCount = m_vertex.size();
@@ -116,7 +116,7 @@ void HardwareBuffer::Compile(GLenum usage)
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
-void HardwareBuffer::BindBuffer(bool state)
+void HardwareBuffer::bindBuffer(bool state)
 {
     if(state)
     {
@@ -134,7 +134,7 @@ void HardwareBuffer::BindBuffer(bool state)
     }
 }
 
-void HardwareBuffer::BindNormal(bool state)
+void HardwareBuffer::bindNormal(bool state)
 {
     if(state)
     {
@@ -146,7 +146,7 @@ void HardwareBuffer::BindNormal(bool state)
         glDisableClientState(GL_NORMAL_ARRAY);
 }
 
-void HardwareBuffer::BindColor(bool state)
+void HardwareBuffer::bindColor(bool state)
 {
     if(state)
     {
@@ -158,7 +158,7 @@ void HardwareBuffer::BindColor(bool state)
         glDisableClientState(GL_COLOR_ARRAY);
 }
 
-void HardwareBuffer::BindTexture(bool state)
+void HardwareBuffer::bindTexture(bool state)
 {
     if(state)
     {
@@ -170,7 +170,7 @@ void HardwareBuffer::BindTexture(bool state)
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void HardwareBuffer::BindTangent(bool state, GLint location)
+void HardwareBuffer::bindTangent(bool state, GLint location)
 {
     if(state)
     {
@@ -182,7 +182,7 @@ void HardwareBuffer::BindTangent(bool state, GLint location)
         glDisableVertexAttribArray(location);
 }
 
-void HardwareBuffer::BindAocc(bool state, GLint location)
+void HardwareBuffer::bindAocc(bool state, GLint location)
 {
     if(state)
     {
@@ -194,17 +194,17 @@ void HardwareBuffer::BindAocc(bool state, GLint location)
         glDisableVertexAttribArray(location);
 }
 
-void HardwareBuffer::Render(GLenum mode, unsigned first, unsigned count)
+void HardwareBuffer::render(GLenum mode, unsigned first, unsigned count)
 {
     glDrawArrays(mode, first, count ? count : m_vertexCount);
 }
 
-unsigned HardwareBuffer::GetBufferSize() const
+unsigned HardwareBuffer::getBufferSize() const
 {
     return m_bufferSize;
 }
 
-unsigned HardwareBuffer::GetVertexCount() const
+unsigned HardwareBuffer::getVertexCount() const
 {
     return m_vertex.size();
 }
@@ -214,12 +214,12 @@ inline bool VertexComparePredicat(Vertex& v1, Vertex& v2)
     return (v1.pos == v2.pos);
 }
 
-Face::Array HardwareBuffer::GetAllFace()
+Face::Array HardwareBuffer::getAllFace()
 {
     Face::Array faceArray;
     faceArray.reserve(m_vertexCount / 3);
 
-    Vertex* vertex = Lock(GL_READ_ONLY_ARB);
+    Vertex* vertex = lock(GL_READ_ONLY_ARB);
 
     for(unsigned i = 0; i < m_vertexCount; i += 3)
     {
@@ -231,18 +231,18 @@ Face::Array HardwareBuffer::GetAllFace()
         faceArray.push_back(f);
     }
 
-    UnLock();
+    unlock();
 
     return faceArray;
 }
 
-Vertex::Array HardwareBuffer::GetAllVertex(bool makeUnique)
+Vertex::Array HardwareBuffer::getAllVertex(bool makeUnique)
 {
     Vertex::Array allVertexs;
 
-    Vertex* vertex = Lock(GL_READ_ONLY_ARB);
+    Vertex* vertex = lock(GL_READ_ONLY_ARB);
     allVertexs.assign(vertex, vertex + m_vertexCount);
-    UnLock();
+    unlock();
 
     if(makeUnique)
     {
@@ -253,7 +253,7 @@ Vertex::Array HardwareBuffer::GetAllVertex(bool makeUnique)
     return allVertexs;
 }
 
-bool HardwareBuffer::CheckHardware()
+bool HardwareBuffer::checkHardware()
 {
     return GLEE_ARB_vertex_buffer_object;
 }

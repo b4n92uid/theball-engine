@@ -14,41 +14,41 @@ Image::Image(Texture background)
 
     if(background)
     {
-        SetBackground(background);
-        SetSize(background.GetSize());
+        setBackground(background);
+        setSize(background.getSize());
     }
 }
 
-bool Image::OnEvent(const EventManager& event)
+bool Image::onEvent(const EventManager& event)
 {
     return false;
 }
 
-void Image::ObjectRender()
+void Image::objectRender()
 {
-    m_background.Use();
+    m_background.use();
 
     switch(m_drawDiriction)
     {
     case DRAW_UPPER_LEFT:
-        DrawSurface(m_pos, m_size, 0, 1);
+        drawSurface(m_pos, m_size, 0, 1);
         break;
     case DRAW_UPPER_RIGHT:
-        DrawSurface(Vector2f(m_pos.x, m_pos.y + m_size.y), Vector2f(m_size.x, -m_size.y), 0, 1);
+        drawSurface(Vector2f(m_pos.x, m_pos.y + m_size.y), Vector2f(m_size.x, -m_size.y), 0, 1);
         break;
     }
 }
 
-void Image::SetSkin(const GuiSkin& skin)
+void Image::setSkin(const GuiSkin& skin)
 {
 }
 
-void Image::SetDrawDiriction(DrawDiriction drawDiriction)
+void Image::setDrawDiriction(DrawDiriction drawDiriction)
 {
     this->m_drawDiriction = drawDiriction;
 }
 
-Image::DrawDiriction Image::GetDrawDiriction() const
+Image::DrawDiriction Image::getDrawDiriction() const
 {
     return m_drawDiriction;
 }

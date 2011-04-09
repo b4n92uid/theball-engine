@@ -24,16 +24,16 @@ public:
     BloomEffect();
     virtual ~BloomEffect();
 
-    void Process(Rtt* rtt);
+    void process(Rtt* rtt);
 
-    void SetIntensity(float intensity);
-    float GetIntensity() const;
+    void setIntensity(float intensity);
+    float getIntensity() const;
 
-    void SetThreshold(float threshold);
-    float GetThreshold() const;
+    void setThreshold(float threshold);
+    float getThreshold() const;
     
-    void SetBlurPass(unsigned blurPass);
-    unsigned GetBlurPass() const;
+    void setBlurPass(unsigned blurPass);
+    unsigned getBlurPass() const;
 
 private:
     Shader m_blurShader;

@@ -22,22 +22,22 @@ ParallelScene::~ParallelScene()
 {
 }
 
-void ParallelScene::SetSceneManager(SceneManager* sceneManager)
+void ParallelScene::setSceneManager(SceneManager* sceneManager)
 {
     this->m_sceneManager = sceneManager;
 }
 
-SceneManager* ParallelScene::GetSceneManager() const
+SceneManager* ParallelScene::getSceneManager() const
 {
     return m_sceneManager;
 }
 
-void ParallelScene::SetEnable(bool enable)
+void ParallelScene::setEnable(bool enable)
 {
     this->m_enable = enable;
 }
 
-bool ParallelScene::IsEnable() const
+bool ParallelScene::isEnable() const
 {
     return m_enable;
 }

@@ -56,37 +56,37 @@ public:
     virtual ~Device();
 
     /// Efface la scene
-    void BeginScene();
+    void beginScene();
 
     /// Rendue de la scene
-    void EndScene();
+    void endScene();
 
     /// Accès au evenement récpere
-    EventManager* GetEventManager();
+    EventManager* getEventManager();
 
     /// Accès aux gestionnaire de SCENE
-    scene::SceneManager* GetSceneManager();
+    scene::SceneManager* getSceneManager();
 
     /// Accès aux gestionnaire de GUI
-    gui::GuiManager* GetGuiManager();
+    gui::GuiManager* getGuiManager();
 
     /// Accès aux gestionnaire du FPS
-    ticks::FpsManager* GetFpsManager();
+    ticks::FpsManager* getFpsManager();
 
     /// Accès aux gestionnaire d'effets apres traitement
-    ppe::PostProcessManager* GetPostProcessManager() const;
+    ppe::PostProcessManager* getPostProcessManager() const;
 
     /// Initilisation
-    void Init();
+    void init();
 
     /// Taille du viewport
-    void SetViewportSize(Vector2i viewportSize);
-    Vector2i GetViewportSize() const;
+    void setViewportSize(Vector2i viewportSize);
+    Vector2i getViewportSize() const;
 
     // Static ------------------------------------------------------------------
 
     /// Renvoi la version du moteur (Build Date)
-    static std::string GetVersion();
+    static std::string getVersion();
 
 protected:
     scene::SceneManager* m_sceneManager;

@@ -23,7 +23,7 @@ public:
     LightParallelScene();
     virtual ~LightParallelScene();
 
-    void Render();
+    void render();
 };
 
 }

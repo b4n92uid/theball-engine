@@ -116,23 +116,23 @@ using namespace tbe::scene;
 
 Water::Water(WaterParallelScene* scene)
 {
-    m_shader.ParseVertexShader(vertexShader);
-    m_shader.ParseFragmentShader(fragmentShader);
-    m_shader.LoadProgram();
+    m_shader.parseVertexShader(vertexShader);
+    m_shader.parseFragmentShader(fragmentShader);
+    m_shader.loadProgram();
 
-    m_shader.Use(true);
-    m_shader.SetUniform("normalMap", 0);
-    m_shader.SetUniform("reflexionMap", 1);
-    m_shader.SetUniform("refractionMap", 2);
-    m_shader.Use(false);
+    m_shader.use(true);
+    m_shader.uniform("normalMap", 0);
+    m_shader.uniform("reflexionMap", 1);
+    m_shader.uniform("refractionMap", 2);
+    m_shader.use(false);
 
-    m_reflection.SetFrameSize(128);
-    m_reflection.SetCaptureColor(true);
-    m_reflection.SetCaptureDepth(true);
+    m_reflection.setFrameSize(128);
+    m_reflection.setCaptureColor(true);
+    m_reflection.setCaptureDepth(true);
 
-    m_refraction.SetFrameSize(128);
-    m_refraction.SetCaptureColor(true);
-    m_refraction.SetCaptureDepth(true);
+    m_refraction.setFrameSize(128);
+    m_refraction.setCaptureColor(true);
+    m_refraction.setCaptureDepth(true);
 
     Vertex vertex[6] = {
         Vertex(Vector3f(1, 0, -1), Vector3f(0, 1, 0), 1, Vector2f(0, 1)),
@@ -143,14 +143,14 @@ Water::Water(WaterParallelScene* scene)
         Vertex(Vector3f(1, 0, -1), Vector3f(0, 1, 0), 1, Vector2f(0, 1)),
     };
 
-    m_buffer.AddVertex(vertex, 6);
+    m_buffer.addVertex(vertex, 6);
 
-    m_buffer.Compile();
+    m_buffer.compile();
 
     Node::m_parallelScene = m_parallelScene = scene;
-    m_sceneManager = m_parallelScene->GetSceneManager();
+    m_sceneManager = m_parallelScene->getSceneManager();
 
-    m_parallelScene->Register(this);
+    m_parallelScene->registerNode(this);
 }
 
 Water::~Water()
@@ -159,23 +159,23 @@ Water::~Water()
 
 Water::Water(const Water& copy)
 {
-    m_shader.ParseVertexShader(vertexShader);
-    m_shader.ParseFragmentShader(fragmentShader);
-    m_shader.LoadProgram();
+    m_shader.parseVertexShader(vertexShader);
+    m_shader.parseFragmentShader(fragmentShader);
+    m_shader.loadProgram();
 
-    m_shader.Use(true);
-    m_shader.SetUniform("normalMap", 0);
-    m_shader.SetUniform("reflexionMap", 1);
-    m_shader.SetUniform("refractionMap", 2);
-    m_shader.Use(false);
+    m_shader.use(true);
+    m_shader.uniform("normalMap", 0);
+    m_shader.uniform("reflexionMap", 1);
+    m_shader.uniform("refractionMap", 2);
+    m_shader.use(false);
 
-    m_reflection.SetFrameSize(128);
-    m_reflection.SetCaptureColor(true);
-    m_reflection.SetCaptureDepth(true);
+    m_reflection.setFrameSize(128);
+    m_reflection.setCaptureColor(true);
+    m_reflection.setCaptureDepth(true);
 
-    m_refraction.SetFrameSize(128);
-    m_refraction.SetCaptureColor(true);
-    m_refraction.SetCaptureDepth(true);
+    m_refraction.setFrameSize(128);
+    m_refraction.setCaptureColor(true);
+    m_refraction.setCaptureDepth(true);
 
     Vertex vertex[6] = {
         Vertex(Vector3f(1, 0, -1), Vector3f(0, 1, 0), 1, Vector2f(0, 1)),
@@ -186,13 +186,13 @@ Water::Water(const Water& copy)
         Vertex(Vector3f(1, 0, -1), Vector3f(0, 1, 0), 1, Vector2f(0, 1)),
     };
 
-    m_buffer.AddVertex(vertex, 6);
+    m_buffer.addVertex(vertex, 6);
 
-    m_buffer.Compile();
+    m_buffer.compile();
 
     *this = copy;
 
-    m_parallelScene->Register(this);
+    m_parallelScene->registerNode(this);
 }
 
 Water& Water::operator=(const Water& copy)
@@ -215,28 +215,28 @@ Water& Water::operator=(const Water& copy)
 
 void Water::BeginReflection()
 {
-    m_reflection.Use(true);
-    m_reflection.Clear();
+    m_reflection.use(true);
+    m_reflection.clear();
 
     glPushMatrix();
     glLoadIdentity();
 
-    Camera* cam = m_parallelScene->GetSceneManager()->GetCurCamera();
-    cam->Engine();
+    Camera* cam = m_parallelScene->getSceneManager()->getCurCamera();
+    cam->look();
 
     glEnable(GL_CLIP_PLANE0);
 
-    float height = m_matrix.GetPos().y;
+    float height = m_matrix.getPos().y;
 
-    if(cam->GetPos().y > height)
+    if(cam->getPos().y > height)
         glClipPlane(GL_CLIP_PLANE0, Vector4<double>(0, -1, 0, 0));
 
     else
         glClipPlane(GL_CLIP_PLANE0, Vector4<double>(0, 1, 0, 0));
 
 
-    cam->Push();
-    cam->SetPos(cam->GetPos() * Vector3f(1, -1, 1));
+    cam->push();
+    cam->setPos(cam->getPos() * Vector3f(1, -1, 1));
 
     glScalef(1, -1, 1);
 }
@@ -245,28 +245,28 @@ void Water::EndReflection()
 {
     glDisable(GL_CLIP_PLANE0);
 
-    Camera* cam = m_parallelScene->GetSceneManager()->GetCurCamera();
-    cam->Pop();
+    Camera* cam = m_parallelScene->getSceneManager()->getCurCamera();
+    cam->pop();
 
     glPopMatrix();
 
-    m_reflection.Use(false);
+    m_reflection.use(false);
 }
 
 void Water::BeginRefraction()
 {
-    m_refraction.Use(true);
-    m_refraction.Clear();
+    m_refraction.use(true);
+    m_refraction.clear();
 
     glPushMatrix();
     glLoadIdentity();
 
-    Camera* cam = m_parallelScene->GetSceneManager()->GetCurCamera();
-    cam->Engine();
+    Camera* cam = m_parallelScene->getSceneManager()->getCurCamera();
+    cam->look();
 
-    float height = m_matrix.GetPos().y;
+    float height = m_matrix.getPos().y;
 
-    if(cam->GetPos().y > height)
+    if(cam->getPos().y > height)
     {
         glEnable(GL_CLIP_PLANE0);
         glClipPlane(GL_CLIP_PLANE0, Vector4<double>(0, -1, 0, 0));
@@ -279,7 +279,7 @@ void Water::EndRefraction()
 
     glPopMatrix();
 
-    m_refraction.Use(false);
+    m_refraction.use(false);
 }
 
 Rtt& Water::GetReflection()
@@ -296,9 +296,9 @@ void Water::SetSpeed(float speed)
 {
     this->m_speed = speed;
 
-    m_shader.Use(true);
-    m_shader.SetUniform("speed", m_speed);
-    m_shader.Use(false);
+    m_shader.use(true);
+    m_shader.uniform("speed", m_speed);
+    m_shader.use(false);
 }
 
 float Water::GetSpeed() const
@@ -310,9 +310,9 @@ void Water::SetDeform(float deform)
 {
     this->m_deform = max(min(deform, 1.0f), 0.0f);
 
-    m_shader.Use(true);
-    m_shader.SetUniform("deform", m_deform);
-    m_shader.Use(false);
+    m_shader.use(true);
+    m_shader.uniform("deform", m_deform);
+    m_shader.use(false);
 }
 
 float Water::GetDeform() const
@@ -324,9 +324,9 @@ void Water::SetBlend(float blend)
 {
     this->m_blend = max(min(blend, 1.0f), 0.0f);
 
-    m_shader.Use(true);
-    m_shader.SetUniform("blend", m_blend);
-    m_shader.Use(false);
+    m_shader.use(true);
+    m_shader.uniform("blend", m_blend);
+    m_shader.use(false);
 }
 
 float Water::GetBlend() const
@@ -338,9 +338,9 @@ void Water::SetUvRepeat(Vector2f uvRepeat)
 {
     this->m_uvRepeat = uvRepeat;
 
-    m_shader.Use(true);
-    m_shader.SetUniform("uvRepeat", m_uvRepeat);
-    m_shader.Use(false);
+    m_shader.use(true);
+    m_shader.uniform("uvRepeat", m_uvRepeat);
+    m_shader.use(false);
 }
 
 Vector2f Water::GetUvRepeat() const
@@ -348,46 +348,46 @@ Vector2f Water::GetUvRepeat() const
     return m_uvRepeat;
 }
 
-Water* Water::Clone()
+Water* Water::clone()
 {
     return new Water(*this);
 }
 
-void Water::Process()
+void Water::process()
 {
     if(!m_enable)
         return;
 
-    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::Process));
+    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::process));
 }
 
-void Water::Render()
+void Water::render()
 {
-    m_buffer.BindBuffer();
-    m_buffer.BindTexture();
+    m_buffer.bindBuffer();
+    m_buffer.bindTexture();
 
-    m_shader.Use(true);
-    m_shader.SetUniform("timer", (float)(clock() * 0.001f));
+    m_shader.use(true);
+    m_shader.uniform("timer", (float)(clock() * 0.001f));
 
     glClientActiveTexture(GL_TEXTURE0);
     glActiveTexture(GL_TEXTURE0);
     glEnable(GL_TEXTURE_2D);
-    m_normalMap.Use(true);
+    m_normalMap.use(true);
 
     glClientActiveTexture(GL_TEXTURE1);
     glActiveTexture(GL_TEXTURE1);
     glEnable(GL_TEXTURE_2D);
-    m_reflection.GetColor().Use(true);
+    m_reflection.getColor().use(true);
 
     glClientActiveTexture(GL_TEXTURE2);
     glActiveTexture(GL_TEXTURE2);
     glEnable(GL_TEXTURE_2D);
-    m_refraction.GetColor().Use(true);
+    m_refraction.getColor().use(true);
 
     glPushMatrix();
     glMultMatrixf(m_matrix);
 
-    m_buffer.Render();
+    m_buffer.render();
 
     glPopMatrix();
 
@@ -403,10 +403,10 @@ void Water::Render()
     glActiveTexture(GL_TEXTURE0);
     glDisable(GL_TEXTURE_2D);
 
-    m_shader.Use(false);
+    m_shader.use(false);
 
-    m_buffer.BindTexture(false);
-    m_buffer.BindBuffer(false);
+    m_buffer.bindTexture(false);
+    m_buffer.bindBuffer(false);
 }
 
 void Water::SetNormalMap(Texture normalMap)
@@ -423,7 +423,7 @@ void Water::SetSize(Vector2f size)
 {
     this->m_size = size;
 
-    Vertex* vertex = m_buffer.Lock();
+    Vertex* vertex = m_buffer.lock();
 
     for(unsigned i = 0; i < 6; i++)
     {
@@ -433,14 +433,14 @@ void Water::SetSize(Vector2f size)
         if(vertex[i].pos.z)
             vertex[i].pos.z = vertex[i].pos.z > 0 ? m_size.y : -m_size.y;
 
-        m_aabb.Count(vertex[i].pos);
+        m_aabb.count(vertex[i].pos);
     }
 
-    m_buffer.UnLock();
+    m_buffer.unlock();
 
-    m_shader.Use(true);
-    m_shader.SetUniform("endborder", max(m_size.x, m_size.y));
-    m_shader.Use(false);
+    m_shader.use(true);
+    m_shader.uniform("endborder", max(m_size.x, m_size.y));
+    m_shader.use(false);
 }
 
 Vector2f Water::GetSize() const
@@ -448,13 +448,13 @@ Vector2f Water::GetSize() const
     return m_size;
 }
 
-Node::CtorMap Water::ConstructionMap(std::string root)
+Node::CtorMap Water::constructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Node::ConstructionMap(root);
+    Node::CtorMap ctormap = Node::constructionMap(root);
 
     ctormap["class"] = "Water";
 
-    ctormap["normalMap"] = m_normalMap.GetFilename();
+    ctormap["normalMap"] = m_normalMap.getFilename();
     ctormap["size"] = tools::numToStr(m_size);
     ctormap["speed"] = tools::numToStr(m_speed);
     ctormap["deform"] = tools::numToStr(m_deform);

@@ -34,58 +34,58 @@ public:
 
     Material & operator=(const Material& copy);
 
-    void SetRenderFlags(unsigned renderFlags);
-    unsigned GetRenderFlags() const;
+    void setRenderFlags(unsigned renderFlags);
+    unsigned getRenderFlags() const;
 
-    bool IsEnable(unsigned flag);
-    void Enable(unsigned flag);
-    void Disable(unsigned flag);
+    bool isEnable(unsigned flag);
+    void enable(unsigned flag);
+    void disable(unsigned flag);
 
-    void SetTexture(Texture texture, unsigned index = 0);
-    Texture GetTexture(unsigned index = 0) const;
+    void setTexture(Texture texture, unsigned index = 0);
+    Texture getTexture(unsigned index = 0) const;
 
-    unsigned GetTexturesCount() const;
+    unsigned getTexturesCount() const;
 
-    void SetShininess(float shininess);
-    float GetShininess() const;
+    void setShininess(float shininess);
+    float getShininess() const;
 
-    void SetSpecular(Vector4f specular);
-    Vector4f GetSpecular() const;
+    void setSpecular(Vector4f specular);
+    Vector4f getSpecular() const;
 
-    void SetDiffuse(Vector4f diffuse);
-    Vector4f GetDiffuse() const;
+    void setDiffuse(Vector4f diffuse);
+    Vector4f getDiffuse() const;
 
-    void SetAmbient(Vector4f ambient);
-    Vector4f GetAmbient() const;
+    void setAmbient(Vector4f ambient);
+    Vector4f getAmbient() const;
 
-    void SetShader(const Shader& shader);
-    Shader GetShader() const;
+    void setShader(const Shader& shader);
+    Shader getShader() const;
 
-    void SetRendWithShader(bool rendWithShader);
-    bool IsRendWithShader() const;
+    void setRendWithShader(bool rendWithShader);
+    bool isRendWithShader() const;
 
-    void SetRendWithTexture(bool rendWithTexture);
-    bool IsRendWithTexture() const;
+    void setRendWithTexture(bool rendWithTexture);
+    bool isRendWithTexture() const;
 
-    void SetLineWidth(float lineWidth);
-    float GetLineWidth() const;
+    void setLineWidth(float lineWidth);
+    float getLineWidth() const;
 
-    void SetName(std::string name);
-    std::string GetName() const;
+    void setName(std::string name);
+    std::string getName() const;
 
-    void SetAlphaThershold(float alphaThershold);
-    float GetAlphaThershold() const;
+    void setAlphaThershold(float alphaThershold);
+    float getAlphaThershold() const;
 
-    bool IsTransparent();
+    bool isTransparent();
 
-    void SetFrameSortWait(unsigned frameSortWait);
-    unsigned GetFrameSortWait() const;
+    void setFrameSortWait(unsigned frameSortWait);
+    unsigned getFrameSortWait() const;
 
-    void SetTangentLocation(std::string tangentLocation);
-    std::string GetTangentLocation() const;
+    void setTangentLocation(std::string tangentLocation);
+    std::string getTangentLocation() const;
 
-    void SetAoccLocation(std::string aoccLocation);
-    std::string GetAoccLocation() const;
+    void setAoccLocation(std::string aoccLocation);
+    std::string getAoccLocation() const;
 
     enum FaceType
     {
@@ -98,8 +98,8 @@ public:
         LINE_LOOP = GL_LINE_LOOP,
     };
 
-    void SetFaceType(FaceType faceType);
-    FaceType GetFaceType() const;
+    void setFaceType(FaceType faceType);
+    FaceType getFaceType() const;
 
     enum
     {

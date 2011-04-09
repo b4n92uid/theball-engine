@@ -30,7 +30,7 @@ public:
     void Free()
     {
         for(iterator itt = begin(); itt != end(); itt++)
-            itt->first->Delete();
+            itt->first->remove();
 
         clear();
     }
@@ -47,7 +47,7 @@ public:
 
 static SharedTextureManager manager;
 
-void Texture::ResetCache()
+void Texture::resetCache()
 {
     manager.Free();
 }
@@ -67,20 +67,20 @@ Texture::Texture(const Texture& copy)
 
 Texture::Texture(std::string filename, bool genMipMap, bool upperLeftOrigin)
 {
-    Load(filename, genMipMap, upperLeftOrigin);
+    load(filename, genMipMap, upperLeftOrigin);
 }
 
 Texture::Texture(const char* filename, bool genMipMap, bool upperLeftOrigin)
 {
-    Load(filename, genMipMap, upperLeftOrigin);
+    load(filename, genMipMap, upperLeftOrigin);
 }
 
 Texture::~Texture()
 {
-    Release();
+    release();
 }
 
-void Texture::Delete()
+void Texture::remove()
 {
     if(m_textureName)
     {
@@ -89,14 +89,14 @@ void Texture::Delete()
     }
 }
 
-void Texture::Release()
+void Texture::release()
 {
     if(manager.count(this))
     {
         manager.erase(this);
 
         if(!manager.IsExist(m_filename))
-            Delete();
+            remove();
     }
 }
 
@@ -116,19 +116,19 @@ Texture& Texture::operator =(const Texture& copy)
 
 Texture& Texture::operator =(const char* texture)
 {
-    Load(texture);
+    load(texture);
 
     return *this;
 }
 
 Texture& Texture::operator =(std::string texture)
 {
-    Load(texture);
+    load(texture);
 
     return *this;
 }
 
-void Texture::Load(std::string filename, bool genMipMap, bool upperLeftOrigin)
+void Texture::load(std::string filename, bool genMipMap, bool upperLeftOrigin)
 {
     Texture* sharedTexture = manager.IsExist(filename);
 
@@ -175,7 +175,7 @@ void Texture::Load(std::string filename, bool genMipMap, bool upperLeftOrigin)
     m_size.x = ilGetInteger(IL_IMAGE_WIDTH);
     m_size.y = ilGetInteger(IL_IMAGE_HEIGHT);
 
-    if(!tools::isPowerOf2(m_size.x) || !tools::isPowerOf2(m_size.y))
+    if(!tools::isPow2(m_size.x) || !tools::isPow2(m_size.y))
         cout << "***WARNING*** Texture::Load; Texture is not pow2 dim (" << filename << ")" << endl;
 
     m_genMipMap = genMipMap;
@@ -193,13 +193,13 @@ void Texture::Load(std::string filename, bool genMipMap, bool upperLeftOrigin)
     if(genMipMap)
     {
         gluBuild2DMipmaps(GL_TEXTURE_2D, 4, m_size.x, m_size.y, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-        SetFiltring(MIPMAP | LINEAR);
+        setFiltring(MIPMAP | LINEAR);
     }
 
     else
     {
         glTexImage2D(GL_TEXTURE_2D, 0, 4, m_size.x, m_size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-        SetFiltring(LINEAR);
+        setFiltring(LINEAR);
     }
 
     // -------------------------------------------------------------------------
@@ -211,7 +211,7 @@ void Texture::Load(std::string filename, bool genMipMap, bool upperLeftOrigin)
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::Fill(Vector4i color)
+void Texture::fill(Vector4i color)
 {
     unsigned byteSize = m_size.x * m_size.y * 4;
 
@@ -231,9 +231,9 @@ void Texture::Fill(Vector4i color)
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::Build(Vector2i size, Vector4i color, GLint internalFormat, GLenum format)
+void Texture::build(Vector2i size, Vector4i color, GLint internalFormat, GLenum format)
 {
-    if(!tools::isPowerOf2(size.x) || !tools::isPowerOf2(size.y))
+    if(!tools::isPow2(size.x) || !tools::isPow2(size.y))
         cout << "***WARNING*** Texture::Build; Texture is not pow2 dim " << size << endl;
 
     m_size = size;
@@ -259,10 +259,10 @@ void Texture::Build(Vector2i size, Vector4i color, GLint internalFormat, GLenum 
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    SetFiltring(Texture::LINEAR);
+    setFiltring(Texture::LINEAR);
 }
 
-void Texture::Use(bool state)
+void Texture::use(bool state)
 {
     if(state && m_textureName)
     {
@@ -279,31 +279,31 @@ void Texture::Use(bool state)
     }
 }
 
-void Texture::SetSize(Vector2i size)
+void Texture::setSize(Vector2i size)
 {
     this->m_size = size;
 }
 
-Vector2i Texture::GetSize() const
+Vector2i Texture::getSize() const
 {
     return m_size;
 }
 
-void Texture::SetTextureName(GLuint textureName)
+void Texture::setTextureName(GLuint textureName)
 {
     this->m_textureName = textureName;
 }
 
-GLuint Texture::GetTextureName() const
+GLuint Texture::getTextureName() const
 {
     return m_textureName;
 }
 
-void Texture::SetFiltring(unsigned filtring)
+void Texture::setFiltring(unsigned filtring)
 {
     this->m_filtring = filtring;
 
-    Use(true);
+    use(true);
 
     if(m_filtring & NEAREST)
     {
@@ -327,25 +327,25 @@ void Texture::SetFiltring(unsigned filtring)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     }
 
-    Use(false);
+    use(false);
 }
 
-unsigned Texture::GetFiltring() const
+unsigned Texture::getFiltring() const
 {
     return m_filtring;
 }
 
-bool Texture::IsUpperLeftOrigin() const
+bool Texture::isUpperLeftOrigin() const
 {
     return m_upperLeftOrigin;
 }
 
-bool Texture::IsGenMipMap() const
+bool Texture::isGenMipMap() const
 {
     return m_genMipMap;
 }
 
-std::string Texture::GetFilename() const
+std::string Texture::getFilename() const
 {
     return m_filename;
 }

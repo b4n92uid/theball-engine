@@ -29,11 +29,11 @@ public:
     Frustum();
     virtual ~Frustum();
 
-    void ExtractPlane();
+    void extractPlane();
 
-    bool IsInside(Node* node);
-    bool IsInside(const AABB& aabb);
-    bool IsInside(Vector3f point);
+    bool isInside(Node* node);
+    bool isInside(const AABB& aabb);
+    bool isInside(Vector3f point);
 
 private:
     Vector4f m_planes[6];

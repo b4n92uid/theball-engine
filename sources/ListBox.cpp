@@ -13,8 +13,8 @@ using namespace tbe::gui;
 
 ListBox::ListBox()
 {
-    m_lay.SetOrientation(Layout::Vertical);
-    m_lay.SetSpace(4);
+    m_lay.setOrientation(Layout::Vertical);
+    m_lay.setSpace(4);
 
     m_offset = 0;
     m_offsetMax = 0;
@@ -26,111 +26,111 @@ ListBox::ListBox()
 
 ListBox::~ListBox()
 {
-    Clear();
+    clear();
 }
 
-ListBox& ListBox::Push(const std::string& label)
+ListBox& ListBox::push(const std::string& label)
 {
     Item* it = new Item(label);
-    it->SetPencil(m_pencil);
-    it->SetSize(m_pencil.SizeOf(label));
+    it->setPencil(m_pencil);
+    it->setSize(m_pencil.sizeOf(label));
 
     m_totalItems.push_back(it);
 
     return *this;
 }
 
-ListBox& ListBox::Push(const std::string& label, const Any& data)
+ListBox& ListBox::push(const std::string& label, const Any& data)
 {
     Item* it = new Item(label, data);
-    it->SetPencil(m_pencil);
-    it->SetSize(m_pencil.SizeOf(label));
+    it->setPencil(m_pencil);
+    it->setSize(m_pencil.sizeOf(label));
 
     m_totalItems.push_back(it);
 
     return *this;
 }
 
-void ListBox::CancelSelection()
+void ListBox::cancelSelection()
 {
     if(!m_currentItem)
         return;
 
-    m_currentItem->SetSelected(false);
+    m_currentItem->setSelected(false);
     m_currentItem = NULL;
 }
 
-bool ListBox::IsSelection()
+bool ListBox::isSelection()
 {
     return m_currentItem;
 }
 
-void ListBox::SetDefinedSize(bool definedSize)
+void ListBox::setDefinedSize(bool definedSize)
 {
     this->m_definedSize = definedSize;
 }
 
-bool ListBox::IsDefinedSize() const
+bool ListBox::isDefinedSize() const
 {
     return m_definedSize;
 }
 
-void ListBox::SetCurrentString(const std::string& str)
+void ListBox::setCurrentString(const std::string& str)
 {
-    m_currentItem->SetLabel(str);
+    m_currentItem->setLabel(str);
 }
 
-std::string ListBox::GetCurrentString()
+std::string ListBox::getCurrentString()
 {
-    return m_currentItem->GetLabel();
+    return m_currentItem->getLabel();
 }
 
-void ListBox::SetCurrentIndex(unsigned index)
+void ListBox::setCurrentIndex(unsigned index)
 {
     m_currentItem = m_totalItems[index];
 }
 
-unsigned ListBox::GetCurrentIndex()
+unsigned ListBox::getCurrentIndex()
 {
     return find(m_totalItems.begin(), m_totalItems.end(), m_currentItem) - m_totalItems.begin();
 }
 
-void ListBox::SetCurrentData(const Any& data)
+void ListBox::setCurrentData(const Any& data)
 {
-    m_currentItem->SetData(data);
+    m_currentItem->setData(data);
 }
 
-Any ListBox::GetCurrentData()
+Any ListBox::getCurrentData()
 {
-    return m_currentItem->GetData();
+    return m_currentItem->getData();
 }
 
-void ListBox::SetString(unsigned index, const std::string& str)
+void ListBox::setString(unsigned index, const std::string& str)
 {
-    m_totalItems[index]->SetLabel(str);
+    m_totalItems[index]->setLabel(str);
 }
 
-std::string ListBox::GetString(unsigned index)
+std::string ListBox::getString(unsigned index)
 {
-    return m_totalItems[index]->GetLabel();
+    return m_totalItems[index]->getLabel();
 }
 
-void ListBox::SetData(unsigned index, const Any& data)
+void ListBox::setData(unsigned index, const Any& data)
 {
-    m_totalItems[index]->SetData(data);
+    m_totalItems[index]->setData(data);
 }
 
-Any ListBox::GetData(unsigned index)
+Any ListBox::getData(unsigned index)
 {
-    return m_totalItems[index]->GetData();
+    return m_totalItems[index]->getData();
 }
 
-unsigned ListBox::GetCount()
+unsigned ListBox::getCount()
 {
     return m_totalItems.size();
 }
 
-void ListBox::Clear()
+void ListBox::clear()
 {
     for(unsigned i = 0; i < m_totalItems.size(); i++)
         delete m_totalItems[i];
@@ -143,31 +143,31 @@ void ListBox::Clear()
     m_displayItems.clear();
 }
 
-void ListBox::SetSkin(const GuiSkin& gui)
+void ListBox::setSkin(const GuiSkin& gui)
 {
-    SetPencil(gui.pencile);
+    setPencil(gui.pencile);
 
     for(unsigned i = 0; i < m_totalItems.size(); i++)
-        m_totalItems[i]->SetPencil(m_pencil);
+        m_totalItems[i]->setPencil(m_pencil);
 }
 
-void ListBox::SetBackgroundPadding(Vector2f backgroundPadding)
+void ListBox::setBackgroundPadding(Vector2f backgroundPadding)
 {
     this->m_backgroundPadding = backgroundPadding;
 
-    m_lay.SetBorder(m_backgroundPadding);
+    m_lay.setBorder(m_backgroundPadding);
 }
 
-Vector2f ListBox::GetBackgroundPadding() const
+Vector2f ListBox::getBackgroundPadding() const
 {
     return m_backgroundPadding;
 }
 
-bool ListBox::OnEvent(const EventManager& event)
+bool ListBox::onEvent(const EventManager& event)
 {
     m_activate = false;
 
-    if(!Vector2f(event.mousePos).IsInsinde(m_pos, m_size))
+    if(!Vector2f(event.mousePos).isInsinde(m_pos, m_size))
         return false;
 
     if(event.notify != EventManager::EVENT_MOUSE_DOWN)
@@ -177,14 +177,14 @@ bool ListBox::OnEvent(const EventManager& event)
     {
         case EventManager::MOUSE_BUTTON_LEFT:
             for(unsigned i = 0; i < m_displayItems.size(); i++)
-                if(m_displayItems[i]->OnEvent(event))
+                if(m_displayItems[i]->onEvent(event))
                 {
                     m_currentItem = m_displayItems[i];
 
                     for(unsigned j = 0; j < m_displayItems.size(); j++)
-                        m_totalItems[j]->SetSelected(false);
+                        m_totalItems[j]->setSelected(false);
 
-                    m_currentItem->SetSelected(true);
+                    m_currentItem->setSelected(true);
 
                     return m_activate = true;
                 }
@@ -194,33 +194,33 @@ bool ListBox::OnEvent(const EventManager& event)
             if(m_offset < m_offsetMax)
                 m_offset++;
 
-            Update();
+            update();
             break;
 
         case EventManager::MOUSE_BUTTON_WHEEL_DOWN:
             if(m_offset > 0)
                 m_offset--;
 
-            Update();
+            update();
             break;
     }
 
     return true;
 }
 
-void ListBox::Update()
+void ListBox::update()
 {
     for(unsigned i = 0; i < m_displayItems.size(); i++)
         delete m_displayItems[i];
 
     m_displayItems.clear();
-    m_lay.Clear();
+    m_lay.clear();
 
     if(m_definedSize)
     {
         unsigned displayLines = unsigned(
                 (m_size.y - m_backgroundPadding.y * 2.0f)
-                / (m_pencil.GetFontSize() + m_lay.GetSpace())
+                / (m_pencil.getFontSize() + m_lay.getSpace())
                 );
 
         for(unsigned i = m_offset; i < m_totalItems.size(); i++)
@@ -229,11 +229,11 @@ void ListBox::Update()
                 break;
 
             m_displayItems.push_back(new Item(*m_totalItems[i]));
-            m_lay.AddControl(m_displayItems.back());
+            m_lay.addControl(m_displayItems.back());
 
-            string label = m_displayItems.back()->GetLabel();
-            label = m_pencil.WrapeLine(label, m_size.x - m_backgroundPadding.x * 2.0f, true);
-            m_displayItems.back()->SetLabel(label);
+            string label = m_displayItems.back()->getLabel();
+            label = m_pencil.wrapeLine(label, m_size.x - m_backgroundPadding.x * 2.0f, true);
+            m_displayItems.back()->setLabel(label);
         }
 
         if(displayLines > m_displayItems.size())
@@ -242,10 +242,10 @@ void ListBox::Update()
             m_offsetMax = max(m_totalItems.size() - displayLines, (unsigned)0);
 
         if(m_offset > 0)
-            m_displayItems.front()->SetLabel("<<<");
+            m_displayItems.front()->setLabel("<<<");
 
         if(m_offset < m_offsetMax)
-            m_displayItems.back()->SetLabel(">>>");
+            m_displayItems.back()->setLabel(">>>");
     }
 
     else
@@ -253,33 +253,33 @@ void ListBox::Update()
         for(unsigned i = 0; i < m_totalItems.size(); i++)
         {
             m_displayItems.push_back(new Item(*m_totalItems[i]));
-            m_lay.AddControl(m_displayItems.back());
+            m_lay.addControl(m_displayItems.back());
         }
 
-        m_lay.Update();
+        m_lay.update();
 
-        m_size = m_lay.GetSize()
+        m_size = m_lay.getSize()
                 + m_backgroundPadding * 2.0f
-                + m_lay.GetBorder() * Vector2f(0, 1);
+                + m_lay.getBorder() * Vector2f(0, 1);
     }
 
     reverse(m_displayItems.begin(), m_displayItems.end());
 }
 
-void ListBox::ObjectRender()
+void ListBox::objectRender()
 {
     if(m_enableBackground && m_background)
     {
-        m_background.Use(true);
-        DrawSurface(m_pos, m_size, 0, 1);
-        m_background.Use(false);
+        m_background.use(true);
+        drawSurface(m_pos, m_size, 0, 1);
+        m_background.use(false);
     }
 
-    m_lay.SetPos(m_pos);
-    m_lay.Update();
+    m_lay.setPos(m_pos);
+    m_lay.update();
 
     for(unsigned i = 0; i < m_displayItems.size(); i++)
-        m_displayItems[i]->Render();
+        m_displayItems[i]->render();
 }
 
 ListBox::Item::Item(std::string label)
@@ -300,33 +300,33 @@ ListBox::Item::~Item()
 
 }
 
-void ListBox::Item::SetData(const Any& data)
+void ListBox::Item::setData(const Any& data)
 {
     this->m_data = data;
 }
 
-Any ListBox::Item::GetData() const
+Any ListBox::Item::getData() const
 {
     return m_data;
 }
 
-void ListBox::Item::SetSelected(bool selected)
+void ListBox::Item::setSelected(bool selected)
 {
     this->m_selected = selected;
-    m_pencil.SetColor(selected ? Vector4f(0, 0, 1, 1) : Vector4f(1));
+    m_pencil.setColor(selected ? Vector4f(0, 0, 1, 1) : Vector4f(1));
 }
 
-bool ListBox::Item::IsSelected() const
+bool ListBox::Item::isSelected() const
 {
     return m_selected;
 }
 
-bool ListBox::Item::OnEvent(const EventManager& event)
+bool ListBox::Item::onEvent(const EventManager& event)
 {
-    return Vector2f(event.mousePos).IsInsinde(m_pos, m_size);
+    return Vector2f(event.mousePos).isInsinde(m_pos, m_size);
 }
 
-void ListBox::Item::ObjectRender()
+void ListBox::Item::objectRender()
 {
-    m_pencil.Display(m_pos, m_label);
+    m_pencil.display(m_pos, m_label);
 }

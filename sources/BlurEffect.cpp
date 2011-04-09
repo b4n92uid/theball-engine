@@ -45,18 +45,18 @@ static const char fragmentShader[] =
 
 BlurEffect::BlurEffect()
 {
-    m_processShader.ParseFragmentShader(fragmentShader);
-    m_processShader.ParseVertexShader(vertexShader);
-    m_processShader.LoadProgram();
+    m_processShader.parseFragmentShader(fragmentShader);
+    m_processShader.parseVertexShader(vertexShader);
+    m_processShader.loadProgram();
 
-    SetPasse(1);
+    setPasse(1);
 }
 
 BlurEffect::~BlurEffect()
 {
 }
 
-void BlurEffect::Process(Rtt* rtt)
+void BlurEffect::process(Rtt* rtt)
 {
     /*
      * Etape du blur :
@@ -68,58 +68,58 @@ void BlurEffect::Process(Rtt* rtt)
 
     if(m_passe == 1) // Optimisation
     {
-        rtt->Use(true);
-        m_processShader.Use(true);
+        rtt->use(true);
+        m_processShader.use(true);
 
-        rtt->GetColor().Use(true);
-        m_layer.Draw();
+        rtt->getColor().use(true);
+        m_layer.draw();
 
-        m_processShader.Use(false);
-        rtt->Use(false);
+        m_processShader.use(false);
+        rtt->use(false);
     }
 
     else
     {
         // Etape 1
 
-        m_processShader.Use(true);
+        m_processShader.use(true);
 
-        m_workRtt->Use(true);
+        m_workRtt->use(true);
 
-        rtt->GetColor().Use(true);
-        m_layer.Draw();
+        rtt->getColor().use(true);
+        m_layer.draw();
 
-        m_workRtt->Use(false);
+        m_workRtt->use(false);
 
         // Etape 2
 
-        m_workRtt->Use(true);
+        m_workRtt->use(true);
 
-        m_workRtt->GetColor().Use(true);
+        m_workRtt->getColor().use(true);
         for(unsigned i = 1; i < m_passe; i++)
-            m_layer.Draw();
+            m_layer.draw();
 
-        m_workRtt->Use(false);
+        m_workRtt->use(false);
 
-        m_processShader.Use(false);
+        m_processShader.use(false);
 
         // Etape 3
 
-        rtt->Use(true);
+        rtt->use(true);
 
-        m_workRtt->GetColor().Use(true);
-        m_layer.Draw();
+        m_workRtt->getColor().use(true);
+        m_layer.draw();
 
-        rtt->Use(false);
+        rtt->use(false);
     }
 }
 
-void BlurEffect::SetPasse(unsigned passe)
+void BlurEffect::setPasse(unsigned passe)
 {
     this->m_passe = passe;
 }
 
-unsigned BlurEffect::GetPasse() const
+unsigned BlurEffect::getPasse() const
 {
     return m_passe;
 }

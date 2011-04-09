@@ -24,14 +24,14 @@ public:
     virtual ~Texture();
 
     /// Construit un texture avec la valuer et la taille spécifier
-    void Build(Vector2i size, Vector4i color = 0, GLint internalFormat = 4, GLenum format = GL_RGBA);
+    void build(Vector2i size, Vector4i color = 0, GLint internalFormat = 4, GLenum format = GL_RGBA);
 
     /// Chargement depuis un fichier
-    void Load(std::string filename, bool genMipMap = false, bool upperLeftOrigin = true);
+    void load(std::string filename, bool genMipMap = false, bool upperLeftOrigin = true);
 
     void operator()(std::string filename, bool genMipMap = false, bool upperLeftOrigin = true)
     {
-        Load(filename, genMipMap, upperLeftOrigin);
+        load(filename, genMipMap, upperLeftOrigin);
     }
 
     /// Operateur d'assignement pour chemin de fichier
@@ -44,51 +44,51 @@ public:
     operator bool() const;
 
     /// Récuperation d'identifiant
-    void SetTextureName(GLuint textureName);
-    GLuint GetTextureName() const;
+    void setTextureName(GLuint textureName);
+    GLuint getTextureName() const;
     operator GLuint() const;
 
     /// Taille de la texture
-    void SetSize(Vector2i size);
-    virtual Vector2i GetSize() const;
+    void setSize(Vector2i size);
+    virtual Vector2i getSize() const;
 
     /// Utilisation de la texture
-    void Use(bool state = true);
+    void use(bool state = true);
 
     /**
      * Supprime la texture si pas d'instance utiliser
-     * note : plus sure que Delete()
+     * note : plus sure que remove()
      */
-    void Release();
+    void release();
 
     /**
      * Supprime la texture directement
-     * note : utiliser Release() ai lieu
+     * note : utiliser release() au lieu
      */
-    void Delete();
+    void remove();
 
     /// Remplis la texture par la valeur color [0;255]
-    void Fill(Vector4i color);
+    void fill(Vector4i color);
 
     /// Spécifier le filtring appliquer a la texture
-    void SetFiltring(unsigned filtring);
-    unsigned GetFiltring() const;
+    void setFiltring(unsigned filtring);
+    unsigned getFiltring() const;
 
     /**
      * Renvois true si la texture a été position de facon
      * a ce que les coordonnés 0,0 font référence au coin superieur a gauche
      * de la texture
      */
-    bool IsUpperLeftOrigin() const;
+    bool isUpperLeftOrigin() const;
 
     /**
      * Renvois true si les couches du mipmap
      * ont été générer durant le chargement de l texture
      */
-    bool IsGenMipMap() const;
+    bool isGenMipMap() const;
 
     /// Renvois le chemin d'accée a la texture par un fichier
-    std::string GetFilename() const;
+    std::string getFilename() const;
 
     enum Filtring
     {
@@ -97,7 +97,7 @@ public:
         MIPMAP,
     };
 
-    static void ResetCache();
+    static void resetCache();
 
     typedef std::map<unsigned, Texture> Map;
 

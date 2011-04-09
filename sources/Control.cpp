@@ -20,7 +20,7 @@ Control::~Control()
 {
 }
 
-void Control::DrawSurface(Vector2f pos, Vector2f size, Vector2f tcOffset, Vector2f tcLength)
+void Control::drawSurface(Vector2f pos, Vector2f size, Vector2f tcOffset, Vector2f tcLength)
 {
     Vector2f vertexs[4] = {
         pos,
@@ -48,7 +48,7 @@ void Control::DrawSurface(Vector2f pos, Vector2f size, Vector2f tcOffset, Vector
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Control::DrawSurface(Vector2f pos[], Vector2f st[], unsigned draw)
+void Control::drawSurface(Vector2f pos[], Vector2f st[], unsigned draw)
 {
     vector<Vector2f> _pos(pos, pos + draw);
 
@@ -70,7 +70,7 @@ void Control::DrawSurface(Vector2f pos[], Vector2f st[], unsigned draw)
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Control::Render()
+void Control::render()
 {
     if(!m_enable)
         return;
@@ -91,25 +91,25 @@ void Control::Render()
     }
 
     if(m_output)
-        m_output->Use(true);
+        m_output->use(true);
 
-    ObjectRender();
+    objectRender();
 
     if(m_output)
-        m_output->Use(false);
+        m_output->use(false);
 }
 
-void Control::SetSkin(const GuiSkin&)
+void Control::setSkin(const GuiSkin&)
 {
 
 }
 
-void Control::Move(Vector2f relPos)
+void Control::move(Vector2f relPos)
 {
     m_pos += relPos;
 }
 
-void Control::SetPos(Vector2f pos)
+void Control::setPos(Vector2f pos)
 {
     #ifdef TBE_COMPILE_DEBUG
     if(pos.x < 0)
@@ -122,52 +122,52 @@ void Control::SetPos(Vector2f pos)
     m_pos = pos;
 }
 
-Vector2f Control::GetPos() const
+Vector2f Control::getPos() const
 {
     return m_pos;
 }
 
-void Control::SetBackground(Texture background)
+void Control::setBackground(Texture background)
 {
     this->m_background = background;
 }
 
-Texture Control::GetBackground() const
+Texture Control::getBackground() const
 {
     return m_background;
 }
 
-void Control::SetActivate(bool activate)
+void Control::setActivate(bool activate)
 {
     this->m_activate = activate;
 }
 
-bool Control::IsActivate() const
+bool Control::isActivate() const
 {
     return m_activate;
 }
 
-void Control::SetStretch(bool stretch)
+void Control::setStretch(bool stretch)
 {
     this->m_stretch = stretch;
 }
 
-bool Control::IsStretch() const
+bool Control::isStretch() const
 {
     return m_stretch;
 }
 
-void Control::SetLabel(std::string label)
+void Control::setLabel(std::string label)
 {
     m_label = label;
 }
 
-std::string Control::GetLabel()
+std::string Control::getLabel()
 {
     return m_label;
 }
 
-void Control::SetSize(Vector2f size)
+void Control::setSize(Vector2f size)
 {
     #ifdef TBE_COMPILE_DEBUG
     if(size.x <= 0)
@@ -180,77 +180,77 @@ void Control::SetSize(Vector2f size)
     m_size = size;
 }
 
-Vector2f Control::GetSize() const
+Vector2f Control::getSize() const
 {
     return m_size;
 }
 
-void Control::SetEnable(bool enable)
+void Control::setEnable(bool enable)
 {
     this->m_enable = enable;
 }
 
-bool Control::IsEnable() const
+bool Control::isEnable() const
 {
     return m_enable;
 }
 
-void Control::SetEnableAlpha(bool enableAlpha)
+void Control::setEnableAlpha(bool enableAlpha)
 {
     this->m_enableAlpha = enableAlpha;
 }
 
-bool Control::IsEnableAlpha() const
+bool Control::isEnableAlpha() const
 {
     return m_enableAlpha;
 }
 
-void Control::SetEnableBackground(bool enableBackground)
+void Control::setEnableBackground(bool enableBackground)
 {
     this->m_enableBackground = enableBackground;
 }
 
-bool Control::IsEnableBackground() const
+bool Control::isEnableBackground() const
 {
     return m_enableBackground;
 }
 
-void Control::SetOpacity(float opacity)
+void Control::setOpacity(float opacity)
 {
     this->m_opacity = opacity;
 }
 
-float Control::GetOpacity() const
+float Control::getOpacity() const
 {
     return m_opacity;
 }
 
-void Control::SetPencil(Pencil pencil)
+void Control::setPencil(Pencil pencil)
 {
     this->m_pencil = pencil;
 }
 
-Pencil Control::GetPencil() const
+Pencil Control::getPencil() const
 {
     return m_pencil;
 }
 
-void Control::SetName(std::string name)
+void Control::setName(std::string name)
 {
     this->m_name = name;
 }
 
-std::string Control::GetName() const
+std::string Control::getName() const
 {
     return m_name;
 }
 
-void Control::SetOutput(Rtt* output)
+void Control::setOutput(Rtt* output)
 {
     this->m_output = output;
 }
 
-Rtt* Control::GetOutput() const
+Rtt* Control::getOutput() const
 {
     return m_output;
 }

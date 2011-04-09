@@ -22,13 +22,13 @@ Frustum::~Frustum()
 {
 }
 
-bool Frustum::IsInside(Node* node)
+bool Frustum::isInside(Node* node)
 {
-    const AABB& box = node->GetAbsolutAabb();
-    return IsInside(box);
+    const AABB& box = node->getAbsolutAabb();
+    return isInside(box);
 }
 
-bool Frustum::IsInside(const AABB& aabb)
+bool Frustum::isInside(const AABB& aabb)
 {
     Vector3f size(aabb.max.x - aabb.min.x,
                   aabb.max.y - aabb.min.y,
@@ -62,7 +62,7 @@ bool Frustum::IsInside(const AABB& aabb)
     return true;
 }
 
-bool Frustum::IsInside(Vector3f point)
+bool Frustum::isInside(Vector3f point)
 {
     for(unsigned i = 0; i < 6; i++)
         if(PlaneTest(m_planes[i], point))
@@ -79,7 +79,7 @@ bool Frustum::IsInside(Vector3f point)
 #undef NEAR
 #endif
 
-void Frustum::ExtractPlane()
+void Frustum::extractPlane()
 {
 
     enum Sides
@@ -94,10 +94,10 @@ void Frustum::ExtractPlane()
 
     clip = modelview * projection;
 
-    m_planes[RIGHT] = Vector4f(clip[ 3] - clip[ 0], clip[ 7] - clip[ 4], clip[11] - clip[ 8], clip[15] - clip[12]).Normalize();
-    m_planes[LEFT] = Vector4f(clip[ 3] + clip[ 0], clip[ 7] + clip[ 4], clip[11] + clip[ 8], clip[15] + clip[12]).Normalize();
-    m_planes[BOTTOM] = Vector4f(clip[ 3] + clip[ 1], clip[ 7] + clip[ 5], clip[11] + clip[ 9], clip[15] + clip[13]).Normalize();
-    m_planes[TOP] = Vector4f(clip[ 3] - clip[ 1], clip[ 7] - clip[ 5], clip[11] - clip[ 9], clip[15] - clip[13]).Normalize();
-    m_planes[FAR] = Vector4f(clip[ 3] - clip[ 2], clip[ 7] - clip[ 6], clip[11] - clip[10], clip[15] - clip[14]).Normalize();
-    m_planes[NEAR] = Vector4f(clip[ 3] + clip[ 2], clip[ 7] + clip[ 6], clip[11] + clip[10], clip[15] + clip[14]).Normalize();
+    m_planes[RIGHT] = Vector4f(clip[ 3] - clip[ 0], clip[ 7] - clip[ 4], clip[11] - clip[ 8], clip[15] - clip[12]).normalize();
+    m_planes[LEFT] = Vector4f(clip[ 3] + clip[ 0], clip[ 7] + clip[ 4], clip[11] + clip[ 8], clip[15] + clip[12]).normalize();
+    m_planes[BOTTOM] = Vector4f(clip[ 3] + clip[ 1], clip[ 7] + clip[ 5], clip[11] + clip[ 9], clip[15] + clip[13]).normalize();
+    m_planes[TOP] = Vector4f(clip[ 3] - clip[ 1], clip[ 7] - clip[ 5], clip[11] - clip[ 9], clip[15] - clip[13]).normalize();
+    m_planes[FAR] = Vector4f(clip[ 3] - clip[ 2], clip[ 7] - clip[ 6], clip[11] - clip[10], clip[15] - clip[14]).normalize();
+    m_planes[NEAR] = Vector4f(clip[ 3] + clip[ 2], clip[ 7] + clip[ 6], clip[11] + clip[10], clip[15] + clip[14]).normalize();
 }

@@ -33,10 +33,10 @@ FpsManager::FpsManager()
 
 #endif
 
-    SetRunFps(60);
+    setRunFps(60);
 }
 
-bool FpsManager::DoARender()
+bool FpsManager::doRender()
 {
     if(m_doARender)
     {
@@ -48,7 +48,7 @@ bool FpsManager::DoARender()
         return false;
 }
 
-void FpsManager::Update()
+void FpsManager::update()
 {
     counttype curtime = 0;
 
@@ -81,23 +81,23 @@ void FpsManager::Update()
         m_framecount++;
 }
 
-unsigned FpsManager::GetCurFps()
+unsigned FpsManager::getCurFps()
 {
     return m_fps;
 }
 
-unsigned FpsManager::GetBetterFps()
+unsigned FpsManager::getBetterFps()
 {
     return m_betterfps;
 }
 
-void FpsManager::SetRunFps(unsigned setFps)
+void FpsManager::setRunFps(unsigned setFps)
 {
     this->m_setFps = setFps;
     m_timeToRend = m_cyclePerSecond / m_setFps;
 }
 
-unsigned FpsManager::GetRunFps() const
+unsigned FpsManager::getRunFps() const
 {
     return m_setFps;
 }

@@ -28,35 +28,34 @@ public:
     NewtonParallelScene();
     ~NewtonParallelScene();
 
-    /// Sp√©cifier la gravit√© appliquer au noeud
-    void SetGravity(float gravity);
-    float GetGravity() const;
+    /// SpÈcifier la gravit√© appliquer au noeud
+    void setGravity(float gravity);
+    float getGravity() const;
 
     /// Rendue
-    void Render();
+    void render();
 
     /// Specifier le timestep du moteur physique
-    void SetWorldTimestep(float worldTimestep);
+    void setWorldTimestep(float worldTimestep);
 
-    /// Acc√©s au timestep du moteur physique
-    float GetWorldTimestep() const;
+    /// AccÈs au timestep du moteur physique
+    float getWorldTimestep() const;
 
-    /// Acc√©s au NewtonWorld
-    NewtonWorld* GetNewtonWorld() const;
+    /// AccÈs au NewtonWorld
+    NewtonWorld* getNewtonWorld() const;
 
     /// Specifier les dimmension du mond physique
-    void SetWorldSize(AABB wordlSize);
-    AABB GetWorldSize() const;
-
+    void setWorldSize(AABB wordlSize);
+    AABB getWorldSize() const;
 
     /// Fonction qui recupere la position de collision quand body.masse == 0
-    Vector3f FindZeroMassBody(Vector3f start, Vector3f end);
+    Vector3f findZeroMassBody(Vector3f start, Vector3f end);
 
     /// Fonction qui recupere la position de collision
-    Vector3f FindAnyBody(Vector3f start, Vector3f end);
+    Vector3f findAnyBody(Vector3f start, Vector3f end);
 
     /// Fonction qui recupere la position sur le sol
-    Vector3f FindFloor(Vector3f pos);
+    Vector3f findFloor(Vector3f pos);
 
 protected:
     AABB m_worldSize;

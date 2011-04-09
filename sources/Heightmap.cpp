@@ -23,7 +23,7 @@ Heightmap::Heightmap(MeshParallelScene* scene, const std::string& path, unsigned
     m_precision = min(1u, precision);
     m_rendreId = 0;
 
-    Open(path);
+    open(path);
 }
 
 Heightmap::~Heightmap()
@@ -44,7 +44,7 @@ float Heightmap::GetY(unsigned x, unsigned z)
     return (GLfloat)m_pixels[z * m_length + x];
 }
 
-void Heightmap::Open(const std::string& path)
+void Heightmap::open(const std::string& path)
 {
     if(m_pixels);
     delete[] m_pixels;
@@ -78,8 +78,8 @@ void Heightmap::Open(const std::string& path)
             Vector3f pos(x, GetY(x, z) / 10.0f, z);
             Vector3f pos2(x + m_precision, GetY(x + m_precision, z) / 10.0f, z);
 
-            Vector3f normal = Vector3f::Cross(Vector3f::Normalize(pos3), Vector3f::Normalize(pos2));
-            Vector3f normal2 = Vector3f::Cross(Vector3f::Normalize(pos), Vector3f::Normalize(pos3));
+            Vector3f normal = Vector3f::cross(Vector3f::normalize(pos3), Vector3f::normalize(pos2));
+            Vector3f normal2 = Vector3f::cross(Vector3f::normalize(pos), Vector3f::normalize(pos3));
 
             pos3 = pos;
 
@@ -92,18 +92,18 @@ void Heightmap::Open(const std::string& path)
             vertexsCount += 2;
         }
 
-        m_hardwareBuffer.AddFace(face);
+        m_hardwareBuffer.addFace(face);
     }
 
-    m_hardwareBuffer.Compile();
+    m_hardwareBuffer.compile();
 
-    ComputeAabb();
+    computeAabb();
 
     Material* mainMaterial = new Material;
     //    mainMaterial->Enable(Material::FRONTFACE_CULL);
     //    mainMaterial->Disable(Material::BACKFACE_CULL);
-    mainMaterial->SetFaceType(Material::TRIANGLE_STRIP);
+    mainMaterial->setFaceType(Material::TRIANGLE_STRIP);
 
-    AddMaterial("main", mainMaterial);
-    ApplyMaterial(mainMaterial, 0, vertexsCount);
+    addMaterial("main", mainMaterial);
+    applyMaterial(mainMaterial, 0, vertexsCount);
 }

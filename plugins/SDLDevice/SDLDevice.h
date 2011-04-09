@@ -23,42 +23,42 @@ public:
     ~SDLDevice();
 
     /// Creation de fenetre
-    void Window(std::string caption = "theBall Engine",
+    void window(std::string caption = "theBall Engine",
                 Vector2i winsize = Vector2i(800, 600), int bits = 32,
                 bool fullscreen = false, int multisamples = 0);
 
     /// Récuperation des evenements
-    void PollEvent();
+    void pollEvent();
 
     /// bloque l'entrer a l'interieur de la fen?tre
-    void SetGrabInput(bool stat);
+    void setGrabInput(bool stat);
 
     /// Visibilit? du curseur
-    void SetMouseVisible(bool stat);
+    void setMouseVisible(bool stat);
 
     /// Efface la scenne
-    void BeginScene();
+    void beginScene();
 
     /// Termine la scene
-    void EndScene();
+    void endScene();
 
     /// Renvois le degres du Multisampling
-    int GetWinMultiSamples() const;
+    int getWinMultiSamples() const;
 
     /// Renvois true su la fenetre est en plein-?cran
-    bool IsWinFullscreen() const;
+    bool isWinFullscreen() const;
 
     /// Renvois la profondeur du pixel
-    int GetWinBits() const;
+    int getWinBits() const;
 
-    /// Renvois un tableau des rï¿½solution supportï¿½
-    static std::vector<Vector2i> GetAvilableSceeenSize();
+    /// Renvois un tableau des résolution supportï¿½
+    static std::vector<Vector2i> getAvilableSceeenSize();
 
     /// Renvois le nom de la touche
-    static std::string GetKeyName(int keyCode);
+    static std::string getKeyName(int keyCode);
 
     /// Renvois le nom du boutton de la souris
-    static std::string GetMouseName(int mouseCode);
+    static std::string getMouseName(int mouseCode);
 
 private:
     std::string m_caption;

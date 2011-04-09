@@ -22,7 +22,7 @@ using namespace tbe;
 using namespace tbe::scene;
 
 SceneParser::SceneParser(SceneManager* sceneManager)
-: m_sceneManager(sceneManager), m_rootNode(sceneManager->GetRootNode()),
+: m_sceneManager(sceneManager), m_rootNode(sceneManager->getRootNode()),
 m_lightScene(NULL), m_meshScene(NULL), m_particlesScene(NULL), m_waterScene(NULL),
 m_classFactory(NULL)
 {
@@ -33,40 +33,40 @@ SceneParser::~SceneParser()
     delete m_classFactory;
 }
 
-void SceneParser::OutpuNodeConstruction(std::ofstream& file, Node* node)
+void SceneParser::outpuNodeConstruction(std::ofstream& file, Node* node)
 {
-    Node::CtorMap ctormap = node->ConstructionMap(m_fileName);
+    Node::CtorMap ctormap = node->constructionMap(m_fileName);
 
-    string indent((node->DeepPosition() - 1) * 4, ' ');
+    string indent((node->deepPosition() - 1) * 4, ' ');
 
-    if(node->GetParent()->IsRoot())
+    if(node->getParent()->isRoot())
         file << indent << "+node" << endl;
 
     for(Node::CtorMap::iterator it = ctormap.begin(); it != ctormap.end(); it++)
         file << indent << it->first << "=" << it->second << endl;
 
-    for(Iterator<Node*> it = node->GetChildIterator(); it; it++)
+    for(Iterator<Node*> it = node->getChildIterator(); it; it++)
     {
-        string subindent((it->DeepPosition() - 1) * 4, ' ');
+        string subindent((it->deepPosition() - 1) * 4, ' ');
 
         file << subindent << "<" << endl;
-        OutpuNodeConstruction(file, *it);
+        outpuNodeConstruction(file, *it);
         file << subindent << ">" << endl;
     }
 
-    if(node->GetParent()->IsRoot())
+    if(node->getParent()->isRoot())
         file << endl;
 }
 
-void SceneParser::SaveScene()
+void SceneParser::saveScene()
 {
     if(m_fileName.empty())
         return;
 
-    SaveScene(m_fileName);
+    saveScene(m_fileName);
 }
 
-void SceneParser::SaveScene(const std::string& filepath)
+void SceneParser::saveScene(const std::string& filepath)
 {
     ofstream file(filepath.c_str());
 
@@ -75,40 +75,40 @@ void SceneParser::SaveScene(const std::string& filepath)
 
     file << "*map" << endl;
     file << "name=" << m_mapName << endl;
-    file << "ambient=" << m_sceneManager->GetAmbientLight() << endl;
+    file << "ambient=" << m_sceneManager->getAmbientLight() << endl;
     file << endl;
 
-    Fog* fog = m_sceneManager->GetFog();
+    Fog* fog = m_sceneManager->getFog();
 
     if(fog)
     {
         file << "*fog" << endl;
-        file << "color=" << fog->GetColor() << endl;
-        file << "start=" << fog->GetStart() << endl;
-        file << "end=" << fog->GetEnd() << endl;
+        file << "color=" << fog->getColor() << endl;
+        file << "start=" << fog->getStart() << endl;
+        file << "end=" << fog->getEnd() << endl;
         file << endl;
     }
 
-    SkyBox* sky = m_sceneManager->GetSkybox();
+    SkyBox* sky = m_sceneManager->getSkybox();
 
     if(sky)
     {
-        Texture* skyTexs = sky->GetTextures();
+        Texture* skyTexs = sky->getTextures();
 
         file << "*skybox" << endl;
-        file << "front=" << tools::makeRelatifTo(m_fileName, skyTexs[0].GetFilename()) << endl;
-        file << "back=" << tools::makeRelatifTo(m_fileName, skyTexs[1].GetFilename()) << endl;
-        file << "top=" << tools::makeRelatifTo(m_fileName, skyTexs[2].GetFilename()) << endl;
-        file << "bottom=" << tools::makeRelatifTo(m_fileName, skyTexs[3].GetFilename()) << endl;
-        file << "left=" << tools::makeRelatifTo(m_fileName, skyTexs[4].GetFilename()) << endl;
-        file << "right=" << tools::makeRelatifTo(m_fileName, skyTexs[5].GetFilename()) << endl;
+        file << "front=" << tools::makeRelatifTo(m_fileName, skyTexs[0].getFilename()) << endl;
+        file << "back=" << tools::makeRelatifTo(m_fileName, skyTexs[1].getFilename()) << endl;
+        file << "top=" << tools::makeRelatifTo(m_fileName, skyTexs[2].getFilename()) << endl;
+        file << "bottom=" << tools::makeRelatifTo(m_fileName, skyTexs[3].getFilename()) << endl;
+        file << "left=" << tools::makeRelatifTo(m_fileName, skyTexs[4].getFilename()) << endl;
+        file << "right=" << tools::makeRelatifTo(m_fileName, skyTexs[5].getFilename()) << endl;
         file << endl;
     }
 
-    Node* rootNode = m_sceneManager->GetRootNode();
+    Node* rootNode = m_sceneManager->getRootNode();
 
-    for(Iterator<Node*> it = rootNode->GetChildIterator(); it; it++)
-        OutpuNodeConstruction(file, *it);
+    for(Iterator<Node*> it = rootNode->getChildIterator(); it; it++)
+        outpuNodeConstruction(file, *it);
 
     file.close();
 }
@@ -161,7 +161,7 @@ bool SceneParser::parseBlock(std::ifstream& file, Relation& rel, unsigned& line)
     return true;
 }
 
-void SceneParser::LoadScene(const std::string& filepath)
+void SceneParser::loadScene(const std::string& filepath)
 {
     ifstream file(filepath.c_str());
 
@@ -180,28 +180,28 @@ void SceneParser::LoadScene(const std::string& filepath)
         {
             Relation rel;
             parseBlock(file, rel, line);
-            ParseMap(rel.attr);
+            parseMap(rel.attr);
         }
 
         else if(buffer == "*fog")
         {
             Relation rel;
             parseBlock(file, rel, line);
-            ParseFog(rel.attr);
+            parseFog(rel.attr);
         }
 
         else if(buffer == "*skybox")
         {
             Relation rel;
             parseBlock(file, rel, line);
-            ParseSkyBox(rel.attr);
+            parseSkyBox(rel.attr);
         }
 
         else if(buffer == "+node")
         {
             Relation rel;
             parseBlock(file, rel, line);
-            ParseNode(rel);
+            parseNode(rel);
         }
 
         else if(buffer.substr(0, 8) == ".include")
@@ -211,7 +211,7 @@ void SceneParser::LoadScene(const std::string& filepath)
             if(modelFilepath.find(':') == string::npos)
                 modelFilepath = tools::makeRelatifTo(m_fileName, modelFilepath);
 
-            LoadScene(modelFilepath);
+            loadScene(modelFilepath);
         }
 
         else if(buffer.substr(0, 6) == "/class")
@@ -229,35 +229,35 @@ void SceneParser::LoadScene(const std::string& filepath)
     file.close();
 }
 
-void SceneParser::ParseMap(AttribMap& att)
+void SceneParser::parseMap(AttribMap& att)
 {
     m_mapName = att["name"];
-    m_sceneManager->SetAmbientLight(vec34(tools::StrToVec3<float>(att["ambient"], true)));
+    m_sceneManager->setAmbientLight(vec34(tools::strToVec3<float>(att["ambient"], true)));
 
     m_lightScene = new LightParallelScene;
-    m_sceneManager->AddParallelScene(m_lightScene);
+    m_sceneManager->addParallelScene(m_lightScene);
 
     m_meshScene = new MeshParallelScene;
-    m_sceneManager->AddParallelScene(m_meshScene);
+    m_sceneManager->addParallelScene(m_meshScene);
 
     m_particlesScene = new ParticlesParallelScene;
-    m_sceneManager->AddParallelScene(m_particlesScene);
+    m_sceneManager->addParallelScene(m_particlesScene);
 }
 
-void SceneParser::ParseFog(AttribMap& att)
+void SceneParser::parseFog(AttribMap& att)
 {
-    Vector4f color = tools::StrToVec4<float>(att["color"], true);
-    float start = tools::StrToNum<float>(att["start"]);
-    float end = tools::StrToNum<float>(att["end"]);
+    Vector4f color = tools::strToVec4<float>(att["color"], true);
+    float start = tools::strToNum<float>(att["start"]);
+    float end = tools::strToNum<float>(att["end"]);
 
-    scene::Fog* fog = m_sceneManager->GetFog();
-    fog->SetColor(color);
-    fog->SetStart(start);
-    fog->SetEnd(end);
-    fog->SetEnable(true);
+    scene::Fog* fog = m_sceneManager->getFog();
+    fog->setColor(color);
+    fog->setStart(start);
+    fog->setEnd(end);
+    fog->setEnable(true);
 }
 
-void SceneParser::ParseSkyBox(AttribMap& att)
+void SceneParser::parseSkyBox(AttribMap& att)
 {
     Texture skyTex[6] = {
         tools::makeRelatifTo(m_fileName, att["front"]),
@@ -268,12 +268,12 @@ void SceneParser::ParseSkyBox(AttribMap& att)
         tools::makeRelatifTo(m_fileName, att["right"])
     };
 
-    scene::SkyBox* sky = m_sceneManager->GetSkybox();
-    sky->SetTextures(skyTex);
-    sky->SetEnable(true);
+    scene::SkyBox* sky = m_sceneManager->getSkybox();
+    sky->setTextures(skyTex);
+    sky->setEnable(true);
 }
 
-void SceneParser::ParseNode(Relation& rel, Node* parent)
+void SceneParser::parseNode(Relation& rel, Node* parent)
 {
     const string& nlass = rel.attr["class"];
 
@@ -282,18 +282,18 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         Mesh* node = m_classFactory ? m_classFactory->Instance(nlass, m_meshScene) : new Mesh(m_meshScene);
 
         if(parent)
-            parent->AddChild(node);
+            parent->addChild(node);
         else
-            m_rootNode->AddChild(node);
+            m_rootNode->addChild(node);
 
         if(rel.attr.count("matrix"))
-            node->SetMatrix(rel.attr["matrix"]);
+            node->setMatrix(rel.attr["matrix"]);
 
         if(rel.attr.count("name"))
-            node->SetName(rel.attr["name"]);
+            node->setName(rel.attr["name"]);
 
         for(unsigned i = 0; i < m_classRec[nlass].size(); i++)
-            ParseNode(m_classRec[nlass][i], node);
+            parseNode(m_classRec[nlass][i], node);
 
         return;
     }
@@ -311,7 +311,7 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         else
             modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["filename"]);
 
-        node->Open(modelFilepath);
+        node->open(modelFilepath);
 
         current = node;
     }
@@ -327,20 +327,20 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
         else
             modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["texture"]);
 
-        emiter->SetTexture(modelFilepath);
+        emiter->setTexture(modelFilepath);
 
-        emiter->SetLifeInit(tools::StrToNum<float>(rel.attr["lifeInit"]));
-        emiter->SetLifeDown(tools::StrToNum<float>(rel.attr["lifeDown"]));
+        emiter->setLifeInit(tools::strToNum<float>(rel.attr["lifeInit"]));
+        emiter->setLifeDown(tools::strToNum<float>(rel.attr["lifeDown"]));
 
-        emiter->SetGravity(tools::StrToVec3<float>(rel.attr["gravity"], true));
+        emiter->setGravity(tools::strToVec3<float>(rel.attr["gravity"], true));
 
-        emiter->SetNumber(tools::StrToNum<int>(rel.attr["number"]));
+        emiter->setNumber(tools::strToNum<int>(rel.attr["number"]));
 
-        emiter->SetFreeMove(tools::StrToNum<float>(rel.attr["freeMove"]));
+        emiter->setFreeMove(tools::strToNum<float>(rel.attr["freeMove"]));
 
-        emiter->SetContinousMode(tools::StrToNum<bool>(rel.attr["continousMode"]));
+        emiter->setContinousMode(tools::strToNum<bool>(rel.attr["continousMode"]));
 
-        emiter->Build();
+        emiter->build();
 
         current = emiter;
     }
@@ -356,18 +356,18 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
 
         else if(rel.attr["type"] == "Point")
         {
-            float radius = tools::StrToNum<float>(rel.attr["radius"]);
+            float radius = tools::strToNum<float>(rel.attr["radius"]);
 
             light = new PointLight(m_lightScene);
-            light->SetRadius(radius);
+            light->setRadius(radius);
         }
 
         else
             throw tbe::Exception("SceneParser::ParseNode; Unknown light type (%s)", rel.attr["type"].c_str());
 
-        light->SetAmbient(tools::StrToVec4<float>(rel.attr["ambient"], true));
-        light->SetDiffuse(tools::StrToVec4<float>(rel.attr["diffuse"], true));
-        light->SetSpecular(tools::StrToVec4<float>(rel.attr["specular"], true));
+        light->setAmbient(tools::strToVec4<float>(rel.attr["ambient"], true));
+        light->setDiffuse(tools::strToVec4<float>(rel.attr["diffuse"], true));
+        light->setSpecular(tools::strToVec4<float>(rel.attr["specular"], true));
 
         current = light;
     }
@@ -380,46 +380,46 @@ void SceneParser::ParseNode(Relation& rel, Node* parent)
     }
 
     if(parent)
-        parent->AddChild(current);
+        parent->addChild(current);
     else
-        m_rootNode->AddChild(current);
+        m_rootNode->addChild(current);
 
     if(rel.attr.count("name"))
-        current->SetName(rel.attr["name"]);
+        current->setName(rel.attr["name"]);
 
     if(rel.attr.count("matrix"))
-        current->SetMatrix(rel.attr["matrix"]);
+        current->setMatrix(rel.attr["matrix"]);
 
     for(unsigned i = 0; i < rel.child.size(); i++)
-        ParseNode(rel.child[i], current);
+        parseNode(rel.child[i], current);
 }
 
-void SceneParser::SetClassFactory(ClassFactory* classFactory)
+void SceneParser::setClassFactory(ClassFactory* classFactory)
 {
     this->m_classFactory = classFactory;
 }
 
-ClassFactory* SceneParser::GetClassFactory() const
+ClassFactory* SceneParser::getClassFactory() const
 {
     return m_classFactory;
 }
 
-ParticlesParallelScene* SceneParser::GetParticlesScene() const
+ParticlesParallelScene* SceneParser::getParticlesScene() const
 {
     return m_particlesScene;
 }
 
-MeshParallelScene* SceneParser::GetMeshScene() const
+MeshParallelScene* SceneParser::getMeshScene() const
 {
     return m_meshScene;
 }
 
-WaterParallelScene* SceneParser::GetWaterScene() const
+WaterParallelScene* SceneParser::getWaterScene() const
 {
     return m_waterScene;
 }
 
-LightParallelScene* SceneParser::GetLightScene() const
+LightParallelScene* SceneParser::getLightScene() const
 {
     return m_lightScene;
 }

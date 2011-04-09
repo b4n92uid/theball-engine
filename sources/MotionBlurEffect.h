@@ -23,10 +23,10 @@ public:
     MotionBlurEffect();
     virtual ~MotionBlurEffect();
 
-    void Process(Rtt* rtt);
+    void process(Rtt* rtt);
     
-    void SetIntensity(float intensity);
-    float GetIntensity() const;
+    void setIntensity(float intensity);
+    float getIntensity() const;
     
 private:
     float m_intensity;

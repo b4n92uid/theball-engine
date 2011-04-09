@@ -36,29 +36,29 @@ public:
 
     Light & operator=(const Light& copy);
 
-    void Process();
+    void process();
 
-    void Render();
+    void render();
 
-    Light* Clone();
+    Light* clone();
 
-    void SetSpecular(Vector4f specular);
-    Vector4f GetSpecular() const;
+    void setSpecular(Vector4f specular);
+    Vector4f getSpecular() const;
 
-    void SetDiffuse(Vector4f diffuse);
-    Vector4f GetDiffuse() const;
+    void setDiffuse(Vector4f diffuse);
+    Vector4f getDiffuse() const;
 
-    void SetAmbient(Vector4f ambient);
-    Vector4f GetAmbient() const;
+    void setAmbient(Vector4f ambient);
+    Vector4f getAmbient() const;
 
-    void SetRadius(float value);
-    float GetRadius() const;
+    void setRadius(float value);
+    float getRadius() const;
 
-    void SetType(Type type);
-    Type GetType() const;
+    void setType(Type type);
+    Type getType() const;
 
-    CtorMap ConstructionMap(std::string root);
-    
+    CtorMap constructionMap(std::string root);
+
     typedef std::vector<scene::Light*> Array;
 
 protected:

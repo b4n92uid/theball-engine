@@ -20,11 +20,11 @@ public:
     EditBox(std::string label, Pencil font, Texture background);
     ~EditBox();
 
-    void SetSkin(const GuiSkin& skin);
-    bool OnEvent(const EventManager& event);
+    void setSkin(const GuiSkin& skin);
+    bool onEvent(const EventManager& event);
 
 protected:
-    void ObjectRender();
+    void objectRender();
 
     int m_shiftDown;
     int m_key;

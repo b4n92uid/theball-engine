@@ -25,20 +25,19 @@ public:
     MeshParallelScene();
     ~MeshParallelScene();
 
-    void Render();
+    void render();
 
     /// Renvois la position y des coordonnés x z dans le repere global
-    bool FindFloor(Vector3f& pos);
+    bool findFloor(Vector3f& pos);
 
-    void SetInFloor(Node* node);
+    void setInFloor(Node* node);
 
-    void SetEnableFrustumTest(bool enableFrustumTest);
-    bool IsEnableFrustumTest() const;
+    void setEnableFrustumTest(bool enableFrustumTest);
+    bool isEnableFrustumTest() const;
 
-    void SetFrustumCullingCount(unsigned frustumCullingCount);
-    unsigned GetFrustumCullingCount() const;
+    void setFrustumCullingCount(unsigned frustumCullingCount);
+    unsigned getFrustumCullingCount() const;
 
-protected:
     AABB getSceneAabb();
 
 private:

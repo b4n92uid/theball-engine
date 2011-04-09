@@ -29,56 +29,56 @@ public:
     virtual ~Layout();
 
     /// Détruite tout les controls et layout contenue
-    void Clear();
+    void clear();
 
     /// Déttache un cotrole du layout
-    void ReleaseControl(Control* object);
+    void releaseControl(Control* object);
 
     /// Insere un control en tete de list
-    void InsertFront(Control* object);
+    void insertFront(Control* object);
 
     /// Ajoute un controle
-    void AddControl(Control* object);
+    void addControl(Control* object);
 
     /// Ajoute un layout
-    void AddLayout(Layout* object);
+    void addLayout(Layout* object);
 
     /// Ajoute un espcae fixe
-    void AddSpace(Vector2f size);
+    void addSpace(Vector2f size);
 
     /// Ajoute un espcae étirable
-    void AddStretchSpace();
+    void addStretchSpace();
 
     /// Specifier une orientation
-    void SetOrientation(Orientation type);
-    Orientation GetOrientation() const;
+    void setOrientation(Orientation type);
+    Orientation getOrientation() const;
 
     /// Accès au parent
-    void SetParent(Layout* parent);
-    Layout* GetParent();
+    void setParent(Layout* parent);
+    Layout* getParent();
 
     /// Specifier la taille des bordure
-    void SetBorder(Vector2f size);
-    Vector2f GetBorder() const;
+    void setBorder(Vector2f size);
+    Vector2f getBorder() const;
 
     /// Specifier l'espace entre les controle
-    void SetSpace(float size);
-    float GetSpace() const;
+    void setSpace(float size);
+    float getSpace() const;
 
     /// Taille de l'ecran
-    void SetScreenSize(Vector2f screenSize);
-    Vector2f GetScreenSize() const;
+    void setScreenSize(Vector2f screenSize);
+    Vector2f getScreenSize() const;
 
     /// Taille du Layout
-    void SetSize(Vector2f size);
-    Vector2f GetSize() const;
+    void setSize(Vector2f size);
+    Vector2f getSize() const;
 
     /// Positione du Layout
-    void SetPos(Vector2f pos);
-    Vector2f GetPos() const;
+    void setPos(Vector2f pos);
+    Vector2f getPos() const;
 
     /// Mise a jour du Layout
-    void Update();
+    void update();
 
     enum Align
     {
@@ -87,8 +87,8 @@ public:
         BEFORE
     };
 
-    void SetAlign(Align align);
-    Align GetAlign() const;
+    void setAlign(Align align);
+    Align getAlign() const;
 
 protected:
 

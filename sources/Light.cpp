@@ -8,6 +8,7 @@
 #include "Light.h"
 #include "Exception.h"
 #include "LightParallelScene.h"
+#include "Tools.h"
 
 using namespace std;
 using namespace tbe;
@@ -35,20 +36,20 @@ Light::Light(LightParallelScene* scene, Type type)
     m_diffuse = 1;
     m_specular = 0;
 
-    SetPos(1);
+    setPos(1);
 
     m_spotExponent = 0;
     m_spotCutoff = 0;
     m_spotCosCutoff = 0;
 
-    SetRadius(1);
+    setRadius(1);
 
     m_type = type;
 
     Node::m_parallelScene = m_parallelScene = scene;
-    m_sceneManager = m_parallelScene->GetSceneManager();
+    m_sceneManager = m_parallelScene->getSceneManager();
 
-    m_parallelScene->Register(this);
+    m_parallelScene->registerNode(this);
 }
 
 Light::Light(const Light& copy) : Node(copy)
@@ -69,7 +70,7 @@ Light::Light(const Light& copy) : Node(copy)
 
     *this = copy;
 
-    m_parallelScene->Register(this);
+    m_parallelScene->registerNode(this);
 }
 
 Light::~Light()
@@ -77,7 +78,7 @@ Light::~Light()
     if(m_lightId != -1)
         glDisable(m_lightId);
 
-    m_parallelScene->UnRegister(this);
+    m_parallelScene->unregisterNode(this);
 }
 
 Light& Light::operator =(const Light& copy)
@@ -104,25 +105,25 @@ Light& Light::operator =(const Light& copy)
 
     Node::m_parallelScene = m_parallelScene = copy.m_parallelScene;
 
-    m_sceneManager = m_parallelScene->GetSceneManager();
+    m_sceneManager = m_parallelScene->getSceneManager();
 
     return *this;
 }
 
-Light* Light::Clone()
+Light* Light::clone()
 {
     return new Light(*this);
 }
 
-void Light::Process()
+void Light::process()
 {
     if(!m_enable)
         return;
 
-    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::Process));
+    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::process));
 }
 
-void Light::Render()
+void Light::render()
 {
     m_enable ? glEnable(m_lightId) : glDisable(m_lightId);
 
@@ -138,7 +139,7 @@ void Light::Render()
     // set specular color
     glLightfv(m_lightId, GL_SPECULAR, m_specular);
 
-    Vector3f position = GetPos();
+    Vector3f position = getPos();
 
     switch(m_type)
     {
@@ -160,37 +161,37 @@ void Light::Render()
     }
 }
 
-void Light::SetSpecular(Vector4f specular)
+void Light::setSpecular(Vector4f specular)
 {
     this->m_specular = specular;
 }
 
-Vector4f Light::GetSpecular() const
+Vector4f Light::getSpecular() const
 {
     return m_specular;
 }
 
-void Light::SetDiffuse(Vector4f diffuse)
+void Light::setDiffuse(Vector4f diffuse)
 {
     this->m_diffuse = diffuse;
 }
 
-Vector4f Light::GetDiffuse() const
+Vector4f Light::getDiffuse() const
 {
     return m_diffuse;
 }
 
-void Light::SetAmbient(Vector4f ambient)
+void Light::setAmbient(Vector4f ambient)
 {
     this->m_ambient = ambient;
 }
 
-Vector4f Light::GetAmbient() const
+Vector4f Light::getAmbient() const
 {
     return m_ambient;
 }
 
-void Light::SetRadius(float value)
+void Light::setRadius(float value)
 {
     m_radius = value;
     m_constantAttenuation = 0;
@@ -198,24 +199,24 @@ void Light::SetRadius(float value)
     m_linearAttenuation = 1.0f / value;
 }
 
-float Light::GetRadius() const
+float Light::getRadius() const
 {
     return m_radius;
 }
 
-void Light::SetType(Type type)
+void Light::setType(Type type)
 {
     this->m_type = type;
 }
 
-Light::Type Light::GetType() const
+Light::Type Light::getType() const
 {
     return m_type;
 }
 
-Node::CtorMap Light::ConstructionMap(std::string root)
+Node::CtorMap Light::constructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Node::ConstructionMap(root);
+    Node::CtorMap ctormap = Node::constructionMap(root);
 
     ctormap["class"] = "Light";
 
@@ -226,9 +227,9 @@ Node::CtorMap Light::ConstructionMap(std::string root)
     else
         ctormap["type"] = tools::numToStr(m_type);
 
-    ctormap["ambient"] = Vector4ToStr(m_ambient);
-    ctormap["diffuse"] = Vector4ToStr(m_diffuse);
-    ctormap["specular"] = Vector4ToStr(m_specular);
+    ctormap["ambient"] = tools::vec4ToStr(m_ambient);
+    ctormap["diffuse"] = tools::vec4ToStr(m_diffuse);
+    ctormap["specular"] = tools::vec4ToStr(m_specular);
 
     return ctormap;
 }

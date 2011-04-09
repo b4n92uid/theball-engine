@@ -201,12 +201,12 @@ public:
 
     bool operator>(const Vector3& vect1) const
     {
-        return (GetMagnitude() > vect1.GetMagnitude());
+        return (getMagnitude() > vect1.getMagnitude());
     }
 
     bool operator<(const Vector3& vect1) const
     {
-        return (GetMagnitude() < vect1.GetMagnitude());
+        return (getMagnitude() < vect1.getMagnitude());
     }
 
     bool operator==(const T& value) const
@@ -221,12 +221,12 @@ public:
 
     bool operator>(const T& value) const
     {
-        return (GetMagnitude() > value);
+        return (getMagnitude() > value);
     }
 
     bool operator<(const T& value) const
     {
-        return (GetMagnitude() < value);
+        return (getMagnitude() < value);
     }
 
     Vector3 operator+(const Vector3& vec) const
@@ -289,9 +289,9 @@ public:
         return Vector3(value) /= vec;
     }
 
-    Vector3& Rotate(const T& xrel, const T& yrel)
+    Vector3& rotate(const T& xrel, const T& yrel)
     {
-        float m = GetMagnitude();
+        float m = getMagnitude();
 
         z = cos(yrel * M_PI / 180) * cos(xrel * M_PI / 180);
         y = sin(yrel * M_PI / 180);
@@ -302,34 +302,34 @@ public:
         return *this;
     }
 
-    static Vector3 Rotate(const Vector3& vec, const T& xrel, const T& yrel)
+    static Vector3 rotate(const Vector3& vec, const T& xrel, const T& yrel)
     {
-        return Vector3(vec).Rotate(xrel, yrel);
+        return Vector3(vec).rotate(xrel, yrel);
     }
 
-    Vector3& Normalize()
+    Vector3& normalize()
     {
-        T length = GetMagnitude();
+        T length = getMagnitude();
 
         return (length == 0) ? (*this)(0) : (*this /= length);
     }
 
-    static Vector3 Normalize(const Vector3& vec)
+    static Vector3 normalize(const Vector3& vec)
     {
-        return Vector3(vec).Normalize();
+        return Vector3(vec).normalize();
     }
 
-    T GetMagnitude() const
+    T getMagnitude() const
     {
         return (T)sqrt(x * x + y * y + z * z);
     }
 
-    float GetAverage() const
+    float getAverage() const
     {
         return (x + y + z) / 3;
     }
 
-    bool IsInside(const Vector3& min, const Vector3& max) const
+    bool isInside(const Vector3& min, const Vector3& max) const
     {
         return (x >= min.x && y >= min.y && z >= min.z && x <= max.x && y <= max.y && z <= max.z);
     }
@@ -349,12 +349,12 @@ public:
         return Vector3(0, 0, value);
     }
 
-    static float Dot(const Vector3& a, const Vector3& b)
+    static float dot(const Vector3& a, const Vector3& b)
     {
         return (a.x * b.x + a.y * b.y + a.z * b.z);
     }
 
-    static Vector3 Cross(const Vector3& a, const Vector3& b)
+    static Vector3 cross(const Vector3& a, const Vector3& b)
     {
         Vector3 n;
 

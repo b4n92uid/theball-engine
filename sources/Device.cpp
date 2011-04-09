@@ -35,16 +35,16 @@ Device::~Device()
     if(m_postProcessManager) delete m_postProcessManager;
 }
 
-void Device::Init()
+void Device::init()
 {
-    const char * shaderver = Shader::CheckHardware() ?
+    const char * shaderver = Shader::checkHardware() ?
             (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION) : "N/A";
     cout
 
             #ifdef TBE_COMPILE_DEBUG
-            << "theBall engine (" << GetVersion() << ") Debug run" << endl
+            << "theBall engine (" << getVersion() << ") Debug run" << endl
             #else
-            << "theBall engine (" << GetVersion() << ") Release run" << endl
+            << "theBall engine (" << getVersion() << ") Release run" << endl
             #endif
             << "Vendor: " << glGetString(GL_VENDOR) << endl
             << "Render: " << glGetString(GL_RENDERER) << endl
@@ -52,16 +52,16 @@ void Device::Init()
             << "Shader: " << shaderver << endl
             << endl;
 
-    if(!FrameBufferObject::CheckHardware())
+    if(!FrameBufferObject::checkHardware())
         cout << "*** WARNING *** Device::Setup; Frame buffer object not supported" << endl;
 
-    if(!Shader::CheckHardware())
+    if(!Shader::checkHardware())
         cout << "*** WARNING *** Device::Setup; Shaders not supported" << endl;
 
-    if(!HardwareBuffer::CheckHardware())
+    if(!HardwareBuffer::checkHardware())
         cout << "*** WARNING *** Device::Setup; Vertex buffer object not supported" << endl;
 
-    if(!scene::ParticlesEmiter::CheckHardware())
+    if(!scene::ParticlesEmiter::checkHardware())
         cout << "*** WARNING *** Device::Setup; Point sprite particles not supported" << endl;
 
     cout << endl;
@@ -98,21 +98,21 @@ void Device::Init()
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Device::SetViewportSize(Vector2i viewportSize)
+void Device::setViewportSize(Vector2i viewportSize)
 {
     m_viewportSize = viewportSize;
 
-    m_guiManager->Setup(m_viewportSize);
-    m_sceneManager->Setup(m_viewportSize, 0, 70, 0.1, 512);
-    m_postProcessManager->Setup(m_viewportSize);
+    m_guiManager->setup(m_viewportSize);
+    m_sceneManager->setup(m_viewportSize, 0, 70, 0.1, 512);
+    m_postProcessManager->setup(m_viewportSize);
 }
 
-Vector2i Device::GetViewportSize() const
+Vector2i Device::getViewportSize() const
 {
     return m_viewportSize;
 }
 
-void Device::BeginScene()
+void Device::beginScene()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -120,37 +120,37 @@ void Device::BeginScene()
     glLoadIdentity();
 }
 
-void Device::EndScene()
+void Device::endScene()
 {
     glFlush();
 }
 
-scene::SceneManager* Device::GetSceneManager()
+scene::SceneManager* Device::getSceneManager()
 {
     return m_sceneManager;
 }
 
-EventManager* Device::GetEventManager()
+EventManager* Device::getEventManager()
 {
     return m_eventManager;
 }
 
-gui::GuiManager* Device::GetGuiManager()
+gui::GuiManager* Device::getGuiManager()
 {
     return m_guiManager;
 }
 
-ticks::FpsManager* Device::GetFpsManager()
+ticks::FpsManager* Device::getFpsManager()
 {
     return m_fpsManager;
 }
 
-ppe::PostProcessManager* Device::GetPostProcessManager() const
+ppe::PostProcessManager* Device::getPostProcessManager() const
 {
     return m_postProcessManager;
 }
 
-std::string Device::GetVersion()
+std::string Device::getVersion()
 {
     return __DATE__;
 }

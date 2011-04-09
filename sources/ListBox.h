@@ -25,45 +25,45 @@ public:
     ListBox();
     ~ListBox();
 
-    ListBox& Push(const std::string& label);
-    ListBox& Push(const std::string& label, const Any& data);
+    ListBox& push(const std::string& label);
+    ListBox& push(const std::string& label, const Any& data);
 
-    void SetCurrentIndex(unsigned index);
-    unsigned GetCurrentIndex();
+    void setCurrentIndex(unsigned index);
+    unsigned getCurrentIndex();
 
-    void SetCurrentString(const std::string& str);
-    std::string GetCurrentString();
+    void setCurrentString(const std::string& str);
+    std::string getCurrentString();
 
-    void SetCurrentData(const Any& data);
-    Any GetCurrentData();
+    void setCurrentData(const Any& data);
+    Any getCurrentData();
 
-    void SetString(unsigned index, const std::string& str);
-    std::string GetString(unsigned index);
+    void setString(unsigned index, const std::string& str);
+    std::string getString(unsigned index);
 
-    void SetData(unsigned index, const Any& data);
-    Any GetData(unsigned index);
+    void setData(unsigned index, const Any& data);
+    Any getData(unsigned index);
 
-    unsigned GetCount();
+    unsigned getCount();
 
-    void Clear();
+    void clear();
 
-    bool OnEvent(const EventManager& event);
+    bool onEvent(const EventManager& event);
 
-    void SetSkin(const GuiSkin& gui);
+    void setSkin(const GuiSkin& gui);
 
-    void SetBackgroundPadding(Vector2f backgroundPadding);
-    Vector2f GetBackgroundPadding() const;
+    void setBackgroundPadding(Vector2f backgroundPadding);
+    Vector2f getBackgroundPadding() const;
 
-    void CancelSelection();
-    bool IsSelection();
+    void cancelSelection();
+    bool isSelection();
 
-    void SetDefinedSize(bool definedSize);
-    bool IsDefinedSize() const;
+    void setDefinedSize(bool definedSize);
+    bool isDefinedSize() const;
 
-    void Update();
+    void update();
 
 protected:
-    void ObjectRender();
+    void objectRender();
 
     class Item : public Control
     {
@@ -72,18 +72,18 @@ protected:
         Item(std::string label, const Any& data);
         ~Item();
 
-        bool OnEvent(const EventManager& event);
+        bool onEvent(const EventManager& event);
 
-        void SetData(const Any& data);
-        Any GetData() const;
+        void setData(const Any& data);
+        Any getData() const;
 
-        void SetSelected(bool selected);
-        bool IsSelected() const;
+        void setSelected(bool selected);
+        bool isSelected() const;
 
         typedef std::vector<Item*> Array;
 
     protected:
-        void ObjectRender();
+        void objectRender();
 
     protected:
         Any m_data;

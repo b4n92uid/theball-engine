@@ -29,18 +29,18 @@ GuiManager::GuiManager()
     m_guiSkin = NULL;
     m_currentSession = m_sessions.end();
 
-    SetSession(0);
+    setSession(0);
 }
 
 GuiManager::~GuiManager()
 {
-    ClearAll();
+    clearAll();
 
     if(m_guiSkin)
         delete m_guiSkin;
 }
 
-void GuiManager::ClearAll()
+void GuiManager::clearAll()
 {
     for(GuiManager::Session::Map::iterator its = m_sessions.begin(); its != m_sessions.end(); its++)
         delete its->second;
@@ -49,7 +49,7 @@ void GuiManager::ClearAll()
     m_currentSession = m_sessions.end();
 }
 
-void GuiManager::Setup(Vector2i scrsize)
+void GuiManager::setup(Vector2i scrsize)
 {
     m_screenSize = scrsize;
 
@@ -59,20 +59,20 @@ void GuiManager::Setup(Vector2i scrsize)
 
         if(!lay.empty())
         {
-            lay.front()->SetScreenSize(m_screenSize);
-            lay.front()->Update();
+            lay.front()->setScreenSize(m_screenSize);
+            lay.front()->update();
         }
     }
 }
 
-void GuiManager::UpdateLayout()
+void GuiManager::updateLayout()
 {
     for_each(m_currentSession->second->m_headLayouts.begin(),
              m_currentSession->second->m_headLayouts.end(),
-             mem_fun(&Layout::Update));
+             mem_fun(&Layout::update));
 }
 
-void GuiManager::Render()
+void GuiManager::render()
 {
     // Passage en Ortho 2D
     glMatrixMode(GL_PROJECTION);
@@ -92,11 +92,11 @@ void GuiManager::Render()
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_LIGHTING);
 
-    UpdateLayout();
+    updateLayout();
 
     for(Control::Map::iterator itt = m_currentSession->second->m_ctrls.begin();
         itt != m_currentSession->second->m_ctrls.end(); itt++)
-        itt->second->Render();
+        itt->second->render();
 
     glPopAttrib();
 
@@ -104,7 +104,7 @@ void GuiManager::Render()
     glPopMatrix();
 }
 
-void GuiManager::PageUp()
+void GuiManager::pageUp()
 {
     m_currentSession--;
 
@@ -112,7 +112,7 @@ void GuiManager::PageUp()
         m_currentSession = --m_sessions.end();
 }
 
-void GuiManager::PageDown()
+void GuiManager::pageDown()
 {
     m_currentSession++;
 
@@ -120,12 +120,12 @@ void GuiManager::PageDown()
         m_currentSession = m_sessions.begin();
 }
 
-void GuiManager::SetSession(unsigned sessID)
+void GuiManager::setSession(unsigned sessID)
 {
     if(m_currentSession->first != sessID && m_currentSession != m_sessions.end())
         for(Control::Map::iterator itt = m_currentSession->second->m_ctrls.begin();
             itt != m_currentSession->second->m_ctrls.end(); itt++)
-            itt->second->SetActivate(false);
+            itt->second->setActivate(false);
 
     if(m_sessions.find(sessID) == m_sessions.end())
         m_sessions[sessID] = new Session;
@@ -133,12 +133,12 @@ void GuiManager::SetSession(unsigned sessID)
     m_currentSession = m_sessions.find(sessID);
 }
 
-unsigned GuiManager::GetSession()
+unsigned GuiManager::getSession()
 {
     return m_currentSession->first;
 }
 
-void GuiManager::DestroySession(unsigned sessID)
+void GuiManager::destroySession(unsigned sessID)
 {
     if(m_currentSession->first == sessID)
         m_currentSession++;
@@ -151,19 +151,19 @@ void GuiManager::DestroySession(unsigned sessID)
             m_currentSession = m_sessions.begin();
 }
 
-void GuiManager::TrasmitEvent(EventManager& e)
+void GuiManager::trasmitEvent(EventManager& e)
 {
     if(m_currentSession != m_sessions.end())
         for(Control::Map::iterator it = m_currentSession->second->m_ctrls.begin();
             it != m_currentSession->second->m_ctrls.end(); ++it)
-            if(it->second->OnEvent(e))
+            if(it->second->onEvent(e))
             {
                 e.notify = EventManager::EVENT_NO_EVENT;
                 break;
             }
 }
 
-void GuiManager::SetSkin(GuiSkin* skin)
+void GuiManager::setSkin(GuiSkin* skin)
 {
     if(m_guiSkin)
         delete m_guiSkin;
@@ -173,112 +173,112 @@ void GuiManager::SetSkin(GuiSkin* skin)
     if(m_guiSkin)
         for(Session::Map::iterator i = m_sessions.begin(); i != m_sessions.end(); i++)
             for(Control::Map::iterator j = i->second->m_ctrls.begin(); j != i->second->m_ctrls.end(); j++)
-                j->second->SetSkin(*m_guiSkin);
+                j->second->setSkin(*m_guiSkin);
 
 }
 
-TextBox* GuiManager::AddTextBox(std::string name)
+TextBox* GuiManager::addTextBox(std::string name)
 {
     TextBox* p = new TextBox;
 
-    AddControl(name, p);
+    addControl(name, p);
 
     return p;
 }
 
-KeyConfig* GuiManager::AddKeyConfig(std::string name)
+KeyConfig* GuiManager::addKeyConfig(std::string name)
 {
     KeyConfig* p = new KeyConfig;
 
-    AddControl(name, p);
+    addControl(name, p);
 
     return p;
 }
 
-Gauge* GuiManager::AddGauge(std::string name, std::string label)
+Gauge* GuiManager::addGauge(std::string name, std::string label)
 {
     Gauge* p = new Gauge;
-    p->SetLabel(label);
+    p->setLabel(label);
 
-    AddControl(name, p);
+    addControl(name, p);
 
     return p;
 }
 
-EditBox* GuiManager::AddEditBox(std::string name, std::string label)
+EditBox* GuiManager::addEditBox(std::string name, std::string label)
 {
     EditBox* p = new EditBox;
-    p->SetLabel(label);
+    p->setLabel(label);
 
-    AddControl(name, p);
+    addControl(name, p);
 
     return p;
 }
 
-SwitchString* GuiManager::AddSwitchString(std::string name)
+SwitchString* GuiManager::addSwitchString(std::string name)
 {
     SwitchString* p = new SwitchString;
 
-    AddControl(name, p);
+    addControl(name, p);
 
     return p;
 }
 
-Image* GuiManager::AddImage(std::string name, Texture path)
+Image* GuiManager::addImage(std::string name, Texture path)
 {
 
     Image* p = new Image(path);
 
-    AddControl(name, p);
+    addControl(name, p);
 
     return p;
 }
 
-StateShow* GuiManager::AddStateShow(std::string name, Texture path, int stateCount)
+StateShow* GuiManager::addStateShow(std::string name, Texture path, int stateCount)
 {
 
     StateShow* p = new StateShow;
-    p->SetBackground(path);
-    p->SetStateCount(stateCount);
+    p->setBackground(path);
+    p->setStateCount(stateCount);
 
-    AddControl(name, p);
+    addControl(name, p);
 
     return p;
 }
 
-ListBox* GuiManager::AddListBox(std::string name)
+ListBox* GuiManager::addListBox(std::string name)
 {
     ListBox* p = new ListBox;
 
-    AddControl(name, p);
+    addControl(name, p);
 
     return p;
 }
 
-VectorBox* GuiManager::AddVectorBox(std::string name, Vector3f value)
+VectorBox* GuiManager::addVectorBox(std::string name, Vector3f value)
 {
     VectorBox* p = new VectorBox;
-    p->SetValue(value);
+    p->setValue(value);
 
-    AddControl(name, p);
+    addControl(name, p);
 
     return p;
 }
 
-Button* GuiManager::AddButton(std::string name, std::string label)
+Button* GuiManager::addButton(std::string name, std::string label)
 {
     Button* p = new Button;
-    p->SetLabel(label);
+    p->setLabel(label);
 
-    AddControl(name, p);
+    addControl(name, p);
 
     return p;
 }
 
-void GuiManager::AddControl(std::string name, Control* ctrl)
+void GuiManager::addControl(std::string name, Control* ctrl)
 {
     if(name.empty())
-        name = tools::NameGen(m_currentSession->second->m_ctrls);
+        name = tools::nameGen(m_currentSession->second->m_ctrls);
 
     if(m_currentSession->second->m_ctrls.find(name) != m_currentSession->second->m_ctrls.end())
         throw Exception("GuiManager::AddControl; Control already exist (%s)", name.c_str());
@@ -286,15 +286,15 @@ void GuiManager::AddControl(std::string name, Control* ctrl)
     m_currentSession->second->m_ctrls[name] = ctrl;
 
     if(m_guiSkin)
-        ctrl->SetSkin(*m_guiSkin);
+        ctrl->setSkin(*m_guiSkin);
 
-    ctrl->SetName(name);
+    ctrl->setName(name);
 
     if(m_currentSession->second->m_activeLayout)
-        m_currentSession->second->m_activeLayout->AddControl(ctrl);
+        m_currentSession->second->m_activeLayout->addControl(ctrl);
 }
 
-void GuiManager::DeleteControl(std::string name)
+void GuiManager::deleteControl(std::string name)
 {
 
     if(m_currentSession->second->m_ctrls.find(name) == m_currentSession->second->m_ctrls.end())
@@ -304,7 +304,7 @@ void GuiManager::DeleteControl(std::string name)
     m_currentSession->second->m_ctrls.erase(name);
 }
 
-Control* GuiManager::GetControl(std::string name, int sess)
+Control* GuiManager::getControl(std::string name, int sess)
 {
     if(sess != -1)
     {
@@ -325,7 +325,7 @@ Control* GuiManager::GetControl(std::string name, int sess)
 
 }
 
-Control* GuiManager::ReleaseControl(std::string name)
+Control* GuiManager::releaseControl(std::string name)
 {
 
     if(m_currentSession->second->m_ctrls.find(name) == m_currentSession->second->m_ctrls.end())
@@ -338,13 +338,13 @@ Control* GuiManager::ReleaseControl(std::string name)
     return releaseNode;
 }
 
-GridLayout* GuiManager::AddGridLayout(Layout::Orientation type, int rows, int cols, float space, Vector2f border)
+GridLayout* GuiManager::addGridLayout(Layout::Orientation type, int rows, int cols, float space, Vector2f border)
 {
 
     return 0;
 }
 
-Layout* GuiManager::AddLayout(Layout::Orientation type, float space, Vector2f border)
+Layout* GuiManager::addLayout(Layout::Orientation type, float space, Vector2f border)
 {
     Layout* lay = new Layout(m_screenSize, border, space, type);
 
@@ -352,7 +352,7 @@ Layout* GuiManager::AddLayout(Layout::Orientation type, float space, Vector2f bo
     m_currentSession->second->m_layouts.push_back(lay);
 
     if(m_currentSession->second->m_activeLayout)
-        m_currentSession->second->m_activeLayout->AddLayout(lay);
+        m_currentSession->second->m_activeLayout->addLayout(lay);
 
     else
         m_currentSession->second->m_headLayouts.push_back(lay);
@@ -362,36 +362,36 @@ Layout* GuiManager::AddLayout(Layout::Orientation type, float space, Vector2f bo
     return lay;
 }
 
-void GuiManager::AddLayoutSpace(Vector2f space)
+void GuiManager::addLayoutSpace(Vector2f space)
 {
 
     if(m_currentSession->second->m_activeLayout)
-        m_currentSession->second->m_activeLayout->AddSpace(space);
+        m_currentSession->second->m_activeLayout->addSpace(space);
 }
 
-void GuiManager::AddLayoutStretchSpace()
+void GuiManager::addLayoutStretchSpace()
 {
 
     if(m_currentSession->second->m_activeLayout)
-        m_currentSession->second->m_activeLayout->AddStretchSpace();
+        m_currentSession->second->m_activeLayout->addStretchSpace();
 }
 
-Layout* GuiManager::EndLayout()
+Layout* GuiManager::endLayout()
 {
     if(m_currentSession->second->m_activeLayout)
     {
-        m_currentSession->second->m_activeLayout->Update();
+        m_currentSession->second->m_activeLayout->update();
 
-        m_currentSession->second->m_activeLayout = m_currentSession->second->m_activeLayout->GetParent();
+        m_currentSession->second->m_activeLayout = m_currentSession->second->m_activeLayout->getParent();
 
         if(m_currentSession->second->m_activeLayout)
-            m_currentSession->second->m_activeLayout->Update();
+            m_currentSession->second->m_activeLayout->update();
     }
 
     return m_currentSession->second->m_activeLayout;
 }
 
-Vector2f GuiManager::GetScreenSize() const
+Vector2f GuiManager::getScreenSize() const
 {
     return m_screenSize;
 }

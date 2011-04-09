@@ -60,9 +60,9 @@ static const char fragmentShader[] =
 
 ColorEffect::ColorEffect()
 {
-    m_processShader.ParseFragmentShader(fragmentShader);
-    m_processShader.ParseVertexShader(vertexShader);
-    m_processShader.LoadProgram();
+    m_processShader.parseFragmentShader(fragmentShader);
+    m_processShader.parseVertexShader(vertexShader);
+    m_processShader.loadProgram();
 
     m_fusionMode = BLACK_WHITE;
     m_internalPass = false;
@@ -72,89 +72,89 @@ ColorEffect::~ColorEffect()
 {
 }
 
-void ColorEffect::Process(Rtt* rtt)
+void ColorEffect::process(Rtt* rtt)
 {
     if(m_internalPass)
     {
-        m_workRtt->Use(true);
+        m_workRtt->use(true);
 
-        m_processShader.Use(true);
-        rtt->GetColor().Use(true);
+        m_processShader.use(true);
+        rtt->getColor().use(true);
 
-        m_layer.Draw();
+        m_layer.draw();
 
-        rtt->GetColor().Use(false);
-        m_processShader.Use(false);
+        rtt->getColor().use(false);
+        m_processShader.use(false);
 
-        m_workRtt->Use(false);
+        m_workRtt->use(false);
 
-        rtt->Use(true);
+        rtt->use(true);
 
         glPushAttrib(GL_ENABLE_BIT);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        m_workRtt->GetColor().Use(true);
-        m_layer.Draw();
-        m_workRtt->GetColor().Use(false);
+        m_workRtt->getColor().use(true);
+        m_layer.draw();
+        m_workRtt->getColor().use(false);
 
         glPopAttrib();
 
-        rtt->Use(false);
+        rtt->use(false);
     }
 
     else
     {
-        rtt->Use(true);
-        m_processShader.Use(true);
-        rtt->GetColor().Use(true);
+        rtt->use(true);
+        m_processShader.use(true);
+        rtt->getColor().use(true);
 
         glPushAttrib(GL_ENABLE_BIT);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        m_layer.Draw();
+        m_layer.draw();
 
         glPopAttrib();
 
-        rtt->GetColor().Use(false);
-        m_processShader.Use(false);
-        rtt->Use(false);
+        rtt->getColor().use(false);
+        m_processShader.use(false);
+        rtt->use(false);
     }
 }
 
-void ColorEffect::SetFusionMode(ColorEffect::FusionMode fusionMode)
+void ColorEffect::setFusionMode(ColorEffect::FusionMode fusionMode)
 {
     this->m_fusionMode = fusionMode;
 
-    m_processShader.Use(true);
-    m_processShader.SetUniform("fusionMode", m_fusionMode);
-    m_processShader.Use(false);
+    m_processShader.use(true);
+    m_processShader.uniform("fusionMode", m_fusionMode);
+    m_processShader.use(false);
 }
 
-ColorEffect::FusionMode ColorEffect::GetFusionMode() const
+ColorEffect::FusionMode ColorEffect::getFusionMode() const
 {
     return m_fusionMode;
 }
 
-void ColorEffect::SetColor(Vector4f color)
+void ColorEffect::setColor(Vector4f color)
 {
     this->m_color = color;
 
-    m_processShader.Use(true);
-    m_processShader.SetUniform("color", m_color);
-    m_processShader.Use(false);
+    m_processShader.use(true);
+    m_processShader.uniform("color", m_color);
+    m_processShader.use(false);
 }
 
-Vector4f ColorEffect::GetColor() const
+Vector4f ColorEffect::getColor() const
 {
     return m_color;
 }
-void ColorEffect::SetInternalPass(bool internalPass)
+void ColorEffect::setInternalPass(bool internalPass)
 {
     this->m_internalPass = internalPass;
 }
-bool ColorEffect::IsInternalPass() const
+bool ColorEffect::isInternalPass() const
 {
     return m_internalPass;
 }

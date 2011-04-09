@@ -40,72 +40,78 @@ public:
     bool operator==(std::string name) const;
 
     /// Renvois le AABB du noeud
-    AABB GetAabb() const;
-    AABB GetAbsolutAabb() const;
+    AABB getAabb() const;
+
+    /// Renvois le AABB du noeud avec des coordonées sur le repere global
+    AABB getAbsolutAabb() const;
 
     /// Specifier si l'objet est activer
-    void SetEnable(bool enbale);
-    bool IsEnable() const;
+    void setEnable(bool enbale);
+
+    /// Etat de l'objet si activer
+    bool isEnable() const;
 
     /// Identifiant du noeud
-    void SetName(std::string name);
-    std::string GetName() const;
+    void setName(std::string name);
+    std::string getName() const;
 
     /// Matrice du noeud
-    void SetMatrix(const Matrix4f& matrix);
-    void MulMatrix(const Matrix4f& matrix);
+    void setMatrix(const Matrix4f& matrix);
+    Matrix4f& getMatrix();
 
-    Matrix4f GetAbsoluteMatrix() const;
-    Matrix4f& GetMatrix();
+    void mulMatrix(const Matrix4f& matrix);
+
+    Matrix4f getAbsoluteMatrix() const;
 
     /// Spécifier la scene parallel parent
-    void SetParallelScene(ParallelScene* parallelScene);
-    ParallelScene* GetParallelScene() const;
+    void setParallelScene(ParallelScene* parallelScene);
+    ParallelScene* getParallelScene() const;
 
-    void SetSceneManager(SceneManager* sceneManager);
-    SceneManager* GetSceneManager() const;
+    void setSceneManager(SceneManager* sceneManager);
+    SceneManager* getSceneManager() const;
 
     /// Racourcie pour sépcifier la postion de la matrice du noeud
-    void SetPos(Vector3f pos);
-    Vector3f GetPos() const;
+    void setPos(Vector3f pos);
+    Vector3f getPos() const;
 
-    Vector3f MapFromGlobal(Vector3f pos);
+    Vector3f mapFromGlobal(Vector3f pos);
 
-    bool IsRoot() const;
-    bool IsAttached() const;
-    void ReleaseParent();
+    bool isRoot() const;
+    bool isAttached() const;
 
-    unsigned DeepPosition() const;
+    void releaseFromParent();
 
-    void SetParent(Node* parent);
-    Node* GetParent() const;
+    unsigned deepPosition() const;
 
-    void AddChild(Node* child);
-    Node* GetChild(unsigned index) const;
-    unsigned GetChildCount() const;
+    void setParent(Node* parent);
+    Node* getParent() const;
 
-    void ClearAllChild();
+    void addChild(Node* child);
+    Node* getChild(unsigned index) const;
+    unsigned getChildCount() const;
 
-    Iterator<Node*> GetChildIterator();
+    void clearAllChild();
 
-    void ReleaseChild(Node* child);
-    Node* ReleaseChild(unsigned index);
+    Iterator<Node*> getChildIterator();
 
-    void DeleteChild(Node* child);
-    void DeleteChild(unsigned index);
+    void releaseChild(Node* child);
+    Node* releaseChild(unsigned index);
 
-    virtual Node* Clone() = 0;
+    void deleteChild(Node* child);
+    void deleteChild(unsigned index);
 
-    virtual void Process() = 0;
+    virtual Node* clone() = 0;
 
-    virtual void Render() = 0;
+    virtual void process() = 0;
 
-    void SetUserData(Any userData);
-    Any GetUserData() const;
+    virtual void render() = 0;
+
+    void setUserData(Any userData);
+    Any getUserData() const;
 
     typedef std::map<std::string, std::string> CtorMap;
 
-    virtual CtorMap ConstructionMap(std::string root);
+    virtual CtorMap constructionMap(std::string root);
 
     typedef std::map<std::string, Node*> Map;
     typedef std::vector<Node*> Array;
@@ -127,20 +133,20 @@ protected:
 class BullNode : public Node
 {
 
-    Node* Clone()
+    Node* clone()
     {
         return new BullNode(*this);
     }
 
-    void Process()
+    void process()
     {
         if(!m_enable)
             return;
 
-        for_each(m_childs.begin(), m_childs.end(), std::mem_fun(&Node::Process));
+        for_each(m_childs.begin(), m_childs.end(), std::mem_fun(&Node::process));
     }
 
-    void Render()
+    void render()
     {
         // Nothging to do...
     }
