@@ -22,9 +22,30 @@ namespace tbe
 namespace tools
 {
 
+/**
+ * Indique si la valeur 'value' est de puissance 2
+ *
+ * @param value
+ * @return
+ */
 template<typename T> inline bool isPow2(T value)
 {
     return (value != 0) && !(value & (value - 1));
+}
+
+/**
+ * Renvois la premiere valeur de puissance-deux apres 'v'
+ *
+ * @param a
+ * @return
+ */
+template<typename T> inline T nextPow2(T v)
+{
+    T rval = 2;
+    // rval<<=1 Is A Prettier Way Of Writing rval*=2;
+    while(rval < v) rval <<= 1;
+
+    return rval;
 }
 
 inline std::string pathname(std::string filename)
@@ -37,6 +58,14 @@ inline std::string pathname(std::string filename)
     return filename.substr(0, pos);
 }
 
+/**
+ * Renvois le nom (et l'extention si withExt est à true)
+ *  du chemin spécifier par filename
+ *
+ * @param filename
+ * @param withExt
+ * @return
+ */
 inline std::string basename(std::string filename, bool withExt = true)
 {
     unsigned pos = filename.find_last_of('\\');
@@ -50,6 +79,14 @@ inline std::string basename(std::string filename, bool withExt = true)
         return filename.substr(pos + 1, filename.find_last_of('.'));
 }
 
+/**
+ * Renvois le chemin du fichier 'relfile' relatif a au chemin
+ *  du fichier 'absfile'
+ *
+ * @param absfile
+ * @param relfile
+ * @return
+ */
 inline std::string makeRelatifTo(std::string absfile, std::string relfile)
 {
     unsigned reppos;
@@ -83,6 +120,15 @@ inline std::string makeRelatifTo(std::string absfile, std::string relfile)
     return abspath + relfile;
 }
 
+/**
+ * Renvois la valeur 'value' si elle se situe entre min et max,
+ *  sinon elle renvois une des extrémité
+ *
+ * @param value
+ * @param min
+ * @param max
+ * @return
+ */
 template<typename T> T clamp(const T& value, const T& min, const T& max)
 {
     return std::max(min, std::min(value, max));
@@ -93,27 +139,62 @@ template<typename T> void erase(std::vector<T>& vec, unsigned index)
     vec.erase(vec.begin() + index);
 }
 
+/**
+ * Trouve et efface la premiere occurance de 'val'
+ *  si elle est contenue dans le tableau 'vec',
+ *  val peut être d'un type héritant de T
+ *
+ * @param vec
+ * @param val
+ */
 template<typename T, typename T2> void erase(std::vector<T>& vec, T2 val)
 {
     vec.erase(std::find(vec.begin(), vec.end(), dynamic_cast<T2>(val)));
 }
 
+/**
+ * Trouve et efface la premiere occurance de 'val'
+ *  si elle est contenue dans le tableau 'vec'
+ * 
+ * @param vec
+ * @param val
+ */
 template<typename T> void erase(std::vector<T>& vec, T val)
 {
     vec.erase(std::find(vec.begin(), vec.end(), val));
 }
 
+/**
+ * Indique si la valeur 'val' est contenue dans le tableau 'vec',
+ *  val peut être d'un type héritant de T
+ * 
+ * @param vec
+ * @param val
+ * @return
+ */
 template<typename T, typename T2> T find(const std::vector<T>& vec, T2 val)
 {
     typename std::vector<T>::const_iterator it = std::find(vec.begin(), vec.end(), val);
     return (it != vec.end()) ? *it : NULL;
 }
 
+/**
+ * Indique si la valeur 'val' est contenue dans le tableau 'vec'
+ *
+ * @param vec
+ * @param val
+ * @return
+ */
 template<typename T> bool find(const std::vector<T>& vec, T val)
 {
     return std::find(vec.begin(), vec.end(), val) != vec.end();
 }
 
+/**
+ * Enleve les espace blanc des extrémité de la chaine
+ *
+ * @param buffer
+ */
 inline void trimstr(std::string& buffer)
 {
     using namespace std;
@@ -125,6 +206,12 @@ inline void trimstr(std::string& buffer)
         buffer.erase(it);
 }
 
+/**
+ * Renvois 'true' si la chaine de caracter ne contien que des espaces
+ * 
+ * @param buffer
+ * @return
+ */
 inline bool isspace(const std::string& buffer)
 {
     for(unsigned i = 0; i < buffer.size(); i++)
@@ -134,6 +221,14 @@ inline bool isspace(const std::string& buffer)
     return true;
 }
 
+/**
+ * Surcharge de la fonction standard getline, efface le retour a la ligne
+ *  sur les systeme Unix
+ *
+ * @param stream
+ * @param buffer
+ * @return
+ */
 inline bool getline(std::istream& stream, std::string& buffer)
 {
     using namespace std;
@@ -149,7 +244,7 @@ inline bool getline(std::istream& stream, std::string& buffer)
 }
 
 /**
- * Renvois la premier puissance-deux apres 'v'
+ * Renvois la premier puissance-deux après 'v'
  *
  * @param v
  * @return
@@ -165,22 +260,7 @@ template<typename T> inline Vector2<T> nextPow2(Vector2<T> v)
 }
 
 /**
- * Renvois la premier puissance-deux apres 'v'
- *
- * @param a
- * @return
- */
-template<typename T> inline T nextPow2(T v)
-{
-    T rval = 2;
-    // rval<<=1 Is A Prettier Way Of Writing rval*=2;
-    while(rval < v) rval <<= 1;
-
-    return rval;
-}
-
-/**
- * Retourne la chaine 'name' sous format compatible Unix
+ * Retourne la chaine 'name' sous format de nom compatible Unix
  *
  * @param name
  * @return
@@ -258,7 +338,7 @@ std::string nameGen(std::vector<T>& array, std::string prefix = std::string())
 }
 
 /**
- * Conversion numérique vers une chaine de characters
+ * Conversion numérique vers chaine de characters
  *
  * @param numeric
  * @return
@@ -284,6 +364,14 @@ template <typename T> T strToNum(std::string str)
     return numeric;
 }
 
+/**
+ * Interprétation d'une chaine de caracteres en vecteur a 2 composant
+ *  depuis le format "x, y"
+ *
+ * @param str
+ * @param withsep
+ * @return
+ */
 template <typename T> Vector2<T> strToVec2(std::string str, bool withsep = false)
 {
     Vector2<T> vec;
@@ -302,6 +390,14 @@ template <typename T> Vector2<T> strToVec2(std::string str, bool withsep = false
     return vec;
 }
 
+/**
+ * Interprétation d'une chaine de caracteres en vecteur a 3 composant
+ *  depuis le format "x, y, z"
+ *
+ * @param str
+ * @param withsep
+ * @return
+ */
 template <typename T> Vector3<T> strToVec3(std::string str, bool withsep = false)
 {
     Vector3<T> vec;
@@ -320,6 +416,14 @@ template <typename T> Vector3<T> strToVec3(std::string str, bool withsep = false
     return vec;
 }
 
+/**
+ * Interprétation d'une chaine de caracteres en vecteur a 4 composant
+ *  depuis le format "x, y, z, w"
+ * 
+ * @param str
+ * @param withsep
+ * @return
+ */
 template <typename T> Vector4<T> strToVec4(std::string str, bool withsep = false)
 {
     Vector4<T> vec;
@@ -338,6 +442,13 @@ template <typename T> Vector4<T> strToVec4(std::string str, bool withsep = false
     return vec;
 }
 
+/**
+ * Conversion d'une matrice 4x4 en chaine de caracteres
+ *  au format "0.1, 0.2, 0.3[...]"
+ *
+ * @param mat
+ * @return
+ */
 template<typename T> inline std::string mat4ToStr(const Matrix4<T>& mat)
 {
     std::stringstream stream;
@@ -349,6 +460,13 @@ template<typename T> inline std::string mat4ToStr(const Matrix4<T>& mat)
     return stream.str();
 }
 
+/**
+ * Conversion d'un vecteur a 2 composant en chaine de caracteres
+ *  au format "x, y"
+ *
+ * @param vec
+ * @return
+ */
 template<typename T> inline std::string vec2ToStr(const Vector2<T>& vec)
 {
     std::stringstream stream;
@@ -357,6 +475,13 @@ template<typename T> inline std::string vec2ToStr(const Vector2<T>& vec)
     return stream.str();
 }
 
+/**
+ * Conversion d'un vecteur a " composant en chaine de caracteres
+ *  au format "x, y, z"
+ *
+ * @param vec
+ * @return
+ */
 template<typename T> inline std::string vec3ToStr(const Vector3<T>& vec)
 {
     std::stringstream stream;
@@ -365,6 +490,13 @@ template<typename T> inline std::string vec3ToStr(const Vector3<T>& vec)
     return stream.str();
 }
 
+/**
+ * Conversion d'un vecteur a 4 composant en chaine de caracteres
+ *  au format "x, y, z, w"
+ *
+ * @param vec
+ * @return
+ */
 template<typename T> inline std::string vec4ToStr(const Vector4<T>& vec)
 {
     std::stringstream stream;
@@ -424,7 +556,7 @@ inline Vector3f rand(Vector3f min, Vector3f max)
 }
 
 /**
- * Renvoi un vectur aléatoir situer a l'interieur de aabb
+ * Renvoi un vectur aléatoir situer a l'interieur de la boite englobant 'aabb'
  *
  * @param min
  * @param max
@@ -451,7 +583,7 @@ inline float floatModulo(float lvalue, float rvalue)
 }
 
 /**
- * Renvois le valeur arrodis par unit
+ * Renvois le valeur arrodis de 'value' par 'unit'
  * 
  * @param value
  * @param unit
@@ -475,7 +607,7 @@ void round(T& value, const T& unit)
 }
 
 /**
- * Spécialisation de round pour float
+ * Spécialisation de round() pour float
  *
  * @param value
  * @param unit
@@ -499,7 +631,7 @@ inline void round<float>(float& value, const float& unit)
 }
 
 /**
- * round sur Vector2
+ * round() sur Vector2
  *
  * @param value
  * @param unit
@@ -513,7 +645,7 @@ void round(Vector2<T>& value, const Vector2<T>& unit)
 }
 
 /**
- * round sur Vector3
+ * round() sur Vector3
  *
  * @param value
  * @param unit

@@ -13,7 +13,7 @@
 namespace tbe
 {
 
-/// \brief Gestion des exception
+/// \brief Gestion des exceptions
 
 class Exception : public std::exception, public std::stringstream
 {

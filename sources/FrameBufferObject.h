@@ -34,24 +34,59 @@ public:
         DEPTH_TEXTURE_2D = 16,
     };
 
+    /// Active la capture d'un composant de l'énumération Compenent
     void attach(unsigned compenent);
+
+    /// Désactive la capture d'un composant de l'énumération Compenent
     void detach(unsigned compenent);
 
+    /**
+     * Utilisation du FBO. Le rendue effectuer apres cette appelle
+     * sera déssiner sur ce le buffer de cette objet
+     *
+     * @param use Etat d'utilisation du FBO
+     */
     void use(bool state = true);
 
+    /**
+     * Déssine le contenue du buffer courrant sur dst avec les conversion
+     *  néssésaire a effectuer.
+     *
+     * @param dst le buffer de déstination
+     * @param compenentFlags les compossants a déssiner
+     */
     void blit(FrameBufferObject* dst, unsigned compenentFlags = 0);
 
+    /// Vide le buffer courant
     void clear();
 
+    /// Renvois, sous forme de texture, le composant spécifier
     Texture getTexture(Compenent compenent);
+
+    /// Racourci pour l'appelle getTexture(COLOR_TEXTURE_2D)
     Texture getColor();
 
+    /// Spécifier le multi-sampling éffectuer sur le rendue
     void setMultiSamplesCount(unsigned multiSamplesCount);
+
+    /// Renvois le nombre de multi-sampling éffectuer sur le rendue
     unsigned getMultiSamplesCount() const;
 
+    /// Spécifier la taille du FBO
     virtual void setFrameSize(Vector2i frameSize);
+
+    /// Renvois la taille du FBO
     Vector2i getFrameSize() const;
 
+    /**
+     * Cette fonction vérifie si le materiel actuelle supporte l'utilisation
+     * des FBO (Frame buffer object)
+     *
+     * Pour déterminer le support des FBO, les Extention suivante sont tester :
+     *  GL_EXT_framebuffer_object
+     *  GL_EXT_framebuffer_blit
+     *  GL_EXT_framebuffer_multisample
+     */
     static bool checkHardware();
 
 protected:

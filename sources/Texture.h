@@ -23,47 +23,63 @@ public:
 
     virtual ~Texture();
 
-    /// Construit un texture avec la valuer et la taille spécifier
+    /// Construit une texture avec la valuer et la taille spécifier
     void build(Vector2i size, Vector4i color = 0, GLint internalFormat = 4, GLenum format = GL_RGBA);
 
-    /// Chargement depuis un fichier
+    /**
+     * Chargement la texture depuis un fichier
+     *
+     * @param filename Chemin vers la texture
+     * @param genMipMap Définie si le chargement de la texture générera un mipMapping (texture a plusieur niveau de détail)
+     * @param upperLeftOrigin Définie si la texture devera etre retourné pour que (0,0) correspend au coin du haut a gauche
+     */
     void load(std::string filename, bool genMipMap = false, bool upperLeftOrigin = true);
+
+    /// @see load()
 
     void operator()(std::string filename, bool genMipMap = false, bool upperLeftOrigin = true)
     {
         load(filename, genMipMap, upperLeftOrigin);
     }
 
-    /// Operateur d'assignement pour chemin de fichier
-    Texture & operator=(const Texture& copy);
-    Texture & operator=(std::string texture);
-    Texture & operator=(const char* texture);
+    /// Operateur d'assginement : charge la texture spécifier par filename
+    Texture & operator=(std::string filename);
 
-    /// Verification de statue
+    /// Operateur d'assginement : charge la texture spécifier par filename
+    Texture & operator=(const char* filename);
+
+    /// Operateur de copie
+    Texture & operator=(const Texture& copy);
+
+    /// Verification de statue, renvois true si une texture est bien charger
     bool operator!() const;
+
+    /// Verification de statue, renvois true si une texture est bien charger
     operator bool() const;
 
-    /// Récuperation d'identifiant
-    void setTextureName(GLuint textureName);
+    /// Récuperation d'identifiant OpenGL
     GLuint getTextureName() const;
+
+    /// @see getTextureName()
     operator GLuint() const;
 
-    /// Taille de la texture
-    void setSize(Vector2i size);
+    /// Renvois la taille de la texture
     virtual Vector2i getSize() const;
 
-    /// Utilisation de la texture
+    /// Utilisation de la texture (bind)
     void use(bool state = true);
 
     /**
      * Supprime la texture si pas d'instance utiliser
      * note : plus sure que remove()
+     * @see remove()
      */
     void release();
 
     /**
      * Supprime la texture directement
      * note : utiliser release() au lieu
+     * @see release()
      */
     void remove();
 
@@ -72,18 +88,20 @@ public:
 
     /// Spécifier le filtring appliquer a la texture
     void setFiltring(unsigned filtring);
+
+    /// Renvois le filtring utliser par la texture
     unsigned getFiltring() const;
 
     /**
      * Renvois true si la texture a été position de facon
-     * a ce que les coordonnés 0,0 font référence au coin superieur a gauche
-     * de la texture
+     * a ce que les coordonnés 0,0 font référence au coin 
+     * superieur a gauche de la texture
      */
     bool isUpperLeftOrigin() const;
 
     /**
      * Renvois true si les couches du mipmap
-     * ont été générer durant le chargement de l texture
+     * ont été générer durant le chargement de la texture
      */
     bool isGenMipMap() const;
 
@@ -97,6 +115,10 @@ public:
         MIPMAP,
     };
 
+    /**
+     * Supprime toute les texture partager
+     * attention : tout les texture déja charger devienderont invalide
+     */
     static void resetCache();
 
     typedef std::map<unsigned, Texture> Map;
