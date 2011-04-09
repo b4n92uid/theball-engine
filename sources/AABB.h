@@ -29,37 +29,92 @@ public:
     AABB(Vector3f min, Vector3f max);
     virtual ~AABB();
 
-    AABB& count(scene::Node* node);
-    AABB& count(const AABB& aabb);
+    /**
+     * Prend en compte le point définie par le vecteur pos, si le point
+     *  est a l'interieur du AABB rien n'est fait, sinon le AABB est agrandie
+     *  pour le prendre en compte
+     */
     AABB& count(const Vector3f& pos);
 
+    /**
+     * Prend en compte le AABB définie par 'aabb'
+     * @see count(const Vector3f& pos)
+     */
+    AABB& count(const AABB& aabb);
+
+    /**
+     * Prend en compte le AABB absolue du noeud 'node'
+     * @see count(const Vector3f& pos)
+     */
+    AABB& count(scene::Node* node);
+
+    /// Assigne les dimmension du AABB
     AABB & operator()(const Vector3f& min, const Vector3f& max);
 
+    /**
+     * Etire la valeur min et max du AABB par pos
+     * AABB(-2,2).add(3) == AABB(-5,5)
+     */
     AABB & add(const Vector3f& pos);
+
+    /**
+     * Etire la valeur min et max du AABB par les valeur min et max de 'aabb'
+     * @see add(const Vector3f& pos)
+     */
     AABB & add(const AABB& aabb);
 
+    /**
+     * Rétrécie la valeur min et max du AABB par pos
+     * AABB(-5,5).sub(3) == AABB(-2,2)
+     */
     AABB & sub(const Vector3f& pos);
+
+    /**
+     * Rétrécie la valeur min et max du AABB par les valeur min et max de 'aabb'
+     * @see sub(const Vector3f& pos)
+     */
     AABB & sub(const AABB& aabb);
 
+    /// @see add(const Vector3f& pos)
     AABB & operator+=(const Vector3f& pos);
+
+    /// @see add(const AABB& pos)
     AABB & operator+=(const AABB& aabb);
 
+    /// @see sub(const Vector3f& pos)
     AABB & operator-=(const Vector3f& pos);
+
+    /// @see sub(const AABB& pos)
     AABB & operator-=(const AABB& aabb);
 
+    /// @see add(const Vector3f& pos)
     AABB operator+(const Vector3f& value);
+
+    /// @see add(const AABB& pos)
     AABB operator+(const AABB& aabb);
 
+    /// @see sub(const Vector3f& pos)
     AABB operator-(const Vector3f& value);
+
+    /// @see sub(const AABB& pos)
     AABB operator-(const AABB& aabb);
 
+    /// Renvois 'true' si le noeud 'node' se trouve a l'interieur du AABB
     bool isInner(scene::Node* node) const;
+
+    /// Renvois 'true' si la boite englobant 'aabb' se trouve a l'interieur du AABB
     bool isInner(const AABB& aabb) const;
+
+    /// Renvois 'true' si le boite point 'pos' se trouve a l'interieur du AABB
     bool isInner(const Vector3f& point) const;
 
+    /// Réinitialise les valeurs de la boite englobant a 0
     void clear();
 
+    /// Renvois la taille de la boite englobant (max - min).getMagnitude()
     float getSize() const;
+
+    /// Renvois le centre de la boite englobant
     Vector3f getCenter() const;
 
     Vector3f min;

@@ -114,16 +114,16 @@ Texture& Texture::operator =(const Texture& copy)
     return *this;
 }
 
-Texture& Texture::operator =(const char* texture)
+Texture& Texture::operator =(const char* filename)
 {
-    load(texture);
+    load(filename);
 
     return *this;
 }
 
-Texture& Texture::operator =(std::string texture)
+Texture& Texture::operator =(std::string filename)
 {
-    load(texture);
+    load(filename);
 
     return *this;
 }
@@ -279,19 +279,9 @@ void Texture::use(bool state)
     }
 }
 
-void Texture::setSize(Vector2i size)
-{
-    this->m_size = size;
-}
-
 Vector2i Texture::getSize() const
 {
     return m_size;
-}
-
-void Texture::setTextureName(GLuint textureName)
-{
-    this->m_textureName = textureName;
 }
 
 GLuint Texture::getTextureName() const

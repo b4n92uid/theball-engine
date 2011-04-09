@@ -19,11 +19,20 @@ namespace tbe
 class MotionPath
 {
 public:
+
+    /// Constructeur
     MotionPath();
+
+    /// Destructeur
     ~MotionPath();
 
+    /// Ajoute une image clé a l'animation
     void addKeyFrame(Vector3f pos, float speed = 1.0f);
+
+    /// Traitement
     void update();
+
+    /// Renvois la valeur interpolé de l'animation
     Vector3f getCurrentPos() const;
 
 protected:

@@ -35,14 +35,13 @@ class FpsManager;
 }
 
 /**
- * \brief Class d'interface generale du moteur
+ * \brief Class d'interface générale du moteur
  *
  * Inclus:
- * un gestionnaire de GUI
- * un gestionnaire de Scene
- * un gestionnaire de FPS
- * un Recepteur d'evenement de la fenetre (EventRecv)
- * autre fonction lier a la fenetre
+ *  un gestionnaire de GUI
+ *  un gestionnaire de Scene
+ *  un gestionnaire de FPS
+ *  un Recepteur d'evenement de la fenetre (EventRecv)
  **/
 
 class Device
@@ -55,35 +54,38 @@ public:
     /// Destructeur
     virtual ~Device();
 
-    /// Efface la scene
+    /**
+     * Initilisation, cette fonction doit etre appeller avant
+     * tout interaction avec l'objet
+     */
+    void init();
+
+    /// Efface la scene, et commence une nouvelle frame
     void beginScene();
 
-    /// Rendue de la scene
+    /// Termine et rend la scene
     void endScene();
 
-    /// Accès au evenement récpere
+    /// Accès au gestionnaire d'évenement
     EventManager* getEventManager();
 
-    /// Accès aux gestionnaire de SCENE
+    /// Accès aux gestionnaire de Scene
     scene::SceneManager* getSceneManager();
 
-    /// Accès aux gestionnaire de GUI
+    /// Accès aux gestionnaire de Gui
     gui::GuiManager* getGuiManager();
 
-    /// Accès aux gestionnaire du FPS
+    /// Accès aux gestionnaire du Fps
     ticks::FpsManager* getFpsManager();
 
     /// Accès aux gestionnaire d'effets apres traitement
     ppe::PostProcessManager* getPostProcessManager() const;
 
-    /// Initilisation
-    void init();
-
-    /// Taille du viewport
+    /// Spécifier la taille du viewport
     void setViewportSize(Vector2i viewportSize);
-    Vector2i getViewportSize() const;
 
-    // Static ------------------------------------------------------------------
+    /// Renvois la taille du viewport
+    Vector2i getViewportSize() const;
 
     /// Renvoi la version du moteur (Build Date)
     static std::string getVersion();
