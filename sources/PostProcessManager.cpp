@@ -31,12 +31,12 @@ PostProcessManager::PostProcessManager(const PostProcessManager& orig)
 
 PostProcessManager::~PostProcessManager()
 {
-    ClearAll();
+    clearAll();
 
     delete m_rttRender;
 }
 
-void PostProcessManager::ClearAll()
+void PostProcessManager::clearAll()
 {
     for(Effect::Map::iterator itt = m_postEffects.begin(); itt != m_postEffects.end(); itt++)
         delete itt->second;
@@ -44,22 +44,22 @@ void PostProcessManager::ClearAll()
     m_postEffects.clear();
 }
 
-void PostProcessManager::Setup(Vector2i screenSize)
+void PostProcessManager::setup(Vector2i screenSize)
 {
-    m_screenSize = tools::next_p2(screenSize) / 2;
+    m_screenSize = tools::nextPow2(screenSize) / 2;
 
     if(!m_rttRender)
     {
         m_rttRender = new Rtt(m_screenSize);
-        m_rttRender->SetCaptureColor(true);
-        m_rttRender->SetCaptureDepth(true);
+        m_rttRender->setCaptureColor(true);
+        m_rttRender->setCaptureDepth(true);
     }
 
     else
-        m_rttRender->SetFrameSize(m_screenSize);
+        m_rttRender->setFrameSize(m_screenSize);
 }
 
-Effect* PostProcessManager::GetPostEffect(std::string name)
+Effect* PostProcessManager::getPostEffect(std::string name)
 {
     if(m_postEffects.find(name) == m_postEffects.end())
         throw Exception("PostProcessManager::GetPostEffect; PostEffect not found (%s)", name.c_str());
@@ -67,15 +67,15 @@ Effect* PostProcessManager::GetPostEffect(std::string name)
     return m_postEffects[name];
 }
 
-Rtt* PostProcessManager::GetRtt() const
+Rtt* PostProcessManager::getRtt() const
 {
     return m_rttRender;
 }
 
-void PostProcessManager::AddPostEffect(std::string name, Effect* effect)
+void PostProcessManager::addPostEffect(std::string name, Effect* effect)
 {
     if(name.empty())
-        name = tools::NameGen(m_postEffects);
+        name = tools::nameGen(m_postEffects);
 
     else if(m_postEffects.find(name) != m_postEffects.end())
         throw Exception("PostProcessManager::AddPostEffect; PostEffect already exits (%s)", name.c_str());
@@ -83,7 +83,7 @@ void PostProcessManager::AddPostEffect(std::string name, Effect* effect)
     m_postEffects[name] = effect;
 }
 
-void PostProcessManager::BeginPostProcess()
+void PostProcessManager::beginPostProcess()
 {
     glPushAttrib(GL_ENABLE_BIT | GL_CURRENT_BIT);
 
@@ -102,7 +102,7 @@ void PostProcessManager::BeginPostProcess()
     glLoadIdentity();
 }
 
-void PostProcessManager::EndPostProcess()
+void PostProcessManager::endPostProcess()
 {
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
@@ -112,7 +112,7 @@ void PostProcessManager::EndPostProcess()
     glPopAttrib();
 }
 
-void PostProcessManager::Render()
+void PostProcessManager::render()
 {
     /*
      * Etape des effets apres traitement :
@@ -122,9 +122,9 @@ void PostProcessManager::Render()
      * Rendue fbo -> écran
      */
 
-    BeginPostProcess();
+    beginPostProcess();
 
-    bool usingRB = FrameBufferObject::CheckHardware()
+    bool usingRB = FrameBufferObject::checkHardware()
             && m_rttRender->FBO_IsUseRenderBuffer();
 
     if(usingRB)
@@ -134,18 +134,18 @@ void PostProcessManager::Render()
     }
 
     for(Effect::Map::iterator itt = m_postEffects.begin(); itt != m_postEffects.end(); itt++)
-        if(itt->second->IsEnable())
-            itt->second->Process(m_rttRender);
+        if(itt->second->isEnable())
+            itt->second->process(m_rttRender);
 
-    m_rttRender->GetColor().Use(true);
-    m_layer.Draw();
+    m_rttRender->getColor().use(true);
+    m_layer.draw();
 
     if(usingRB)
     {
         m_rttRender->FBO_SetUseRenderBuffer(true);
     }
 
-    EndPostProcess();
+    endPostProcess();
 }
 
 // Effect ----------------------------------------------------------------------
@@ -153,8 +153,8 @@ void PostProcessManager::Render()
 Effect::Effect()
 {
     m_workRtt = new Rtt(127);
-    m_workRtt->SetCaptureColor(true);
-    m_workRtt->SetCaptureDepth(true);
+    m_workRtt->setCaptureColor(true);
+    m_workRtt->setCaptureDepth(true);
 
     m_enable = true;
 }
@@ -164,22 +164,22 @@ Effect::~Effect()
     delete m_workRtt;
 }
 
-void Effect::SetRttFrameSize(Vector2i size)
+void Effect::setRttFrameSize(Vector2i size)
 {
-    m_workRtt->SetFrameSize(size);
+    m_workRtt->setFrameSize(size);
 }
 
-Vector2i Effect::GetRttFrameSize()
+Vector2i Effect::getRttFrameSize()
 {
-    return m_workRtt->GetFrameSize();
+    return m_workRtt->getFrameSize();
 }
 
-void Effect::SetEnable(bool enable)
+void Effect::setEnable(bool enable)
 {
     this->m_enable = enable;
 }
 
-bool Effect::IsEnable() const
+bool Effect::isEnable() const
 {
     return m_enable;
 }
@@ -200,7 +200,7 @@ Layer::~Layer()
     glDeleteBuffers(1, &m_renderId);
 }
 
-void Layer::Begin()
+void Layer::begin()
 {
     glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
 
@@ -211,18 +211,18 @@ void Layer::Begin()
     glTexCoordPointer(2, GL_FLOAT, 0, 0);
 }
 
-void Layer::Draw(bool autoSetup)
+void Layer::draw(bool autoSetup)
 {
     if(autoSetup)
-        Begin();
+        begin();
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
     if(autoSetup)
-        End();
+        end();
 }
 
-void Layer::End()
+void Layer::end()
 {
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);

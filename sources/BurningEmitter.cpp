@@ -26,12 +26,12 @@ BurningEmitter::BurningEmitter(ParticlesParallelScene* scene) : ParticlesEmiter(
     m_continousMode = false;
 }
 
-void BurningEmitter::SetBoxSize(Vector3f boxSize)
+void BurningEmitter::setBoxSize(Vector3f boxSize)
 {
     this->m_boxSize = boxSize;
 }
 
-Vector3f BurningEmitter::GetBoxSize() const
+Vector3f BurningEmitter::getBoxSize() const
 {
     return m_boxSize;
 }
@@ -61,17 +61,17 @@ BurningEmitter& BurningEmitter::operator=(const BurningEmitter& copy)
     return *this;
 }
 
-Node* BurningEmitter::Clone()
+Node* BurningEmitter::clone()
 {
     return new BurningEmitter(*this);
 }
 
-void BurningEmitter::SetupBullet(Particle& p)
+void BurningEmitter::setupBullet(Particle& p)
 {
     p.life = 1;
     p.color = 1;
     p.diriction = tools::rand(Vector3f(-m_freeMove), Vector3f(m_freeMove));
-    p.diriction.Normalize() *= m_freeMove;
+    p.diriction.normalize() *= m_freeMove;
     p.gravity = m_gravity;
 
     if(!!m_boxSize)
@@ -88,23 +88,23 @@ void BurningEmitter::SetupBullet(Particle& p)
         m_brustCount--;
 }
 
-void BurningEmitter::Process()
+void BurningEmitter::process()
 {
     if(!m_enable)
         return;
 
-    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::Process));
+    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::process));
 
     if(m_deadEmiter && !m_autoRebuild)
         return;
 
     m_deadEmiter = true;
 
-    long timestamp = m_timestamp.GetEsplanedTime();
+    long timestamp = m_timestamp.getEsplanedTime();
 
-    Particle* particles = BeginParticlesPosProcess();
+    Particle* particles = beginParticlesPosProcess();
 
-    m_aabb.Clear();
+    m_aabb.clear();
 
     for(unsigned i = 0; i < m_drawNumber; i++)
     {
@@ -117,7 +117,7 @@ void BurningEmitter::Process()
         if(p.life < 0)
         {
             if(m_autoRebuild && (m_brustCount > 0 || m_brustCount == -1))
-                SetupBullet(p);
+                setupBullet(p);
 
             else
                 continue;
@@ -132,95 +132,95 @@ void BurningEmitter::Process()
             m_deadEmiter = false;
         }
 
-        m_aabb.Count(p.pos);
+        m_aabb.count(p.pos);
     }
 
-    EndParticlesPosProcess();
+    endParticlesPosProcess();
 }
 
-void BurningEmitter::SetFreeMove(float freeMove)
+void BurningEmitter::setFreeMove(float freeMove)
 {
     this->m_freeMove = freeMove;
 }
 
-float BurningEmitter::GetFreeMove() const
+float BurningEmitter::getFreeMove() const
 {
     return m_freeMove;
 }
 
-void BurningEmitter::SetContinousMode(bool continousMode)
+void BurningEmitter::setContinousMode(bool continousMode)
 {
     this->m_continousMode = continousMode;
 }
 
-bool BurningEmitter::IsContinousMode() const
+bool BurningEmitter::isContinousMode() const
 {
     return m_continousMode;
 }
 
-void BurningEmitter::SetLifeDown(float lifeDown)
+void BurningEmitter::setLifeDown(float lifeDown)
 {
     this->m_lifeDown = lifeDown;
 }
 
-float BurningEmitter::GetLifeDown() const
+float BurningEmitter::getLifeDown() const
 {
     return m_lifeDown;
 }
 
-void BurningEmitter::SetGravity(Vector3f gravity)
+void BurningEmitter::setGravity(Vector3f gravity)
 {
     this->m_gravity = gravity;
 }
 
-Vector3f BurningEmitter::GetGravity() const
+Vector3f BurningEmitter::getGravity() const
 {
     return m_gravity;
 }
 
-void BurningEmitter::SetLifeInit(float lifeInit)
+void BurningEmitter::setLifeInit(float lifeInit)
 {
     this->m_lifeInit = lifeInit;
 }
 
-float BurningEmitter::GetLifeInit() const
+float BurningEmitter::getLifeInit() const
 {
     return m_lifeInit;
 }
 
-void BurningEmitter::SetBrustCount(int brustCount)
+void BurningEmitter::setBrustCount(int brustCount)
 {
     this->m_brustCount = brustCount;
 }
 
-int BurningEmitter::GetBrustCount() const
+int BurningEmitter::getBrustCount() const
 {
     return m_brustCount;
 }
 
-void BurningEmitter::SetEmitPos(Vector3f emitPos)
+void BurningEmitter::setEmitPos(Vector3f emitPos)
 {
     this->m_emitPos = emitPos;
 }
 
-Vector3f BurningEmitter::GetEmitPos() const
+Vector3f BurningEmitter::getEmitPos() const
 {
     return m_emitPos;
 }
 
-void BurningEmitter::SetAutoRebuild(bool autoRebuild)
+void BurningEmitter::setAutoRebuild(bool autoRebuild)
 {
     this->m_autoRebuild = autoRebuild;
 }
 
-bool BurningEmitter::IsAutoRebuild() const
+bool BurningEmitter::isAutoRebuild() const
 {
     return m_autoRebuild;
 }
 
-Node::CtorMap BurningEmitter::ConstructionMap(std::string root)
+Node::CtorMap BurningEmitter::constructionMap(std::string root)
 {
-    Node::CtorMap ctormap = ParticlesEmiter::ConstructionMap(root);
+    Node::CtorMap ctormap = ParticlesEmiter::constructionMap(root);
 
     ctormap["class"] = "BurningEmitter";
 

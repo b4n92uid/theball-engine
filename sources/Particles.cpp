@@ -11,7 +11,7 @@ using namespace tbe::scene;
 
 ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
 {
-    m_pointsprite = CheckHardware();
+    m_pointsprite = checkHardware();
 
     m_renderId = 0;
 
@@ -27,14 +27,14 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
     m_blendEq = ADDITIVE;
 
     Node::m_parallelScene = m_parallelScene = scene;
-    m_sceneManager = m_parallelScene->GetSceneManager();
+    m_sceneManager = m_parallelScene->getSceneManager();
 
-    m_parallelScene->Register(this);
+    m_parallelScene->registerNode(this);
 }
 
 ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
 {
-    m_pointsprite = CheckHardware();
+    m_pointsprite = checkHardware();
 
     m_renderId = 0;
 
@@ -42,14 +42,14 @@ ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
 
     *this = copy;
 
-    m_parallelScene->Register(this);
+    m_parallelScene->registerNode(this);
 }
 
 ParticlesEmiter::~ParticlesEmiter()
 {
-    Destroy();
+    destroy();
 
-    m_parallelScene->UnRegister(this);
+    m_parallelScene->unregisterNode(this);
 
     glDeleteBuffersARB(1, &m_renderId);
 }
@@ -72,20 +72,20 @@ ParticlesEmiter& ParticlesEmiter::operator=(const ParticlesEmiter& copy)
     Node::m_parallelScene = m_parallelScene = copy.m_parallelScene;
 
     if(copy.m_enable)
-        Build();
+        build();
 
     return *this;
 }
 
-void ParticlesEmiter::Build()
+void ParticlesEmiter::build()
 {
-    Destroy();
+    destroy();
 
     for(unsigned i = 0; i < m_number; i++)
     {
         Particle p;
 
-        SetupBullet(p);
+        setupBullet(p);
 
         m_particles.push_back(p);
     }
@@ -118,10 +118,10 @@ void ParticlesEmiter::Build()
     m_enable = true;
     m_deadEmiter = false;
 
-    m_timestamp.SnapShoot();
+    m_timestamp.snapShoot();
 }
 
-void ParticlesEmiter::Render()
+void ParticlesEmiter::render()
 {
     if(!m_enable || m_deadEmiter)
         return;
@@ -141,15 +141,15 @@ void ParticlesEmiter::Render()
     if(m_pointsprite)
     {
         glPushMatrix();
-        glMultMatrixf(m_parent->GetAbsoluteMatrix());
+        glMultMatrixf(m_parent->getAbsoluteMatrix());
         glMultMatrixf(m_matrix);
     }
 
     else
     {
-        Matrix4f absolute = m_parent->GetAbsoluteMatrix();
+        Matrix4f absolute = m_parent->getAbsoluteMatrix();
 
-        float size = m_parallelScene->GetParticleMinSize() / 2.0f;
+        float size = m_parallelScene->getParticleMinSize() / 2.0f;
 
         Vertex* auxParticles = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB));
 
@@ -176,7 +176,7 @@ void ParticlesEmiter::Render()
 
     glDepthMask(m_depthTest);
 
-    m_texture.Use();
+    m_texture.use();
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
@@ -218,73 +218,73 @@ void ParticlesEmiter::Render()
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
-void ParticlesEmiter::Destroy()
+void ParticlesEmiter::destroy()
 {
     m_particles.clear();
 }
 
-void ParticlesEmiter::SetDepthTest(bool depthTest)
+void ParticlesEmiter::setDepthTest(bool depthTest)
 {
     m_depthTest = depthTest;
 }
 
-bool ParticlesEmiter::IsDepthTest() const
+bool ParticlesEmiter::isDepthTest() const
 {
     return m_depthTest;
 }
 
-void ParticlesEmiter::SetDrawNumber(unsigned drawNumber)
+void ParticlesEmiter::setDrawNumber(unsigned drawNumber)
 {
     this->m_drawNumber = drawNumber;
 }
 
-unsigned ParticlesEmiter::GetDrawNumber() const
+unsigned ParticlesEmiter::getDrawNumber() const
 {
     return m_drawNumber;
 }
 
-void ParticlesEmiter::SetBlendEq(BlendEq blendEq)
+void ParticlesEmiter::setBlendEq(BlendEq blendEq)
 {
     this->m_blendEq = blendEq;
 }
 
-ParticlesEmiter::BlendEq ParticlesEmiter::GetBlendEq() const
+ParticlesEmiter::BlendEq ParticlesEmiter::getBlendEq() const
 {
     return m_blendEq;
 }
 
-void ParticlesEmiter::SetDeadEmiter(bool deadEmiter)
+void ParticlesEmiter::setDeadEmiter(bool deadEmiter)
 {
     this->m_deadEmiter = deadEmiter;
 }
 
-bool ParticlesEmiter::IsDeadEmiter() const
+bool ParticlesEmiter::isDeadEmiter() const
 {
     return m_deadEmiter;
 }
 
-void ParticlesEmiter::SetNumber(unsigned number)
+void ParticlesEmiter::setNumber(unsigned number)
 {
     this->m_number = number;
     m_drawNumber = number;
 }
 
-unsigned ParticlesEmiter::GetNumber() const
+unsigned ParticlesEmiter::getNumber() const
 {
     return m_number;
 }
 
-void ParticlesEmiter::SetTexture(Texture texture)
+void ParticlesEmiter::setTexture(Texture texture)
 {
     this->m_texture = texture;
 }
 
-Texture ParticlesEmiter::GetTexture() const
+Texture ParticlesEmiter::getTexture() const
 {
     return m_texture;
 }
 
-Particle* ParticlesEmiter::BeginParticlesPosProcess()
+Particle* ParticlesEmiter::beginParticlesPosProcess()
 {
     if(m_pointsprite)
     {
@@ -295,7 +295,7 @@ Particle* ParticlesEmiter::BeginParticlesPosProcess()
         return &m_particles[0];
 }
 
-void ParticlesEmiter::EndParticlesPosProcess()
+void ParticlesEmiter::endParticlesPosProcess()
 {
     if(m_pointsprite)
     {
@@ -304,18 +304,18 @@ void ParticlesEmiter::EndParticlesPosProcess()
     }
 }
 
-bool ParticlesEmiter::CheckHardware()
+bool ParticlesEmiter::checkHardware()
 {
     return GLEE_ARB_point_sprite && GLEE_ARB_point_parameters;
 }
 
-Node::CtorMap ParticlesEmiter::ConstructionMap(std::string root)
+Node::CtorMap ParticlesEmiter::constructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Node::ConstructionMap(root);
+    Node::CtorMap ctormap = Node::constructionMap(root);
 
     ctormap["class"] = "ParticlesEmiter";
 
-    ctormap["texture"] = tools::makeRelatifTo(root, m_texture.GetFilename());
+    ctormap["texture"] = tools::makeRelatifTo(root, m_texture.getFilename());
     ctormap["number"] = tools::numToStr(m_number);
 
     return ctormap;

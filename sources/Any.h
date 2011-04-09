@@ -26,14 +26,14 @@ public:
     {
         m_data = NULL;
 
-        SetValue(value);
+        setValue(value);
     }
 
     template<typename T> Any(const T& value)
     {
         m_data = NULL;
 
-        SetValue(value);
+        setValue(value);
     }
 
     ~Any()
@@ -44,26 +44,26 @@ public:
 
     Any & operator=(const Any& value)
     {
-        SetValue(value);
+        setValue(value);
         return *this;
     }
 
     template<typename T> Any & operator=(const T& value)
     {
-        SetValue(value);
+        setValue(value);
         return *this;
     }
 
-    void SetValue(const Any& value)
+    void setValue(const Any& value)
     {
         if(m_data)
             delete m_data, m_data = NULL;
 
         if(value.m_data)
-            m_data = value.m_data->Clone();
+            m_data = value.m_data->clone();
     }
 
-    template<typename T> void SetValue(const T& value)
+    template<typename T> void setValue(const T& value)
     {
         if(m_data)
             delete m_data, m_data = NULL;
@@ -71,7 +71,7 @@ public:
         m_data = new DataHolder<T > (value);
     }
 
-    template<typename T> T GetValue()
+    template<typename T> T getValue()
     {
         DataHolder < T >* dh = static_cast<DataHolder < T >*>(m_data);
         return dh->content;
@@ -82,7 +82,7 @@ private:
     class Data
     {
     public:
-        virtual Data* Clone() = 0;
+        virtual Data* clone() = 0;
     };
 
     template<typename T> class DataHolder : public Data
@@ -94,7 +94,7 @@ private:
             content = value;
         }
 
-        Data* Clone()
+        Data* clone()
         {
             return new DataHolder<T > (content);
         }

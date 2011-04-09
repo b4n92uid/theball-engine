@@ -22,32 +22,32 @@ public:
     Shader & operator=(const Shader& copy);
 
     /// Chargement d'un FragmentShader depuis content
-    void ParseFragmentShader(std::string content);
+    void parseFragmentShader(std::string content);
 
     /// Chargement d'un VertexShader depuis content
-    void ParseVertexShader(std::string content);
+    void parseVertexShader(std::string content);
 
     /// Chargement d'un FragmentShader depuis un fichier
-    void LoadFragmentShader(std::string filepath);
+    void loadFragmentShader(std::string filepath);
 
     /// Chargement d'un VertexShader depuis un fichier
-    void LoadVertexShader(std::string filepath);
+    void loadVertexShader(std::string filepath);
 
     /// Chargement du program
-    void LoadProgram();
+    void loadProgram();
 
     /// Utilisation du program
-    void Use(bool use = true);
+    void use(bool use = true);
 
     /// Transmet une variable au shader
-    void SetUniform(const char* name, int value);
-    void SetUniform(const char* name, float value);
-    void SetUniform(const char* name, Vector3f value);
-    void SetUniform(const char* name, Vector3i value);
-    void SetUniform(const char* name, Vector4f value);
-    void SetUniform(const char* name, Vector4i value);
-    void SetUniform(const char* name, Vector2f value);
-    void SetUniform(const char* name, Vector2i value);
+    void uniform(const char* name, int value);
+    void uniform(const char* name, float value);
+    void uniform(const char* name, Vector3f value);
+    void uniform(const char* name, Vector3i value);
+    void uniform(const char* name, Vector4f value);
+    void uniform(const char* name, Vector4i value);
+    void uniform(const char* name, Vector2f value);
+    void uniform(const char* name, Vector2i value);
 
     operator bool()
     {
@@ -64,7 +64,7 @@ public:
         return m_program;
     }
 
-    static bool CheckHardware();
+    static bool checkHardware();
 
 protected:
     GLuint m_program;

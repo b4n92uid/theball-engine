@@ -38,7 +38,7 @@ public:
         FT_Done_FreeType(library);
 
         for(InstanceMap::iterator itt = instances.begin(); itt != instances.end(); itt++)
-            itt->first->Delete();
+            itt->first->remove();
     }
 
     FT_Library library;
@@ -64,7 +64,7 @@ Pencil::Pencil(std::string font, int size)
     m_fontSize = 0;
     m_charList = 0;
 
-    Load(font, size);
+    load(font, size);
 }
 
 Pencil::~Pencil()
@@ -76,18 +76,18 @@ Pencil::~Pencil()
             deleteThis = false;
 
     if(deleteThis)
-        Delete();
+        remove();
 
     manager.instances.erase(this);
 }
 
-void Pencil::Delete()
+void Pencil::remove()
 {
     if(m_charList)
         glDeleteLists(m_charList, 1);
 }
 
-std::string Pencil::WrapeLine(std::string str, float width, bool takeEnd) const
+std::string Pencil::wrapeLine(std::string str, float width, bool takeEnd) const
 {
     float curWidth = 0;
 
@@ -117,7 +117,7 @@ std::string Pencil::WrapeLine(std::string str, float width, bool takeEnd) const
     return str;
 }
 
-std::vector<std::string> Pencil::GetWrapedLines(std::string str, float width) const
+std::vector<std::string> Pencil::getWrapedLines(std::string str, float width) const
 {
     std::vector<std::string> widthOverflow;
 
@@ -144,9 +144,9 @@ std::vector<std::string> Pencil::GetWrapedLines(std::string str, float width) co
     return widthOverflow;
 }
 
-Vector2f Pencil::CenterOf(GuiString text, Vector2f pos, Vector2f size) const
+Vector2f Pencil::centerOf(GuiString text, Vector2f pos, Vector2f size) const
 {
-    Vector2f textSize = SizeOf(text);
+    Vector2f textSize = sizeOf(text);
 
     Vector2f textPos(
                      pos.x + size.x / 2.0f - textSize.x / 2.0f,
@@ -156,9 +156,9 @@ Vector2f Pencil::CenterOf(GuiString text, Vector2f pos, Vector2f size) const
     return textPos;
 }
 
-Vector2f Pencil::CenterOf(std::string str, Vector2f pos, Vector2f size) const
+Vector2f Pencil::centerOf(std::string str, Vector2f pos, Vector2f size) const
 {
-    Vector2f textSize = SizeOf(str);
+    Vector2f textSize = sizeOf(str);
 
     Vector2f textPos(
                      pos.x + size.x / 2.0f - textSize.x / 2.0f,
@@ -168,14 +168,14 @@ Vector2f Pencil::CenterOf(std::string str, Vector2f pos, Vector2f size) const
     return textPos;
 }
 
-Vector2f Pencil::SizeOf(GuiString text) const
+Vector2f Pencil::sizeOf(GuiString text) const
 {
     Vector2f returnSize;
     float maxWidth = 0;
 
     for(unsigned i = 0; i < text.size(); i++)
     {
-        Vector2f size = SizeOf(text[i]);
+        Vector2f size = sizeOf(text[i]);
         maxWidth = max(size.x, maxWidth);
         returnSize.y += m_fontSize + m_lineSpace;
     }
@@ -186,7 +186,7 @@ Vector2f Pencil::SizeOf(GuiString text) const
     return returnSize;
 }
 
-Vector2f Pencil::SizeOf(std::string str) const
+Vector2f Pencil::sizeOf(std::string str) const
 {
     Vector2f size(0, m_fontSize);
 
@@ -203,7 +203,7 @@ Vector2f Pencil::SizeOf(std::string str) const
     return size;
 }
 
-void Pencil::Display(Vector2f pos, GuiString text)
+void Pencil::display(Vector2f pos, GuiString text)
 {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -253,7 +253,7 @@ void Pencil::Display(Vector2f pos, GuiString text)
     glColor4fv(Vector4f(1));
 }
 
-void Pencil::Load(std::string path, int size)
+void Pencil::load(std::string path, int size)
 {
     vector<unsigned> charindex;
 
@@ -314,8 +314,8 @@ void Pencil::Load(std::string path, int size)
         // Use Our Helper Function To Get The Widths Of
         // The Bitmap Data That We Will Need In Order To Create
         // Our Texture.
-        int width = tools::next_p2(bitmap.width);
-        int height = tools::next_p2(bitmap.rows);
+        int width = tools::nextPow2(bitmap.width);
+        int height = tools::nextPow2(bitmap.rows);
 
         //m_charsWidth[i] = width;
 
@@ -418,58 +418,58 @@ void Pencil::Load(std::string path, int size)
     manager.instances[this] = path;
 }
 
-bool Pencil::IsReady()
+bool Pencil::isReady()
 {
     return m_charList && m_fontSize && !m_fontPath.empty();
 }
 
 Pencil::operator bool()
 {
-    return IsReady();
+    return isReady();
 }
 
 bool Pencil::operator!()
 {
-    return !IsReady();
+    return !isReady();
 }
 
-void Pencil::SetFontSize(int fontsize)
+void Pencil::setFontSize(int fontsize)
 {
     this->m_fontSize = fontsize;
-    Load(m_fontPath, m_fontSize);
+    load(m_fontPath, m_fontSize);
 }
 
-int Pencil::GetFontSize() const
+int Pencil::getFontSize() const
 {
     return m_fontSize;
 }
 
-void Pencil::SetTabSize(int tabSize)
+void Pencil::setTabSize(int tabSize)
 {
     this->m_tabSize = tabSize;
 }
 
-int Pencil::GetTabSize() const
+int Pencil::getTabSize() const
 {
     return m_tabSize;
 }
 
-void Pencil::SetLineSpace(int lineSpace)
+void Pencil::setLineSpace(int lineSpace)
 {
     this->m_lineSpace = lineSpace;
 }
 
-int Pencil::GetLineSpace() const
+int Pencil::getLineSpace() const
 {
     return m_lineSpace;
 }
 
-void Pencil::SetColor(Vector4f color)
+void Pencil::setColor(Vector4f color)
 {
     this->m_color = color;
 }
 
-Vector4f Pencil::GetColor() const
+Vector4f Pencil::getColor() const
 {
     return m_color;
 }
@@ -489,7 +489,7 @@ GuiString::GuiString(const char* str, ...)
     vsprintf(output, str, list);
     va_end(list);
 
-    Format(output);
+    format(output);
 
     delete output;
 }
@@ -503,12 +503,12 @@ GuiString::GuiString(std::string str, ...)
     vsprintf(output, str.c_str(), list);
     va_end(list);
 
-    Format(output);
+    format(output);
 
     delete output;
 }
 
-void GuiString::Format(std::string str)
+void GuiString::format(std::string str)
 {
     unsigned offset = 0;
 
@@ -527,7 +527,7 @@ void GuiString::Format(std::string str)
     push_back(string(str, offset, string::npos));
 }
 
-void GuiString::LoadFromFile(std::string filepath)
+void GuiString::loadFromFile(std::string filepath)
 {
     ifstream file(filepath.c_str());
 
@@ -537,7 +537,7 @@ void GuiString::LoadFromFile(std::string filepath)
     stringstream ss;
     ss << file.rdbuf();
 
-    Format(ss.str());
+    format(ss.str());
 
     file.close();
 }

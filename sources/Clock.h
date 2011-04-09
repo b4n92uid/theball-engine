@@ -27,16 +27,16 @@ public:
     virtual ~Clock();
 
     /// Renvois 'true' si 'time' est écouler
-    bool IsEsplanedTime(long time);
+    bool isEsplanedTime(long time);
 
     /// Renvois le temp depuis le dernier appelle de la fonction
-    long GetEsplanedTime(bool snapshoot = true);
+    long getEsplanedTime(bool snapshoot = true);
 
     /// Enregistre le temp courant pour le comparer a l'appele de la fonction IsEsplanedTime
-    void SnapShoot();
+    void snapShoot();
 
     /// Fonction qui suspend le processus courant (valeur en millisecond)
-    static void Sleep(unsigned v);
+    static void sleep(unsigned v);
 
 private:
     long m_lastTime;

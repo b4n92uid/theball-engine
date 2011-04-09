@@ -29,17 +29,17 @@ public:
     AABB(Vector3f min, Vector3f max);
     virtual ~AABB();
 
-    AABB& Count(scene::Node* node);
-    AABB& Count(const AABB& aabb);
-    AABB& Count(const Vector3f& pos);
+    AABB& count(scene::Node* node);
+    AABB& count(const AABB& aabb);
+    AABB& count(const Vector3f& pos);
 
     AABB & operator()(const Vector3f& min, const Vector3f& max);
 
-    AABB & Add(const Vector3f& pos);
-    AABB & Add(const AABB& aabb);
+    AABB & add(const Vector3f& pos);
+    AABB & add(const AABB& aabb);
 
-    AABB & Sub(const Vector3f& pos);
-    AABB & Sub(const AABB& aabb);
+    AABB & sub(const Vector3f& pos);
+    AABB & sub(const AABB& aabb);
 
     AABB & operator+=(const Vector3f& pos);
     AABB & operator+=(const AABB& aabb);
@@ -53,14 +53,14 @@ public:
     AABB operator-(const Vector3f& value);
     AABB operator-(const AABB& aabb);
 
-    bool IsInner(scene::Node* node) const;
-    bool IsInner(const AABB& aabb) const;
-    bool IsInner(const Vector3f& point) const;
+    bool isInner(scene::Node* node) const;
+    bool isInner(const AABB& aabb) const;
+    bool isInner(const Vector3f& point) const;
 
-    void Clear();
+    void clear();
 
-    float GetSize() const;
-    Vector3f GetCenter() const;
+    float getSize() const;
+    Vector3f getCenter() const;
 
     Vector3f min;
     Vector3f max;

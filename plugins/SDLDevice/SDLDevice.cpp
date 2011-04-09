@@ -25,7 +25,7 @@ SDLDevice::~SDLDevice()
     SDL_Quit();
 }
 
-void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool fullscreen, int multisamples)
+void SDLDevice::window(std::string caption, Vector2i winsize, int bits, bool fullscreen, int multisamples)
 {
     using namespace std;
 
@@ -96,12 +96,12 @@ void SDLDevice::Window(std::string caption, Vector2i winsize, int bits, bool ful
 
     cout << endl;
 
-    Init();
+    init();
 
-    SetViewportSize(m_viewportSize);
+    setViewportSize(m_viewportSize);
 }
 
-void SDLDevice::PollEvent()
+void SDLDevice::pollEvent()
 {
     bool eventOccur = true;
 
@@ -126,27 +126,27 @@ void SDLDevice::PollEvent()
             case SDL_BUTTON_LEFT:
                 m_eventManager->mouseState[EventManager::MOUSE_BUTTON_LEFT] = true;
                 m_eventManager->lastActiveMouse.first = EventManager::MOUSE_BUTTON_LEFT;
-                m_eventManager->lastActiveMouse.second = GetMouseName(EventManager::MOUSE_BUTTON_LEFT);
+                m_eventManager->lastActiveMouse.second = getMouseName(EventManager::MOUSE_BUTTON_LEFT);
                 break;
             case SDL_BUTTON_RIGHT:
                 m_eventManager->mouseState[EventManager::MOUSE_BUTTON_RIGHT] = true;
                 m_eventManager->lastActiveMouse.first = EventManager::MOUSE_BUTTON_RIGHT;
-                m_eventManager->lastActiveMouse.second = GetMouseName(EventManager::MOUSE_BUTTON_RIGHT);
+                m_eventManager->lastActiveMouse.second = getMouseName(EventManager::MOUSE_BUTTON_RIGHT);
                 break;
             case SDL_BUTTON_WHEELUP:
                 m_eventManager->mouseState[EventManager::MOUSE_BUTTON_WHEEL_UP] = true;
                 m_eventManager->lastActiveMouse.first = EventManager::MOUSE_BUTTON_WHEEL_UP;
-                m_eventManager->lastActiveMouse.second = GetMouseName(EventManager::MOUSE_BUTTON_WHEEL_UP);
+                m_eventManager->lastActiveMouse.second = getMouseName(EventManager::MOUSE_BUTTON_WHEEL_UP);
                 break;
             case SDL_BUTTON_WHEELDOWN:
                 m_eventManager->mouseState[EventManager::MOUSE_BUTTON_WHEEL_DOWN] = true;
                 m_eventManager->lastActiveMouse.first = EventManager::MOUSE_BUTTON_WHEEL_DOWN;
-                m_eventManager->lastActiveMouse.second = GetMouseName(EventManager::MOUSE_BUTTON_WHEEL_DOWN);
+                m_eventManager->lastActiveMouse.second = getMouseName(EventManager::MOUSE_BUTTON_WHEEL_DOWN);
                 break;
             case SDL_BUTTON_MIDDLE:
                 m_eventManager->mouseState[EventManager::MOUSE_BUTTON_MIDDLE] = true;
                 m_eventManager->lastActiveMouse.first = EventManager::MOUSE_BUTTON_MIDDLE;
-                m_eventManager->lastActiveMouse.second = GetMouseName(EventManager::MOUSE_BUTTON_MIDDLE);
+                m_eventManager->lastActiveMouse.second = getMouseName(EventManager::MOUSE_BUTTON_MIDDLE);
                 break;
         }
     }
@@ -160,27 +160,27 @@ void SDLDevice::PollEvent()
             case SDL_BUTTON_LEFT:
                 m_eventManager->mouseState[EventManager::MOUSE_BUTTON_LEFT] = false;
                 m_eventManager->lastActiveMouse.first = EventManager::MOUSE_BUTTON_LEFT;
-                m_eventManager->lastActiveMouse.second = GetMouseName(EventManager::MOUSE_BUTTON_LEFT);
+                m_eventManager->lastActiveMouse.second = getMouseName(EventManager::MOUSE_BUTTON_LEFT);
                 break;
             case SDL_BUTTON_RIGHT:
                 m_eventManager->mouseState[EventManager::MOUSE_BUTTON_RIGHT] = false;
                 m_eventManager->lastActiveMouse.first = EventManager::MOUSE_BUTTON_RIGHT;
-                m_eventManager->lastActiveMouse.second = GetMouseName(EventManager::MOUSE_BUTTON_RIGHT);
+                m_eventManager->lastActiveMouse.second = getMouseName(EventManager::MOUSE_BUTTON_RIGHT);
                 break;
             case SDL_BUTTON_WHEELUP:
                 m_eventManager->mouseState[EventManager::MOUSE_BUTTON_WHEEL_UP] = false;
                 m_eventManager->lastActiveMouse.first = EventManager::MOUSE_BUTTON_WHEEL_UP;
-                m_eventManager->lastActiveMouse.second = GetMouseName(EventManager::MOUSE_BUTTON_WHEEL_UP);
+                m_eventManager->lastActiveMouse.second = getMouseName(EventManager::MOUSE_BUTTON_WHEEL_UP);
                 break;
             case SDL_BUTTON_WHEELDOWN:
                 m_eventManager->mouseState[EventManager::MOUSE_BUTTON_WHEEL_DOWN] = false;
                 m_eventManager->lastActiveMouse.first = EventManager::MOUSE_BUTTON_WHEEL_DOWN;
-                m_eventManager->lastActiveMouse.second = GetMouseName(EventManager::MOUSE_BUTTON_WHEEL_DOWN);
+                m_eventManager->lastActiveMouse.second = getMouseName(EventManager::MOUSE_BUTTON_WHEEL_DOWN);
                 break;
             case SDL_BUTTON_MIDDLE:
                 m_eventManager->mouseState[EventManager::MOUSE_BUTTON_MIDDLE] = false;
                 m_eventManager->lastActiveMouse.first = EventManager::MOUSE_BUTTON_MIDDLE;
-                m_eventManager->lastActiveMouse.second = GetMouseName(EventManager::MOUSE_BUTTON_MIDDLE);
+                m_eventManager->lastActiveMouse.second = getMouseName(EventManager::MOUSE_BUTTON_MIDDLE);
                 break;
         }
     }
@@ -203,7 +203,7 @@ void SDLDevice::PollEvent()
         m_eventManager->keyState[(EventManager::KeyCode)sdlEvent.key.keysym.sym] = true;
 
         m_eventManager->lastActiveKey.first = sdlEvent.key.keysym.sym;
-        m_eventManager->lastActiveKey.second = GetKeyName(sdlEvent.key.keysym.sym);
+        m_eventManager->lastActiveKey.second = getKeyName(sdlEvent.key.keysym.sym);
     }
 
     else if(sdlEvent.type == SDL_KEYUP)
@@ -216,7 +216,7 @@ void SDLDevice::PollEvent()
             m_eventManager->keyState[(EventManager::KeyCode)sdlEvent.key.keysym.sym] = false;
 
         m_eventManager->lastActiveKey.first = sdlEvent.key.keysym.sym;
-        m_eventManager->lastActiveKey.second = GetKeyName(sdlEvent.key.keysym.sym);
+        m_eventManager->lastActiveKey.second = getKeyName(sdlEvent.key.keysym.sym);
     }
 
     else if(sdlEvent.type == SDL_VIDEORESIZE)
@@ -233,41 +233,41 @@ void SDLDevice::PollEvent()
         eventOccur = false;
 
     if(eventOccur)
-        m_guiManager->TrasmitEvent(*m_eventManager);
+        m_guiManager->trasmitEvent(*m_eventManager);
 
-    m_eventManager->lastPollTimestamp = m_timestamp.GetEsplanedTime();
+    m_eventManager->lastPollTimestamp = m_timestamp.getEsplanedTime();
 }
 
-int SDLDevice::GetWinBits() const
+int SDLDevice::getWinBits() const
 {
     return m_winBits;
 }
 
-bool SDLDevice::IsWinFullscreen() const
+bool SDLDevice::isWinFullscreen() const
 {
     return m_winFullscreen;
 }
 
-int SDLDevice::GetWinMultiSamples() const
+int SDLDevice::getWinMultiSamples() const
 {
     return m_winMultiSamples;
 }
 
-void SDLDevice::SetGrabInput(bool stat)
+void SDLDevice::setGrabInput(bool stat)
 {
     m_mouseGrab = stat;
 
     SDL_WM_GrabInput(stat ? SDL_GRAB_ON : SDL_GRAB_OFF);
 }
 
-void SDLDevice::SetMouseVisible(bool stat)
+void SDLDevice::setMouseVisible(bool stat)
 {
     m_mouseVisible = stat;
 
     SDL_ShowCursor(stat);
 }
 
-std::string SDLDevice::GetMouseName(int mouseCode)
+std::string SDLDevice::getMouseName(int mouseCode)
 {
     switch(mouseCode)
     {
@@ -283,7 +283,7 @@ std::string SDLDevice::GetMouseName(int mouseCode)
     return exp.str();
 }
 
-std::string SDLDevice::GetKeyName(int keyCode)
+std::string SDLDevice::getKeyName(int keyCode)
 {
     std::string keyName = SDL_GetKeyName((SDLKey)keyCode);
     keyName[0] = toupper(keyName[0]);
@@ -291,7 +291,7 @@ std::string SDLDevice::GetKeyName(int keyCode)
     return keyName;
 }
 
-std::vector<Vector2i> SDLDevice::GetAvilableSceeenSize()
+std::vector<Vector2i> SDLDevice::getAvilableSceeenSize()
 {
     std::vector<Vector2i> vrects;
 
@@ -313,14 +313,14 @@ std::vector<Vector2i> SDLDevice::GetAvilableSceeenSize()
     return vrects;
 }
 
-void SDLDevice::BeginScene()
+void SDLDevice::beginScene()
 {
-    Device::BeginScene();
+    Device::beginScene();
 }
 
-void SDLDevice::EndScene()
+void SDLDevice::endScene()
 {
-    Device::EndScene();
+    Device::endScene();
 
     SDL_GL_SwapBuffers();
 }

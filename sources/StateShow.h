@@ -25,18 +25,18 @@ public:
     StateShow();
     ~StateShow();
 
-    void SetSkin(const GuiSkin& skin);
+    void setSkin(const GuiSkin& skin);
 
-    bool OnEvent(const EventManager& event);
+    bool onEvent(const EventManager& event);
 
-    void SetCurState(unsigned curState);
-    unsigned GetCurState() const;
+    void setCurState(unsigned curState);
+    unsigned getCurState() const;
 
-    void SetStateCount(unsigned stateCount);
-    unsigned GetStateCount() const;
+    void setStateCount(unsigned stateCount);
+    unsigned getStateCount() const;
 
 protected:
-    void ObjectRender();
+    void objectRender();
 
     unsigned m_curState;
     unsigned m_stateCount;

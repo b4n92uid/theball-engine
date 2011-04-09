@@ -20,11 +20,11 @@ StateShow::~StateShow()
 {
 }
 
-bool StateShow::OnEvent(const EventManager& event)
+bool StateShow::onEvent(const EventManager& event)
 {
     m_activate = false;
 
-    if(Vector2f(event.mousePos).IsInsinde(m_pos, m_size))
+    if(Vector2f(event.mousePos).isInsinde(m_pos, m_size))
     {
         if(event.notify == EventManager::EVENT_MOUSE_DOWN
                 && event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_LEFT)
@@ -50,33 +50,33 @@ bool StateShow::OnEvent(const EventManager& event)
     return false;
 }
 
-void StateShow::ObjectRender()
+void StateShow::objectRender()
 {
-    m_background.Use();
-    DrawSurface(m_pos, m_size, Vector2f(0, 1.0f / m_stateCount * m_curState), Vector2f(1, 1.0f / m_stateCount * (m_curState + 1)));
+    m_background.use();
+    drawSurface(m_pos, m_size, Vector2f(0, 1.0f / m_stateCount * m_curState), Vector2f(1, 1.0f / m_stateCount * (m_curState + 1)));
 }
 
-void StateShow::SetCurState(unsigned curState)
+void StateShow::setCurState(unsigned curState)
 {
     this->m_curState = curState;
 }
 
-void StateShow::SetStateCount(unsigned stateCount)
+void StateShow::setStateCount(unsigned stateCount)
 {
     this->m_stateCount = stateCount;
 }
 
-unsigned StateShow::GetStateCount() const
+unsigned StateShow::getStateCount() const
 {
     return m_stateCount;
 }
 
-unsigned StateShow::GetCurState() const
+unsigned StateShow::getCurState() const
 {
     return m_curState;
 }
 
-void StateShow::SetSkin(const GuiSkin& skin)
+void StateShow::setSkin(const GuiSkin& skin)
 {
-    SetSize(skin.stateShowSize);
+    setSize(skin.stateShowSize);
 }

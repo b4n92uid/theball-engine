@@ -23,7 +23,7 @@ WaterParallelScene::~WaterParallelScene()
 {
 }
 
-void WaterParallelScene::PreRender()
+void WaterParallelScene::preRender()
 {
     m_inPreRender = true;
 
@@ -33,19 +33,19 @@ void WaterParallelScene::PreRender()
 
         // Render Reflection
         water->BeginReflection();
-        m_sceneManager->Render(false);
+        m_sceneManager->render(false);
         water->EndReflection();
 
         // Render Refraction
         water->BeginRefraction();
-        m_sceneManager->Render(false);
+        m_sceneManager->render(false);
         water->EndRefraction();
     }
 
     m_inPreRender = false;
 }
 
-void WaterParallelScene::Render()
+void WaterParallelScene::render()
 {
     if(!m_enable || m_inPreRender)
         return;
@@ -58,8 +58,8 @@ void WaterParallelScene::Render()
     glEnable(GL_BLEND);
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
-        if(m_nodes[i]->IsAttached())
-            m_nodes[i]->Render();
+        if(m_nodes[i]->isAttached())
+            m_nodes[i]->render();
 
     glPopAttrib();
 }

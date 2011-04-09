@@ -27,48 +27,48 @@ KeyConfig::KeyConfig(Pencil font, Texture background)
     m_keyCode = -1;
     m_mouseCode = -1;
 
-    SetPencil(font);
-    SetBackground(background);
+    setPencil(font);
+    setBackground(background);
 }
 
 KeyConfig::~KeyConfig()
 {
 }
 
-void KeyConfig::ObjectRender()
+void KeyConfig::objectRender()
 {
-    m_background.Use();
+    m_background.use();
 
     switch(m_state)
     {
-        case NO_EVENT: DrawSurface(m_pos, m_size, Vector2f(0, 0), Vector2f(1, META_UNIT));
+        case NO_EVENT: drawSurface(m_pos, m_size, Vector2f(0, 0), Vector2f(1, META_UNIT));
             break;
-        case OVER: DrawSurface(m_pos, m_size, Vector2f(0, META_UNIT), Vector2f(1, META_UNIT * 2));
+        case OVER: drawSurface(m_pos, m_size, Vector2f(0, META_UNIT), Vector2f(1, META_UNIT * 2));
             break;
-        case EDIT: DrawSurface(m_pos, m_size, Vector2f(0, META_UNIT * 2), Vector2f(1, META_UNIT * 3));
+        case EDIT: drawSurface(m_pos, m_size, Vector2f(0, META_UNIT * 2), Vector2f(1, META_UNIT * 3));
             break;
     }
 
     if(m_pencil)
     {
-        m_pencil.Display(m_pencil.CenterOf(m_label, m_pos, m_size), m_label);
+        m_pencil.display(m_pencil.centerOf(m_label, m_pos, m_size), m_label);
     }
 }
 
-void KeyConfig::SetSkin(const GuiSkin& skin)
+void KeyConfig::setSkin(const GuiSkin& skin)
 {
-    SetPencil(skin.pencile);
-    SetBackground(skin.editBox);
-    SetSize(skin.editBoxSize);
+    setPencil(skin.pencile);
+    setBackground(skin.editBox);
+    setSize(skin.editBoxSize);
 }
 
-bool KeyConfig::OnEvent(const EventManager& event)
+bool KeyConfig::onEvent(const EventManager& event)
 {
     if(m_activate)
     {
         if(event.notify == EventManager::EVENT_KEY_DOWN)
         {
-            SetKeyCode(event.lastActiveKey.first, event.lastActiveKey.second);
+            setKeyCode(event.lastActiveKey.first, event.lastActiveKey.second);
             m_activate = false;
             m_state = NO_EVENT;
             return true;
@@ -76,7 +76,7 @@ bool KeyConfig::OnEvent(const EventManager& event)
 
         else if(event.notify == EventManager::EVENT_MOUSE_DOWN)
         {
-            SetMouseCode(event.lastActiveMouse.first, event.lastActiveMouse.second);
+            setMouseCode(event.lastActiveMouse.first, event.lastActiveMouse.second);
             m_activate = false;
             m_state = NO_EVENT;
             return true;
@@ -85,7 +85,7 @@ bool KeyConfig::OnEvent(const EventManager& event)
 
     else if(event.notify == EventManager::EVENT_MOUSE_MOVE)
     {
-        if(Vector2f(event.mousePos).IsInsinde(m_pos, m_size))
+        if(Vector2f(event.mousePos).isInsinde(m_pos, m_size))
             m_state = OVER;
 
         else
@@ -95,7 +95,7 @@ bool KeyConfig::OnEvent(const EventManager& event)
     else if(event.notify == EventManager::EVENT_MOUSE_DOWN
             && event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_LEFT)
     {
-        if(Vector2f(event.mousePos).IsInsinde(m_pos, m_size))
+        if(Vector2f(event.mousePos).isInsinde(m_pos, m_size))
         {
             m_state = EDIT;
             m_activate = true;
@@ -106,7 +106,7 @@ bool KeyConfig::OnEvent(const EventManager& event)
     return false;
 }
 
-void KeyConfig::SetKeyCode(int keyCode, std::string keyName)
+void KeyConfig::setKeyCode(int keyCode, std::string keyName)
 {
     this->m_keyCode = keyCode;
     this->m_mouseCode = -1;
@@ -129,12 +129,12 @@ void KeyConfig::SetKeyCode(int keyCode, std::string keyName)
     m_label = exp.str();
 }
 
-int KeyConfig::GetKeyCode() const
+int KeyConfig::getKeyCode() const
 {
     return m_keyCode;
 }
 
-void KeyConfig::SetMouseCode(int mouseCode, std::string buttonName)
+void KeyConfig::setMouseCode(int mouseCode, std::string buttonName)
 {
     this->m_mouseCode = mouseCode;
     this->m_keyCode = -1;
@@ -150,7 +150,7 @@ void KeyConfig::SetMouseCode(int mouseCode, std::string buttonName)
     m_label = exp.str();
 }
 
-int KeyConfig::GetMouseCode() const
+int KeyConfig::getMouseCode() const
 {
     return m_mouseCode;
 }

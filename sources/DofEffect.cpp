@@ -45,24 +45,24 @@ static const char fragmentShader[] =
 
 DofEffect::DofEffect()
 {
-    m_processShader.ParseFragmentShader(fragmentShader);
-    m_processShader.ParseVertexShader(vertexShader);
-    m_processShader.LoadProgram();
+    m_processShader.parseFragmentShader(fragmentShader);
+    m_processShader.parseVertexShader(vertexShader);
+    m_processShader.loadProgram();
 
-    m_processShader.Use(true);
-    m_processShader.SetUniform("tColor", 0);
-    m_processShader.SetUniform("tBlur", 1);
-    m_processShader.SetUniform("tDepth", 2);
-    m_processShader.Use(false);
+    m_processShader.use(true);
+    m_processShader.uniform("tColor", 0);
+    m_processShader.uniform("tBlur", 1);
+    m_processShader.uniform("tDepth", 2);
+    m_processShader.use(false);
 
-    m_blur.SetPasse(5);
+    m_blur.setPasse(5);
 }
 
 DofEffect::~DofEffect()
 {
 }
 
-void DofEffect::Process(Rtt* rtt)
+void DofEffect::process(Rtt* rtt)
 {
     /*
      Etape du DOF :
@@ -72,62 +72,62 @@ void DofEffect::Process(Rtt* rtt)
      Rendue workFbo -> fbo (Seulment dans les zones éloigné)
      */
 
-    Texture screenColor = rtt->GetColor();
-    Texture screenDepth = rtt->GetDepht();
-    Texture workColor = m_workRtt->GetColor();
+    Texture screenColor = rtt->getColor();
+    Texture screenDepth = rtt->getDepht();
+    Texture workColor = m_workRtt->getColor();
 
     // Etape 1 -----------------------------------------------------------------
 
-    m_workRtt->Use(true);
+    m_workRtt->use(true);
 
-    screenColor.Use(true);
-    m_layer.Draw();
+    screenColor.use(true);
+    m_layer.draw();
 
-    m_workRtt->Use(false);
+    m_workRtt->use(false);
 
     // Etape 2 -----------------------------------------------------------------
 
-    m_blur.Process(m_workRtt);
+    m_blur.process(m_workRtt);
 
     // Etape 3 -----------------------------------------------------------------
 
-    rtt->Use(true);
-    m_processShader.Use(true);
+    rtt->use(true);
+    m_processShader.use(true);
 
-    m_layer.Begin();
+    m_layer.begin();
 
     glActiveTexture(GL_TEXTURE0);
     glClientActiveTexture(GL_TEXTURE0);
-    screenColor.Use(true);
+    screenColor.use(true);
 
     glActiveTexture(GL_TEXTURE1);
     glClientActiveTexture(GL_TEXTURE1);
     glEnable(GL_TEXTURE_2D);
-    workColor.Use(true);
+    workColor.use(true);
 
     glActiveTexture(GL_TEXTURE2);
     glClientActiveTexture(GL_TEXTURE2);
     glEnable(GL_TEXTURE_2D);
-    screenDepth.Use(true);
+    screenDepth.use(true);
 
-    m_layer.Draw(false);
+    m_layer.draw(false);
 
     glActiveTexture(GL_TEXTURE2);
     glClientActiveTexture(GL_TEXTURE2);
-    screenColor.Use(false);
+    screenColor.use(false);
 
     glActiveTexture(GL_TEXTURE1);
     glClientActiveTexture(GL_TEXTURE1);
-    workColor.Use(false);
+    workColor.use(false);
 
     glActiveTexture(GL_TEXTURE0);
     glClientActiveTexture(GL_TEXTURE0);
-    screenDepth.Use(false);
+    screenDepth.use(false);
 
-    m_layer.End();
+    m_layer.end();
 
-    workColor.Use(false);
+    workColor.use(false);
 
-    m_processShader.Use(false);
-    rtt->Use(false);
+    m_processShader.use(false);
+    rtt->use(false);
 }

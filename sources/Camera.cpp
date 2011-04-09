@@ -10,7 +10,7 @@ Camera::Camera(CameraType type, Vector3f posistion, Vector3f target, float sensi
 {
     m_pos = posistion;
     m_target = target;
-    m_left = target.Rotate(90, 0);
+    m_left = target.rotate(90, 0);
     m_up = Vector3f(0, 1, 0);
 
     m_sensivity = sensivity;
@@ -26,7 +26,7 @@ Camera::~Camera()
 
 }
 
-void Camera::Push()
+void Camera::push()
 {
     m_stackVector.push(m_pos);
     m_stackVector.push(m_target);
@@ -38,7 +38,7 @@ void Camera::Push()
     m_stackFloat.push(m_sensivity);
 }
 
-void Camera::Pop()
+void Camera::pop()
 {
     m_up = m_stackVector.top();
     m_stackVector.pop();
@@ -57,7 +57,7 @@ void Camera::Pop()
     m_stackFloat.pop();
 }
 
-void Camera::Engine()
+void Camera::look()
 {
     switch(m_cameraType)
     {
@@ -74,7 +74,7 @@ void Camera::Engine()
     }
 }
 
-void Camera::SetRotate(Vector2f rel)
+void Camera::setRotate(Vector2f rel)
 {
     m_theta = rel.x;
     m_phi = rel.y;
@@ -84,17 +84,17 @@ void Camera::SetRotate(Vector2f rel)
     else if(m_phi < -89)
         m_phi = -89;
 
-    m_target.Normalize();
-    m_target.Rotate(m_theta, m_phi);
+    m_target.normalize();
+    m_target.rotate(m_theta, m_phi);
 
-    m_left.Normalize();
-    m_left.Rotate(m_theta - 90, m_phi);
+    m_left.normalize();
+    m_left.rotate(m_theta - 90, m_phi);
 
-    m_up.Normalize();
-    m_up.Rotate(m_theta, m_phi + 90);
+    m_up.normalize();
+    m_up.rotate(m_theta, m_phi + 90);
 }
 
-void Camera::SetRelRotate(Vector2f rel)
+void Camera::rotate(Vector2f rel)
 {
     m_theta -= rel.x*m_sensivity;
     m_phi += rel.y*m_sensivity;
@@ -104,72 +104,72 @@ void Camera::SetRelRotate(Vector2f rel)
     else if(m_phi < -89)
         m_phi = -89;
 
-    m_target.Normalize();
-    m_target.Rotate(m_theta, m_phi);
+    m_target.normalize();
+    m_target.rotate(m_theta, m_phi);
 
-    m_left.Normalize();
-    m_left.Rotate(m_theta - 90, 0);
+    m_left.normalize();
+    m_left.rotate(m_theta - 90, 0);
 
-    m_up.Normalize();
-    m_up.Rotate(0, m_phi + 90);
+    m_up.normalize();
+    m_up.rotate(0, m_phi + 90);
 }
 
-void Camera::SetSensivity(float value)
+void Camera::setSensivity(float value)
 {
     m_sensivity = value;
 }
 
-float Camera::GetSensivity() const
+float Camera::getSensivity() const
 {
     return m_sensivity;
 }
 
-void Camera::SetUp(Vector3f up)
+void Camera::setUp(Vector3f up)
 {
     this->m_up = up;
 }
 
-Vector3f Camera::GetUp() const
+Vector3f Camera::getUp() const
 {
     return m_up;
 }
 
-void Camera::SetLeft(Vector3f left)
+void Camera::setLeft(Vector3f left)
 {
     this->m_left = left;
 }
 
-Vector3f Camera::GetLeft() const
+Vector3f Camera::getLeft() const
 {
     return m_left;
 }
 
-void Camera::SetTarget(Vector3f target)
+void Camera::setTarget(Vector3f target)
 {
     this->m_target = target;
 }
 
-Vector3f Camera::GetTarget() const
+Vector3f Camera::getTarget() const
 {
     return m_target;
 }
 
-void Camera::SetPos(Vector3f pos)
+void Camera::setPos(Vector3f pos)
 {
     this->m_pos = pos;
 }
 
-Vector3f Camera::GetPos() const
+Vector3f Camera::getPos() const
 {
     return m_pos;
 }
 
-void Camera::SetCameraType(CameraType cameraType)
+void Camera::setCameraType(CameraType cameraType)
 {
     this->m_cameraType = cameraType;
 }
 
-Camera::CameraType Camera::GetCameraType() const
+Camera::CameraType Camera::getCameraType() const
 {
     return m_cameraType;
 }
@@ -204,10 +204,10 @@ OrbitalCamera::OrbitalCamera()
     m_pos = -m_target * m_distance + m_center;
 }
 
-void OrbitalCamera::OnEvent(EventManager* event)
+void OrbitalCamera::onEvent(EventManager* event)
 {
     if(event->notify == EventManager::EVENT_MOUSE_MOVE)
-        SetRelRotate(event->mousePosRel);
+        rotate(event->mousePosRel);
 
     float speed = 0.1;
 
@@ -223,24 +223,24 @@ void OrbitalCamera::OnEvent(EventManager* event)
     m_pos = m_center - m_target * m_distance;
 }
 
-void OrbitalCamera::SetDistance(float distance)
+void OrbitalCamera::setDistance(float distance)
 {
     this->m_distance = distance;
     m_pos = m_center - m_target * m_distance;
 }
 
-float OrbitalCamera::GetDistance() const
+float OrbitalCamera::getDistance() const
 {
     return m_distance;
 }
 
-void OrbitalCamera::SetCenter(Vector3f center)
+void OrbitalCamera::setCenter(Vector3f center)
 {
     this->m_center = center;
     m_pos = m_center - m_target * m_distance;
 }
 
-Vector3f OrbitalCamera::GetCenter() const
+Vector3f OrbitalCamera::getCenter() const
 {
     return m_center;
 }
@@ -254,10 +254,10 @@ FreeFlyCamera::FreeFlyCamera()
     m_speed = 1;
 }
 
-void FreeFlyCamera::OnEvent(EventManager* event)
+void FreeFlyCamera::onEvent(EventManager* event)
 {
     if(event->notify == EventManager::EVENT_MOUSE_MOVE)
-        SetRelRotate(event->mousePosRel);
+        rotate(event->mousePosRel);
 
     if(event->lastPollTimestamp > 0)
     {
@@ -287,12 +287,12 @@ void FreeFlyCamera::OnEvent(EventManager* event)
     }
 }
 
-void FreeFlyCamera::SetSpeed(float speed)
+void FreeFlyCamera::setSpeed(float speed)
 {
     this->m_speed = speed;
 }
 
-float FreeFlyCamera::GetSpeed() const
+float FreeFlyCamera::getSpeed() const
 {
     return m_speed;
 }

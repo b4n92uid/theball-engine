@@ -35,18 +35,18 @@ public:
     SceneParser(SceneManager* sceneManager);
     virtual ~SceneParser();
 
-    void LoadScene(const std::string& filepath);
+    void loadScene(const std::string& filepath);
 
-    void SaveScene();
-    void SaveScene(const std::string& filepath);
+    void saveScene();
+    void saveScene(const std::string& filepath);
 
-    void SetClassFactory(ClassFactory* classFactory);
-    ClassFactory* GetClassFactory() const;
+    void setClassFactory(ClassFactory* classFactory);
+    ClassFactory* getClassFactory() const;
 
-    MeshParallelScene* GetMeshScene() const;
-    ParticlesParallelScene* GetParticlesScene() const;
-    LightParallelScene* GetLightScene() const;
-    WaterParallelScene* GetWaterScene() const;
+    MeshParallelScene* getMeshScene() const;
+    ParticlesParallelScene* getParticlesScene() const;
+    LightParallelScene* getLightScene() const;
+    WaterParallelScene* getWaterScene() const;
 
 protected:
 
@@ -67,15 +67,15 @@ protected:
         int deep;
     };
 
-    void ParseMap(AttribMap& att);
-    void ParseFog(AttribMap& att);
-    void ParseSkyBox(AttribMap& att);
-    void ParseNode(Relation& att, Node* parent = NULL);
+    void parseMap(AttribMap& att);
+    void parseFog(AttribMap& att);
+    void parseSkyBox(AttribMap& att);
+    void parseNode(Relation& att, Node* parent = NULL);
 
 private:
     bool parseBlock(std::ifstream& file, Relation& rel, unsigned& line);
 
-    void OutpuNodeConstruction(std::ofstream& file, Node* node);
+    void outpuNodeConstruction(std::ofstream& file, Node* node);
 
     std::string m_fileName;
 

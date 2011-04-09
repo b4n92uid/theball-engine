@@ -18,9 +18,9 @@ public:
     Image();
     Image(Texture background);
 
-    bool OnEvent(const EventManager& event);
+    bool onEvent(const EventManager& event);
 
-    void SetSkin(const GuiSkin& skin);
+    void setSkin(const GuiSkin& skin);
 
     enum DrawDiriction
     {
@@ -29,11 +29,11 @@ public:
     };
 
     /// Spécifier la diriction du rendue
-    void SetDrawDiriction(DrawDiriction drawDiriction);
-    DrawDiriction GetDrawDiriction() const;
+    void setDrawDiriction(DrawDiriction drawDiriction);
+    DrawDiriction getDrawDiriction() const;
 
 protected:
-    void ObjectRender();
+    void objectRender();
 
     DrawDiriction m_drawDiriction;
 };

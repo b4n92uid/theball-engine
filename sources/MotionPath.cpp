@@ -21,13 +21,13 @@ MotionPath::~MotionPath()
 {
 }
 
-void MotionPath::AddKeyFrame(Vector3f pos, float speed)
+void MotionPath::addKeyFrame(Vector3f pos, float speed)
 {
     KeyFrame key = {pos, speed};
     m_keyframe.push_back(key);
 }
 
-void MotionPath::Update()
+void MotionPath::update()
 {
     if(m_keyframe.empty())
         return;
@@ -59,7 +59,7 @@ void MotionPath::Update()
     }
 }
 
-Vector3f MotionPath::GetCurrentPos() const
+Vector3f MotionPath::getCurrentPos() const
 {
     return m_currentPos;
 }

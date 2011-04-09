@@ -27,7 +27,7 @@ OBJMesh::OBJMesh(MeshParallelScene* scene) : Mesh(scene), m_mtlfile(this)
 
 OBJMesh::OBJMesh(MeshParallelScene* scene, const std::string& path) : Mesh(scene), m_mtlfile(this)
 {
-    Open(path);
+    open(path);
 }
 
 OBJMesh::OBJMesh(const OBJMesh& copy) : Mesh(copy), m_mtlfile(this)
@@ -49,7 +49,7 @@ OBJMesh::~OBJMesh()
 {
 }
 
-void OBJMesh::Open(const std::string& path)
+void OBJMesh::open(const std::string& path)
 {
     cout << "Load obj mesh file : " << path << endl;
 
@@ -83,7 +83,7 @@ void OBJMesh::Open(const std::string& path)
         if(opcode == "mtllib")
         {
             string mtlFilename = tools::makeRelatifTo(m_filename, value);
-            m_mtlfile.Open(mtlFilename);
+            m_mtlfile.open(mtlFilename);
         }
 
             // object define
@@ -96,27 +96,27 @@ void OBJMesh::Open(const std::string& path)
         else if(opcode == "s");
 
         else if(opcode == "v")
-            vPos.push_back(tools::StrToVec3<float>(value));
+            vPos.push_back(tools::strToVec3<float>(value));
 
         else if(opcode == "vn")
-            vNormal.push_back(tools::StrToVec3<float>(value));
+            vNormal.push_back(tools::strToVec3<float>(value));
 
         else if(opcode == "vt")
-            vTexCoord.push_back(tools::StrToVec2<float>(value));
+            vTexCoord.push_back(tools::strToVec2<float>(value));
 
         else if(opcode == "usemtl")
         {
             if(curMaterial)
             {
                 if(!vTexCoord.empty())
-                    curMaterial->Enable(Material::TEXTURE);
+                    curMaterial->enable(Material::TEXTURE);
 
                 if(!vNormal.empty())
-                    curMaterial->Enable(Material::LIGHT);
+                    curMaterial->enable(Material::LIGHT);
 
-                curMaterial->Enable(Material::COLOR);
+                curMaterial->enable(Material::COLOR);
 
-                ApplyMaterial(curMaterial, applyOffset, applySize);
+                applyMaterial(curMaterial, applyOffset, applySize);
             }
 
             applyOffset += applySize;
@@ -124,13 +124,13 @@ void OBJMesh::Open(const std::string& path)
 
             try
             {
-                curMaterial = GetMaterial(value);
+                curMaterial = getMaterial(value);
             }
 
             catch(...)
             {
                 curMaterial = new Material;
-                AddMaterial("", curMaterial);
+                addMaterial("", curMaterial);
             }
         }
 
@@ -190,7 +190,7 @@ void OBJMesh::Open(const std::string& path)
                 newFace.push_back(vert);
             }
 
-            m_hardwareBuffer.AddFace(newFace);
+            m_hardwareBuffer.addFace(newFace);
 
             applySize += newFace.size();
         }
@@ -202,31 +202,31 @@ void OBJMesh::Open(const std::string& path)
     if(curMaterial)
     {
         if(!vTexCoord.empty())
-            curMaterial->Enable(Material::TEXTURE);
+            curMaterial->enable(Material::TEXTURE);
 
         if(!vNormal.empty())
-            curMaterial->Enable(Material::LIGHT);
+            curMaterial->enable(Material::LIGHT);
 
-        curMaterial->Enable(Material::COLOR);
+        curMaterial->enable(Material::COLOR);
 
-        ApplyMaterial(curMaterial, applyOffset, applySize);
+        applyMaterial(curMaterial, applyOffset, applySize);
     }
 
-    m_hardwareBuffer.Compile();
+    m_hardwareBuffer.compile();
 
     file.close();
 
-    ComputeAabb();
+    computeAabb();
 }
 
-std::string OBJMesh::GetFilename() const
+std::string OBJMesh::getFilename() const
 {
     return m_filename;
 }
 
-Node::CtorMap OBJMesh::ConstructionMap(std::string root)
+Node::CtorMap OBJMesh::constructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Mesh::ConstructionMap(root);
+    Node::CtorMap ctormap = Mesh::constructionMap(root);
 
     ctormap["class"] = "OBJMesh";
 
@@ -246,7 +246,7 @@ MTLFile::MTLFile(OBJMesh* parent, const std::string & path)
 {
     m_parent = parent;
 
-    Open(path);
+    open(path);
 }
 
 MTLFile::~MTLFile()
@@ -265,7 +265,7 @@ MTLFile& MTLFile::operator=(const MTLFile& copy)
     return *this;
 }
 
-void MTLFile::Open(const std::string& path)
+void MTLFile::open(const std::string& path)
 {
     ifstream file(path.c_str());
 
@@ -293,7 +293,7 @@ void MTLFile::Open(const std::string& path)
         {
             material = new Material;
 
-            m_parent->AddMaterial(arg, material);
+            m_parent->addMaterial(arg, material);
         }
 
         else if(opcode == "Ns")
@@ -306,21 +306,21 @@ void MTLFile::Open(const std::string& path)
         {
             Vector4f ka;
             sscanf(arg.c_str(), "%f %f %f", &ka.x, &ka.y, &ka.z);
-            material->SetAmbient(ka);
+            material->setAmbient(ka);
         }
 
         else if(opcode == "Kd")
         {
             Vector4f kd;
             sscanf(arg.c_str(), "%f %f %f", &kd.x, &kd.y, &kd.z);
-            material->SetDiffuse(kd);
+            material->setDiffuse(kd);
         }
 
         else if(opcode == "Ks")
         {
             Vector4f ks;
             sscanf(arg.c_str(), "%f %f %f", &ks.x, &ks.y, &ks.z);
-            material->SetSpecular(ks);
+            material->setSpecular(ks);
         }
 
         else if(opcode == "Ni")
@@ -349,7 +349,7 @@ void MTLFile::Open(const std::string& path)
             {
                 Texture tex(texturepath, true, false);
 
-                material->SetTexture(tex);
+                material->setTexture(tex);
             }
 
             catch(tbe::Exception& e)
@@ -368,7 +368,7 @@ void MTLFile::Open(const std::string& path)
     file.close();
 }
 
-std::string MTLFile::GetFilename() const
+std::string MTLFile::getFilename() const
 {
     return m_filename;
 }

@@ -17,41 +17,41 @@ EditBox::EditBox(std::string label, Pencil font, Texture background)
 {
     m_state = NO_EVENT;
 
-    SetLabel(label);
-    SetPencil(font);
-    SetBackground(background);
+    setLabel(label);
+    setPencil(font);
+    setBackground(background);
 }
 
 EditBox::~EditBox()
 {
 }
 
-void EditBox::ObjectRender()
+void EditBox::objectRender()
 {
-    m_background.Use();
+    m_background.use();
 
     switch(m_state)
     {
-        case NO_EVENT: DrawSurface(m_pos, m_size, Vector2f(0, 0), Vector2f(1, META_UNIT));
+        case NO_EVENT: drawSurface(m_pos, m_size, Vector2f(0, 0), Vector2f(1, META_UNIT));
             break;
-        case OVER: DrawSurface(m_pos, m_size, Vector2f(0, META_UNIT), Vector2f(1, META_UNIT * 2));
+        case OVER: drawSurface(m_pos, m_size, Vector2f(0, META_UNIT), Vector2f(1, META_UNIT * 2));
             break;
-        case EDIT: DrawSurface(m_pos, m_size, Vector2f(0, META_UNIT * 2), Vector2f(1, META_UNIT * 3));
+        case EDIT: drawSurface(m_pos, m_size, Vector2f(0, META_UNIT * 2), Vector2f(1, META_UNIT * 3));
             break;
     }
 
     if(m_pencil && !m_label.empty())
     {
-        std::string showStr = m_pencil.WrapeLine(m_label, m_size.x - (8 * m_size.x / 100));
+        std::string showStr = m_pencil.wrapeLine(m_label, m_size.x - (8 * m_size.x / 100));
 
         if(m_activate)
             showStr += ']';
 
-        m_pencil.Display(m_pencil.CenterOf(showStr, m_pos, m_size), showStr);
+        m_pencil.display(m_pencil.centerOf(showStr, m_pos, m_size), showStr);
     }
 }
 
-bool EditBox::OnEvent(const EventManager& event)
+bool EditBox::onEvent(const EventManager& event)
 {
     if(m_activate)
     {
@@ -81,7 +81,7 @@ bool EditBox::OnEvent(const EventManager& event)
             m_key = 0;
     }
 
-    else if(Vector2f(event.mousePos).IsInsinde(m_pos, m_size))
+    else if(Vector2f(event.mousePos).isInsinde(m_pos, m_size))
     {
         if(event.notify == EventManager::EVENT_MOUSE_MOVE)
             m_state = OVER;
@@ -102,9 +102,9 @@ bool EditBox::OnEvent(const EventManager& event)
     return false;
 }
 
-void EditBox::SetSkin(const GuiSkin& skin)
+void EditBox::setSkin(const GuiSkin& skin)
 {
-    SetPencil(skin.pencile);
-    SetBackground(skin.editBox);
-    SetSize(skin.editBoxSize);
+    setPencil(skin.pencile);
+    setBackground(skin.editBox);
+    setSize(skin.editBoxSize);
 }

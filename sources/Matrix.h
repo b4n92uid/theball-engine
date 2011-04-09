@@ -21,7 +21,7 @@ public:
 
     Matrix4()
     {
-        Identity();
+        identity();
     }
 
     Matrix4(const T fmatrix[16])
@@ -32,16 +32,16 @@ public:
 
     Matrix4(Vector3<T> pos, Vector3<T> scale = 1, Vector3<T> rotate = 0)
     {
-        Identity();
+        identity();
 
-        SetPos(pos);
-        SetScale(scale);
-        SetRotate(rotate);
+        setPos(pos);
+        setScale(scale);
+        setRotate(rotate);
     }
 
     Matrix4(std::string exp)
     {
-        Identity();
+        identity();
 
         char sep;
         std::stringstream ss(exp);
@@ -59,7 +59,7 @@ public:
 
     /// Mets la matrice d'identité
 
-    void Identity()
+    void identity()
     {
         for(unsigned i = 0; i < 16; i++)
             m_matrix[i] = 0.0f;
@@ -67,7 +67,7 @@ public:
         m_matrix[0] = m_matrix[5] = m_matrix[10] = m_matrix[15] = 1.0f;
     }
 
-    void Transpose()
+    void transpose()
     {
         T t;
 
@@ -96,10 +96,10 @@ public:
         m_matrix[14] = t;
     }
 
-    static Matrix4<T> Transpose(Matrix4<T> mat)
+    static Matrix4<T> transpose(Matrix4<T> mat)
     {
         Matrix4<T> ini = mat;
-        ini.Transpose();
+        ini.transpose();
 
         return ini;
     }
@@ -116,14 +116,14 @@ public:
 
     /// Renvoi la position de la matrice
 
-    Vector3<T> GetPos() const
+    Vector3<T> getPos() const
     {
         return Vector3<T > (m_matrix[12], m_matrix[13], m_matrix[14]);
     }
 
     /// Mets une position a la matrice
 
-    void SetPos(Vector3<T> value)
+    void setPos(Vector3<T> value)
     {
         m_matrix[12] = value.x;
         m_matrix[13] = value.y;
@@ -133,7 +133,7 @@ public:
 
     /// Renvoi la taille de la matrice
 
-    Vector3<T> GetScale() const
+    Vector3<T> getScale() const
     {
         return Vector3<T > (m_matrix[0], m_matrix[5], m_matrix[10]);
     }
@@ -141,7 +141,7 @@ public:
 
     /// Mets une taille a la matrice
 
-    void SetScale(Vector3<T> value)
+    void setScale(Vector3<T> value)
     {
         m_matrix[0] = value.x;
         m_matrix[5] = value.y;
@@ -150,14 +150,14 @@ public:
 
     /// Renvoi la rotation de la matrice
 
-    Vector3<T> GetRotate() const
+    Vector3<T> getRotate() const
     {
         return 0;
     }
 
     /// Mets une rotation a la matrice
 
-    void SetRotateX(T v)
+    void setRotateX(T v)
     {
         float cosinus = cos(v);
         float sinus = sin(v);
@@ -171,7 +171,7 @@ public:
         *this *= mat;
     }
 
-    void SetRotateY(T v)
+    void setRotateY(T v)
     {
         float cosinus = cos(v);
         float sinus = sin(v);
@@ -185,7 +185,7 @@ public:
         *this *= mat;
     }
 
-    void SetRotateZ(T v)
+    void setRotateZ(T v)
     {
         float cosinus = cos(v);
         float sinus = sin(v);
@@ -199,14 +199,14 @@ public:
         *this *= mat;
     }
 
-    void SetRotate(Vector3<T> v)
+    void setRotate(Vector3<T> v)
     {
-        SetRotateX(v.x);
-        SetRotateY(v.y);
-        SetRotateZ(v.z);
+        setRotateX(v.x);
+        setRotateY(v.y);
+        setRotateZ(v.z);
     }
 
-    void SetRotate(float angle, Vector3<T> axe)
+    void setRotate(float angle, Vector3<T> axe)
     {
         float c = cos(angle);
         float s = sin(angle);
@@ -239,7 +239,7 @@ public:
 
     operator Vector3<T>()
     {
-        return GetPos();
+        return getPos();
     }
 
     operator const T*() const
@@ -310,20 +310,20 @@ public:
                 );
     }
 
-    void Translate(Vector3<T> pos)
+    void translate(Vector3<T> pos)
     {
         m_matrix[12] += pos.x;
         m_matrix[13] += pos.y;
         m_matrix[14] += pos.z;
     }
 
-    static Matrix4<T> Translate(Matrix4<T> mat, Vector3<T> pos)
+    static Matrix4<T> translate(Matrix4<T> mat, Vector3<T> pos)
     {
-        mat.Translate(pos);
+        mat.translate(pos);
         return mat;
     }
 
-    static Matrix4<T> ExtractRotation(Matrix4<T> mat)
+    static Matrix4<T> extractRotation(Matrix4<T> mat)
     {
         Matrix4<T> rot;
 

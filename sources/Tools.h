@@ -22,7 +22,7 @@ namespace tbe
 namespace tools
 {
 
-template<typename T> inline bool isPowerOf2(T value)
+template<typename T> inline bool isPow2(T value)
 {
     return (value != 0) && !(value & (value - 1));
 }
@@ -154,7 +154,7 @@ inline bool getline(std::istream& stream, std::string& buffer)
  * @param v
  * @return
  */
-template<typename T> inline Vector2<T> next_p2(Vector2<T> v)
+template<typename T> inline Vector2<T> nextPow2(Vector2<T> v)
 {
     Vector2<T> rval = 2;
     // rval<<=1 Is A Prettier Way Of Writing rval*=2;
@@ -170,7 +170,7 @@ template<typename T> inline Vector2<T> next_p2(Vector2<T> v)
  * @param a
  * @return
  */
-template<typename T> inline T next_p2(T v)
+template<typename T> inline T nextPow2(T v)
 {
     T rval = 2;
     // rval<<=1 Is A Prettier Way Of Writing rval*=2;
@@ -185,7 +185,7 @@ template<typename T> inline T next_p2(T v)
  * @param name
  * @return
  */
-inline std::string UnixName(std::string name)
+inline std::string unixName(std::string name)
 {
     typedef std::map<char, char> repMap;
 
@@ -211,7 +211,7 @@ inline std::string UnixName(std::string name)
  * @return
  */
 template<typename T2>
-std::string NameGen(std::map<std::string, T2>& map, std::string prefix = std::string())
+std::string nameGen(std::map<std::string, T2>& map, std::string prefix = std::string())
 {
     std::stringstream name(prefix + "0");
 
@@ -232,7 +232,7 @@ std::string NameGen(std::map<std::string, T2>& map, std::string prefix = std::st
  * @return
  */
 template<typename T>
-std::string NameGen(std::vector<T>& array, std::string prefix = std::string())
+std::string nameGen(std::vector<T>& array, std::string prefix = std::string())
 {
     std::stringstream name(prefix + "0");
 
@@ -276,7 +276,7 @@ template <typename T> std::string numToStr(T numeric)
  * @param str
  * @return
  */
-template <typename T> T StrToNum(std::string str)
+template <typename T> T strToNum(std::string str)
 {
     T numeric;
     std::stringstream ss(str);
@@ -284,7 +284,7 @@ template <typename T> T StrToNum(std::string str)
     return numeric;
 }
 
-template <typename T> Vector2<T> StrToVec2(std::string str, bool withsep = false)
+template <typename T> Vector2<T> strToVec2(std::string str, bool withsep = false)
 {
     Vector2<T> vec;
     std::stringstream ss(str);
@@ -302,7 +302,7 @@ template <typename T> Vector2<T> StrToVec2(std::string str, bool withsep = false
     return vec;
 }
 
-template <typename T> Vector3<T> StrToVec3(std::string str, bool withsep = false)
+template <typename T> Vector3<T> strToVec3(std::string str, bool withsep = false)
 {
     Vector3<T> vec;
     std::stringstream ss(str);
@@ -320,7 +320,7 @@ template <typename T> Vector3<T> StrToVec3(std::string str, bool withsep = false
     return vec;
 }
 
-template <typename T> Vector4<T> StrToVec4(std::string str, bool withsep = false)
+template <typename T> Vector4<T> strToVec4(std::string str, bool withsep = false)
 {
     Vector4<T> vec;
     std::stringstream ss(str);
@@ -336,6 +336,41 @@ template <typename T> Vector4<T> StrToVec4(std::string str, bool withsep = false
     }
 
     return vec;
+}
+
+template<typename T> inline std::string mat4ToStr(const Matrix4<T>& mat)
+{
+    std::stringstream stream;
+    for(unsigned i = 0; i < 15; i++)
+        stream << mat[i] << ",";
+
+    stream << mat[15];
+
+    return stream.str();
+}
+
+template<typename T> inline std::string vec2ToStr(const Vector2<T>& vec)
+{
+    std::stringstream stream;
+    stream << vec.x << ", " << vec.y;
+
+    return stream.str();
+}
+
+template<typename T> inline std::string vec3ToStr(const Vector3<T>& vec)
+{
+    std::stringstream stream;
+    stream << vec.x << ", " << vec.y << ", " << vec.z;
+
+    return stream.str();
+}
+
+template<typename T> inline std::string vec4ToStr(const Vector4<T>& vec)
+{
+    std::stringstream stream;
+    stream << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w;
+
+    return stream.str();
 }
 
 /**
@@ -407,10 +442,10 @@ inline Vector3f rand(AABB aabb)
  * @param rvalue
  * @return 
  */
-inline float ModuloFloat(float lvalue, float rvalue)
+inline float floatModulo(float lvalue, float rvalue)
 {
     if(lvalue - rvalue > 0)
-        return ModuloFloat(lvalue - rvalue, rvalue);
+        return floatModulo(lvalue - rvalue, rvalue);
     else
         return lvalue;
 }
@@ -453,7 +488,7 @@ inline void round<float>(float& value, const float& unit)
 
     value = std::abs(value);
 
-    float diff = ModuloFloat(value, unit);
+    float diff = floatModulo(value, unit);
 
     if(diff >= unit / 2.0f)
         value += unit - diff;

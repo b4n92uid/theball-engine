@@ -35,31 +35,31 @@ public:
     Mesh & operator=(const Mesh& copy);
 
     /// Méthode polymorphique de clonage du noueud
-    Node* Clone();
+    Node* clone();
 
     /// Rendue
-    void Render();
+    void render();
 
     /// Traitement
-    void Process();
+    void process();
 
     /// Calcule l'AABB du mesh
-    void ComputeAabb();
+    void computeAabb();
 
     /// Calcule l'espace tangente des vertex du mesh
-    void ComputeTangent();
+    void computeTangent();
 
     /// Calcule l'occlusion ambiante
-    void ComputeAocc();
+    void computeAocc();
 
     /// Renvois la position y des coordonnés x z dans le repere local du mesh
-    bool FindFloor(Vector3f& pos, bool global);
+    bool findFloor(Vector3f& pos, bool global);
 
     /// Ajout un materieux au noeud
-    void AddMaterial(std::string name, Material* material);
+    void addMaterial(std::string name, Material* material);
 
     /// Renvois le nombre de materials assosier au noeud
-    unsigned GetMaterialCount();
+    unsigned getMaterialCount();
 
     /**
      * Renvois tout les application du materieux name
@@ -68,37 +68,37 @@ public:
      * @param name
      * @return
      */
-    Vector2i::Array GetMaterialApply(std::string name);
+    Vector2i::Array getMaterialApply(std::string name);
 
     /// Renvois le materieux identifier par son nom
-    Material* GetMaterial(std::string name);
+    Material* getMaterial(std::string name);
 
     /// Renvois tout les materials du mesh
-    Material::Array GetAllMaterial();
+    Material::Array getAllMaterial();
 
     /// Applique un shader a tout les materieux du mesh
-    void ApplyShader(Shader shader);
+    void applyShader(Shader shader);
 
     /// Applique une couleur a tout les vertecies du mesh
-    void ApplyColor(std::string materialName, Vector4f color);
+    void applyColor(std::string materialName, Vector4f color);
 
     /// Supprime le materieux name
-    void DeleteMaterial(std::string name);
+    void deleteMaterial(std::string name);
 
     /// Déttache le materieux name du noeud
-    Material* ReleaseMaterial(std::string name);
+    Material* releaseMaterial(std::string name);
 
     /// Contien les coordonnés pour l'application d'une texture
-    void SetWithTexCoord(bool withTexCoord);
-    bool IsWithTexCoord() const;
+    void setWithTexCoord(bool withTexCoord);
+    bool isWithTexCoord() const;
 
     /// Contien les vecteur des normlas pour les faces
-    void SetWithNormal(bool withNotmal);
-    bool IsWithNormal() const;
+    void setWithNormal(bool withNotmal);
+    bool isWithNormal() const;
 
     /// Triangulation des face du model
-    void SetTriangulate(bool triangulate);
-    bool IsTriangulate() const;
+    void setTriangulate(bool triangulate);
+    bool isTriangulate() const;
 
     /**
      * Applique le materieux identifier par name
@@ -108,7 +108,7 @@ public:
      * @param offset
      * @param size
      */
-    void ApplyMaterial(std::string name, unsigned offset, unsigned size);
+    void applyMaterial(std::string name, unsigned offset, unsigned size);
 
     /**
      * Applique le materieux aux vertexs depuis offset jusqu'a offset + size
@@ -117,18 +117,18 @@ public:
      * @param offset
      * @param size
      */
-    void ApplyMaterial(Material* material, unsigned offset, unsigned size);
+    void applyMaterial(Material* material, unsigned offset, unsigned size);
 
-    /// Renvoi 'true' si le mesh contien un materieu transparent
-    bool IsTransparent();
+    /// Renvoi `true` si le mesh contien un materieu transparent
+    bool isTransparent();
 
-    void SetVisible(bool visible);
-    bool IsVisible() const;
+    void setVisible(bool visible);
+    bool isVisible() const;
 
     /// Renvois le buffer graphique de rendue
-    HardwareBuffer& GetHardwareBuffer();
+    HardwareBuffer& getHardwareBuffer();
 
-    CtorMap ConstructionMap(std::string root);
+    CtorMap constructionMap(std::string root);
 
     typedef std::map<std::string, Mesh*> Map;
     typedef std::vector<Mesh*> Array;
@@ -143,11 +143,11 @@ protected:
 
     MeshParallelScene* m_parallelScene;
 
-    bool RayCast(Vector3f rayStart, Vector3f rayDiri,
+    bool rayCast(Vector3f rayStart, Vector3f rayDiri,
                  Vector3f& intersect, bool global);
 
 private:
-    void Render(Material* material, unsigned offset, unsigned size);
+    void render(Material* material, unsigned offset, unsigned size);
 
     struct RenderProcess
     {
@@ -159,9 +159,9 @@ private:
         typedef std::vector<RenderProcess> Array;
     };
 
-    inline static bool RenderProcessSortFunc(const RenderProcess& rp1, const RenderProcess&)
+    inline static bool renderProcessSortFunc(const RenderProcess& rp1, const RenderProcess&)
     {
-        return !rp1.parent->m_materials[rp1.applyMaterial]->IsTransparent();
+        return !rp1.parent->m_materials[rp1.applyMaterial]->isTransparent();
     }
 
     RenderProcess::Array m_renderProess;

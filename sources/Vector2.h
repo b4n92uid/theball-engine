@@ -182,12 +182,12 @@ public:
 
     bool operator>(const Vector2& vect1) const
     {
-        return (GetMagnitude() > vect1.GetMagnitude());
+        return (getMagnitude() > vect1.getMagnitude());
     }
 
     bool operator<(const Vector2& vect1) const
     {
-        return (GetMagnitude() < vect1.GetMagnitude());
+        return (getMagnitude() < vect1.getMagnitude());
     }
 
     bool operator==(const T& value) const
@@ -202,12 +202,12 @@ public:
 
     bool operator>(const T& value) const
     {
-        return (GetMagnitude() > value);
+        return (getMagnitude() > value);
     }
 
     bool operator<(const T& value) const
     {
-        return (GetMagnitude() < value);
+        return (getMagnitude() < value);
     }
 
     Vector2 operator+(const Vector2& vect1) const
@@ -270,43 +270,43 @@ public:
         return Vector2(value) /= vec;
     }
 
-    Vector2& Rotate(T xrel, T yrel)
+    Vector2& rotate(T xrel, T yrel)
     {
-        x = cos(yrel * M_PI / 180) * cos(xrel * M_PI / 180) * GetMagnitude();
-        y = sin(yrel * M_PI / 180) * GetMagnitude();
+        x = cos(yrel * M_PI / 180) * cos(xrel * M_PI / 180) * getMagnitude();
+        y = sin(yrel * M_PI / 180) * getMagnitude();
 
         return *this;
     }
 
-    static Vector2 Rotate(const Vector2& vec, T xrel, T yrel)
+    static Vector2 rotate(const Vector2& vec, T xrel, T yrel)
     {
-        return Vector2(vec).Rotate(xrel, yrel);
+        return Vector2(vec).rotate(xrel, yrel);
     }
 
-    Vector2& Normalize()
+    Vector2& normalize()
     {
-        T length = GetMagnitude();
+        T length = getMagnitude();
 
         return (length == 0) ? (*this)(0) : (*this /= length);
     }
 
-    static Vector2 GetNormalize(const Vector2& vec)
+    static Vector2 getNormalize(const Vector2& vec)
     {
-        return Vector2(vec).Normalize();
+        return Vector2(vec).normalize();
     }
 
-    T GetMagnitude() const
+    T getMagnitude() const
     {
         return (T)sqrt(x * x + y * y);
     }
 
-    bool IsInsinde(Vector2 pos, Vector2 size)
+    bool isInsinde(Vector2 pos, Vector2 size)
     {
         return (x >= pos.x && x <= pos.x + size.x &&
                 y >= pos.y && y <= pos.y + size.y);
     }
 
-    float GetAverage() const
+    float getAverage() const
     {
         return (x + y) / 2;
     }

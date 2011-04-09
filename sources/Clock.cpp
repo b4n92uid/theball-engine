@@ -32,12 +32,12 @@ Clock::~Clock()
 {
 }
 
-void Clock::SnapShoot()
+void Clock::snapShoot()
 {
     m_lastTime = clock();
 }
 
-long Clock::GetEsplanedTime(bool snapshoot)
+long Clock::getEsplanedTime(bool snapshoot)
 {
     long curtime = clock();
     long esplanedTime = curtime - m_lastTime;
@@ -48,7 +48,7 @@ long Clock::GetEsplanedTime(bool snapshoot)
     return esplanedTime;
 }
 
-bool Clock::IsEsplanedTime(long time)
+bool Clock::isEsplanedTime(long time)
 {
     long curtime = clock();
 
@@ -58,7 +58,7 @@ bool Clock::IsEsplanedTime(long time)
     else return false;
 }
 
-void Clock::Sleep(unsigned v)
+void Clock::sleep(unsigned v)
 {
     #ifdef __linux__
     usleep(v);

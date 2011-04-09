@@ -50,113 +50,113 @@ public:
     ~GuiManager();
 
     /// Initialisation 2D
-    void Setup(Vector2i scrsize);
+    void setup(Vector2i scrsize);
 
     /// Efface tout les controles
-    void ClearAll();
+    void clearAll();
 
     /// Rendue
-    void Render();
+    void render();
 
     /// Transmition des evenement aux controle
-    void TrasmitEvent(EventManager& e);
+    void trasmitEvent(EventManager& e);
 
     /// Change l'apparence des controle
-    void SetSkin(GuiSkin* skin);
+    void setSkin(GuiSkin* skin);
 
     /// Génére/Sélection une session
-    void SetSession(unsigned sessID);
+    void setSession(unsigned sessID);
 
     /// Séléctione la session suivante
-    void PageUp();
+    void pageUp();
 
     /// Séléctione la session précédente
-    void PageDown();
+    void pageDown();
 
     /// Retourne l'id de la session courant
-    unsigned GetSession();
+    unsigned getSession();
 
     /// Détruite la session sees
-    void DestroySession(unsigned name);
+    void destroySession(unsigned name);
 
     /// Ajout le control ListBox
-    ListBox* AddListBox(std::string name);
+    ListBox* addListBox(std::string name);
 
     /// Ajout le control VectorBox
-    VectorBox* AddVectorBox(std::string name, Vector3f value);
+    VectorBox* addVectorBox(std::string name, Vector3f value);
 
     /// Ajout le control TextFont
-    TextBox* AddTextBox(std::string name);
+    TextBox* addTextBox(std::string name);
 
     /// Ajout le control Gauge
-    Gauge* AddGauge(std::string name, std::string label);
+    Gauge* addGauge(std::string name, std::string label);
 
     /// Ajout le control KeyConfig
-    KeyConfig* AddKeyConfig(std::string name);
+    KeyConfig* addKeyConfig(std::string name);
 
     /// Ajout le control EditBox
-    EditBox* AddEditBox(std::string name, std::string label);
+    EditBox* addEditBox(std::string name, std::string label);
 
     /// Ajout le control Switch
-    SwitchString* AddSwitchString(std::string name);
+    SwitchString* addSwitchString(std::string name);
 
     /// Ajout le control SwitchNumeric
 
-    template<typename T> SwitchNumeric<T>* AddSwitchNumeric(std::string name)
+    template<typename T> SwitchNumeric<T>* addSwitchNumeric(std::string name)
     {
         SwitchNumeric<T>* sn = new SwitchNumeric<T>;
-        AddControl(name, sn);
+        addControl(name, sn);
         return sn;
     }
 
     /// Ajout le control Button
-    Button* AddButton(std::string name, std::string label);
+    Button* addButton(std::string name, std::string label);
 
     /// Ajout le control Image
-    Image* AddImage(std::string name, Texture path = Texture());
+    Image* addImage(std::string name, Texture path = Texture());
 
     // Ajout le controle StateShow
-    StateShow* AddStateShow(std::string name, Texture path, int stateCount);
+    StateShow* addStateShow(std::string name, Texture path, int stateCount);
 
     /// Ajout un control
-    void AddControl(std::string name, Control* ctrl);
+    void addControl(std::string name, Control* ctrl);
 
     /// Accès aux control de la session courante
-    Control* GetControl(std::string name, int sess = -1);
+    Control* getControl(std::string name, int sess = -1);
 
     /// Détrute un controle de la session courante
-    void DeleteControl(std::string name);
+    void deleteControl(std::string name);
 
     // Détache un controle de la session courante
-    Control* ReleaseControl(std::string name);
+    Control* releaseControl(std::string name);
 
     /// Créer un layout
-    GridLayout* AddGridLayout(Layout::Orientation type, int rows, int cols, float space = 0, Vector2f border = 0);
+    GridLayout* addGridLayout(Layout::Orientation type, int rows, int cols, float space = 0, Vector2f border = 0);
 
     /// Créer un layout
-    Layout* AddLayout(Layout::Orientation type, float space = 0, Vector2f border = 0);
+    Layout* addLayout(Layout::Orientation type, float space = 0, Vector2f border = 0);
 
     /// Termine le layout créer
-    Layout* EndLayout();
+    Layout* endLayout();
 
     /// Ajoute un espace etirable aux layout déja créer
-    void AddLayoutStretchSpace();
+    void addLayoutStretchSpace();
 
     /// Ajoute un espace fixe aux layout déja créer
-    void AddLayoutSpace(Vector2f space);
+    void addLayoutSpace(Vector2f space);
 
-    Vector2f GetScreenSize() const;
+    Vector2f getScreenSize() const;
 
-    void UpdateLayout();
+    void updateLayout();
 
-    template<typename T> T* ReleaseControl(std::string name)
+    template<typename T> T* releaseControl(std::string name)
     {
-        return(T*)ReleaseControl(name);
+        return(T*)releaseControl(name);
     }
 
-    template<typename T> T* GetControl(std::string name, int sess = -1)
+    template<typename T> T* getControl(std::string name, int sess = -1)
     {
-        return(T*)GetControl(name, sess);
+        return(T*)getControl(name, sess);
     }
 
 protected:

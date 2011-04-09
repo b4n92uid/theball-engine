@@ -18,7 +18,7 @@ Ball3DMesh::Ball3DMesh(MeshParallelScene* scene) : Mesh(scene)
 
 Ball3DMesh::Ball3DMesh(MeshParallelScene* scene, const std::string& filepath) : Mesh(scene)
 {
-    Open(filepath);
+    open(filepath);
 }
 
 Ball3DMesh::Ball3DMesh(const Ball3DMesh& copy) : Mesh(copy)
@@ -35,7 +35,7 @@ Ball3DMesh & Ball3DMesh::operator=(const Ball3DMesh& copy)
     return *this;
 }
 
-void Ball3DMesh::ReadVertexs(std::ifstream& file)
+void Ball3DMesh::readVertexs(std::ifstream& file)
 {
     using namespace std;
 
@@ -54,11 +54,11 @@ void Ball3DMesh::ReadVertexs(std::ifstream& file)
                 >> v.color.x >> v.color.y >> v.color.z >> v.color.w
                 >> v.texCoord.x >> v.texCoord.y;
 
-        m_hardwareBuffer.AddVertex(v);
+        m_hardwareBuffer.addVertex(v);
     }
 }
 
-void Ball3DMesh::ReadMaterial(std::ifstream& file, Material* mat)
+void Ball3DMesh::readMaterial(std::ifstream& file, Material* mat)
 {
     using namespace std;
 
@@ -73,32 +73,32 @@ void Ball3DMesh::ReadMaterial(std::ifstream& file, Material* mat)
         string opcode(buffer, 0, assign), value(buffer, assign + 1);
 
         if(opcode == "alpha")
-            mat->SetAlphaThershold(tools::StrToNum<float>(value));
+            mat->setAlphaThershold(tools::strToNum<float>(value));
 
         else if(opcode == "ambient")
-            mat->SetAmbient(tools::StrToVec4<float>(value));
+            mat->setAmbient(tools::strToVec4<float>(value));
 
         else if(opcode == "diffuse")
-            mat->SetDiffuse(tools::StrToVec4<float>(value));
+            mat->setDiffuse(tools::strToVec4<float>(value));
 
         else if(opcode == "specular")
-            mat->SetSpecular(tools::StrToVec4<float>(value));
+            mat->setSpecular(tools::strToVec4<float>(value));
 
         else if(opcode == "shininess")
-            mat->SetShininess(tools::StrToNum<float>(value));
+            mat->setShininess(tools::strToNum<float>(value));
 
         else if(opcode == "tex")
         {
-            unsigned index = tools::StrToNum<float>(value);
+            unsigned index = tools::strToNum<float>(value);
             string filepath = tools::makeRelatifTo(m_filename, value.substr(value.find(' ') + 1));
 
-            mat->SetTexture(Texture(filepath, true), index);
-            mat->Enable(Material::TEXTURE);
+            mat->setTexture(Texture(filepath, true), index);
+            mat->enable(Material::TEXTURE);
         }
     }
 }
 
-void Ball3DMesh::Open(std::string filepath)
+void Ball3DMesh::open(std::string filepath)
 {
     using namespace std;
 
@@ -131,38 +131,38 @@ void Ball3DMesh::Open(std::string filepath)
         if(opcode == "material")
         {
             curMaterial = new Material;
-            curMaterial->Enable(Material::LIGHT);
-            curMaterial->Enable(Material::COLOR);
+            curMaterial->enable(Material::LIGHT);
+            curMaterial->enable(Material::COLOR);
 
-            AddMaterial(value, curMaterial);
-            ReadMaterial(file, curMaterial);
+            addMaterial(value, curMaterial);
+            readMaterial(file, curMaterial);
         }
 
         else if(opcode == "build")
         {
-            unsigned offset = m_hardwareBuffer.GetVertexCount();
-            ReadVertexs(file);
-            unsigned size = m_hardwareBuffer.GetVertexCount() - offset;
+            unsigned offset = m_hardwareBuffer.getVertexCount();
+            readVertexs(file);
+            unsigned size = m_hardwareBuffer.getVertexCount() - offset;
 
-            ApplyMaterial(value, offset, size);
+            applyMaterial(value, offset, size);
         }
     }
 
-    m_hardwareBuffer.Compile();
+    m_hardwareBuffer.compile();
 
-    ComputeAabb();
+    computeAabb();
 
     file.close();
 }
 
-std::string Ball3DMesh::GetFilename()
+std::string Ball3DMesh::getFilename()
 {
     return m_filename;
 }
 
-Node::CtorMap Ball3DMesh::ConstructionMap(std::string root)
+Node::CtorMap Ball3DMesh::constructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Mesh::ConstructionMap(root);
+    Node::CtorMap ctormap = Mesh::constructionMap(root);
 
     ctormap["class"] = "Ball3DMesh";
 

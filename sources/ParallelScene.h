@@ -36,16 +36,16 @@ public:
     virtual ~ParallelScene();
 
     /// Methode virtual pure pour le rendue
-    virtual void Render() = 0;
+    virtual void render() = 0;
 
     /// Methode la liberation memoire
-    virtual void Clear() = 0;
+    virtual void clear() = 0;
 
-    void SetSceneManager(SceneManager* sceneManager);
-    SceneManager* GetSceneManager() const;
+    void setSceneManager(SceneManager* sceneManager);
+    SceneManager* getSceneManager() const;
 
-    void SetEnable(bool enable);
-    bool IsEnable() const;
+    void setEnable(bool enable);
+    bool isEnable() const;
 
     typedef std::vector<ParallelScene*> Array;
 
@@ -60,20 +60,20 @@ public:
 
     ~ParallelSceneRegister()
     {
-        Clear();
+        clear();
     }
 
-    unsigned Count()
+    unsigned count()
     {
         return m_nodes.size();
     }
 
-    void Clear()
+    void clear()
     {
         m_nodes.clear();
     }
 
-    void Register(T* node)
+    void registerNode(T* node)
     {
         const std::type_info& ti = typeid (node);
 
@@ -83,7 +83,7 @@ public:
         m_nodes.push_back(node);
     }
 
-    void UnRegister(T* node, bool deleteptr = false)
+    void unregisterNode(T* node, bool deleteptr = false)
     {
         typename std::vector<T*>::iterator it = std::find(m_nodes.begin(), m_nodes.end(), node);
 
@@ -98,7 +98,7 @@ public:
         m_nodes.erase(it);
     }
 
-    Iterator<T*> GetIterator()
+    Iterator<T*> iterator()
     {
         return Iterator<T*>(m_nodes);
     }

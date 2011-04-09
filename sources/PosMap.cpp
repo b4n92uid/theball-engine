@@ -80,9 +80,9 @@ void PosMap::Process(Mesh::Array array, Mesh* ground)
         Vector3f &pos = at(i);
 
         if(ground)
-            pos = ground->FindFloor(pos, true);
+            pos = ground->findFloor(pos, true);
 
-        array[i]->SetPos(pos);
+        array[i]->setPos(pos);
     }
 }
 

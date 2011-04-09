@@ -8,6 +8,7 @@
 #include "Node.h"
 #include "ParallelScene.h"
 #include "SceneManager.h"
+#include "Tools.h"
 
 using namespace tbe;
 using namespace tbe::scene;
@@ -22,12 +23,12 @@ Node::Node()
     m_parent = NULL;
 }
 
-void Node::SetSceneManager(SceneManager* sceneManager)
+void Node::setSceneManager(SceneManager* sceneManager)
 {
     this->m_sceneManager = sceneManager;
 }
 
-SceneManager* Node::GetSceneManager() const
+SceneManager* Node::getSceneManager() const
 {
     return m_sceneManager;
 }
@@ -41,10 +42,10 @@ Node::Node(const Node& copy)
 
 Node::~Node()
 {
-    ClearAllChild();
+    clearAllChild();
 
     if(m_parent)
-        m_parent->ReleaseChild(this);
+        m_parent->releaseChild(this);
 }
 
 Node& Node::operator =(const Node& copy)
@@ -55,12 +56,12 @@ Node& Node::operator =(const Node& copy)
     m_aabb = copy.m_aabb;
     m_sceneManager = copy.m_sceneManager;
 
-    ClearAllChild();
+    clearAllChild();
 
     m_childs.reserve(copy.m_childs.size());
 
     for(unsigned i = 0; i < copy.m_childs.size(); i++)
-        AddChild(copy.m_childs[i]->Clone());
+        addChild(copy.m_childs[i]->clone());
 
     return *this;
 }
@@ -75,108 +76,108 @@ bool Node::operator==(Node* node) const
     return m_name == node->m_name;
 }
 
-void Node::SetPos(Vector3f pos)
+void Node::setPos(Vector3f pos)
 {
-    m_matrix.SetPos(pos);
+    m_matrix.setPos(pos);
 }
 
-Vector3f Node::GetPos() const
+Vector3f Node::getPos() const
 {
-    return m_matrix.GetPos();
+    return m_matrix.getPos();
 }
 
-Vector3f Node::MapFromGlobal(Vector3f pos)
+Vector3f Node::mapFromGlobal(Vector3f pos)
 {
     if(m_parent)
-        return m_parent->MapFromGlobal(pos - m_parent->GetPos());
+        return m_parent->mapFromGlobal(pos - m_parent->getPos());
     else
         return pos;
 }
 
-void Node::MulMatrix(const Matrix4f& matrix)
+void Node::mulMatrix(const Matrix4f& matrix)
 {
     this->m_matrix *= matrix;
 }
 
-void Node::SetMatrix(const Matrix4f& matrix)
+void Node::setMatrix(const Matrix4f& matrix)
 {
     this->m_matrix = matrix;
 }
 
-Matrix4f Node::GetAbsoluteMatrix() const
+Matrix4f Node::getAbsoluteMatrix() const
 {
-    return m_parent ? m_parent->GetAbsoluteMatrix() * m_matrix : m_matrix;
+    return m_parent ? m_parent->getAbsoluteMatrix() * m_matrix : m_matrix;
 }
 
-Matrix4f& Node::GetMatrix()
+Matrix4f& Node::getMatrix()
 {
     return m_matrix;
 }
 
-void Node::SetParallelScene(ParallelScene* parallelScene)
+void Node::setParallelScene(ParallelScene* parallelScene)
 {
     this->m_parallelScene = parallelScene;
 }
 
-ParallelScene* Node::GetParallelScene() const
+ParallelScene* Node::getParallelScene() const
 {
     return m_parallelScene;
 }
 
-AABB Node::GetAbsolutAabb() const
+AABB Node::getAbsolutAabb() const
 {
-    Vector3f pos = GetAbsoluteMatrix().GetPos();
+    Vector3f pos = getAbsoluteMatrix().getPos();
     return AABB(pos + m_aabb.min, pos + m_aabb.max);
 }
 
-AABB Node::GetAabb() const
+AABB Node::getAabb() const
 {
     return m_aabb;
 }
 
-void Node::SetEnable(bool enbale)
+void Node::setEnable(bool enbale)
 {
     this->m_enable = enbale;
 }
 
-bool Node::IsEnable() const
+bool Node::isEnable() const
 {
     return m_enable;
 }
 
-void Node::SetName(std::string name)
+void Node::setName(std::string name)
 {
     this->m_name = name;
 }
 
-std::string Node::GetName() const
+std::string Node::getName() const
 {
     return m_name;
 }
 
-bool Node::IsRoot() const
+bool Node::isRoot() const
 {
     if(m_sceneManager)
-        return (this == m_sceneManager->GetRootNode());
+        return (this == m_sceneManager->getRootNode());
     else
         return false;
 }
 
-bool Node::IsAttached() const
+bool Node::isAttached() const
 {
     return m_parent;
 }
 
-void Node::ReleaseParent()
+void Node::releaseFromParent()
 {
     if(!m_parent)
         return;
 
-    m_parent->ReleaseChild(this);
+    m_parent->releaseChild(this);
     m_parent = NULL;
 }
 
-unsigned Node::DeepPosition() const
+unsigned Node::deepPosition() const
 {
     unsigned deep = 0;
 
@@ -192,33 +193,33 @@ unsigned Node::DeepPosition() const
     return deep;
 }
 
-void Node::SetParent(Node* parent)
+void Node::setParent(Node* parent)
 {
-    parent->AddChild(this);
+    parent->addChild(this);
 }
 
-Node* Node::GetParent() const
+Node* Node::getParent() const
 {
     return m_parent;
 }
 
-void Node::AddChild(Node* child)
+void Node::addChild(Node* child)
 {
     if(find(m_childs.begin(), m_childs.end(), child) != m_childs.end())
         throw Exception("Node::AddChild; child already exist");
 
     if(child->m_parent)
-        child->m_parent->ReleaseChild(child);
+        child->m_parent->releaseChild(child);
 
     child->m_parent = this;
     child->m_sceneManager = m_sceneManager;
 
     m_childs.push_back(child);
 
-    m_aabb.Count(child->GetAbsolutAabb());
+    m_aabb.count(child->getAbsolutAabb());
 }
 
-void Node::ReleaseChild(Node* child)
+void Node::releaseChild(Node* child)
 {
     Node::Array::iterator it = find(m_childs.begin(), m_childs.end(), child);
 
@@ -230,20 +231,20 @@ void Node::ReleaseChild(Node* child)
     m_childs.erase(it);
 }
 
-Node* Node::ReleaseChild(unsigned index)
+Node* Node::releaseChild(unsigned index)
 {
     if(index >= m_childs.size())
         throw Exception("Node::ReleaseChild; index out of range %d", index);
 
     Node* ret = m_childs[index];
-    ret->ReleaseParent();
+    ret->releaseFromParent();
 
     m_childs.erase(m_childs.begin() + index);
 
     return ret;
 }
 
-void Node::DeleteChild(Node* child)
+void Node::deleteChild(Node* child)
 {
     Node::Array::iterator it = find(m_childs.begin(), m_childs.end(), child);
 
@@ -254,7 +255,7 @@ void Node::DeleteChild(Node* child)
     m_childs.erase(it);
 }
 
-void Node::DeleteChild(unsigned index)
+void Node::deleteChild(unsigned index)
 {
     if(index >= m_childs.size())
         throw Exception("Node::DeleteChild; index out of range %d", index);
@@ -263,12 +264,12 @@ void Node::DeleteChild(unsigned index)
     m_childs.erase(m_childs.begin() + index);
 }
 
-unsigned Node::GetChildCount() const
+unsigned Node::getChildCount() const
 {
     return m_childs.size();
 }
 
-Node* Node::GetChild(unsigned index) const
+Node* Node::getChild(unsigned index) const
 {
     if(index >= m_childs.size())
         throw Exception("Node::GetChild; index out of range %d", index);
@@ -276,22 +277,22 @@ Node* Node::GetChild(unsigned index) const
     return m_childs[index];
 }
 
-void Node::SetUserData(Any userData)
+void Node::setUserData(Any userData)
 {
     this->m_userData = userData;
 }
 
-Any Node::GetUserData() const
+Any Node::getUserData() const
 {
     return m_userData;
 }
 
-Iterator<Node*> Node::GetChildIterator()
+Iterator<Node*> Node::getChildIterator()
 {
     return Iterator<Node*>(m_childs);
 }
 
-void Node::ClearAllChild()
+void Node::clearAllChild()
 {
     // Copie de pointeur pour éviter les probleme d'étiration
     // lors de la supprésion
@@ -302,12 +303,12 @@ void Node::ClearAllChild()
         delete dtor[i];
 }
 
-Node::CtorMap Node::ConstructionMap(std::string root)
+Node::CtorMap Node::constructionMap(std::string root)
 {
     Node::CtorMap ctormap;
 
     ctormap["name"] = m_name;
-    ctormap["matrix"] = Matrix4ToStr(m_matrix);
+    ctormap["matrix"] = tools::mat4ToStr(m_matrix);
 
     return ctormap;
 }

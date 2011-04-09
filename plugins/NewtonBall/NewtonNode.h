@@ -31,63 +31,63 @@ public:
 
     bool operator=(const NewtonNode& copy);
 
-    void BuildBoxNode(Vector3f size, float masse);
-    void BuildSphereNode(Vector3f size, float masse);
-    void BuildCylinderNode(Vector3f size, float masse);
-    void BuildConvexNode(const Vertex::Array& vertexes, float masse);
-    void BuildTreeNode(const Face::Array& faces);
+    void buildBoxNode(Vector3f size, float masse);
+    void buildSphereNode(Vector3f size, float masse);
+    void buildCylinderNode(Vector3f size, float masse);
+    void buildConvexNode(const Vertex::Array& vertexes, float masse);
+    void buildTreeNode(const Face::Array& faces);
 
     /// Destruction de l'objet physique
-    void DestroyBody();
+    void destroyBody();
 
     /// Recuperation Objet NewtonBody
-    NewtonBody* GetBody() const;
+    NewtonBody* getBody() const;
 
     /// Test de collision
-    bool IsCollidWith(const NewtonNode* target) const;
+    bool isCollidWith(const NewtonNode* target) const;
 
     /// Masse
-    float GetMasse();
+    float getMasse();
 
     /// Assigne une matrice
-    void SetMatrix(Matrix4f matrix);
-    Matrix4f GetMatrix();
+    void setMatrix(Matrix4f matrix);
+    Matrix4f getMatrix();
 
-    void SetPos(Vector3f pos);
-    Vector3f GetPos();
+    void setPos(Vector3f pos);
+    Vector3f getPos();
 
-    void SetVelocity(Vector3f vel);
-    Vector3f GetVelocity();
+    void setVelocity(Vector3f vel);
+    Vector3f getVelocity();
 
-    void SetOmega(Vector3f vel);
-    Vector3f GetOmega();
+    void setOmega(Vector3f vel);
+    Vector3f getOmega();
 
     /// Mise a jour
-    void Render();
+    void render();
 
-    void Process();
+    void process();
 
-    Node* Clone();
+    Node* clone();
 
-    void SetUpdatedMatrix(Matrix4f* updatedMatrix);
-    Matrix4f* GetUpdatedMatrix() const;
+    void setUpdatedMatrix(Matrix4f* updatedMatrix);
+    Matrix4f* getUpdatedMatrix() const;
 
-    void SetApplyTorque(Vector3f applyTorque);
-    Vector3f GetApplyTorque() const;
+    void setApplyTorque(Vector3f applyTorque);
+    Vector3f getApplyTorque() const;
 
-    void SetApplyForce(Vector3f applyForce);
-    Vector3f GetApplyForce() const;
+    void setApplyForce(Vector3f applyForce);
+    Vector3f getApplyForce() const;
 
-    void SetApplyGravity(bool applyGravity);
-    bool IsApplyGravity() const;
+    void setApplyGravity(bool applyGravity);
+    bool isApplyGravity() const;
 
-    void SetFreeze(bool freeze);
-    bool IsFreeze() const;
+    void setFreeze(bool freeze);
+    bool isFreeze() const;
 
-    NewtonParallelScene* GetParallelScene() const;
+    NewtonParallelScene* getParallelScene() const;
     
     /// Method static d'application de la force gravitationnele (9.81)
-    static void ApplyForceAndTorque(const NewtonBody* body, float, int);
+    static void applyForceAndTorque(const NewtonBody* body, float, int);
 
     typedef std::vector<NewtonNode*> Array;
     typedef std::map<std::string, NewtonNode*> Map;

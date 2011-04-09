@@ -19,7 +19,7 @@ NewtonParallelScene::NewtonParallelScene()
 
     NewtonWorldSetUserData(m_newtonWorld, this);
 
-    SetWorldSize(AABB(-100, 100));
+    setWorldSize(AABB(-100, 100));
 
     m_worldTimestep = 1.0 / 60.0;
     m_gravity = 1;
@@ -30,28 +30,28 @@ NewtonParallelScene::~NewtonParallelScene()
     NewtonDestroy(m_newtonWorld);
 }
 
-void NewtonParallelScene::SetGravity(float gravity)
+void NewtonParallelScene::setGravity(float gravity)
 {
     this->m_gravity = gravity;
 }
 
-float NewtonParallelScene::GetGravity() const
+float NewtonParallelScene::getGravity() const
 {
     return m_gravity;
 }
 
-void NewtonParallelScene::SetWorldSize(AABB wordlSize)
+void NewtonParallelScene::setWorldSize(AABB wordlSize)
 {
     m_worldSize = wordlSize;
     NewtonSetWorldSize(m_newtonWorld, m_worldSize.min, m_worldSize.max);
 }
 
-AABB NewtonParallelScene::GetWorldSize() const
+AABB NewtonParallelScene::getWorldSize() const
 {
     return m_worldSize;
 }
 
-void NewtonParallelScene::Render()
+void NewtonParallelScene::render()
 {
     if(!m_enable)
         return;
@@ -59,17 +59,17 @@ void NewtonParallelScene::Render()
     NewtonUpdate(m_newtonWorld, m_worldTimestep);
 }
 
-void NewtonParallelScene::SetWorldTimestep(float worldTimestep)
+void NewtonParallelScene::setWorldTimestep(float worldTimestep)
 {
     this->m_worldTimestep = worldTimestep;
 }
 
-float NewtonParallelScene::GetWorldTimestep() const
+float NewtonParallelScene::getWorldTimestep() const
 {
     return m_worldTimestep;
 }
 
-NewtonWorld* NewtonParallelScene::GetNewtonWorld() const
+NewtonWorld* NewtonParallelScene::getNewtonWorld() const
 {
     return m_newtonWorld;
 }
@@ -96,21 +96,21 @@ static dFloat RayFilterZeroMassBody(const NewtonBody* body, const dFloat* hitNor
     return intersectParam;
 }
 
-Vector3f NewtonParallelScene::FindZeroMassBody(Vector3f start, Vector3f end)
+Vector3f NewtonParallelScene::findZeroMassBody(Vector3f start, Vector3f end)
 {
     float intersectParam = 1.2f;
     NewtonWorldRayCast(m_newtonWorld, start, end, RayFilterZeroMassBody, &intersectParam, 0);
     return start - (start - end) * intersectParam;
 }
 
-Vector3f NewtonParallelScene::FindAnyBody(Vector3f start, Vector3f end)
+Vector3f NewtonParallelScene::findAnyBody(Vector3f start, Vector3f end)
 {
     float intersectParam = 1.2f;
     NewtonWorldRayCast(m_newtonWorld, start, end, RayFilterAnyBody, &intersectParam, 0);
     return start - (start - end) * intersectParam;
 }
 
-Vector3f NewtonParallelScene::FindFloor(Vector3f pos)
+Vector3f NewtonParallelScene::findFloor(Vector3f pos)
 {
     Vector3f p0 = pos, p1 = pos;
 

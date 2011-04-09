@@ -45,98 +45,101 @@ public:
     ~SceneManager();
 
     /// Supprime tout les scene paralleles
-    void ClearParallelScenes();
+    void clearParallelScenes();
 
     /// Supprime tout les caméras
-    void ClearCameras();
+    void clearCameras();
 
     /// Vide tout la scene
-    void ClearAll();
+    void clearAll();
 
     /// Configuration
-    void Setup(Vector2i viewport, float ratio, float fovy, float zNear, float zFar);
+    void setup(Vector2i viewport, float ratio, float fovy, float zNear, float zFar);
 
     /// Ajouter une sous-scene
-    void AddParallelScene(ParallelScene* scene);
+    void addParallelScene(ParallelScene* scene);
 
     /// Accès a une sous-scene
-    ParallelScene* GetParallelScene(unsigned index);
+    ParallelScene* getParallelScene(unsigned index);
 
     /// Destruite une scene parallele
-    void DeleteParallelScene(unsigned index);
-    void DeleteParallelScene(ParallelScene* scene);
+    void deleteParallelScene(unsigned index);
+    void deleteParallelScene(ParallelScene* scene);
 
     /// Détache une scene parallele du gestionnaire
-    ParallelScene* ReleaseParallelScene(unsigned index);
-    void ReleaseParallelScene(ParallelScene* scene);
+    ParallelScene* releaseParallelScene(unsigned index);
+    void releaseParallelScene(ParallelScene* scene);
 
-    Iterator<ParallelScene*> GetParallelSceneIterator();
+    Iterator<ParallelScene*> getParallelSceneIterator();
 
     /// Rendue
-    void Render(bool setupView = true);
+    void render(bool setupView = true);
 
     // Node --------------------------------------------------------------------
 
-    Node* GetRootNode() const;
+    Node* getRootNode() const;
 
     // Camera ------------------------------------------------------------------
 
     /// Ajoute une camera
-    void AddCamera(Camera* camera);
+    void addCamera(Camera* camera);
 
     /// Specifier la camera courante
-    void SetCurCamera(Camera* camera);
+    void setCurCamera(Camera* camera);
 
     /// Accès a la camera courante
-    Camera* GetCurCamera();
+    Camera* getCurCamera();
 
-    void DeleteCamera(Camera* camera);
+    void deleteCamera(Camera* camera);
 
-    void ReleaseCamera(Camera* camera);
+    void releaseCamera(Camera* camera);
 
-    Iterator<Camera*> GetCameraIterator();
+    Iterator<Camera*> getCameraIterator();
 
     // Light -------------------------------------------------------------------
 
     /// Specifer la composant ambient de la scene
-    void SetAmbientLight(Vector4f color);
+    void setAmbientLight(Vector4f color);
 
     /// Renvois la composant ambient de la scene
-    Vector4f GetAmbientLight() const;
+    Vector4f getAmbientLight() const;
 
     // External Manipulator ----------------------------------------------------
 
-    Frustum* GetFrustum() const;
+    Frustum* getFrustum() const;
 
-    SkyBox* GetSkybox() const;
+    SkyBox* getSkybox() const;
 
-    Fog* GetFog() const;
+    Fog* getFog() const;
 
     // Video mode attributs ----------------------------------------------------
 
-    void SetViewport(Vector2i viewport);
-    Vector2i GetViewport() const;
+    void setViewport(Vector2i viewport);
+    Vector2i getViewport() const;
 
-    float GetFovy() const;
-    void SetFovy(float fovy);
+    float getFovy() const;
+    void setFovy(float fovy);
 
-    void SetZNear(float zNear);
-    float GetZNear() const;
+    void setZNear(float zNear);
+    float getZNear() const;
 
-    void SetZFar(float zFar);
-    float GetZFar() const;
+    void setZFar(float zFar);
+    float getZFar() const;
 
-    void SetRatio(float ratio);
-    float GetRatio() const;
+    void setRatio(float ratio);
+    float getRatio() const;
 
-    void UpdateViewParameter();
+    void updateViewParameter();
 
     // Picking -----------------------------------------------------------------
 
-    /// Fonction de picking 2D->3D
-    Vector3f ScreenToWorld(Vector2i target);
-    Vector3f ScreenToWorld(Vector2i target, Rtt* rtt);
+    /// Picking 2D->3D
+    Vector3f screenToWorld(Vector2i target);
 
+    /// Picking 2D->3D, dans le cas d'utilisation des PPE
+    Vector3f screenToWorld(Vector2i target, Rtt* rtt);
+
+    /// Calcule de la matrice de rotation d'un billboard (face a la caméra)
     Matrix4f computeBillboard(Vector3f obj, Matrix4f init = Matrix4f(), Vector3f cam = 0);
 
 protected:

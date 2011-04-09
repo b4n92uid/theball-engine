@@ -22,7 +22,7 @@ public:
     DofEffect();
     virtual ~DofEffect();
 
-    void Process(Rtt* rtt);
+    void process(Rtt* rtt);
 
 private:
     BlurEffect m_blur;

@@ -20,19 +20,19 @@ public:
     Gauge(std::string label, Pencil font, Texture background);
     ~Gauge();
 
-    bool OnEvent(const EventManager& event);
-    void SetSkin(const GuiSkin& skin);
+    bool onEvent(const EventManager& event);
+    void setSkin(const GuiSkin& skin);
 
     // Valuer
-    void SetValue(int value, bool rel = false);
-    int GetValue();
+    void setValue(int value, bool rel = false);
+    int getValue();
 
     // Effet lisser
-    void SetSmooth(bool b, int speed = 1);
-    bool IsSmooth();
+    void setSmooth(bool b, int speed = 1);
+    bool isSmooth();
 
 protected:
-    void ObjectRender();
+    void objectRender();
 
     int m_value;
     int m_valueTarget;

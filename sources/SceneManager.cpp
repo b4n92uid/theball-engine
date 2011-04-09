@@ -35,12 +35,12 @@ SceneManager::SceneManager()
     m_fovy = m_zNear = m_zFar = m_ratio = 0;
 
     m_rootNode = new BullNode;
-    m_rootNode->SetSceneManager(this);
+    m_rootNode->setSceneManager(this);
 }
 
 SceneManager::~SceneManager()
 {
-    ClearAll();
+    clearAll();
 
     delete m_frustum;
     delete m_skybox;
@@ -49,7 +49,7 @@ SceneManager::~SceneManager()
     delete m_rootNode;
 }
 
-void SceneManager::UpdateViewParameter()
+void SceneManager::updateViewParameter()
 {
     glViewport(0, 0, m_viewport.x, m_viewport.y);
 
@@ -58,7 +58,7 @@ void SceneManager::UpdateViewParameter()
     gluPerspective(m_fovy, m_ratio, m_zNear, m_zFar);
 }
 
-void SceneManager::Setup(Vector2i viewport, float ratio, float fovy, float zNear, float zFar)
+void SceneManager::setup(Vector2i viewport, float ratio, float fovy, float zNear, float zFar)
 {
     m_viewport = viewport;
     m_fovy = fovy;
@@ -66,10 +66,10 @@ void SceneManager::Setup(Vector2i viewport, float ratio, float fovy, float zNear
     m_zNear = zNear;
     m_zFar = zFar;
 
-    UpdateViewParameter();
+    updateViewParameter();
 }
 
-void SceneManager::ClearCameras()
+void SceneManager::clearCameras()
 {
     for(unsigned i = 0; i < m_cameras.size(); i++)
         delete m_cameras[i];
@@ -77,7 +77,7 @@ void SceneManager::ClearCameras()
     m_cameras.clear();
 }
 
-void SceneManager::ClearParallelScenes()
+void SceneManager::clearParallelScenes()
 {
     for(unsigned i = 0; i < m_parallelScenes.size(); i++)
         delete m_parallelScenes[i];
@@ -85,18 +85,18 @@ void SceneManager::ClearParallelScenes()
     m_parallelScenes.clear();
 }
 
-void SceneManager::ClearAll()
+void SceneManager::clearAll()
 {
-    m_rootNode->ClearAllChild();
+    m_rootNode->clearAllChild();
 
-    ClearCameras();
-    ClearParallelScenes();
+    clearCameras();
+    clearParallelScenes();
 
-    m_skybox->Clear();
-    m_fog->Clear();
+    m_skybox->clear();
+    m_fog->clear();
 }
 
-void SceneManager::Render(bool setupView)
+void SceneManager::render(bool setupView)
 {
     glMatrixMode(GL_MODELVIEW);
 
@@ -107,32 +107,32 @@ void SceneManager::Render(bool setupView)
     if(!m_cameras.empty() && m_currentCamera != m_cameras.end())
     {
         if(setupView)
-            (*m_currentCamera)->Engine();
+            (*m_currentCamera)->look();
 
-        m_frustum->ExtractPlane();
+        m_frustum->extractPlane();
 
-        m_skybox->Render((*m_currentCamera)->GetPos());
+        m_skybox->render((*m_currentCamera)->getPos());
     }
 
     // Traitement Logique
-    m_rootNode->Process();
+    m_rootNode->process();
 
     // Traitement Graphique : Rendue des scenes parallele
     std::for_each(m_parallelScenes.begin(), m_parallelScenes.end(),
-                  mem_fun(&ParallelScene::Render));
+                  mem_fun(&ParallelScene::render));
 }
 
-void SceneManager::AddParallelScene(ParallelScene* scene)
+void SceneManager::addParallelScene(ParallelScene* scene)
 {
     if(tools::find(m_parallelScenes, scene))
         throw Exception("SceneManager::AddParallelScene; Scene already exist");
 
-    scene->SetSceneManager(this);
+    scene->setSceneManager(this);
 
     m_parallelScenes.push_back(scene);
 }
 
-void SceneManager::ReleaseParallelScene(ParallelScene* scene)
+void SceneManager::releaseParallelScene(ParallelScene* scene)
 {
     if(tools::find(m_parallelScenes, scene))
         throw Exception("SceneManager::ReleaseParallelScene; ParallelScene not found");
@@ -140,7 +140,7 @@ void SceneManager::ReleaseParallelScene(ParallelScene* scene)
     tools::erase(m_parallelScenes, scene);
 }
 
-ParallelScene* SceneManager::ReleaseParallelScene(unsigned index)
+ParallelScene* SceneManager::releaseParallelScene(unsigned index)
 {
     if(index > m_parallelScenes.size())
         throw Exception("SceneManager::DeleteParallelScene; ParallelScene not found");
@@ -151,7 +151,7 @@ ParallelScene* SceneManager::ReleaseParallelScene(unsigned index)
     return ps;
 }
 
-void SceneManager::DeleteParallelScene(ParallelScene* scene)
+void SceneManager::deleteParallelScene(ParallelScene* scene)
 {
     if(tools::find(m_parallelScenes, scene))
         throw Exception("SceneManager::ReleaseParallelScene; ParallelScene not found");
@@ -161,7 +161,7 @@ void SceneManager::DeleteParallelScene(ParallelScene* scene)
     tools::erase(m_parallelScenes, scene);
 }
 
-void SceneManager::DeleteParallelScene(unsigned index)
+void SceneManager::deleteParallelScene(unsigned index)
 {
     if(index > m_parallelScenes.size())
         throw Exception("SceneManager::DeleteParallelScene; ParallelScene not found");
@@ -171,7 +171,7 @@ void SceneManager::DeleteParallelScene(unsigned index)
     tools::erase(m_parallelScenes, index);
 }
 
-ParallelScene* SceneManager::GetParallelScene(unsigned index)
+ParallelScene* SceneManager::getParallelScene(unsigned index)
 {
     if(index > m_parallelScenes.size())
         throw tbe::Exception("SceneManager::GetParallelScene; ParallelScene not found");
@@ -179,12 +179,12 @@ ParallelScene* SceneManager::GetParallelScene(unsigned index)
     return m_parallelScenes[index];
 }
 
-Iterator<ParallelScene*> SceneManager::GetParallelSceneIterator()
+Iterator<ParallelScene*> SceneManager::getParallelSceneIterator()
 {
     return Iterator<ParallelScene*>(m_parallelScenes);
 }
 
-void SceneManager::AddCamera(Camera* camera)
+void SceneManager::addCamera(Camera* camera)
 {
     if(tools::find(m_cameras, camera))
         throw Exception("SceneManager::AddCamera; Camera already exist");
@@ -193,7 +193,7 @@ void SceneManager::AddCamera(Camera* camera)
     m_currentCamera = --m_cameras.end();
 }
 
-void SceneManager::SetCurCamera(Camera* camera)
+void SceneManager::setCurCamera(Camera* camera)
 {
     if(!tools::find(m_cameras, camera))
         throw Exception("SceneManager::SetCurCamera; Camera not found");
@@ -201,90 +201,90 @@ void SceneManager::SetCurCamera(Camera* camera)
     m_currentCamera = find(m_cameras.begin(), m_cameras.end(), camera);
 }
 
-Camera* SceneManager::GetCurCamera()
+Camera* SceneManager::getCurCamera()
 {
     return *m_currentCamera;
 }
 
-Iterator<Camera*> SceneManager::GetCameraIterator()
+Iterator<Camera*> SceneManager::getCameraIterator()
 {
     return Iterator<Camera*>(m_cameras);
 }
 
-Frustum* SceneManager::GetFrustum() const
+Frustum* SceneManager::getFrustum() const
 {
     return m_frustum;
 }
 
-SkyBox* SceneManager::GetSkybox() const
+SkyBox* SceneManager::getSkybox() const
 {
     return m_skybox;
 }
 
-Fog* SceneManager::GetFog() const
+Fog* SceneManager::getFog() const
 {
     return m_fog;
 }
 
-void SceneManager::SetViewport(Vector2i viewport)
+void SceneManager::setViewport(Vector2i viewport)
 {
     m_viewport = viewport;
 }
 
-Vector2i SceneManager::GetViewport() const
+Vector2i SceneManager::getViewport() const
 {
     return m_viewport;
 }
 
-void SceneManager::SetZFar(float zFar)
+void SceneManager::setZFar(float zFar)
 {
     this->m_zFar = zFar;
 }
 
-float SceneManager::GetZFar() const
+float SceneManager::getZFar() const
 {
     return m_zFar;
 }
 
-void SceneManager::SetZNear(float zNear)
+void SceneManager::setZNear(float zNear)
 {
     this->m_zNear = zNear;
 }
 
-float SceneManager::GetZNear() const
+float SceneManager::getZNear() const
 {
     return m_zNear;
 }
 
-void SceneManager::SetFovy(float fovy)
+void SceneManager::setFovy(float fovy)
 {
     this->m_fovy = fovy;
 }
 
-float SceneManager::GetFovy() const
+float SceneManager::getFovy() const
 {
     return m_fovy;
 }
 
-void SceneManager::SetRatio(float ratio)
+void SceneManager::setRatio(float ratio)
 {
     this->m_ratio = ratio;
 }
 
-float SceneManager::GetRatio() const
+float SceneManager::getRatio() const
 {
     return m_ratio;
 }
 
-Vector3f SceneManager::ScreenToWorld(Vector2i target, Rtt* rtt)
+Vector3f SceneManager::screenToWorld(Vector2i target, Rtt* rtt)
 {
     Vector3f pick;
 
     Vector2i mouse;
-    mouse.x = target.x * rtt->GetFrameSize().x / m_viewport.x - 1;
-    mouse.y = target.y * rtt->GetFrameSize().y / m_viewport.y - 1;
+    mouse.x = target.x * rtt->getFrameSize().x / m_viewport.x - 1;
+    mouse.y = target.y * rtt->getFrameSize().y / m_viewport.y - 1;
 
-    bool useRb = FrameBufferObject::CheckHardware() && rtt->FBO_IsUseRenderBuffer();
+    bool useRb = FrameBufferObject::checkHardware() && rtt->FBO_IsUseRenderBuffer();
 
     if(useRb)
     {
@@ -292,11 +292,11 @@ Vector3f SceneManager::ScreenToWorld(Vector2i target, Rtt* rtt)
         rtt->FBO_SetUseRenderBuffer(false);
     }
 
-    rtt->Use(true);
+    rtt->use(true);
 
-    pick = ScreenToWorld(mouse);
+    pick = screenToWorld(mouse);
 
-    rtt->Use(false);
+    rtt->use(false);
 
     if(useRb)
     {
@@ -306,7 +306,7 @@ Vector3f SceneManager::ScreenToWorld(Vector2i target, Rtt* rtt)
     return pick;
 }
 
-Vector3f SceneManager::ScreenToWorld(Vector2i target)
+Vector3f SceneManager::screenToWorld(Vector2i target)
 {
     int iViewport[4];
     double fModelview[16];
@@ -340,44 +340,44 @@ Matrix4f SceneManager::computeBillboard(Vector3f obj, Matrix4f init, Vector3f ca
     Matrix4f rotation = init;
 
     Vector3f look(0, 0, 1);
-    Vector3f campos = !cam ? (*m_currentCamera)->GetPos() : cam;
+    Vector3f campos = !cam ? (*m_currentCamera)->getPos() : cam;
 
     Vector3f proj = campos - obj;
     proj.y = 0;
-    proj.Normalize();
+    proj.normalize();
 
-    Vector3f up = Vector3f::Cross(look, proj);
-    up.Normalize();
+    Vector3f up = Vector3f::cross(look, proj);
+    up.normalize();
 
-    float rotateH = Vector3f::Dot(look, proj);
+    float rotateH = Vector3f::dot(look, proj);
 
     Vector3f proj2 = campos - obj;
-    proj2.Normalize();
+    proj2.normalize();
 
-    float rotateV = Vector3f::Dot(proj, proj2);
+    float rotateV = Vector3f::dot(proj, proj2);
 
     if(campos.y < obj.y)
-        rotation.SetRotate(acos(rotateV), Vector3f(1, 0, 0));
+        rotation.setRotate(acos(rotateV), Vector3f(1, 0, 0));
     else
-        rotation.SetRotate(acos(rotateV), Vector3f(-1, 0, 0));
+        rotation.setRotate(acos(rotateV), Vector3f(-1, 0, 0));
 
-    rotation.SetRotate(acos(rotateH), up);
+    rotation.setRotate(acos(rotateH), up);
 
     return rotation;
 }
 
-void SceneManager::SetAmbientLight(Vector4f ambient)
+void SceneManager::setAmbientLight(Vector4f ambient)
 {
     m_ambientLight = ambient;
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, m_ambientLight);
 }
 
-Vector4f SceneManager::GetAmbientLight() const
+Vector4f SceneManager::getAmbientLight() const
 {
     return m_ambientLight;
 }
 
-Node* SceneManager::GetRootNode() const
+Node* SceneManager::getRootNode() const
 {
     return m_rootNode;
 }

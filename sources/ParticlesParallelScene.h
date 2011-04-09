@@ -26,15 +26,15 @@ public:
     ParticlesParallelScene();
     ~ParticlesParallelScene();
 
-    void Render();
+    void render();
 
-    void HardwareParticleMaxSize();
+    void hardwareParticleMaxSize();
 
-    void SetParticleMinSize(float particleMinSize);
-    float GetParticleMinSize() const;
+    void setParticleMinSize(float particleMinSize);
+    float getParticleMinSize() const;
 
-    void SetParticleMaxSize(float particleMaxSize);
-    float GetParticleMaxSize() const;
+    void setParticleMaxSize(float particleMaxSize);
+    float getParticleMaxSize() const;
 
 private:
     float m_particleMinSize;

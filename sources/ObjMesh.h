@@ -25,9 +25,9 @@ public:
 
     MTLFile & operator=(const MTLFile& copy);
 
-    void Open(const std::string& path);
+    void open(const std::string& path);
 
-    std::string GetFilename() const;
+    std::string getFilename() const;
 
 protected:
     std::string m_filename;
@@ -50,11 +50,11 @@ public:
 
     OBJMesh & operator=(const OBJMesh& copy);
 
-    void Open(const std::string& path);
+    void open(const std::string& path);
 
-    std::string GetFilename() const;
+    std::string getFilename() const;
 
-    Node::CtorMap ConstructionMap(std::string root);
+    Node::CtorMap constructionMap(std::string root);
 
 protected:
     std::string m_filename;

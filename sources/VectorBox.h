@@ -27,16 +27,16 @@ public:
     VectorBox();
     virtual ~VectorBox();
 
-    bool OnEvent(const EventManager& event);
-    void SetSkin(const GuiSkin& gui);
+    bool onEvent(const EventManager& event);
+    void setSkin(const GuiSkin& gui);
 
-    void SetValue(Vector3f value);
-    Vector3f GetValue();
+    void setValue(Vector3f value);
+    Vector3f getValue();
 
-    void SetRange(float min, float max);
+    void setRange(float min, float max);
 
 protected:
-    void ObjectRender();
+    void objectRender();
 
 protected:
     SwitchNumeric<float> m_xValue;

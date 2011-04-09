@@ -58,36 +58,36 @@ public:
 
     HardwareBuffer & operator=(const HardwareBuffer& hb);
 
-    Vertex* Lock(GLenum usage = GL_READ_WRITE);
-    void UnLock();
+    Vertex* lock(GLenum usage = GL_READ_WRITE);
+    void unlock();
 
-    void AddFace(const Face& face);
+    void addFace(const Face& face);
 
-    void AddVertex(const Vertex& vertex);
-    void AddVertex(const Vertex::Array& array);
-    void AddVertex(const Vertex* array, unsigned size);
+    void addVertex(const Vertex& vertex);
+    void addVertex(const Vertex::Array& array);
+    void addVertex(const Vertex* array, unsigned size);
 
-    void Compile(GLenum usage = GL_STATIC_DRAW);
+    void compile(GLenum usage = GL_STATIC_DRAW);
 
-    void BindBuffer(bool state = true);
-    void BindTexture(bool state = true);
-    void BindColor(bool state = true);
-    void BindNormal(bool state = true);
+    void bindBuffer(bool state = true);
+    void bindTexture(bool state = true);
+    void bindColor(bool state = true);
+    void bindNormal(bool state = true);
 
-    void BindTangent(bool state = true, GLint location = -1);
-    void BindAocc(bool state = true, GLint location = -1);
+    void bindTangent(bool state = true, GLint location = -1);
+    void bindAocc(bool state = true, GLint location = -1);
 
-    void Render(GLenum mode = GL_TRIANGLES, unsigned first = 0, unsigned count = 0);
+    void render(GLenum mode = GL_TRIANGLES, unsigned first = 0, unsigned count = 0);
 
-    bool IsEmpty();
+    bool isEmpty();
 
-    unsigned GetBufferSize() const;
+    unsigned getBufferSize() const;
 
-    unsigned GetVertexCount() const;
+    unsigned getVertexCount() const;
 
-    Face::Array GetAllFace();
+    Face::Array getAllFace();
 
-    Vertex::Array GetAllVertex(bool makeUnique = false);
+    Vertex::Array getAllVertex(bool makeUnique = false);
 
     /**
      * Vérifier le support des extention requis
@@ -95,7 +95,7 @@ public:
      *
      * @return
      */
-    static bool CheckHardware();
+    static bool checkHardware();
 
 protected:
     GLuint m_bufferId;

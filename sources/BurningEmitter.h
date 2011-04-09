@@ -35,41 +35,41 @@ public:
 
     BurningEmitter & operator=(const BurningEmitter& copy);
 
-    Node* Clone();
+    Node* clone();
 
-    void Process();
+    void process();
 
-    void SetFreeMove(float freeMove);
-    float GetFreeMove() const;
+    void setFreeMove(float freeMove);
+    float getFreeMove() const;
 
-    void SetAutoRebuild(bool autoRebuild);
-    bool IsAutoRebuild() const;
+    void setAutoRebuild(bool autoRebuild);
+    bool isAutoRebuild() const;
 
-    void SetContinousMode(bool continousMode);
-    bool IsContinousMode() const;
+    void setContinousMode(bool continousMode);
+    bool isContinousMode() const;
 
-    void SetLifeDown(float lifeDown);
-    float GetLifeDown() const;
+    void setLifeDown(float lifeDown);
+    float getLifeDown() const;
 
-    void SetLifeInit(float lifeInit);
-    float GetLifeInit() const;
+    void setLifeInit(float lifeInit);
+    float getLifeInit() const;
 
-    void SetGravity(Vector3f gravity);
-    Vector3f GetGravity() const;
+    void setGravity(Vector3f gravity);
+    Vector3f getGravity() const;
 
-    void SetBoxSize(Vector3f boxSize);
-    Vector3f GetBoxSize() const;
+    void setBoxSize(Vector3f boxSize);
+    Vector3f getBoxSize() const;
 
-    void SetEmitPos(Vector3f emitPos);
-    Vector3f GetEmitPos() const;
+    void setEmitPos(Vector3f emitPos);
+    Vector3f getEmitPos() const;
 
-    void SetBrustCount(int brustCount);
-    int GetBrustCount() const;
+    void setBrustCount(int brustCount);
+    int getBrustCount() const;
 
-    CtorMap ConstructionMap(std::string root);
+    CtorMap constructionMap(std::string root);
 
 protected:
-    void SetupBullet(Particle& p);
+    void setupBullet(Particle& p);
 
 private:
     float m_lifeInit;

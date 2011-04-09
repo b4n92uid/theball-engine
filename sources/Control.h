@@ -42,69 +42,69 @@ public:
     typedef std::vector<Control*> Array;
 
     /// Fonction appler par GuiManager lors d'un evenement
-    virtual bool OnEvent(const EventManager&) = 0;
+    virtual bool onEvent(const EventManager&) = 0;
 
     /// Specifier une apparence du controle
-    virtual void SetSkin(const GuiSkin&);
+    virtual void setSkin(const GuiSkin&);
 
     /// Rendue
-    void Render();
+    void render();
 
     /// Label du controle
-    void SetLabel(std::string label);
-    std::string GetLabel();
+    void setLabel(std::string label);
+    std::string getLabel();
 
     /// Etat du controle (allumer, éteint)
-    void SetEnable(bool enable);
-    bool IsEnable() const;
+    void setEnable(bool enable);
+    bool isEnable() const;
 
     /// Etat du controle (étirable, fixe)
-    void SetStretch(bool stretch);
-    bool IsStretch() const;
+    void setStretch(bool stretch);
+    bool isStretch() const;
 
     /// Etat du controle (actif, inactife)
-    void SetActivate(bool activate);
-    virtual bool IsActivate() const;
+    void setActivate(bool activate);
+    virtual bool isActivate() const;
 
     /// Position du controle
-    void Move(Vector2f relPos);
-    virtual void SetPos(Vector2f pos);
-    virtual Vector2f GetPos() const;
+    void move(Vector2f relPos);
+    virtual void setPos(Vector2f pos);
+    virtual Vector2f getPos() const;
 
     /// Taille du controle
-    virtual void SetSize(Vector2f size);
-    virtual Vector2f GetSize() const;
+    virtual void setSize(Vector2f size);
+    virtual Vector2f getSize() const;
 
     /// Specifier l'arrier plan du controle
-    void SetBackground(Texture background);
-    Texture GetBackground() const;
+    void setBackground(Texture background);
+    Texture getBackground() const;
 
     /// Spécifier la police d'écriture
-    void SetPencil(Pencil pencil);
-    Pencil GetPencil() const;
+    void setPencil(Pencil pencil);
+    Pencil getPencil() const;
 
     /// Spécifier l'état de la transparence alpha
-    void SetEnableAlpha(bool enableAlpha);
-    bool IsEnableAlpha() const;
+    void setEnableAlpha(bool enableAlpha);
+    bool isEnableAlpha() const;
 
     /// Spécifier l'état de l'arrier plan
-    void SetEnableBackground(bool enableBackground);
-    bool IsEnableBackground() const;
+    void setEnableBackground(bool enableBackground);
+    bool isEnableBackground() const;
 
-    void SetOpacity(float opacity);
-    float GetOpacity() const;
+    void setOpacity(float opacity);
+    float getOpacity() const;
 
-    void SetName(std::string name);
-    std::string GetName() const;
+    void setName(std::string name);
+    std::string getName() const;
 
-    void SetOutput(Rtt* output);
-    Rtt* GetOutput() const;
+    void setOutput(Rtt* output);
+    Rtt* getOutput() const;
 
 protected:
-    virtual void ObjectRender() = 0;
+    virtual void objectRender() = 0;
 
-    void DrawSurface(Vector2f pos[], Vector2f st[], unsigned draw);
-    void DrawSurface(Vector2f pos, Vector2f size, Vector2f tcOffset, Vector2f tcLength);
+    void drawSurface(Vector2f pos[], Vector2f st[], unsigned draw);
+    void drawSurface(Vector2f pos, Vector2f size, Vector2f tcOffset, Vector2f tcLength);
 
     std::string m_name;
     std::string m_label;

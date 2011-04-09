@@ -32,81 +32,81 @@ static const char *fragmentShader =
 
 MotionBlurEffect::MotionBlurEffect()
 {
-    m_processShader.ParseVertexShader(vertexShader);
-    m_processShader.ParseFragmentShader(fragmentShader);
-    m_processShader.LoadProgram();
+    m_processShader.parseVertexShader(vertexShader);
+    m_processShader.parseFragmentShader(fragmentShader);
+    m_processShader.loadProgram();
 
-    m_processShader.Use(true);
-    m_processShader.SetUniform("texture0", 0);
-    m_processShader.SetUniform("texture1", 1);
-    m_processShader.Use(false);
+    m_processShader.use(true);
+    m_processShader.uniform("texture0", 0);
+    m_processShader.uniform("texture1", 1);
+    m_processShader.use(false);
 
-    SetIntensity(0.9);
+    setIntensity(0.9);
 }
 
 MotionBlurEffect::~MotionBlurEffect()
 {
 }
 
-void MotionBlurEffect::Process(Rtt* rtt)
+void MotionBlurEffect::process(Rtt* rtt)
 {
-    Texture screenColor = rtt->GetColor();
-    Texture workColor = m_workRtt->GetColor();
+    Texture screenColor = rtt->getColor();
+    Texture workColor = m_workRtt->getColor();
 
     // Etape 1 -----------------------------------------------------------------
 
-    rtt->Use(true);
+    rtt->use(true);
 
-    m_layer.Begin();
-    m_processShader.Use(true);
+    m_layer.begin();
+    m_processShader.use(true);
 
     glActiveTexture(GL_TEXTURE0);
     glClientActiveTexture(GL_TEXTURE0);
-    screenColor.Use(true);
+    screenColor.use(true);
 
     glActiveTexture(GL_TEXTURE1);
     glClientActiveTexture(GL_TEXTURE1);
     glEnable(GL_TEXTURE_2D);
-    workColor.Use(true);
+    workColor.use(true);
 
-    m_layer.Draw(false);
+    m_layer.draw(false);
 
     glActiveTexture(GL_TEXTURE1);
     glClientActiveTexture(GL_TEXTURE1);
-    screenColor.Use(false);
+    screenColor.use(false);
 
     glActiveTexture(GL_TEXTURE0);
     glClientActiveTexture(GL_TEXTURE0);
-    workColor.Use(false);
+    workColor.use(false);
 
-    m_processShader.Use(false);
-    m_layer.End();
+    m_processShader.use(false);
+    m_layer.end();
 
-    rtt->Use(false);
+    rtt->use(false);
 
     // Etape 2 -----------------------------------------------------------------
 
-    m_workRtt->Use(true);
+    m_workRtt->use(true);
 
-    screenColor.Use(true);
+    screenColor.use(true);
 
-    m_layer.Draw();
+    m_layer.draw();
 
-    screenColor.Use(false);
+    screenColor.use(false);
 
-    m_workRtt->Use(false);
+    m_workRtt->use(false);
 }
 
-void MotionBlurEffect::SetIntensity(float intensity)
+void MotionBlurEffect::setIntensity(float intensity)
 {
     this->m_intensity = intensity;
 
-    m_processShader.Use(true);
-    m_processShader.SetUniform("intensity", m_intensity);
-    m_processShader.Use(false);
+    m_processShader.use(true);
+    m_processShader.uniform("intensity", m_intensity);
+    m_processShader.use(false);
 }
 
-float MotionBlurEffect::GetIntensity() const
+float MotionBlurEffect::getIntensity() const
 {
     return m_intensity;
 }

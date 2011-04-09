@@ -26,25 +26,25 @@ TextBox::TextBox(std::string path, int size)
     m_offsetLine = 0;
     m_definedSize = false;
 
-    m_pencil.Load(path, size);
+    m_pencil.load(path, size);
 }
 
 TextBox::~TextBox()
 {
 }
 
-void TextBox::ObjectRender()
+void TextBox::objectRender()
 {
     if(m_enableBackground && m_background)
     {
-        m_background.Use(true);
+        m_background.use(true);
 
-        DrawSurface(m_pos, m_size, 0, 1);
+        drawSurface(m_pos, m_size, 0, 1);
 
-        m_background.Use(false);
+        m_background.use(false);
     }
 
-    Vector2f pos = m_pencil.CenterOf(m_textDisplay, m_pos, m_size);
+    Vector2f pos = m_pencil.centerOf(m_textDisplay, m_pos, m_size);
 
     switch(m_textAlign)
     {
@@ -67,7 +67,7 @@ void TextBox::ObjectRender()
         if(m_offsetLine < m_offsetMax)
             m_textDisplay.front() = ">>>";
 
-        m_pencil.Display(pos, m_textDisplay);
+        m_pencil.display(pos, m_textDisplay);
 
         if(m_offsetLine > 0)
             m_textDisplay.back() = backupback;
@@ -77,21 +77,21 @@ void TextBox::ObjectRender()
     }
 
     else
-        m_pencil.Display(pos, m_textDisplay);
+        m_pencil.display(pos, m_textDisplay);
 }
 
-void TextBox::Write(GuiString text)
+void TextBox::write(GuiString text)
 {
     m_text = text;
 
-    PrepareDisplay();
+    prepareDisplay();
 }
 
-void TextBox::PrepareDisplay()
+void TextBox::prepareDisplay()
 {
     if(m_definedSize)
     {
-        unsigned displayLines = unsigned((m_size.y - m_backgroundPadding.y * 2.0) / (m_pencil.GetFontSize() + m_pencil.GetLineSpace()));
+        unsigned displayLines = unsigned((m_size.y - m_backgroundPadding.y * 2.0) / (m_pencil.getFontSize() + m_pencil.getLineSpace()));
 
         vector<string> buffer;
 
@@ -99,7 +99,7 @@ void TextBox::PrepareDisplay()
         {
             const string& curline = m_text[i];
 
-            vector<string> widthOverflow = m_pencil.GetWrapedLines(curline, m_size.x - m_backgroundPadding.x * 2.0f);
+            vector<string> widthOverflow = m_pencil.getWrapedLines(curline, m_size.x - m_backgroundPadding.x * 2.0f);
             buffer.insert(buffer.end(), widthOverflow.begin(), widthOverflow.end());
         }
 
@@ -116,38 +116,38 @@ void TextBox::PrepareDisplay()
 
     else
     {
-        m_size = m_pencil.SizeOf(m_text) + m_backgroundPadding;
+        m_size = m_pencil.sizeOf(m_text) + m_backgroundPadding;
         m_textDisplay.assign(m_text.begin(), m_text.end());
     }
 
     reverse(m_textDisplay.begin(), m_textDisplay.end());
 }
 
-void TextBox::SetDefinedSize(bool definedSize)
+void TextBox::setDefinedSize(bool definedSize)
 {
     this->m_definedSize = definedSize;
 }
 
-bool TextBox::IsDefinedSize() const
+bool TextBox::isDefinedSize() const
 {
     return m_definedSize;
 }
 
-void TextBox::SetTextAlign(TextAlign textAlign)
+void TextBox::setTextAlign(TextAlign textAlign)
 {
     this->m_textAlign = textAlign;
 }
 
-TextBox::TextAlign TextBox::GetTextAlign() const
+TextBox::TextAlign TextBox::getTextAlign() const
 {
     return m_textAlign;
 }
 
-bool TextBox::OnEvent(const EventManager& event)
+bool TextBox::onEvent(const EventManager& event)
 {
     Vector2f mousePos = event.mousePos;
 
-    if(m_definedSize && mousePos.IsInsinde(m_pos, m_size))
+    if(m_definedSize && mousePos.isInsinde(m_pos, m_size))
     {
         if(event.notify == EventManager::EVENT_MOUSE_DOWN)
         {
@@ -162,33 +162,33 @@ bool TextBox::OnEvent(const EventManager& event)
                 m_offsetLine--;
         }
 
-        PrepareDisplay();
+        prepareDisplay();
     }
 
     return false;
 }
 
-void TextBox::SetSkin(const GuiSkin& skin)
+void TextBox::setSkin(const GuiSkin& skin)
 {
-    SetPencil(skin.pencile);
+    setPencil(skin.pencile);
 }
 
-void TextBox::SetOffsetLine(unsigned offsetLine)
+void TextBox::setOffsetLine(unsigned offsetLine)
 {
     this->m_offsetLine = offsetLine;
 }
 
-unsigned TextBox::GetOffsetLine() const
+unsigned TextBox::getOffsetLine() const
 {
     return m_offsetLine;
 }
 
-void TextBox::SetBackgroundPadding(Vector2f backgroundPadding)
+void TextBox::setBackgroundPadding(Vector2f backgroundPadding)
 {
     this->m_backgroundPadding = backgroundPadding;
 }
 
-Vector2f TextBox::GetBackgroundPadding() const
+Vector2f TextBox::getBackgroundPadding() const
 {
     return m_backgroundPadding;
 }

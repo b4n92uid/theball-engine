@@ -20,9 +20,9 @@ Gauge::Gauge()
 
 Gauge::Gauge(std::string label, Pencil font, Texture background)
 {
-    SetLabel(label);
-    SetPencil(font);
-    SetBackground(background);
+    setLabel(label);
+    setPencil(font);
+    setBackground(background);
 
     m_value = 0;
 
@@ -37,16 +37,16 @@ Gauge::~Gauge()
 
 }
 
-bool Gauge::OnEvent(const EventManager& event)
+bool Gauge::onEvent(const EventManager& event)
 {
     return false;
 }
 
-void Gauge::ObjectRender()
+void Gauge::objectRender()
 {
     glBindTexture(GL_TEXTURE_2D, m_background);
 
-    DrawSurface(m_pos, m_size, 0, Vector2f(1, META_UNIT));
+    drawSurface(m_pos, m_size, 0, Vector2f(1, META_UNIT));
 
     if(m_smooth)
     {
@@ -57,7 +57,7 @@ void Gauge::ObjectRender()
             m_value = max(m_value - m_smoothSpeed, m_valueTarget);
     }
 
-    DrawSurface(
+    drawSurface(
                 m_pos,
                 Vector2f(m_value * m_size.x / 100.0f, m_size.y),
                 Vector2f(0, META_UNIT),
@@ -66,11 +66,11 @@ void Gauge::ObjectRender()
 
     if(m_pencil)
     {
-        m_pencil.Display(m_pencil.CenterOf(m_label, m_pos, m_size), m_label);
+        m_pencil.display(m_pencil.centerOf(m_label, m_pos, m_size), m_label);
     }
 }
 
-void Gauge::SetValue(int value, bool rel)
+void Gauge::setValue(int value, bool rel)
 {
     #ifdef TBE_COMPILE_DEBUG
     if(value < 0 && !rel)
@@ -103,20 +103,20 @@ void Gauge::SetValue(int value, bool rel)
     }
 }
 
-int Gauge::GetValue()
+int Gauge::getValue()
 {
 
     return m_value;
 }
 
-void Gauge::SetSkin(const GuiSkin& skin)
+void Gauge::setSkin(const GuiSkin& skin)
 {
-    SetPencil(skin.pencile);
-    SetBackground(skin.gauge);
-    SetSize(skin.gaugeSize);
+    setPencil(skin.pencile);
+    setBackground(skin.gauge);
+    setSize(skin.gaugeSize);
 }
 
-void Gauge::SetSmooth(bool b, int speed)
+void Gauge::setSmooth(bool b, int speed)
 {
     m_smooth = b;
 
@@ -128,7 +128,7 @@ void Gauge::SetSmooth(bool b, int speed)
     m_smoothSpeed = speed;
 }
 
-bool Gauge::IsSmooth()
+bool Gauge::isSmooth()
 {
     return m_smoothSpeed;
 }

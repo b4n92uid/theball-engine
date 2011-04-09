@@ -26,22 +26,22 @@ public:
     Fog();
     virtual ~Fog();
 
-    void Clear();
+    void clear();
 
-    void SetEnd(float end);
-    float GetEnd() const;
+    void setEnd(float end);
+    float getEnd() const;
 
-    void SetStart(float start);
-    float GetStart() const;
+    void setStart(float start);
+    float getStart() const;
 
-    void SetDensity(float density);
-    float GetDensity() const;
+    void setDensity(float density);
+    float getDensity() const;
 
-    void SetColor(Vector4f color);
-    Vector4f GetColor() const;
+    void setColor(Vector4f color);
+    Vector4f getColor() const;
     
-    void SetEnable(bool enable);
-    bool IsEnable() const;
+    void setEnable(bool enable);
+    bool isEnable() const;
 
 private:
     bool m_enable;

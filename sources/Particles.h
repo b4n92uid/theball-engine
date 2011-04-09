@@ -49,26 +49,26 @@ public:
 
     ParticlesEmiter & operator=(const ParticlesEmiter& copy);
 
-    void Build();
+    void build();
 
-    void Render();
+    void render();
 
-    void Destroy();
+    void destroy();
 
-    void SetDeadEmiter(bool deadEmiter);
-    bool IsDeadEmiter() const;
+    void setDeadEmiter(bool deadEmiter);
+    bool isDeadEmiter() const;
 
-    void SetNumber(unsigned number);
-    unsigned GetNumber() const;
+    void setNumber(unsigned number);
+    unsigned getNumber() const;
 
-    void SetTexture(Texture texture);
-    Texture GetTexture() const;
+    void setTexture(Texture texture);
+    Texture getTexture() const;
 
-    void SetDrawNumber(unsigned drawNumber);
-    unsigned GetDrawNumber() const;
+    void setDrawNumber(unsigned drawNumber);
+    unsigned getDrawNumber() const;
 
-    void SetDepthTest(bool depthTest);
-    bool IsDepthTest() const;
+    void setDepthTest(bool depthTest);
+    bool isDepthTest() const;
 
     enum BlendEq
     {
@@ -76,18 +76,18 @@ public:
         ADDITIVE,
     };
 
-    void SetBlendEq(BlendEq blendEq);
-    BlendEq GetBlendEq() const;
+    void setBlendEq(BlendEq blendEq);
+    BlendEq getBlendEq() const;
 
-    static bool CheckHardware();
+    static bool checkHardware();
 
-    CtorMap ConstructionMap(std::string root);
+    CtorMap constructionMap(std::string root);
 
-    Particle* BeginParticlesPosProcess();
-    void EndParticlesPosProcess();
+    Particle* beginParticlesPosProcess();
+    void endParticlesPosProcess();
 
 protected:
-    virtual void SetupBullet(Particle& p) = 0;
+    virtual void setupBullet(Particle& p) = 0;
 
 protected:
     bool m_deadEmiter;

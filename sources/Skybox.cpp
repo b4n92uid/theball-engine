@@ -19,22 +19,22 @@ SkyBox::SkyBox()
 SkyBox::SkyBox(Texture textures[])
 {
     m_enable = false;
-    SetTextures(textures);
+    setTextures(textures);
 }
 
 SkyBox::~SkyBox()
 {
-    Clear();
+    clear();
 }
 
-Texture* SkyBox::GetTextures()
+Texture* SkyBox::getTextures()
 {
     return m_textures;
 }
 
-void SkyBox::Clear()
+void SkyBox::clear()
 {
-    for_each(m_textures, m_textures + 6, mem_fun_ref(&Texture::Release));
+    for_each(m_textures, m_textures + 6, mem_fun_ref(&Texture::release));
 
     if(m_renderID)
     {
@@ -45,9 +45,9 @@ void SkyBox::Clear()
     m_enable = false;
 }
 
-void SkyBox::SetTextures(Texture textures[])
+void SkyBox::setTextures(Texture textures[])
 {
-    Clear();
+    clear();
 
     for(unsigned i = 0; i < 6; i++)
     {
@@ -56,18 +56,18 @@ void SkyBox::SetTextures(Texture textures[])
 
         m_textures[i] = textures[i];
 
-        m_textures[i].Use(true);
+        m_textures[i].use(true);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-        m_textures[i].Use(false);
+        m_textures[i].use(false);
     }
 
-    InitRender();
+    initRender();
 }
 
-void SkyBox::InitRender()
+void SkyBox::initRender()
 {
     Vector3f size = 10;
 
@@ -75,7 +75,7 @@ void SkyBox::InitRender()
 
     glNewList(m_renderID, GL_COMPILE);
 
-    m_textures[0].Use(true);
+    m_textures[0].use(true);
 
     // Devant
     glBegin(GL_QUADS);
@@ -89,7 +89,7 @@ void SkyBox::InitRender()
     glVertex3f(size.x, -size.y, size.z);
     glEnd();
 
-    m_textures[1].Use(true);
+    m_textures[1].use(true);
 
     // Derriére
     glBegin(GL_QUADS);
@@ -103,7 +103,7 @@ void SkyBox::InitRender()
     glVertex3f(-size.x, -size.y, -size.z);
     glEnd();
 
-    m_textures[2].Use(true);
+    m_textures[2].use(true);
 
     // Haut
     glBegin(GL_QUADS);
@@ -117,7 +117,7 @@ void SkyBox::InitRender()
     glVertex3f(size.x, size.y, -size.z);
     glEnd();
 
-    m_textures[3].Use(true);
+    m_textures[3].use(true);
 
     // Bas
     glBegin(GL_QUADS);
@@ -131,7 +131,7 @@ void SkyBox::InitRender()
     glVertex3f(-size.x, -size.y, size.z);
     glEnd();
 
-    m_textures[4].Use(true);
+    m_textures[4].use(true);
 
     // Gauche
     glBegin(GL_QUADS);
@@ -145,7 +145,7 @@ void SkyBox::InitRender()
     glVertex3f(size.x, -size.y, -size.z);
     glEnd();
 
-    m_textures[5].Use(true);
+    m_textures[5].use(true);
 
     // Droite
     glBegin(GL_QUADS);
@@ -162,7 +162,7 @@ void SkyBox::InitRender()
     glEndList();
 }
 
-void SkyBox::Render(const Vector3f& camerapos)
+void SkyBox::render(const Vector3f& camerapos)
 {
     if(!m_textures || !m_enable)
         return;
@@ -187,12 +187,12 @@ void SkyBox::Render(const Vector3f& camerapos)
     glPopMatrix();
 }
 
-void SkyBox::SetEnable(bool enable)
+void SkyBox::setEnable(bool enable)
 {
     this->m_enable = enable;
 }
 
-bool SkyBox::IsEnable() const
+bool SkyBox::isEnable() const
 {
     return m_enable;
 }

@@ -22,11 +22,9 @@ public:
     MotionPath();
     ~MotionPath();
 
-    void AddKeyFrame(Vector3f pos, float speed = 1.0f);
-
-    void Update();
-
-    Vector3f GetCurrentPos() const;
+    void addKeyFrame(Vector3f pos, float speed = 1.0f);
+    void update();
+    Vector3f getCurrentPos() const;
 
 protected:
 

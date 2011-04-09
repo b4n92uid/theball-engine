@@ -26,9 +26,9 @@ public:
     WaterParallelScene();
     ~WaterParallelScene();
 
-    void PreRender();
+    void preRender();
 
-    void Render();
+    void render();
 
 private:
     bool m_inPreRender;

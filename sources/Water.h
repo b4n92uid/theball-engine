@@ -41,11 +41,11 @@ public:
 
     Water& operator=(const Water& copy);
 
-    void Render();
+    void render();
     
-    void Process();
+    void process();
     
-    Water* Clone();
+    Water* clone();
 
     void SetNormalMap(Texture normalMap);
     Texture GetNormalMap() const;
@@ -74,7 +74,7 @@ public:
     void SetUvRepeat(Vector2f uvRepeat);
     Vector2f GetUvRepeat() const;
 
-    CtorMap ConstructionMap(std::string root);
+    CtorMap constructionMap(std::string root);
 
     typedef std::vector<Water*> Array;
 

@@ -26,20 +26,20 @@ public:
     TextBox(std::string path, int size);
     ~TextBox();
 
-    void SetBackgroundPadding(Vector2f backgroundPadding);
-    Vector2f GetBackgroundPadding() const;
+    void setBackgroundPadding(Vector2f backgroundPadding);
+    Vector2f getBackgroundPadding() const;
 
-    void SetOffsetLine(unsigned offsetLine);
-    unsigned GetOffsetLine() const;
+    void setOffsetLine(unsigned offsetLine);
+    unsigned getOffsetLine() const;
 
-    bool OnEvent(const EventManager& event);
+    bool onEvent(const EventManager& event);
 
-    void SetSkin(const GuiSkin& skin);
+    void setSkin(const GuiSkin& skin);
 
-    void Write(GuiString text);
+    void write(GuiString text);
 
-    void SetDefinedSize(bool definedSize);
-    bool IsDefinedSize() const;
+    void setDefinedSize(bool definedSize);
+    bool isDefinedSize() const;
 
     enum TextAlign
     {
@@ -47,15 +47,15 @@ public:
         CENTER,
     };
 
-    void SetTextAlign(TextAlign textAlign);
-    TextAlign GetTextAlign() const;
+    void setTextAlign(TextAlign textAlign);
+    TextAlign getTextAlign() const;
 
-    void SetTextureRepeat(Vector2f textureRepeat);
-    Vector2f GetTextureRepeat() const;
+    void setTextureRepeat(Vector2f textureRepeat);
+    Vector2f getTextureRepeat() const;
 
 protected:
-    void PrepareDisplay();
-    void ObjectRender();
+    void prepareDisplay();
+    void objectRender();
 
 protected:
     Vector2f m_backgroundPadding;

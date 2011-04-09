@@ -33,27 +33,27 @@ AABB::~AABB()
 {
 }
 
-void AABB::Clear()
+void AABB::clear()
 {
     min = max = 0;
 }
 
-AABB& AABB::Count(scene::Node* node)
+AABB& AABB::count(scene::Node* node)
 {
-    Count(node->GetAbsolutAabb());
+    count(node->getAbsolutAabb());
 
     return *this;
 }
 
-AABB& AABB::Count(const AABB& aabb)
+AABB& AABB::count(const AABB& aabb)
 {
-    Count(aabb.min);
-    Count(aabb.max);
+    count(aabb.min);
+    count(aabb.max);
 
     return *this;
 }
 
-AABB& AABB::Count(const Vector3f& pos)
+AABB& AABB::count(const Vector3f& pos)
 {
     if(min.x > pos.x) min.x = pos.x;
     if(min.y > pos.y) min.y = pos.y;
@@ -66,29 +66,29 @@ AABB& AABB::Count(const Vector3f& pos)
     return *this;
 }
 
-bool AABB::IsInner(scene::Node* node) const
+bool AABB::isInner(scene::Node* node) const
 {
-    return IsInner(node->GetPos());
+    return isInner(node->getPos());
 }
 
-bool AABB::IsInner(const AABB& aabb) const
+bool AABB::isInner(const AABB& aabb) const
 {
-    return (aabb.min.IsInside(min, max) || aabb.max.IsInside(min, max));
+    return (aabb.min.isInside(min, max) || aabb.max.isInside(min, max));
 }
 
-bool AABB::IsInner(const Vector3f& point) const
+bool AABB::isInner(const Vector3f& point) const
 {
-    return point.IsInside(min, max);
+    return point.isInside(min, max);
 }
 
-Vector3f AABB::GetCenter() const
+Vector3f AABB::getCenter() const
 {
     return (max - min) / 2.0f + min;
 }
 
-float AABB::GetSize() const
+float AABB::getSize() const
 {
-    return (max - min).GetMagnitude();
+    return (max - min).getMagnitude();
 }
 
 AABB& AABB::operator()(const Vector3f& min, const Vector3f& max)
@@ -99,22 +99,22 @@ AABB& AABB::operator()(const Vector3f& min, const Vector3f& max)
     return *this;
 }
 
-AABB & AABB::Add(const Vector3f& pos)
+AABB & AABB::add(const Vector3f& pos)
 {
     return *this += pos;
 }
 
-AABB & AABB::Add(const AABB& aabb)
+AABB & AABB::add(const AABB& aabb)
 {
     return *this += aabb;
 }
 
-AABB & AABB::Sub(const Vector3f& pos)
+AABB & AABB::sub(const Vector3f& pos)
 {
     return *this -= pos;
 }
 
-AABB & AABB::Sub(const AABB& aabb)
+AABB & AABB::sub(const AABB& aabb)
 {
     return *this -= aabb;
 }

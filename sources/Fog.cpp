@@ -15,75 +15,75 @@ Fog::Fog()
     glFogi(GL_FOG_MODE, GL_LINEAR);
     glHint(GL_FOG_HINT, GL_DONT_CARE);
 
-    Clear();
+    clear();
 }
 
 Fog::~Fog()
 {
-    SetEnable(false);
+    setEnable(false);
 }
 
-void Fog::Clear()
+void Fog::clear()
 {
-    SetColor(1.0f);
-    SetDensity(0.1f);
-    SetStart(2.0f);
-    SetEnd(32.0f);
-    SetEnable(false);
+    setColor(1.0f);
+    setDensity(0.1f);
+    setStart(2.0f);
+    setEnd(32.0f);
+    setEnable(false);
 }
 
-void Fog::SetEnd(float end)
+void Fog::setEnd(float end)
 {
     this->m_end = end;
     glFogf(GL_FOG_END, m_end);
 }
 
-float Fog::GetEnd() const
+float Fog::getEnd() const
 {
     return m_end;
 }
 
-void Fog::SetStart(float start)
+void Fog::setStart(float start)
 {
     this->m_start = start;
     glFogf(GL_FOG_START, m_start);
 }
 
-float Fog::GetStart() const
+float Fog::getStart() const
 {
     return m_start;
 }
 
-void Fog::SetDensity(float density)
+void Fog::setDensity(float density)
 {
     this->m_density = density;
     glFogf(GL_FOG_DENSITY, m_density);
 }
 
-float Fog::GetDensity() const
+float Fog::getDensity() const
 {
     return m_density;
 }
 
-void Fog::SetColor(Vector4f color)
+void Fog::setColor(Vector4f color)
 {
     this->m_color = color;
     glFogfv(GL_FOG_COLOR, m_color);
 }
 
-Vector4f Fog::GetColor() const
+Vector4f Fog::getColor() const
 {
     return m_color;
 }
 
-void Fog::SetEnable(bool enable)
+void Fog::setEnable(bool enable)
 {
     this->m_enable = enable;
 
     m_enable ? glEnable(GL_FOG) : glDisable(GL_FOG);
 }
 
-bool Fog::IsEnable() const
+bool Fog::isEnable() const
 {
     return m_enable;
 }

@@ -19,7 +19,7 @@ Rtt::Rtt()
     m_captureColor = false;
     m_captureDepth = false;
 
-    m_supportFbo = FrameBufferObject::CheckHardware();
+    m_supportFbo = FrameBufferObject::checkHardware();
 
     // Fbo
     if(m_supportFbo)
@@ -44,7 +44,7 @@ Rtt::Rtt(Vector2i frameSize)
     m_captureColor = false;
     m_captureDepth = false;
 
-    m_supportFbo = FrameBufferObject::CheckHardware();
+    m_supportFbo = FrameBufferObject::checkHardware();
 
     m_frameSize = frameSize;
 
@@ -52,10 +52,10 @@ Rtt::Rtt(Vector2i frameSize)
     if(m_supportFbo)
     {
         m_fboMethod.render = new FrameBufferObject;
-        m_fboMethod.render->SetFrameSize(frameSize);
+        m_fboMethod.render->setFrameSize(frameSize);
 
         m_fboMethod.display = new FrameBufferObject;
-        m_fboMethod.display->SetFrameSize(frameSize);
+        m_fboMethod.display->setFrameSize(frameSize);
 
         m_fboMethod.useRenderBuffer = false;
     }
@@ -68,8 +68,8 @@ Rtt::Rtt(Vector2i frameSize)
     }
 
     // Texture
-    m_textureMethod.color.Build(frameSize);
-    m_textureMethod.depth.Build(frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
+    m_textureMethod.color.build(frameSize);
+    m_textureMethod.depth.build(frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
 }
 
 Rtt::~Rtt()
@@ -82,11 +82,11 @@ Rtt::~Rtt()
     }
 
     // Texture
-    m_textureMethod.color.Release();
-    m_textureMethod.depth.Release();
+    m_textureMethod.color.release();
+    m_textureMethod.depth.release();
 }
 
-void Rtt::Use(bool state)
+void Rtt::use(bool state)
 {
     if(m_supportFbo)
     {
@@ -95,7 +95,7 @@ void Rtt::Use(bool state)
             if(m_curActive)
             {
                 m_prevActive = m_curActive;
-                m_curActive->Use(false);
+                m_curActive->use(false);
 
                 glGetFloatv(GL_MODELVIEW_MATRIX, m_prevMat);
                 glPopMatrix();
@@ -104,15 +104,15 @@ void Rtt::Use(bool state)
             m_curActive = this;
 
             m_fboMethod.useRenderBuffer
-                    ? m_fboMethod.render->Use(true)
-                    : m_fboMethod.display->Use(true);
+                    ? m_fboMethod.render->use(true)
+                    : m_fboMethod.display->use(true);
         }
 
         else
         {
             m_fboMethod.useRenderBuffer
-                    ? m_fboMethod.render->Use(false)
-                    : m_fboMethod.display->Use(false);
+                    ? m_fboMethod.render->use(false)
+                    : m_fboMethod.display->use(false);
 
             m_curActive = NULL;
 
@@ -121,7 +121,7 @@ void Rtt::Use(bool state)
                 glLoadMatrixf(m_prevMat);
                 glPushMatrix();
 
-                m_prevActive->Use(true);
+                m_prevActive->use(true);
                 m_prevActive = NULL;
             }
         }
@@ -139,16 +139,16 @@ void Rtt::Use(bool state)
         {
             if(m_captureColor)
             {
-                m_textureMethod.color.Use(true);
+                m_textureMethod.color.use(true);
                 glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 0, 0, m_frameSize.x, m_frameSize.y, 0);
-                m_textureMethod.color.Use(false);
+                m_textureMethod.color.use(false);
             }
 
             if(m_captureDepth)
             {
-                m_textureMethod.depth.Use(true);
+                m_textureMethod.depth.use(true);
                 glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 0, 0, m_frameSize.x, m_frameSize.y, 0);
-                m_textureMethod.depth.Use(false);
+                m_textureMethod.depth.use(false);
             }
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -158,14 +158,14 @@ void Rtt::Use(bool state)
     }
 }
 
-void Rtt::Clear()
+void Rtt::clear()
 {
     if(m_supportFbo)
     {
         if(m_fboMethod.useRenderBuffer)
-            m_fboMethod.render->Clear();
+            m_fboMethod.render->clear();
         else
-            m_fboMethod.display->Clear();
+            m_fboMethod.display->clear();
     }
 
     else
@@ -175,31 +175,31 @@ void Rtt::Clear()
     }
 }
 
-void Rtt::SetFrameSize(Vector2i frameSize)
+void Rtt::setFrameSize(Vector2i frameSize)
 {
     this->m_frameSize = frameSize;
 
     // Fbo
     if(m_supportFbo)
     {
-        m_fboMethod.display->SetFrameSize(frameSize);
-        m_fboMethod.render->SetFrameSize(frameSize);
+        m_fboMethod.display->setFrameSize(frameSize);
+        m_fboMethod.render->setFrameSize(frameSize);
     }
 
     // Teture
-    m_textureMethod.color.Release();
-    m_textureMethod.color.Build(frameSize);
+    m_textureMethod.color.release();
+    m_textureMethod.color.build(frameSize);
 
-    m_textureMethod.depth.Release();
-    m_textureMethod.depth.Build(frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
+    m_textureMethod.depth.release();
+    m_textureMethod.depth.build(frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
 }
 
-Vector2i Rtt::GetFrameSize() const
+Vector2i Rtt::getFrameSize() const
 {
     return m_frameSize;
 }
 
-void Rtt::SetCaptureDepth(bool captureDepth)
+void Rtt::setCaptureDepth(bool captureDepth)
 {
     this->m_captureDepth = captureDepth;
 
@@ -207,23 +207,23 @@ void Rtt::SetCaptureDepth(bool captureDepth)
     {
         if(m_captureDepth)
         {
-            m_fboMethod.display->Attach(FrameBufferObject::DEPTH_TEXTURE_2D);
-            m_fboMethod.render->Attach(FrameBufferObject::DEPTH_RENDER_BUFFER);
+            m_fboMethod.display->attach(FrameBufferObject::DEPTH_TEXTURE_2D);
+            m_fboMethod.render->attach(FrameBufferObject::DEPTH_RENDER_BUFFER);
         }
         else
         {
-            m_fboMethod.display->Detach(FrameBufferObject::DEPTH_TEXTURE_2D);
-            m_fboMethod.render->Detach(FrameBufferObject::DEPTH_RENDER_BUFFER);
+            m_fboMethod.display->detach(FrameBufferObject::DEPTH_TEXTURE_2D);
+            m_fboMethod.render->detach(FrameBufferObject::DEPTH_RENDER_BUFFER);
         }
     }
 }
 
-bool Rtt::IsCaptureDepth() const
+bool Rtt::isCaptureDepth() const
 {
     return m_captureDepth;
 }
 
-void Rtt::SetCaptureColor(bool captureColor)
+void Rtt::setCaptureColor(bool captureColor)
 {
     this->m_captureColor = captureColor;
 
@@ -231,34 +231,34 @@ void Rtt::SetCaptureColor(bool captureColor)
     {
         if(m_captureColor)
         {
-            m_fboMethod.display->Attach(FrameBufferObject::COLOR_TEXTURE_2D);
-            m_fboMethod.render->Attach(FrameBufferObject::COLOR_RENDER_BUFFER);
+            m_fboMethod.display->attach(FrameBufferObject::COLOR_TEXTURE_2D);
+            m_fboMethod.render->attach(FrameBufferObject::COLOR_RENDER_BUFFER);
         }
         else
         {
-            m_fboMethod.display->Detach(FrameBufferObject::COLOR_TEXTURE_2D);
-            m_fboMethod.render->Detach(FrameBufferObject::COLOR_RENDER_BUFFER);
+            m_fboMethod.display->detach(FrameBufferObject::COLOR_TEXTURE_2D);
+            m_fboMethod.render->detach(FrameBufferObject::COLOR_RENDER_BUFFER);
         }
     }
 }
 
-bool Rtt::IsCaptureColor() const
+bool Rtt::isCaptureColor() const
 {
     return m_captureColor;
 }
 
-Texture Rtt::GetColor()
+Texture Rtt::getColor()
 {
     if(m_supportFbo)
-        return m_fboMethod.display->GetTexture(FrameBufferObject::COLOR_TEXTURE_2D);
+        return m_fboMethod.display->getTexture(FrameBufferObject::COLOR_TEXTURE_2D);
     else
         return m_textureMethod.color;
 }
 
-Texture Rtt::GetDepht()
+Texture Rtt::getDepht()
 {
     if(m_supportFbo)
-        return m_fboMethod.display->GetTexture(FrameBufferObject::DEPTH_TEXTURE_2D);
+        return m_fboMethod.display->getTexture(FrameBufferObject::DEPTH_TEXTURE_2D);
     else
         return m_textureMethod.depth;
 }
@@ -267,12 +267,12 @@ Texture Rtt::GetDepht()
 
 void Rtt::FBO_SetMultisamplesCount(unsigned multisamples)
 {
-    m_fboMethod.render->SetMultiSamplesCount(multisamples);
+    m_fboMethod.render->setMultiSamplesCount(multisamples);
 }
 
 unsigned Rtt::FBO_GetMultisamplesCount()
 {
-    return m_fboMethod.render->GetMultiSamplesCount();
+    return m_fboMethod.render->getMultiSamplesCount();
 }
 
 void Rtt::FBO_SetUseRenderBuffer(bool state)
@@ -287,5 +287,5 @@ bool Rtt::FBO_IsUseRenderBuffer()
 
 void Rtt::FBO_BlitToTexutre()
 {
-    m_fboMethod.render->Blit(m_fboMethod.display);
+    m_fboMethod.render->blit(m_fboMethod.display);
 }

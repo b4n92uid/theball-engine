@@ -35,16 +35,16 @@ public:
         INVERT,
     };
 
-    void Process(Rtt* rtt);
+    void process(Rtt* rtt);
 
-    void SetFusionMode(FusionMode fusionMode);
-    FusionMode GetFusionMode() const;
+    void setFusionMode(FusionMode fusionMode);
+    FusionMode getFusionMode() const;
 
-    void SetColor(Vector4f color);
-    Vector4f GetColor() const;
+    void setColor(Vector4f color);
+    Vector4f getColor() const;
 
-    void SetInternalPass(bool internalPass);
-    bool IsInternalPass() const;
+    void setInternalPass(bool internalPass);
+    bool isInternalPass() const;
 
 private:
     Vector4f m_color;

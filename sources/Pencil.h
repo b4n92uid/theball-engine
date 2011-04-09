@@ -30,10 +30,10 @@ public:
     GuiString(std::string str, ...);
     GuiString(const char* str, ...);
 
-    void LoadFromFile(std::string filepath);
+    void loadFromFile(std::string filepath);
 
 private:
-    void Format(std::string str);
+    void format(std::string str);
 };
 
 /**
@@ -48,30 +48,30 @@ public:
     ~Pencil();
 
     /// Charge une police .ttf
-    void Load(std::string font, int size);
+    void load(std::string font, int size);
 
     void operator()(std::string font, int size)
     {
-        Load(font, size);
+        load(font, size);
     }
 
-    /// Libération mémoire, appler par le déstructeur
-    void Delete();
+    /// Libération mémoire, appeller par le déstructeur
+    void remove();
 
     /// Rendue
-    void Display(Vector2f pos, GuiString text);
+    void display(Vector2f pos, GuiString text);
 
     /// Renvois la position centrer de text pa rapport a pos et pos+size
-    Vector2f CenterOf(GuiString text, Vector2f pos, Vector2f size) const;
+    Vector2f centerOf(GuiString text, Vector2f pos, Vector2f size) const;
 
     /// Renvois la position centrer de str pa rapport a pos et pos+size
-    Vector2f CenterOf(std::string str, Vector2f pos, Vector2f size) const;
+    Vector2f centerOf(std::string str, Vector2f pos, Vector2f size) const;
 
     /// Renvois la taille occuper par text avec la police en cour
-    Vector2f SizeOf(GuiString text) const;
+    Vector2f sizeOf(GuiString text) const;
 
     /// Renvois la taille occuper par str avec la police en cour
-    Vector2f SizeOf(std::string str) const;
+    Vector2f sizeOf(std::string str) const;
 
     /**
      * Renvoi un la partie de la cahine str qui
@@ -83,7 +83,7 @@ public:
      * @param takeEnd A true la fonction renvois la fin de la chaine
      * @return Résultat
      */
-    std::string WrapeLine(std::string str, float width, bool takeEnd = true) const;
+    std::string wrapeLine(std::string str, float width, bool takeEnd = true) const;
 
     /**
      * Renvoi un tableau de chaine qui est le résultat des retour
@@ -93,28 +93,28 @@ public:
      * @param width
      * @return
      */
-    std::vector<std::string> GetWrapedLines(std::string str, float width) const;
+    std::vector<std::string> getWrapedLines(std::string str, float width) const;
 
     /// Renvoi true si le chargement de la police a réussi
     operator bool();
     bool operator!();
-    bool IsReady();
+    bool isReady();
 
     /// Spécifier la taille de la police
-    void SetFontSize(int fontsize);
-    int GetFontSize() const;
+    void setFontSize(int fontsize);
+    int getFontSize() const;
 
     /// Spécifier la taille d'une tabulation
-    void SetTabSize(int tabSize);
-    int GetTabSize() const;
+    void setTabSize(int tabSize);
+    int getTabSize() const;
 
     /// Spécifier la taille de l'espace entre les lignes
-    void SetLineSpace(int lineSpace);
-    int GetLineSpace() const;
+    void setLineSpace(int lineSpace);
+    int getLineSpace() const;
 
     /// Spécifier la couleur d'écriture
-    void SetColor(Vector4f color);
-    Vector4f GetColor() const;
+    void setColor(Vector4f color);
+    Vector4f getColor() const;
 
 protected:
     std::vector<unsigned > m_charsWidth;

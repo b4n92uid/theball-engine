@@ -62,37 +62,37 @@ Material& Material::operator=(const Material& copy)
     return *this;
 }
 
-void Material::SetAoccLocation(std::string aoccLocation)
+void Material::setAoccLocation(std::string aoccLocation)
 {
     this->m_aoccLocation = aoccLocation;
 }
 
-std::string Material::GetAoccLocation() const
+std::string Material::getAoccLocation() const
 {
     return m_aoccLocation;
 }
 
-void Material::SetFrameSortWait(unsigned frameSortWait)
+void Material::setFrameSortWait(unsigned frameSortWait)
 {
     this->m_frameSortWait = frameSortWait;
 }
 
-unsigned Material::GetFrameSortWait() const
+unsigned Material::getFrameSortWait() const
 {
     return m_frameSortWait;
 }
 
-void Material::SetTangentLocation(std::string tangentLocation)
+void Material::setTangentLocation(std::string tangentLocation)
 {
     this->m_tangentLocation = tangentLocation;
 }
 
-std::string Material::GetTangentLocation() const
+std::string Material::getTangentLocation() const
 {
     return m_tangentLocation;
 }
 
-bool Material::IsTransparent()
+bool Material::isTransparent()
 {
     return (m_renderFlags & BLEND_ADD)
             || (m_renderFlags & BLEND_MUL)
@@ -100,132 +100,132 @@ bool Material::IsTransparent()
             || (m_renderFlags & ALPHA);
 }
 
-void Material::SetAlphaThershold(float alphaThershold)
+void Material::setAlphaThershold(float alphaThershold)
 {
     this->m_alphaThershold = alphaThershold;
 }
 
-float Material::GetAlphaThershold() const
+float Material::getAlphaThershold() const
 {
     return m_alphaThershold;
 }
 
-void Material::SetRenderFlags(unsigned renderFlags)
+void Material::setRenderFlags(unsigned renderFlags)
 {
     this->m_renderFlags = renderFlags;
 }
 
-unsigned Material::GetRenderFlags() const
+unsigned Material::getRenderFlags() const
 {
     return m_renderFlags;
 }
 
-void Material::SetShader(const Shader& shader)
+void Material::setShader(const Shader& shader)
 {
     m_shader = shader;
 }
 
-Shader Material::GetShader() const
+Shader Material::getShader() const
 {
     return m_shader;
 }
 
-void Material::SetLineWidth(float lineWidth)
+void Material::setLineWidth(float lineWidth)
 {
     this->m_lineWidth = lineWidth;
 }
 
-float Material::GetLineWidth() const
+float Material::getLineWidth() const
 {
     return m_lineWidth;
 }
 
-void Material::SetName(std::string name)
+void Material::setName(std::string name)
 {
     this->m_name = name;
 }
 
-std::string Material::GetName() const
+std::string Material::getName() const
 {
     return m_name;
 }
 
-void Material::SetTexture(Texture texture, unsigned index)
+void Material::setTexture(Texture texture, unsigned index)
 {
     m_textures[index] = texture;
 }
 
-Texture Material::GetTexture(unsigned index) const
+Texture Material::getTexture(unsigned index) const
 {
     return m_textures.find(index)->second;
 }
 
-unsigned Material::GetTexturesCount() const
+unsigned Material::getTexturesCount() const
 {
     return m_textures.size();
 }
 
-void Material::SetShininess(float shininess)
+void Material::setShininess(float shininess)
 {
     m_shininess = shininess;
 }
 
-float Material::GetShininess() const
+float Material::getShininess() const
 {
     return m_shininess;
 }
 
-void Material::SetSpecular(Vector4f specular)
+void Material::setSpecular(Vector4f specular)
 {
     m_specular = specular;
 }
 
-Vector4f Material::GetSpecular() const
+Vector4f Material::getSpecular() const
 {
     return m_specular;
 }
 
-void Material::SetDiffuse(Vector4f diffuse)
+void Material::setDiffuse(Vector4f diffuse)
 {
     m_diffuse = diffuse;
 }
 
-Vector4f Material::GetDiffuse() const
+Vector4f Material::getDiffuse() const
 {
     return m_diffuse;
 }
 
-void Material::SetAmbient(Vector4f ambient)
+void Material::setAmbient(Vector4f ambient)
 {
     m_ambient = ambient;
 }
 
-Vector4f Material::GetAmbient() const
+Vector4f Material::getAmbient() const
 {
     return m_ambient;
 }
 
-bool Material::IsEnable(unsigned flag)
+bool Material::isEnable(unsigned flag)
 {
     return (m_renderFlags & flag);
 }
 
-void Material::Enable(unsigned flag)
+void Material::enable(unsigned flag)
 {
     m_renderFlags |= flag;
 }
 
-void Material::Disable(unsigned flag)
+void Material::disable(unsigned flag)
 {
     m_renderFlags &= ~flag;
 }
 
-void Material::SetFaceType(FaceType faceType)
+void Material::setFaceType(FaceType faceType)
 {
     this->m_faceType = faceType;
 }
 
-Material::FaceType Material::GetFaceType() const
+Material::FaceType Material::getFaceType() const
 {
     return m_faceType;
 }

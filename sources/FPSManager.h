@@ -31,26 +31,26 @@ class FpsManager
 {
 public:
 
-    /// Ctor
     FpsManager();
 
-    /// ...
-    bool DoARender();
+    /// Renvois true si un rendue doit etre éffécture
+    ///  pour respecter le framerate spécifier
+    bool doRender();
 
     /// Met a jour le FPS courant
-    void Update();
+    void update();
 
     /// Renvoi le FPS courant
-    unsigned GetCurFps();
+    unsigned getCurFps();
 
     /// Renvoi le meilleur FPS enregistrer
-    unsigned GetBetterFps();
+    unsigned getBetterFps();
 
     /// Specifier le framerate de l'application
-    void SetRunFps(unsigned setFps);
+    void setRunFps(unsigned setFps);
 
     /// Renvois le framerate specifier de l'application
-    unsigned GetRunFps() const;
+    unsigned getRunFps() const;
 
 protected:
 

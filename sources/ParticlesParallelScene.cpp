@@ -19,7 +19,7 @@ using namespace tbe::scene;
 
 ParticlesParallelScene::ParticlesParallelScene()
 {
-    m_pointSprite = ParticlesEmiter::CheckHardware();
+    m_pointSprite = ParticlesEmiter::checkHardware();
 
     m_particleMinSize = 1.0;
     m_particleMaxSize = 64.0;
@@ -45,7 +45,7 @@ ParticlesParallelScene::~ParticlesParallelScene()
 {
 }
 
-void ParticlesParallelScene::Render()
+void ParticlesParallelScene::render()
 {
     glPushAttrib(GL_ENABLE_BIT | GL_DEPTH_BITS | GL_POINT_BIT);
 
@@ -66,8 +66,8 @@ void ParticlesParallelScene::Render()
         // Configuration de la taille des points suivant la formule :
         // derived_size = size * sqrt (1 / (a + b * d + c * d), d : distance en Z par rapport à l'écran.
 
-        float height = m_sceneManager->GetViewport().y;
-        float fovy = m_sceneManager->GetFovy();
+        float height = m_sceneManager->getViewport().y;
+        float fovy = m_sceneManager->getFovy();
 
         float pixelPerUnit = height / (2.0f * tan(fovy * 0.5f));
         float sqrtC = POINT_SIZE_CURRENT / (POINT_SIZE * pixelPerUnit);
@@ -78,18 +78,18 @@ void ParticlesParallelScene::Render()
     }
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
-        if(m_nodes[i]->IsAttached())
-            m_nodes[i]->Render();
+        if(m_nodes[i]->isAttached())
+            m_nodes[i]->render();
 
     glPopAttrib();
 }
 
-void ParticlesParallelScene::HardwareParticleMaxSize()
+void ParticlesParallelScene::hardwareParticleMaxSize()
 {
     glGetFloatv(GL_POINT_SIZE_MAX_ARB, &m_particleMaxSize);
 }
 
-void ParticlesParallelScene::SetParticleMaxSize(float particleMaxSize)
+void ParticlesParallelScene::setParticleMaxSize(float particleMaxSize)
 {
     this->m_particleMaxSize = particleMaxSize;
 
@@ -97,12 +97,12 @@ void ParticlesParallelScene::SetParticleMaxSize(float particleMaxSize)
         glPointParameterfARB(GL_POINT_SIZE_MAX_ARB, m_particleMaxSize);
 }
 
-float ParticlesParallelScene::GetParticleMaxSize() const
+float ParticlesParallelScene::getParticleMaxSize() const
 {
     return m_particleMaxSize;
 }
 
-void ParticlesParallelScene::SetParticleMinSize(float particleMinSize)
+void ParticlesParallelScene::setParticleMinSize(float particleMinSize)
 {
     this->m_particleMinSize = particleMinSize;
 
@@ -110,7 +110,7 @@ void ParticlesParallelScene::SetParticleMinSize(float particleMinSize)
         glPointParameterfARB(GL_POINT_SIZE_MIN_ARB, m_particleMinSize);
 }
 
-float ParticlesParallelScene::GetParticleMinSize() const
+float ParticlesParallelScene::getParticleMinSize() const
 {
     return m_particleMinSize;
 }
