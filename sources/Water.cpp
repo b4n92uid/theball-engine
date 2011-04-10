@@ -213,7 +213,7 @@ Water& Water::operator=(const Water& copy)
     return *this;
 }
 
-void Water::BeginReflection()
+void Water::beginReflection()
 {
     m_reflection.use(true);
     m_reflection.clear();
@@ -241,7 +241,7 @@ void Water::BeginReflection()
     glScalef(1, -1, 1);
 }
 
-void Water::EndReflection()
+void Water::endReflection()
 {
     glDisable(GL_CLIP_PLANE0);
 
@@ -253,7 +253,7 @@ void Water::EndReflection()
     m_reflection.use(false);
 }
 
-void Water::BeginRefraction()
+void Water::beginRefraction()
 {
     m_refraction.use(true);
     m_refraction.clear();
@@ -273,7 +273,7 @@ void Water::BeginRefraction()
     }
 }
 
-void Water::EndRefraction()
+void Water::endRefraction()
 {
     glDisable(GL_CLIP_PLANE0);
 
@@ -282,17 +282,17 @@ void Water::EndRefraction()
     m_refraction.use(false);
 }
 
-Rtt& Water::GetReflection()
+Rtt& Water::getReflection()
 {
     return m_reflection;
 }
 
-Rtt& Water::GetRefraction()
+Rtt& Water::getRefraction()
 {
     return m_refraction;
 }
 
-void Water::SetSpeed(float speed)
+void Water::setSpeed(float speed)
 {
     this->m_speed = speed;
 
@@ -301,12 +301,12 @@ void Water::SetSpeed(float speed)
     m_shader.use(false);
 }
 
-float Water::GetSpeed() const
+float Water::getSpeed() const
 {
     return m_speed;
 }
 
-void Water::SetDeform(float deform)
+void Water::setDeform(float deform)
 {
     this->m_deform = max(min(deform, 1.0f), 0.0f);
 
@@ -315,12 +315,12 @@ void Water::SetDeform(float deform)
     m_shader.use(false);
 }
 
-float Water::GetDeform() const
+float Water::getDeform() const
 {
     return m_deform;
 }
 
-void Water::SetBlend(float blend)
+void Water::setBlend(float blend)
 {
     this->m_blend = max(min(blend, 1.0f), 0.0f);
 
@@ -329,12 +329,12 @@ void Water::SetBlend(float blend)
     m_shader.use(false);
 }
 
-float Water::GetBlend() const
+float Water::getBlend() const
 {
     return m_blend;
 }
 
-void Water::SetUvRepeat(Vector2f uvRepeat)
+void Water::setUvRepeat(Vector2f uvRepeat)
 {
     this->m_uvRepeat = uvRepeat;
 
@@ -343,7 +343,7 @@ void Water::SetUvRepeat(Vector2f uvRepeat)
     m_shader.use(false);
 }
 
-Vector2f Water::GetUvRepeat() const
+Vector2f Water::getUvRepeat() const
 {
     return m_uvRepeat;
 }
@@ -409,17 +409,17 @@ void Water::render()
     m_buffer.bindBuffer(false);
 }
 
-void Water::SetNormalMap(Texture normalMap)
+void Water::setNormalMap(Texture normalMap)
 {
     this->m_normalMap = normalMap;
 }
 
-Texture Water::GetNormalMap() const
+Texture Water::getNormalMap() const
 {
     return m_normalMap;
 }
 
-void Water::SetSize(Vector2f size)
+void Water::setSize(Vector2f size)
 {
     this->m_size = size;
 
@@ -443,7 +443,7 @@ void Water::SetSize(Vector2f size)
     m_shader.use(false);
 }
 
-Vector2f Water::GetSize() const
+Vector2f Water::getSize() const
 {
     return m_size;
 }

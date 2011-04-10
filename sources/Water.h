@@ -47,32 +47,32 @@ public:
     
     Water* clone();
 
-    void SetNormalMap(Texture normalMap);
-    Texture GetNormalMap() const;
+    void setNormalMap(Texture normalMap);
+    Texture getNormalMap() const;
 
-    void SetSize(Vector2f size);
-    Vector2f GetSize() const;
+    void setSize(Vector2f size);
+    Vector2f getSize() const;
 
-    void BeginReflection();
-    void EndReflection();
+    void beginReflection();
+    void endReflection();
 
-    void BeginRefraction();
-    void EndRefraction();
+    void beginRefraction();
+    void endRefraction();
 
-    Rtt& GetReflection();
-    Rtt& GetRefraction();
+    Rtt& getReflection();
+    Rtt& getRefraction();
 
-    void SetSpeed(float speed);
-    float GetSpeed() const;
+    void setSpeed(float speed);
+    float getSpeed() const;
 
-    void SetDeform(float deform);
-    float GetDeform() const;
+    void setDeform(float deform);
+    float getDeform() const;
 
-    void SetBlend(float blend);
-    float GetBlend() const;
+    void setBlend(float blend);
+    float getBlend() const;
 
-    void SetUvRepeat(Vector2f uvRepeat);
-    Vector2f GetUvRepeat() const;
+    void setUvRepeat(Vector2f uvRepeat);
+    Vector2f getUvRepeat() const;
 
     CtorMap constructionMap(std::string root);
 
