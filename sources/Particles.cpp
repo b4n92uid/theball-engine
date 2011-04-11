@@ -26,6 +26,14 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
 
     m_blendEq = ADDITIVE;
 
+    m_lifeInit = 1;
+    m_lifeDown = 0.1;
+    m_freeMove = 0;
+    m_brustCount = -1;
+
+    m_autoRebuild = true;
+    m_continousMode = false;
+
     Node::m_parallelScene = m_parallelScene = scene;
     m_sceneManager = m_parallelScene->getSceneManager();
 
@@ -59,12 +67,20 @@ ParticlesEmiter& ParticlesEmiter::operator=(const ParticlesEmiter& copy)
     Node::operator=(copy);
 
     m_deadEmiter = copy.m_deadEmiter;
-
     m_depthTest = copy.m_depthTest;
-
     m_number = copy.m_number;
-
     m_drawNumber = copy.m_drawNumber;
+
+    m_lifeInit = copy.m_lifeInit;
+    m_lifeDown = copy.m_lifeDown;
+
+    m_freeMove = copy.m_freeMove;
+
+    m_continousMode = copy.m_continousMode;
+    m_autoRebuild = copy.m_autoRebuild;
+
+    m_gravity = copy.m_gravity;
+    m_boxSize = copy.m_boxSize;
 
     m_blendEq = copy.m_blendEq;
     m_texture = copy.m_texture;
@@ -89,6 +105,8 @@ void ParticlesEmiter::build()
 
         m_particles.push_back(p);
     }
+
+    m_drawNumber = m_number;
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
 
@@ -266,7 +284,6 @@ bool ParticlesEmiter::isDeadEmiter() const
 void ParticlesEmiter::setNumber(unsigned number)
 {
     this->m_number = number;
-    m_drawNumber = number;
 }
 
 unsigned ParticlesEmiter::getNumber() const
@@ -309,14 +326,186 @@ bool ParticlesEmiter::checkHardware()
     return GLEE_ARB_point_sprite && GLEE_ARB_point_parameters;
 }
 
+Node* ParticlesEmiter::clone()
+{
+    return new ParticlesEmiter(*this);
+}
+
+void ParticlesEmiter::setupBullet(Particle& p)
+{
+    p.life = 1;
+    p.color = 1;
+    p.diriction = tools::rand(Vector3f(-m_freeMove), Vector3f(m_freeMove));
+    p.diriction.normalize() *= m_freeMove;
+    p.gravity = m_gravity;
+
+    if(!!m_boxSize)
+        p.pos = tools::rand(Vector3f(0), m_boxSize);
+    else
+        p.pos = m_emitPos;
+
+    if(m_continousMode)
+        p.life = tools::rand(0.0f, m_lifeInit);
+    else
+        p.life = m_lifeInit;
+
+    if(m_brustCount > 0)
+        m_brustCount--;
+}
+
+void ParticlesEmiter::process()
+{
+    if(!m_enable)
+        return;
+
+    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::process));
+
+    if(m_deadEmiter && !m_autoRebuild)
+        return;
+
+    m_deadEmiter = true;
+
+    long timestamp = m_timestamp.getEsplanedTime();
+
+    Particle* particles = beginParticlesPosProcess();
+
+    m_aabb.clear();
+
+    for(unsigned i = 0; i < m_drawNumber; i++)
+    {
+        Particle& p = particles[i];
+
+        p.color(1, 1, 1, p.life);
+
+        p.diriction += p.gravity;
+
+        if(p.life < 0)
+        {
+            if(m_autoRebuild && (m_brustCount > 0 || m_brustCount == -1))
+                setupBullet(p);
+
+            else
+                continue;
+        }
+
+        else
+        {
+
+            p.life -= m_lifeDown * (timestamp * 0.001f);
+            p.pos += p.diriction * (timestamp * 0.001f);
+
+            m_deadEmiter = false;
+        }
+
+        m_aabb.count(p.pos);
+    }
+
+    endParticlesPosProcess();
+}
+
+void ParticlesEmiter::setFreeMove(float freeMove)
+{
+    this->m_freeMove = freeMove;
+}
+
+float ParticlesEmiter::getFreeMove() const
+{
+    return m_freeMove;
+}
+
+void ParticlesEmiter::setContinousMode(bool continousMode)
+{
+    this->m_continousMode = continousMode;
+}
+
+bool ParticlesEmiter::isContinousMode() const
+{
+    return m_continousMode;
+}
+
+void ParticlesEmiter::setLifeDown(float lifeDown)
+{
+    this->m_lifeDown = lifeDown;
+}
+
+float ParticlesEmiter::getLifeDown() const
+{
+    return m_lifeDown;
+}
+
+void ParticlesEmiter::setGravity(Vector3f gravity)
+{
+    this->m_gravity = gravity;
+}
+
+Vector3f ParticlesEmiter::getGravity() const
+{
+    return m_gravity;
+}
+
+void ParticlesEmiter::setLifeInit(float lifeInit)
+{
+    this->m_lifeInit = lifeInit;
+}
+
+float ParticlesEmiter::getLifeInit() const
+{
+    return m_lifeInit;
+}
+
+void ParticlesEmiter::setBrustCount(int brustCount)
+{
+    this->m_brustCount = brustCount;
+}
+
+int ParticlesEmiter::getBrustCount() const
+{
+    return m_brustCount;
+}
+
+void ParticlesEmiter::setEmitPos(Vector3f emitPos)
+{
+    this->m_emitPos = emitPos;
+}
+
+Vector3f ParticlesEmiter::getEmitPos() const
+{
+    return m_emitPos;
+}
+
+void ParticlesEmiter::setAutoRebuild(bool autoRebuild)
+{
+    this->m_autoRebuild = autoRebuild;
+}
+
+bool ParticlesEmiter::isAutoRebuild() const
+{
+    return m_autoRebuild;
+}
+
+void ParticlesEmiter::setBoxSize(Vector3f boxSize)
+{
+    this->m_boxSize = boxSize;
+}
+
+Vector3f ParticlesEmiter::getBoxSize() const
+{
+    return m_boxSize;
+}
+
 Node::CtorMap ParticlesEmiter::constructionMap(std::string root)
 {
-    Node::CtorMap ctormap = Node::constructionMap(root);
+    Node::CtorMap ctormap = ParticlesEmiter::constructionMap(root);
 
     ctormap["class"] = "ParticlesEmiter";
 
     ctormap["texture"] = tools::makeRelatifTo(root, m_texture.getFilename());
     ctormap["number"] = tools::numToStr(m_number);
+    ctormap["lifeInit"] = tools::numToStr(m_lifeInit);
+    ctormap["lifeDown"] = tools::numToStr(m_lifeDown);
+    ctormap["gravity"] = tools::numToStr(m_gravity);
+    ctormap["freeMove"] = tools::numToStr(m_freeMove);
+    ctormap["continousMode"] = tools::numToStr(m_continousMode);
 
     return ctormap;
 }
