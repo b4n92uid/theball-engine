@@ -32,14 +32,14 @@ void WaterParallelScene::preRender()
         Water* water = m_nodes[i];
 
         // Render Reflection
-        water->BeginReflection();
+        water->beginReflection();
         m_sceneManager->render(false);
-        water->EndReflection();
+        water->endReflection();
 
         // Render Refraction
-        water->BeginRefraction();
+        water->beginRefraction();
         m_sceneManager->render(false);
-        water->EndRefraction();
+        water->endRefraction();
     }
 
     m_inPreRender = false;
