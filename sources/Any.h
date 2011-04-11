@@ -38,8 +38,7 @@ public:
 
     ~Any()
     {
-        if(m_data)
-            delete m_data, m_data = NULL;
+        clear();
     }
 
     Any & operator=(const Any& value)
@@ -75,6 +74,17 @@ public:
     {
         DataHolder < T >* dh = static_cast<DataHolder < T >*>(m_data);
         return dh->content;
+    }
+
+    bool isNull()
+    {
+        return (m_data == NULL);
+    }
+
+    void clear()
+    {
+        if(m_data)
+            delete m_data, m_data = NULL;
     }
 
 private:
