@@ -48,6 +48,27 @@ template<typename T> inline T nextPow2(T v)
     return rval;
 }
 
+/**
+ * Renvois le chemin avec les separateur en slash
+ * 
+ * @param path
+ * @return
+ */
+inline std::string toSlashSeprator(std::string path)
+{
+    unsigned reppos;
+    while((reppos = path.find('\\')) != std::string::npos)
+        path.replace(reppos, 1, 1, '/');
+
+    return path;
+}
+
+/**
+ * Renvois le chemin du fichier, sans le separateur de fin
+ * 
+ * @param filename
+ * @return
+ */
 inline std::string pathname(std::string filename)
 {
     unsigned pos = filename.find_last_of('\\');
@@ -87,37 +108,35 @@ inline std::string basename(std::string filename, bool withExt = true)
  * @param relfile
  * @return
  */
-inline std::string makeRelatifTo(std::string absfile, std::string relfile)
+inline std::string pathScope(std::string absfile, std::string relfile, bool absoluteOut)
 {
-    unsigned reppos;
-    while((reppos = absfile.find('\\')) != std::string::npos)
-        absfile.replace(reppos, 1, 1, '/');
+    using namespace std;
 
-    unsigned pos = absfile.find_last_of('\\');
+    absfile = toSlashSeprator(absfile); // D:/projets/cpp/tbengine/demos/bin/medias/landscape.scene
+    relfile = toSlashSeprator(relfile); // D:/projets/cpp/tbengine/demos/bin/medias/skybox/zpos.jpg
 
-    if(pos == std::string::npos)
-        pos = absfile.find_last_of('/');
-
-    std::string abspath = absfile.substr(0, pos + 1);
-
-    for(unsigned i = 0, cut = 0; i < absfile.size(); i++)
+    if(relfile.find(":") != string::npos)
     {
-        if(abspath[i] == relfile[i])
+        unsigned cut = 0;
+
+        for(unsigned i = 0; i < absfile.size(); i++)
         {
-            if(abspath[i] == '/')
-            {
-                abspath.erase(0, cut + 1);
-                relfile.erase(0, cut + 1);
-                cut = 0;
-            }
-            else
+            if(absfile[i] == relfile[i])
                 cut++;
+
+            else break;
         }
 
-        else break;
+        relfile.erase(0, cut);
     }
 
-    return abspath + relfile;
+    if(absoluteOut)
+    {
+        unsigned pos = absfile.find_last_of('/');
+        return absfile.substr(0, pos + 1) + relfile;
+    }
+    else
+        return relfile;
 }
 
 /**

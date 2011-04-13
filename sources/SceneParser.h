@@ -35,18 +35,30 @@ public:
     SceneParser(SceneManager* sceneManager);
     virtual ~SceneParser();
 
+    void loadClass(const std::string& filepath);
+
+    void saveClass();
+    void saveClass(const std::string& filepath);
+
     void loadScene(const std::string& filepath);
 
     void saveScene();
     void saveScene(const std::string& filepath);
 
-    void setClassFactory(ClassFactory* classFactory);
-    ClassFactory* getClassFactory() const;
-
+    void setWaterScene(WaterParallelScene* waterScene);
     MeshParallelScene* getMeshScene() const;
+
+    void setParticlesScene(ParticlesParallelScene* particlesScene);
     ParticlesParallelScene* getParticlesScene() const;
+
+    void setMeshScene(MeshParallelScene* meshScene);
     LightParallelScene* getLightScene() const;
+
+    void setLightScene(LightParallelScene* lightScene);
     WaterParallelScene* getWaterScene() const;
+
+    SceneParser& archive(Node* node);
+    SceneParser& exclude(Node* node);
 
 protected:
 
@@ -73,13 +85,15 @@ protected:
     void parseNode(Relation& att, Node* parent = NULL);
 
 private:
-    bool parseBlock(std::ifstream& file, Relation& rel, unsigned& line);
 
+    bool parseBlock(std::ifstream& file, Relation& rel, unsigned& line);
     void outpuNodeConstruction(std::ofstream& file, Node* node);
 
     std::string m_fileName;
-
     std::string m_mapName;
+
+    std::vector<Node*> m_archivedNodes;
+    std::vector<Node*> m_excludedNodes;
 
     SceneManager* m_sceneManager;
     Node* m_rootNode;
@@ -90,14 +104,13 @@ private:
     WaterParallelScene* m_waterScene;
 
     typedef std::map<std::string, Relation::Child> ClassRec;
+    typedef std::vector<std::string> IncludeRec;
 
     ClassRec m_classRec;
-
-    ClassFactory* m_classFactory;
+    IncludeRec m_includeRec;
 };
 
 }
 }
 
 #endif	/* SCENEPARSER_H */
-

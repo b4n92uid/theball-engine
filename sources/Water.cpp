@@ -454,7 +454,7 @@ Node::CtorMap Water::constructionMap(std::string root)
 
     ctormap["class"] = "Water";
 
-    ctormap["normalMap"] = m_normalMap.getFilename();
+    ctormap["normalMap"] = tools::pathScope(root, m_normalMap.getFilename(), false);
     ctormap["size"] = tools::numToStr(m_size);
     ctormap["speed"] = tools::numToStr(m_speed);
     ctormap["deform"] = tools::numToStr(m_deform);

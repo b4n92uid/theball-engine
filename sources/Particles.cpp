@@ -495,11 +495,11 @@ Vector3f ParticlesEmiter::getBoxSize() const
 
 Node::CtorMap ParticlesEmiter::constructionMap(std::string root)
 {
-    Node::CtorMap ctormap = ParticlesEmiter::constructionMap(root);
+    Node::CtorMap ctormap = Node::constructionMap(root);
 
     ctormap["class"] = "ParticlesEmiter";
 
-    ctormap["texture"] = tools::makeRelatifTo(root, m_texture.getFilename());
+    ctormap["texture"] = tools::pathScope(root, m_texture.getFilename(), false);
     ctormap["number"] = tools::numToStr(m_number);
     ctormap["lifeInit"] = tools::numToStr(m_lifeInit);
     ctormap["lifeDown"] = tools::numToStr(m_lifeDown);

@@ -90,7 +90,7 @@ void Ball3DMesh::readMaterial(std::ifstream& file, Material* mat)
         else if(opcode == "tex")
         {
             unsigned index = tools::strToNum<float>(value);
-            string filepath = tools::makeRelatifTo(m_filename, value.substr(value.find(' ') + 1));
+            string filepath = tools::pathScope(m_filename, value.substr(value.find(' ') + 1), true);
 
             mat->setTexture(Texture(filepath, true), index);
             mat->enable(Material::TEXTURE);
@@ -166,7 +166,7 @@ Node::CtorMap Ball3DMesh::constructionMap(std::string root)
 
     ctormap["class"] = "Ball3DMesh";
 
-    ctormap["filename"] = tools::makeRelatifTo(root, m_filename);
+    ctormap["filename"] = tools::pathScope(root, m_filename, false);
 
     return ctormap;
 }

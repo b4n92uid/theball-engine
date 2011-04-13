@@ -82,7 +82,7 @@ void OBJMesh::open(const std::string& path)
 
         if(opcode == "mtllib")
         {
-            string mtlFilename = tools::makeRelatifTo(m_filename, value);
+            string mtlFilename = tools::pathScope(m_filename, value, true);
             m_mtlfile.open(mtlFilename);
         }
 
@@ -230,7 +230,7 @@ Node::CtorMap OBJMesh::constructionMap(std::string root)
 
     ctormap["class"] = "OBJMesh";
 
-    ctormap["filename"] = tools::makeRelatifTo(root, m_filename);
+    ctormap["filename"] = tools::pathScope(root, m_filename, false);
 
     return ctormap;
 }
@@ -343,7 +343,7 @@ void MTLFile::open(const std::string& path)
 
         else if(opcode == "map_Kd")
         {
-            string texturepath = tools::makeRelatifTo(path, arg);
+            string texturepath = tools::pathScope(path, arg, true);
 
             try
             {

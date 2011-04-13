@@ -21,21 +21,34 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
-SceneParser::SceneParser(SceneManager* sceneManager)
-: m_sceneManager(sceneManager), m_rootNode(sceneManager->getRootNode()),
-m_lightScene(NULL), m_meshScene(NULL), m_particlesScene(NULL), m_waterScene(NULL),
-m_classFactory(NULL)
+SceneParser::SceneParser(SceneManager* sceneManager) :
+m_sceneManager(sceneManager),
+m_rootNode(sceneManager->getRootNode()),
+m_lightScene(NULL),
+m_meshScene(NULL),
+m_particlesScene(NULL),
+m_waterScene(NULL)
 {
 }
 
 SceneParser::~SceneParser()
 {
-    delete m_classFactory;
 }
 
 void SceneParser::outpuNodeConstruction(std::ofstream& file, Node* node)
 {
+    if(tools::find(m_excludedNodes, node))
+        return;
+
     Node::CtorMap ctormap = node->constructionMap(m_fileName);
+
+    if(node->isRoot())
+    {
+        for(Iterator<Node*> it = node->getChildIterator(); it; it++)
+            outpuNodeConstruction(file, *it);
+
+        return;
+    }
 
     string indent((node->deepPosition() - 1) * 4, ' ');
 
@@ -56,6 +69,33 @@ void SceneParser::outpuNodeConstruction(std::ofstream& file, Node* node)
 
     if(node->getParent()->isRoot())
         file << endl;
+}
+
+SceneParser& SceneParser::exclude(Node *node)
+{
+    m_excludedNodes.push_back(node);
+    return *this;
+}
+
+SceneParser& SceneParser::archive(Node *node)
+{
+    m_archivedNodes.push_back(node);
+    return *this;
+}
+
+void SceneParser::saveClass()
+{
+
+}
+
+void SceneParser::saveClass(const std::string& filepath)
+{
+
+}
+
+void SceneParser::loadClass(const std::string& filepath)
+{
+
 }
 
 void SceneParser::saveScene()
@@ -96,19 +136,19 @@ void SceneParser::saveScene(const std::string& filepath)
         Texture* skyTexs = sky->getTextures();
 
         file << "*skybox" << endl;
-        file << "front=" << tools::makeRelatifTo(m_fileName, skyTexs[0].getFilename()) << endl;
-        file << "back=" << tools::makeRelatifTo(m_fileName, skyTexs[1].getFilename()) << endl;
-        file << "top=" << tools::makeRelatifTo(m_fileName, skyTexs[2].getFilename()) << endl;
-        file << "bottom=" << tools::makeRelatifTo(m_fileName, skyTexs[3].getFilename()) << endl;
-        file << "left=" << tools::makeRelatifTo(m_fileName, skyTexs[4].getFilename()) << endl;
-        file << "right=" << tools::makeRelatifTo(m_fileName, skyTexs[5].getFilename()) << endl;
+        file << "front=" << tools::pathScope(m_fileName, skyTexs[0].getFilename(), false) << endl;
+        file << "back=" << tools::pathScope(m_fileName, skyTexs[1].getFilename(), false) << endl;
+        file << "top=" << tools::pathScope(m_fileName, skyTexs[2].getFilename(), false) << endl;
+        file << "bottom=" << tools::pathScope(m_fileName, skyTexs[3].getFilename(), false) << endl;
+        file << "left=" << tools::pathScope(m_fileName, skyTexs[4].getFilename(), false) << endl;
+        file << "right=" << tools::pathScope(m_fileName, skyTexs[5].getFilename(), false) << endl;
         file << endl;
     }
 
-    Node* rootNode = m_sceneManager->getRootNode();
+    for(unsigned it = 0; it < m_archivedNodes.size(); it++)
+        outpuNodeConstruction(file, m_archivedNodes[it]);
 
-    for(Iterator<Node*> it = rootNode->getChildIterator(); it; it++)
-        outpuNodeConstruction(file, *it);
+    m_archivedNodes.clear();
 
     file.close();
 }
@@ -209,7 +249,7 @@ void SceneParser::loadScene(const std::string& filepath)
             string modelFilepath(buffer, 9);
 
             if(modelFilepath.find(':') == string::npos)
-                modelFilepath = tools::makeRelatifTo(m_fileName, modelFilepath);
+                modelFilepath = tools::pathScope(m_fileName, modelFilepath, true);
 
             loadScene(modelFilepath);
         }
@@ -234,14 +274,23 @@ void SceneParser::parseMap(AttribMap& att)
     m_mapName = att["name"];
     m_sceneManager->setAmbientLight(vec34(tools::strToVec3<float>(att["ambient"], true)));
 
-    m_lightScene = new LightParallelScene;
-    m_sceneManager->addParallelScene(m_lightScene);
+    if(!m_lightScene)
+    {
+        m_lightScene = new LightParallelScene;
+        m_sceneManager->addParallelScene(m_lightScene);
+    }
 
-    m_meshScene = new MeshParallelScene;
-    m_sceneManager->addParallelScene(m_meshScene);
+    if(!m_meshScene)
+    {
+        m_meshScene = new MeshParallelScene;
+        m_sceneManager->addParallelScene(m_meshScene);
+    }
 
-    m_particlesScene = new ParticlesParallelScene;
-    m_sceneManager->addParallelScene(m_particlesScene);
+    if(!m_particlesScene)
+    {
+        m_particlesScene = new ParticlesParallelScene;
+        m_sceneManager->addParallelScene(m_particlesScene);
+    }
 }
 
 void SceneParser::parseFog(AttribMap& att)
@@ -260,12 +309,12 @@ void SceneParser::parseFog(AttribMap& att)
 void SceneParser::parseSkyBox(AttribMap& att)
 {
     Texture skyTex[6] = {
-        tools::makeRelatifTo(m_fileName, att["front"]),
-        tools::makeRelatifTo(m_fileName, att["back"]),
-        tools::makeRelatifTo(m_fileName, att["top"]),
-        tools::makeRelatifTo(m_fileName, att["bottom"]),
-        tools::makeRelatifTo(m_fileName, att["left"]),
-        tools::makeRelatifTo(m_fileName, att["right"])
+        tools::pathScope(m_fileName, att["front"], true),
+        tools::pathScope(m_fileName, att["back"], true),
+        tools::pathScope(m_fileName, att["top"], true),
+        tools::pathScope(m_fileName, att["bottom"], true),
+        tools::pathScope(m_fileName, att["left"], true),
+        tools::pathScope(m_fileName, att["right"], true)
     };
 
     scene::SkyBox* sky = m_sceneManager->getSkybox();
@@ -275,11 +324,11 @@ void SceneParser::parseSkyBox(AttribMap& att)
 
 void SceneParser::parseNode(Relation& rel, Node* parent)
 {
-    const string& nlass = rel.attr["class"];
+    const string& iclass = rel.attr["class"];
 
-    if(m_classRec.count(nlass))
+    if(m_classRec.count(iclass))
     {
-        Mesh* node = m_classFactory ? m_classFactory->Instance(nlass, m_meshScene) : new Mesh(m_meshScene);
+        Node* node = new BullNode;
 
         if(parent)
             parent->addChild(node);
@@ -292,15 +341,15 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         if(rel.attr.count("name"))
             node->setName(rel.attr["name"]);
 
-        for(unsigned i = 0; i < m_classRec[nlass].size(); i++)
-            parseNode(m_classRec[nlass][i], node);
+        for(unsigned i = 0; i < m_classRec[iclass].size(); i++)
+            parseNode(m_classRec[iclass][i], node);
 
         return;
     }
 
     Node* current = NULL;
 
-    if(nlass == "OBJMesh")
+    if(iclass == "OBJMesh")
     {
         OBJMesh* node = new OBJMesh(m_meshScene);
 
@@ -309,14 +358,14 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         if(rel.attr["filename"].find(':') != string::npos)
             modelFilepath = rel.attr["filename"];
         else
-            modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["filename"]);
+            modelFilepath = tools::pathScope(m_fileName, rel.attr["filename"], true);
 
         node->open(modelFilepath);
 
         current = node;
     }
 
-    else if(nlass == "ParticlesEmiter")
+    else if(iclass == "ParticlesEmiter")
     {
         BurningEmitter* emiter = new BurningEmitter(m_particlesScene);
 
@@ -325,7 +374,7 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         if(rel.attr["texture"].find(':') != string::npos)
             modelFilepath = rel.attr["texture"];
         else
-            modelFilepath = tools::makeRelatifTo(m_fileName, rel.attr["texture"]);
+            modelFilepath = tools::pathScope(m_fileName, rel.attr["texture"], true);
 
         emiter->setTexture(modelFilepath);
 
@@ -345,7 +394,7 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         current = emiter;
     }
 
-    else if(nlass == "Light")
+    else if(iclass == "Light")
     {
         Light* light = NULL;
 
@@ -394,16 +443,6 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         parseNode(rel.child[i], current);
 }
 
-void SceneParser::setClassFactory(ClassFactory* classFactory)
-{
-    this->m_classFactory = classFactory;
-}
-
-ClassFactory* SceneParser::getClassFactory() const
-{
-    return m_classFactory;
-}
-
 ParticlesParallelScene* SceneParser::getParticlesScene() const
 {
     return m_particlesScene;
@@ -422,4 +461,24 @@ WaterParallelScene* SceneParser::getWaterScene() const
 LightParallelScene* SceneParser::getLightScene() const
 {
     return m_lightScene;
+}
+
+void SceneParser::setWaterScene(WaterParallelScene* waterScene)
+{
+    this->m_waterScene = waterScene;
+}
+
+void SceneParser::setParticlesScene(ParticlesParallelScene* particlesScene)
+{
+    this->m_particlesScene = particlesScene;
+}
+
+void SceneParser::setMeshScene(MeshParallelScene* meshScene)
+{
+    this->m_meshScene = meshScene;
+}
+
+void SceneParser::setLightScene(LightParallelScene* lightScene)
+{
+    this->m_lightScene = lightScene;
 }
