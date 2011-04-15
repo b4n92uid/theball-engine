@@ -16,6 +16,7 @@
 
 #include "Mathematics.h"
 #include "AABB.h"
+#include "Exception.h"
 
 namespace tbe
 {
@@ -168,7 +169,12 @@ template<typename T> void erase(std::vector<T>& vec, unsigned index)
  */
 template<typename T, typename T2> void erase(std::vector<T>& vec, T2 val)
 {
-    vec.erase(std::find(vec.begin(), vec.end(), dynamic_cast<T2>(val)));
+    typename std::vector<T>::iterator it = std::find(vec.begin(), vec.end(), dynamic_cast<T2>(val));
+
+    if(it == vec.end())
+        throw Exception("tools::erase<T, T2>; value not found %p", val);
+
+    vec.erase(it);
 }
 
 /**
@@ -180,7 +186,12 @@ template<typename T, typename T2> void erase(std::vector<T>& vec, T2 val)
  */
 template<typename T> void erase(std::vector<T>& vec, T val)
 {
-    vec.erase(std::find(vec.begin(), vec.end(), val));
+    typename std::vector<T>::iterator it = std::find(vec.begin(), vec.end(), val);
+
+    if(it == vec.end())
+        throw Exception("tools::erase<T>; value not found %p", val);
+
+    vec.erase(it);
 }
 
 /**

@@ -45,7 +45,7 @@ public:
     ~SceneManager();
 
     /// Supprime tout les scene paralleles
-    void clearParallelScenes();
+    void clearParallelScenes(bool deleteHim = true);
 
     /// Supprime tout les caméras
     void clearCameras();

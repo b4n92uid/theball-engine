@@ -77,12 +77,20 @@ void SceneManager::clearCameras()
     m_cameras.clear();
 }
 
-void SceneManager::clearParallelScenes()
+void SceneManager::clearParallelScenes(bool deleteHim)
 {
-    for(unsigned i = 0; i < m_parallelScenes.size(); i++)
-        delete m_parallelScenes[i];
+    if(deleteHim)
+    {
+        for(unsigned i = 0; i < m_parallelScenes.size(); i++)
+            delete m_parallelScenes[i];
 
-    m_parallelScenes.clear();
+        m_parallelScenes.clear();
+    }
+
+    else
+        for(unsigned i = 0; i < m_parallelScenes.size(); i++)
+            m_parallelScenes[i]->clear();
+
 }
 
 void SceneManager::clearAll()
