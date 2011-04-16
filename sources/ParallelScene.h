@@ -73,6 +73,16 @@ public:
         m_nodes.clear();
     }
 
+    bool isRegistred(T* node)
+    {
+        const std::type_info& ti = typeid (node);
+
+        if(std::find(m_nodes.begin(), m_nodes.end(), node) != m_nodes.end())
+            return true;
+
+        return false;
+    }
+
     void registerNode(T* node)
     {
         const std::type_info& ti = typeid (node);
