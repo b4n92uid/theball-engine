@@ -421,26 +421,30 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         current = light;
     }
 
-    else
+    else if(iclass == "BullNode")
     {
-        BullNode* node = new BullNode;
-
-        current = node;
+        current = new BullNode;
     }
 
-    if(parent)
-        parent->addChild(current);
     else
-        m_rootNode->addChild(current);
+        throw Exception("SceneParser::parseNode; Unknown class %s", iclass.c_str());
 
-    if(rel.attr.count("name"))
-        current->setName(rel.attr["name"]);
+    if(current)
+    {
+        if(parent)
+            parent->addChild(current);
+        else
+            m_rootNode->addChild(current);
 
-    if(rel.attr.count("matrix"))
-        current->setMatrix(rel.attr["matrix"]);
+        if(rel.attr.count("name"))
+            current->setName(rel.attr["name"]);
 
-    for(unsigned i = 0; i < rel.child.size(); i++)
-        parseNode(rel.child[i], current);
+        if(rel.attr.count("matrix"))
+            current->setMatrix(rel.attr["matrix"]);
+
+        for(unsigned i = 0; i < rel.child.size(); i++)
+            parseNode(rel.child[i], current);
+    }
 }
 
 ParticlesParallelScene* SceneParser::getParticlesScene() const
