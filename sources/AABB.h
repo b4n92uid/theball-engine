@@ -111,8 +111,11 @@ public:
     /// Réinitialise les valeurs de la boite englobant a 0
     void clear();
 
+    /// Renvois la longeur de la boite englobant (max - min).getMagnitude()
+    float getLength() const;
+
     /// Renvois la taille de la boite englobant (max - min).getMagnitude()
-    float getSize() const;
+    Vector3f getSize() const;
 
     /// Renvois le centre de la boite englobant
     Vector3f getCenter() const;

@@ -86,7 +86,12 @@ Vector3f AABB::getCenter() const
     return (max - min) / 2.0f + min;
 }
 
-float AABB::getSize() const
+Vector3f AABB::getSize() const
+{
+    return (max - min);
+}
+
+float AABB::getLength() const
 {
     return (max - min).getMagnitude();
 }
