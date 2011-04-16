@@ -191,8 +191,12 @@ void Mesh::render(Material* material, unsigned offset, unsigned size)
 
     glPushAttrib(GL_ENABLE_BIT);
 
-    glEnable(GL_DEPTH_TEST);
-    glDepthMask(true);
+    if(material->m_depthTest)
+        glEnable(GL_DEPTH_TEST);
+    else
+        glDisable(GL_DEPTH_TEST);
+
+    glDepthMask(material->m_depthWrite);
 
     // Culling -----------------------------------------------------------------
 

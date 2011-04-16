@@ -23,6 +23,8 @@ Material::Material()
     m_tangentLocation = "tangent";
     m_aoccLocation = "aocc";
     m_faceType = TRIANGLES;
+    m_depthTest = true;
+    m_depthWrite = true;
 }
 
 Material::Material(const Material& copy)
@@ -228,4 +230,24 @@ void Material::setFaceType(FaceType faceType)
 Material::FaceType Material::getFaceType() const
 {
     return m_faceType;
+}
+
+void Material::setDepthWrite(bool depthWrite)
+{
+    this->m_depthWrite = depthWrite;
+}
+
+bool Material::isDepthWrite() const
+{
+    return m_depthWrite;
+}
+
+void Material::setDepthTest(bool depthTest)
+{
+    this->m_depthTest = depthTest;
+}
+
+bool Material::isDepthTest() const
+{
+    return m_depthTest;
 }

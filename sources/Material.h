@@ -101,6 +101,12 @@ public:
     void setFaceType(FaceType faceType);
     FaceType getFaceType() const;
 
+    void setDepthWrite(bool depthWrite);
+    bool isDepthWrite() const;
+
+    void setDepthTest(bool depthTest);
+    bool isDepthTest() const;
+
     enum
     {
         LIGHT = 0x1,
@@ -149,6 +155,9 @@ protected:
     unsigned m_frameSortWait;
     float m_lineWidth;
     float m_alphaThershold;
+
+    bool m_depthTest;
+    bool m_depthWrite;
 };
 
 }
