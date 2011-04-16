@@ -81,9 +81,11 @@ void Mesh::computeAabb()
 {
     m_aabb.clear();
 
+    unsigned vertexCount = m_hardwareBuffer.getVertexCount();
+
     Vertex* vertex = m_hardwareBuffer.lock();
 
-    for(unsigned i = 0; i < m_hardwareBuffer.getVertexCount(); i++)
+    for(unsigned i = 0; i < vertexCount; i++)
         m_aabb.count(vertex[i].pos);
 
     m_hardwareBuffer.unlock();
