@@ -81,7 +81,7 @@ SceneParser& SceneParser::archive(Node *node)
 {
     bool skip = false, done = false;
 
-    while(true)
+    while(!done)
     {
         done = true;
 
@@ -101,6 +101,7 @@ SceneParser& SceneParser::archive(Node *node)
                 skip = true;
                 done = false;
                 m_archivedNodes[i] = node;
+                break;
             }
     }
 
