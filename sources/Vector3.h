@@ -334,6 +334,13 @@ public:
         return (x >= min.x && y >= min.y && z >= min.z && x <= max.x && y <= max.y && z <= max.z);
     }
 
+    void reSet(const Vector3<T>& diri)
+    {
+        x = !x ? 0 : (x > 0 ? diri.x : -diri.x);
+        y = !y ? 0 : (y > 0 ? diri.y : -diri.y);
+        z = !z ? 0 : (z > 0 ? diri.z : -diri.z);
+    }
+
     static Vector3 X(float value = 1)
     {
         return Vector3(value, 0, 0);
