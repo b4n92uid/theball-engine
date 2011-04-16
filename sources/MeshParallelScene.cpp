@@ -33,7 +33,17 @@ struct DepthSortMeshFunc
 
     bool operator()(Mesh* node1, Mesh * node2)
     {
-        return (node1->getPos() - camPos) > (node2->getPos() - camPos);
+        if(node1->isTransparent() && node2->isTransparent())
+            return (node1->getPos() - camPos) > (node2->getPos() - camPos);
+
+        else if(node1->isTransparent() && !node2->isTransparent())
+            return false;
+
+        else if(!node1->isTransparent() && node2->isTransparent())
+            return true;
+
+        else
+            return (node1->getPos() - camPos) > (node2->getPos() - camPos);
     }
 
     Vector3f camPos;
