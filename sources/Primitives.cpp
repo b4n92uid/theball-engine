@@ -11,145 +11,152 @@ Box::Box(MeshParallelScene* scene) : Mesh(scene)
 
 }
 
-Box::Box(MeshParallelScene* scene, Vector3f size, bool quadFace) : Mesh(scene)
+Box::Box(MeshParallelScene* scene, Vector3f size) : Mesh(scene)
 {
-    setup(size, quadFace);
+    setup(size);
 }
 
-void Box::setup(Vector3f size, bool quadFace)
+void Box::setup(Vector3f size)
+{
+    /*
+    Vertex vertexs[24];
+
+    // Front
+    vertexs[ 0] = Vertex(-1, -1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[ 1] = Vertex(+1, -1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[ 2] = Vertex(+1, +1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[ 3] = Vertex(-1, +1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
+    // Back
+    vertexs[ 4] = Vertex(+1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
+    vertexs[ 5] = Vertex(-1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
+    vertexs[ 6] = Vertex(-1, +1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
+    vertexs[ 7] = Vertex(+1, +1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
+    // Left
+    vertexs[12] = Vertex(+1, -1, -1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[13] = Vertex(+1, +1, -1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[14] = Vertex(+1, +1, +1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[15] = Vertex(+1, -1, +1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
+    // Right
+    vertexs[ 8] = Vertex(-1, -1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[ 9] = Vertex(-1, -1, +1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[10] = Vertex(-1, +1, +1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[11] = Vertex(-1, +1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
+    // Top
+    vertexs[16] = Vertex(+1, +1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[17] = Vertex(-1, +1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[18] = Vertex(-1, +1, +1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[19] = Vertex(+1, +1, +1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
+    // Bottom
+    vertexs[20] = Vertex(+1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[21] = Vertex(+1, -1, +1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[22] = Vertex(-1, -1, +1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[23] = Vertex(-1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
+
+    for(unsigned i = 0; i < 6; i++)
+    {
+        Face face;
+
+        for(unsigned j = 0; j < 4; j++)
+        {
+            vertexs[i * 4 + j].pos *= m_size;
+            face.push_back(vertexs[i * 4 + j]);
+        }
+
+        m_hardwareBuffer.addFace(face);
+    }
+
+    m_hardwareBuffer.compile();
+
+    computeAabb();
+
+    Material* mainMaterial = new Material;
+    mainMaterial->setFaceType(Material::QUADS);
+
+    addMaterial("main", mainMaterial);
+    applyMaterial(mainMaterial, 0, 24);
+     */
+
+    Vertex vertexs[36];
+
+    // Front
+    vertexs[0] = Vertex(-1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[1] = Vertex(-1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0);
+    vertexs[2] = Vertex(1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1);
+    vertexs[3] = Vertex(1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1);
+    vertexs[4] = Vertex(1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1);
+    vertexs[5] = Vertex(-1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
+    // Back
+    vertexs[6] = Vertex(1, 1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
+    vertexs[7] = Vertex(1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 0, 0);
+    vertexs[8] = Vertex(-1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 0, 1);
+    vertexs[9] = Vertex(-1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 0, 1);
+    vertexs[10] = Vertex(-1, 1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 1);
+    vertexs[11] = Vertex(1, 1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
+    // Top
+    vertexs[14] = Vertex(1, 1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[13] = Vertex(1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0);
+    vertexs[12] = Vertex(-1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1);
+    vertexs[17] = Vertex(-1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1);
+    vertexs[16] = Vertex(-1, 1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 1);
+    vertexs[15] = Vertex(1, 1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
+    // Bottom
+    vertexs[20] = Vertex(1, -1, 1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[19] = Vertex(1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 0, 0);
+    vertexs[18] = Vertex(-1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 0, 1);
+    vertexs[23] = Vertex(-1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 0, 1);
+    vertexs[22] = Vertex(-1, -1, 1, 0, -1, 0, 1, 1, 1, 1, 1, 1);
+    vertexs[21] = Vertex(1, -1, 1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
+    // Left
+    vertexs[25] = Vertex(-1, 1, -1, -1, 0, 0, 1, 1, 1, 1, 0, 0);
+    vertexs[26] = Vertex(-1, -1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[24] = Vertex(-1, -1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1);
+    vertexs[28] = Vertex(-1, -1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1);
+    vertexs[29] = Vertex(-1, 1, 1, -1, 0, 0, 1, 1, 1, 1, 0, 1);
+    vertexs[27] = Vertex(-1, 1, -1, -1, 0, 0, 1, 1, 1, 1, 0, 0);
+    // Right
+    vertexs[30] = Vertex(1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1);
+    vertexs[31] = Vertex(1, -1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0);
+    vertexs[32] = Vertex(1, -1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[33] = Vertex(1, -1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[34] = Vertex(1, 1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 1);
+    vertexs[35] = Vertex(1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1);
+
+    for(unsigned i = 0; i < 12; i++)
+    {
+        Face face;
+
+        for(unsigned j = 0; j < 3; j++)
+            face.push_back(vertexs[i * 3 + j]);
+
+        m_hardwareBuffer.addFace(face);
+    }
+
+    m_hardwareBuffer.compile();
+
+    setSize(size);
+
+    Material* mainMaterial = new Material;
+    mainMaterial->setFaceType(Material::TRIANGLES);
+
+    addMaterial("main", mainMaterial);
+    applyMaterial(mainMaterial, 0, 36);
+}
+
+void Box::setSize(Vector3f size)
 {
     m_size = size;
 
-    if(quadFace)
+    m_aabb.clear();
+
+    Vertex* verts = m_hardwareBuffer.lock();
+
+    for(unsigned i = 0; i < 36; i++)
     {
-        Vertex vertexs[24];
-
-        // Front
-        vertexs[ 0] = Vertex(-1, -1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
-        vertexs[ 1] = Vertex(+1, -1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
-        vertexs[ 2] = Vertex(+1, +1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
-        vertexs[ 3] = Vertex(-1, +1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
-        // Back
-        vertexs[ 4] = Vertex(+1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
-        vertexs[ 5] = Vertex(-1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
-        vertexs[ 6] = Vertex(-1, +1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
-        vertexs[ 7] = Vertex(+1, +1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
-        // Left
-        vertexs[12] = Vertex(+1, -1, -1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
-        vertexs[13] = Vertex(+1, +1, -1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
-        vertexs[14] = Vertex(+1, +1, +1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
-        vertexs[15] = Vertex(+1, -1, +1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
-        // Right
-        vertexs[ 8] = Vertex(-1, -1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[ 9] = Vertex(-1, -1, +1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[10] = Vertex(-1, +1, +1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[11] = Vertex(-1, +1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
-        // Top
-        vertexs[16] = Vertex(+1, +1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[17] = Vertex(-1, +1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[18] = Vertex(-1, +1, +1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[19] = Vertex(+1, +1, +1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
-        // Bottom
-        vertexs[20] = Vertex(+1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[21] = Vertex(+1, -1, +1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[22] = Vertex(-1, -1, +1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[23] = Vertex(-1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
-
-        for(unsigned i = 0; i < 6; i++)
-        {
-            Face face;
-
-            for(unsigned j = 0; j < 4; j++)
-            {
-                vertexs[i * 4 + j].pos *= m_size;
-                face.push_back(vertexs[i * 4 + j]);
-            }
-
-            m_hardwareBuffer.addFace(face);
-        }
-
-        m_hardwareBuffer.compile();
-
-        computeAabb();
-
-        Material* mainMaterial = new Material;
-        mainMaterial->setFaceType(Material::QUADS);
-
-        addMaterial("main", mainMaterial);
-        applyMaterial(mainMaterial, 0, 24);
+        verts[i].pos.reSet(m_size);
+        m_aabb.count(verts[i].pos);
     }
 
-    else
-    {
-        Vertex vertexs[36];
-
-        // Front
-        vertexs[0] = Vertex(-1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
-        vertexs[1] = Vertex(-1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0);
-        vertexs[2] = Vertex(1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1);
-        vertexs[3] = Vertex(1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1);
-        vertexs[4] = Vertex(1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1);
-        vertexs[5] = Vertex(-1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
-        // Back
-        vertexs[6] = Vertex(1, 1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
-        vertexs[7] = Vertex(1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 0, 0);
-        vertexs[8] = Vertex(-1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 0, 1);
-        vertexs[9] = Vertex(-1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 0, 1);
-        vertexs[10] = Vertex(-1, 1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 1);
-        vertexs[11] = Vertex(1, 1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
-        // Top
-        vertexs[14] = Vertex(1, 1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[13] = Vertex(1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0);
-        vertexs[12] = Vertex(-1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1);
-        vertexs[17] = Vertex(-1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1);
-        vertexs[16] = Vertex(-1, 1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 1);
-        vertexs[15] = Vertex(1, 1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
-        // Bottom
-        vertexs[20] = Vertex(1, -1, 1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[19] = Vertex(1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 0, 0);
-        vertexs[18] = Vertex(-1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 0, 1);
-        vertexs[23] = Vertex(-1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 0, 1);
-        vertexs[22] = Vertex(-1, -1, 1, 0, -1, 0, 1, 1, 1, 1, 1, 1);
-        vertexs[21] = Vertex(1, -1, 1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
-        // Left
-        vertexs[25] = Vertex(-1, 1, -1, -1, 0, 0, 1, 1, 1, 1, 0, 0);
-        vertexs[26] = Vertex(-1, -1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[24] = Vertex(-1, -1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1);
-        vertexs[28] = Vertex(-1, -1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1);
-        vertexs[29] = Vertex(-1, 1, 1, -1, 0, 0, 1, 1, 1, 1, 0, 1);
-        vertexs[27] = Vertex(-1, 1, -1, -1, 0, 0, 1, 1, 1, 1, 0, 0);
-        // Right
-        vertexs[30] = Vertex(1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1);
-        vertexs[31] = Vertex(1, -1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0);
-        vertexs[32] = Vertex(1, -1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[33] = Vertex(1, -1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 0);
-        vertexs[34] = Vertex(1, 1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 1);
-        vertexs[35] = Vertex(1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1);
-
-        for(unsigned i = 0; i < 12; i++)
-        {
-            Face face;
-
-            for(unsigned j = 0; j < 3; j++)
-            {
-                vertexs[i * 3 + j].pos *= m_size;
-                face.push_back(vertexs[i * 3 + j]);
-            }
-
-            m_hardwareBuffer.addFace(face);
-        }
-
-        m_hardwareBuffer.compile();
-
-        computeAabb();
-
-        Material* mainMaterial = new Material;
-        mainMaterial->setFaceType(Material::TRIANGLES);
-
-        addMaterial("main", mainMaterial);
-        applyMaterial(mainMaterial, 0, 36);
-    }
-
+    m_hardwareBuffer.unlock();
 }
 
 Vector3f Box::getSize() const

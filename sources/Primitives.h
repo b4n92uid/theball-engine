@@ -24,10 +24,11 @@ class Box : public Mesh
 {
 public:
     Box(MeshParallelScene* scene);
-    Box(MeshParallelScene* scene, Vector3f size, bool quadFace = false);
+    Box(MeshParallelScene* scene, Vector3f size);
 
-    void setup(Vector3f size, bool quadFace = false);
+    void setup(Vector3f size);
 
+    void setSize(Vector3f size);
     Vector3f getSize() const;
 
 protected:
