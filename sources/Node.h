@@ -150,6 +150,15 @@ class BullNode : public Node
     {
         // Nothging to do...
     }
+
+    Node::CtorMap constructionMap(std::string root)
+    {
+        Node::CtorMap ctormap = Node::constructionMap(root);
+
+        ctormap["class"] = "BullNode";
+
+        return ctormap;
+    }
 };
 
 }
