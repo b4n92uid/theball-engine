@@ -215,8 +215,6 @@ void Node::addChild(Node* child)
     child->m_sceneManager = m_sceneManager;
 
     m_childs.push_back(child);
-
-    m_aabb.count(child->getAbsolutAabb());
 }
 
 void Node::releaseChild(Node* child)
@@ -294,8 +292,8 @@ Iterator<Node*> Node::getChildIterator()
 
 void Node::clearAllChild()
 {
-    // Copie de pointeur pour éviter les probleme d'étiration
-    // lors de la supprésion
+    // Copie de pointeur pour éviter les problemes d'itération
+    // lors de la suppresion
 
     Node::Array dtor = m_childs;
 
