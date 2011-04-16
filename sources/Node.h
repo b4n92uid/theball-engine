@@ -76,6 +76,9 @@ public:
 
     Vector3f mapFromGlobal(Vector3f pos);
 
+    bool isParent(Node* searche) const;
+    bool isChild(Node* searche, bool recursiv = false) const;
+
     bool isRoot() const;
     bool isAttached() const;
 

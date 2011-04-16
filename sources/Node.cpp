@@ -155,6 +155,33 @@ std::string Node::getName() const
     return m_name;
 }
 
+bool Node::isParent(Node* searche) const
+{
+    const Node* it = m_parent;
+
+    while(it)
+    {
+        if(it == searche)
+            return true;
+        else
+            it = it->m_parent;
+    }
+
+    return false;
+}
+
+bool Node::isChild(Node* searche, bool recursiv) const
+{
+    for(unsigned i = 0; i < m_childs.size(); i++)
+    {
+        if(m_childs[i] == searche)
+            return true;
+
+        if(recursiv)
+            m_childs[i]->isChild(searche, recursiv);
+    }
+}
+
 bool Node::isRoot() const
 {
     if(m_sceneManager)
