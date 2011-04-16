@@ -79,7 +79,34 @@ SceneParser& SceneParser::exclude(Node *node)
 
 SceneParser& SceneParser::archive(Node *node)
 {
-    m_archivedNodes.push_back(node);
+    bool skip = false, done = false;
+
+    while(true)
+    {
+        done = true;
+
+        for(unsigned i = 0; i < m_archivedNodes.size(); i++)
+            if(m_archivedNodes[i] == node)
+            {
+                skip = true;
+                break;
+            }
+            else if(m_archivedNodes[i]->isChild(node, true))
+            {
+                skip = true;
+                break;
+            }
+            else if(m_archivedNodes[i]->isParent(node))
+            {
+                skip = true;
+                done = false;
+                m_archivedNodes[i] = node;
+            }
+    }
+
+    if(!skip)
+        m_archivedNodes.push_back(node);
+
     return *this;
 }
 
