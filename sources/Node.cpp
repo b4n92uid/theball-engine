@@ -106,7 +106,7 @@ void Node::setMatrix(const Matrix4f& matrix)
 
 Matrix4f Node::getAbsoluteMatrix() const
 {
-    return m_parent ? m_parent->getAbsoluteMatrix() * m_matrix : m_matrix;
+    return m_parent ? m_matrix * m_parent->getAbsoluteMatrix() : m_matrix;
 }
 
 Matrix4f& Node::getMatrix()
@@ -178,8 +178,10 @@ bool Node::isChild(Node* searche, bool recursiv) const
             return true;
 
         if(recursiv)
-            m_childs[i]->isChild(searche, recursiv);
+            return m_childs[i]->isChild(searche, recursiv);
     }
+
+    return false;
 }
 
 bool Node::isRoot() const
@@ -322,10 +324,10 @@ void Node::clearAllChild()
     // Copie de pointeur pour éviter les problemes d'itération
     // lors de la suppresion
 
-    Node::Array dtor = m_childs;
+    for(unsigned i = 0; i < m_childs.size(); i++)
+        delete m_childs[i];
 
-    for(unsigned i = 0; i < dtor.size(); i++)
-        delete dtor[i];
+    m_childs.clear();
 }
 
 Node::CtorMap Node::constructionMap(std::string root)
