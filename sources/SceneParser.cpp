@@ -410,6 +410,7 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         emiter->setLifeDown(tools::strToNum<float>(rel.attr["lifeDown"]));
 
         emiter->setGravity(tools::strToVec3<float>(rel.attr["gravity"], true));
+        emiter->setBoxSize(tools::strToVec3<float>(rel.attr["boxSize"], true));
 
         emiter->setNumber(tools::strToNum<int>(rel.attr["number"]));
 

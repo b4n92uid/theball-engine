@@ -504,6 +504,7 @@ Node::CtorMap ParticlesEmiter::constructionMap(std::string root)
     ctormap["lifeInit"] = tools::numToStr(m_lifeInit);
     ctormap["lifeDown"] = tools::numToStr(m_lifeDown);
     ctormap["gravity"] = tools::numToStr(m_gravity);
+    ctormap["boxSize"] = tools::numToStr(m_boxSize);
     ctormap["freeMove"] = tools::numToStr(m_freeMove);
     ctormap["continousMode"] = tools::numToStr(m_continousMode);
 
