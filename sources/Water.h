@@ -9,7 +9,6 @@
 #define	_WATER_H
 
 #include "Mathematics.h"
-#include "Matrix.h"
 #include "Shader.h"
 #include "Texture.h"
 #include "HardwareBuffer.h"

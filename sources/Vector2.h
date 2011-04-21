@@ -1,8 +1,9 @@
 #ifndef VECTOR2_H
 #define VECTOR2_H
 
-#include <vector>
 #include <cmath>
+#include <vector>
+#include <sstream>
 
 namespace tbe
 {
@@ -324,6 +325,17 @@ public:
     static Vector2 Y(float value = 1)
     {
         return Vector2(0, value);
+    }
+
+    friend std::ostream & operator <<(std::ostream& stream, tbe::Vector2<T> vec)
+    {
+        return stream << vec.x << ", " << vec.y;
+    }
+
+    friend std::istream & operator >>(std::istream& stream, tbe::Vector2<T>& vec)
+    {
+        char sep;
+        return stream >> vec.x >> sep >> vec.y;
     }
 
     T x, y;

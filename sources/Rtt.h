@@ -100,7 +100,7 @@ private:
 
     Rtt* m_prevActive;
     static Rtt* m_curActive;
-    Matrix4f m_prevMat;
+    Matrix4 m_prevMat;
 };
 
 }

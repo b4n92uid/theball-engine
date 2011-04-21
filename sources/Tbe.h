@@ -30,7 +30,6 @@
 #include "FPSManager.h"
 #include "FrameBufferObject.h"
 #include "Rtt.h"
-#include "Matrix.h"
 #include "Texture.h"
 #include "Tools.h"
 #include "Iterator.h"

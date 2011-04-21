@@ -549,7 +549,7 @@ bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, boo
 {
     Vertex* vertex = m_hardwareBuffer.lock();
 
-    Matrix4f absmat = getAbsoluteMatrix();
+    Matrix4 absmat = getAbsoluteMatrix();
 
     const unsigned vertexCount = m_hardwareBuffer.getVertexCount();
 

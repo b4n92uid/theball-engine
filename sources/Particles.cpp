@@ -165,7 +165,7 @@ void ParticlesEmiter::render()
 
     else
     {
-        Matrix4f absolute = m_parent->getAbsoluteMatrix();
+        Matrix4 absolute = m_parent->getAbsoluteMatrix();
 
         float size = m_parallelScene->getParticleMinSize() / 2.0f;
 
@@ -175,7 +175,7 @@ void ParticlesEmiter::render()
         {
             Vector3f abspos = absolute * (m_matrix * m_particles[i / 4].pos);
 
-            Matrix4f rot = m_sceneManager->computeBillboard(abspos);
+            Matrix4 rot = m_sceneManager->computeBillboard(abspos);
 
             auxParticles[i + 0].pos = abspos + rot * Vector3f(size, -size, 0);
             auxParticles[i + 1].pos = abspos + rot * Vector3f(-size, -size, 0);

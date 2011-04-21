@@ -2,8 +2,8 @@
 #define _VECTOR3_H
 
 #include <cmath>
-#include <sstream>
 #include <vector>
+#include <sstream>
 
 namespace tbe
 {
@@ -370,6 +370,17 @@ public:
         n.z = (a.x * b.y) - (a.y * b.x);
 
         return n;
+    }
+
+    friend std::istream & operator >>(std::istream& stream, tbe::Vector3<T>& vec)
+    {
+        char sep;
+        return stream >> vec.x >> sep >> vec.y >> sep >> vec.z;
+    }
+
+    friend std::ostream & operator <<(std::ostream& stream, tbe::Vector3<T> vec)
+    {
+        return stream << vec.x << ", " << vec.y << ", " << vec.z;
     }
 
     typedef std::vector< Vector3<T> > Array;

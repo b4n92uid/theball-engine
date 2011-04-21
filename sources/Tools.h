@@ -479,7 +479,7 @@ template <typename T> Vector4<T> strToVec4(std::string str, bool withsep = false
  * @param mat
  * @return
  */
-template<typename T> inline std::string mat4ToStr(const Matrix4<T>& mat)
+inline std::string mat4ToStr(const Matrix4& mat)
 {
     std::stringstream stream;
     for(unsigned i = 0; i < 15; i++)

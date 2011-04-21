@@ -87,7 +87,7 @@ void Frustum::extractPlane()
         RIGHT, LEFT, BOTTOM, TOP, FAR, NEAR,
     };
 
-    Matrix4f modelview, projection, clip;
+    Matrix4 modelview, projection, clip;
 
     glGetFloatv(GL_MODELVIEW_MATRIX, modelview);
     glGetFloatv(GL_PROJECTION_MATRIX, projection);

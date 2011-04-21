@@ -94,22 +94,22 @@ Vector3f Node::mapFromGlobal(Vector3f pos)
         return pos;
 }
 
-void Node::mulMatrix(const Matrix4f& matrix)
+void Node::mulMatrix(const Matrix4& matrix)
 {
     this->m_matrix *= matrix;
 }
 
-void Node::setMatrix(const Matrix4f& matrix)
+void Node::setMatrix(const Matrix4& matrix)
 {
     this->m_matrix = matrix;
 }
 
-Matrix4f Node::getAbsoluteMatrix() const
+Matrix4 Node::getAbsoluteMatrix() const
 {
     return m_parent ? m_matrix * m_parent->getAbsoluteMatrix() : m_matrix;
 }
 
-Matrix4f& Node::getMatrix()
+Matrix4& Node::getMatrix()
 {
     return m_matrix;
 }

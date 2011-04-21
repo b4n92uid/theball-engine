@@ -1,8 +1,8 @@
 #ifndef _VECTOR4_H
 #define _VECTOR4_H
 
-#include <vector>
 #include <cmath>
+#include <vector>
 #include <sstream>
 
 namespace tbe
@@ -339,7 +339,17 @@ public:
     {
         T length = getMagnitude();
 
-        return (length == 0) ? (*this)(0) : (*this /= length);
+        if(length != 0)
+        {
+            x /= length;
+            y /= length;
+            z /= length;
+
+            return *this;
+        }
+
+        else
+            return (*this)(0);
     }
 
     static Vector4 normalize(const Vector4& vec)
@@ -399,6 +409,17 @@ public:
         n.w = 0;
 
         return n;
+    }
+
+    friend std::istream & operator >>(std::istream& stream, Vector4<T>& vec)
+    {
+        char sep;
+        return stream >> vec.x >> sep >> vec.y >> sep >> vec.z >> sep >> vec.w;
+    }
+
+    friend std::ostream & operator <<(std::ostream& stream, Vector4<T> vec)
+    {
+        return stream << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w;
     }
 
     typedef std::vector< Vector4<T> > Array;

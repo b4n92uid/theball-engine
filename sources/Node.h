@@ -56,12 +56,12 @@ public:
     std::string getName() const;
 
     /// Matrice du noeud
-    void setMatrix(const Matrix4f& matrix);
-    Matrix4f& getMatrix();
+    void setMatrix(const Matrix4& matrix);
+    Matrix4& getMatrix();
 
-    void mulMatrix(const Matrix4f& matrix);
+    void mulMatrix(const Matrix4& matrix);
 
-    Matrix4f getAbsoluteMatrix() const;
+    Matrix4 getAbsoluteMatrix() const;
 
     /// Spécifier la scene parallel parent
     void setParallelScene(ParallelScene* parallelScene);
@@ -123,7 +123,7 @@ protected:
     ParallelScene* m_parallelScene;
     SceneManager* m_sceneManager;
     std::string m_name;
-    Matrix4f m_matrix;
+    Matrix4 m_matrix;
     bool m_enable;
     AABB m_aabb;
 

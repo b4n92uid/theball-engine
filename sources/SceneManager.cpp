@@ -343,9 +343,9 @@ Vector3f SceneManager::screenToWorld(Vector2i target)
     return Vector3f(float(pick.x), float(pick.y), float(pick.z));
 }
 
-Matrix4f SceneManager::computeBillboard(Vector3f obj, Matrix4f init, Vector3f cam)
+Matrix4 SceneManager::computeBillboard(Vector3f obj, Matrix4 init, Vector3f cam)
 {
-    Matrix4f rotation = init;
+    Matrix4 rotation = init;
 
     Vector3f look(0, 0, 1);
     Vector3f campos = !cam ? (*m_currentCamera)->getPos() : cam;
