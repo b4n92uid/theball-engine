@@ -89,6 +89,7 @@ public:
     void translate(Vector3f pos);
 
     void rotate(float angle, Vector3f axe);
+    void rotate(Vector3f euler);
     void rotate(Quaternion rotation);
 
     void scale(Vector3f scale);

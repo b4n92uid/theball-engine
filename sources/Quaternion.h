@@ -54,10 +54,10 @@ public:
     Quaternion getNormalize() const;
     Quaternion getConjugate() const;
 
-    Quaternion operator*(const Quaternion& quat) const;
-    Quaternion & operator*=(const Quaternion& quat);
-
+    Quaternion operator*(const Quaternion& rv) const;
     Vector3f operator*(const Vector3f& vec) const;
+
+    Quaternion & operator*=(const Quaternion& quat);
 
     friend std::ostream & operator<<(std::ostream& out, Quaternion& quat)
     {

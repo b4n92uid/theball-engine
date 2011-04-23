@@ -10,6 +10,7 @@
 #include "Matrix4.h"
 #include "Vector3.h"
 #include "Vector4.h"
+#include "Mathematics.h"
 
 using namespace tbe;
 
@@ -54,15 +55,13 @@ Quaternion::Quaternion(float angle, const Vector3f& axe)
 
 void Quaternion::setAxisAngle(float angle, const Vector3f& axe)
 {
-    angle = (angle * 0.5) * M_PI / 180;
+    angle = (angle / 2.0f);
 
     float sinAngle = sin(angle);
 
-    Vector3f axen = Vector3f::normalize(axe);
-
-    x = axen.x * sinAngle;
-    y = axen.y * sinAngle;
-    z = axen.z * sinAngle;
+    x = axe.x * sinAngle;
+    y = axe.y * sinAngle;
+    z = axe.z * sinAngle;
     w = cos(angle);
 }
 
@@ -90,16 +89,18 @@ Vector4f Quaternion::getAxisAngle() const
         axis.z = qn.z / scale;
     }
 
-    axis.w = acos(w) * 2.0f * 180 / M_PI;
+    axis.w = acos(w) * 2.0f;
 
     return axis;
 }
 
 void Quaternion::setEuler(const Vector3f& rotation)
 {
-    float h = rotation.y * M_PI / 180;
-    float a = rotation.z * M_PI / 180;
-    float b = rotation.x * M_PI / 180;
+    Vector3f euler = rotation;
+
+    float h = euler.y;
+    float a = euler.z;
+    float b = euler.x;
 
     float c1 = cos(h), c2 = cos(a), c3 = cos(b);
     float s1 = sin(h), s2 = sin(a), s3 = sin(b);
@@ -140,48 +141,46 @@ Vector3f Quaternion::getEuler() const
         euler.x = atan2(2 * x * w - 2 * y*z, 1 - 2 * sqx - 2 * sqz);
     }
 
-    return euler * 180 / M_PI;
+    return euler;
 }
 
 void Quaternion::setMatrix(const Matrix4& matrix)
 {
     float m00 = matrix(0, 0), m11 = matrix(1, 1), m22 = matrix(2, 2);
-    float trace = m00 + m11 + m22 + 1;
+    float trace = m00 + m11 + m22;
 
     if(trace > 0)
     {
-        float s = 1 / (2 * sqrt(trace));
-        x = (matrix(2, 1) - matrix(1, 2)) * s;
-        y = (matrix(0, 2) - matrix(2, 0)) * s;
-        z = (matrix(1, 0) - matrix(0, 1)) * s;
-        w = 1 / (4 * s);
+        float s = sqrt(trace + 1)*2;
+
+        x = (matrix(2, 1) - matrix(1, 2)) / s;
+        y = (matrix(0, 2) - matrix(2, 0)) / s;
+        z = (matrix(1, 0) - matrix(0, 1)) / s;
+        w = 0.25 * s;
     }
-    else
+    else if(m00 > m11 && m00 > m22)
     {
-        if(m00 > m11 && m00 > m22)
-        {
-            float s = sqrt(1 + m00 - m11 - m22) * 2;
-            x = 1 / (2 * s);
-            y = (matrix(0, 1) - matrix(1, 0)) / s;
-            z = (matrix(0, 2) - matrix(2, 0)) / s;
-            w = (matrix(1, 2) - matrix(2, 1)) / s;
-        }
-        else if(m11 > m00 && m11 > m22)
-        {
-            float s = sqrt(1 + m00 - m11 - m22) * 2;
-            x = (matrix(0, 1) - matrix(1, 0)) / s;
-            y = 1 / (2 * s);
-            z = (matrix(1, 2) - matrix(2, 1)) / s;
-            w = (matrix(0, 2) - matrix(2, 0)) / s;
-        }
-        else // if(m22 > m00 && m22 > m11)
-        {
-            float s = sqrt(1 + m00 - m11 - m22) * 2;
-            x = (matrix(0, 2) - matrix(2, 0)) / s;
-            y = (matrix(1, 2) - matrix(2, 1)) / s;
-            z = 1 / (2 * s);
-            w = (matrix(0, 1) - matrix(1, 0)) / s;
-        }
+        float s = sqrt(1 + m00 - m11 - m22) * 2;
+        x = 0.25 * s;
+        y = (matrix(0, 1) - matrix(1, 0)) / s;
+        z = (matrix(0, 2) - matrix(2, 0)) / s;
+        w = (matrix(2, 1) - matrix(1, 2)) / s;
+    }
+    else if(m11 > m00 && m11 > m22)
+    {
+        float s = sqrt(1 + m11 - m00 - m22) * 2;
+        x = (matrix(0, 1) - matrix(1, 0)) / s;
+        y = 0.25 * s;
+        z = (matrix(1, 2) - matrix(2, 1)) / s;
+        w = (matrix(0, 2) - matrix(2, 0)) / s;
+    }
+    else // if(m22 > m00 && m22 > m11)
+    {
+        float s = sqrt(1 + m22 - m00 - m11) * 2;
+        x = (matrix(0, 2) - matrix(2, 0)) / s;
+        y = (matrix(1, 2) - matrix(2, 1)) / s;
+        z = 0.25 * s;
+        w = (matrix(1, 0) - matrix(0, 1)) / s;
     }
 }
 
@@ -234,7 +233,7 @@ Quaternion& Quaternion::identity()
 
 float Quaternion::getMagnitude() const
 {
-    return sqrt(w * w + x * x + y * y + z * z);
+    return sqrt(x * x + y * y + z * z + w * w);
 }
 
 Quaternion& Quaternion::normalize()
@@ -268,21 +267,21 @@ Quaternion Quaternion::getConjugate() const
     return Quaternion(*this).conjugate();
 }
 
-Quaternion Quaternion::operator*(const Quaternion& quat) const
+Quaternion Quaternion::operator *(const Quaternion& rv) const
 {
-    return Quaternion(*this) *= quat;
+    Quaternion q;
+
+    q.x = x * rv.w + y * rv.z + z * rv.y - w * rv.x;
+    q.y = -x * rv.z + y * rv.w + z * rv.x - w * rv.y;
+    q.z = x * rv.y - y * rv.x + z * rv.w - w * rv.z;
+    q.w = -x * rv.x - y * rv.y - z * rv.z - w * rv.w;
+
+    return q;
 }
 
-Quaternion & Quaternion::operator*=(const Quaternion& quat)
+Quaternion & Quaternion::operator*=(const Quaternion& q)
 {
-    Quaternion lvalue(quat);
-
-    x = lvalue.w * quat.x + lvalue.x * quat.w + lvalue.y * quat.z - lvalue.z * quat.y;
-    y = lvalue.w * quat.y + lvalue.y * quat.w + lvalue.z * quat.x - lvalue.x * quat.z;
-    z = lvalue.w * quat.z + lvalue.z * quat.w + lvalue.x * quat.y - lvalue.y * quat.x;
-    w = lvalue.w * quat.w - lvalue.x * quat.x - lvalue.y * quat.y - lvalue.z * quat.z;
-
-    return (*this = lvalue);
+    return (*this = q * * this);
 }
 
 Vector3f Quaternion::operator*(const Vector3f& vec) const

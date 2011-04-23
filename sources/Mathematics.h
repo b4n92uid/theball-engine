@@ -49,6 +49,19 @@ template<typename T> inline tbe::Vector4<T> vec34(tbe::Vector3<T> vec3)
     return tbe::Vector4<T > (vec3.x, vec3.y, vec3.z, 1);
 }
 
+inline void radianClamp(float& angle)
+{
+    if(angle > M_PI)
+        angle = -(M_PI - fmod(angle, M_PI));
+}
+
+inline void radianClamp(Vector3f& euler)
+{
+    radianClamp(euler.x);
+    radianClamp(euler.y);
+    radianClamp(euler.z);
+}
+
 }
 
 #endif	/* _MATHEMATICS_H */

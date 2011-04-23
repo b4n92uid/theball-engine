@@ -121,7 +121,19 @@ Vector3f Matrix4::getScale() const
 
 void Matrix4::setRotate(Quaternion rotation)
 {
-    *this *= rotation.getMatrix();
+    const Matrix4& apply = rotation.getMatrix();
+
+    m_matrix[ 0] = apply[ 0];
+    m_matrix[ 1] = apply[ 1];
+    m_matrix[ 2] = apply[ 2];
+
+    m_matrix[ 4] = apply[ 4];
+    m_matrix[ 5] = apply[ 5];
+    m_matrix[ 6] = apply[ 6];
+
+    m_matrix[ 8] = apply[ 8];
+    m_matrix[ 9] = apply[ 9];
+    m_matrix[10] = apply[10];
 }
 
 void Matrix4::setRotate(float angle, Vector3f axe)
@@ -131,28 +143,17 @@ void Matrix4::setRotate(float angle, Vector3f axe)
 
     float &x = axe.x, &y = axe.y, &z = axe.z;
 
-    Matrix4 rotation;
-    rotation[ 0] = x * x * (1 - c) + c;
-    rotation[ 1] = y * x * (1 - c) + z * s;
-    rotation[ 2] = x * z * (1 - c) - y * s;
-    rotation[ 3] = 0;
+    m_matrix[ 0] = x * x * (1 - c) + c;
+    m_matrix[ 1] = y * x * (1 - c) + z * s;
+    m_matrix[ 2] = x * z * (1 - c) - y * s;
 
-    rotation[ 4] = x * y * (1 - c) - z * s;
-    rotation[ 5] = y * y * (1 - c) + c;
-    rotation[ 6] = y * z * (1 - c) + x * s;
-    rotation[ 7] = 0;
+    m_matrix[ 4] = x * y * (1 - c) - z * s;
+    m_matrix[ 5] = y * y * (1 - c) + c;
+    m_matrix[ 6] = y * z * (1 - c) + x * s;
 
-    rotation[ 8] = x * z * (1 - c) + y * s;
-    rotation[ 9] = y * z * (1 - c) - x * s;
-    rotation[10] = z * z * (1 - c) + c;
-    rotation[11] = 0;
-
-    rotation[12] = 0;
-    rotation[13] = 0;
-    rotation[14] = 0;
-    rotation[15] = 1;
-
-    *this = rotation;
+    m_matrix[ 8] = x * z * (1 - c) + y * s;
+    m_matrix[ 9] = y * z * (1 - c) - x * s;
+    m_matrix[10] = z * z * (1 - c) + c;
 }
 
 Quaternion Matrix4::getRotate() const
@@ -168,13 +169,11 @@ void Matrix4::setRotateX(float v)
     float cosinus = cos(v);
     float sinus = sin(v);
 
-    Matrix4 mat;
+    Matrix4& mat = *this;
     mat[ 5] = cosinus;
     mat[ 6] = -sinus;
     mat[ 9] = sinus;
     mat[10] = cosinus;
-
-    *this *= mat;
 }
 
 void Matrix4::setRotateY(float v)
@@ -182,13 +181,11 @@ void Matrix4::setRotateY(float v)
     float cosinus = cos(v);
     float sinus = sin(v);
 
-    Matrix4 mat;
+    Matrix4& mat = *this;
     mat[ 0] = cosinus;
     mat[ 2] = -sinus;
     mat[ 8] = sinus;
     mat[10] = cosinus;
-
-    *this *= mat;
 }
 
 void Matrix4::setRotateZ(float v)
@@ -196,13 +193,11 @@ void Matrix4::setRotateZ(float v)
     float cosinus = cos(v);
     float sinus = sin(v);
 
-    Matrix4 mat;
+    Matrix4& mat = *this;
     mat[0] = cosinus;
     mat[1] = -sinus;
     mat[4] = sinus;
     mat[5] = cosinus;
-
-    *this *= mat;
 }
 
 void Matrix4::setRotate(Vector3f v)
@@ -300,6 +295,14 @@ void Matrix4::translate(Vector3f pos)
     m_matrix[12] += pos.x;
     m_matrix[13] += pos.y;
     m_matrix[14] += pos.z;
+}
+
+void Matrix4::rotate(Vector3f euler)
+{
+    Matrix4 mat;
+    mat.setRotate(euler);
+
+    *this *= mat;
 }
 
 void Matrix4::rotate(float angle, Vector3f axe)
