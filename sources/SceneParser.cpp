@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   SceneParser.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 5 novembre 2010, 14:19
  */
 
@@ -60,11 +60,9 @@ void SceneParser::outpuNodeConstruction(std::ofstream& file, Node* node)
 
     for(Iterator<Node*> it = node->getChildIterator(); it; it++)
     {
-        string subindent((it->deepPosition() - 1) * 4, ' ');
-
-        file << subindent << "<" << endl;
+        file << indent << "{" << endl;
         outpuNodeConstruction(file, *it);
-        file << subindent << ">" << endl;
+        file << indent << "}" << endl;
     }
 
     if(node->getParent()->isRoot())
@@ -141,6 +139,8 @@ void SceneParser::saveScene(const std::string& filepath)
     if(!file)
         throw tbe::Exception("SceneParser::SaveScene; Open file error (%s)", filepath.c_str());
 
+    m_fileName = filepath;
+
     file << "*map" << endl;
     file << "name=" << m_mapName << endl;
     file << "ambient=" << m_sceneManager->getAmbientLight() << endl;
@@ -194,13 +194,15 @@ bool SceneParser::parseBlock(std::ifstream& file, Relation& rel, unsigned& line)
         if(buffer[0] == '#')
             continue;
 
-        if(buffer[rel.deep] == '>')
+        if(buffer.find("}") != string::npos)
             return false;
 
-        int deep = buffer.find("<");
+        int deep = rel.deep;
 
-        if(deep > rel.deep)
+        if(buffer.find("{") != string::npos)
         {
+            deep++;
+
             Relation subrel(deep);
 
             bool endofsec = parseBlock(file, subrel, line);
@@ -213,14 +215,14 @@ bool SceneParser::parseBlock(std::ifstream& file, Relation& rel, unsigned& line)
 
         else
         {
-            string subbuffer = buffer.substr(rel.deep);
+            tools::trimstr(buffer);
 
-            unsigned sep = subbuffer.find_first_of('=');
+            unsigned sep = buffer.find_first_of('=');
 
             if(sep == string::npos)
                 throw tbe::Exception("SceneParser::ParseRelation; invalid assignement %d (%s)", line, buffer.c_str());
 
-            string key(subbuffer, 0, sep), value(subbuffer, sep + 1);
+            string key(buffer, 0, sep), value(buffer, sep + 1);
 
             rel.attr[key] = value;
         }
@@ -456,7 +458,7 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
     }
 
     else
-        throw Exception("SceneParser::parseNode; Unknown class %s", iclass.c_str());
+        throw Exception("SceneParser::parseNode; Unknown class (%s)", iclass.c_str());
 
     if(current)
     {

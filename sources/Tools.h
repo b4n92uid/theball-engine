@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   tbe_tools.h
  * Author: Administrateur
  *
@@ -51,7 +51,7 @@ template<typename T> inline T nextPow2(T v)
 
 /**
  * Renvois le chemin avec les separateur en slash
- * 
+ *
  * @param path
  * @return
  */
@@ -66,7 +66,7 @@ inline std::string toSlashSeprator(std::string path)
 
 /**
  * Renvois le chemin du fichier, sans le separateur de fin
- * 
+ *
  * @param filename
  * @return
  */
@@ -116,20 +116,19 @@ inline std::string pathScope(std::string absfile, std::string relfile, bool abso
     absfile = toSlashSeprator(absfile); // D:/projets/cpp/tbengine/demos/bin/medias/landscape.scene
     relfile = toSlashSeprator(relfile); // D:/projets/cpp/tbengine/demos/bin/medias/skybox/zpos.jpg
 
-    if(relfile.find(":") != string::npos)
+    unsigned lastslash = 0;
+
+    for(unsigned i = 0; i < absfile.size(); i++)
     {
-        unsigned cut = 0;
+        if(absfile[i] == '/')
+            lastslash = i;
 
-        for(unsigned i = 0; i < absfile.size(); i++)
-        {
-            if(absfile[i] == relfile[i])
-                cut++;
-
-            else break;
-        }
-
-        relfile.erase(0, cut);
+        if(absfile[i] != relfile[i])
+            break;
     }
+
+    if(lastslash > 0)
+        relfile.erase(0, lastslash + 1);
 
     if(absoluteOut)
     {
@@ -180,7 +179,7 @@ template<typename T, typename T2> void erase(std::vector<T>& vec, T2 val)
 /**
  * Trouve et efface la premiere occurance de 'val'
  *  si elle est contenue dans le tableau 'vec'
- * 
+ *
  * @param vec
  * @param val
  */
@@ -197,7 +196,7 @@ template<typename T> void erase(std::vector<T>& vec, T val)
 /**
  * Indique si la valeur 'val' est contenue dans le tableau 'vec',
  *  val peut être d'un type héritant de T
- * 
+ *
  * @param vec
  * @param val
  * @return
@@ -238,7 +237,7 @@ inline void trimstr(std::string& buffer)
 
 /**
  * Renvois 'true' si la chaine de caracter ne contien que des espaces
- * 
+ *
  * @param buffer
  * @return
  */
@@ -449,7 +448,7 @@ template <typename T> Vector3<T> strToVec3(std::string str, bool withsep = false
 /**
  * Interprétation d'une chaine de caracteres en vecteur a 4 composant
  *  depuis le format "x, y, z, w"
- * 
+ *
  * @param str
  * @param withsep
  * @return
@@ -537,7 +536,7 @@ template<typename T> inline std::string vec4ToStr(const Vector4<T>& vec)
 
 /**
  * Renvoi un nombre entier aléatoir entre min et max
- * 
+ *
  * @param min
  * @param max
  * @return
@@ -599,10 +598,10 @@ inline Vector3f rand(AABB aabb)
 
 /**
  * fmod() implementation
- * 
+ *
  * @param lvalue
  * @param rvalue
- * @return 
+ * @return
  */
 inline float floatModulo(float lvalue, float rvalue)
 {
@@ -614,7 +613,7 @@ inline float floatModulo(float lvalue, float rvalue)
 
 /**
  * Renvois le valeur arrodis de 'value' par 'unit'
- * 
+ *
  * @param value
  * @param unit
  * @return
