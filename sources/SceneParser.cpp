@@ -148,7 +148,7 @@ void SceneParser::saveScene(const std::string& filepath)
 
     Fog* fog = m_sceneManager->getFog();
 
-    if(fog)
+    if(fog->isEnable())
     {
         file << "*fog" << endl;
         file << "color=" << fog->getColor() << endl;
@@ -159,7 +159,7 @@ void SceneParser::saveScene(const std::string& filepath)
 
     SkyBox* sky = m_sceneManager->getSkybox();
 
-    if(sky)
+    if(sky->isEnable())
     {
         Texture* skyTexs = sky->getTextures();
 
@@ -338,16 +338,27 @@ void SceneParser::parseFog(AttribMap& att)
 
 void SceneParser::parseSkyBox(AttribMap& att)
 {
-    Texture skyTex[6] = {
-        tools::pathScope(m_fileName, att["front"], true),
-        tools::pathScope(m_fileName, att["back"], true),
-        tools::pathScope(m_fileName, att["top"], true),
-        tools::pathScope(m_fileName, att["bottom"], true),
-        tools::pathScope(m_fileName, att["left"], true),
-        tools::pathScope(m_fileName, att["right"], true)
-    };
+    Texture skyTex[6];
 
-    scene::SkyBox* sky = m_sceneManager->getSkybox();
+    if(!att["front"].empty())
+        tools::pathScope(m_fileName, att["front"], true);
+
+    if(!att["back"].empty())
+        tools::pathScope(m_fileName, att["back"], true);
+
+    if(!att["top"].empty())
+        tools::pathScope(m_fileName, att["top"], true);
+
+    if(!att["bottom"].empty())
+        tools::pathScope(m_fileName, att["bottom"], true);
+
+    if(!att["left"].empty())
+        tools::pathScope(m_fileName, att["left"], true);
+
+    if(!att["right"].empty())
+        tools::pathScope(m_fileName, att["right"], true);
+
+    scene::SkyBox * sky = m_sceneManager->getSkybox();
     sky->setTextures(skyTex);
     sky->setEnable(true);
 }
