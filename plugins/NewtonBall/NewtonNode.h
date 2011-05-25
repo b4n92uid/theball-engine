@@ -24,7 +24,7 @@ class NewtonNode : public Node
 public:
     NewtonNode(NewtonParallelScene* newtonScene);
     NewtonNode(NewtonParallelScene* newtonScene, Node* node);
-    NewtonNode(NewtonParallelScene* newtonScene, Matrix4f* matrix);
+    NewtonNode(NewtonParallelScene* newtonScene, Matrix4* matrix);
     NewtonNode(const NewtonNode& copy);
 
     virtual ~NewtonNode();
@@ -50,8 +50,8 @@ public:
     float getMasse();
 
     /// Assigne une matrice
-    void setMatrix(Matrix4f matrix);
-    Matrix4f getMatrix();
+    void setMatrix(Matrix4 matrix);
+    Matrix4 getMatrix();
 
     void setPos(Vector3f pos);
     Vector3f getPos();
@@ -69,8 +69,8 @@ public:
 
     Node* clone();
 
-    void setUpdatedMatrix(Matrix4f* updatedMatrix);
-    Matrix4f* getUpdatedMatrix() const;
+    void setUpdatedMatrix(Matrix4* updatedMatrix);
+    Matrix4* getUpdatedMatrix() const;
 
     void setApplyTorque(Vector3f applyTorque);
     Vector3f getApplyTorque() const;
@@ -85,7 +85,7 @@ public:
     bool isFreeze() const;
 
     NewtonParallelScene* getParallelScene() const;
-    
+
     /// Method static d'application de la force gravitationnele (9.81)
     static void applyForceAndTorque(const NewtonBody* body, float, int);
 
@@ -98,7 +98,7 @@ protected:
     NewtonParallelScene* m_parallelScene;
     NewtonWorld* m_newtonWorld;
     NewtonBody* m_body;
-    Matrix4f* m_updatedMatrix;
+    Matrix4* m_updatedMatrix;
     float m_masse;
     bool m_freeze;
     bool m_applyGravity;

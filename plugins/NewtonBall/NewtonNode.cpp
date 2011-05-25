@@ -47,7 +47,7 @@ NewtonNode::NewtonNode(NewtonParallelScene* newtonScene, Node* node)
     m_parallelScene->registerNode(this);
 }
 
-NewtonNode::NewtonNode(NewtonParallelScene* newtonScene, Matrix4f* matrix)
+NewtonNode::NewtonNode(NewtonParallelScene* newtonScene, Matrix4* matrix)
 {
     m_parallelScene = newtonScene;
     m_newtonWorld = newtonScene->getNewtonWorld();
@@ -311,7 +311,7 @@ void NewtonNode::process()
         NewtonBodyGetMatrix(m_body, *m_updatedMatrix);
 }
 
-void NewtonNode::setMatrix(Matrix4f matrix)
+void NewtonNode::setMatrix(Matrix4 matrix)
 {
     *m_updatedMatrix = matrix;
 
@@ -319,7 +319,7 @@ void NewtonNode::setMatrix(Matrix4f matrix)
         NewtonBodySetMatrix(m_body, *m_updatedMatrix);
 }
 
-Matrix4f NewtonNode::getMatrix()
+Matrix4 NewtonNode::getMatrix()
 {
     return *m_updatedMatrix;
 }
@@ -371,12 +371,12 @@ float NewtonNode::getMasse()
     return m_masse;
 }
 
-void NewtonNode::setUpdatedMatrix(Matrix4f* updatedMatrix)
+void NewtonNode::setUpdatedMatrix(Matrix4* updatedMatrix)
 {
     this->m_updatedMatrix = updatedMatrix;
 }
 
-Matrix4f* NewtonNode::getUpdatedMatrix() const
+Matrix4* NewtonNode::getUpdatedMatrix() const
 {
     return m_updatedMatrix;
 }
