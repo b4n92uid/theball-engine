@@ -110,7 +110,7 @@ void Quaternion::setEuler(const Vector3f& rotation)
     double w4 = (4.0 * w);
 
     x = (c2 * s3 + c1 * s3 + s1 * s2 * c3) / w4;
-    y = (s1 * c2 + s1 * c3 + c1 * s2 * s3);
+    y = (s1 * c2 + s1 * c3 + c1 * s2 * s3) / w4;
     z = (-s1 * s3 + c1 * s2 * c3 + s2) / w4;
 }
 
