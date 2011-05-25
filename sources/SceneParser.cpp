@@ -341,22 +341,22 @@ void SceneParser::parseSkyBox(AttribMap& att)
     Texture skyTex[6];
 
     if(!att["front"].empty())
-        tools::pathScope(m_fileName, att["front"], true);
+        skyTex[0] = tools::pathScope(m_fileName, att["front"], true);
 
     if(!att["back"].empty())
-        tools::pathScope(m_fileName, att["back"], true);
+        skyTex[1] = tools::pathScope(m_fileName, att["back"], true);
 
     if(!att["top"].empty())
-        tools::pathScope(m_fileName, att["top"], true);
+        skyTex[2] = tools::pathScope(m_fileName, att["top"], true);
 
     if(!att["bottom"].empty())
-        tools::pathScope(m_fileName, att["bottom"], true);
+        skyTex[3] = tools::pathScope(m_fileName, att["bottom"], true);
 
     if(!att["left"].empty())
-        tools::pathScope(m_fileName, att["left"], true);
+        skyTex[4] = tools::pathScope(m_fileName, att["left"], true);
 
     if(!att["right"].empty())
-        tools::pathScope(m_fileName, att["right"], true);
+        skyTex[5] = tools::pathScope(m_fileName, att["right"], true);
 
     scene::SkyBox * sky = m_sceneManager->getSkybox();
     sky->setTextures(skyTex);
