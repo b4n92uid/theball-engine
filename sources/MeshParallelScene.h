@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   MeshParallelScene.h
  * Author: b4n92uid
  *
@@ -38,11 +38,15 @@ public:
     void setFrustumCullingCount(unsigned frustumCullingCount);
     unsigned getFrustumCullingCount() const;
 
+    void setTransparencySort(bool transparencySort);
+    bool isTransparencySort() const;
+
     AABB getSceneAabb();
 
 private:
     unsigned m_frustumCullingCount;
     bool m_enableFrustumTest;
+    bool m_transparencySort;
 };
 
 }

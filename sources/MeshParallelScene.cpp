@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   MeshParallelScene.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 30 avril 2010, 23:02
  */
 
@@ -22,6 +22,7 @@ MeshParallelScene::MeshParallelScene()
 {
     m_frustumCullingCount = 0;
     m_enableFrustumTest = true;
+    m_transparencySort = true;
 }
 
 MeshParallelScene::~MeshParallelScene()
@@ -55,13 +56,16 @@ void MeshParallelScene::render()
 
     m_frustumCullingCount = 0;
 
-    static DepthSortMeshFunc sortFunc;
-    sortFunc.camPos = m_sceneManager->getCurCamera()->getPos();
-    std::sort(m_nodes.begin(), m_nodes.end(), sortFunc);
+    static DepthSortMeshFunc sortFunc = {
+        m_sceneManager->getCurCamera()->getPos()
+    };
+
+    if(m_transparencySort)
+        std::sort(m_nodes.begin(), m_nodes.end(), sortFunc);
 
     for(Mesh::Array::iterator it = m_nodes.begin(); it != m_nodes.end(); ++it)
     {
-        Node* node = *it;
+        Mesh* node = *it;
 
         if(!node->isAttached())
             continue;
@@ -124,6 +128,16 @@ AABB MeshParallelScene::getSceneAabb()
         sceneAabb.count(m_nodes[i]);
 
     return sceneAabb;
+}
+
+void MeshParallelScene::setTransparencySort(bool transparencySort)
+{
+    this->m_transparencySort = transparencySort;
+}
+
+bool MeshParallelScene::isTransparencySort() const
+{
+    return m_transparencySort;
 }
 
 void MeshParallelScene::setEnableFrustumTest(bool enableFrustumTest)
