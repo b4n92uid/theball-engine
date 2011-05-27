@@ -126,8 +126,8 @@ ParallelScene* Node::getParallelScene() const
 
 AABB Node::getAbsolutAabb() const
 {
-    Matrix4 mat = getAbsoluteMatrix();
-    return AABB(mat * m_aabb.min, mat * m_aabb.max);
+    Vector3f pos = getAbsoluteMatrix().getPos();
+    return AABB(pos + m_aabb.min, pos + m_aabb.max + pos);
 }
 
 AABB Node::getAabb() const

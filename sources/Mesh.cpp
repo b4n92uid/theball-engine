@@ -77,6 +77,23 @@ Node* Mesh::clone()
     return new Mesh(*this);
 }
 
+AABB Mesh::getAbsolutAabb()
+{
+    unsigned vertexCount = m_hardwareBuffer.getVertexCount();
+
+    AABB aabb;
+
+    Matrix4 mat = getAbsoluteMatrix();
+    Vertex* vertex = m_hardwareBuffer.lock();
+
+    for(unsigned i = 0; i < vertexCount; i++)
+        aabb.count(mat * vertex[i].pos);
+
+    m_hardwareBuffer.unlock();
+
+    return aabb;
+}
+
 void Mesh::computeAabb()
 {
     m_aabb.clear();

@@ -46,6 +46,9 @@ public:
     /// Calcule l'AABB du mesh
     void computeAabb();
 
+    /// Renvoi l'AABB Absolue du mesh
+    AABB getAbsolutAabb();
+
     /// Calcule l'espace tangente des vertex du mesh
     void computeTangent();
 
