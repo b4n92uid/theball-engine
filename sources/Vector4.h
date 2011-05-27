@@ -352,6 +352,13 @@ public:
             return (*this)(0);
     }
 
+    Vector4& normalizeW()
+    {
+        T length = getMagnitude();
+
+        return (length == 0) ? (*this)(0) : (*this /= length);
+    }
+
     static Vector4 normalize(const Vector4& vec)
     {
         return Vector4(vec).normalize();

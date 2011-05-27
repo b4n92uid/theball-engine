@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Frustum.h
  * Author: b4n92uid
  *
@@ -31,9 +31,9 @@ public:
 
     void extractPlane();
 
-    bool isInside(Node* node);
-    bool isInside(const AABB& aabb);
-    bool isInside(Vector3f point);
+    bool isInside(Node* node) const;
+    bool isInside(const AABB& aabb) const;
+    bool isInside(Vector3f point) const;
 
 private:
     Vector4f m_planes[6];
