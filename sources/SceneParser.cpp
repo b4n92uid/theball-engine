@@ -141,9 +141,14 @@ void SceneParser::saveScene(const std::string& filepath)
 
     m_fileName = filepath;
 
-    file << "*map" << endl;
-    file << "name=" << m_mapName << endl;
+    file << "*general" << endl;
+    file << "name=" << m_sceneName << endl;
     file << "ambient=" << m_sceneManager->getAmbientLight() << endl;
+    file << endl;
+
+    file << "*additional" << endl;
+    for(AttribMap::iterator it = m_additional.begin(); it != m_additional.end(); it++)
+        file << it->first << "=" << it->second << endl;
     file << endl;
 
     Fog* fog = m_sceneManager->getFog();
@@ -246,11 +251,18 @@ void SceneParser::loadScene(const std::string& filepath)
         if(buffer.empty() || buffer[0] == '#')
             continue;
 
-        if(buffer == "*map")
+        if(buffer == "*general")
         {
             Relation rel;
             parseBlock(file, rel, line);
-            parseMap(rel.attr);
+            parseGeneral(rel.attr);
+        }
+
+        else if(buffer == "*additional")
+        {
+            Relation rel;
+            parseBlock(file, rel, line);
+            m_additional = rel.attr;
         }
 
         else if(buffer == "*fog")
@@ -299,9 +311,11 @@ void SceneParser::loadScene(const std::string& filepath)
     file.close();
 }
 
-void SceneParser::parseMap(AttribMap& att)
+void SceneParser::parseGeneral(AttribMap& att)
 {
-    m_mapName = att["name"];
+    m_sceneName = att["name"];
+    m_authorName = att["author"];
+
     m_sceneManager->setAmbientLight(vec34(tools::strToVec3<float>(att["ambient"], true)));
 
     if(!m_lightScene)
@@ -487,6 +501,37 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         for(unsigned i = 0; i < rel.child.size(); i++)
             parseNode(rel.child[i], current);
     }
+}
+
+const SceneParser::AttribMap SceneParser::additionalFields() const
+{
+    return m_additional;
+}
+
+void SceneParser::removeAdditional(std::string key)
+{
+    if(m_additional.count(key))
+        m_additional.erase(key);
+}
+
+void SceneParser::setSceneName(std::string sceneName)
+{
+    this->m_sceneName = sceneName;
+}
+
+std::string SceneParser::getSceneName() const
+{
+    return m_sceneName;
+}
+
+void SceneParser::setAuthorName(std::string authorName)
+{
+    this->m_authorName = authorName;
+}
+
+std::string SceneParser::getAuthorName() const
+{
+    return m_authorName;
 }
 
 ParticlesParallelScene* SceneParser::getParticlesScene() const

@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   SceneParser.h
  * Author: b4n92uid
  *
@@ -35,6 +35,14 @@ public:
     SceneParser(SceneManager* sceneManager);
     virtual ~SceneParser();
 
+    typedef std::map<std::string, std::string> AttribMap;
+
+    void setSceneName(std::string sceneName);
+    std::string getSceneName() const;
+
+    void setAuthorName(std::string authorName);
+    std::string getAuthorName() const;
+
     void loadClass(const std::string& filepath);
 
     void saveClass();
@@ -60,9 +68,32 @@ public:
     SceneParser& archive(Node* node);
     SceneParser& exclude(Node* node);
 
-protected:
+    template<typename T> T getAdditional(std::string key) const
+    {
+        if(!m_additional.count(key))
+            return NULL;
 
-    typedef std::map<std::string, std::string> AttribMap;
+        T value;
+
+        std::stringstream ss(m_additional[key]);
+        ss >> value;
+
+        return value;
+    }
+
+    template<typename T> void setAdditional(std::string key, T value)
+    {
+        std::stringstream ss;
+        ss << value;
+
+        m_additional[key] = ss.str();
+    }
+
+    void removeAdditional(std::string key);
+
+    const AttribMap additionalFields() const;
+
+protected:
 
     struct Relation
     {
@@ -79,7 +110,7 @@ protected:
         int deep;
     };
 
-    void parseMap(AttribMap& att);
+    void parseGeneral(AttribMap& att);
     void parseFog(AttribMap& att);
     void parseSkyBox(AttribMap& att);
     void parseNode(Relation& att, Node* parent = NULL);
@@ -90,10 +121,13 @@ private:
     void outpuNodeConstruction(std::ofstream& file, Node* node);
 
     std::string m_fileName;
-    std::string m_mapName;
+    std::string m_sceneName;
+    std::string m_authorName;
 
     std::vector<Node*> m_archivedNodes;
     std::vector<Node*> m_excludedNodes;
+
+    AttribMap m_additional;
 
     SceneManager* m_sceneManager;
     Node* m_rootNode;
