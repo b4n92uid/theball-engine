@@ -68,7 +68,7 @@ public:
     SceneParser& archive(Node* node);
     SceneParser& exclude(Node* node);
 
-    template<typename T> T getAdditional(std::string key) const
+    template<typename T> T getAdditional(std::string key)
     {
         if(!m_additional.count(key))
             return NULL;
