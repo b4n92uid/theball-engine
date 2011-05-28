@@ -143,6 +143,7 @@ void SceneParser::saveScene(const std::string& filepath)
 
     file << "*general" << endl;
     file << "name=" << m_sceneName << endl;
+    file << "author=" << m_authorName << endl;
     file << "ambient=" << m_sceneManager->getAmbientLight() << endl;
     file << endl;
 
