@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   NewtonNode.h
  * Author: b4n92uid
  *
@@ -84,10 +84,12 @@ public:
     void setFreeze(bool freeze);
     bool isFreeze() const;
 
+    void applyForceAndTorque();
+
     NewtonParallelScene* getParallelScene() const;
 
     /// Method static d'application de la force gravitationnele (9.81)
-    static void applyForceAndTorque(const NewtonBody* body, float, int);
+    static void applyForceAndTorqueCallback(const NewtonBody* body, float, int);
 
     typedef std::vector<NewtonNode*> Array;
     typedef std::map<std::string, NewtonNode*> Map;
