@@ -15,7 +15,6 @@
 #include "Tools.h"
 #include "Particles.h"
 #include "Water.h"
-#include "BurningEmitter.h"
 
 using namespace std;
 using namespace tbe;
@@ -423,7 +422,7 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
 
     else if(iclass == "ParticlesEmiter")
     {
-        BurningEmitter* emiter = new BurningEmitter(m_particlesScene);
+        ParticlesEmiter* emiter = new ParticlesEmiter(m_particlesScene);
 
         string modelFilepath;
 

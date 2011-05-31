@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Tbe.h
  * Author: b4n92uid
  *
@@ -53,7 +53,6 @@
 #include "Ball3DMesh.h"
 #include "Primitives.h"
 #include "Particles.h"
-#include "BurningEmitter.h"
 #include "ParallelScene.h"
 #include "LightParallelScene.h"
 #include "MeshParallelScene.h"

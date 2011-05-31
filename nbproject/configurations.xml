@@ -129,8 +129,6 @@
           <itemPath>sources/Primitives.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="Particles" projectFiles="true">
-          <itemPath>sources/BurningEmitter.cpp</itemPath>
-          <itemPath>sources/BurningEmitter.h</itemPath>
           <itemPath>sources/Particles.cpp</itemPath>
           <itemPath>sources/Particles.h</itemPath>
           <itemPath>sources/ParticlesParallelScene.cpp</itemPath>
