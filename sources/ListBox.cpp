@@ -268,12 +268,7 @@ void ListBox::update()
 
 void ListBox::objectRender()
 {
-    if(m_enableBackground && m_background)
-    {
-        m_background.use(true);
-        drawSurface(m_pos, m_size, 0, 1);
-        m_background.use(false);
-    }
+    drawBackground();
 
     m_lay.setPos(m_pos);
     m_lay.update();
