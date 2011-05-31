@@ -44,15 +44,15 @@ class Pencil
 {
 public:
     Pencil();
-    Pencil(std::string path, int size);
+    Pencil(std::string path, int size, int charsp = 0);
     ~Pencil();
 
     /// Charge une police .ttf
-    void load(std::string font, int size);
+    void load(std::string font, int size, int charsp = 0);
 
-    void operator()(std::string font, int size)
+    void operator()(std::string font, int size, int charsp = 0)
     {
-        load(font, size);
+        load(font, size, charsp);
     }
 
     /// Libération mémoire, appeller par le déstructeur
@@ -112,6 +112,10 @@ public:
     void setLineSpace(int lineSpace);
     int getLineSpace() const;
 
+    /// Spécifier la taille de l'espace entre les caracters
+    void setCharSpace(int charSpace);
+    int getCharSpace() const;
+
     /// Spécifier la couleur d'écriture
     void setColor(Vector4f color);
     Vector4f getColor() const;
@@ -123,6 +127,7 @@ protected:
     int m_fontSize;
     int m_tabSize;
     int m_lineSpace;
+    int m_charSpace;
 
     GLuint m_charList;
 
