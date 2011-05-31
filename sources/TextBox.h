@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   TextBox.h
  * Author: b4n92uid
  *
@@ -50,8 +50,8 @@ public:
     void setTextAlign(TextAlign textAlign);
     TextAlign getTextAlign() const;
 
-    void setTextureRepeat(Vector2f textureRepeat);
-    Vector2f getTextureRepeat() const;
+    void setArrowTexture(Texture arrowTexture);
+    Texture getArrowTexture() const;
 
 protected:
     void prepareDisplay();
@@ -61,6 +61,7 @@ protected:
     Vector2f m_backgroundPadding;
     TextAlign m_textAlign;
     bool m_definedSize;
+    Texture m_arrowTexture;
 
 private:
     GuiString m_text;

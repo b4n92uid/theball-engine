@@ -79,6 +79,9 @@ public:
     void setBackground(Texture background);
     Texture getBackground() const;
 
+    void setBackgroundMask(Texture backgroundMask);
+    Texture getBackgroundMask() const;
+
     /// Spécifier la police d'écriture
     void setPencil(Pencil pencil);
     Pencil getPencil() const;
@@ -103,6 +106,10 @@ public:
 protected:
     virtual void objectRender() = 0;
 
+    tbe::Vector2f::Array vertexPos(tbe::Vector2f pos, tbe::Vector2f size);
+    tbe::Vector2f::Array vertexUv(tbe::Vector2f offset, tbe::Vector2f length);
+
+    void drawBackground();
     void drawSurface(Vector2f pos[], Vector2f st[], unsigned draw);
     void drawSurface(Vector2f pos, Vector2f size, Vector2f tcOffset, Vector2f tcLength);
 
@@ -121,6 +128,7 @@ protected:
     float m_opacity;
 
     Texture m_background;
+    Texture m_backgroundMask;
     Pencil m_pencil;
 
     Rtt* m_output;

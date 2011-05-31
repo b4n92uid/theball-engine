@@ -35,6 +35,8 @@ public:
      */
     void load(std::string filename, bool genMipMap = false, bool upperLeftOrigin = true);
 
+    void loadMask(std::string filename, bool upperLeftOrigin = true);
+
     /// @see load()
 
     void operator()(std::string filename, bool genMipMap = false, bool upperLeftOrigin = true)
@@ -94,7 +96,7 @@ public:
 
     /**
      * Renvois true si la texture a été position de facon
-     * a ce que les coordonnés 0,0 font référence au coin 
+     * a ce que les coordonnés 0,0 font référence au coin
      * superieur a gauche de la texture
      */
     bool isUpperLeftOrigin() const;

@@ -1,12 +1,13 @@
-/* 
+/*
  * File:   TextBox.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 10 mai 2010, 19:59
  */
 
 #include "TextBox.h"
 #include "Control.h"
+#include "Vector2.h"
 
 using namespace std;
 using namespace tbe;
@@ -35,14 +36,7 @@ TextBox::~TextBox()
 
 void TextBox::objectRender()
 {
-    if(m_enableBackground && m_background)
-    {
-        m_background.use(true);
-
-        drawSurface(m_pos, m_size, 0, 1);
-
-        m_background.use(false);
-    }
+    drawBackground();
 
     Vector2f pos = m_pencil.centerOf(m_textDisplay, m_pos, m_size);
 
@@ -61,11 +55,36 @@ void TextBox::objectRender()
         string backupfornt = m_textDisplay.front(),
                 backupback = m_textDisplay.back();
 
-        if(m_offsetLine > 0)
-            m_textDisplay.back() = "<<<";
+        if(m_arrowTexture)
+        {
+            m_arrowTexture.use(true);
 
-        if(m_offsetLine < m_offsetMax)
-            m_textDisplay.front() = ">>>";
+            Vector2f size = m_arrowTexture.getSize() / Vector2f(1, 2);
+            Vector2f arrdn = m_pos + m_backgroundPadding;
+            Vector2f arrup = m_pos + Vector2f(m_backgroundPadding.x, m_size.y - m_backgroundPadding.y - size.y);
+
+            if(m_offsetLine > 0)
+            {
+                m_textDisplay.back().clear();
+                drawSurface(arrup, size, 0, Vector2f(1, 0.5));
+            }
+
+            if(m_offsetLine < m_offsetMax)
+            {
+                m_textDisplay.front().clear();
+                drawSurface(arrdn, size, Vector2f(0, 0.5), Vector2f(1, 1));
+            }
+
+            m_arrowTexture.use(false);
+        }
+        else
+        {
+            if(m_offsetLine > 0)
+                m_textDisplay.front() = "<<<";
+
+            if(m_offsetLine < m_offsetMax)
+                m_textDisplay.front() = ">>>";
+        }
 
         m_pencil.display(pos, m_textDisplay);
 
@@ -141,6 +160,16 @@ void TextBox::setTextAlign(TextAlign textAlign)
 TextBox::TextAlign TextBox::getTextAlign() const
 {
     return m_textAlign;
+}
+
+void TextBox::setArrowTexture(Texture arrowTexture)
+{
+    this->m_arrowTexture = arrowTexture;
+}
+
+Texture TextBox::getArrowTexture() const
+{
+    return m_arrowTexture;
 }
 
 bool TextBox::onEvent(const EventManager& event)

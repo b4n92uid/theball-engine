@@ -20,27 +20,97 @@ Control::~Control()
 {
 }
 
-void Control::drawSurface(Vector2f pos, Vector2f size, Vector2f tcOffset, Vector2f tcLength)
+tbe::Vector2f::Array Control::vertexPos(tbe::Vector2f pos, tbe::Vector2f size)
 {
-    Vector2f vertexs[4] = {
+    Vector2f vPos[4] = {
         pos,
         Vector2f(pos.x + size.x, pos.y),
         Vector2f(pos.x, pos.y + size.y),
         pos + size,
     };
 
-    Vector2f vTC[4] = {
-        Vector2f(tcOffset.x, tcLength.y),
-        Vector2f(tcLength.x, tcLength.y),
-        Vector2f(tcOffset.x, tcOffset.y),
-        Vector2f(tcLength.x, tcOffset.y),
+    return Vector2f::Array(vPos, vPos + 4);
+}
+
+tbe::Vector2f::Array Control::vertexUv(tbe::Vector2f offset, tbe::Vector2f length)
+{
+    Vector2f vUv[4] = {
+        Vector2f(offset.x, length.y),
+        Vector2f(length.x, length.y),
+        Vector2f(offset.x, offset.y),
+        Vector2f(length.x, offset.y),
     };
+
+    return Vector2f::Array(vUv, vUv + 4);
+}
+
+void Control::drawBackground()
+{
+    if(m_enableBackground && m_background)
+    {
+        if(m_backgroundMask)
+        {
+            Vector2f::Array vPos = vertexPos(m_pos, m_size);
+            Vector2f::Array vUvR = vertexUv(0, m_size / m_background.getSize());
+            Vector2f::Array vUv1 = vertexUv(0, 1);
+
+            glEnableClientState(GL_VERTEX_ARRAY);
+
+            glVertexPointer(2, GL_FLOAT, 0, &vPos[0]);
+
+            glClientActiveTexture(GL_TEXTURE0);
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            glTexCoordPointer(2, GL_FLOAT, 0, &vUvR[0]);
+
+            glActiveTexture(GL_TEXTURE0);
+            glEnable(GL_TEXTURE_2D);
+
+            m_background.use(true);
+            glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+            glClientActiveTexture(GL_TEXTURE1);
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            glTexCoordPointer(2, GL_FLOAT, 0, &vUv1[0]);
+
+            glActiveTexture(GL_TEXTURE1);
+            glEnable(GL_TEXTURE_2D);
+
+            m_backgroundMask.use(true);
+            glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+            glClientActiveTexture(GL_TEXTURE1);
+            glActiveTexture(GL_TEXTURE1);
+            glDisable(GL_TEXTURE_2D);
+
+            glClientActiveTexture(GL_TEXTURE0);
+            glActiveTexture(GL_TEXTURE0);
+
+            glDisableClientState(GL_VERTEX_ARRAY);
+            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+            m_background.use(false);
+        }
+
+        else
+        {
+            m_background.use(true);
+            drawSurface(m_pos, m_size, 0, m_size / m_background.getSize());
+            m_background.use(false);
+        }
+    }
+}
+
+void Control::drawSurface(Vector2f pos, Vector2f size, Vector2f tcOffset, Vector2f tcLength)
+{
+    Vector2f::Array vPos = vertexPos(pos, size);
+    Vector2f::Array vUv = vertexUv(tcOffset, tcLength);
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-    glVertexPointer(2, GL_FLOAT, 0, vertexs);
-    glTexCoordPointer(2, GL_FLOAT, 0, vTC);
+    glVertexPointer(2, GL_FLOAT, 0, &vPos[0]);
+    glTexCoordPointer(2, GL_FLOAT, 0, &vUv[0]);
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
@@ -135,6 +205,16 @@ void Control::setBackground(Texture background)
 Texture Control::getBackground() const
 {
     return m_background;
+}
+
+void Control::setBackgroundMask(Texture backgroundMask)
+{
+    this->m_backgroundMask = backgroundMask;
+}
+
+Texture Control::getBackgroundMask() const
+{
+    return m_backgroundMask;
 }
 
 void Control::setActivate(bool activate)
