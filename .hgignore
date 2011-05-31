@@ -12,3 +12,5 @@ syntax: glob
 **.exe
 **.dll
 **.lnk
+*.bash
+*.mk
