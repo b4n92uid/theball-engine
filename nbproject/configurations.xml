@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="79">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="sources" displayName="sources" projectFiles="true">
+      <logicalFolder name="f1" displayName="Core" projectFiles="true">
+        <logicalFolder name="f1" displayName="Render" projectFiles="true">
+          <itemPath>sources/FrameBufferObject.cpp</itemPath>
+          <itemPath>sources/FrameBufferObject.h</itemPath>
+          <itemPath>sources/HardwareBuffer.cpp</itemPath>
+          <itemPath>sources/HardwareBuffer.h</itemPath>
+          <itemPath>sources/Rtt.cpp</itemPath>
+          <itemPath>sources/Rtt.h</itemPath>
+          <itemPath>sources/Shader.cpp</itemPath>
+          <itemPath>sources/Shader.h</itemPath>
+          <itemPath>sources/Texture.cpp</itemPath>
+          <itemPath>sources/Texture.h</itemPath>
+        </logicalFolder>
+        <itemPath>sources/AABB.cpp</itemPath>
+        <itemPath>sources/AABB.h</itemPath>
+        <itemPath>sources/Any.h</itemPath>
+        <itemPath>sources/Device.cpp</itemPath>
+        <itemPath>sources/Device.h</itemPath>
+        <itemPath>sources/Eventrecv.h</itemPath>
+        <itemPath>sources/Exception.cpp</itemPath>
+        <itemPath>sources/Exception.h</itemPath>
+        <itemPath>sources/Iterator.h</itemPath>
+        <itemPath>sources/MotionPath.cpp</itemPath>
+        <itemPath>sources/MotionPath.h</itemPath>
+        <itemPath>sources/Tbe.h</itemPath>
+        <itemPath>sources/Tools.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f4" displayName="External" projectFiles="true">
+        <itemPath>sources/GLee.c</itemPath>
+        <itemPath>sources/GLee.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Gui" displayName="Gui" projectFiles="true">
+        <logicalFolder name="f1" displayName="Controls" projectFiles="true">
+          <itemPath>sources/Button.cpp</itemPath>
+          <itemPath>sources/Button.h</itemPath>
+          <itemPath>sources/Control.cpp</itemPath>
+          <itemPath>sources/Control.h</itemPath>
+          <itemPath>sources/Editbox.cpp</itemPath>
+          <itemPath>sources/Editbox.h</itemPath>
+          <itemPath>sources/Gauge.cpp</itemPath>
+          <itemPath>sources/Gauge.h</itemPath>
+          <itemPath>sources/Image.cpp</itemPath>
+          <itemPath>sources/Image.h</itemPath>
+          <itemPath>sources/KeyConfig.cpp</itemPath>
+          <itemPath>sources/KeyConfig.h</itemPath>
+          <itemPath>sources/ListBox.cpp</itemPath>
+          <itemPath>sources/ListBox.h</itemPath>
+          <itemPath>sources/StateShow.cpp</itemPath>
+          <itemPath>sources/StateShow.h</itemPath>
+          <itemPath>sources/Switch.cpp</itemPath>
+          <itemPath>sources/Switch.h</itemPath>
+          <itemPath>sources/TextBox.cpp</itemPath>
+          <itemPath>sources/TextBox.h</itemPath>
+          <itemPath>sources/VectorBox.cpp</itemPath>
+          <itemPath>sources/VectorBox.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f2" displayName="General" projectFiles="true">
+          <itemPath>sources/GuiManager.cpp</itemPath>
+          <itemPath>sources/GuiManager.h</itemPath>
+          <itemPath>sources/Layout.cpp</itemPath>
+          <itemPath>sources/Layout.h</itemPath>
+          <itemPath>sources/Pencil.cpp</itemPath>
+          <itemPath>sources/Pencil.h</itemPath>
+          <itemPath>sources/Skin.cpp</itemPath>
+          <itemPath>sources/Skin.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="Math" projectFiles="true">
+        <itemPath>sources/Mathematics.h</itemPath>
+        <itemPath>sources/Matrix4.cpp</itemPath>
+        <itemPath>sources/Matrix4.h</itemPath>
+        <itemPath>sources/Quaternion.cpp</itemPath>
+        <itemPath>sources/Quaternion.h</itemPath>
+        <itemPath>sources/Vector2.h</itemPath>
+        <itemPath>sources/Vector3.h</itemPath>
+        <itemPath>sources/Vector4.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="PPE" displayName="PPE" projectFiles="true">
+        <itemPath>sources/BloomEffect.cpp</itemPath>
+        <itemPath>sources/BloomEffect.h</itemPath>
+        <itemPath>sources/BlurEffect.cpp</itemPath>
+        <itemPath>sources/BlurEffect.h</itemPath>
+        <itemPath>sources/ColorEffect.cpp</itemPath>
+        <itemPath>sources/ColorEffect.h</itemPath>
+        <itemPath>sources/DofEffect.cpp</itemPath>
+        <itemPath>sources/DofEffect.h</itemPath>
+        <itemPath>sources/MotionBlurEffect.cpp</itemPath>
+        <itemPath>sources/MotionBlurEffect.h</itemPath>
+        <itemPath>sources/PostProcessManager.cpp</itemPath>
+        <itemPath>sources/PostProcessManager.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Scene" displayName="Scene" projectFiles="true">
+        <logicalFolder name="f3" displayName="General" projectFiles="true">
+          <itemPath>sources/Node.cpp</itemPath>
+          <itemPath>sources/Node.h</itemPath>
+          <itemPath>sources/ParallelScene.cpp</itemPath>
+          <itemPath>sources/ParallelScene.h</itemPath>
+          <itemPath>sources/PosMap.cpp</itemPath>
+          <itemPath>sources/PosMap.h</itemPath>
+          <itemPath>sources/SceneParser.cpp</itemPath>
+          <itemPath>sources/SceneParser.h</itemPath>
+          <itemPath>sources/Scenemanager.cpp</itemPath>
+          <itemPath>sources/Scenemanager.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f5" displayName="Lights" projectFiles="true">
+          <itemPath>sources/Light.cpp</itemPath>
+          <itemPath>sources/Light.h</itemPath>
+          <itemPath>D:/projets/cpp/tbengine/sources/LightParallelScene.cpp</itemPath>
+          <itemPath>D:/projets/cpp/tbengine/sources/LightParallelScene.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f1" displayName="Mesh" projectFiles="true">
+          <itemPath>sources/Ball3DMesh.cpp</itemPath>
+          <itemPath>sources/Ball3DMesh.h</itemPath>
+          <itemPath>sources/Heightmap.cpp</itemPath>
+          <itemPath>sources/Heightmap.h</itemPath>
+          <itemPath>sources/Material.cpp</itemPath>
+          <itemPath>sources/Material.h</itemPath>
+          <itemPath>sources/Mesh.cpp</itemPath>
+          <itemPath>sources/Mesh.h</itemPath>
+          <itemPath>sources/MeshParallelScene.cpp</itemPath>
+          <itemPath>sources/MeshParallelScene.h</itemPath>
+          <itemPath>sources/ObjMesh.cpp</itemPath>
+          <itemPath>sources/ObjMesh.h</itemPath>
+          <itemPath>sources/Primitives.cpp</itemPath>
+          <itemPath>sources/Primitives.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f2" displayName="Particles" projectFiles="true">
+          <itemPath>sources/BurningEmitter.cpp</itemPath>
+          <itemPath>sources/BurningEmitter.h</itemPath>
+          <itemPath>sources/Particles.cpp</itemPath>
+          <itemPath>sources/Particles.h</itemPath>
+          <itemPath>sources/ParticlesParallelScene.cpp</itemPath>
+          <itemPath>sources/ParticlesParallelScene.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f6" displayName="View" projectFiles="true">
+          <itemPath>sources/Camera.cpp</itemPath>
+          <itemPath>sources/Camera.h</itemPath>
+          <itemPath>sources/Fog.cpp</itemPath>
+          <itemPath>sources/Fog.h</itemPath>
+          <itemPath>sources/Frustum.cpp</itemPath>
+          <itemPath>sources/Frustum.h</itemPath>
+          <itemPath>sources/Skybox.cpp</itemPath>
+          <itemPath>sources/Skybox.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f4" displayName="Water" projectFiles="true">
+          <itemPath>sources/Water.cpp</itemPath>
+          <itemPath>sources/Water.h</itemPath>
+          <itemPath>sources/WaterParallelScene.cpp</itemPath>
+          <itemPath>sources/WaterParallelScene.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="f3" displayName="Time" projectFiles="true">
+        <itemPath>sources/Clock.cpp</itemPath>
+        <itemPath>sources/Clock.h</itemPath>
+        <itemPath>sources/FPSManager.cpp</itemPath>
+        <itemPath>sources/FPSManager.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>sources</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>MinGW|MinGW</compilerSet>
+        <assemblerRequired>true</assemblerRequired>
+        <dependencyChecking>false</dependencyChecking>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>D:/Librairies/cpp/Freetype/freetype-2.3.9/include</pElem>
+            <pElem>D:/librairies/cpp/devil/DevIL-SDK-x86-1.7.8/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>TBE_COMPILE_DEBUG</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>MinGW|MinGW</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <stripSymbols>true</stripSymbols>
+          <incDir>
+            <pElem>D:/Librairies/cpp/Freetype/freetype-2.3.9/include</pElem>
+            <pElem>D:/librairies/cpp/devil/DevIL-SDK-x86-1.7.8/include</pElem>
+          </incDir>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>

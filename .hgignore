@@ -3,7 +3,7 @@ demos
 dist
 ignore
 sourcesold
-nbproject
+private
 
 .dep.inc
 Makefile
