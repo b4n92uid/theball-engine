@@ -225,7 +225,7 @@ bool SceneParser::parseBlock(std::ifstream& file, Relation& rel, unsigned& line)
             unsigned sep = buffer.find_first_of('=');
 
             if(sep == string::npos)
-                throw tbe::Exception("SceneParser::ParseRelation; invalid assignement %d (%s)", line, buffer.c_str());
+                throw tbe::Exception("SceneParser::parseRelation; invalid assignement %d (%s)", line, buffer.c_str());
 
             string key(buffer, 0, sep), value(buffer, sep + 1);
 
@@ -241,7 +241,7 @@ void SceneParser::loadScene(const std::string& filepath)
     ifstream file(filepath.c_str());
 
     if(!file)
-        throw tbe::Exception("BLDLoader::LoadScene; Open file error (%s)", filepath.c_str());
+        throw tbe::Exception("SceneParser::loadScene; Open file error (%s)", filepath.c_str());
 
     m_fileName = filepath;
 
