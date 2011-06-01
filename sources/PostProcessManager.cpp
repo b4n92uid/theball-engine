@@ -152,7 +152,7 @@ void PostProcessManager::render()
 
 Effect::Effect()
 {
-    m_workRtt = new Rtt(127);
+    m_workRtt = new Rtt(128);
     m_workRtt->setCaptureColor(true);
     m_workRtt->setCaptureDepth(true);
 
