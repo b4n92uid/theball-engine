@@ -101,6 +101,18 @@ inline std::string basename(std::string filename, bool withExt = true)
         return filename.substr(pos + 1, filename.find_last_of('.'));
 }
 
+inline std::string joinstr(std::vector<std::string> vec, char glue)
+{
+    std::string out;
+
+    for(unsigned i = 0; i < vec.size() - 1; i++)
+        out += vec[i] + glue;
+
+    out += vec.back();
+
+    return out;
+}
+
 /**
  * Renvois le chemin du fichier 'relfile' relatif a au chemin
  *  du fichier 'absfile'
@@ -113,30 +125,95 @@ inline std::string pathScope(std::string absfile, std::string relfile, bool abso
 {
     using namespace std;
 
-    absfile = toSlashSeprator(absfile); // D:/projets/cpp/tbengine/demos/bin/medias/landscape.scene
-    relfile = toSlashSeprator(relfile); // D:/projets/cpp/tbengine/demos/bin/medias/skybox/zpos.jpg
+    // C:/dir1/dir2/dir3/file.ext
+    // dir4/img.jpg
 
-    unsigned lastslash = 0;
+    // C:/dir1/dir2/dir3/file.ext
+    // ../dir3.2/zpos.jpg
+
+    // C:/dir1/dir2/dir3/file.ext
+    // C:/dir1/dir2/dir3/dir4/img.jpg
+
+    absfile = toSlashSeprator(absfile);
+    relfile = toSlashSeprator(relfile);
+
+    vector<string> abscomp;
+    vector<string> relcomp;
+
+    unsigned sc = 0;
 
     for(unsigned i = 0; i < absfile.size(); i++)
     {
         if(absfile[i] == '/')
-            lastslash = i;
-
-        if(absfile[i] != relfile[i])
-            break;
+        {
+            abscomp.push_back(absfile.substr(sc, i - sc));
+            sc = i + 1;
+        }
     }
 
-    if(lastslash > 0)
-        relfile.erase(0, lastslash + 1);
+    abscomp.push_back(absfile.substr(sc));
+
+    sc = 0;
+
+    for(unsigned i = 0; i < relfile.size(); i++)
+    {
+        if(relfile[i] == '/')
+        {
+            relcomp.push_back(relfile.substr(sc, i - sc));
+            sc = i + 1;
+        }
+    }
+
+    relcomp.push_back(relfile.substr(sc));
+
+    abscomp.pop_back();
+
+    bool relisabs =
+            #if __WIN32__
+            relcomp.front()[1] == ':';
+            #elif __linux__
+            relfile[0] == '/';
+    #endif
+
+    string out;
 
     if(absoluteOut)
     {
-        unsigned pos = absfile.find_last_of('/');
-        return absfile.substr(0, pos + 1) + relfile;
+        while(!relcomp.empty())
+            if(relcomp.front() == "..")
+            {
+                abscomp.pop_back();
+                relcomp.erase(relcomp.begin());
+            }
+            else
+                break;
+
+        if(relisabs)
+            out = relfile;
+        else
+            out = joinstr(abscomp, '/') + '/' + joinstr(relcomp, '/');
     }
     else
-        return relfile;
+    {
+        bool done = false;
+
+        for(unsigned i = 0; i < abscomp.size(); i++)
+        {
+            if(abscomp[i] != relcomp[i])
+            {
+                relcomp.erase(relcomp.begin(), relcomp.begin() + i);
+                done = true;
+                break;
+            }
+        }
+
+        if(!done)
+            relcomp.erase(relcomp.begin(), relcomp.begin() + abscomp.size());
+
+        out = joinstr(relcomp, '/');
+    }
+
+    return out;
 }
 
 /**
