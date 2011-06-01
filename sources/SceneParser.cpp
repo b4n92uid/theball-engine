@@ -498,6 +498,15 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         if(rel.attr.count("matrix"))
             current->setMatrix(rel.attr["matrix"]);
 
+        for(AttribMap::iterator it = rel.attr.begin(); it != rel.attr.end(); it++)
+        {
+            if(it->first[0] == '.')
+            {
+                string key(it->first, 1);
+                current->setUserData(key, it->second);
+            }
+        }
+
         for(unsigned i = 0; i < rel.child.size(); i++)
             parseNode(rel.child[i], current);
     }

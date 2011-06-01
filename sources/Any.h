@@ -86,13 +86,13 @@ public:
         m_data = new DataHolder<T > (value);
     }
 
-    template<typename T> T getValue()
+    template<typename T> T getValue() const
     {
         DataHolder < T >* dh = static_cast<DataHolder < T >*>(m_data);
         return dh->content;
     }
 
-    bool isNull()
+    bool isNull() const
     {
         return (m_data == NULL);
     }

@@ -352,5 +352,8 @@ Node::CtorMap Node::constructionMap(std::string root)
     ctormap["name"] = m_name;
     ctormap["matrix"] = tools::mat4ToStr(m_matrix);
 
+    for(Any::Map::iterator it = m_userDatas.begin(); it != m_userDatas.end(); it++)
+        ctormap["." + it->first] = it->second.getValue<string > ();
+
     return ctormap;
 }
