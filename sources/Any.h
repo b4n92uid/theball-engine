@@ -103,6 +103,9 @@ public:
             delete m_data, m_data = NULL;
     }
 
+    typedef std::map<std::string, Any> Map;
+    typedef std::vector<Any> Array;
+
 private:
 
     class Data

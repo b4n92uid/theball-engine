@@ -304,9 +304,19 @@ Node* Node::getChild(unsigned index) const
     return m_childs[index];
 }
 
+const Any::Map Node::getUserDatas() const
+{
+    return m_userDatas;
+}
+
 void Node::setUserData(std::string key, Any value)
 {
     m_userDatas[key] = value;
+}
+
+bool Node::hasUserData(std::string key) const
+{
+    return m_userDatas.find(key) != m_userDatas.end();
 }
 
 Any Node::getUserData(std::string key) const

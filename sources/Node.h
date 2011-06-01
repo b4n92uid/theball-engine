@@ -112,6 +112,10 @@ public:
     void setUserData(std::string key, Any value);
     Any getUserData(std::string key) const;
 
+    bool hasUserData(std::string key) const;
+
+    const Any::Map getUserDatas() const;
+
     typedef std::map<std::string, std::string> CtorMap;
 
     virtual CtorMap constructionMap(std::string root);
@@ -130,7 +134,7 @@ protected:
     Node* m_parent;
     Node::Array m_childs;
 
-    std::map<std::string, Any> m_userDatas;
+    Any::Map m_userDatas;
 };
 
 class BullNode : public Node
