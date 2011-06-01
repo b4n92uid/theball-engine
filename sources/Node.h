@@ -109,8 +109,8 @@ public:
 
     virtual void render() = 0;
 
-    void setUserData(Any userData);
-    Any getUserData() const;
+    void setUserData(std::string key, Any value);
+    Any getUserData(std::string key) const;
 
     typedef std::map<std::string, std::string> CtorMap;
 
@@ -130,7 +130,7 @@ protected:
     Node* m_parent;
     Node::Array m_childs;
 
-    Any m_userData;
+    std::map<std::string, Any> m_userDatas;
 };
 
 class BullNode : public Node

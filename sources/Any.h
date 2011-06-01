@@ -8,6 +8,8 @@
 #ifndef _ANY_H
 #define	_ANY_H
 
+#include <string>
+
 namespace tbe
 {
 
@@ -34,6 +36,20 @@ public:
         m_data = NULL;
 
         setValue(value);
+    }
+
+    Any(char* value)
+    {
+        m_data = NULL;
+
+        setValue(std::string(value));
+    }
+
+    Any(const char* value)
+    {
+        m_data = NULL;
+
+        setValue(std::string(value));
     }
 
     ~Any()

@@ -304,14 +304,19 @@ Node* Node::getChild(unsigned index) const
     return m_childs[index];
 }
 
-void Node::setUserData(Any userData)
+void Node::setUserData(std::string key, Any value)
 {
-    this->m_userData = userData;
+    m_userDatas[key] = value;
 }
 
-Any Node::getUserData() const
+Any Node::getUserData(std::string key) const
 {
-    return m_userData;
+    map<string, Any>::const_iterator it = m_userDatas.find(key);
+
+    if(it == m_userDatas.end())
+        throw Exception("Node::getUserData; undifined key %s", key.c_str());
+    else
+        return it->second;
 }
 
 Iterator<Node*> Node::getChildIterator()
