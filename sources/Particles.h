@@ -79,7 +79,7 @@ public:
     void setBlendEq(BlendEq blendEq);
     BlendEq getBlendEq() const;
 
-    Node* clone();
+    ParticlesEmiter* clone();
 
     void process();
 

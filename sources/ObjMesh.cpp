@@ -45,6 +45,11 @@ OBJMesh& OBJMesh::operator=(const OBJMesh& copy)
     return *this;
 }
 
+OBJMesh* OBJMesh::clone()
+{
+    return new OBJMesh(*this);
+}
+
 OBJMesh::~OBJMesh()
 {
 }

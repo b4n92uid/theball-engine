@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Ball3DMesh.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 25 novembre 2010, 17:45
  */
 
@@ -33,6 +33,11 @@ Ball3DMesh::~Ball3DMesh()
 Ball3DMesh & Ball3DMesh::operator=(const Ball3DMesh& copy)
 {
     return *this;
+}
+
+Ball3DMesh* Ball3DMesh::clone()
+{
+    return new Ball3DMesh(*this);
 }
 
 void Ball3DMesh::readVertexs(std::ifstream& file)

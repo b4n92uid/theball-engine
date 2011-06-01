@@ -72,7 +72,7 @@ Mesh& Mesh::operator=(const Mesh& copy)
     return *this;
 }
 
-Node* Mesh::clone()
+Mesh* Mesh::clone()
 {
     return new Mesh(*this);
 }

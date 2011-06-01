@@ -48,6 +48,8 @@ public:
 
     ~OBJMesh();
 
+    OBJMesh* clone();
+
     OBJMesh & operator=(const OBJMesh& copy);
 
     void open(const std::string& path);

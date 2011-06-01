@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Ball3DMesh.h
  * Author: b4n92uid
  *
@@ -33,6 +33,8 @@ public:
     Ball3DMesh & operator=(const Ball3DMesh& copy);
 
     void open(std::string filepath);
+
+    Ball3DMesh* clone();
 
     std::string getFilename();
 

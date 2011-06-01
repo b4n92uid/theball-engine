@@ -326,7 +326,7 @@ bool ParticlesEmiter::checkHardware()
     return GLEE_ARB_point_sprite && GLEE_ARB_point_parameters;
 }
 
-Node* ParticlesEmiter::clone()
+ParticlesEmiter* ParticlesEmiter::clone()
 {
     return new ParticlesEmiter(*this);
 }

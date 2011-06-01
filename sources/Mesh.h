@@ -35,7 +35,7 @@ public:
     Mesh & operator=(const Mesh& copy);
 
     /// Méthode polymorphique de clonage du noueud
-    Node* clone();
+    Mesh* clone();
 
     /// Rendue
     void render();
