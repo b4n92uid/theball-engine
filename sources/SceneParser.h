@@ -91,6 +91,8 @@ public:
 
     void removeAdditional(std::string key);
 
+    void clearAdditional();
+
     const AttribMap additionalFields() const;
 
 protected:

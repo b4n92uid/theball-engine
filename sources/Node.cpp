@@ -314,6 +314,17 @@ void Node::setUserData(std::string key, Any value)
     m_userDatas[key] = value;
 }
 
+void Node::clearUserData()
+{
+    m_userDatas.clear();
+}
+
+void Node::delUserData(std::string key)
+{
+    if(m_userDatas.count(key))
+        m_userDatas.erase(key);
+}
+
 bool Node::hasUserData(std::string key) const
 {
     return m_userDatas.find(key) != m_userDatas.end();

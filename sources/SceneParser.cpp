@@ -146,10 +146,13 @@ void SceneParser::saveScene(const std::string& filepath)
     file << "ambient=" << m_sceneManager->getAmbientLight() << endl;
     file << endl;
 
-    file << "*additional" << endl;
-    for(AttribMap::iterator it = m_additional.begin(); it != m_additional.end(); it++)
-        file << it->first << "=" << it->second << endl;
-    file << endl;
+    if(m_additional.size())
+    {
+        file << "*additional" << endl;
+        for(AttribMap::iterator it = m_additional.begin(); it != m_additional.end(); it++)
+            file << it->first << "=" << it->second << endl;
+        file << endl;
+    }
 
     Fog* fog = m_sceneManager->getFog();
 
@@ -515,6 +518,11 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
 const SceneParser::AttribMap SceneParser::additionalFields() const
 {
     return m_additional;
+}
+
+void SceneParser::clearAdditional()
+{
+    m_additional.clear();
 }
 
 void SceneParser::removeAdditional(std::string key)

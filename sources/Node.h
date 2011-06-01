@@ -112,6 +112,10 @@ public:
     void setUserData(std::string key, Any value);
     Any getUserData(std::string key) const;
 
+    void delUserData(std::string key);
+
+    void clearUserData();
+
     bool hasUserData(std::string key) const;
 
     const Any::Map getUserDatas() const;
