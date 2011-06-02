@@ -61,6 +61,9 @@ Material& Material::operator=(const Material& copy)
 
     m_alphaThershold = copy.m_alphaThershold;
 
+    m_depthTest = copy.m_depthTest;
+    m_depthWrite = copy.m_depthWrite;
+
     return *this;
 }
 
