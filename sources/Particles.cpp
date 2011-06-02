@@ -48,7 +48,7 @@ ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
 
     glGenBuffersARB(1, &m_renderId);
 
-    *this = copy;
+    this->copy(copy);
 
     m_parallelScene->registerNode(this);
 }
@@ -66,24 +66,32 @@ ParticlesEmiter& ParticlesEmiter::operator=(const ParticlesEmiter& copy)
 {
     Node::operator=(copy);
 
+    return this->copy(copy);
+}
+
+ParticlesEmiter& ParticlesEmiter::copy(const ParticlesEmiter& copy)
+{
     m_deadEmiter = copy.m_deadEmiter;
     m_depthTest = copy.m_depthTest;
     m_number = copy.m_number;
     m_drawNumber = copy.m_drawNumber;
 
+    m_blendEq = copy.m_blendEq;
+
+    m_texture = copy.m_texture;
+
     m_lifeInit = copy.m_lifeInit;
     m_lifeDown = copy.m_lifeDown;
-
     m_freeMove = copy.m_freeMove;
 
     m_continousMode = copy.m_continousMode;
     m_autoRebuild = copy.m_autoRebuild;
 
+    m_brustCount = copy.m_brustCount;
+
+    m_emitPos = copy.m_emitPos;
     m_gravity = copy.m_gravity;
     m_boxSize = copy.m_boxSize;
-
-    m_blendEq = copy.m_blendEq;
-    m_texture = copy.m_texture;
 
     Node::m_parallelScene = m_parallelScene = copy.m_parallelScene;
 

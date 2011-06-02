@@ -169,6 +169,8 @@ private:
 
     RenderProcess::Array m_renderProess;
     Material::Map m_materials;
+
+    Mesh& copy(const Mesh& copy);
 };
 
 }

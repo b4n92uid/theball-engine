@@ -23,12 +23,6 @@ namespace scene
 
 class SceneManager;
 
-class ClassFactory
-{
-public:
-    virtual Mesh* Instance(std::string type, MeshParallelScene* meshScene) = 0;
-};
-
 class SceneParser
 {
 public:

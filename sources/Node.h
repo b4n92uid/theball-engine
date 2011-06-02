@@ -139,6 +139,9 @@ protected:
     Node::Array m_childs;
 
     Any::Map m_userDatas;
+
+private:
+    Node& copy(const Node& copy);
 };
 
 class BullNode : public Node

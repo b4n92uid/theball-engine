@@ -153,6 +153,8 @@ private:
     Particle::Array m_particles;
     GLuint m_renderId;
     bool m_pointsprite;
+
+    ParticlesEmiter& copy(const ParticlesEmiter& copy);
 };
 
 }

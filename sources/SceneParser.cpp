@@ -455,18 +455,18 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
 
     else if(iclass == "Light")
     {
-        Light* light = NULL;
+        Light* light = new Light(m_lightScene);
 
         if(rel.attr["type"] == "Diri")
         {
-            light = new DiriLight(m_lightScene);
+            light->setType(Light::DIRI);
         }
 
         else if(rel.attr["type"] == "Point")
         {
             float radius = tools::strToNum<float>(rel.attr["radius"]);
 
-            light = new PointLight(m_lightScene);
+            light->setType(Light::POINT);
             light->setRadius(radius);
         }
 

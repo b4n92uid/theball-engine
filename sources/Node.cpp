@@ -23,21 +23,13 @@ Node::Node()
     m_parent = NULL;
 }
 
-void Node::setSceneManager(SceneManager* sceneManager)
-{
-    this->m_sceneManager = sceneManager;
-}
-
-SceneManager* Node::getSceneManager() const
-{
-    return m_sceneManager;
-}
-
 Node::Node(const Node& copy)
 {
+    m_enable = true;
+    m_parallelScene = NULL;
     m_parent = NULL;
 
-    *this = copy;
+    this->copy(copy);
 }
 
 Node::~Node()
@@ -49,6 +41,11 @@ Node::~Node()
 }
 
 Node& Node::operator =(const Node& copy)
+{
+    return this->copy(copy);
+}
+
+Node& Node::copy(const Node& copy)
 {
     m_name = copy.m_name;
     m_matrix = copy.m_matrix;
@@ -367,4 +364,14 @@ Node::CtorMap Node::constructionMap(std::string root)
         ctormap["." + it->first] = it->second.getValue<string > ();
 
     return ctormap;
+}
+
+void Node::setSceneManager(SceneManager* sceneManager)
+{
+    this->m_sceneManager = sceneManager;
+}
+
+SceneManager* Node::getSceneManager() const
+{
+    return m_sceneManager;
 }

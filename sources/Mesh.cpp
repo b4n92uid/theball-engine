@@ -30,7 +30,7 @@ Mesh::Mesh(MeshParallelScene* scene)
 
 Mesh::Mesh(const Mesh& copy) : Node(copy)
 {
-    *this = copy;
+    this->copy(copy);
 
     m_parallelScene->registerNode(this);
 }
@@ -47,6 +47,11 @@ Mesh& Mesh::operator=(const Mesh& copy)
 {
     Node::operator=(copy);
 
+    return this->copy(copy);
+}
+
+Mesh& Mesh::copy(const Mesh& copy)
+{
     Node::m_parallelScene = m_parallelScene = copy.m_parallelScene;
 
     m_triangulate = copy.m_triangulate;
