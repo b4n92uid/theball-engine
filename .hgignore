@@ -5,9 +5,6 @@ ignore
 sourcesold
 private
 
-.dep.inc
-Makefile
-
 syntax: glob
 **.exe
 **.dll
