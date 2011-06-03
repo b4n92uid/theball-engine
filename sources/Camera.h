@@ -66,6 +66,8 @@ public:
     void setCameraType(CameraType cameraType);
     CameraType getCameraType() const;
 
+    void setAngle(float phi, float theta);
+
 protected:
     CameraType m_cameraType;
     Vector3f m_pos, m_target, m_left, m_up;
