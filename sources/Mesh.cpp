@@ -26,6 +26,8 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_sceneManager = m_parallelScene->getSceneManager();
 
     m_parallelScene->registerNode(this);
+
+    m_opacity = 1;
 }
 
 Mesh::Mesh(const Mesh& copy) : Node(copy)
@@ -58,6 +60,7 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_withNormal = copy.m_withNormal;
     m_withTexCoord = copy.m_withTexCoord;
     m_visible = copy.m_visible;
+    m_opacity = copy.m_opacity;
 
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
@@ -645,6 +648,24 @@ unsigned Mesh::getMaterialCount()
     return m_materials.size();
 }
 
+void Mesh::setOpacity(float opacity)
+{
+    this->m_opacity = opacity;
+
+    Vertex* vertex = m_hardwareBuffer.lock();
+
+    unsigned count = m_hardwareBuffer.getVertexCount();
+    for(unsigned i = 0; i < count; i++)
+        vertex[i].color.w = m_opacity;
+
+    m_hardwareBuffer.unlock();
+}
+
+float Mesh::getOpacity() const
+{
+    return m_opacity;
+}
+
 void Mesh::applyColor(std::string materialName, Vector4f color)
 {
     Vector2i::Array apply = getMaterialApply(materialName);
@@ -656,6 +677,23 @@ void Mesh::applyColor(std::string materialName, Vector4f color)
             vertex[j + apply[i].x].color = color;
 
     m_hardwareBuffer.unlock();
+}
+
+void Mesh::applyColor(Vector4f color)
+{
+    Vertex* vertex = m_hardwareBuffer.lock();
+
+    unsigned count = m_hardwareBuffer.getVertexCount();
+    for(unsigned i = 0; i < count; i++)
+        vertex[i].color = color;
+
+    m_hardwareBuffer.unlock();
+}
+
+void Mesh::applyShader(std::string materialName, Shader shader)
+{
+    m_materials[materialName]->setShader(shader);
+    m_materials[materialName]->enable(Material::SHADER);
 }
 
 void Mesh::applyShader(Shader shader)

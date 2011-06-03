@@ -80,10 +80,15 @@ public:
     Material::Array getAllMaterial();
 
     /// Applique un shader a tout les materieux du mesh
+    void applyShader(std::string materialName, Shader shader);
     void applyShader(Shader shader);
 
     /// Applique une couleur a tout les vertecies du mesh
     void applyColor(std::string materialName, Vector4f color);
+    void applyColor(Vector4f color);
+
+    void setOpacity(float opacity);
+    float getOpacity() const;
 
     /// Supprime le materieux name
     void deleteMaterial(std::string name);
@@ -171,6 +176,8 @@ private:
     Material::Map m_materials;
 
     Mesh& copy(const Mesh& copy);
+
+    float m_opacity;
 };
 
 }
