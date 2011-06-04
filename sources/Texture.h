@@ -88,6 +88,13 @@ public:
     /// Remplis la texture par la valeur color [0;255]
     void fill(Vector4i color);
 
+    enum Filtring
+    {
+        NEAREST = 2,
+        LINEAR = 4,
+        MIPMAP = 8,
+    };
+
     /// Spécifier le filtring appliquer a la texture
     void setFiltring(unsigned filtring);
 
@@ -110,12 +117,16 @@ public:
     /// Renvois le chemin d'accée a la texture par un fichier
     std::string getFilename() const;
 
-    enum Filtring
+    enum MulTexBlend
     {
-        NEAREST,
-        LINEAR,
-        MIPMAP,
+        MODULATE,
+        REPLACE,
+        ADDITIVE,
     };
+
+    void setMulTexBlend(MulTexBlend flags);
+
+    MulTexBlend getMulTexBlend();
 
     /**
      * Supprime toute les texture partager
@@ -126,12 +137,18 @@ public:
     typedef std::map<unsigned, Texture> Map;
 
 protected:
+
     std::string m_filename;
+
     GLuint m_textureName;
+
     Vector2i m_size;
-    unsigned m_filtring;
+
     bool m_genMipMap;
     bool m_upperLeftOrigin;
+
+    unsigned m_filtring;
+    MulTexBlend m_mulTexBlend;
 };
 
 }

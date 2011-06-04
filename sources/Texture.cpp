@@ -58,6 +58,7 @@ Texture::Texture()
     m_filtring = 0;
     m_genMipMap = false;
     m_upperLeftOrigin = false;
+    m_mulTexBlend = MODULATE;
 }
 
 Texture::Texture(const Texture& copy)
@@ -110,6 +111,7 @@ Texture& Texture::operator =(const Texture& copy)
     m_size = copy.m_size;
     m_textureName = copy.m_textureName;
     m_upperLeftOrigin = copy.m_upperLeftOrigin;
+    m_mulTexBlend = copy.m_mulTexBlend;
 
     return *this;
 }
@@ -353,4 +355,14 @@ Texture::operator bool() const
 Texture::operator GLuint() const
 {
     return m_textureName;
+}
+
+void Texture::setMulTexBlend(MulTexBlend flags)
+{
+    m_mulTexBlend = flags;
+}
+
+Texture::MulTexBlend Texture::getMulTexBlend()
+{
+    return m_mulTexBlend;
 }

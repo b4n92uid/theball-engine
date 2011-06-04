@@ -342,8 +342,6 @@ void Mesh::render(Material* material, unsigned offset, unsigned size)
 
     if(material->m_renderFlags & Material::TEXTURE)
     {
-        m_hardwareBuffer.bindTexture();
-
         Texture::Map& textures = material->m_textures;
 
         for(Texture::Map::iterator itt = textures.begin();
@@ -355,10 +353,23 @@ void Mesh::render(Material* material, unsigned offset, unsigned size)
             unsigned textureIndex = GL_TEXTURE0 + itt->first;
 
             glClientActiveTexture(textureIndex);
+            m_hardwareBuffer.bindTexture();
+
             glActiveTexture(textureIndex);
             glEnable(GL_TEXTURE_2D);
 
             itt->second.use(true);
+
+            unsigned multexb = itt->second.getMulTexBlend();
+
+            if(multexb == Texture::REPLACE)
+                glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+            else if(multexb == Texture::ADDITIVE)
+                glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
+
+            else if(multexb == Texture::MODULATE)
+                glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
         }
     }
 
