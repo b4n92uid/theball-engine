@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Material.h
  * Author: b4n92uid
  *
@@ -43,6 +43,7 @@ public:
 
     void setTexture(Texture texture, unsigned index = 0);
     Texture getTexture(unsigned index = 0) const;
+    void dropTexture(unsigned index = 0);
 
     unsigned getTexturesCount() const;
 

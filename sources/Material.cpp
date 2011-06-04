@@ -170,6 +170,11 @@ unsigned Material::getTexturesCount() const
     return m_textures.size();
 }
 
+void Material::dropTexture(unsigned index)
+{
+    m_textures.erase(index);
+}
+
 void Material::setShininess(float shininess)
 {
     m_shininess = shininess;

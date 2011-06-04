@@ -55,9 +55,9 @@ void Texture::resetCache()
 Texture::Texture()
 {
     m_textureName = 0;
-    m_filtring = 0;
     m_genMipMap = false;
     m_upperLeftOrigin = false;
+    m_filtring = 0;
     m_mulTexBlend = MODULATE;
 }
 
@@ -68,37 +68,29 @@ Texture::Texture(const Texture& copy)
 
 Texture::Texture(std::string filename, bool genMipMap, bool upperLeftOrigin)
 {
+    m_textureName = 0;
+    m_genMipMap = false;
+    m_upperLeftOrigin = false;
+    m_filtring = 0;
+    m_mulTexBlend = MODULATE;
+
     load(filename, genMipMap, upperLeftOrigin);
 }
 
 Texture::Texture(const char* filename, bool genMipMap, bool upperLeftOrigin)
 {
+    m_textureName = 0;
+    m_genMipMap = false;
+    m_upperLeftOrigin = false;
+    m_filtring = 0;
+    m_mulTexBlend = MODULATE;
+
     load(filename, genMipMap, upperLeftOrigin);
 }
 
 Texture::~Texture()
 {
     release();
-}
-
-void Texture::remove()
-{
-    if(m_textureName)
-    {
-        glDeleteTextures(1, &m_textureName);
-        m_textureName = 0;
-    }
-}
-
-void Texture::release()
-{
-    if(manager.count(this))
-    {
-        manager.erase(this);
-
-        if(!manager.IsExist(m_filename))
-            remove();
-    }
 }
 
 Texture& Texture::operator =(const Texture& copy)
@@ -128,6 +120,41 @@ Texture& Texture::operator =(std::string filename)
     load(filename);
 
     return *this;
+}
+
+bool Texture::operator!() const
+{
+    return !m_textureName;
+}
+
+Texture::operator bool() const
+{
+    return m_textureName;
+}
+
+Texture::operator GLuint() const
+{
+    return m_textureName;
+}
+
+void Texture::remove()
+{
+    if(m_textureName)
+    {
+        glDeleteTextures(1, &m_textureName);
+        m_textureName = 0;
+    }
+}
+
+void Texture::release()
+{
+    if(manager.count(this))
+    {
+        manager.erase(this);
+
+        if(!manager.IsExist(m_filename))
+            remove();
+    }
 }
 
 void Texture::load(std::string filename, bool genMipMap, bool upperLeftOrigin)
@@ -340,21 +367,6 @@ bool Texture::isGenMipMap() const
 std::string Texture::getFilename() const
 {
     return m_filename;
-}
-
-bool Texture::operator!() const
-{
-    return !m_textureName;
-}
-
-Texture::operator bool() const
-{
-    return m_textureName;
-}
-
-Texture::operator GLuint() const
-{
-    return m_textureName;
 }
 
 void Texture::setMulTexBlend(MulTexBlend flags)
