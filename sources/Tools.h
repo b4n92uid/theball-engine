@@ -13,6 +13,7 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include <vector>
 
 #include "Mathematics.h"
 #include "AABB.h"
@@ -125,15 +126,6 @@ inline std::string pathScope(std::string absfile, std::string relfile, bool abso
 {
     using namespace std;
 
-    // C:/dir1/dir2/dir3/file.ext
-    // dir4/img.jpg
-
-    // C:/dir1/dir2/dir3/file.ext
-    // ../dir3.2/zpos.jpg
-
-    // C:/dir1/dir2/dir3/file.ext
-    // C:/dir1/dir2/dir3/dir4/img.jpg
-
     absfile = toSlashSeprator(absfile);
     relfile = toSlashSeprator(relfile);
 
@@ -202,6 +194,8 @@ inline std::string pathScope(std::string absfile, std::string relfile, bool abso
             if(abscomp[i] != relcomp[i])
             {
                 relcomp.erase(relcomp.begin(), relcomp.begin() + i);
+                if(relisabs)
+                    relcomp.insert(relcomp.begin(), abscomp.size() - i, "..");
                 done = true;
                 break;
             }
