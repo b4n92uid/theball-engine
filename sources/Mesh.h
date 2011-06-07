@@ -84,8 +84,8 @@ public:
     void applyShader(Shader shader);
 
     /// Applique une couleur a tout les vertecies du mesh
-    void applyColor(std::string materialName, Vector4f color);
-    void applyColor(Vector4f color);
+    void setColor(Vector4f color);
+    Vector4f getColor();
 
     void setOpacity(float opacity);
     float getOpacity() const;
@@ -138,6 +138,9 @@ public:
 
     CtorMap constructionMap(std::string root);
 
+    void setOutputMaterial(bool outputMaterial);
+    bool isOutputMaterial() const;
+
     typedef std::map<std::string, Mesh*> Map;
     typedef std::vector<Mesh*> Array;
 
@@ -146,6 +149,7 @@ protected:
     bool m_withNormal;
     bool m_withTexCoord;
     bool m_visible;
+    bool m_outputMaterial;
 
     HardwareBuffer m_hardwareBuffer;
 
@@ -178,6 +182,8 @@ private:
     Mesh& copy(const Mesh& copy);
 
     float m_opacity;
+
+    Vector4f m_color;
 };
 
 }

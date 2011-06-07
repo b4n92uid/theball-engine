@@ -380,6 +380,90 @@ void SceneParser::parseSkyBox(AttribMap& att)
     sky->setEnable(true);
 }
 
+inline void toogleMaterial(Material* material, int mod, string stat)
+{
+    tools::strToNum<bool>(stat)
+            ? material->enable(mod)
+            : material->disable(mod);
+}
+
+void SceneParser::parseMaterial(AttribMap& att, Mesh* mesh)
+{
+    mesh->setOutputMaterial(false);
+
+    for(AttribMap::iterator it = att.begin(); it != att.end(); it++)
+    {
+        string key = it->first;
+
+        if(key[0] == '!')
+        {
+            mesh->setOutputMaterial(true);
+
+            key.erase(0, 1);
+
+            unsigned pos = key.find(':');
+
+            if(pos == string::npos)
+            {
+                if(key == "opacity")
+                    mesh->setOpacity(tools::strToNum<float>(it->second));
+            }
+
+            else
+            {
+                vector<string> token = tools::tokenize(key, ':');
+
+                string matname = token[0];
+                string attributs = token[1];
+
+                Material* material = mesh->getMaterial(matname);
+
+                if(attributs == "texture")
+                {
+                    vector<string> valtoken = tools::tokenize(it->second, ';');
+
+                    Texture tex;
+                    tex.load(valtoken[0], true);
+
+                    if(valtoken[1] == "additive")
+                        tex.setMulTexBlend(Texture::ADDITIVE);
+                    if(valtoken[1] == "modulate")
+                        tex.setMulTexBlend(Texture::MODULATE);
+                    if(valtoken[1] == "replace")
+                        tex.setMulTexBlend(Texture::REPLACE);
+
+                    material->setTexture(tex, tools::strToNum<int>(token[2]));
+                }
+
+                else
+                {
+                    if(attributs == "alphaThershold")
+                        material->setAlphaThershold(tools::strToNum<float>(it->second));
+                    if(attributs == "blendMod")
+                        toogleMaterial(material, Material::BLEND_MOD, it->second);
+                    if(attributs == "blendMul")
+                        toogleMaterial(material, Material::BLEND_MUL, it->second);
+                    if(attributs == "blendAdd")
+                        toogleMaterial(material, Material::BLEND_ADD, it->second);
+                    if(attributs == "alpha")
+                        toogleMaterial(material, Material::ALPHA, it->second);
+                    if(attributs == "frontFaceCull")
+                        toogleMaterial(material, Material::FRONTFACE_CULL, it->second);
+                    if(attributs == "backFaceCull")
+                        toogleMaterial(material, Material::BACKFACE_CULL, it->second);
+                    if(attributs == "lighted")
+                        toogleMaterial(material, Material::LIGHT, it->second);
+                    if(attributs == "textured")
+                        toogleMaterial(material, Material::TEXTURE, it->second);
+                    if(attributs == "colored")
+                        toogleMaterial(material, Material::COLOR, it->second);
+                }
+
+            }
+        }
+    }
+}
+
 void SceneParser::parseNode(Relation& rel, Node* parent)
 {
     const string& iclass = rel.attr["class"];
@@ -419,6 +503,8 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
             modelFilepath = tools::pathScope(m_fileName, rel.attr["filename"], true);
 
         node->open(modelFilepath);
+
+        parseMaterial(rel.attr, node);
 
         current = node;
     }

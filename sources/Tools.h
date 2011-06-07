@@ -102,9 +102,70 @@ inline std::string basename(std::string filename, bool withExt = true)
         return filename.substr(pos + 1, filename.find_last_of('.'));
 }
 
+template<typename T> std::vector<T> tokenize(std::string str, char sep, bool skipempty = false)
+{
+    std::vector<T> tokens;
+
+    unsigned lastoffet = 0;
+    for(unsigned i = 0; i < str.size(); i++)
+        if(str[i] == sep)
+        {
+            if(i == lastoffet)
+                if(skipempty)
+                    continue;
+                else
+                    tokens.push_back(T());
+
+            else
+            {
+                T value;
+
+                std::stringstream ss(str.substr(lastoffet, i - lastoffet));
+                ss >> value;
+
+                tokens.push_back(value);
+                lastoffet = i + 1;
+            }
+        }
+
+    tokens.push_back(str.substr(lastoffet));
+
+    return tokens;
+}
+
+inline std::vector<std::string> tokenize(std::string str, char sep, bool skipempty = false)
+{
+    using namespace std;
+
+    vector<string> tokens;
+
+    unsigned lastoffet = 0;
+
+    for(unsigned i = 0; i < str.size(); i++)
+        if(str[i] == sep)
+        {
+            if(i == lastoffet)
+                if(skipempty)
+                    continue;
+                else
+                    tokens.push_back(string());
+
+            else
+                tokens.push_back(str.substr(lastoffet, i - lastoffet));
+
+            lastoffet = i + 1;
+        }
+
+    tokens.push_back(str.substr(lastoffet));
+
+    return tokens;
+}
+
 inline std::string joinstr(std::vector<std::string> vec, char glue)
 {
-    std::string out;
+    using namespace std;
+
+    string out;
 
     for(unsigned i = 0; i < vec.size() - 1; i++)
         out += vec[i] + glue;

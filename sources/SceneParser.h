@@ -111,6 +111,8 @@ protected:
     void parseSkyBox(AttribMap& att);
     void parseNode(Relation& att, Node* parent = NULL);
 
+    void parseMaterial(AttribMap& att, Mesh* mesh);
+
 private:
 
     bool parseBlock(std::ifstream& file, Relation& rel, unsigned& line);

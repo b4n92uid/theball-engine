@@ -21,6 +21,7 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_withNormal = false;
     m_withTexCoord = false;
     m_visible = true;
+    m_outputMaterial = false;
 
     Node::m_parallelScene = m_parallelScene = scene;
     m_sceneManager = m_parallelScene->getSceneManager();
@@ -61,6 +62,7 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_withTexCoord = copy.m_withTexCoord;
     m_visible = copy.m_visible;
     m_opacity = copy.m_opacity;
+    m_outputMaterial = copy.m_outputMaterial;
 
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
@@ -670,20 +672,7 @@ float Mesh::getOpacity() const
     return m_opacity;
 }
 
-void Mesh::applyColor(std::string materialName, Vector4f color)
-{
-    Vector2i::Array apply = getMaterialApply(materialName);
-
-    Vertex* vertex = m_hardwareBuffer.lock();
-
-    for(unsigned i = 0; i < apply.size(); i++)
-        for(int j = 0; j < apply[i].y; j++)
-            vertex[j + apply[i].x].color = color;
-
-    m_hardwareBuffer.unlock();
-}
-
-void Mesh::applyColor(Vector4f color)
+void Mesh::setColor(Vector4f color)
 {
     Vertex* vertex = m_hardwareBuffer.lock();
 
@@ -692,6 +681,11 @@ void Mesh::applyColor(Vector4f color)
         vertex[i].color = color;
 
     m_hardwareBuffer.unlock();
+}
+
+Vector4f Mesh::getColor()
+{
+    return m_color;
 }
 
 void Mesh::applyShader(std::string materialName, Shader shader)
@@ -792,5 +786,53 @@ Node::CtorMap Mesh::constructionMap(std::string root)
 {
     Node::CtorMap ctormap = Node::constructionMap(root);
 
+    if(m_outputMaterial)
+    {
+        for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); it++)
+        {
+            ctormap["!" + it->first + ":alphaThershold"] = tools::numToStr(it->second->m_alphaThershold);
+            ctormap["!" + it->first + ":blendMod"] = tools::numToStr(it->second->isEnable(Material::BLEND_MOD));
+            ctormap["!" + it->first + ":blendMul"] = tools::numToStr(it->second->isEnable(Material::BLEND_MUL));
+            ctormap["!" + it->first + ":blendAdd"] = tools::numToStr(it->second->isEnable(Material::BLEND_ADD));
+            ctormap["!" + it->first + ":alpha"] = tools::numToStr(it->second->isEnable(Material::ALPHA));
+            ctormap["!" + it->first + ":frontFaceCull"] = tools::numToStr(it->second->isEnable(Material::FRONTFACE_CULL));
+            ctormap["!" + it->first + ":backFaceCull"] = tools::numToStr(it->second->isEnable(Material::BACKFACE_CULL));
+            ctormap["!" + it->first + ":lighted"] = tools::numToStr(it->second->isEnable(Material::LIGHT));
+            ctormap["!" + it->first + ":textured"] = tools::numToStr(it->second->isEnable(Material::TEXTURE));
+            ctormap["!" + it->first + ":colored"] = tools::numToStr(it->second->isEnable(Material::COLOR));
+
+            unsigned txcount = it->second->getTexturesCount();
+
+            for(unsigned i = 0; i < txcount; i++)
+            {
+                string key = "!" + it->first + ":texture:" + tools::numToStr(i);
+
+                Texture tex = it->second->getTexture(i);
+
+                ctormap[key] = tex.getFilename();
+                ctormap[key] += ";";
+
+                if(tex.getMulTexBlend() == Texture::MODULATE)
+                    ctormap[key] += "modulate";
+                if(tex.getMulTexBlend() == Texture::ADDITIVE)
+                    ctormap[key] += "additive";
+                if(tex.getMulTexBlend() == Texture::REPLACE)
+                    ctormap[key] += "replace";
+            }
+        }
+
+        ctormap["!opacity"] = tools::numToStr(m_opacity);
+    }
+
     return ctormap;
+}
+
+void Mesh::setOutputMaterial(bool outputMaterial)
+{
+    this->m_outputMaterial = outputMaterial;
+}
+
+bool Mesh::isOutputMaterial() const
+{
+    return m_outputMaterial;
 }
