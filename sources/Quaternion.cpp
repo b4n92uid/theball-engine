@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Quaternion.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 19 avril 2011, 15:25
  */
 
@@ -271,17 +271,17 @@ Quaternion Quaternion::operator *(const Quaternion& rv) const
 {
     Quaternion q;
 
-    q.x = x * rv.w + y * rv.z + z * rv.y - w * rv.x;
-    q.y = -x * rv.z + y * rv.w + z * rv.x - w * rv.y;
-    q.z = x * rv.y - y * rv.x + z * rv.w - w * rv.z;
-    q.w = -x * rv.x - y * rv.y - z * rv.z - w * rv.w;
+    q.w = w * rv.w - x * rv.x - y * rv.y - z * rv.z;
+    q.x = w * rv.x + x * rv.w + y * rv.z - z * rv.y;
+    q.y = w * rv.y + y * rv.w + z * rv.x - x * rv.z;
+    q.z = w * rv.z + z * rv.w + x * rv.y - y * rv.x;
 
     return q;
 }
 
 Quaternion & Quaternion::operator*=(const Quaternion& q)
 {
-    return (*this = q * * this);
+    return (*this = *this * q);
 }
 
 Vector3f Quaternion::operator*(const Vector3f& vec) const
