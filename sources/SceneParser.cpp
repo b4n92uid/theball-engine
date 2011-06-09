@@ -15,6 +15,7 @@
 #include "Tools.h"
 #include "Particles.h"
 #include "Water.h"
+#include "MapMark.h"
 
 using namespace std;
 using namespace tbe;
@@ -566,9 +567,15 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         current = light;
     }
 
-    else if(iclass == "BullNode")
+    else if(iclass == "MapMark")
     {
-        current = new BullNode;
+        MapMark* mark = new MapMark;
+
+        mark->setColor(tools::strToVec3<float>(rel.attr["color"], true));
+        mark->setSize(tools::strToNum<float>(rel.attr["size"]));
+        mark->setType((MapMark::Type)tools::strToNum<int>(rel.attr["type"]));
+
+        current = mark;
     }
 
     else
