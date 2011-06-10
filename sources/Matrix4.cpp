@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Matrix4.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 19 avril 2011, 15:18
  */
 
