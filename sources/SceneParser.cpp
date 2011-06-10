@@ -576,6 +576,8 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         mark->setType((MapMark::Type)tools::strToNum<int>(rel.attr["type"]));
 
         current = mark;
+
+        m_marks.push_back(mark);
     }
 
     else
@@ -682,4 +684,26 @@ void SceneParser::setMeshScene(MeshParallelScene* meshScene)
 void SceneParser::setLightScene(LightParallelScene* lightScene)
 {
     this->m_lightScene = lightScene;
+}
+
+unsigned SceneParser::getMapMarkCount()
+{
+    return m_marks.size();
+}
+
+MapMark* SceneParser::getMapMark(std::string name)
+{
+    for(unsigned i = 0; i < m_marks.size(); i++)
+        if(m_marks[i]->getName() == name)
+            return m_marks[i];
+
+    return NULL;
+}
+
+MapMark* SceneParser::getMapMark(unsigned index)
+{
+    if(index > m_marks.size())
+        return NULL;
+
+    return m_marks[index];
 }

@@ -15,6 +15,7 @@
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
 #include "WaterParallelScene.h"
+#include "MapMark.h"
 
 namespace tbe
 {
@@ -61,6 +62,11 @@ public:
 
     SceneParser& archive(Node* node);
     SceneParser& exclude(Node* node);
+
+    unsigned getMapMarkCount();
+
+    MapMark* getMapMark(std::string name);
+    MapMark* getMapMark(unsigned index);
 
     template<typename T> T getAdditional(std::string key)
     {
@@ -121,6 +127,8 @@ private:
     std::string m_fileName;
     std::string m_sceneName;
     std::string m_authorName;
+
+    std::vector<MapMark*> m_marks;
 
     std::vector<Node*> m_archivedNodes;
     std::vector<Node*> m_excludedNodes;
