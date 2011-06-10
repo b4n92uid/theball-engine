@@ -270,8 +270,6 @@ void Mesh::render(Material* material, unsigned offset, unsigned size)
     {
         glEnable(GL_CULL_FACE);
         glCullFace(GL_FRONT);
-
-        glDepthMask(false);
     }
 
     // Shader ------------------------------------------------------------------
@@ -285,44 +283,9 @@ void Mesh::render(Material* material, unsigned offset, unsigned size)
             tangentAttribIndex = glGetAttribLocation(material->m_shader, material->m_tangentLocation.c_str());
 
             if(tangentAttribIndex == -1)
-                throw Exception("MeshConstruction::Render; Invalid tangent location (%s)", material->m_tangentLocation.c_str());
+                throw Exception("Mesh::render; Invalid tangent location (%s)", material->m_tangentLocation.c_str());
 
             m_hardwareBuffer.bindTangent(true, tangentAttribIndex);
-
-            #if 0
-            // NOTE Debug render tangent space
-
-            Vertex* vertexes = static_cast<Vertex*>(glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE));
-
-            glPushAttrib(GL_ENABLE_BIT | GL_CURRENT_BIT);
-            glDisable(GL_LIGHTING);
-            glDisable(GL_TEXTURE_2D);
-            glDisable(GL_BLEND);
-
-            for(unsigned i = 0; i < m_hardwareBuffer.getVertexCount(); i++)
-            {
-                glPushMatrix();
-                glTranslatef(vertexes[i].pos.x, vertexes[i].pos.y, vertexes[i].pos.z);
-
-                glBegin(GL_LINES);
-
-                glColor3f(1, 0, 0);
-                glVertex3f(0, 0, 0);
-                glVertex3fv(vertexes[i].tangent * 0.1f);
-
-                glColor3f(0, 1, 0);
-                glVertex3f(0, 0, 0);
-                glVertex3fv(vertexes[i].normal * 0.1f);
-
-                glEnd();
-
-                glPopMatrix();
-            }
-
-            glPopAttrib();
-
-            glUnmapBuffer(GL_ARRAY_BUFFER);
-            #endif
         }
 
         // Amobient occlusion --------------------------------------------------
@@ -332,7 +295,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned size)
             aoccAttribIndex = glGetAttribLocation(material->m_shader, material->m_aoccLocation.c_str());
 
             if(aoccAttribIndex == -1)
-                throw Exception("MeshConstruction::Render; Invalid tangent location (%s)", material->m_aoccLocation.c_str());
+                throw Exception("Mesh::render; Invalid tangent location (%s)", material->m_aoccLocation.c_str());
 
             m_hardwareBuffer.bindAocc(true, aoccAttribIndex);
         }
@@ -440,8 +403,6 @@ void Mesh::render(Material* material, unsigned offset, unsigned size)
     {
         glCullFace(GL_BACK);
         glDrawArrays(material->m_faceType, offset, size);
-
-        glDepthMask(true);
     }
 
     if(material->m_renderFlags & Material::SHADER)

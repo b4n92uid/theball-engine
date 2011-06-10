@@ -44,7 +44,7 @@ struct DepthSortMeshFunc
             return true;
 
         else
-            return (node1->getPos() - camPos) > (node2->getPos() - camPos);
+            return (node1->getPos() - camPos) < (node2->getPos() - camPos);
     }
 
     Vector3f camPos;
@@ -56,9 +56,8 @@ void MeshParallelScene::render()
 
     m_frustumCullingCount = 0;
 
-    static DepthSortMeshFunc sortFunc = {
-        m_sceneManager->getCurCamera()->getPos()
-    };
+    static DepthSortMeshFunc sortFunc;
+    sortFunc.camPos = m_sceneManager->getCurCamera()->getPos();
 
     if(m_transparencySort)
         std::sort(m_nodes.begin(), m_nodes.end(), sortFunc);
