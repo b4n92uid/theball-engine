@@ -151,34 +151,34 @@ void Quaternion::setMatrix(const Matrix4& matrix)
 
     if(trace > 0)
     {
-        float s = sqrt(trace + 1)*2;
+        float s = 0.5 / sqrtf(trace + 1);
 
-        x = (matrix(2, 1) - matrix(1, 2)) / s;
-        y = (matrix(0, 2) - matrix(2, 0)) / s;
-        z = (matrix(1, 0) - matrix(0, 1)) / s;
-        w = 0.25 * s;
+        x = (matrix(2, 1) - matrix(1, 2)) * s;
+        y = (matrix(0, 2) - matrix(2, 0)) * s;
+        z = (matrix(1, 0) - matrix(0, 1)) * s;
+        w = 0.25 / s;
     }
     else if(m00 > m11 && m00 > m22)
     {
-        float s = sqrt(1 + m00 - m11 - m22) * 2;
+        float s = sqrtf(1 + m00 - m11 - m22) * 2;
         x = 0.25 * s;
-        y = (matrix(0, 1) - matrix(1, 0)) / s;
-        z = (matrix(0, 2) - matrix(2, 0)) / s;
+        y = (matrix(0, 1) + matrix(1, 0)) / s;
+        z = (matrix(0, 2) + matrix(2, 0)) / s;
         w = (matrix(2, 1) - matrix(1, 2)) / s;
     }
-    else if(m11 > m00 && m11 > m22)
+    else if(m11 > m22)
     {
-        float s = sqrt(1 + m11 - m00 - m22) * 2;
-        x = (matrix(0, 1) - matrix(1, 0)) / s;
+        float s = sqrtf(1 + m11 - m00 - m22) * 2;
+        x = (matrix(0, 1) + matrix(1, 0)) / s;
         y = 0.25 * s;
-        z = (matrix(1, 2) - matrix(2, 1)) / s;
+        z = (matrix(1, 2) + matrix(2, 1)) / s;
         w = (matrix(0, 2) - matrix(2, 0)) / s;
     }
     else // if(m22 > m00 && m22 > m11)
     {
-        float s = sqrt(1 + m22 - m00 - m11) * 2;
-        x = (matrix(0, 2) - matrix(2, 0)) / s;
-        y = (matrix(1, 2) - matrix(2, 1)) / s;
+        float s = sqrtf(1 + m22 - m00 - m11) * 2;
+        x = (matrix(0, 2) + matrix(2, 0)) / s;
+        y = (matrix(1, 2) + matrix(2, 1)) / s;
         z = 0.25 * s;
         w = (matrix(1, 0) - matrix(0, 1)) / s;
     }
@@ -212,7 +212,6 @@ Matrix4 Quaternion::getMatrix() const
     mat(2, 0) = 2.0 * (xz - wy);
     mat(2, 1) = 2.0 * (yz + wx);
     mat(2, 2) = 1.0 - 2.0 * (x2 + y2);
-    mat(2, 3) = 0.0;
 
     return mat;
 }
