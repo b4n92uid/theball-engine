@@ -13,6 +13,9 @@ using namespace scene;
 
 MapMark::MapMark()
 {
+    m_type = Box;
+    m_size = 1;
+    m_color = 1;
 }
 
 MapMark::MapMark(const MapMark& orig)

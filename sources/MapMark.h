@@ -37,7 +37,7 @@ public:
 
     enum Type
     {
-        Sphere, Box
+        Box, Sphere
     };
 
     void setType(Type type);
