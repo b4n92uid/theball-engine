@@ -174,12 +174,6 @@ Camera::CameraType Camera::getCameraType() const
     return m_cameraType;
 }
 
-void Camera::setAngle(float phi, float theta)
-{
-    m_phi = phi;
-    m_theta = theta;
-}
-
 // UserCamera ------------------------------------------------------------------
 
 UserCamera::UserCamera() : Camera(TARGET_RELATIVE)
