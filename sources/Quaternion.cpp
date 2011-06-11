@@ -41,10 +41,10 @@ Quaternion::Quaternion(const Matrix4& matrix)
     setMatrix(matrix);
 }
 
-Quaternion::Quaternion(const Vector3f& rotation)
+Quaternion::Quaternion(const Vector3f& euler)
 {
     identity();
-    setEuler(rotation);
+    setEuler(euler);
 }
 
 Quaternion::Quaternion(float angle, const Vector3f& axe)
@@ -94,24 +94,22 @@ Vector4f Quaternion::getAxisAngle() const
     return axis;
 }
 
-void Quaternion::setEuler(const Vector3f& rotation)
+void Quaternion::setEuler(const Vector3f& euler)
 {
-    Vector3f euler = rotation;
+    float c1 = cos(euler.y / 2);
+    float s1 = sin(euler.y / 2);
+    float c2 = cos(euler.z / 2);
+    float s2 = sin(euler.z / 2);
+    float c3 = cos(euler.x / 2);
+    float s3 = sin(euler.x / 2);
 
-    float h = euler.y;
-    float a = euler.z;
-    float b = euler.x;
+    float c1c2 = c1*c2;
+    float s1s2 = s1*s2;
 
-    float c1 = cos(h), c2 = cos(a), c3 = cos(b);
-    float s1 = sin(h), s2 = sin(a), s3 = sin(b);
-
-    w = sqrt(1 + c1 * c2 + c1 * c3 - s1 * s2 * s3 + c2 * c3) / 2.0;
-
-    double w4 = (4.0 * w);
-
-    x = (c2 * s3 + c1 * s3 + s1 * s2 * c3) / w4;
-    y = (s1 * c2 + s1 * c3 + c1 * s2 * s3) / w4;
-    z = (-s1 * s3 + c1 * s2 * c3 + s2) / w4;
+    w = c1c2 * c3 - s1s2 * s3;
+    x = c1c2 * s3 + s1s2 * c3;
+    y = s1 * c2 * c3 + c1 * s2 * s3;
+    z = c1 * s2 * c3 - s1 * c2 * s3;
 }
 
 Vector3f Quaternion::getEuler() const
@@ -151,7 +149,7 @@ void Quaternion::setMatrix(const Matrix4& matrix)
 
     if(trace > 0)
     {
-        float s = 0.5 / sqrtf(trace + 1);
+        float s = 0.5 / sqrt(trace + 1);
 
         x = (matrix(2, 1) - matrix(1, 2)) * s;
         y = (matrix(0, 2) - matrix(2, 0)) * s;
@@ -160,7 +158,7 @@ void Quaternion::setMatrix(const Matrix4& matrix)
     }
     else if(m00 > m11 && m00 > m22)
     {
-        float s = sqrtf(1 + m00 - m11 - m22) * 2;
+        float s = sqrt(1 + m00 - m11 - m22) * 2;
         x = 0.25 * s;
         y = (matrix(0, 1) + matrix(1, 0)) / s;
         z = (matrix(0, 2) + matrix(2, 0)) / s;
@@ -168,7 +166,7 @@ void Quaternion::setMatrix(const Matrix4& matrix)
     }
     else if(m11 > m22)
     {
-        float s = sqrtf(1 + m11 - m00 - m22) * 2;
+        float s = sqrt(1 + m11 - m00 - m22) * 2;
         x = (matrix(0, 1) + matrix(1, 0)) / s;
         y = 0.25 * s;
         z = (matrix(1, 2) + matrix(2, 1)) / s;
@@ -176,7 +174,7 @@ void Quaternion::setMatrix(const Matrix4& matrix)
     }
     else // if(m22 > m00 && m22 > m11)
     {
-        float s = sqrtf(1 + m22 - m00 - m11) * 2;
+        float s = sqrt(1 + m22 - m00 - m11) * 2;
         x = (matrix(0, 2) + matrix(2, 0)) / s;
         y = (matrix(1, 2) + matrix(2, 1)) / s;
         z = 0.25 * s;
@@ -186,32 +184,31 @@ void Quaternion::setMatrix(const Matrix4& matrix)
 
 Matrix4 Quaternion::getMatrix() const
 {
-    float x2 = x*x;
+    float xx = x*x;
     float xy = x*y;
     float xz = x*z;
+    float xw = x*w;
 
-    float y2 = y*y;
+    float yy = y*y;
     float yz = y*z;
+    float yw = y*w;
 
-    float z2 = z*z;
-
-    float wx = w * x;
-    float wy = w * y;
-    float wz = w * z;
+    float zz = z*z;
+    float zw = z*w;
 
     Matrix4 mat;
 
-    mat(0, 0) = 1.0 - 2.0 * (y2 + z2);
-    mat(0, 1) = 2.0 * (xy - wz);
-    mat(0, 2) = 2.0 * (xz + wy);
+    mat(0, 0) = 1.0 - 2.0 * (yy + zz);
+    mat(0, 1) = 2.0 * (xy - zw);
+    mat(0, 2) = 2.0 * (xz + yw);
 
-    mat(1, 0) = 2.0 * (xy + wz);
-    mat(1, 1) = 1.0 - 2.0 * (x2 + z2);
-    mat(1, 2) = 2.0 * (yz - wx);
+    mat(1, 0) = 2.0 * (xy + zw);
+    mat(1, 1) = 1.0 - 2.0 * (xx + zz);
+    mat(1, 2) = 2.0 * (yz - xw);
 
-    mat(2, 0) = 2.0 * (xz - wy);
-    mat(2, 1) = 2.0 * (yz + wx);
-    mat(2, 2) = 1.0 - 2.0 * (x2 + y2);
+    mat(2, 0) = 2.0 * (xz - yw);
+    mat(2, 1) = 2.0 * (yz + xw);
+    mat(2, 2) = 1.0 - 2.0 * (xx + yy);
 
     return mat;
 }

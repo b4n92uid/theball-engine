@@ -1,9 +1,9 @@
-/* 
+/*
  * File:   Quaternion.h
  * Author: b4n92uid
  *
  * Created on 19 avril 2011, 15:25
- * 
+ *
  * http://gpwiki.org/index.php/OpenGL:Tutorials:Using_Quaternions_to_represent_rotation
  * http://www.gamedev.net/page/resources/_/reference/programming/math-and-physics/quaternions/quaternion-powers-r1095
  * http://www.euclideanspace.com/maths/geometry/rotations/conversions/index.htm
@@ -32,13 +32,13 @@ public:
     Quaternion(const Quaternion& quat);
     Quaternion(float x, float y, float z, float w);
     Quaternion(const Matrix4& matrix);
-    Quaternion(const Vector3f& rotation);
+    Quaternion(const Vector3f& euler);
     Quaternion(float angle, const Vector3f& axe);
 
     void setAxisAngle(float angle, const Vector3f& axe);
     Vector4f getAxisAngle() const;
 
-    void setEuler(const Vector3f& rotation);
+    void setEuler(const Vector3f& euler);
     Vector3f getEuler() const;
 
     void setMatrix(const Matrix4& matrix);

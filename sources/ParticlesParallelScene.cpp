@@ -64,7 +64,7 @@ void ParticlesParallelScene::render()
     if(m_pointSprite)
     {
         // Configuration de la taille des points suivant la formule :
-        // derived_size = size * sqrt (1 / (a + b * d + c * d), d : distance en Z par rapport à l'écran.
+        // derived_size = size * sqrtf (1 / (a + b * d + c * d), d : distance en Z par rapport à l'écran.
 
         float height = m_sceneManager->getViewport().y;
         float fovy = m_sceneManager->getFovy();
