@@ -283,6 +283,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     {
         glEnable(GL_CULL_FACE);
         glCullFace(GL_FRONT);
+
+        glDepthMask(false);
     }
 
     // Shader ------------------------------------------------------------------
@@ -437,6 +439,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     {
         glCullFace(GL_BACK);
         glDrawArrays(material->m_faceType, offset, count);
+
+        glDepthMask(true);
     }
 
     if(material->m_renderFlags & Material::SHADER)
@@ -626,10 +630,10 @@ bool Mesh::findFloor(Vector3f& pos, bool global)
 bool Mesh::isTransparent()
 {
     for(Material::Map::iterator itt = m_materials.begin(); itt != m_materials.end(); itt++)
-        if(itt->second->isTransparent())
-            return true;
+        if(!itt->second->isTransparent())
+            return false;
 
-    return false;
+    return true;
 }
 
 void Mesh::addMaterial(std::string name, Material* material)
@@ -787,6 +791,7 @@ Node::CtorMap Mesh::constructionMap(std::string root)
         {
             ctormap["!" + it->first + ":alphaThershold"] = tools::numToStr(it->second->m_alphaThershold);
             ctormap["!" + it->first + ":blendMod"] = tools::numToStr(it->second->isEnable(Material::BLEND_MOD));
+            ctormap["!" + it->first + ":cullTrick"] = tools::numToStr(it->second->isEnable(Material::VERTEX_SORT_CULL_TRICK));
             ctormap["!" + it->first + ":blendMul"] = tools::numToStr(it->second->isEnable(Material::BLEND_MUL));
             ctormap["!" + it->first + ":blendAdd"] = tools::numToStr(it->second->isEnable(Material::BLEND_ADD));
             ctormap["!" + it->first + ":alpha"] = tools::numToStr(it->second->isEnable(Material::ALPHA));

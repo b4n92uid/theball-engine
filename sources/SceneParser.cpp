@@ -438,6 +438,8 @@ void SceneParser::parseMaterial(AttribMap& att, Mesh* mesh)
 
                 else
                 {
+                    if(attributs == "cullTrick")
+                        toogleMaterial(material, Material::VERTEX_SORT_CULL_TRICK, it->second);
                     if(attributs == "alphaThershold")
                         material->setAlphaThershold(tools::strToNum<float>(it->second));
                     if(attributs == "blendMod")
@@ -706,4 +708,24 @@ MapMark* SceneParser::getMapMark(unsigned index)
         return NULL;
 
     return m_marks[index];
+}
+
+void SceneParser::removeMapMark(std::string name)
+{
+    for(unsigned i = 0; i < m_marks.size(); i++)
+        if(m_marks[i]->getName() == name)
+            m_marks.erase(m_marks.begin() + i);
+}
+
+void SceneParser::removeMapMark(unsigned index)
+{
+    if(index > m_marks.size())
+        return;
+
+    m_marks.erase(m_marks.begin() + index);
+}
+
+void SceneParser::clearMapMark()
+{
+    m_marks.clear();
 }

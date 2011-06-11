@@ -68,6 +68,11 @@ public:
     MapMark* getMapMark(std::string name);
     MapMark* getMapMark(unsigned index);
 
+    void removeMapMark(std::string name);
+    void removeMapMark(unsigned index);
+
+    void clearMapMark();
+
     template<typename T> T getAdditional(std::string key)
     {
         if(!m_additional.count(key))
