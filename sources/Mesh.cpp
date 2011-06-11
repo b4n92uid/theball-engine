@@ -210,7 +210,7 @@ struct DepthSortVertexFunc
     Vector3f meshPos;
 };
 
-void Mesh::render(Material* material, unsigned offset, unsigned size)
+void Mesh::render(Material* material, unsigned offset, unsigned count)
 {
     GLint tangentAttribIndex = -1, aoccAttribIndex = -1;
 
@@ -254,7 +254,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned size)
 
             TriangleFace* vertexes = static_cast<TriangleFace*>(glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE));
             TriangleFace* start = vertexes + offset / 3;
-            TriangleFace* end = start + size / 3;
+            TriangleFace* end = start + count / 3;
 
             std::sort(start, end, cmp);
 
@@ -395,14 +395,35 @@ void Mesh::render(Material* material, unsigned offset, unsigned size)
 
     // Rendue ------------------------------------------------------------------
 
-    m_hardwareBuffer.render(material->m_faceType, offset, size);
+    if(material->m_drawPass > 1)
+    {
+        int _count = count / material->m_drawPass;
+
+        for(unsigned i = 0; i < material->m_drawPass - 1; i++)
+        {
+            int _offset = offset + (i * _count);
+
+            m_hardwareBuffer.render(material->m_faceType, _offset, _count);
+        }
+
+        int rest = count % material->m_drawPass;
+
+        if(rest > 0)
+            m_hardwareBuffer.render(material->m_faceType, offset + count - rest, rest);
+        else
+            m_hardwareBuffer.render(material->m_faceType, offset + count - _count, _count);
+    }
+    else
+    {
+        m_hardwareBuffer.render(material->m_faceType, offset, count);
+    }
 
     // Réstorations ------------------------------------------------------------
 
     if(material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
     {
         glCullFace(GL_BACK);
-        glDrawArrays(material->m_faceType, offset, size);
+        glDrawArrays(material->m_faceType, offset, count);
     }
 
     if(material->m_renderFlags & Material::SHADER)

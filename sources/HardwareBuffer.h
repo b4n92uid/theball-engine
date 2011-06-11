@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   HardwareBuffer.h
  * Author: b4n92uid
  *

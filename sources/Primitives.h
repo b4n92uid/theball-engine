@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Primitives.h
  * Author: b4n92uid
  *
@@ -81,6 +81,26 @@ class Plane : public Mesh
 public:
     Plane(MeshParallelScene* scene);
     Plane(MeshParallelScene* scene, Vector2f size, Vector2i cut);
+
+    void setup(Vector2f size, Vector2i cut);
+
+    Vector2i getCut() const;
+    Vector2f getSize() const;
+
+protected:
+    Vector2f m_size;
+    Vector2i m_cut;
+};
+
+
+/**
+ * \brief Primitives de type Grille
+ */
+class Gride : public Mesh
+{
+public:
+    Gride(MeshParallelScene* scene);
+    Gride(MeshParallelScene* scene, Vector2f size, Vector2i cut);
 
     void setup(Vector2f size, Vector2i cut);
 

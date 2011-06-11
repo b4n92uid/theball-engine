@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   HardwareBuffer.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 22 mai 2010, 11:56
  */
 

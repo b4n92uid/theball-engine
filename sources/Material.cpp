@@ -25,6 +25,7 @@ Material::Material()
     m_faceType = TRIANGLES;
     m_depthTest = true;
     m_depthWrite = true;
+    m_drawPass = 1;
 }
 
 Material::Material(const Material& copy)
@@ -63,6 +64,8 @@ Material& Material::operator=(const Material& copy)
 
     m_depthTest = copy.m_depthTest;
     m_depthWrite = copy.m_depthWrite;
+
+    m_drawPass = copy.m_drawPass;
 
     return *this;
 }
@@ -258,4 +261,14 @@ void Material::setDepthTest(bool depthTest)
 bool Material::isDepthTest() const
 {
     return m_depthTest;
+}
+
+void Material::setDrawPass(unsigned drawPass)
+{
+    this->m_drawPass = drawPass;
+}
+
+unsigned Material::getDrawPass() const
+{
+    return m_drawPass;
 }

@@ -108,6 +108,9 @@ public:
     void setDepthTest(bool depthTest);
     bool isDepthTest() const;
 
+    void setDrawPass(unsigned drawPass);
+    unsigned getDrawPass() const;
+
     enum
     {
         LIGHT = 0x1,
@@ -154,6 +157,7 @@ protected:
     unsigned m_renderFlags;
 
     unsigned m_frameSortWait;
+    unsigned m_drawPass;
     float m_lineWidth;
     float m_alphaThershold;
 

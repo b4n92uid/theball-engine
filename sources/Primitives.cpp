@@ -388,3 +388,72 @@ Vector2f Plane::getSize() const
 {
     return m_size;
 }
+
+// Gride ------------------------------------------------------------------------
+
+Gride::Gride(MeshParallelScene* scene) : Mesh(scene)
+{
+
+}
+
+Gride::Gride(MeshParallelScene* scene, Vector2f size, Vector2i cut) : Mesh(scene)
+{
+    setup(size, cut);
+}
+
+void Gride::setup(Vector2f size, Vector2i cut)
+{
+    Vector2f quadSize = size / Vector2f(cut);
+
+    for(int x = -cut.x; x <= cut.x; x++)
+    {
+        Vertex vertexs[2];
+
+        // 0,0
+        vertexs[1] = Vertex(Vector3f(quadSize.x * x, 0, -size.y),
+                            Vector3f(0, 1, 0), 1, 0);
+
+        // 0,1
+        vertexs[0] = Vertex(Vector3f(quadSize.x * x, 0, size.y),
+                            Vector3f(0, 1, 0), 1, 0);
+
+        m_hardwareBuffer.addVertex(vertexs, 2);
+    }
+
+    for(int y = -cut.y; y <= cut.y; y++)
+    {
+        Vertex vertexs[2];
+
+        // 0,0
+        vertexs[1] = Vertex(Vector3f(-size.x, 0, quadSize.y * y),
+                            Vector3f(0, 1, 0), 1, 0);
+
+        // 0,1
+        vertexs[0] = Vertex(Vector3f(size.x, 0, quadSize.y * y),
+                            Vector3f(0, 1, 0), 1, 0);
+
+        m_hardwareBuffer.addVertex(vertexs, 2);
+    }
+
+    m_hardwareBuffer.compile();
+
+    computeAabb();
+
+    Material* mainMaterial = new Material;
+    mainMaterial->setFaceType(Material::LINES);
+    mainMaterial->setDrawPass(m_hardwareBuffer.getVertexCount() / 2);
+
+    addMaterial("main", mainMaterial);
+
+    applyMaterial(mainMaterial, 0, m_hardwareBuffer.getVertexCount());
+}
+
+Vector2i Gride::getCut() const
+{
+    return m_cut;
+}
+
+Vector2f Gride::getSize() const
+{
+    return m_size;
+}
