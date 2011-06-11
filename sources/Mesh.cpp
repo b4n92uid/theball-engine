@@ -22,6 +22,7 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_withTexCoord = false;
     m_visible = true;
     m_outputMaterial = false;
+    m_normalize = false;
 
     Node::m_parallelScene = m_parallelScene = scene;
     m_sceneManager = m_parallelScene->getSceneManager();
@@ -76,6 +77,7 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_visible = copy.m_visible;
     m_opacity = copy.m_opacity;
     m_outputMaterial = copy.m_outputMaterial;
+    m_normalize = copy.m_normalize;
 
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
@@ -366,6 +368,9 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         glMaterialfv(GL_FRONT, GL_SPECULAR, material->m_specular);
         glMaterialf(GL_FRONT, GL_SHININESS, material->m_shininess);
     }
+
+    if(m_normalize)
+        glEnable(GL_NORMALIZE);
 
     // Color -------------------------------------------------------------------
 
@@ -835,4 +840,14 @@ void Mesh::setOutputMaterial(bool outputMaterial)
 bool Mesh::isOutputMaterial() const
 {
     return m_outputMaterial;
+}
+
+void Mesh::setNormalize(bool normalize)
+{
+    this->m_normalize = normalize;
+}
+
+bool Mesh::isNormalize() const
+{
+    return m_normalize;
 }

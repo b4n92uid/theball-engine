@@ -143,6 +143,9 @@ public:
     void setOutputMaterial(bool outputMaterial);
     bool isOutputMaterial() const;
 
+    void setNormalize(bool normalize);
+    bool isNormalize() const;
+
     typedef std::map<std::string, Mesh*> Map;
     typedef std::vector<Mesh*> Array;
 
@@ -152,6 +155,7 @@ protected:
     bool m_withTexCoord;
     bool m_visible;
     bool m_outputMaterial;
+    bool m_normalize;
 
     HardwareBuffer m_hardwareBuffer;
 

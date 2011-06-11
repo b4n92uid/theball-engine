@@ -24,6 +24,28 @@ namespace tbe
 namespace tools
 {
 
+inline bool isEqual(float a, float b)
+{
+    return (fabs(a - b) < 0.0001);
+}
+
+inline bool isEqual(Vector3f a, float b)
+{
+    return (isEqual(a.x, b) && isEqual(a.y, b) && isEqual(a.z, b));
+}
+
+inline bool isZero(Vector3f a)
+{
+    return (a.x < 0.0001 && a.x > 0.0001
+            && a.y < 0.0001 && a.y > 0.0001
+            && a.z < 0.0001 && a.z > 0.0001);
+}
+
+inline bool isZero(float a)
+{
+    return (a < 0.0001 && a > 0.0001);
+}
+
 /**
  * Indique si la valeur 'value' est de puissance 2
  *
