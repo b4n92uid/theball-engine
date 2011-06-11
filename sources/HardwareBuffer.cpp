@@ -101,6 +101,16 @@ void HardwareBuffer::addVertex(const Vertex::Array& array)
     m_vertex.insert(m_vertex.end(), array.begin(), array.end());
 }
 
+void HardwareBuffer::clear()
+{
+    m_vertex.clear();
+    m_vertexCount = 0;
+    m_bufferSize = 0;
+
+    glDeleteBuffersARB(1, &m_bufferId);
+    glGenBuffersARB(1, &m_bufferId);
+}
+
 void HardwareBuffer::compile(GLenum usage)
 {
     m_usage = usage;
@@ -196,7 +206,8 @@ void HardwareBuffer::bindAocc(bool state, GLint location)
 
 void HardwareBuffer::render(GLenum mode, unsigned first, unsigned count)
 {
-    glDrawArrays(mode, first, count ? count : m_vertexCount);
+    if(m_vertexCount > 0)
+        glDrawArrays(mode, first, count ? count : m_vertexCount);
 }
 
 unsigned HardwareBuffer::getBufferSize() const

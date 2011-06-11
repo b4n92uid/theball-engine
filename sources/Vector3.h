@@ -341,6 +341,21 @@ public:
         z = !z ? 0 : (z > 0 ? diri.z : -diri.z);
     }
 
+    Vector3 X()
+    {
+        return Vector3(x, 0, 0);
+    }
+
+    Vector3 Y()
+    {
+        return Vector3(0, y, 0);
+    }
+
+    Vector3 Z()
+    {
+        return Vector3(0, 0, z);
+    }
+
     static Vector3 X(float value = 1)
     {
         return Vector3(value, 0, 0);

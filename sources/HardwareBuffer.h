@@ -96,6 +96,8 @@ public:
      */
     void compile(GLenum usage = GL_STATIC_DRAW);
 
+    void clear();
+
     /// Activer le rendue des position vertex (activation minimum)
     void bindBuffer(bool state = true);
 

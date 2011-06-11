@@ -401,6 +401,26 @@ public:
         return Vector4(0, 0, 0, value);
     }
 
+    Vector4 X()
+    {
+        return Vector4(x, 0, 0, 0);
+    }
+
+    Vector4 Y()
+    {
+        return Vector4(0, y, 0, 0);
+    }
+
+    Vector4 Z()
+    {
+        return Vector4(0, 0, z, 0);
+    }
+
+    Vector4 W()
+    {
+        return Vector4(0, 0, 0, x);
+    }
+
     static float dot(const Vector4& a, const Vector4& b)
     {
         return (a.x * b.x + a.y * b.y + a.z * b.z);

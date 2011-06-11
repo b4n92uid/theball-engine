@@ -26,7 +26,6 @@
         <itemPath>sources/Iterator.h</itemPath>
         <itemPath>sources/MotionPath.cpp</itemPath>
         <itemPath>sources/MotionPath.h</itemPath>
-        <itemPath>sources/Tbe.h</itemPath>
         <itemPath>sources/Tools.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="External" projectFiles="true">
@@ -159,6 +158,7 @@
         <itemPath>sources/FPSManager.cpp</itemPath>
         <itemPath>sources/FPSManager.h</itemPath>
       </logicalFolder>
+      <itemPath>sources/Tbe.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

@@ -37,6 +37,8 @@ public:
     /// Méthode polymorphique de clonage du noueud
     Mesh* clone();
 
+    void clear();
+
     /// Rendue
     void render();
 

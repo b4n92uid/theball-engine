@@ -327,6 +327,16 @@ public:
         return Vector2(0, value);
     }
 
+    Vector2 X()
+    {
+        return Vector2(x, 0);
+    }
+
+    Vector2 Y()
+    {
+        return Vector2(0, y);
+    }
+
     friend std::ostream & operator <<(std::ostream& stream, tbe::Vector2<T> vec)
     {
         return stream << vec.x << ", " << vec.y;

@@ -40,8 +40,7 @@ Mesh::Mesh(const Mesh& copy) : Node(copy)
 
 Mesh::~Mesh()
 {
-    for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
-        delete it->second;
+    clear();
 
     m_parallelScene->unregisterNode(this);
 }
@@ -51,6 +50,20 @@ Mesh& Mesh::operator=(const Mesh& copy)
     Node::operator=(copy);
 
     return this->copy(copy);
+}
+
+void Mesh::clear()
+{
+    for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
+        delete it->second;
+
+    m_materials.clear();
+
+    m_renderProess.clear();
+
+    m_hardwareBuffer.clear();
+
+    m_aabb.clear();
 }
 
 Mesh& Mesh::copy(const Mesh& copy)
