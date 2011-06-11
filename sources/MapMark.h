@@ -29,28 +29,9 @@ public:
     void process();
     void render();
 
-    void setColor(Vector3f color);
-    Vector3f getColor() const;
-
-    void setSize(float size);
-    float getSize() const;
-
-    enum Type
-    {
-        Box, Sphere
-    };
-
-    void setType(Type type);
-    Type getType() const;
-
     Node::CtorMap constructionMap(std::string root);
 
     typedef std::vector<MapMark*> Array;
-
-private:
-    Type m_type;
-    float m_size;
-    Vector3f m_color;
 
 private:
     void copy(const MapMark& m);

@@ -573,10 +573,6 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
     {
         MapMark* mark = new MapMark;
 
-        mark->setColor(tools::strToVec3<float>(rel.attr["color"], true));
-        mark->setSize(tools::strToNum<float>(rel.attr["size"]));
-        mark->setType((MapMark::Type)tools::strToNum<int>(rel.attr["type"]));
-
         current = mark;
 
         m_marks.push_back(mark);
