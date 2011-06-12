@@ -814,7 +814,7 @@ Node::CtorMap Mesh::constructionMap(std::string root)
 
                 Texture tex = it->second->getTexture(i);
 
-                ctormap[key] = tex.getFilename();
+                ctormap[key] = tools::pathScope(root, tex.getFilename(), false);
                 ctormap[key] += ";";
 
                 if(tex.getMulTexBlend() == Texture::MODULATE)

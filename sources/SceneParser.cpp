@@ -424,7 +424,7 @@ void SceneParser::parseMaterial(AttribMap& att, Mesh* mesh)
                     vector<string> valtoken = tools::tokenize(it->second, ';');
 
                     Texture tex;
-                    tex.load(valtoken[0], true);
+                    tex.load(tools::pathScope(m_fileName, valtoken[0], true), true);
 
                     if(valtoken[1] == "additive")
                         tex.setMulTexBlend(Texture::ADDITIVE);
