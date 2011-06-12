@@ -316,9 +316,9 @@ Vector3f SceneManager::screenToWorld(Vector2i target, Rtt* rtt)
 
 Vector3f SceneManager::screenToWorld(Vector2i target)
 {
-    int iViewport[4];
-    double fModelview[16];
-    double fProjection[16];
+    int iViewport[4] = {0};
+    double fModelview[16] = {0};
+    double fProjection[16] = {0};
 
     float fPosX, fPosY, fPosZ;
 
