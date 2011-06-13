@@ -402,21 +402,16 @@ void SceneParser::parseMaterial(AttribMap& att, Mesh* mesh)
 
             key.erase(0, 1);
 
-            unsigned pos = key.find(':');
+            vector<string> token = tools::tokenize(key, ':');
 
-            if(pos == string::npos)
+            if(token.empty() || token.size() < 2)
+                continue;
+
+            string matname = token[0];
+            string attributs = token[1];
+
+            try
             {
-                if(key == "opacity")
-                    mesh->setOpacity(tools::strToNum<float>(it->second));
-            }
-
-            else
-            {
-                vector<string> token = tools::tokenize(key, ':');
-
-                string matname = token[0];
-                string attributs = token[1];
-
                 Material* material = mesh->getMaterial(matname);
 
                 if(attributs == "texture")
@@ -461,7 +456,10 @@ void SceneParser::parseMaterial(AttribMap& att, Mesh* mesh)
                     if(attributs == "colored")
                         toogleMaterial(material, Material::COLOR, it->second);
                 }
-
+            }
+            catch(std::exception& e)
+            {
+                cout << e.what() << endl;
             }
         }
     }
@@ -473,21 +471,21 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
 
     if(m_classRec.count(iclass))
     {
-        Node* node = new BullNode;
+        Node* mesh = new BullNode;
 
         if(parent)
-            parent->addChild(node);
+            parent->addChild(mesh);
         else
-            m_rootNode->addChild(node);
+            m_rootNode->addChild(mesh);
 
         if(rel.attr.count("matrix"))
-            node->setMatrix(rel.attr["matrix"]);
+            mesh->setMatrix(rel.attr["matrix"]);
 
         if(rel.attr.count("name"))
-            node->setName(rel.attr["name"]);
+            mesh->setName(rel.attr["name"]);
 
         for(unsigned i = 0; i < m_classRec[iclass].size(); i++)
-            parseNode(m_classRec[iclass][i], node);
+            parseNode(m_classRec[iclass][i], mesh);
 
         return;
     }
@@ -496,7 +494,7 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
 
     if(iclass == "OBJMesh")
     {
-        OBJMesh* node = new OBJMesh(m_meshScene);
+        OBJMesh* mesh = new OBJMesh(m_meshScene);
 
         string modelFilepath;
 
@@ -505,11 +503,26 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         else
             modelFilepath = tools::pathScope(m_fileName, rel.attr["filename"], true);
 
-        node->open(modelFilepath);
+        try
+        {
+            mesh->open(modelFilepath);
 
-        parseMaterial(rel.attr, node);
+            if(rel.attr.count("vertexScale"))
+                mesh->setVertexScale(tools::strToVec3<float>(rel.attr["vertexScale"], true));
+            if(rel.attr.count("color"))
+                mesh->setColor(tools::strToVec4<float>(rel.attr["color"], true));
+            if(rel.attr.count("opacity"))
+                mesh->setOpacity(tools::strToNum<float>(rel.attr["opacity"]));
 
-        current = node;
+            parseMaterial(rel.attr, mesh);
+
+            current = mesh;
+        }
+        catch(std::exception& e)
+        {
+            cout << e.what() << endl;
+            delete mesh;
+        }
     }
 
     else if(iclass == "ParticlesEmiter")
@@ -523,7 +536,14 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         else
             modelFilepath = tools::pathScope(m_fileName, rel.attr["texture"], true);
 
-        emiter->setTexture(modelFilepath);
+        try
+        {
+            emiter->setTexture(modelFilepath);
+        }
+        catch(std::exception& e)
+        {
+            cout << e.what() << endl;
+        }
 
         emiter->setLifeInit(tools::strToNum<float>(rel.attr["lifeInit"]));
         emiter->setLifeDown(tools::strToNum<float>(rel.attr["lifeDown"]));
