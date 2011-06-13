@@ -57,12 +57,12 @@ Mesh& Mesh::operator=(const Mesh& copy)
 
 void Mesh::clear()
 {
+    m_renderProess.clear();
+
     for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
         delete it->second;
 
     m_materials.clear();
-
-    m_renderProess.clear();
 
     m_hardwareBuffer.clear();
 
@@ -477,11 +477,11 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             unsigned textureIndex = GL_TEXTURE0 + itt->first;
 
             glClientActiveTexture(textureIndex);
+            m_hardwareBuffer.bindTexture(false);
+
             glActiveTexture(textureIndex);
             glDisable(GL_TEXTURE_2D);
         }
-
-        m_hardwareBuffer.bindTexture(false);
     }
 
     if(material->m_renderFlags & Material::LIGHT)
