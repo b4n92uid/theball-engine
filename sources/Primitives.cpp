@@ -389,19 +389,19 @@ Vector2f Plane::getSize() const
     return m_size;
 }
 
-// Gride ------------------------------------------------------------------------
+// Grid ------------------------------------------------------------------------
 
-Gride::Gride(MeshParallelScene* scene) : Mesh(scene)
+Grid::Grid(MeshParallelScene* scene) : Mesh(scene)
 {
 
 }
 
-Gride::Gride(MeshParallelScene* scene, Vector2f size, Vector2i cut) : Mesh(scene)
+Grid::Grid(MeshParallelScene* scene, Vector2f size, Vector2i cut) : Mesh(scene)
 {
     setup(size, cut);
 }
 
-void Gride::setup(Vector2f size, Vector2i cut)
+void Grid::setup(Vector2f size, Vector2i cut)
 {
     Vector2f quadSize = size / Vector2f(cut);
 
@@ -448,12 +448,12 @@ void Gride::setup(Vector2f size, Vector2i cut)
     applyMaterial(mainMaterial, 0, m_hardwareBuffer.getVertexCount());
 }
 
-Vector2i Gride::getCut() const
+Vector2i Grid::getCut() const
 {
     return m_cut;
 }
 
-Vector2f Gride::getSize() const
+Vector2f Grid::getSize() const
 {
     return m_size;
 }

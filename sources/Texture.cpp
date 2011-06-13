@@ -142,7 +142,15 @@ void Texture::remove()
     if(m_textureName)
     {
         glDeleteTextures(1, &m_textureName);
+
         m_textureName = 0;
+        m_filename.clear();
+
+        m_genMipMap = false;
+        m_upperLeftOrigin = false;
+
+        m_filtring = 0;
+        m_mulTexBlend = MODULATE;
     }
 }
 

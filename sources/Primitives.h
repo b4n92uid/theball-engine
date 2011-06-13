@@ -96,11 +96,11 @@ protected:
 /**
  * \brief Primitives de type Grille
  */
-class Gride : public Mesh
+class Grid : public Mesh
 {
 public:
-    Gride(MeshParallelScene* scene);
-    Gride(MeshParallelScene* scene, Vector2f size, Vector2i cut);
+    Grid(MeshParallelScene* scene);
+    Grid(MeshParallelScene* scene, Vector2f size, Vector2i cut);
 
     void setup(Vector2f size, Vector2i cut);
 

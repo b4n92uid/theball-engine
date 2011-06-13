@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Fog.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 23 janvier 2010, 14:33
  */
 
@@ -27,8 +27,8 @@ void Fog::clear()
 {
     setColor(1.0f);
     setDensity(0.1f);
-    setStart(2.0f);
-    setEnd(32.0f);
+    setStart(8.0f);
+    setEnd(64.0f);
     setEnable(false);
 }
 
