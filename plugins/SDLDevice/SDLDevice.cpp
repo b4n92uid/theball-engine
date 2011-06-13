@@ -29,7 +29,7 @@ void SDLDevice::window(std::string caption, Vector2i winsize, int bits, bool ful
 {
     using namespace std;
 
-    // NOTE Requis pour ré-appliquer le multisampling
+    // NOTE Requis pour rÃ©-appliquer le multisampling
     if(SDL_WasInit(SDL_INIT_VIDEO))
     {
         SDL_QuitSubSystem(SDL_INIT_VIDEO);

@@ -18,17 +18,7 @@ using namespace tbe::scene;
 
 Light::Light(LightParallelScene* scene, Type type)
 {
-    GLint maxLight;
-    glGetIntegerv(GL_MAX_LIGHTS, & maxLight);
-
-    for(m_lightId = GL_LIGHT0; true; m_lightId++)
-    {
-        if(!glIsEnabled(m_lightId))
-            break;
-
-        if(m_lightId >= GL_LIGHT0 + maxLight)
-            throw Exception("Light::Light; Add light error; Max light allowed %d", maxLight);
-    }
+    initid();
 
     glEnable(m_lightId);
 
@@ -52,62 +42,77 @@ Light::Light(LightParallelScene* scene, Type type)
     m_parallelScene->registerNode(this);
 }
 
-Light::Light(const Light& copy) : Node(copy)
+Light::Light(const Light& orig) : Node(orig)
 {
-    GLint maxLight;
-    glGetIntegerv(GL_MAX_LIGHTS, & maxLight);
-
-    for(m_lightId = GL_LIGHT0; true; m_lightId++)
-    {
-        if(!glIsEnabled(m_lightId))
-            break;
-
-        if(m_lightId >= GL_LIGHT0 + maxLight)
-            throw Exception("Light::Light; Add light error; Max light allowed %d", maxLight);
-    }
+    initid();
 
     glEnable(m_lightId);
 
-    *this = copy;
+    copy(orig);
 
     m_parallelScene->registerNode(this);
 }
 
 Light::~Light()
 {
-    if(m_lightId != -1)
-        glDisable(m_lightId);
+    glDisable(m_lightId);
 
     m_parallelScene->unregisterNode(this);
 }
 
-Light& Light::operator =(const Light& copy)
+Light& Light::operator =(const Light& orig)
 {
-    Node::operator=(copy);
+    Node::operator=(orig);
 
-    m_ambient = copy.m_ambient;
-    m_diffuse = copy.m_diffuse;
-    m_specular = copy.m_specular;
-    m_halfVector = copy.m_halfVector;
-    m_spotDirection = copy.m_spotDirection;
-
-    m_spotExponent = copy.m_spotExponent;
-    m_spotCutoff = copy.m_spotCutoff;
-    m_spotCosCutoff = copy.m_spotCosCutoff;
-
-    m_constantAttenuation = copy.m_constantAttenuation;
-    m_linearAttenuation = copy.m_linearAttenuation;
-    m_quadraticAttenuation = copy.m_quadraticAttenuation;
-
-    m_radius = copy.m_radius;
-
-    m_type = copy.m_type;
-
-    Node::m_parallelScene = m_parallelScene = copy.m_parallelScene;
-
-    m_sceneManager = m_parallelScene->getSceneManager();
+    copy(orig);
 
     return *this;
+}
+
+void Light::initid()
+{
+    GLint maxLight;
+    glGetIntegerv(GL_MAX_LIGHTS, & maxLight);
+
+    m_lightId = -1;
+
+    for(int id = 0; id < maxLight; id++)
+    {
+        if(!glIsEnabled(GL_LIGHT0 + id))
+        {
+            m_lightId = GL_LIGHT0 + id;
+            break;
+        }
+
+    }
+
+    if(m_lightId == -1)
+        throw Exception("Light::initid; Add light error; Max light allowed %d", maxLight);
+}
+
+void Light::copy(const Light& orig)
+{
+    m_ambient = orig.m_ambient;
+    m_diffuse = orig.m_diffuse;
+    m_specular = orig.m_specular;
+    m_halfVector = orig.m_halfVector;
+    m_spotDirection = orig.m_spotDirection;
+
+    m_spotExponent = orig.m_spotExponent;
+    m_spotCutoff = orig.m_spotCutoff;
+    m_spotCosCutoff = orig.m_spotCosCutoff;
+
+    m_constantAttenuation = orig.m_constantAttenuation;
+    m_linearAttenuation = orig.m_linearAttenuation;
+    m_quadraticAttenuation = orig.m_quadraticAttenuation;
+
+    m_radius = orig.m_radius;
+
+    m_type = orig.m_type;
+
+    Node::m_parallelScene = m_parallelScene = orig.m_parallelScene;
+
+    m_sceneManager = m_parallelScene->getSceneManager();
 }
 
 Light* Light::clone()

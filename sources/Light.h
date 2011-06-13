@@ -31,10 +31,10 @@ public:
     };
 
     Light(LightParallelScene* scene, Type type = POINT);
-    Light(const Light& copy);
+    Light(const Light& orig);
     ~Light();
 
-    Light & operator=(const Light& copy);
+    Light & operator=(const Light& orig);
 
     void process();
 
@@ -83,6 +83,10 @@ protected:
     Type m_type;
 
     LightParallelScene* m_parallelScene;
+
+private :
+    void copy(const Light& orig);
+    void initid();
 };
 
 /// \brief Lumiere dirictionelle

@@ -33,6 +33,8 @@ Device::~Device()
     if(m_sceneManager) delete m_sceneManager;
     if(m_guiManager) delete m_guiManager;
     if(m_postProcessManager) delete m_postProcessManager;
+
+    Texture::resetCache();
 }
 
 void Device::init()

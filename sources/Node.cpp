@@ -345,10 +345,12 @@ Iterator<Node*> Node::getChildIterator()
 void Node::clearAllChild()
 {
     // Copie de pointeur pour éviter les problemes d'itération
-    // lors de la suppresion
+    // lors de la suppresion par l'enfant -> parent
 
-    for(unsigned i = 0; i < m_childs.size(); i++)
-        delete m_childs[i];
+    Node::Array copyptr = m_childs;
+
+    for(unsigned i = 0; i < copyptr.size(); i++)
+        delete copyptr[i];
 
     m_childs.clear();
 }

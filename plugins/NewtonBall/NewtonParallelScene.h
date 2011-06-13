@@ -28,7 +28,7 @@ public:
     NewtonParallelScene();
     ~NewtonParallelScene();
 
-    /// Sp�cifier la gravité appliquer au noeud
+    /// Spécifier la gravitÃ© appliquer au noeud
     void setGravity(float gravity);
     float getGravity() const;
 
@@ -38,10 +38,10 @@ public:
     /// Specifier le timestep du moteur physique
     void setWorldTimestep(float worldTimestep);
 
-    /// Acc�s au timestep du moteur physique
+    /// Accés au timestep du moteur physique
     float getWorldTimestep() const;
 
-    /// Acc�s au NewtonWorld
+    /// Accés au NewtonWorld
     NewtonWorld* getNewtonWorld() const;
 
     /// Specifier les dimmension du mond physique

@@ -118,7 +118,7 @@ void NewtonNode::buildBoxNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // Donneés utilisateur
+    // DonneÃ©s utilisateur
     NewtonBodySetUserData(m_body, this);
 
     // Callback
@@ -152,7 +152,7 @@ void NewtonNode::buildSphereNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // Donneés utilisateur
+    // DonneÃ©s utilisateur
     NewtonBodySetUserData(m_body, this);
 
     // Callback
@@ -184,7 +184,7 @@ void NewtonNode::buildCylinderNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // Donneés utilisateur
+    // DonneÃ©s utilisateur
     NewtonBodySetUserData(m_body, this);
 
     // Callback

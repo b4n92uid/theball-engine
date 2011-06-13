@@ -542,6 +542,7 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         }
         catch(std::exception& e)
         {
+            delete emiter;
             cout << e.what() << endl;
         }
 
@@ -580,7 +581,10 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         }
 
         else
+        {
+            delete light;
             throw tbe::Exception("SceneParser::ParseNode; Unknown light type (%s)", rel.attr["type"].c_str());
+        }
 
         light->setAmbient(tools::strToVec4<float>(rel.attr["ambient"], true));
         light->setDiffuse(tools::strToVec4<float>(rel.attr["diffuse"], true));

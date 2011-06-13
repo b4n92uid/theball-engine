@@ -27,7 +27,7 @@ public:
                 Vector2i winsize = Vector2i(800, 600), int bits = 32,
                 bool fullscreen = false, int multisamples = 0);
 
-    /// R�cuperation des evenements
+    /// Récuperation des evenements
     void pollEvent();
 
     /// bloque l'entrer a l'interieur de la fen?tre
@@ -51,7 +51,7 @@ public:
     /// Renvois la profondeur du pixel
     int getWinBits() const;
 
-    /// Renvois un tableau des r�solution support�
+    /// Renvois un tableau des résolution supportï¿½
     static std::vector<Vector2i> getAvilableSceeenSize();
 
     /// Renvois le nom de la touche
