@@ -24,26 +24,36 @@ namespace tbe
 namespace tools
 {
 
-inline bool isEqual(float a, float b)
+#define FLOAT_TEST_FACTOR 0.001
+
+inline bool isEqual(float a, float b, float factor = FLOAT_TEST_FACTOR)
 {
-    return (fabs(a - b) < 0.0001);
+    return (fabs(a - b) < factor);
 }
 
-inline bool isEqual(Vector3f a, float b)
+inline bool isEqual(Vector3f a, float b, float factor = FLOAT_TEST_FACTOR)
 {
-    return (isEqual(a.x, b) && isEqual(a.y, b) && isEqual(a.z, b));
+    return (isEqual(a.x, b, factor) && isEqual(a.y, b, factor) && isEqual(a.z, b, factor));
 }
 
-inline bool isZero(Vector3f a)
+inline bool isEqual(Vector3f a, Vector3f b, float factor = FLOAT_TEST_FACTOR)
 {
-    return (a.x < 0.0001 && a.x > 0.0001
-            && a.y < 0.0001 && a.y > 0.0001
-            && a.z < 0.0001 && a.z > 0.0001);
+    return (isEqual(a.x, b.x, factor) && isEqual(a.y, b.y, factor) && isEqual(a.z, b.z, factor));
 }
 
-inline bool isZero(float a)
+inline bool isZero(float a, float factor = FLOAT_TEST_FACTOR)
 {
-    return (a < 0.0001 && a > 0.0001);
+    return (a > -factor && a < factor);
+}
+
+inline bool isAnyZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
+{
+    return (isZero(a.x, factor) || isZero(a.y, factor) || isZero(a.z, factor));
+}
+
+inline bool isZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
+{
+    return (isZero(a.x, factor) && isZero(a.y, factor) && isZero(a.z, factor));
 }
 
 /**

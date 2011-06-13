@@ -146,6 +146,9 @@ public:
     void setNormalize(bool normalize);
     bool isNormalize() const;
 
+    void setVertexScale(Vector3f vertexScale);
+    Vector3f getVertexScale() const;
+
     typedef std::map<std::string, Mesh*> Map;
     typedef std::vector<Mesh*> Array;
 
@@ -190,6 +193,7 @@ private:
     float m_opacity;
 
     Vector4f m_color;
+    Vector3f m_vertexScale;
 };
 
 }

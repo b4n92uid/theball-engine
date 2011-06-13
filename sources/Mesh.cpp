@@ -29,6 +29,8 @@ Mesh::Mesh(MeshParallelScene* scene)
 
     m_parallelScene->registerNode(this);
 
+    m_vertexScale = 1;
+    m_color = 1;
     m_opacity = 1;
 }
 
@@ -78,6 +80,8 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_opacity = copy.m_opacity;
     m_outputMaterial = copy.m_outputMaterial;
     m_normalize = copy.m_normalize;
+    m_vertexScale = copy.m_vertexScale;
+    m_color = copy.m_color;
 
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
@@ -825,9 +829,11 @@ Node::CtorMap Mesh::constructionMap(std::string root)
                     ctormap[key] += "replace";
             }
         }
-
-        ctormap["!opacity"] = tools::numToStr(m_opacity);
     }
+
+    ctormap["color"] = tools::vec4ToStr(m_color);
+    ctormap["opacity"] = tools::numToStr(m_opacity);
+    ctormap["vertexScale"] = tools::vec3ToStr(m_vertexScale);
 
     return ctormap;
 }
@@ -850,4 +856,35 @@ void Mesh::setNormalize(bool normalize)
 bool Mesh::isNormalize() const
 {
     return m_normalize;
+}
+
+void Mesh::setVertexScale(Vector3f vertexScale)
+{
+    if(tools::isAnyZero(vertexScale))
+        return;
+
+    if(tools::isEqual(vertexScale, m_vertexScale, 0.01))
+        return;
+
+    Vector3f setscale = vertexScale / m_vertexScale;
+
+    m_vertexScale = vertexScale;
+
+    Vertex* vertex = m_hardwareBuffer.lock();
+
+    m_aabb.clear();
+
+    unsigned count = m_hardwareBuffer.getVertexCount();
+    for(unsigned i = 0; i < count; i++)
+    {
+        vertex[i].pos *= setscale;
+        m_aabb.count(vertex[i].pos);
+    }
+
+    m_hardwareBuffer.unlock();
+}
+
+Vector3f Mesh::getVertexScale() const
+{
+    return m_vertexScale;
 }
