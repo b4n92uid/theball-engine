@@ -79,6 +79,22 @@ void MeshParallelScene::render()
     }
 }
 
+Mesh::Array MeshParallelScene::findMeshs(Vector3f start, Vector3f diri)
+{
+    Mesh::Array matches;
+
+    for(unsigned i = 0; i < m_nodes.size(); i++)
+    {
+        Vector3f intersect;
+
+        if(m_nodes[i]->isEnable())
+            if(m_nodes[i]->rayCast(start, diri, intersect, true))
+                matches.push_back(m_nodes[i]);
+    }
+
+    return matches;
+}
+
 bool MeshParallelScene::findFloor(Vector3f& pos)
 {
     bool atleastone = false;

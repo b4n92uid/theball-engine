@@ -30,6 +30,8 @@ public:
     /// Renvois la position y des coordonnés x z dans le repere global
     bool findFloor(Vector3f& pos);
 
+    Mesh::Array findMeshs(Vector3f start, Vector3f diri);
+
     void setInFloor(Node* node);
 
     void setEnableFrustumTest(bool enableFrustumTest);

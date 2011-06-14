@@ -152,6 +152,8 @@ public:
     typedef std::map<std::string, Mesh*> Map;
     typedef std::vector<Mesh*> Array;
 
+    bool rayCast(Vector3f rayStart, Vector3f rayDiri,
+                 Vector3f& intersect, bool global);
 protected:
     bool m_triangulate;
     bool m_withNormal;
@@ -163,9 +165,6 @@ protected:
     HardwareBuffer m_hardwareBuffer;
 
     MeshParallelScene* m_parallelScene;
-
-    bool rayCast(Vector3f rayStart, Vector3f rayDiri,
-                 Vector3f& intersect, bool global);
 
 private:
     void render(Material* material, unsigned offset, unsigned size);
