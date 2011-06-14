@@ -113,25 +113,27 @@ public:
 
     enum
     {
-        LIGHT = 0x1,
-        TEXTURE = 0x2,
-        COLOR = 0x4,
-        SHADER = 0x8,
+        LIGHTED = 0x1,
+        TEXTURED = 0x2,
+        COLORED = 0x4,
+        FOGED = 0x8,
 
-        TANGENT = 0x10,
-        AOCC = 0x2000,
+        SHADER = 0x10,
 
-        VERTEX_SORT = 0x20,
-        VERTEX_SORT_CULL_TRICK = 0x40,
+        TANGENT = 0x20,
+        AOCC = 0x40,
 
-        BLEND_ADD = 0x80,
-        BLEND_MUL = 0x100,
-        BLEND_MOD = 0x200,
+        VERTEX_SORT = 0x80,
+        VERTEX_SORT_CULL_TRICK = 0x100,
 
-        ALPHA = 0x400,
+        BLEND_ADD = 0x200,
+        BLEND_MUL = 0x400,
+        BLEND_MOD = 0x800,
 
-        FRONTFACE_CULL = 0x800,
-        BACKFACE_CULL = 0x1000,
+        ALPHA = 0x1000,
+
+        FRONTFACE_CULL = 0x2000,
+        BACKFACE_CULL = 0x4000,
     };
 
     typedef std::vector<Material*> Array;

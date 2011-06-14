@@ -297,7 +297,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     if(material->m_renderFlags & Material::SHADER)
     {
-        // Tangent -------------------------------------------------------------
+        // Tangent
 
         if(material->m_renderFlags & Material::TANGENT)
         {
@@ -309,7 +309,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             m_hardwareBuffer.bindTangent(true, tangentAttribIndex);
         }
 
-        // Amobient occlusion --------------------------------------------------
+        // Amobient occlusion
 
         if(material->m_renderFlags & Material::AOCC)
         {
@@ -326,7 +326,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     // Texture -----------------------------------------------------------------
 
-    if(material->m_renderFlags & Material::TEXTURE)
+    if(material->m_renderFlags & Material::TEXTURED)
     {
         Texture::Map& textures = material->m_textures;
 
@@ -361,7 +361,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     // Lumiere -----------------------------------------------------------------
 
-    if(material->m_renderFlags & Material::LIGHT)
+    if(material->m_renderFlags & Material::LIGHTED)
     {
         m_hardwareBuffer.bindNormal();
 
@@ -378,7 +378,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     // Color -------------------------------------------------------------------
 
-    if(material->m_renderFlags & Material::COLOR)
+    if(material->m_renderFlags & Material::COLORED)
     {
         m_hardwareBuffer.bindColor();
 
@@ -411,6 +411,11 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         glEnable(GL_ALPHA_TEST);
         glAlphaFunc(GL_GREATER, material->m_alphaThershold);
     }
+
+    // Fog ---------------------------------------------------------------------
+
+    if(glIsEnabled(GL_FOG) && !(material->m_renderFlags & Material::FOGED))
+        glDisable(GL_FOG);
 
     // Line width --------------------------------------------------------------
 
@@ -464,7 +469,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         material->m_shader.use(false);
     }
 
-    if(material->m_renderFlags & Material::TEXTURE)
+    if(material->m_renderFlags & Material::TEXTURED)
     {
         Texture::Map& textures = material->m_textures;
 
@@ -484,12 +489,12 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         }
     }
 
-    if(material->m_renderFlags & Material::LIGHT)
+    if(material->m_renderFlags & Material::LIGHTED)
     {
         m_hardwareBuffer.bindNormal(false);
     }
 
-    if(material->m_renderFlags & Material::COLOR)
+    if(material->m_renderFlags & Material::COLORED)
     {
         m_hardwareBuffer.bindColor(false);
     }
@@ -806,9 +811,9 @@ Node::CtorMap Mesh::constructionMap(std::string root)
             ctormap["!" + it->first + ":alpha"] = tools::numToStr(it->second->isEnable(Material::ALPHA));
             ctormap["!" + it->first + ":frontFaceCull"] = tools::numToStr(it->second->isEnable(Material::FRONTFACE_CULL));
             ctormap["!" + it->first + ":backFaceCull"] = tools::numToStr(it->second->isEnable(Material::BACKFACE_CULL));
-            ctormap["!" + it->first + ":lighted"] = tools::numToStr(it->second->isEnable(Material::LIGHT));
-            ctormap["!" + it->first + ":textured"] = tools::numToStr(it->second->isEnable(Material::TEXTURE));
-            ctormap["!" + it->first + ":colored"] = tools::numToStr(it->second->isEnable(Material::COLOR));
+            ctormap["!" + it->first + ":lighted"] = tools::numToStr(it->second->isEnable(Material::LIGHTED));
+            ctormap["!" + it->first + ":textured"] = tools::numToStr(it->second->isEnable(Material::TEXTURED));
+            ctormap["!" + it->first + ":colored"] = tools::numToStr(it->second->isEnable(Material::COLORED));
 
             unsigned txcount = it->second->getTexturesCount();
 

@@ -280,7 +280,7 @@ void Axes::setup(float lineWidth, float lineLength)
     computeAabb();
 
     Material* mainMaterial = new Material;
-    mainMaterial->setRenderFlags(Material::COLOR);
+    mainMaterial->setRenderFlags(Material::COLORED);
     mainMaterial->setLineWidth(m_lineWidth);
     mainMaterial->setFaceType(Material::LINES);
 
@@ -440,6 +440,7 @@ void Grid::setup(Vector2f size, Vector2i cut)
     computeAabb();
 
     Material* mainMaterial = new Material;
+    mainMaterial->disable(Material::TEXTURED | Material::LIGHTED);
     mainMaterial->setFaceType(Material::LINES);
     mainMaterial->setDrawPass(m_hardwareBuffer.getVertexCount() / 2);
 

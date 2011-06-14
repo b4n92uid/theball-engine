@@ -98,7 +98,7 @@ void Ball3DMesh::readMaterial(std::ifstream& file, Material* mat)
             string filepath = tools::pathScope(m_filename, value.substr(value.find(' ') + 1), true);
 
             mat->setTexture(Texture(filepath, true), index);
-            mat->enable(Material::TEXTURE);
+            mat->enable(Material::TEXTURED);
         }
     }
 }
@@ -136,8 +136,8 @@ void Ball3DMesh::open(std::string filepath)
         if(opcode == "material")
         {
             curMaterial = new Material;
-            curMaterial->enable(Material::LIGHT);
-            curMaterial->enable(Material::COLOR);
+            curMaterial->enable(Material::LIGHTED);
+            curMaterial->enable(Material::COLORED);
 
             addMaterial(value, curMaterial);
             readMaterial(file, curMaterial);

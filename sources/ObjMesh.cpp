@@ -114,12 +114,12 @@ void OBJMesh::open(const std::string& path)
             if(curMaterial)
             {
                 if(!vTexCoord.empty())
-                    curMaterial->enable(Material::TEXTURE);
+                    curMaterial->enable(Material::TEXTURED);
 
                 if(!vNormal.empty())
-                    curMaterial->enable(Material::LIGHT);
+                    curMaterial->enable(Material::LIGHTED);
 
-                curMaterial->enable(Material::COLOR);
+                curMaterial->enable(Material::COLORED);
 
                 applyMaterial(curMaterial, applyOffset, applySize);
             }
@@ -207,12 +207,12 @@ void OBJMesh::open(const std::string& path)
     if(curMaterial)
     {
         if(!vTexCoord.empty())
-            curMaterial->enable(Material::TEXTURE);
+            curMaterial->enable(Material::TEXTURED);
 
         if(!vNormal.empty())
-            curMaterial->enable(Material::LIGHT);
+            curMaterial->enable(Material::LIGHTED);
 
-        curMaterial->enable(Material::COLOR);
+        curMaterial->enable(Material::COLORED);
 
         applyMaterial(curMaterial, applyOffset, applySize);
     }

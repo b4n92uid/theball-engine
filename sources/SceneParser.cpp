@@ -450,11 +450,11 @@ void SceneParser::parseMaterial(AttribMap& att, Mesh* mesh)
                     if(attributs == "backFaceCull")
                         toogleMaterial(material, Material::BACKFACE_CULL, it->second);
                     if(attributs == "lighted")
-                        toogleMaterial(material, Material::LIGHT, it->second);
+                        toogleMaterial(material, Material::LIGHTED, it->second);
                     if(attributs == "textured")
-                        toogleMaterial(material, Material::TEXTURE, it->second);
+                        toogleMaterial(material, Material::TEXTURED, it->second);
                     if(attributs == "colored")
-                        toogleMaterial(material, Material::COLOR, it->second);
+                        toogleMaterial(material, Material::COLORED, it->second);
                 }
             }
             catch(std::exception& e)
