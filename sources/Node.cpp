@@ -185,6 +185,10 @@ bool Node::isRoot() const
 {
     if(m_sceneManager)
         return (this == m_sceneManager->getRootNode());
+
+    else if(m_parallelScene)
+        return (this == m_parallelScene->getSceneManager()->getRootNode());
+
     else
         return false;
 }
