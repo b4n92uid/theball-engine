@@ -24,6 +24,7 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_outputMaterial = false;
 
     Node::m_parallelScene = m_parallelScene = scene;
+
     m_sceneManager = m_parallelScene->getSceneManager();
 
     m_parallelScene->registerNode(this);
@@ -71,6 +72,8 @@ void Mesh::clear()
 Mesh& Mesh::copy(const Mesh& copy)
 {
     Node::m_parallelScene = m_parallelScene = copy.m_parallelScene;
+
+    m_sceneManager = m_parallelScene->getSceneManager();
 
     m_triangulate = copy.m_triangulate;
     m_withNormal = copy.m_withNormal;
@@ -858,7 +861,7 @@ void Mesh::setVertexScale(Vector3f vertexScale)
     if(tools::isAnyZero(vertexScale))
         return;
 
-    if(tools::isEqual(vertexScale, m_vertexScale, 0.01))
+    if(tools::isEqual(vertexScale, m_vertexScale, 0.001))
         return;
 
     Vector3f setscale = vertexScale / m_vertexScale;

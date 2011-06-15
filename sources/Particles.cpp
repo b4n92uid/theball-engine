@@ -95,6 +95,8 @@ ParticlesEmiter& ParticlesEmiter::copy(const ParticlesEmiter& copy)
 
     Node::m_parallelScene = m_parallelScene = copy.m_parallelScene;
 
+    m_sceneManager = m_parallelScene->getSceneManager();
+
     if(copy.m_enable)
         build();
 
