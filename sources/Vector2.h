@@ -355,6 +355,7 @@ public:
 
 typedef Vector2<float> Vector2f;
 typedef Vector2<int> Vector2i;
+typedef Vector2<bool > Vector2b;
 
 }
 

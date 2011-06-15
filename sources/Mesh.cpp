@@ -394,6 +394,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     {
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE);
+
+        glDepthMask(false);
     }
 
     else if(material->m_renderFlags & Material::BLEND_MUL)
@@ -425,6 +427,17 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     if(material->m_lineWidth)
         glLineWidth(material->m_lineWidth);
 
+    // Billboarding ------------------------------------------------------------
+
+    if(!!m_billBoard)
+    {
+        Vector3f pos = getAbsoluteMatrix().getPos();
+
+        Matrix4 rotation = m_sceneManager->computeBillboard(pos, Matrix4(), 0, m_billBoard);
+
+        m_matrix.setRotate(rotation.getRotate());
+    }
+
     // Rendue ------------------------------------------------------------------
 
     if(material->m_drawPass > 1)
@@ -451,6 +464,11 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     }
 
     // Réstorations ------------------------------------------------------------
+
+    if(material->m_renderFlags & Material::BLEND_ADD)
+    {
+        glDepthMask(true);
+    }
 
     if(material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
     {
@@ -634,6 +652,16 @@ bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, boo
 
         return true;
     }
+}
+
+void Mesh::setBillBoard(Vector2b billBoard)
+{
+    this->m_billBoard = billBoard;
+}
+
+Vector2b Mesh::getBillBoard() const
+{
+    return m_billBoard;
 }
 
 bool Mesh::findFloor(Vector3f& pos, bool global)
@@ -842,6 +870,7 @@ Node::CtorMap Mesh::constructionMap(std::string root)
     ctormap["color"] = tools::vec4ToStr(m_color);
     ctormap["opacity"] = tools::numToStr(m_opacity);
     ctormap["vertexScale"] = tools::vec3ToStr(m_vertexScale);
+    ctormap["billBoarding"] = tools::vec2ToStr(m_billBoard);
 
     return ctormap;
 }

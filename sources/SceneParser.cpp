@@ -519,6 +519,8 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
                 mesh->setColor(tools::strToVec4<float>(rel.attr["color"], true));
             if(rel.attr.count("opacity"))
                 mesh->setOpacity(tools::strToNum<float>(rel.attr["opacity"]));
+            if(rel.attr.count("billBoarding"))
+                mesh->setBillBoard(tools::strToVec2<bool>(rel.attr["billBoarding"]));
 
             parseMaterial(rel.attr, mesh);
 

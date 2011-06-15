@@ -149,6 +149,9 @@ public:
     typedef std::map<std::string, Mesh*> Map;
     typedef std::vector<Mesh*> Array;
 
+    void setBillBoard(Vector2b billBoard);
+    Vector2b getBillBoard() const;
+
     bool rayCast(Vector3f rayStart, Vector3f rayDiri,
                  Vector3f& intersect, bool global);
 protected:
@@ -187,6 +190,7 @@ private:
 
     float m_opacity;
 
+    Vector2b m_billBoard;
     Vector4f m_color;
     Vector3f m_vertexScale;
 };

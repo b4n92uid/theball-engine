@@ -343,7 +343,7 @@ Vector3f SceneManager::screenToWorld(Vector2i target)
     return Vector3f(float(pick.x), float(pick.y), float(pick.z));
 }
 
-Matrix4 SceneManager::computeBillboard(Vector3f obj, Matrix4 init, Vector3f cam)
+Matrix4 SceneManager::computeBillboard(Vector3f obj, Matrix4 init, Vector3f cam, Vector2b diri)
 {
     Matrix4 rotation = init;
 
@@ -364,12 +364,16 @@ Matrix4 SceneManager::computeBillboard(Vector3f obj, Matrix4 init, Vector3f cam)
 
     float rotateV = Vector3f::dot(proj, proj2);
 
-    if(campos.y < obj.y)
-        rotation.setRotate(acos(rotateV), Vector3f(1, 0, 0));
-    else
-        rotation.setRotate(acos(rotateV), Vector3f(-1, 0, 0));
+    if(diri.y)
+    {
+        if(campos.y < obj.y)
+            rotation.rotate(acos(rotateV), Vector3f(1, 0, 0));
+        else
+            rotation.rotate(acos(rotateV), Vector3f(-1, 0, 0));
+    }
 
-    rotation.setRotate(acos(rotateH), up);
+    if(diri.x)
+        rotation.rotate(acos(rotateH), up);
 
     return rotation;
 }
