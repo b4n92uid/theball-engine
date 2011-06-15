@@ -339,6 +339,12 @@ void SceneParser::parseGeneral(AttribMap& att)
         m_particlesScene = new ParticlesParallelScene;
         m_sceneManager->addParallelScene(m_particlesScene);
     }
+
+    if(!m_markScene)
+    {
+        m_markScene = new MapMarkParalleScene;
+        m_sceneManager->addParallelScene(m_markScene);
+    }
 }
 
 void SceneParser::parseFog(AttribMap& att)
@@ -595,7 +601,7 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
 
     else if(iclass == "MapMark")
     {
-        MapMark* mark = new MapMark;
+        MapMark* mark = new MapMark(m_markScene);
 
         current = mark;
 
@@ -635,6 +641,16 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
 const SceneParser::AttribMap SceneParser::additionalFields() const
 {
     return m_additional;
+}
+
+void SceneParser::setMarkScene(MapMarkParalleScene* markScene)
+{
+    this->m_markScene = markScene;
+}
+
+MapMarkParalleScene* SceneParser::getMarkScene() const
+{
+    return m_markScene;
 }
 
 void SceneParser::clearAdditional()
@@ -706,46 +722,4 @@ void SceneParser::setMeshScene(MeshParallelScene* meshScene)
 void SceneParser::setLightScene(LightParallelScene* lightScene)
 {
     this->m_lightScene = lightScene;
-}
-
-unsigned SceneParser::getMapMarkCount()
-{
-    return m_marks.size();
-}
-
-MapMark* SceneParser::getMapMark(std::string name)
-{
-    for(unsigned i = 0; i < m_marks.size(); i++)
-        if(m_marks[i]->getName() == name)
-            return m_marks[i];
-
-    return NULL;
-}
-
-MapMark* SceneParser::getMapMark(unsigned index)
-{
-    if(index > m_marks.size())
-        return NULL;
-
-    return m_marks[index];
-}
-
-void SceneParser::removeMapMark(std::string name)
-{
-    for(unsigned i = 0; i < m_marks.size(); i++)
-        if(m_marks[i]->getName() == name)
-            m_marks.erase(m_marks.begin() + i);
-}
-
-void SceneParser::removeMapMark(unsigned index)
-{
-    if(index > m_marks.size())
-        return;
-
-    m_marks.erase(m_marks.begin() + index);
-}
-
-void SceneParser::clearMapMark()
-{
-    m_marks.clear();
 }

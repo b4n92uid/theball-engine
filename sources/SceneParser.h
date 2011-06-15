@@ -15,6 +15,7 @@
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
 #include "WaterParallelScene.h"
+#include "MapMarkParalleScene.h"
 #include "MapMark.h"
 
 namespace tbe
@@ -60,18 +61,11 @@ public:
     void setLightScene(LightParallelScene* lightScene);
     WaterParallelScene* getWaterScene() const;
 
+    void setMarkScene(MapMarkParalleScene* markScene);
+    MapMarkParalleScene* getMarkScene() const;
+
     SceneParser& archive(Node* node);
     SceneParser& exclude(Node* node);
-
-    unsigned getMapMarkCount();
-
-    MapMark* getMapMark(std::string name);
-    MapMark* getMapMark(unsigned index);
-
-    void removeMapMark(std::string name);
-    void removeMapMark(unsigned index);
-
-    void clearMapMark();
 
     template<typename T> T getAdditional(std::string key)
     {
@@ -147,6 +141,7 @@ private:
     MeshParallelScene* m_meshScene;
     ParticlesParallelScene* m_particlesScene;
     WaterParallelScene* m_waterScene;
+    MapMarkParalleScene* m_markScene;
 
     typedef std::map<std::string, Relation::Child> ClassRec;
     typedef std::vector<std::string> IncludeRec;

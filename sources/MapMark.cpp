@@ -6,32 +6,48 @@
  */
 
 #include "MapMark.h"
+#include "Exception.h"
+#include "MapMarkParalleScene.h"
 #include "Tools.h"
 
 using namespace tbe;
 using namespace scene;
 
-MapMark::MapMark()
+MapMark::MapMark(MapMarkParalleScene* parallelScene)
 {
+    Node::m_parallelScene = m_parallelScene = parallelScene;
+
+    m_sceneManager = m_parallelScene->getSceneManager();
+
+    m_parallelScene->registerNode(this);
 }
 
 MapMark::MapMark(const MapMark& orig)
 {
     copy(orig);
+
+    m_parallelScene->registerNode(this);
 }
 
 MapMark::~MapMark()
 {
+    m_parallelScene->unregisterNode(this);
 }
 
 MapMark& MapMark::operator=(const MapMark& orig)
 {
-    copy(orig);
-    return *this;
+    Node::operator=(orig);
+
+    return copy(orig);
 }
 
-void MapMark::copy(const MapMark& m)
+MapMark& MapMark::copy(const MapMark& orig)
 {
+    Node::m_parallelScene = m_parallelScene = orig.m_parallelScene;
+
+    m_sceneManager = m_parallelScene->getSceneManager();
+
+    return *this;
 }
 
 MapMark* MapMark::clone()
