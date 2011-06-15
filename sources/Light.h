@@ -26,8 +26,8 @@ public:
 
     enum Type
     {
-        DIRI,
         POINT,
+        DIRI,
     };
 
     Light(LightParallelScene* scene, Type type = POINT);

@@ -144,7 +144,7 @@ void Light::render()
     // set specular color
     glLightfv(m_lightId, GL_SPECULAR, m_specular);
 
-    Vector3f position = getPos();
+    Vector3f position = getAbsoluteMatrix().getPos();
 
     switch(m_type)
     {
