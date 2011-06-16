@@ -83,10 +83,10 @@ Vector3f Node::getPos() const
     return m_matrix.getPos();
 }
 
-Vector3f Node::mapFromGlobal(Vector3f pos)
+Vector3f Node::mapToGlobal(Vector3f pos)
 {
     if(m_parent)
-        return m_parent->mapFromGlobal(m_parent->getMatrix() * pos);
+        return m_parent->mapToGlobal(getMatrix() * pos);
     else
         return pos;
 }

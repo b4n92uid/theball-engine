@@ -74,7 +74,7 @@ public:
     void setPos(Vector3f pos);
     Vector3f getPos() const;
 
-    Vector3f mapFromGlobal(Vector3f pos);
+    Vector3f mapToGlobal(Vector3f pos);
 
     bool isParent(Node* searche) const;
     bool isChild(Node* searche, bool recursiv = false) const;
