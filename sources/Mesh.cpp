@@ -80,6 +80,7 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_withTexCoord = copy.m_withTexCoord;
     m_visible = copy.m_visible;
     m_outputMaterial = copy.m_outputMaterial;
+    m_billBoard = copy.m_billBoard;
 
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
