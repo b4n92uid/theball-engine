@@ -608,12 +608,7 @@ const SceneParser::AttribMap SceneParser::additionalFields() const
     return m_additional;
 }
 
-void SceneParser::setMapDescriptor(MapDescriptor mapDescriptor)
-{
-    this->m_mapDescriptor = mapDescriptor;
-}
-
-SceneParser::MapDescriptor SceneParser::getMapDescriptor() const
+SceneParser::MapDescriptor& SceneParser::getMapDescriptor()
 {
     return m_mapDescriptor;
 }

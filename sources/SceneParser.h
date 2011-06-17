@@ -133,8 +133,7 @@ public:
         std::vector<Relation> nodes;
     };
 
-    void setMapDescriptor(MapDescriptor mapDescriptor);
-    MapDescriptor getMapDescriptor() const;
+    MapDescriptor& getMapDescriptor();
 
 protected:
     MapDescriptor m_mapDescriptor;
