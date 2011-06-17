@@ -39,13 +39,10 @@ public:
     void setAuthorName(std::string authorName);
     std::string getAuthorName() const;
 
-    void loadClass(const std::string& filepath);
-
-    void saveClass();
-    void saveClass(const std::string& filepath);
-
     void loadScene(const std::string& filepath);
+    void buildScene();
 
+    void prepareScene();
     void saveScene();
     void saveScene(const std::string& filepath);
 
@@ -64,7 +61,6 @@ public:
     void setMarkScene(MapMarkParalleScene* markScene);
     MapMarkParalleScene* getMarkScene() const;
 
-    SceneParser& archive(Node* node);
     SceneParser& exclude(Node* node);
 
     template<typename T> T getAdditional(std::string key)
@@ -94,8 +90,6 @@ public:
 
     const AttribMap additionalFields() const;
 
-protected:
-
     struct Relation
     {
 
@@ -104,50 +98,74 @@ protected:
             this->deep = deep;
         }
 
-        typedef std::vector<Relation> Child;
-
         AttribMap attr;
-        Child child;
+        std::vector<Relation> child;
         int deep;
     };
 
-    void parseGeneral(AttribMap& att);
-    void parseFog(AttribMap& att);
-    void parseSkyBox(AttribMap& att);
-    void parseNode(Relation& att, Node* parent = NULL);
+    struct MapDescriptor
+    {
+        MapDescriptor();
 
-    void parseMaterial(AttribMap& att, Mesh* mesh);
+        std::string fileName;
+        std::string sceneName;
+        std::string authorName;
+        Vector4f ambiante;
 
-private:
+        struct
+        {
+            Vector4f color;
+            float start;
+            float end;
+            bool enable;
 
-    bool parseBlock(std::ifstream& file, Relation& rel, unsigned& line);
-    void outpuNodeConstruction(std::ofstream& file, Node* node);
+        } fog;
 
-    std::string m_fileName;
-    std::string m_sceneName;
-    std::string m_authorName;
+        struct
+        {
+            std::string front, back;
+            std::string top, bottom;
+            std::string left, right;
+            bool enable;
 
-    std::vector<MapMark*> m_marks;
+        } skybox;
 
-    std::vector<Node*> m_archivedNodes;
-    std::vector<Node*> m_excludedNodes;
+        std::vector<Relation> nodes;
+    };
+
+    void setMapDescriptor(MapDescriptor mapDescriptor);
+    MapDescriptor getMapDescriptor() const;
+
+protected:
+    MapDescriptor m_mapDescriptor;
 
     AttribMap m_additional;
 
     SceneManager* m_sceneManager;
     Node* m_rootNode;
 
+private:
+
+    bool parseBlock(std::ifstream& file, Relation& rel, unsigned& line);
+
+    void parseGeneral(AttribMap& att);
+    void parseFog(AttribMap& att);
+    void parseSkyBox(AttribMap& att);
+
+    void buildNode(Relation& att, Node* parent = NULL);
+    void buildMaterial(AttribMap& att, Mesh* mesh);
+
+    void prepareNodeConstruction(Node* node, Relation& rel);
+    void outpuNodeConstruction(Relation& rel, std::ofstream& file);
+
+    std::vector<Node*> m_archivedNodes;
+    std::vector<Node*> m_excludedNodes;
+
     LightParallelScene* m_lightScene;
     MeshParallelScene* m_meshScene;
     ParticlesParallelScene* m_particlesScene;
     WaterParallelScene* m_waterScene;
     MapMarkParalleScene* m_markScene;
-
-    typedef std::map<std::string, Relation::Child> ClassRec;
-    typedef std::vector<std::string> IncludeRec;
-
-    ClassRec m_classRec;
-    IncludeRec m_includeRec;
 };
 
 }

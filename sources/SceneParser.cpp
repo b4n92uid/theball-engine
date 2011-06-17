@@ -35,37 +35,41 @@ SceneParser::~SceneParser()
 {
 }
 
-void SceneParser::outpuNodeConstruction(std::ofstream& file, Node* node)
+void SceneParser::prepareNodeConstruction(Node* node, Relation& rel)
 {
     if(tools::find(m_excludedNodes, node))
         return;
 
-    Node::CtorMap ctormap = node->constructionMap(m_fileName);
-
-    if(node->isRoot())
-    {
-        for(Iterator<Node*> it = node->getChildIterator(); it; it++)
-            outpuNodeConstruction(file, *it);
-
-        return;
-    }
-
-    string indent((node->deepPosition() - 1) * 4, ' ');
-
-    if(node->getParent()->isRoot())
-        file << indent << "+node" << endl;
-
-    for(Node::CtorMap::iterator it = ctormap.begin(); it != ctormap.end(); it++)
-        file << indent << it->first << "=" << it->second << endl;
+    rel.attr = node->constructionMap(m_mapDescriptor.fileName);
+    rel.deep = node->deepPosition() - 1;
 
     for(Iterator<Node*> it = node->getChildIterator(); it; it++)
     {
+        Relation subrel;
+        prepareNodeConstruction(*it, subrel);
+
+        rel.child.push_back(subrel);
+    }
+}
+
+void SceneParser::outpuNodeConstruction(Relation& rel, std::ofstream& file)
+{
+    string indent((rel.deep) * 4, ' ');
+
+    if(rel.deep == 0)
+        file << indent << "+node" << endl;
+
+    for(AttribMap::iterator it = rel.attr.begin(); it != rel.attr.end(); it++)
+        file << indent << it->first << "=" << it->second << endl;
+
+    for(unsigned i = 0; i < rel.child.size(); i++)
+    {
         file << indent << "{" << endl;
-        outpuNodeConstruction(file, *it);
+        outpuNodeConstruction(rel.child[i], file);
         file << indent << "}" << endl;
     }
 
-    if(node->getParent()->isRoot())
+    if(rel.deep == 0)
         file << endl;
 }
 
@@ -75,61 +79,31 @@ SceneParser& SceneParser::exclude(Node *node)
     return *this;
 }
 
-SceneParser& SceneParser::archive(Node *node)
+void SceneParser::prepareScene()
 {
-    bool skip = false, done = false;
+    m_mapDescriptor.skybox.front = tools::pathScope(m_mapDescriptor.fileName, m_mapDescriptor.skybox.front, false);
+    m_mapDescriptor.skybox.back = tools::pathScope(m_mapDescriptor.fileName, m_mapDescriptor.skybox.back, false);
+    m_mapDescriptor.skybox.top = tools::pathScope(m_mapDescriptor.fileName, m_mapDescriptor.skybox.top, false);
+    m_mapDescriptor.skybox.bottom = tools::pathScope(m_mapDescriptor.fileName, m_mapDescriptor.skybox.bottom, false);
+    m_mapDescriptor.skybox.left = tools::pathScope(m_mapDescriptor.fileName, m_mapDescriptor.skybox.left, false);
+    m_mapDescriptor.skybox.right = tools::pathScope(m_mapDescriptor.fileName, m_mapDescriptor.skybox.right, false);
 
-    while(!done)
+    m_mapDescriptor.nodes.clear();
+
+    for(Iterator<Node*> it = m_rootNode->getChildIterator(); it; it++)
     {
-        done = true;
-
-        for(unsigned i = 0; i < m_archivedNodes.size(); i++)
-            if(m_archivedNodes[i] == node)
-            {
-                skip = true;
-                break;
-            }
-            else if(m_archivedNodes[i]->isChild(node, true))
-            {
-                skip = true;
-                break;
-            }
-            else if(m_archivedNodes[i]->isParent(node))
-            {
-                skip = true;
-                done = false;
-                m_archivedNodes[i] = node;
-                break;
-            }
+        Relation rel;
+        prepareNodeConstruction(*it, rel);
+        m_mapDescriptor.nodes.push_back(rel);
     }
-
-    if(!skip)
-        m_archivedNodes.push_back(node);
-
-    return *this;
-}
-
-void SceneParser::saveClass()
-{
-
-}
-
-void SceneParser::saveClass(const std::string& filepath)
-{
-
-}
-
-void SceneParser::loadClass(const std::string& filepath)
-{
-
 }
 
 void SceneParser::saveScene()
 {
-    if(m_fileName.empty())
+    if(m_mapDescriptor.fileName.empty())
         return;
 
-    saveScene(m_fileName);
+    saveScene(m_mapDescriptor.fileName);
 }
 
 void SceneParser::saveScene(const std::string& filepath)
@@ -139,12 +113,12 @@ void SceneParser::saveScene(const std::string& filepath)
     if(!file)
         throw tbe::Exception("SceneParser::SaveScene; Open file error (%s)", filepath.c_str());
 
-    m_fileName = filepath;
+    m_mapDescriptor.fileName = filepath;
 
     file << "*general" << endl;
-    file << "name=" << m_sceneName << endl;
-    file << "author=" << m_authorName << endl;
-    file << "ambient=" << m_sceneManager->getAmbientLight() << endl;
+    file << "name=" << m_mapDescriptor.sceneName << endl;
+    file << "author=" << m_mapDescriptor.authorName << endl;
+    file << "ambient=" << m_mapDescriptor.ambiante << endl;
     file << endl;
 
     if(m_additional.size())
@@ -155,37 +129,29 @@ void SceneParser::saveScene(const std::string& filepath)
         file << endl;
     }
 
-    Fog* fog = m_sceneManager->getFog();
-
-    if(fog->isEnable())
+    if(m_mapDescriptor.fog.enable)
     {
         file << "*fog" << endl;
-        file << "color=" << fog->getColor() << endl;
-        file << "start=" << fog->getStart() << endl;
-        file << "end=" << fog->getEnd() << endl;
+        file << "color=" << m_mapDescriptor.fog.color << endl;
+        file << "start=" << m_mapDescriptor.fog.start << endl;
+        file << "end=" << m_mapDescriptor.fog.end << endl;
         file << endl;
     }
 
-    SkyBox* sky = m_sceneManager->getSkybox();
-
-    if(sky->isEnable())
+    if(m_mapDescriptor.skybox.enable)
     {
-        Texture* skyTexs = sky->getTextures();
-
         file << "*skybox" << endl;
-        file << "front=" << tools::pathScope(m_fileName, skyTexs[0].getFilename(), false) << endl;
-        file << "back=" << tools::pathScope(m_fileName, skyTexs[1].getFilename(), false) << endl;
-        file << "top=" << tools::pathScope(m_fileName, skyTexs[2].getFilename(), false) << endl;
-        file << "bottom=" << tools::pathScope(m_fileName, skyTexs[3].getFilename(), false) << endl;
-        file << "left=" << tools::pathScope(m_fileName, skyTexs[4].getFilename(), false) << endl;
-        file << "right=" << tools::pathScope(m_fileName, skyTexs[5].getFilename(), false) << endl;
+        file << "front=" << m_mapDescriptor.skybox.front << endl;
+        file << "back=" << m_mapDescriptor.skybox.back << endl;
+        file << "top=" << m_mapDescriptor.skybox.top << endl;
+        file << "bottom=" << m_mapDescriptor.skybox.bottom << endl;
+        file << "left=" << m_mapDescriptor.skybox.left << endl;
+        file << "right=" << m_mapDescriptor.skybox.right << endl;
         file << endl;
     }
 
-    for(unsigned it = 0; it < m_archivedNodes.size(); it++)
-        outpuNodeConstruction(file, m_archivedNodes[it]);
-
-    m_archivedNodes.clear();
+    for(unsigned i = 0; i < m_mapDescriptor.nodes.size(); i++)
+        outpuNodeConstruction(m_mapDescriptor.nodes[i], file);
 
     file.close();
 }
@@ -247,7 +213,7 @@ void SceneParser::loadScene(const std::string& filepath)
     if(!file)
         throw tbe::Exception("SceneParser::loadScene; Open file error (%s)", filepath.c_str());
 
-    m_fileName = filepath;
+    m_mapDescriptor.fileName = filepath;
 
     string buffer;
     for(unsigned line = 0; tools::getline(file, buffer); line++)
@@ -287,7 +253,7 @@ void SceneParser::loadScene(const std::string& filepath)
         {
             Relation rel;
             parseBlock(file, rel, line);
-            parseNode(rel);
+            m_mapDescriptor.nodes.push_back(rel);
         }
 
         else if(buffer.substr(0, 8) == ".include")
@@ -295,17 +261,9 @@ void SceneParser::loadScene(const std::string& filepath)
             string modelFilepath(buffer, 9);
 
             if(modelFilepath.find(':') == string::npos)
-                modelFilepath = tools::pathScope(m_fileName, modelFilepath, true);
+                modelFilepath = tools::pathScope(m_mapDescriptor.fileName, modelFilepath, true);
 
             loadScene(modelFilepath);
-        }
-
-        else if(buffer.substr(0, 6) == "/class")
-        {
-            Relation rel;
-            parseBlock(file, rel, line);
-
-            m_classRec[buffer.substr(7)] = rel.child;
         }
 
         else
@@ -317,10 +275,9 @@ void SceneParser::loadScene(const std::string& filepath)
 
 void SceneParser::parseGeneral(AttribMap& att)
 {
-    m_sceneName = att["name"];
-    m_authorName = att["author"];
-
-    m_sceneManager->setAmbientLight(vec34(tools::strToVec3<float>(att["ambient"], true)));
+    m_mapDescriptor.sceneName = att["name"];
+    m_mapDescriptor.authorName = att["author"];
+    m_mapDescriptor.ambiante = tools::strToVec4<float>(att["ambient"], true);
 
     if(!m_lightScene)
     {
@@ -349,42 +306,33 @@ void SceneParser::parseGeneral(AttribMap& att)
 
 void SceneParser::parseFog(AttribMap& att)
 {
-    Vector4f color = tools::strToVec4<float>(att["color"], true);
-    float start = tools::strToNum<float>(att["start"]);
-    float end = tools::strToNum<float>(att["end"]);
-
-    scene::Fog* fog = m_sceneManager->getFog();
-    fog->setColor(color);
-    fog->setStart(start);
-    fog->setEnd(end);
-    fog->setEnable(true);
+    m_mapDescriptor.fog.color = tools::strToVec4<float>(att["color"], true);
+    m_mapDescriptor.fog.start = tools::strToNum<float>(att["start"]);
+    m_mapDescriptor.fog.end = tools::strToNum<float>(att["end"]);
+    m_mapDescriptor.fog.enable = true;
 }
 
 void SceneParser::parseSkyBox(AttribMap& att)
 {
-    Texture skyTex[6];
-
     if(!att["front"].empty())
-        skyTex[0] = tools::pathScope(m_fileName, att["front"], true);
+        m_mapDescriptor.skybox.front = tools::pathScope(m_mapDescriptor.fileName, att["front"], true);
 
     if(!att["back"].empty())
-        skyTex[1] = tools::pathScope(m_fileName, att["back"], true);
+        m_mapDescriptor.skybox.back = tools::pathScope(m_mapDescriptor.fileName, att["back"], true);
 
     if(!att["top"].empty())
-        skyTex[2] = tools::pathScope(m_fileName, att["top"], true);
+        m_mapDescriptor.skybox.top = tools::pathScope(m_mapDescriptor.fileName, att["top"], true);
 
     if(!att["bottom"].empty())
-        skyTex[3] = tools::pathScope(m_fileName, att["bottom"], true);
+        m_mapDescriptor.skybox.bottom = tools::pathScope(m_mapDescriptor.fileName, att["bottom"], true);
 
     if(!att["left"].empty())
-        skyTex[4] = tools::pathScope(m_fileName, att["left"], true);
+        m_mapDescriptor.skybox.left = tools::pathScope(m_mapDescriptor.fileName, att["left"], true);
 
     if(!att["right"].empty())
-        skyTex[5] = tools::pathScope(m_fileName, att["right"], true);
+        m_mapDescriptor.skybox.right = tools::pathScope(m_mapDescriptor.fileName, att["right"], true);
 
-    scene::SkyBox * sky = m_sceneManager->getSkybox();
-    sky->setTextures(skyTex);
-    sky->setEnable(true);
+    m_mapDescriptor.skybox.enable = true;
 }
 
 inline void toogleMaterial(Material* material, int mod, string stat)
@@ -394,7 +342,45 @@ inline void toogleMaterial(Material* material, int mod, string stat)
             : material->disable(mod);
 }
 
-void SceneParser::parseMaterial(AttribMap& att, Mesh* mesh)
+void SceneParser::buildScene()
+{
+    scene::Fog* fog = m_sceneManager->getFog();
+    fog->setColor(m_mapDescriptor.fog.color);
+    fog->setStart(m_mapDescriptor.fog.start);
+    fog->setEnd(m_mapDescriptor.fog.end);
+    fog->setEnable(true);
+
+    Texture skytex[6];
+
+    if(!m_mapDescriptor.skybox.front.empty())
+        skytex[0] = m_mapDescriptor.skybox.front;
+
+    if(!m_mapDescriptor.skybox.back.empty())
+        skytex[1] = m_mapDescriptor.skybox.back;
+
+    if(!m_mapDescriptor.skybox.top.empty())
+        skytex[2] = m_mapDescriptor.skybox.top;
+
+    if(!m_mapDescriptor.skybox.bottom.empty())
+        skytex[3] = m_mapDescriptor.skybox.bottom;
+
+    if(!m_mapDescriptor.skybox.left.empty())
+        skytex[4] = m_mapDescriptor.skybox.left;
+
+    if(!m_mapDescriptor.skybox.right.empty())
+        skytex[5] = m_mapDescriptor.skybox.right;
+
+    scene::SkyBox * sky = m_sceneManager->getSkybox();
+    sky->setTextures(skytex);
+    sky->setEnable(true);
+
+    for(unsigned i = 0; i < m_mapDescriptor.nodes.size(); i++)
+    {
+        buildNode(m_mapDescriptor.nodes[i]);
+    }
+}
+
+void SceneParser::buildMaterial(AttribMap& att, Mesh* mesh)
 {
     mesh->setOutputMaterial(false);
 
@@ -425,7 +411,7 @@ void SceneParser::parseMaterial(AttribMap& att, Mesh* mesh)
                     vector<string> valtoken = tools::tokenize(it->second, ';');
 
                     Texture tex;
-                    tex.load(tools::pathScope(m_fileName, valtoken[0], true), true);
+                    tex.load(tools::pathScope(m_mapDescriptor.fileName, valtoken[0], true), true);
 
                     if(valtoken[1] == "additive")
                         tex.setMulTexBlend(Texture::ADDITIVE);
@@ -471,65 +457,44 @@ void SceneParser::parseMaterial(AttribMap& att, Mesh* mesh)
     }
 }
 
-void SceneParser::parseNode(Relation& rel, Node* parent)
+void SceneParser::buildNode(Relation& rel, Node* parent)
 {
     const string& iclass = rel.attr["class"];
-
-    if(m_classRec.count(iclass))
-    {
-        Node* mesh = new BullNode;
-
-        if(parent)
-            parent->addChild(mesh);
-        else
-            m_rootNode->addChild(mesh);
-
-        if(rel.attr.count("matrix"))
-            mesh->setMatrix(rel.attr["matrix"]);
-
-        if(rel.attr.count("name"))
-            mesh->setName(rel.attr["name"]);
-
-        for(unsigned i = 0; i < m_classRec[iclass].size(); i++)
-            parseNode(m_classRec[iclass][i], mesh);
-
-        return;
-    }
 
     Node* current = NULL;
 
     if(iclass == "OBJMesh")
     {
-        OBJMesh* mesh = new OBJMesh(m_meshScene);
+        OBJMesh* node = new OBJMesh(m_meshScene);
 
         string modelFilepath;
 
         if(rel.attr["filename"].find(':') != string::npos)
             modelFilepath = rel.attr["filename"];
         else
-            modelFilepath = tools::pathScope(m_fileName, rel.attr["filename"], true);
+            modelFilepath = tools::pathScope(m_mapDescriptor.fileName, rel.attr["filename"], true);
 
         try
         {
-            mesh->open(modelFilepath);
+            node->open(modelFilepath);
 
             if(rel.attr.count("vertexScale"))
-                mesh->setVertexScale(tools::strToVec3<float>(rel.attr["vertexScale"], true));
+                node->setVertexScale(tools::strToVec3<float>(rel.attr["vertexScale"], true));
             if(rel.attr.count("color"))
-                mesh->setColor(tools::strToVec4<float>(rel.attr["color"], true));
+                node->setColor(tools::strToVec4<float>(rel.attr["color"], true));
             if(rel.attr.count("opacity"))
-                mesh->setOpacity(tools::strToNum<float>(rel.attr["opacity"]));
+                node->setOpacity(tools::strToNum<float>(rel.attr["opacity"]));
             if(rel.attr.count("billBoarding"))
-                mesh->setBillBoard(tools::strToVec2<bool>(rel.attr["billBoarding"]));
+                node->setBillBoard(tools::strToVec2<bool>(rel.attr["billBoarding"]));
 
-            parseMaterial(rel.attr, mesh);
+            buildMaterial(rel.attr, node);
 
-            current = mesh;
+            current = node;
         }
         catch(std::exception& e)
         {
             cout << e.what() << endl;
-            delete mesh;
+            delete node;
         }
     }
 
@@ -542,7 +507,7 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         if(rel.attr["texture"].find(':') != string::npos)
             modelFilepath = rel.attr["texture"];
         else
-            modelFilepath = tools::pathScope(m_fileName, rel.attr["texture"], true);
+            modelFilepath = tools::pathScope(m_mapDescriptor.fileName, rel.attr["texture"], true);
 
         try
         {
@@ -606,8 +571,6 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         MapMark* mark = new MapMark(m_markScene);
 
         current = mark;
-
-        m_marks.push_back(mark);
     }
 
     else
@@ -636,13 +599,23 @@ void SceneParser::parseNode(Relation& rel, Node* parent)
         }
 
         for(unsigned i = 0; i < rel.child.size(); i++)
-            parseNode(rel.child[i], current);
+            buildNode(rel.child[i], current);
     }
 }
 
 const SceneParser::AttribMap SceneParser::additionalFields() const
 {
     return m_additional;
+}
+
+void SceneParser::setMapDescriptor(MapDescriptor mapDescriptor)
+{
+    this->m_mapDescriptor = mapDescriptor;
+}
+
+SceneParser::MapDescriptor SceneParser::getMapDescriptor() const
+{
+    return m_mapDescriptor;
 }
 
 void SceneParser::setMarkScene(MapMarkParalleScene* markScene)
@@ -668,22 +641,22 @@ void SceneParser::removeAdditional(std::string key)
 
 void SceneParser::setSceneName(std::string sceneName)
 {
-    this->m_sceneName = sceneName;
+    m_mapDescriptor.sceneName = sceneName;
 }
 
 std::string SceneParser::getSceneName() const
 {
-    return m_sceneName;
+    return m_mapDescriptor.sceneName;
 }
 
 void SceneParser::setAuthorName(std::string authorName)
 {
-    this->m_authorName = authorName;
+    m_mapDescriptor.authorName = authorName;
 }
 
 std::string SceneParser::getAuthorName() const
 {
-    return m_authorName;
+    return m_mapDescriptor.authorName;
 }
 
 ParticlesParallelScene* SceneParser::getParticlesScene() const
@@ -724,4 +697,13 @@ void SceneParser::setMeshScene(MeshParallelScene* meshScene)
 void SceneParser::setLightScene(LightParallelScene* lightScene)
 {
     this->m_lightScene = lightScene;
+}
+
+SceneParser::MapDescriptor::MapDescriptor()
+{
+    fog.start = 32;
+    fog.end = 64;
+    fog.enable = false;
+
+    skybox.enable = false;
 }
