@@ -40,6 +40,8 @@ public:
 
     Node::CtorMap constructionMap(std::string root);
 
+    std::vector<std::string> getUsedRessources();
+
 private:
     void readMaterial(std::ifstream& file, Material* mat);
     void readVertexs(std::ifstream& file);

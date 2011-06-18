@@ -240,6 +240,18 @@ Node::CtorMap OBJMesh::constructionMap(std::string root)
     return ctormap;
 }
 
+std::vector<std::string> OBJMesh::getUsedRessources()
+{
+    using namespace std;
+
+    vector<string> ressPath = Mesh::getUsedRessources();
+
+    ressPath.push_back(m_filename);
+    ressPath.push_back(m_mtlfile.getFilename());
+
+    return ressPath;
+}
+
 // MTLFile ---------------------------------------------------------------------
 
 MTLFile::MTLFile(OBJMesh * parent)

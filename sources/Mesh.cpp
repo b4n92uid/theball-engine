@@ -916,3 +916,18 @@ Vector3f Mesh::getVertexScale() const
 {
     return m_vertexScale;
 }
+
+std::vector<std::string> Mesh::getUsedRessources()
+{
+    vector<string> ressPath;
+
+    for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); it++)
+    {
+        unsigned txcount = it->second->getTexturesCount();
+
+        for(unsigned i = 0; i < txcount; i++)
+            ressPath.push_back(it->second->getTexture(i).getFilename());
+    }
+
+    return ressPath;
+}

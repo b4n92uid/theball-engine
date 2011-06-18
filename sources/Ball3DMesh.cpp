@@ -175,3 +175,14 @@ Node::CtorMap Ball3DMesh::constructionMap(std::string root)
 
     return ctormap;
 }
+
+std::vector<std::string> Ball3DMesh::getUsedRessources()
+{
+    using namespace std;
+
+    vector<string> ressPath = Mesh::getUsedRessources();
+
+    ressPath.push_back(m_filename);
+
+    return ressPath;
+}

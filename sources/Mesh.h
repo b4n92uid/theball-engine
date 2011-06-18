@@ -154,6 +154,9 @@ public:
 
     bool rayCast(Vector3f rayStart, Vector3f rayDiri,
                  Vector3f& intersect, bool global);
+
+    virtual std::vector<std::string> getUsedRessources();
+
 protected:
     bool m_triangulate;
     bool m_withNormal;
