@@ -81,17 +81,31 @@ SceneParser& SceneParser::exclude(Node *node)
 
 void SceneParser::prepareScene()
 {
-    m_mapDescriptor.skybox.front = tools::pathScope(m_mapDescriptor.fileName, m_mapDescriptor.skybox.front, false);
-    m_mapDescriptor.skybox.back = tools::pathScope(m_mapDescriptor.fileName, m_mapDescriptor.skybox.back, false);
-    m_mapDescriptor.skybox.top = tools::pathScope(m_mapDescriptor.fileName, m_mapDescriptor.skybox.top, false);
-    m_mapDescriptor.skybox.bottom = tools::pathScope(m_mapDescriptor.fileName, m_mapDescriptor.skybox.bottom, false);
-    m_mapDescriptor.skybox.left = tools::pathScope(m_mapDescriptor.fileName, m_mapDescriptor.skybox.left, false);
-    m_mapDescriptor.skybox.right = tools::pathScope(m_mapDescriptor.fileName, m_mapDescriptor.skybox.right, false);
+    Fog* fog = m_sceneManager->getFog();
+
+    m_mapDescriptor.fog.enable = fog->isEnable();
+    m_mapDescriptor.fog.color = fog->getColor();
+    m_mapDescriptor.fog.end = fog->getEnd();
+    m_mapDescriptor.fog.start = fog->getStart();
+
+    SkyBox* sky = m_sceneManager->getSkybox();
+    Texture* skytex = sky->getTextures();
+
+    m_mapDescriptor.skybox.enable = sky->isEnable();
+    m_mapDescriptor.skybox.front = tools::pathScope(m_mapDescriptor.fileName, skytex[0].getFilename(), false);
+    m_mapDescriptor.skybox.back = tools::pathScope(m_mapDescriptor.fileName, skytex[1].getFilename(), false);
+    m_mapDescriptor.skybox.top = tools::pathScope(m_mapDescriptor.fileName, skytex[2].getFilename(), false);
+    m_mapDescriptor.skybox.bottom = tools::pathScope(m_mapDescriptor.fileName, skytex[3].getFilename(), false);
+    m_mapDescriptor.skybox.left = tools::pathScope(m_mapDescriptor.fileName, skytex[4].getFilename(), false);
+    m_mapDescriptor.skybox.right = tools::pathScope(m_mapDescriptor.fileName, skytex[5].getFilename(), false);
 
     m_mapDescriptor.nodes.clear();
 
     for(Iterator<Node*> it = m_rootNode->getChildIterator(); it; it++)
     {
+        if(tools::find(m_excludedNodes, *it))
+            continue;
+
         Relation rel;
         prepareNodeConstruction(*it, rel);
         m_mapDescriptor.nodes.push_back(rel);
@@ -214,6 +228,22 @@ void SceneParser::loadScene(const std::string& filepath)
         throw tbe::Exception("SceneParser::loadScene; Open file error (%s)", filepath.c_str());
 
     m_mapDescriptor.fileName = filepath;
+    m_mapDescriptor.sceneName.clear();
+    m_mapDescriptor.authorName.clear();
+    m_mapDescriptor.ambiante = 0.2;
+    m_mapDescriptor.fog.color = 0;
+    m_mapDescriptor.fog.start = 32;
+    m_mapDescriptor.fog.end = 64;
+    m_mapDescriptor.fog.enable = false;
+    m_mapDescriptor.skybox.top.clear();
+    m_mapDescriptor.skybox.front.clear();
+    m_mapDescriptor.skybox.back.clear();
+    m_mapDescriptor.skybox.top.clear();
+    m_mapDescriptor.skybox.bottom.clear();
+    m_mapDescriptor.skybox.left.clear();
+    m_mapDescriptor.skybox.right.clear();
+    m_mapDescriptor.skybox.enable = false;
+    m_mapDescriptor.nodes.clear();
 
     string buffer;
     for(unsigned line = 0; tools::getline(file, buffer); line++)
