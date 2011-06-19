@@ -549,17 +549,30 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
             cout << e.what() << endl;
         }
 
-        emiter->setLifeInit(tools::strToNum<float>(rel.attr["lifeInit"]));
-        emiter->setLifeDown(tools::strToNum<float>(rel.attr["lifeDown"]));
+        if(rel.attr.count("lifeInit"))
+            emiter->setLifeInit(tools::strToNum<float>(rel.attr["lifeInit"]));
+        if(rel.attr.count("lifeDown"))
+            emiter->setLifeDown(tools::strToNum<float>(rel.attr["lifeDown"]));
 
-        emiter->setGravity(tools::strToVec3<float>(rel.attr["gravity"], true));
-        emiter->setBoxSize(tools::strToVec3<float>(rel.attr["boxSize"], true));
+        if(rel.attr.count("gravity"))
+            emiter->setGravity(tools::strToVec3<float>(rel.attr["gravity"], true));
+        if(rel.attr.count("boxSize"))
+            emiter->setBoxSize(tools::strToVec3<float>(rel.attr["boxSize"], true));
+        if(rel.attr.count("bulletSize"))
+            emiter->setBulletSize(tools::strToVec2<float>(rel.attr["bulletSize"]));
 
-        emiter->setNumber(tools::strToNum<int>(rel.attr["number"]));
+        if(rel.attr.count("number"))
+            emiter->setNumber(tools::strToNum<int>(rel.attr["number"]));
+        if(rel.attr.count("brustCount"))
+            emiter->setBrustCount(tools::strToNum<int>(rel.attr["brustCount"]));
 
-        emiter->setFreeMove(tools::strToNum<float>(rel.attr["freeMove"]));
+        if(rel.attr.count("freeMove"))
+            emiter->setFreeMove(tools::strToNum<float>(rel.attr["freeMove"]));
 
-        emiter->setContinousMode(tools::strToNum<bool>(rel.attr["continousMode"]));
+        if(rel.attr.count("continousMode"))
+            emiter->setContinousMode(tools::strToNum<bool>(rel.attr["continousMode"]));
+        if(rel.attr.count("usePointSprite"))
+            emiter->setUsePointSprite(tools::strToNum<bool>(rel.attr["usePointSprite"]));
 
         emiter->build();
 

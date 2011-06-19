@@ -115,6 +115,12 @@ public:
     Particle* beginParticlesPosProcess();
     void endParticlesPosProcess();
 
+    void setUsePointSprite(bool usePointSprite);
+    bool isUsePointSprite() const;
+
+    void setBulletSize(Vector2f bulletSize);
+    Vector2f getBulletSize() const;
+
     static bool checkHardware();
 
 protected:
@@ -145,6 +151,8 @@ protected:
 
     int m_brustCount;
 
+    Vector2f m_bulletSize;
+
     Vector3f m_emitPos;
     Vector3f m_gravity;
     Vector3f m_boxSize;
@@ -152,7 +160,7 @@ protected:
 private:
     Particle::Array m_particles;
     GLuint m_renderId;
-    bool m_pointsprite;
+    bool m_usePointSprite;
 
     ParticlesEmiter& copy(const ParticlesEmiter& copy);
 };

@@ -11,7 +11,7 @@ using namespace tbe::scene;
 
 ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
 {
-    m_pointsprite = checkHardware();
+    m_usePointSprite = false;
 
     m_renderId = 0;
 
@@ -31,6 +31,8 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
     m_freeMove = 0;
     m_brustCount = -1;
 
+    m_bulletSize = 0.5;
+
     m_autoRebuild = true;
     m_continousMode = false;
 
@@ -42,7 +44,7 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
 
 ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
 {
-    m_pointsprite = checkHardware();
+    m_usePointSprite = true;
 
     m_renderId = 0;
 
@@ -83,6 +85,9 @@ ParticlesEmiter& ParticlesEmiter::copy(const ParticlesEmiter& copy)
     m_lifeInit = copy.m_lifeInit;
     m_lifeDown = copy.m_lifeDown;
     m_freeMove = copy.m_freeMove;
+    m_bulletSize = copy.m_bulletSize;
+
+    m_usePointSprite = copy.m_usePointSprite;
 
     m_continousMode = copy.m_continousMode;
     m_autoRebuild = copy.m_autoRebuild;
@@ -120,7 +125,7 @@ void ParticlesEmiter::build()
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
 
-    if(m_pointsprite)
+    if(m_usePointSprite)
     {
         glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof (Particle) * m_number, &m_particles[0], GL_DYNAMIC_DRAW);
     }
@@ -166,7 +171,7 @@ void ParticlesEmiter::render()
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
 
-    if(m_pointsprite)
+    if(m_usePointSprite)
     {
         glPushMatrix();
         glMultMatrixf(m_parent->getAbsoluteMatrix());
@@ -177,8 +182,6 @@ void ParticlesEmiter::render()
     {
         Matrix4 absolute = m_parent->getAbsoluteMatrix();
 
-        float size = m_parallelScene->getParticleMinSize() / 2.0f;
-
         Vertex* auxParticles = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB));
 
         for(unsigned i = 0; i < m_drawNumber * 4; i += 4)
@@ -187,10 +190,10 @@ void ParticlesEmiter::render()
 
             Matrix4 rot = m_sceneManager->computeBillboard(abspos);
 
-            auxParticles[i + 0].pos = abspos + rot * Vector3f(size, -size, 0);
-            auxParticles[i + 1].pos = abspos + rot * Vector3f(-size, -size, 0);
-            auxParticles[i + 2].pos = abspos + rot * Vector3f(-size, size, 0);
-            auxParticles[i + 3].pos = abspos + rot * Vector3f(size, size, 0);
+            auxParticles[i + 0].pos = abspos + rot * Vector3f(m_bulletSize.x, -m_bulletSize.y, 0);
+            auxParticles[i + 1].pos = abspos + rot * Vector3f(-m_bulletSize.x, -m_bulletSize.y, 0);
+            auxParticles[i + 2].pos = abspos + rot * Vector3f(-m_bulletSize.x, m_bulletSize.y, 0);
+            auxParticles[i + 3].pos = abspos + rot * Vector3f(m_bulletSize.x, m_bulletSize.y, 0);
 
             auxParticles[i + 0].color = m_particles[i / 4].color;
             auxParticles[i + 1].color = m_particles[i / 4].color;
@@ -209,7 +212,7 @@ void ParticlesEmiter::render()
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
 
-    if(m_pointsprite)
+    if(m_usePointSprite)
     {
         const void* POSITION_OFFSET = (void*)0;
         const void* COLOR_OFFSET = (void*)(sizeof (Vector3f));
@@ -238,7 +241,7 @@ void ParticlesEmiter::render()
     glDisableClientState(GL_COLOR_ARRAY);
 
 
-    if(m_pointsprite)
+    if(m_usePointSprite)
         glPopMatrix();
     else
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -313,7 +316,7 @@ Texture ParticlesEmiter::getTexture() const
 
 Particle* ParticlesEmiter::beginParticlesPosProcess()
 {
-    if(m_pointsprite)
+    if(m_usePointSprite)
     {
         glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
         return static_cast<Particle*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_READ_WRITE_ARB));
@@ -324,7 +327,7 @@ Particle* ParticlesEmiter::beginParticlesPosProcess()
 
 void ParticlesEmiter::endParticlesPosProcess()
 {
-    if(m_pointsprite)
+    if(m_usePointSprite)
     {
         glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
         glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
@@ -334,6 +337,26 @@ void ParticlesEmiter::endParticlesPosProcess()
 bool ParticlesEmiter::checkHardware()
 {
     return GLEE_ARB_point_sprite && GLEE_ARB_point_parameters;
+}
+
+void ParticlesEmiter::setBulletSize(Vector2f bulletSize)
+{
+    this->m_bulletSize = bulletSize;
+}
+
+Vector2f ParticlesEmiter::getBulletSize() const
+{
+    return m_bulletSize;
+}
+
+void ParticlesEmiter::setUsePointSprite(bool usePointSprite)
+{
+    this->m_usePointSprite = usePointSprite && checkHardware();
+}
+
+bool ParticlesEmiter::isUsePointSprite() const
+{
+    return m_usePointSprite;
 }
 
 ParticlesEmiter* ParticlesEmiter::clone()
@@ -511,12 +534,15 @@ Node::CtorMap ParticlesEmiter::constructionMap(std::string root)
 
     ctormap["texture"] = tools::pathScope(root, m_texture.getFilename(), false);
     ctormap["number"] = tools::numToStr(m_number);
+    ctormap["brustCount"] = tools::numToStr(m_brustCount);
     ctormap["lifeInit"] = tools::numToStr(m_lifeInit);
     ctormap["lifeDown"] = tools::numToStr(m_lifeDown);
     ctormap["gravity"] = tools::numToStr(m_gravity);
     ctormap["boxSize"] = tools::numToStr(m_boxSize);
+    ctormap["bulletSize"] = tools::numToStr(m_bulletSize);
     ctormap["freeMove"] = tools::numToStr(m_freeMove);
     ctormap["continousMode"] = tools::numToStr(m_continousMode);
+    ctormap["usePointSprite"] = tools::numToStr(m_usePointSprite);
 
     return ctormap;
 }
