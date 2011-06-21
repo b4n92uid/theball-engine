@@ -29,7 +29,6 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
     m_lifeInit = 1;
     m_lifeDown = 0.1;
     m_freeMove = 0;
-    m_brustCount = -1;
 
     m_bulletSize = 0.5;
 
@@ -91,8 +90,6 @@ ParticlesEmiter& ParticlesEmiter::copy(const ParticlesEmiter& copy)
 
     m_continousMode = copy.m_continousMode;
     m_autoRebuild = copy.m_autoRebuild;
-
-    m_brustCount = copy.m_brustCount;
 
     m_emitPos = copy.m_emitPos;
     m_gravity = copy.m_gravity;
@@ -381,9 +378,6 @@ void ParticlesEmiter::setupBullet(Particle& p)
         p.life = tools::rand(0.0f, m_lifeInit);
     else
         p.life = m_lifeInit;
-
-    if(m_brustCount > 0)
-        m_brustCount--;
 }
 
 void ParticlesEmiter::process()
@@ -414,7 +408,7 @@ void ParticlesEmiter::process()
 
         if(p.life < 0)
         {
-            if(m_autoRebuild && (m_brustCount > 0 || m_brustCount == -1))
+            if(m_autoRebuild)
                 setupBullet(p);
 
             else
@@ -486,16 +480,6 @@ float ParticlesEmiter::getLifeInit() const
     return m_lifeInit;
 }
 
-void ParticlesEmiter::setBrustCount(int brustCount)
-{
-    this->m_brustCount = brustCount;
-}
-
-int ParticlesEmiter::getBrustCount() const
-{
-    return m_brustCount;
-}
-
 void ParticlesEmiter::setEmitPos(Vector3f emitPos)
 {
     this->m_emitPos = emitPos;
@@ -534,7 +518,6 @@ Node::CtorMap ParticlesEmiter::constructionMap(std::string root)
 
     ctormap["texture"] = tools::pathScope(root, m_texture.getFilename(), false);
     ctormap["number"] = tools::numToStr(m_number);
-    ctormap["brustCount"] = tools::numToStr(m_brustCount);
     ctormap["lifeInit"] = tools::numToStr(m_lifeInit);
     ctormap["lifeDown"] = tools::numToStr(m_lifeDown);
     ctormap["gravity"] = tools::numToStr(m_gravity);

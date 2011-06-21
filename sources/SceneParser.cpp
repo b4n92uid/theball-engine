@@ -404,6 +404,8 @@ void SceneParser::buildScene()
     sky->setTextures(skytex);
     sky->setEnable(true);
 
+    m_sceneManager->setAmbientLight(m_mapDescriptor.ambiante);
+
     for(unsigned i = 0; i < m_mapDescriptor.nodes.size(); i++)
     {
         buildNode(m_mapDescriptor.nodes[i]);
@@ -563,8 +565,6 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
         if(rel.attr.count("number"))
             emiter->setNumber(tools::strToNum<int>(rel.attr["number"]));
-        if(rel.attr.count("brustCount"))
-            emiter->setBrustCount(tools::strToNum<int>(rel.attr["brustCount"]));
 
         if(rel.attr.count("freeMove"))
             emiter->setFreeMove(tools::strToNum<float>(rel.attr["freeMove"]));

@@ -149,8 +149,6 @@ protected:
     bool m_continousMode;
     bool m_autoRebuild;
 
-    int m_brustCount;
-
     Vector2f m_bulletSize;
 
     Vector3f m_emitPos;
