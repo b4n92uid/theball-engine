@@ -846,6 +846,7 @@ Node::CtorMap Mesh::constructionMap(std::string root)
             ctormap["!" + it->first + ":lighted"] = tools::numToStr(it->second->isEnable(Material::LIGHTED));
             ctormap["!" + it->first + ":textured"] = tools::numToStr(it->second->isEnable(Material::TEXTURED));
             ctormap["!" + it->first + ":colored"] = tools::numToStr(it->second->isEnable(Material::COLORED));
+            ctormap["!" + it->first + ":foged"] = tools::numToStr(it->second->isEnable(Material::FOGED));
 
             unsigned txcount = it->second->getTexturesCount();
 

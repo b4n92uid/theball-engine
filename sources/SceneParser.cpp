@@ -479,6 +479,8 @@ void SceneParser::buildMaterial(AttribMap& att, Mesh* mesh)
                         toogleMaterial(material, Material::TEXTURED, it->second);
                     if(attributs == "colored")
                         toogleMaterial(material, Material::COLORED, it->second);
+                    if(attributs == "foged")
+                        toogleMaterial(material, Material::FOGED, it->second);
                 }
             }
             catch(std::exception& e)
