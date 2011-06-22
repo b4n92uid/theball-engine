@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -58,7 +58,7 @@
 <a name="l00015"></a>00015     m_ambient = 1;
 <a name="l00016"></a>00016     m_diffuse = 1;
 <a name="l00017"></a>00017     m_specular = 0;
-<a name="l00018"></a>00018     m_renderFlags = 0;
+<a name="l00018"></a>00018     m_renderFlags = COLORED | TEXTURED | LIGHTED | FOGED;
 <a name="l00019"></a>00019     m_shininess = 16;
 <a name="l00020"></a>00020     m_lineWidth = 0;
 <a name="l00021"></a>00021     m_alphaThershold = 0;
@@ -66,215 +66,258 @@
 <a name="l00023"></a>00023     m_tangentLocation = <span class="stringliteral">&quot;tangent&quot;</span>;
 <a name="l00024"></a>00024     m_aoccLocation = <span class="stringliteral">&quot;aocc&quot;</span>;
 <a name="l00025"></a>00025     m_faceType = TRIANGLES;
-<a name="l00026"></a>00026 }
-<a name="l00027"></a>00027 
-<a name="l00028"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a17c0def36f6af0c4665b1dd92dafb235">00028</a> Material::Material(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>&amp; copy)
-<a name="l00029"></a>00029 {
-<a name="l00030"></a>00030     *<span class="keyword">this</span> = copy;
-<a name="l00031"></a>00031 }
-<a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a2c19452d71f54075df8f5405b03129f4">00033</a> Material::~Material()
-<a name="l00034"></a>00034 {
-<a name="l00035"></a>00035 }
-<a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#aa575aafa3a3a860e9053beb2aaf70766">00037</a> <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>&amp; Material::operator=(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>&amp; copy)
-<a name="l00038"></a>00038 {
-<a name="l00039"></a>00039     m_name = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a0334a5f3ab0014a401c46c3c2ee8d094">m_name</a>;
-<a name="l00040"></a>00040 
-<a name="l00041"></a>00041     m_aoccLocation = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a44811dac5d63f8069fa70be14578e685">m_aoccLocation</a>;
-<a name="l00042"></a>00042     m_tangentLocation = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a91235fca2b94cdad3090b81cee4a5853">m_tangentLocation</a>;
+<a name="l00026"></a>00026     m_depthTest = <span class="keyword">true</span>;
+<a name="l00027"></a>00027     m_depthWrite = <span class="keyword">true</span>;
+<a name="l00028"></a>00028     m_drawPass = 1;
+<a name="l00029"></a>00029 }
+<a name="l00030"></a>00030 
+<a name="l00031"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a17c0def36f6af0c4665b1dd92dafb235">00031</a> Material::Material(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>&amp; copy)
+<a name="l00032"></a>00032 {
+<a name="l00033"></a>00033     *<span class="keyword">this</span> = copy;
+<a name="l00034"></a>00034 }
+<a name="l00035"></a>00035 
+<a name="l00036"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a2c19452d71f54075df8f5405b03129f4">00036</a> Material::~Material()
+<a name="l00037"></a>00037 {
+<a name="l00038"></a>00038 }
+<a name="l00039"></a>00039 
+<a name="l00040"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#aa575aafa3a3a860e9053beb2aaf70766">00040</a> <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>&amp; Material::operator=(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>&amp; copy)
+<a name="l00041"></a>00041 {
+<a name="l00042"></a>00042     m_name = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a0334a5f3ab0014a401c46c3c2ee8d094">m_name</a>;
 <a name="l00043"></a>00043 
-<a name="l00044"></a>00044     m_ambient = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a979c86bc286f2434e1b90da93f7ef55e">m_ambient</a>;
-<a name="l00045"></a>00045     m_diffuse = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a97b23359a66346f1d8f1590580900e2f">m_diffuse</a>;
-<a name="l00046"></a>00046     m_specular = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a3955b865a9e43212ed7d1666e1878a9a">m_specular</a>;
-<a name="l00047"></a>00047     m_shininess = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#ab859db576f6fda1d3d81e7730bb31a3d">m_shininess</a>;
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049     m_textures = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a5c3f3750f9320034ccd553b02f4ca28f">m_textures</a>;
-<a name="l00050"></a>00050     m_shader = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#ac6e2741d3c9a9fddaca6b09adb8f436e">m_shader</a>;
+<a name="l00044"></a>00044     m_aoccLocation = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a44811dac5d63f8069fa70be14578e685">m_aoccLocation</a>;
+<a name="l00045"></a>00045     m_tangentLocation = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a91235fca2b94cdad3090b81cee4a5853">m_tangentLocation</a>;
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047     m_ambient = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a979c86bc286f2434e1b90da93f7ef55e">m_ambient</a>;
+<a name="l00048"></a>00048     m_diffuse = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a97b23359a66346f1d8f1590580900e2f">m_diffuse</a>;
+<a name="l00049"></a>00049     m_specular = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a3955b865a9e43212ed7d1666e1878a9a">m_specular</a>;
+<a name="l00050"></a>00050     m_shininess = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#ab859db576f6fda1d3d81e7730bb31a3d">m_shininess</a>;
 <a name="l00051"></a>00051 
-<a name="l00052"></a>00052     m_faceType = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a9a07197ea1b0ea29f770bdb31a77dc18">m_faceType</a>;
-<a name="l00053"></a>00053 
-<a name="l00054"></a>00054     m_renderFlags = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a>;
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056     m_frameSortWait = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a9d6387c161a6b841937f724d24ee2bf4">m_frameSortWait</a>;
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058     m_lineWidth = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a13c55930920015d78eda809b2aa51432">m_lineWidth</a>;
-<a name="l00059"></a>00059 
-<a name="l00060"></a>00060     m_alphaThershold = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a12bca0cd0f3ca8db5314653256878e1e">m_alphaThershold</a>;
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
-<a name="l00063"></a>00063 }
+<a name="l00052"></a>00052     m_textures = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a5c3f3750f9320034ccd553b02f4ca28f">m_textures</a>;
+<a name="l00053"></a>00053     m_shader = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#ac6e2741d3c9a9fddaca6b09adb8f436e">m_shader</a>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055     m_faceType = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a9a07197ea1b0ea29f770bdb31a77dc18">m_faceType</a>;
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057     m_renderFlags = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a>;
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059     m_frameSortWait = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a9d6387c161a6b841937f724d24ee2bf4">m_frameSortWait</a>;
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061     m_lineWidth = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a13c55930920015d78eda809b2aa51432">m_lineWidth</a>;
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063     m_alphaThershold = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a12bca0cd0f3ca8db5314653256878e1e">m_alphaThershold</a>;
 <a name="l00064"></a>00064 
-<a name="l00065"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#aa2202e5cec3bd03ceac0bde827858ed7">00065</a> <span class="keywordtype">void</span> Material::SetAoccLocation(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> aoccLocation)
-<a name="l00066"></a>00066 {
-<a name="l00067"></a>00067     this-&gt;m_aoccLocation = aoccLocation;
-<a name="l00068"></a>00068 }
+<a name="l00065"></a>00065     m_depthTest = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a4aecdb9ba2cc767d138633a7c8ded12c">m_depthTest</a>;
+<a name="l00066"></a>00066     m_depthWrite = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a65942fab7f998214c30a238a21a43ddd">m_depthWrite</a>;
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068     m_drawPass = copy.<a class="code" href="classtbe_1_1scene_1_1_material.html#a1a5e95b49c23316ed41c4eae2417c3f0">m_drawPass</a>;
 <a name="l00069"></a>00069 
-<a name="l00070"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a6b704225a2a9a2d7b8ced9a1498df776">00070</a> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Material::GetAoccLocation()<span class="keyword"> const</span>
-<a name="l00071"></a>00071 <span class="keyword"></span>{
-<a name="l00072"></a>00072     <span class="keywordflow">return</span> m_aoccLocation;
-<a name="l00073"></a>00073 }
-<a name="l00074"></a>00074 
-<a name="l00075"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a68d071f46ffeb54c82826e0b91cd4cf0">00075</a> <span class="keywordtype">void</span> Material::SetFrameSortWait(<span class="keywordtype">unsigned</span> frameSortWait)
-<a name="l00076"></a>00076 {
-<a name="l00077"></a>00077     this-&gt;m_frameSortWait = frameSortWait;
-<a name="l00078"></a>00078 }
-<a name="l00079"></a>00079 
-<a name="l00080"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a4c3264bd5057e3510047f91ae923090a">00080</a> <span class="keywordtype">unsigned</span> Material::GetFrameSortWait()<span class="keyword"> const</span>
-<a name="l00081"></a>00081 <span class="keyword"></span>{
-<a name="l00082"></a>00082     <span class="keywordflow">return</span> m_frameSortWait;
-<a name="l00083"></a>00083 }
-<a name="l00084"></a>00084 
-<a name="l00085"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a0181498ac2298bc8aa93d49e201d79b3">00085</a> <span class="keywordtype">void</span> Material::SetTangentLocation(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> tangentLocation)
-<a name="l00086"></a>00086 {
-<a name="l00087"></a>00087     this-&gt;m_tangentLocation = tangentLocation;
-<a name="l00088"></a>00088 }
-<a name="l00089"></a>00089 
-<a name="l00090"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#adf4dc520790575571c84b5a04a380813">00090</a> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Material::GetTangentLocation()<span class="keyword"> const</span>
-<a name="l00091"></a>00091 <span class="keyword"></span>{
-<a name="l00092"></a>00092     <span class="keywordflow">return</span> m_tangentLocation;
-<a name="l00093"></a>00093 }
-<a name="l00094"></a>00094 
-<a name="l00095"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#aa1a31da7c3e1f754534e47e79d390e2f">00095</a> <span class="keywordtype">bool</span> Material::IsTransparent()
-<a name="l00096"></a>00096 {
-<a name="l00097"></a>00097     <span class="keywordflow">return</span> (m_renderFlags &amp; BLEND_ADD)
-<a name="l00098"></a>00098             || (m_renderFlags &amp; BLEND_MUL)
-<a name="l00099"></a>00099             || (m_renderFlags &amp; BLEND_MOD)
-<a name="l00100"></a>00100             || (m_renderFlags &amp; ALPHA);
+<a name="l00070"></a>00070     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00071"></a>00071 }
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abea82f7657f3a1df3ef3c540b8aa8763">00073</a> <span class="keywordtype">void</span> Material::setAoccLocation(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> aoccLocation)
+<a name="l00074"></a>00074 {
+<a name="l00075"></a>00075     this-&gt;m_aoccLocation = aoccLocation;
+<a name="l00076"></a>00076 }
+<a name="l00077"></a>00077 
+<a name="l00078"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a9cc37223c148bf3408b9eb0d03c6f93f">00078</a> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Material::getAoccLocation()<span class="keyword"> const</span>
+<a name="l00079"></a>00079 <span class="keyword"></span>{
+<a name="l00080"></a>00080     <span class="keywordflow">return</span> m_aoccLocation;
+<a name="l00081"></a>00081 }
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abdca875516dd9a5b736d3ea4bb84c44a">00083</a> <span class="keywordtype">void</span> Material::setFrameSortWait(<span class="keywordtype">unsigned</span> frameSortWait)
+<a name="l00084"></a>00084 {
+<a name="l00085"></a>00085     this-&gt;m_frameSortWait = frameSortWait;
+<a name="l00086"></a>00086 }
+<a name="l00087"></a>00087 
+<a name="l00088"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#adb266629a4828b2a72d927b48ca7b4fc">00088</a> <span class="keywordtype">unsigned</span> Material::getFrameSortWait()<span class="keyword"> const</span>
+<a name="l00089"></a>00089 <span class="keyword"></span>{
+<a name="l00090"></a>00090     <span class="keywordflow">return</span> m_frameSortWait;
+<a name="l00091"></a>00091 }
+<a name="l00092"></a>00092 
+<a name="l00093"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#aedb3aa3daf31fdfb94002ad2c0e64881">00093</a> <span class="keywordtype">void</span> Material::setTangentLocation(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> tangentLocation)
+<a name="l00094"></a>00094 {
+<a name="l00095"></a>00095     this-&gt;m_tangentLocation = tangentLocation;
+<a name="l00096"></a>00096 }
+<a name="l00097"></a>00097 
+<a name="l00098"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a9e9cdb9b7f40c98c1d86dcc8af7c91fd">00098</a> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Material::getTangentLocation()<span class="keyword"> const</span>
+<a name="l00099"></a>00099 <span class="keyword"></span>{
+<a name="l00100"></a>00100     <span class="keywordflow">return</span> m_tangentLocation;
 <a name="l00101"></a>00101 }
 <a name="l00102"></a>00102 
-<a name="l00103"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a1cca25542cafa4793e1cd1201d7e396e">00103</a> <span class="keywordtype">void</span> Material::SetAlphaThershold(<span class="keywordtype">float</span> alphaThershold)
+<a name="l00103"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#aebbf2f38964d3601bee4a73231e50683">00103</a> <span class="keywordtype">bool</span> Material::isTransparent()
 <a name="l00104"></a>00104 {
-<a name="l00105"></a>00105     this-&gt;m_alphaThershold = alphaThershold;
-<a name="l00106"></a>00106 }
-<a name="l00107"></a>00107 
-<a name="l00108"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a668290213f5b5a40de270933de9c57b1">00108</a> <span class="keywordtype">float</span> Material::GetAlphaThershold()<span class="keyword"> const</span>
-<a name="l00109"></a>00109 <span class="keyword"></span>{
-<a name="l00110"></a>00110     <span class="keywordflow">return</span> m_alphaThershold;
-<a name="l00111"></a>00111 }
-<a name="l00112"></a>00112 
-<a name="l00113"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a8c8d4595f54cc3e936d542b9a98eb980">00113</a> <span class="keywordtype">void</span> Material::SetRenderFlags(<span class="keywordtype">unsigned</span> renderFlags)
-<a name="l00114"></a>00114 {
-<a name="l00115"></a>00115     this-&gt;m_renderFlags = renderFlags;
-<a name="l00116"></a>00116 }
-<a name="l00117"></a>00117 
-<a name="l00118"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ac480fb855e5882f9897a0b0a371225ac">00118</a> <span class="keywordtype">unsigned</span> Material::GetRenderFlags()<span class="keyword"> const</span>
-<a name="l00119"></a>00119 <span class="keyword"></span>{
-<a name="l00120"></a>00120     <span class="keywordflow">return</span> m_renderFlags;
-<a name="l00121"></a>00121 }
-<a name="l00122"></a>00122 
-<a name="l00123"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a7684f643c94961726686c86f82e7917e">00123</a> <span class="keywordtype">void</span> Material::SetShader(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a>&amp; <a class="code" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>)
-<a name="l00124"></a>00124 {
-<a name="l00125"></a>00125     m_shader = <a class="code" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>;
-<a name="l00126"></a>00126 }
-<a name="l00127"></a>00127 
-<a name="l00128"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#aa753ff49394dabcd3d3df073b04f7b41">00128</a> <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> Material::GetShader()<span class="keyword"> const</span>
-<a name="l00129"></a>00129 <span class="keyword"></span>{
-<a name="l00130"></a>00130     <span class="keywordflow">return</span> m_shader;
-<a name="l00131"></a>00131 }
-<a name="l00132"></a>00132 
-<a name="l00133"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#aa4d3239dbb3668fc56e61ec87d91144d">00133</a> <span class="keywordtype">void</span> Material::SetLineWidth(<span class="keywordtype">float</span> lineWidth)
-<a name="l00134"></a>00134 {
-<a name="l00135"></a>00135     this-&gt;m_lineWidth = lineWidth;
-<a name="l00136"></a>00136 }
-<a name="l00137"></a>00137 
-<a name="l00138"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#acc667841eda4788618b5d6aa58e1e958">00138</a> <span class="keywordtype">float</span> Material::GetLineWidth()<span class="keyword"> const</span>
-<a name="l00139"></a>00139 <span class="keyword"></span>{
-<a name="l00140"></a>00140     <span class="keywordflow">return</span> m_lineWidth;
-<a name="l00141"></a>00141 }
-<a name="l00142"></a>00142 
-<a name="l00143"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#aabbadaf4944c2282b6693e926a316f0f">00143</a> <span class="keywordtype">void</span> Material::SetName(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
-<a name="l00144"></a>00144 {
-<a name="l00145"></a>00145     this-&gt;m_name = <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>;
-<a name="l00146"></a>00146 }
-<a name="l00147"></a>00147 
-<a name="l00148"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a2ee727f561b47466788834db893e981c">00148</a> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Material::GetName()<span class="keyword"> const</span>
-<a name="l00149"></a>00149 <span class="keyword"></span>{
-<a name="l00150"></a>00150     <span class="keywordflow">return</span> m_name;
-<a name="l00151"></a>00151 }
-<a name="l00152"></a>00152 
-<a name="l00153"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ac1aaae6b65e87dd6d0167f8bd1c2f373">00153</a> <span class="keywordtype">void</span> Material::SetTexture(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
-<a name="l00154"></a>00154 {
-<a name="l00155"></a>00155     m_textures[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>] = <a class="code" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>;
-<a name="l00156"></a>00156 }
-<a name="l00157"></a>00157 
-<a name="l00158"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a00abbf05fc2b376727cca55d5ca89e9e">00158</a> <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> Material::GetTexture(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)<span class="keyword"> const</span>
-<a name="l00159"></a>00159 <span class="keyword"></span>{
-<a name="l00160"></a>00160     <span class="keywordflow">return</span> m_textures.find(index)-&gt;second;
-<a name="l00161"></a>00161 }
-<a name="l00162"></a>00162 
-<a name="l00163"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ae3628f8be6e1a1f7a4d9af5e1b90e2de">00163</a> <span class="keywordtype">unsigned</span> Material::GetTexturesCount()<span class="keyword"> const</span>
-<a name="l00164"></a>00164 <span class="keyword"></span>{
-<a name="l00165"></a>00165     <span class="keywordflow">return</span> m_textures.size();
-<a name="l00166"></a>00166 }
-<a name="l00167"></a>00167 
-<a name="l00168"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a255b43de5c9f381cc9f6b84f71af3287">00168</a> <span class="keywordtype">void</span> Material::SetShininess(<span class="keywordtype">float</span> shininess)
-<a name="l00169"></a>00169 {
-<a name="l00170"></a>00170     m_shininess = shininess;
-<a name="l00171"></a>00171 }
-<a name="l00172"></a>00172 
-<a name="l00173"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a27d724af8a76dc8d64f8ffeb555aa00e">00173</a> <span class="keywordtype">float</span> Material::GetShininess()<span class="keyword"> const</span>
-<a name="l00174"></a>00174 <span class="keyword"></span>{
-<a name="l00175"></a>00175     <span class="keywordflow">return</span> m_shininess;
-<a name="l00176"></a>00176 }
-<a name="l00177"></a>00177 
-<a name="l00178"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a2fa98e137f8d0259d111851e2dc95324">00178</a> <span class="keywordtype">void</span> Material::SetSpecular(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> specular)
-<a name="l00179"></a>00179 {
-<a name="l00180"></a>00180     m_specular = specular;
-<a name="l00181"></a>00181 }
-<a name="l00182"></a>00182 
-<a name="l00183"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a504da534a54163cce80ccff7ee085930">00183</a> <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> Material::GetSpecular()<span class="keyword"> const</span>
-<a name="l00184"></a>00184 <span class="keyword"></span>{
-<a name="l00185"></a>00185     <span class="keywordflow">return</span> m_specular;
-<a name="l00186"></a>00186 }
-<a name="l00187"></a>00187 
-<a name="l00188"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abf87e6226ad426b59291124a6db65de1">00188</a> <span class="keywordtype">void</span> Material::SetDiffuse(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> diffuse)
-<a name="l00189"></a>00189 {
-<a name="l00190"></a>00190     m_diffuse = diffuse;
-<a name="l00191"></a>00191 }
-<a name="l00192"></a>00192 
-<a name="l00193"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ade68eceeaf328bdcd76f40380b5f5f13">00193</a> <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> Material::GetDiffuse()<span class="keyword"> const</span>
-<a name="l00194"></a>00194 <span class="keyword"></span>{
-<a name="l00195"></a>00195     <span class="keywordflow">return</span> m_diffuse;
-<a name="l00196"></a>00196 }
-<a name="l00197"></a>00197 
-<a name="l00198"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a89fd2560c96b62119c8b2199b5b8a749">00198</a> <span class="keywordtype">void</span> Material::SetAmbient(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> ambient)
-<a name="l00199"></a>00199 {
-<a name="l00200"></a>00200     m_ambient = ambient;
-<a name="l00201"></a>00201 }
-<a name="l00202"></a>00202 
-<a name="l00203"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#af6514c1779d80dc4d27fd5b56b43d736">00203</a> <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> Material::GetAmbient()<span class="keyword"> const</span>
-<a name="l00204"></a>00204 <span class="keyword"></span>{
-<a name="l00205"></a>00205     <span class="keywordflow">return</span> m_ambient;
-<a name="l00206"></a>00206 }
-<a name="l00207"></a>00207 
-<a name="l00208"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a02dca2282b99f3e234cc8a55f3ef7da7">00208</a> <span class="keywordtype">bool</span> Material::IsEnable(<span class="keywordtype">unsigned</span> flag)
-<a name="l00209"></a>00209 {
-<a name="l00210"></a>00210     <span class="keywordflow">return</span> (m_renderFlags &amp; flag);
-<a name="l00211"></a>00211 }
-<a name="l00212"></a>00212 
-<a name="l00213"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a5f626a6782d1809fc575f47afab2ef06">00213</a> <span class="keywordtype">void</span> Material::Enable(<span class="keywordtype">unsigned</span> flag)
-<a name="l00214"></a>00214 {
-<a name="l00215"></a>00215     m_renderFlags |= flag;
-<a name="l00216"></a>00216 }
-<a name="l00217"></a>00217 
-<a name="l00218"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a3eff6a2ed93fd1b47f8ec9e81ad1cf50">00218</a> <span class="keywordtype">void</span> Material::Disable(<span class="keywordtype">unsigned</span> flag)
-<a name="l00219"></a>00219 {
-<a name="l00220"></a>00220     m_renderFlags &amp;= ~flag;
-<a name="l00221"></a>00221 }
-<a name="l00222"></a>00222 
-<a name="l00223"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#acf177c396e3ff1012d37bc46b8932777">00223</a> <span class="keywordtype">void</span> Material::SetFaceType(<a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a> faceType)
-<a name="l00224"></a>00224 {
-<a name="l00225"></a>00225     this-&gt;m_faceType = faceType;
-<a name="l00226"></a>00226 }
-<a name="l00227"></a>00227 
-<a name="l00228"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a72b0c321b2eeff34363707959bab7bdd">00228</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">Material::FaceType</a> Material::GetFaceType()<span class="keyword"> const</span>
-<a name="l00229"></a>00229 <span class="keyword"></span>{
-<a name="l00230"></a>00230     <span class="keywordflow">return</span> m_faceType;
-<a name="l00231"></a>00231 }
+<a name="l00105"></a>00105     <span class="keywordflow">return</span> (m_renderFlags &amp; BLEND_ADD)
+<a name="l00106"></a>00106             || (m_renderFlags &amp; BLEND_MUL)
+<a name="l00107"></a>00107             || (m_renderFlags &amp; BLEND_MOD)
+<a name="l00108"></a>00108             || (m_renderFlags &amp; ALPHA);
+<a name="l00109"></a>00109 }
+<a name="l00110"></a>00110 
+<a name="l00111"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abc33a600794b838e781bb5deb123b29d">00111</a> <span class="keywordtype">void</span> Material::setAlphaThershold(<span class="keywordtype">float</span> alphaThershold)
+<a name="l00112"></a>00112 {
+<a name="l00113"></a>00113     this-&gt;m_alphaThershold = alphaThershold;
+<a name="l00114"></a>00114 }
+<a name="l00115"></a>00115 
+<a name="l00116"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a950511d0032468204933084bc0a3d628">00116</a> <span class="keywordtype">float</span> Material::getAlphaThershold()<span class="keyword"> const</span>
+<a name="l00117"></a>00117 <span class="keyword"></span>{
+<a name="l00118"></a>00118     <span class="keywordflow">return</span> m_alphaThershold;
+<a name="l00119"></a>00119 }
+<a name="l00120"></a>00120 
+<a name="l00121"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#af773e22c1175d3935aff77eab941da43">00121</a> <span class="keywordtype">void</span> Material::setRenderFlags(<span class="keywordtype">unsigned</span> renderFlags)
+<a name="l00122"></a>00122 {
+<a name="l00123"></a>00123     this-&gt;m_renderFlags = renderFlags;
+<a name="l00124"></a>00124 }
+<a name="l00125"></a>00125 
+<a name="l00126"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a7aaa432769250dd3dc2987e21778b9a9">00126</a> <span class="keywordtype">unsigned</span> Material::getRenderFlags()<span class="keyword"> const</span>
+<a name="l00127"></a>00127 <span class="keyword"></span>{
+<a name="l00128"></a>00128     <span class="keywordflow">return</span> m_renderFlags;
+<a name="l00129"></a>00129 }
+<a name="l00130"></a>00130 
+<a name="l00131"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a83765d0cd529c8a6f9159d742ce5b7af">00131</a> <span class="keywordtype">void</span> Material::setShader(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a>&amp; <a class="code" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>)
+<a name="l00132"></a>00132 {
+<a name="l00133"></a>00133     m_shader = <a class="code" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>;
+<a name="l00134"></a>00134 }
+<a name="l00135"></a>00135 
+<a name="l00136"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a5dceda13bb2e1ca4f76691cf99ca6f2f">00136</a> <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> Material::getShader()<span class="keyword"> const</span>
+<a name="l00137"></a>00137 <span class="keyword"></span>{
+<a name="l00138"></a>00138     <span class="keywordflow">return</span> m_shader;
+<a name="l00139"></a>00139 }
+<a name="l00140"></a>00140 
+<a name="l00141"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#aa2ec27f667d8ae76a065d3e21d3c4df7">00141</a> <span class="keywordtype">void</span> Material::setLineWidth(<span class="keywordtype">float</span> lineWidth)
+<a name="l00142"></a>00142 {
+<a name="l00143"></a>00143     this-&gt;m_lineWidth = lineWidth;
+<a name="l00144"></a>00144 }
+<a name="l00145"></a>00145 
+<a name="l00146"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ae01b2f07b9ac8e1de3b46cfb3cca9f5b">00146</a> <span class="keywordtype">float</span> Material::getLineWidth()<span class="keyword"> const</span>
+<a name="l00147"></a>00147 <span class="keyword"></span>{
+<a name="l00148"></a>00148     <span class="keywordflow">return</span> m_lineWidth;
+<a name="l00149"></a>00149 }
+<a name="l00150"></a>00150 
+<a name="l00151"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a8d3228e94c92ffffc1c5a9504ee5fd90">00151</a> <span class="keywordtype">void</span> Material::setName(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
+<a name="l00152"></a>00152 {
+<a name="l00153"></a>00153     this-&gt;m_name = <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>;
+<a name="l00154"></a>00154 }
+<a name="l00155"></a>00155 
+<a name="l00156"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a275072930daf2dc4dec61e9cf174d47c">00156</a> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Material::getName()<span class="keyword"> const</span>
+<a name="l00157"></a>00157 <span class="keyword"></span>{
+<a name="l00158"></a>00158     <span class="keywordflow">return</span> m_name;
+<a name="l00159"></a>00159 }
+<a name="l00160"></a>00160 
+<a name="l00161"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a0b754d3c9d74bae8af25cbcdf84be471">00161</a> <span class="keywordtype">void</span> Material::setTexture(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
+<a name="l00162"></a>00162 {
+<a name="l00163"></a>00163     m_textures[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>] = <a class="code" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>;
+<a name="l00164"></a>00164 }
+<a name="l00165"></a>00165 
+<a name="l00166"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a8391c7a27551b730f5beb9d49dd6b0d9">00166</a> <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> Material::getTexture(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)<span class="keyword"> const</span>
+<a name="l00167"></a>00167 <span class="keyword"></span>{
+<a name="l00168"></a>00168     <span class="keywordflow">return</span> m_textures.find(index)-&gt;second;
+<a name="l00169"></a>00169 }
+<a name="l00170"></a>00170 
+<a name="l00171"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a14675bc3845bb05804e2413b5b24ac7b">00171</a> <span class="keywordtype">unsigned</span> Material::getTexturesCount()<span class="keyword"> const</span>
+<a name="l00172"></a>00172 <span class="keyword"></span>{
+<a name="l00173"></a>00173     <span class="keywordflow">return</span> m_textures.size();
+<a name="l00174"></a>00174 }
+<a name="l00175"></a>00175 
+<a name="l00176"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#acad2ab759d920148c354c0ad3c2fc106">00176</a> <span class="keywordtype">void</span> Material::dropTexture(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
+<a name="l00177"></a>00177 {
+<a name="l00178"></a>00178     m_textures.erase(index);
+<a name="l00179"></a>00179 }
+<a name="l00180"></a>00180 
+<a name="l00181"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a329d0ae8403956a71b1d45b3284f7dd7">00181</a> <span class="keywordtype">void</span> Material::setShininess(<span class="keywordtype">float</span> shininess)
+<a name="l00182"></a>00182 {
+<a name="l00183"></a>00183     m_shininess = shininess;
+<a name="l00184"></a>00184 }
+<a name="l00185"></a>00185 
+<a name="l00186"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ab77327797143dd7d797297326bc5a6a1">00186</a> <span class="keywordtype">float</span> Material::getShininess()<span class="keyword"> const</span>
+<a name="l00187"></a>00187 <span class="keyword"></span>{
+<a name="l00188"></a>00188     <span class="keywordflow">return</span> m_shininess;
+<a name="l00189"></a>00189 }
+<a name="l00190"></a>00190 
+<a name="l00191"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a723d7df12c9252179536c32396614d51">00191</a> <span class="keywordtype">void</span> Material::setSpecular(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> specular)
+<a name="l00192"></a>00192 {
+<a name="l00193"></a>00193     m_specular = specular;
+<a name="l00194"></a>00194 }
+<a name="l00195"></a>00195 
+<a name="l00196"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a54dfbfee3a9323520696eeceea5a32c6">00196</a> <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> Material::getSpecular()<span class="keyword"> const</span>
+<a name="l00197"></a>00197 <span class="keyword"></span>{
+<a name="l00198"></a>00198     <span class="keywordflow">return</span> m_specular;
+<a name="l00199"></a>00199 }
+<a name="l00200"></a>00200 
+<a name="l00201"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a45f987d2caa51a4e621151ac12259351">00201</a> <span class="keywordtype">void</span> Material::setDiffuse(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> diffuse)
+<a name="l00202"></a>00202 {
+<a name="l00203"></a>00203     m_diffuse = diffuse;
+<a name="l00204"></a>00204 }
+<a name="l00205"></a>00205 
+<a name="l00206"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a6c0aeb43e10b85101fdaf8c9109aa72e">00206</a> <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> Material::getDiffuse()<span class="keyword"> const</span>
+<a name="l00207"></a>00207 <span class="keyword"></span>{
+<a name="l00208"></a>00208     <span class="keywordflow">return</span> m_diffuse;
+<a name="l00209"></a>00209 }
+<a name="l00210"></a>00210 
+<a name="l00211"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ab5b47bf71c9f6cab6aa4d34c1b10c2ce">00211</a> <span class="keywordtype">void</span> Material::setAmbient(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> ambient)
+<a name="l00212"></a>00212 {
+<a name="l00213"></a>00213     m_ambient = ambient;
+<a name="l00214"></a>00214 }
+<a name="l00215"></a>00215 
+<a name="l00216"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a71e5a38ebc56d2fc28463cc4d4db196c">00216</a> <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> Material::getAmbient()<span class="keyword"> const</span>
+<a name="l00217"></a>00217 <span class="keyword"></span>{
+<a name="l00218"></a>00218     <span class="keywordflow">return</span> m_ambient;
+<a name="l00219"></a>00219 }
+<a name="l00220"></a>00220 
+<a name="l00221"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ab95234dfaa30b0c8c4766c388af16d0c">00221</a> <span class="keywordtype">bool</span> Material::isEnable(<span class="keywordtype">unsigned</span> flag)
+<a name="l00222"></a>00222 {
+<a name="l00223"></a>00223     <span class="keywordflow">return</span> (m_renderFlags &amp; flag);
+<a name="l00224"></a>00224 }
+<a name="l00225"></a>00225 
+<a name="l00226"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a11bf27da05972493f4fb8bc9b2201d60">00226</a> <span class="keywordtype">void</span> Material::enable(<span class="keywordtype">unsigned</span> flag)
+<a name="l00227"></a>00227 {
+<a name="l00228"></a>00228     m_renderFlags |= flag;
+<a name="l00229"></a>00229 }
+<a name="l00230"></a>00230 
+<a name="l00231"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#af45b6b0d14b15dd8a691bf40ce0386c1">00231</a> <span class="keywordtype">void</span> Material::disable(<span class="keywordtype">unsigned</span> flag)
+<a name="l00232"></a>00232 {
+<a name="l00233"></a>00233     m_renderFlags &amp;= ~flag;
+<a name="l00234"></a>00234 }
+<a name="l00235"></a>00235 
+<a name="l00236"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a7140257d779ecff753c8da65268101f4">00236</a> <span class="keywordtype">void</span> Material::setFaceType(<a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a> faceType)
+<a name="l00237"></a>00237 {
+<a name="l00238"></a>00238     this-&gt;m_faceType = faceType;
+<a name="l00239"></a>00239 }
+<a name="l00240"></a>00240 
+<a name="l00241"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ac0695316140c47be0f1ecae06949a327">00241</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">Material::FaceType</a> Material::getFaceType()<span class="keyword"> const</span>
+<a name="l00242"></a>00242 <span class="keyword"></span>{
+<a name="l00243"></a>00243     <span class="keywordflow">return</span> m_faceType;
+<a name="l00244"></a>00244 }
+<a name="l00245"></a>00245 
+<a name="l00246"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a53d0aacec8158c220a5c040933dbcebc">00246</a> <span class="keywordtype">void</span> Material::setDepthWrite(<span class="keywordtype">bool</span> depthWrite)
+<a name="l00247"></a>00247 {
+<a name="l00248"></a>00248     this-&gt;m_depthWrite = depthWrite;
+<a name="l00249"></a>00249 }
+<a name="l00250"></a>00250 
+<a name="l00251"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad68b656e9d07cb72d4c650851eae72f1">00251</a> <span class="keywordtype">bool</span> Material::isDepthWrite()<span class="keyword"> const</span>
+<a name="l00252"></a>00252 <span class="keyword"></span>{
+<a name="l00253"></a>00253     <span class="keywordflow">return</span> m_depthWrite;
+<a name="l00254"></a>00254 }
+<a name="l00255"></a>00255 
+<a name="l00256"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a890b98cfe14e65db64de1e50ef158edd">00256</a> <span class="keywordtype">void</span> Material::setDepthTest(<span class="keywordtype">bool</span> depthTest)
+<a name="l00257"></a>00257 {
+<a name="l00258"></a>00258     this-&gt;m_depthTest = depthTest;
+<a name="l00259"></a>00259 }
+<a name="l00260"></a>00260 
+<a name="l00261"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a380e2ec14f9f9cc4a2df2eef3e6bc0cd">00261</a> <span class="keywordtype">bool</span> Material::isDepthTest()<span class="keyword"> const</span>
+<a name="l00262"></a>00262 <span class="keyword"></span>{
+<a name="l00263"></a>00263     <span class="keywordflow">return</span> m_depthTest;
+<a name="l00264"></a>00264 }
+<a name="l00265"></a>00265 
+<a name="l00266"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#af139d4822ea41f58542af9673c7550de">00266</a> <span class="keywordtype">void</span> Material::setDrawPass(<span class="keywordtype">unsigned</span> drawPass)
+<a name="l00267"></a>00267 {
+<a name="l00268"></a>00268     this-&gt;m_drawPass = drawPass;
+<a name="l00269"></a>00269 }
+<a name="l00270"></a>00270 
+<a name="l00271"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a4e69e33700733c56e48347097e67185e">00271</a> <span class="keywordtype">unsigned</span> Material::getDrawPass()<span class="keyword"> const</span>
+<a name="l00272"></a>00272 <span class="keyword"></span>{
+<a name="l00273"></a>00273     <span class="keywordflow">return</span> m_drawPass;
+<a name="l00274"></a>00274 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

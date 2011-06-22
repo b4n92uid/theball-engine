@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -66,16 +66,16 @@
 <a name="l00023"></a>00023 {
 <a name="l00024"></a>00024     m_state = DEAD;
 <a name="l00025"></a>00025 
-<a name="l00026"></a>00026     SetBackground(background);
-<a name="l00027"></a>00027     SetPencil(font);
-<a name="l00028"></a>00028     SetupRender();
+<a name="l00026"></a>00026     setBackground(background);
+<a name="l00027"></a>00027     setPencil(font);
+<a name="l00028"></a>00028     setupRender();
 <a name="l00029"></a>00029 }
 <a name="l00030"></a>00030 
 <a name="l00031"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#a54db96db46113c6a4904553796d183ce">00031</a> Switch::Switch()
 <a name="l00032"></a>00032 {
 <a name="l00033"></a>00033     m_state = DEAD;
 <a name="l00034"></a>00034 
-<a name="l00035"></a>00035     SetupRender();
+<a name="l00035"></a>00035     setupRender();
 <a name="l00036"></a>00036 }
 <a name="l00037"></a>00037 
 <a name="l00038"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#ac9e0d5810af5ea21572d5dd7248baed8">00038</a> Switch::~Switch()
@@ -83,20 +83,20 @@
 <a name="l00040"></a>00040 
 <a name="l00041"></a>00041 }
 <a name="l00042"></a>00042 
-<a name="l00043"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#abea26ed4072af647aa43037b33cde636">00043</a> <span class="keywordtype">bool</span> Switch::OnEvent(<span class="keyword">const</span> <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp; event)
+<a name="l00043"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#aa72e756af6ba72023eaf4c1bc8084425">00043</a> <span class="keywordtype">bool</span> Switch::onEvent(<span class="keyword">const</span> <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp; event)
 <a name="l00044"></a>00044 {
-<a name="l00045"></a>00045     <span class="keywordtype">bool</span> inLeft = <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(event.<a class="code" href="structtbe_1_1_event_manager.html#abbf1e3ad03e71684712bb813d35eff88">mousePos</a>).<a class="code" href="classtbe_1_1_vector2.html#a25f12689fc216f40d82bada8666179f9">IsInsinde</a>(m_pos, <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(m_size.x / 2, m_size.y));
-<a name="l00046"></a>00046     <span class="keywordtype">bool</span> inRight = <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(event.<a class="code" href="structtbe_1_1_event_manager.html#abbf1e3ad03e71684712bb813d35eff88">mousePos</a>).<a class="code" href="classtbe_1_1_vector2.html#a25f12689fc216f40d82bada8666179f9">IsInsinde</a>(<a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(m_pos.x + m_size.x / 2, m_pos.y), <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a>(m_size.x / 2, m_size.y));
+<a name="l00045"></a>00045     <span class="keywordtype">bool</span> inLeft = <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(event.<a class="code" href="structtbe_1_1_event_manager.html#abbf1e3ad03e71684712bb813d35eff88">mousePos</a>).<a class="code" href="classtbe_1_1_vector2.html#acb3cc0b86107520d22e8ddd5b42dee84">isInsinde</a>(m_pos, <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(m_size.x / 2, m_size.y));
+<a name="l00046"></a>00046     <span class="keywordtype">bool</span> inRight = <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(event.<a class="code" href="structtbe_1_1_event_manager.html#abbf1e3ad03e71684712bb813d35eff88">mousePos</a>).<a class="code" href="classtbe_1_1_vector2.html#acb3cc0b86107520d22e8ddd5b42dee84">isInsinde</a>(<a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(m_pos.x + m_size.x / 2, m_pos.y), <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a>(m_size.x / 2, m_size.y));
 <a name="l00047"></a>00047 
-<a name="l00048"></a>00048     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(event.<a class="code" href="structtbe_1_1_event_manager.html#abbf1e3ad03e71684712bb813d35eff88">mousePos</a>).<a class="code" href="classtbe_1_1_vector2.html#a25f12689fc216f40d82bada8666179f9">IsInsinde</a>(m_pos, m_size))
+<a name="l00048"></a>00048     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(event.<a class="code" href="structtbe_1_1_event_manager.html#abbf1e3ad03e71684712bb813d35eff88">mousePos</a>).<a class="code" href="classtbe_1_1_vector2.html#acb3cc0b86107520d22e8ddd5b42dee84">isInsinde</a>(m_pos, m_size))
 <a name="l00049"></a>00049     {
 <a name="l00050"></a>00050         <span class="keywordflow">if</span>(event.<a class="code" href="structtbe_1_1_event_manager.html#a8474e50f23ea64707bd1c3dd6e4f7331">notify</a> == EventManager::EVENT_MOUSE_DOWN)
 <a name="l00051"></a>00051         {
 <a name="l00052"></a>00052             <span class="keywordflow">if</span>(event.<a class="code" href="structtbe_1_1_event_manager.html#a9af46743b9f600824f103e07b1c47e7c">lastActiveMouse</a>.first == EventManager::MOUSE_BUTTON_WHEEL_UP)
-<a name="l00053"></a>00053                 Increment();
+<a name="l00053"></a>00053                 increment();
 <a name="l00054"></a>00054 
 <a name="l00055"></a>00055             <span class="keywordflow">else</span> <span class="keywordflow">if</span>(event.<a class="code" href="structtbe_1_1_event_manager.html#a9af46743b9f600824f103e07b1c47e7c">lastActiveMouse</a>.first == EventManager::MOUSE_BUTTON_WHEEL_DOWN)
-<a name="l00056"></a>00056                 Decrement();
+<a name="l00056"></a>00056                 decrement();
 <a name="l00057"></a>00057         }
 <a name="l00058"></a>00058     }
 <a name="l00059"></a>00059 
@@ -120,7 +120,7 @@
 <a name="l00077"></a>00077                 &amp;&amp; m_activate)
 <a name="l00078"></a>00078         {
 <a name="l00079"></a>00079             m_state = OVER_LEFT;
-<a name="l00080"></a>00080             Decrement();
+<a name="l00080"></a>00080             decrement();
 <a name="l00081"></a>00081             m_activate = <span class="keyword">true</span>;
 <a name="l00082"></a>00082             <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00083"></a>00083         }
@@ -149,7 +149,7 @@
 <a name="l00106"></a>00106                 &amp;&amp; m_activate)
 <a name="l00107"></a>00107         {
 <a name="l00108"></a>00108             m_state = OVER_RIGHT;
-<a name="l00109"></a>00109             Increment();
+<a name="l00109"></a>00109             increment();
 <a name="l00110"></a>00110             m_activate = <span class="keyword">true</span>;
 <a name="l00111"></a>00111             <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00112"></a>00112         }
@@ -164,14 +164,14 @@
 <a name="l00121"></a>00121     <span class="keywordflow">return</span> <span class="keyword">false</span>;
 <a name="l00122"></a>00122 }
 <a name="l00123"></a>00123 
-<a name="l00124"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#ac781e18ed9b6370a2a66986028f1ab9e">00124</a> <span class="keywordtype">void</span> Switch::SetSkin(<span class="keyword">const</span> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html" title="Structure contenant l&#39;apparence et la configuration des controles de l&#39;interface graphique.">GuiSkin</a>&amp; skin)
+<a name="l00124"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#a60cac956b29d30f4fac79ca9a6f3d43b">00124</a> <span class="keywordtype">void</span> Switch::setSkin(<span class="keyword">const</span> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html" title="Structure contenant l&#39;apparence et la configuration des controles de l&#39;interface graphique.">GuiSkin</a>&amp; skin)
 <a name="l00125"></a>00125 {
-<a name="l00126"></a>00126     SetBackground(skin.<a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a5b3de03045b8d455d62766d29e3252d0">switchBox</a>);
-<a name="l00127"></a>00127     SetSize(skin.<a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a8c46d92cd3cc5ded300090d4bd42ef23">switchBoxSize</a>);
-<a name="l00128"></a>00128     SetPencil(skin.<a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a4bf7a29779d0f128986b1aab45613785">pencile</a>);
+<a name="l00126"></a>00126     setBackground(skin.<a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a5b3de03045b8d455d62766d29e3252d0">switchBox</a>);
+<a name="l00127"></a>00127     setSize(skin.<a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a8c46d92cd3cc5ded300090d4bd42ef23">switchBoxSize</a>);
+<a name="l00128"></a>00128     setPencil(skin.<a class="code" href="structtbe_1_1gui_1_1_gui_skin.html#a4bf7a29779d0f128986b1aab45613785">pencile</a>);
 <a name="l00129"></a>00129 }
 <a name="l00130"></a>00130 
-<a name="l00131"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#a8ec01c11275bd2ab80cc6addb8301c5a">00131</a> <span class="keywordtype">void</span> Switch::SetupRender()
+<a name="l00131"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#a8d2506e64d7b10afc47f9aee8a393062">00131</a> <span class="keywordtype">void</span> Switch::setupRender()
 <a name="l00132"></a>00132 {
 <a name="l00133"></a>00133     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>[8] = {
 <a name="l00134"></a>00134         <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>(0, 0),
@@ -246,27 +246,27 @@
 <a name="l00203"></a>00203     }
 <a name="l00204"></a>00204 }
 <a name="l00205"></a>00205 
-<a name="l00206"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#a6c8ab0120f730de66424e3b832b93d42">00206</a> <span class="keywordtype">void</span> Switch::ObjectRender()
+<a name="l00206"></a><a class="code" href="classtbe_1_1gui_1_1_switch.html#a8f32c614666e0f4f415c8dc97fc28c41">00206</a> <span class="keywordtype">void</span> Switch::objectRender()
 <a name="l00207"></a>00207 {
-<a name="l00208"></a>00208     m_background.Use();
+<a name="l00208"></a>00208     m_background.use();
 <a name="l00209"></a>00209 
 <a name="l00210"></a>00210     <span class="keywordflow">switch</span>(m_state)
 <a name="l00211"></a>00211     {
-<a name="l00212"></a>00212         <span class="keywordflow">case</span> DEAD: DrawSurface(switchVertex.pos, switchVertex.stOut, 8);
+<a name="l00212"></a>00212         <span class="keywordflow">case</span> DEAD: drawSurface(switchVertex.pos, switchVertex.stOut, 8);
 <a name="l00213"></a>00213             <span class="keywordflow">break</span>;
-<a name="l00214"></a>00214         <span class="keywordflow">case</span> OVER_LEFT: DrawSurface(switchVertex.pos, switchVertex.stOverLeft, 8);
+<a name="l00214"></a>00214         <span class="keywordflow">case</span> OVER_LEFT: drawSurface(switchVertex.pos, switchVertex.stOverLeft, 8);
 <a name="l00215"></a>00215             <span class="keywordflow">break</span>;
-<a name="l00216"></a>00216         <span class="keywordflow">case</span> OVER_RIGHT: DrawSurface(switchVertex.pos, switchVertex.stOverRight, 8);
+<a name="l00216"></a>00216         <span class="keywordflow">case</span> OVER_RIGHT: drawSurface(switchVertex.pos, switchVertex.stOverRight, 8);
 <a name="l00217"></a>00217             <span class="keywordflow">break</span>;
-<a name="l00218"></a>00218         <span class="keywordflow">case</span> PUSH_LEFT: DrawSurface(switchVertex.pos, switchVertex.stPushLeft, 8);
+<a name="l00218"></a>00218         <span class="keywordflow">case</span> PUSH_LEFT: drawSurface(switchVertex.pos, switchVertex.stPushLeft, 8);
 <a name="l00219"></a>00219             <span class="keywordflow">break</span>;
-<a name="l00220"></a>00220         <span class="keywordflow">case</span> PUSH_RIGHT: DrawSurface(switchVertex.pos, switchVertex.stPushRight, 8);
+<a name="l00220"></a>00220         <span class="keywordflow">case</span> PUSH_RIGHT: drawSurface(switchVertex.pos, switchVertex.stPushRight, 8);
 <a name="l00221"></a>00221             <span class="keywordflow">break</span>;
 <a name="l00222"></a>00222     }
 <a name="l00223"></a>00223 
 <a name="l00224"></a>00224     <span class="keywordflow">if</span>(m_pencil)
 <a name="l00225"></a>00225     {
-<a name="l00226"></a>00226         m_pencil.Display(m_pencil.CenterOf(m_label, m_pos, m_size), m_label);
+<a name="l00226"></a>00226         m_pencil.display(m_pencil.centerOf(m_label, m_pos, m_size), m_label);
 <a name="l00227"></a>00227     }
 <a name="l00228"></a>00228 }
 <a name="l00229"></a>00229 
@@ -275,7 +275,7 @@
 <a name="l00232"></a>00232     m_it = m_content.end();
 <a name="l00233"></a>00233 }
 <a name="l00234"></a>00234 
-<a name="l00235"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a93dd29b11d4d7072ed069b3c3330bdbc">00235</a> <span class="keywordtype">void</span> SwitchString::SetCurrent(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
+<a name="l00235"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#ad43f5c19461a7326193c96a45a35c68b">00235</a> <span class="keywordtype">void</span> SwitchString::setCurrent(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
 <a name="l00236"></a>00236 {
 <a name="l00237"></a>00237     index = min(index, m_content.size() - 1);
 <a name="l00238"></a>00238 
@@ -283,52 +283,52 @@
 <a name="l00240"></a>00240     m_label = m_it-&gt;str;
 <a name="l00241"></a>00241 }
 <a name="l00242"></a>00242 
-<a name="l00243"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#abb248ab84c177db6aa8171ed57c64532">00243</a> <span class="keywordtype">unsigned</span> SwitchString::GetCurrent()
+<a name="l00243"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#ae948c485d1759f8da5a752cebfd4c3a0">00243</a> <span class="keywordtype">unsigned</span> SwitchString::getCurrent()
 <a name="l00244"></a>00244 {
 <a name="l00245"></a>00245     <span class="keywordflow">return</span> m_it - m_content.begin();
 <a name="l00246"></a>00246 }
 <a name="l00247"></a>00247 
-<a name="l00248"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#ab889430fa0dd30ba856d607ac014093b">00248</a> <span class="keywordtype">void</span> SwitchString::SetString(<span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; str)
+<a name="l00248"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a29f6a4795eec3c6c4443ed6363b7b29c">00248</a> <span class="keywordtype">void</span> SwitchString::setString(<span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; str)
 <a name="l00249"></a>00249 {
 <a name="l00250"></a>00250     m_it-&gt;str = str;
 <a name="l00251"></a>00251 }
 <a name="l00252"></a>00252 
-<a name="l00253"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a6d4b594f4dfb3ba04aae04ae0fbb26e8">00253</a> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> SwitchString::GetString()<span class="keyword"> const</span>
+<a name="l00253"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a6ba9061472aa26d9a45113eb3979a306">00253</a> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> SwitchString::getString()<span class="keyword"> const</span>
 <a name="l00254"></a>00254 <span class="keyword"></span>{
 <a name="l00255"></a>00255     <span class="keywordflow">return</span> m_it-&gt;str;
 <a name="l00256"></a>00256 }
 <a name="l00257"></a>00257 
-<a name="l00258"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a6422ba01da4076019e3ac87d68bbd28a">00258</a> <span class="keywordtype">void</span> SwitchString::SetData(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
+<a name="l00258"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a43fb3b70b77ec73b5a3ae5ff098869cd">00258</a> <span class="keywordtype">void</span> SwitchString::setData(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
 <a name="l00259"></a>00259 {
 <a name="l00260"></a>00260     m_it-&gt;data = <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>;
 <a name="l00261"></a>00261 }
 <a name="l00262"></a>00262 
-<a name="l00263"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a423ed5c0d616015dcbe6073f423eb3c9">00263</a> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> SwitchString::GetData()<span class="keyword"> const</span>
+<a name="l00263"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a68457fc69b644f238e6053901ad9a8ad">00263</a> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a> SwitchString::getData()<span class="keyword"> const</span>
 <a name="l00264"></a>00264 <span class="keyword"></span>{
 <a name="l00265"></a>00265     <span class="keywordflow">return</span> m_it-&gt;data;
 <a name="l00266"></a>00266 }
 <a name="l00267"></a>00267 
-<a name="l00268"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a4945a6dfe8a1f120957906af5286f46a">00268</a> <span class="keywordtype">void</span> SwitchString::SetString(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>, <span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; str)
+<a name="l00268"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a005dc2a2a717d4941650688f9cc52e72">00268</a> <span class="keywordtype">void</span> SwitchString::setString(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>, <span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; str)
 <a name="l00269"></a>00269 {
 <a name="l00270"></a>00270     m_content[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>].str = str;
 <a name="l00271"></a>00271 }
 <a name="l00272"></a>00272 
-<a name="l00273"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#ada7011c62bcf0854d51e723131dcca28">00273</a> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> SwitchString::GetString(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)<span class="keyword"> const</span>
+<a name="l00273"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a2e12961a04919d887985c6a177c5947f">00273</a> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> SwitchString::getString(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)<span class="keyword"> const</span>
 <a name="l00274"></a>00274 <span class="keyword"></span>{
 <a name="l00275"></a>00275     <span class="keywordflow">return</span> m_content[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>].str;
 <a name="l00276"></a>00276 }
 <a name="l00277"></a>00277 
-<a name="l00278"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a3487fe507f360d701e923b8b8d8c93e9">00278</a> <span class="keywordtype">void</span> SwitchString::SetData(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
+<a name="l00278"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#aa80a06da92d11b2387ce46060bfde849">00278</a> <span class="keywordtype">void</span> SwitchString::setData(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
 <a name="l00279"></a>00279 {
 <a name="l00280"></a>00280     m_content[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>].data = <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>;
 <a name="l00281"></a>00281 }
 <a name="l00282"></a>00282 
-<a name="l00283"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a3a22086b3f293b4ab77cc99404b283cb">00283</a> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> SwitchString::GetData(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)<span class="keyword"> const</span>
+<a name="l00283"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#ab1f326ddcdd2ebf928136b50f828222d">00283</a> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a> SwitchString::getData(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)<span class="keyword"> const</span>
 <a name="l00284"></a>00284 <span class="keyword"></span>{
 <a name="l00285"></a>00285     <span class="keywordflow">return</span> m_content[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>].data;
 <a name="l00286"></a>00286 }
 <a name="l00287"></a>00287 
-<a name="l00288"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#aaa3bb1e832d4bbfa925c63b68e16e8d2">00288</a> <span class="keywordtype">void</span> SwitchString::SetData(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
+<a name="l00288"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a223d46e7113a73223b483db3ae97e9f2">00288</a> <span class="keywordtype">void</span> SwitchString::setData(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
 <a name="l00289"></a>00289 {
 <a name="l00290"></a>00290     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_content.size(); i++)
 <a name="l00291"></a>00291         <span class="keywordflow">if</span>(m_content[i].str == str)
@@ -338,16 +338,16 @@
 <a name="l00295"></a>00295         }
 <a name="l00296"></a>00296 }
 <a name="l00297"></a>00297 
-<a name="l00298"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#adb0e046e0324f682544d1c18c2c50d82">00298</a> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> SwitchString::GetData(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str)<span class="keyword"> const</span>
+<a name="l00298"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#ac990d745801ccbb0c05168e3b816cc2f">00298</a> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a> SwitchString::getData(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str)<span class="keyword"> const</span>
 <a name="l00299"></a>00299 <span class="keyword"></span>{
 <a name="l00300"></a>00300     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_content.size(); i++)
 <a name="l00301"></a>00301         <span class="keywordflow">if</span>(m_content[i].str == str)
 <a name="l00302"></a>00302             <span class="keywordflow">return</span> m_content[i].data;
 <a name="l00303"></a>00303 
-<a name="l00304"></a>00304     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>();
+<a name="l00304"></a>00304     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a>();
 <a name="l00305"></a>00305 }
 <a name="l00306"></a>00306 
-<a name="l00307"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a69fc4e78034e2180e63f5ee97fc6f61b">00307</a> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html" title="Peut contenire plusieur élément de type string pour un Switch.">SwitchString</a>&amp; SwitchString::Push(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str)
+<a name="l00307"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a4386dbc2e5bb17985eceeb5010156081">00307</a> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html" title="Peut contenire plusieur élément de type string pour un Switch.">SwitchString</a>&amp; SwitchString::push(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str)
 <a name="l00308"></a>00308 {
 <a name="l00309"></a>00309     <a class="code" href="structtbe_1_1gui_1_1_switch_string_1_1_entry.html">Entry</a> e;
 <a name="l00310"></a>00310     e.<a class="code" href="structtbe_1_1gui_1_1_switch_string_1_1_entry.html#ac9815dc0e835fc614035d370238001ff">str</a> = str;
@@ -359,7 +359,7 @@
 <a name="l00316"></a>00316     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00317"></a>00317 }
 <a name="l00318"></a>00318 
-<a name="l00319"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a21a387ed952a46bda53e08a2d99ef38b">00319</a> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html" title="Peut contenire plusieur élément de type string pour un Switch.">SwitchString</a>&amp; SwitchString::Push(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
+<a name="l00319"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a340351a13ac0f05769ec4d1c8d17eaf0">00319</a> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html" title="Peut contenire plusieur élément de type string pour un Switch.">SwitchString</a>&amp; SwitchString::push(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a>&amp; <a class="code" href="_g_lee_8h.html#a8850df0785e6fbcc2351af3b686b8c7a">data</a>)
 <a name="l00320"></a>00320 {
 <a name="l00321"></a>00321     <a class="code" href="structtbe_1_1gui_1_1_switch_string_1_1_entry.html">Entry</a> e;
 <a name="l00322"></a>00322     e.<a class="code" href="structtbe_1_1gui_1_1_switch_string_1_1_entry.html#ac9815dc0e835fc614035d370238001ff">str</a> = str;
@@ -373,25 +373,25 @@
 <a name="l00330"></a>00330     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00331"></a>00331 }
 <a name="l00332"></a>00332 
-<a name="l00333"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a0ecbecb3dcda6b6fc433f3073057442e">00333</a> <span class="keywordtype">unsigned</span> SwitchString::GetCount()<span class="keyword"> const</span>
+<a name="l00333"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a8a6dbe9d23191b79aa6b8bb074dd8f13">00333</a> <span class="keywordtype">unsigned</span> SwitchString::getCount()<span class="keyword"> const</span>
 <a name="l00334"></a>00334 <span class="keyword"></span>{
 <a name="l00335"></a>00335     <span class="keywordflow">return</span> m_content.size();
 <a name="l00336"></a>00336 }
 <a name="l00337"></a>00337 
-<a name="l00338"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a7a29c8447d684593d05d2c3427e666f4">00338</a> <span class="keywordtype">void</span> SwitchString::DeleteAll()
+<a name="l00338"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#aee823c1d36b6993cfbcd7616009e154c">00338</a> <span class="keywordtype">void</span> SwitchString::deleteAll()
 <a name="l00339"></a>00339 {
 <a name="l00340"></a>00340     m_content.clear();
 <a name="l00341"></a>00341     m_it = m_content.end();
 <a name="l00342"></a>00342 }
 <a name="l00343"></a>00343 
-<a name="l00344"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a1c99e9633c34ccaf1100c4fb85a6e06e">00344</a> <span class="keywordtype">void</span> SwitchString::Delete(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
+<a name="l00344"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a1c8c2a7713845a144e84a411b79d20a8">00344</a> <span class="keywordtype">void</span> SwitchString::deleteOn(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
 <a name="l00345"></a>00345 {
 <a name="l00346"></a>00346     m_content.erase(m_content.begin() + <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>);
 <a name="l00347"></a>00347 
-<a name="l00348"></a>00348     Increment();
+<a name="l00348"></a>00348     increment();
 <a name="l00349"></a>00349 }
 <a name="l00350"></a>00350 
-<a name="l00351"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a6b4a8c105214299753c342df5d9aab0e">00351</a> <span class="keywordtype">void</span> SwitchString::Delete(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str)
+<a name="l00351"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a053260f292bce7273ce3c0b534ae9a93">00351</a> <span class="keywordtype">void</span> SwitchString::deleteOn(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str)
 <a name="l00352"></a>00352 {
 <a name="l00353"></a>00353     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_content.size(); i++)
 <a name="l00354"></a>00354         <span class="keywordflow">if</span>(m_content[i].str == str)
@@ -400,10 +400,10 @@
 <a name="l00357"></a>00357             <span class="keywordflow">break</span>;
 <a name="l00358"></a>00358         }
 <a name="l00359"></a>00359 
-<a name="l00360"></a>00360     Increment();
+<a name="l00360"></a>00360     increment();
 <a name="l00361"></a>00361 }
 <a name="l00362"></a>00362 
-<a name="l00363"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a4470a4a2ffba071440336531837a9580">00363</a> <span class="keywordtype">void</span> SwitchString::Increment()
+<a name="l00363"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a0939d6c6c4031843daa0c6e54d2609b6">00363</a> <span class="keywordtype">void</span> SwitchString::increment()
 <a name="l00364"></a>00364 {
 <a name="l00365"></a>00365     <span class="keywordflow">if</span>(m_content.empty())
 <a name="l00366"></a>00366     {
@@ -420,7 +420,7 @@
 <a name="l00377"></a>00377     m_label = m_it-&gt;str;
 <a name="l00378"></a>00378 }
 <a name="l00379"></a>00379 
-<a name="l00380"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a9acabc26271b01d20d3e5f45684f0afd">00380</a> <span class="keywordtype">void</span> SwitchString::Decrement()
+<a name="l00380"></a><a class="code" href="classtbe_1_1gui_1_1_switch_string.html#a63dfc1c7da194603f2508146d8f456d7">00380</a> <span class="keywordtype">void</span> SwitchString::decrement()
 <a name="l00381"></a>00381 {
 <a name="l00382"></a>00382     <span class="keywordflow">if</span>(m_content.empty())
 <a name="l00383"></a>00383     {
@@ -438,7 +438,7 @@
 <a name="l00395"></a>00395 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

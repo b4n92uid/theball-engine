@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -41,7 +41,7 @@
 <div class="title">D:/projets/cpp/tbengine/sources/HardwareBuffer.h</div>  </div>
 </div>
 <div class="contents">
-<a href="_hardware_buffer_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a href="_hardware_buffer_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
 <a name="l00002"></a>00002 <span class="comment"> * File:   HardwareBuffer.h</span>
 <a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
 <a name="l00004"></a>00004 <span class="comment"> *</span>
@@ -66,86 +66,100 @@
 <a name="l00024"></a>00024 {
 <a name="l00025"></a>00025 <span class="keyword">public</span>:
 <a name="l00026"></a>00026     <a class="code" href="classtbe_1_1_vertex.html#a97488994a2482d70da74e1b91d40e169">Vertex</a>();
-<a name="l00027"></a>00027     <a class="code" href="classtbe_1_1_vertex.html#a97488994a2482d70da74e1b91d40e169">Vertex</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_vertex.html#af5648111d05788620db6e8961fda13ef">normal</a>, <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1_vertex.html#aa0d711a38a6f2c13ee9c44103f03d011">texCoord</a>);
+<a name="l00027"></a>00027     <a class="code" href="classtbe_1_1_vertex.html#a97488994a2482d70da74e1b91d40e169">Vertex</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a" title="Position du vertex.">pos</a>, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_vertex.html#af5648111d05788620db6e8961fda13ef" title="Normal du vertex.">normal</a>, <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1_vertex.html#aa0d711a38a6f2c13ee9c44103f03d011" title="coordonnées de texture">texCoord</a>);
 <a name="l00028"></a>00028     <a class="code" href="classtbe_1_1_vertex.html#a97488994a2482d70da74e1b91d40e169">Vertex</a>(<span class="keywordtype">float</span> px, <span class="keywordtype">float</span> py, <span class="keywordtype">float</span> pz, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a7b63baa60e3c97412035037321a09313">nx</a>, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a5a459fddb3f3a7a2ee52f89967d9f501">ny</a>, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a2999523991f24fec5d9f318db9701081">nz</a>, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a28666c5860e73f899079b4ee29200aec">r</a>, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a9cd653b1648845554169fbc3a3f6d37a">g</a>, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#ad585a1393cfa368fa9dc3d8ebff640d5">s</a>, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a653819996e713edf9c01a5b564199189">t</a>);
 <a name="l00029"></a>00029 
 <a name="l00030"></a><a class="code" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">00030</a>     <span class="keyword">typedef</span> std::vector&lt;Vertex&gt; <a class="code" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Array</a>;
 <a name="l00031"></a>00031 
 <a name="l00032"></a>00032 <span class="keyword">public</span>:
-<a name="l00033"></a><a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">00033</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">pos</a>;
-<a name="l00034"></a><a class="code" href="classtbe_1_1_vertex.html#af5648111d05788620db6e8961fda13ef">00034</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_vertex.html#af5648111d05788620db6e8961fda13ef">normal</a>;
-<a name="l00035"></a><a class="code" href="classtbe_1_1_vertex.html#ac67b0fee502d62e8012cf4bebea616e8">00035</a>     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1_vertex.html#ac67b0fee502d62e8012cf4bebea616e8">color</a>;
-<a name="l00036"></a><a class="code" href="classtbe_1_1_vertex.html#aa0d711a38a6f2c13ee9c44103f03d011">00036</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1_vertex.html#aa0d711a38a6f2c13ee9c44103f03d011">texCoord</a>;
-<a name="l00037"></a><a class="code" href="classtbe_1_1_vertex.html#a7c9dc1462cb2041db12eb082c0169499">00037</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_vertex.html#a7c9dc1462cb2041db12eb082c0169499">tangent</a>;
-<a name="l00038"></a><a class="code" href="classtbe_1_1_vertex.html#a04b982246831162324af9f0a124c8ba4">00038</a>     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1_vertex.html#a04b982246831162324af9f0a124c8ba4">ambOcc</a>;
-<a name="l00039"></a>00039 };
-<a name="l00040"></a>00040 
-<a name="l00042"></a>00042 
-<a name="l00043"></a><a class="code" href="classtbe_1_1_face.html">00043</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_face.html" title="Représentation d&#39;une face a nombre variable de vertex.">Face</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>::<a class="code" href="classtbe_1_1_face.html#ae9027b7573351affebe9d3e6d1c40ecd">Array</a>
-<a name="l00044"></a>00044 {
-<a name="l00045"></a>00045 <span class="keyword">public</span>:
-<a name="l00046"></a><a class="code" href="classtbe_1_1_face.html#ae9027b7573351affebe9d3e6d1c40ecd">00046</a>     <span class="keyword">typedef</span> std::vector&lt;Face&gt; <a class="code" href="classtbe_1_1_face.html#ae9027b7573351affebe9d3e6d1c40ecd">Array</a>;
-<a name="l00047"></a>00047 };
-<a name="l00048"></a>00048 
-<a name="l00050"></a>00050 
-<a name="l00051"></a><a class="code" href="classtbe_1_1_hardware_buffer.html">00051</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a>
-<a name="l00052"></a>00052 {
-<a name="l00053"></a>00053 <span class="keyword">public</span>:
-<a name="l00054"></a>00054     <a class="code" href="classtbe_1_1_hardware_buffer.html#a599369a49ae04eff4472f6b8b418e313">HardwareBuffer</a>();
-<a name="l00055"></a>00055     <a class="code" href="classtbe_1_1_hardware_buffer.html#a761db2d5bdccd9ec2f29de2306e33b07">~HardwareBuffer</a>();
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057     <a class="code" href="classtbe_1_1_hardware_buffer.html#a599369a49ae04eff4472f6b8b418e313">HardwareBuffer</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a>&amp; hb);
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059     <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a> &amp; <a class="code" href="classtbe_1_1_hardware_buffer.html#a232f4f5c126a4ba5df1e85ab168b43b3">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a>&amp; hb);
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061     <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>* <a class="code" href="classtbe_1_1_hardware_buffer.html#a270d05309f0ea16f468b9791064411b9">Lock</a>(<a class="code" href="_g_lee_8h.html#af4b02d26891e57d67d24348b252508d2">GLenum</a> <a class="code" href="_g_lee_8h.html#ae759ed0394ed5353d8bef2fb755305da">usage</a> = <a class="code" href="_g_lee_8h.html#aa5fd429fd2b79f5936c1421afb205dcd">GL_READ_WRITE</a>);
-<a name="l00062"></a>00062     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#ac8d9f43286321deff01fba5bd42573f6">UnLock</a>();
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a7240943f4818a85b28c62aa352a0a18c">AddFace</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_face.html" title="Représentation d&#39;une face a nombre variable de vertex.">Face</a>&amp; <a class="code" href="_g_lee_8h.html#a676ca580c460c0154eb58200433d2a9e">face</a>);
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a44b32dbac6294bb61258dadbb259536b">AddVertex</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>&amp; vertex);
-<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a44b32dbac6294bb61258dadbb259536b">AddVertex</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a>&amp; array);
-<a name="l00068"></a>00068     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a44b32dbac6294bb61258dadbb259536b">AddVertex</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>* array, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>);
+<a name="l00034"></a><a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a">00034</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_vertex.html#a4c241ae4710b1864cd932c7733c0e57a" title="Position du vertex.">pos</a>;
+<a name="l00035"></a>00035 
+<a name="l00037"></a><a class="code" href="classtbe_1_1_vertex.html#af5648111d05788620db6e8961fda13ef">00037</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_vertex.html#af5648111d05788620db6e8961fda13ef" title="Normal du vertex.">normal</a>;
+<a name="l00038"></a>00038 
+<a name="l00040"></a><a class="code" href="classtbe_1_1_vertex.html#ac67b0fee502d62e8012cf4bebea616e8">00040</a>     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1_vertex.html#ac67b0fee502d62e8012cf4bebea616e8" title="Couleur du vertex.">color</a>;
+<a name="l00041"></a>00041 
+<a name="l00043"></a><a class="code" href="classtbe_1_1_vertex.html#aa0d711a38a6f2c13ee9c44103f03d011">00043</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1_vertex.html#aa0d711a38a6f2c13ee9c44103f03d011" title="coordonnées de texture">texCoord</a>;
+<a name="l00044"></a>00044 
+<a name="l00046"></a><a class="code" href="classtbe_1_1_vertex.html#a7c9dc1462cb2041db12eb082c0169499">00046</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_vertex.html#a7c9dc1462cb2041db12eb082c0169499" title="Tangent du vertex.">tangent</a>;
+<a name="l00047"></a>00047 
+<a name="l00049"></a><a class="code" href="classtbe_1_1_vertex.html#a04b982246831162324af9f0a124c8ba4">00049</a>     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1_vertex.html#a04b982246831162324af9f0a124c8ba4" title="Facteur de l&#39;occlusion ambiante du vertex.">ambOcc</a>;
+<a name="l00050"></a>00050 };
+<a name="l00051"></a>00051 
+<a name="l00053"></a>00053 
+<a name="l00054"></a><a class="code" href="classtbe_1_1_face.html">00054</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_face.html" title="Représentation d&#39;une face a nombre variable de vertex.">Face</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>::<a class="code" href="classtbe_1_1_face.html#ae9027b7573351affebe9d3e6d1c40ecd">Array</a>
+<a name="l00055"></a>00055 {
+<a name="l00056"></a>00056 <span class="keyword">public</span>:
+<a name="l00057"></a><a class="code" href="classtbe_1_1_face.html#ae9027b7573351affebe9d3e6d1c40ecd">00057</a>     <span class="keyword">typedef</span> std::vector&lt;Face&gt; <a class="code" href="classtbe_1_1_face.html#ae9027b7573351affebe9d3e6d1c40ecd">Array</a>;
+<a name="l00058"></a>00058 };
+<a name="l00059"></a>00059 
+<a name="l00061"></a>00061 
+<a name="l00062"></a><a class="code" href="classtbe_1_1_hardware_buffer.html">00062</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a>
+<a name="l00063"></a>00063 {
+<a name="l00064"></a>00064 <span class="keyword">public</span>:
+<a name="l00065"></a>00065     <a class="code" href="classtbe_1_1_hardware_buffer.html#a599369a49ae04eff4472f6b8b418e313">HardwareBuffer</a>();
+<a name="l00066"></a>00066     <a class="code" href="classtbe_1_1_hardware_buffer.html#a761db2d5bdccd9ec2f29de2306e33b07">~HardwareBuffer</a>();
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068     <a class="code" href="classtbe_1_1_hardware_buffer.html#a599369a49ae04eff4472f6b8b418e313">HardwareBuffer</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a>&amp; hb);
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a8da57b8baf8ad73ddaadd8bc2b736fd0">Compile</a>(<a class="code" href="_g_lee_8h.html#af4b02d26891e57d67d24348b252508d2">GLenum</a> <a class="code" href="_g_lee_8h.html#ae759ed0394ed5353d8bef2fb755305da">usage</a> = <a class="code" href="_g_lee_8h.html#ab7dffdc215fbbe75b6ccacfecfc14648">GL_STATIC_DRAW</a>);
+<a name="l00070"></a>00070     <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a> &amp; <a class="code" href="classtbe_1_1_hardware_buffer.html#a232f4f5c126a4ba5df1e85ab168b43b3">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a>&amp; hb);
 <a name="l00071"></a>00071 
-<a name="l00072"></a>00072     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#aafc7c03293ae3333158f0de417edc859">BindBuffer</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>);
-<a name="l00073"></a>00073     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a9a924200aa664d0bcf74f8e6afce723c">BindTexture</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>);
-<a name="l00074"></a>00074     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a8300686cefa6442542a59c327c15c756">BindColor</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>);
-<a name="l00075"></a>00075     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a1cca836dc542b8bb2f815373e8f04df5">BindNormal</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>);
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#aaabdb464324af47ef5cfc8d7e9f11da4">BindTangent</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>, <a class="code" href="_g_lee_8h.html#ad7d52e5ca8136e2cf8340e024dbcb6cf">GLint</a> <a class="code" href="_g_lee_8h.html#a6f0165ed903f22b8bb600c3e0b628e73">location</a> = -1);
-<a name="l00078"></a>00078     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#ae204b36865312dc677b2bb61366cd150">BindAocc</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>, <a class="code" href="_g_lee_8h.html#ad7d52e5ca8136e2cf8340e024dbcb6cf">GLint</a> <a class="code" href="_g_lee_8h.html#a6f0165ed903f22b8bb600c3e0b628e73">location</a> = -1);
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#affadcfee220e80abd31097b695e9234e">Render</a>(<a class="code" href="_g_lee_8h.html#af4b02d26891e57d67d24348b252508d2">GLenum</a> <a class="code" href="_g_lee_8h.html#a1e71d9c196e4683cc06c4b54d53f7ef5">mode</a> = GL_TRIANGLES, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a970a385f6f880f2b620451db4ca4299a">first</a> = 0, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a9274fa62feb8371797c4c0312446e333">count</a> = 0);
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a35eb1fe5358554c56393a1c6cace1252">IsEmpty</a>();
+<a name="l00073"></a>00073     <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>* <a class="code" href="classtbe_1_1_hardware_buffer.html#a2fe840145da3bffad4f1f67e91f99e79" title="Véroulleu le buffer pour d&#39;éventuelle modification.">lock</a>(<a class="code" href="_g_lee_8h.html#af4b02d26891e57d67d24348b252508d2">GLenum</a> <a class="code" href="_g_lee_8h.html#ae759ed0394ed5353d8bef2fb755305da">usage</a> = <a class="code" href="_g_lee_8h.html#aa5fd429fd2b79f5936c1421afb205dcd">GL_READ_WRITE</a>);
+<a name="l00074"></a>00074 
+<a name="l00076"></a>00076     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#af4a1de83d85a4453774d612076a85a3d" title="Dévéroulleu le buffer pour signaler la fin des modification.">unlock</a>();
+<a name="l00077"></a>00077 
+<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a6aaac76da0ba46684085c53735368a6e" title="Ajoute une face au buffer.">addFace</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_face.html" title="Représentation d&#39;une face a nombre variable de vertex.">Face</a>&amp; <a class="code" href="_g_lee_8h.html#a676ca580c460c0154eb58200433d2a9e">face</a>);
+<a name="l00080"></a>00080 
+<a name="l00082"></a>00082     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#aed7aa23a396553848f4a3224d3d3a188" title="Ajoute un vertex au buffer.">addVertex</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>&amp; vertex);
 <a name="l00083"></a>00083 
-<a name="l00084"></a>00084     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#ad7d49f11919bc6d4e6731fc3aa7aaa23">GetBufferSize</a>() <span class="keyword">const</span>;
-<a name="l00085"></a>00085 
-<a name="l00086"></a>00086     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a1070fa40c21848a7ee2f359b702f08d8">GetVertexCount</a>() <span class="keyword">const</span>;
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088     <a class="code" href="classtbe_1_1_face.html#ae9027b7573351affebe9d3e6d1c40ecd">Face::Array</a> <a class="code" href="classtbe_1_1_hardware_buffer.html#a9d0c51a5c9b3686356011f663bb0e8d2">GetAllFace</a>();
+<a name="l00085"></a>00085     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#aed7aa23a396553848f4a3224d3d3a188" title="Ajoute un vertex au buffer.">addVertex</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a>&amp; array);
+<a name="l00086"></a>00086 
+<a name="l00088"></a>00088     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#aed7aa23a396553848f4a3224d3d3a188" title="Ajoute un vertex au buffer.">addVertex</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>* array, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>);
 <a name="l00089"></a>00089 
-<a name="l00090"></a>00090     <a class="code" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a> <a class="code" href="classtbe_1_1_hardware_buffer.html#a2691dc131783849195d533e52b7102fe">GetAllVertex</a>(<span class="keywordtype">bool</span> makeUnique = <span class="keyword">false</span>);
-<a name="l00091"></a>00091 
-<a name="l00098"></a>00098     <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#aed6535b9702c34a28639a5c902abf611">CheckHardware</a>();
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100 <span class="keyword">protected</span>:
-<a name="l00101"></a><a class="code" href="classtbe_1_1_hardware_buffer.html#abb7f337c01389bfd3a4fc5a938ace3fa">00101</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1_hardware_buffer.html#abb7f337c01389bfd3a4fc5a938ace3fa">m_bufferId</a>;
-<a name="l00102"></a><a class="code" href="classtbe_1_1_hardware_buffer.html#af652b3c6460e97dff06f7cde729602e3">00102</a>     <a class="code" href="_g_lee_8h.html#af4b02d26891e57d67d24348b252508d2">GLenum</a> <a class="code" href="classtbe_1_1_hardware_buffer.html#af652b3c6460e97dff06f7cde729602e3">m_usage</a>;
-<a name="l00103"></a><a class="code" href="classtbe_1_1_hardware_buffer.html#ade132ed977b42acf0eddc25fc9192c8f">00103</a>     <a class="code" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a> <a class="code" href="classtbe_1_1_hardware_buffer.html#ade132ed977b42acf0eddc25fc9192c8f">m_vertex</a>;
-<a name="l00104"></a>00104 
-<a name="l00105"></a><a class="code" href="classtbe_1_1_hardware_buffer.html#a809f2eb4d3b11d6e7b9c8972352f9ea3">00105</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a809f2eb4d3b11d6e7b9c8972352f9ea3">m_vertexCount</a>;
-<a name="l00106"></a><a class="code" href="classtbe_1_1_hardware_buffer.html#a55353d089fb0b139d8def945b2b5cf6c">00106</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a55353d089fb0b139d8def945b2b5cf6c">m_bufferSize</a>;
-<a name="l00107"></a>00107 };
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109 }
-<a name="l00110"></a>00110 
-<a name="l00111"></a>00111 <span class="preprocessor">#endif  </span><span class="comment">/* _HARDWAREBUFFER_H */</span>
+<a name="l00097"></a>00097     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a40ede3d49750eacdf3505fcecf7792a0">compile</a>(<a class="code" href="_g_lee_8h.html#af4b02d26891e57d67d24348b252508d2">GLenum</a> <a class="code" href="_g_lee_8h.html#ae759ed0394ed5353d8bef2fb755305da">usage</a> = <a class="code" href="_g_lee_8h.html#ab7dffdc215fbbe75b6ccacfecfc14648">GL_STATIC_DRAW</a>);
+<a name="l00098"></a>00098 
+<a name="l00102"></a>00102     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a5dde25813c02e071b2b8e441941d0626">clear</a>();
+<a name="l00103"></a>00103 
+<a name="l00105"></a>00105     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a99eabc03815717253d817780d1209d19" title="Activer le rendue des position vertex (activation minimum)">bindBuffer</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>);
+<a name="l00106"></a>00106 
+<a name="l00108"></a>00108     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#aa92b1d65d24ab27c1ad41310ac6c18d6" title="Activer le rendue des coordonnées de texture.">bindTexture</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>);
+<a name="l00109"></a>00109 
+<a name="l00111"></a>00111     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a4cb905e8dd858ad495a1e504ff9fcda6" title="Activer le rendue des couleur associer aux vertexs.">bindColor</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>);
+<a name="l00112"></a>00112 
+<a name="l00114"></a>00114     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#aff51e6584913c84cfb7274126b94a242" title="Activer le pris en compte des normals associer aux vertexs.">bindNormal</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>);
+<a name="l00115"></a>00115 
+<a name="l00118"></a>00118     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a25b41dc8e16b51464cd0f68be1138e0a">bindTangent</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>, <a class="code" href="_g_lee_8h.html#ad7d52e5ca8136e2cf8340e024dbcb6cf">GLint</a> <a class="code" href="_g_lee_8h.html#a6f0165ed903f22b8bb600c3e0b628e73">location</a> = -1);
+<a name="l00119"></a>00119 
+<a name="l00121"></a>00121     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#afa1aa8dbd86a41d98cfb956edd7fb5cc" title="Activer le pris en compte des de l&#39;ampbient occlusion.">bindAocc</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>, <a class="code" href="_g_lee_8h.html#ad7d52e5ca8136e2cf8340e024dbcb6cf">GLint</a> <a class="code" href="_g_lee_8h.html#a6f0165ed903f22b8bb600c3e0b628e73">location</a> = -1);
+<a name="l00122"></a>00122 
+<a name="l00124"></a>00124     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a2427459a224b3fc8c209fd0c3de6b801" title="Rendue du buffer.">render</a>(<a class="code" href="_g_lee_8h.html#af4b02d26891e57d67d24348b252508d2">GLenum</a> <a class="code" href="_g_lee_8h.html#a1e71d9c196e4683cc06c4b54d53f7ef5">mode</a> = GL_TRIANGLES, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a970a385f6f880f2b620451db4ca4299a">first</a> = 0, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a9274fa62feb8371797c4c0312446e333">count</a> = 0);
+<a name="l00125"></a>00125 
+<a name="l00127"></a>00127     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#af6b4b9413c74951424d733edb6a00ed3" title="Renvois true si le buffer est compiler et pret au rendue.">isEmpty</a>();
+<a name="l00128"></a>00128 
+<a name="l00130"></a>00130     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a5654aee74e6bc0890b131200eb17aeef" title="Renvois la taille du buffer en octet.">getBufferSize</a>() <span class="keyword">const</span>;
+<a name="l00131"></a>00131 
+<a name="l00133"></a>00133     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#ac04b3e4971a3fb2c8819184b565ec789" title="Renvois la nombre de vertexs contenue dans le buffer.">getVertexCount</a>() <span class="keyword">const</span>;
+<a name="l00134"></a>00134 
+<a name="l00136"></a>00136     <a class="code" href="classtbe_1_1_face.html#ae9027b7573351affebe9d3e6d1c40ecd">Face::Array</a> <a class="code" href="classtbe_1_1_hardware_buffer.html#a33c9481cf5d274ba1109c89f7856ff05" title="Renvois un tableau contenant les face triangulaire du buffer.">getAllFace</a>();
+<a name="l00137"></a>00137 
+<a name="l00144"></a>00144     <a class="code" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a> <a class="code" href="classtbe_1_1_hardware_buffer.html#a9cf18e2e7ec9b007890bb98051897220">getAllVertex</a>(<span class="keywordtype">bool</span> makeUnique = <span class="keyword">false</span>);
+<a name="l00145"></a>00145 
+<a name="l00153"></a>00153     <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#aae7ae5d93dcce722b323a496da7cd644">checkHardware</a>();
+<a name="l00154"></a>00154 
+<a name="l00155"></a>00155 <span class="keyword">protected</span>:
+<a name="l00156"></a><a class="code" href="classtbe_1_1_hardware_buffer.html#abb7f337c01389bfd3a4fc5a938ace3fa">00156</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1_hardware_buffer.html#abb7f337c01389bfd3a4fc5a938ace3fa">m_bufferId</a>;
+<a name="l00157"></a><a class="code" href="classtbe_1_1_hardware_buffer.html#af652b3c6460e97dff06f7cde729602e3">00157</a>     <a class="code" href="_g_lee_8h.html#af4b02d26891e57d67d24348b252508d2">GLenum</a> <a class="code" href="classtbe_1_1_hardware_buffer.html#af652b3c6460e97dff06f7cde729602e3">m_usage</a>;
+<a name="l00158"></a><a class="code" href="classtbe_1_1_hardware_buffer.html#ade132ed977b42acf0eddc25fc9192c8f">00158</a>     <a class="code" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a> <a class="code" href="classtbe_1_1_hardware_buffer.html#ade132ed977b42acf0eddc25fc9192c8f">m_vertex</a>;
+<a name="l00159"></a>00159 
+<a name="l00160"></a><a class="code" href="classtbe_1_1_hardware_buffer.html#a809f2eb4d3b11d6e7b9c8972352f9ea3">00160</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a809f2eb4d3b11d6e7b9c8972352f9ea3">m_vertexCount</a>;
+<a name="l00161"></a><a class="code" href="classtbe_1_1_hardware_buffer.html#a55353d089fb0b139d8def945b2b5cf6c">00161</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_hardware_buffer.html#a55353d089fb0b139d8def945b2b5cf6c">m_bufferSize</a>;
+<a name="l00162"></a>00162 };
+<a name="l00163"></a>00163 
+<a name="l00164"></a>00164 }
+<a name="l00165"></a>00165 
+<a name="l00166"></a>00166 <span class="preprocessor">#endif  </span><span class="comment">/* _HARDWAREBUFFER_H */</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:50 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

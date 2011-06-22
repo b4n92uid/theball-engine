@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -65,72 +65,95 @@
 <a name="l00023"></a>00023 
 <a name="l00024"></a>00024     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1_texture.html#a09c4bcb7462f64c1d20fa69dba3cee8a">~Texture</a>();
 <a name="l00025"></a>00025 
-<a name="l00027"></a>00027     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a9fa82e5129bd1f4b5d029dcc90da7eea" title="Construit un texture avec la valuer et la taille spécifier.">Build</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>, <a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">Vector4i</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a> = 0, <a class="code" href="_g_lee_8h.html#ad7d52e5ca8136e2cf8340e024dbcb6cf">GLint</a> <a class="code" href="_g_lee_8h.html#adfa3e9c3e9fe1bf0a67a9e77a0bac5d8">internalFormat</a> = 4, <a class="code" href="_g_lee_8h.html#af4b02d26891e57d67d24348b252508d2">GLenum</a> <a class="code" href="_g_lee_8h.html#a86f086d889f7cdb4d6461497ae891265">format</a> = GL_RGBA);
+<a name="l00027"></a>00027     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a6caf17964dd7b5047c6ebe8da5f6e63b" title="Construit une texture avec la valuer et la taille spécifier.">build</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>, <a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">Vector4i</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a> = 0, <a class="code" href="_g_lee_8h.html#ad7d52e5ca8136e2cf8340e024dbcb6cf">GLint</a> <a class="code" href="_g_lee_8h.html#adfa3e9c3e9fe1bf0a67a9e77a0bac5d8">internalFormat</a> = 4, <a class="code" href="_g_lee_8h.html#af4b02d26891e57d67d24348b252508d2">GLenum</a> <a class="code" href="_g_lee_8h.html#a86f086d889f7cdb4d6461497ae891265">format</a> = GL_RGBA);
 <a name="l00028"></a>00028 
-<a name="l00030"></a>00030     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#af643c32f721bb02a697f015e42f4f5d2" title="Chargement depuis un fichier.">Load</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filename, <span class="keywordtype">bool</span> genMipMap = <span class="keyword">false</span>, <span class="keywordtype">bool</span> upperLeftOrigin = <span class="keyword">true</span>);
-<a name="l00031"></a>00031 
-<a name="l00032"></a><a class="code" href="classtbe_1_1_texture.html#a4fd2e83f7c9635b711868af9e5505eba">00032</a>     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a4fd2e83f7c9635b711868af9e5505eba">operator()</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filename, <span class="keywordtype">bool</span> genMipMap = <span class="keyword">false</span>, <span class="keywordtype">bool</span> upperLeftOrigin = <span class="keyword">true</span>)
-<a name="l00033"></a>00033     {
-<a name="l00034"></a>00034         <a class="code" href="classtbe_1_1_texture.html#af643c32f721bb02a697f015e42f4f5d2" title="Chargement depuis un fichier.">Load</a>(filename, genMipMap, upperLeftOrigin);
-<a name="l00035"></a>00035     }
-<a name="l00036"></a>00036 
-<a name="l00038"></a>00038     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> &amp; <a class="code" href="classtbe_1_1_texture.html#a4e4682616b6a5f038b79cbbca97fb6ee" title="Operateur d&#39;assignement pour chemin de fichier.">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a>&amp; copy);
-<a name="l00039"></a>00039     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> &amp; <a class="code" href="classtbe_1_1_texture.html#a4e4682616b6a5f038b79cbbca97fb6ee" title="Operateur d&#39;assignement pour chemin de fichier.">operator=</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>);
-<a name="l00040"></a>00040     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> &amp; <a class="code" href="classtbe_1_1_texture.html#a4e4682616b6a5f038b79cbbca97fb6ee" title="Operateur d&#39;assignement pour chemin de fichier.">operator=</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>);
+<a name="l00036"></a>00036     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a1b0487b1ff51d7bb274ddaab0fe441d3">load</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filename, <span class="keywordtype">bool</span> genMipMap = <span class="keyword">false</span>, <span class="keywordtype">bool</span> upperLeftOrigin = <span class="keyword">true</span>);
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#ad08513f372da92440877f4025b3de323">loadMask</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filename, <span class="keywordtype">bool</span> upperLeftOrigin = <span class="keyword">true</span>);
+<a name="l00039"></a>00039 
 <a name="l00041"></a>00041 
-<a name="l00043"></a>00043     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_texture.html#af51dd436092b7db95609d2f5e59af4c1" title="Verification de statue.">operator!</a>() <span class="keyword">const</span>;
-<a name="l00044"></a>00044     <a class="code" href="classtbe_1_1_texture.html#aa6db7ff19a67e2582496017828f6e73f">operator bool</a>() <span class="keyword">const</span>;
-<a name="l00045"></a>00045 
-<a name="l00047"></a>00047     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a4d10a199d301cb99b91e1bcec175abd5" title="Récuperation d&#39;identifiant.">SetTextureName</a>(<a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> textureName);
-<a name="l00048"></a>00048     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1_texture.html#aeba3bdef5062577711d39043d2a20e1a">GetTextureName</a>() <span class="keyword">const</span>;
-<a name="l00049"></a>00049     <a class="code" href="classtbe_1_1_texture.html#a072543115162852263c73c2462cd895d">operator GLuint</a>() <span class="keyword">const</span>;
-<a name="l00050"></a>00050 
-<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a307e04b72938f48b6e1ebadf6ec22f3c" title="Taille de la texture.">SetSize</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> size);
-<a name="l00053"></a>00053     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1_texture.html#aa0a732f9ca7fd258e7b7151e5440fac2">GetSize</a>() <span class="keyword">const</span>;
-<a name="l00054"></a>00054 
-<a name="l00056"></a>00056     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#aeaef6bc03e7f5f656dad70f54c75e08a" title="Utilisation de la texture.">Use</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>);
-<a name="l00057"></a>00057 
-<a name="l00062"></a>00062     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a9262c7fa9242a06ad4900d93d186a941">Release</a>();
-<a name="l00063"></a>00063 
-<a name="l00068"></a>00068     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a653216bcd1509432e28502d9fc7826ce">Delete</a>();
-<a name="l00069"></a>00069 
-<a name="l00071"></a>00071     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#aef86bf3355f6f72920dc73876bd0be05" title="Remplis la texture par la valeur color [0;255].">Fill</a>(<a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">Vector4i</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>);
-<a name="l00072"></a>00072 
-<a name="l00074"></a>00074     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a4ec705c4054c1022cdc093233f73cd2a" title="Spécifier le filtring appliquer a la texture.">SetFiltring</a>(<span class="keywordtype">unsigned</span> filtring);
-<a name="l00075"></a>00075     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_texture.html#a0a1cd322e93c4a2c32d2611f0b88df4e">GetFiltring</a>() <span class="keyword">const</span>;
-<a name="l00076"></a>00076 
-<a name="l00082"></a>00082     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_texture.html#acd25926064a6473c3848506a9279d736">IsUpperLeftOrigin</a>() <span class="keyword">const</span>;
-<a name="l00083"></a>00083 
-<a name="l00088"></a>00088     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_texture.html#a242710eaedb5a39aef5c94a980e8e9c0">IsGenMipMap</a>() <span class="keyword">const</span>;
-<a name="l00089"></a>00089 
-<a name="l00091"></a>00091     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1_texture.html#a9101f850e25f1aadd5679fc926554422" title="Renvois le chemin d&#39;accée a la texture par un fichier.">GetFilename</a>() <span class="keyword">const</span>;
-<a name="l00092"></a>00092 
-<a name="l00093"></a><a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7">00093</a>     <span class="keyword">enum</span> <a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7">Filtring</a>
-<a name="l00094"></a>00094     {
-<a name="l00095"></a><a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7a66d5ae2d2ba0427d26e2e548447e1a04">00095</a>         <a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7a66d5ae2d2ba0427d26e2e548447e1a04">NEAREST</a>,
-<a name="l00096"></a><a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7aac2d126e127815ed80274189eb435c83">00096</a>         <a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7aac2d126e127815ed80274189eb435c83">LINEAR</a>,
-<a name="l00097"></a><a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7a87b6eff44c6540a50ef0e7ce02e6b362">00097</a>         <a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7a87b6eff44c6540a50ef0e7ce02e6b362">MIPMAP</a>,
-<a name="l00098"></a>00098     };
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#af0313fe06f0d4adaeccefce1d92ceb78">ResetCache</a>();
-<a name="l00101"></a>00101 
-<a name="l00102"></a><a class="code" href="classtbe_1_1_texture.html#a923039f7548562f78526e4b201f4495b">00102</a>     <span class="keyword">typedef</span> std::map&lt;unsigned, Texture&gt; <a class="code" href="classtbe_1_1_texture.html#a923039f7548562f78526e4b201f4495b">Map</a>;
+<a name="l00042"></a><a class="code" href="classtbe_1_1_texture.html#a4fd2e83f7c9635b711868af9e5505eba">00042</a>     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a4fd2e83f7c9635b711868af9e5505eba">operator()</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filename, <span class="keywordtype">bool</span> genMipMap = <span class="keyword">false</span>, <span class="keywordtype">bool</span> upperLeftOrigin = <span class="keyword">true</span>)
+<a name="l00043"></a>00043     {
+<a name="l00044"></a>00044         <a class="code" href="classtbe_1_1_texture.html#a1b0487b1ff51d7bb274ddaab0fe441d3">load</a>(filename, genMipMap, upperLeftOrigin);
+<a name="l00045"></a>00045     }
+<a name="l00046"></a>00046 
+<a name="l00048"></a>00048     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> &amp; <a class="code" href="classtbe_1_1_texture.html#aa4303ca29ed58a7f49a11f9d5fd45f1e" title="Operateur d&#39;assginement : charge la texture spécifier par filename.">operator=</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filename);
+<a name="l00049"></a>00049 
+<a name="l00051"></a>00051     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> &amp; <a class="code" href="classtbe_1_1_texture.html#aa4303ca29ed58a7f49a11f9d5fd45f1e" title="Operateur d&#39;assginement : charge la texture spécifier par filename.">operator=</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* filename);
+<a name="l00052"></a>00052 
+<a name="l00054"></a>00054     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> &amp; <a class="code" href="classtbe_1_1_texture.html#aa4303ca29ed58a7f49a11f9d5fd45f1e" title="Operateur d&#39;assginement : charge la texture spécifier par filename.">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a>&amp; copy);
+<a name="l00055"></a>00055 
+<a name="l00057"></a>00057     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_texture.html#af51dd436092b7db95609d2f5e59af4c1" title="Verification de statue, renvois true si une texture est bien charger.">operator!</a>() <span class="keyword">const</span>;
+<a name="l00058"></a>00058 
+<a name="l00060"></a>00060     <a class="code" href="classtbe_1_1_texture.html#aa6db7ff19a67e2582496017828f6e73f" title="Verification de statue, renvois true si une texture est bien charger.">operator bool</a>() <span class="keyword">const</span>;
+<a name="l00061"></a>00061 
+<a name="l00063"></a>00063     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1_texture.html#acea97d6f8409e5668770ece47cc895a0" title="Récuperation d&#39;identifiant OpenGL.">getTextureName</a>() <span class="keyword">const</span>;
+<a name="l00064"></a>00064 
+<a name="l00066"></a>00066     <a class="code" href="classtbe_1_1_texture.html#a072543115162852263c73c2462cd895d">operator GLuint</a>() <span class="keyword">const</span>;
+<a name="l00067"></a>00067 
+<a name="l00069"></a>00069     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1_texture.html#a7f06b2dff9a8917ee411e1efc6c244d5" title="Renvois la taille de la texture.">getSize</a>() <span class="keyword">const</span>;
+<a name="l00070"></a>00070 
+<a name="l00072"></a>00072     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#ab9a22f6ff833115a7cbe913c4a1b6e4b" title="Utilisation de la texture (bind)">use</a>(<span class="keywordtype">bool</span> state = <span class="keyword">true</span>);
+<a name="l00073"></a>00073 
+<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a16c096defe40a38d6f22bd08b63eb826">release</a>();
+<a name="l00080"></a>00080 
+<a name="l00086"></a>00086     <span class="keywordtype">void</span> <span class="keyword">remove</span>();
+<a name="l00087"></a>00087 
+<a name="l00089"></a>00089     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#aec7f64ec9236754ba4fbf4097163465f" title="Remplis la texture par la valeur color [0;255].">fill</a>(<a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">Vector4i</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>);
+<a name="l00090"></a>00090 
+<a name="l00091"></a><a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7">00091</a>     <span class="keyword">enum</span> <a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7">Filtring</a>
+<a name="l00092"></a>00092     {
+<a name="l00093"></a><a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7a66d5ae2d2ba0427d26e2e548447e1a04">00093</a>         <a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7a66d5ae2d2ba0427d26e2e548447e1a04">NEAREST</a> = 2,
+<a name="l00094"></a><a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7aac2d126e127815ed80274189eb435c83">00094</a>         <a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7aac2d126e127815ed80274189eb435c83">LINEAR</a> = 4,
+<a name="l00095"></a><a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7a87b6eff44c6540a50ef0e7ce02e6b362">00095</a>         <a class="code" href="classtbe_1_1_texture.html#af41bb38dcfda79f540ea454e793736d7a87b6eff44c6540a50ef0e7ce02e6b362">MIPMAP</a> = 8,
+<a name="l00096"></a>00096     };
+<a name="l00097"></a>00097 
+<a name="l00099"></a>00099     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a3e1bd626f57a6009fa5ad9be595a21f3" title="Spécifier le filtring appliquer a la texture.">setFiltring</a>(<span class="keywordtype">unsigned</span> filtring);
+<a name="l00100"></a>00100 
+<a name="l00102"></a>00102     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_texture.html#a072febf2e76adab5a4d2c7432e4e31cb" title="Renvois le filtring utliser par la texture.">getFiltring</a>() <span class="keyword">const</span>;
 <a name="l00103"></a>00103 
-<a name="l00104"></a>00104 <span class="keyword">protected</span>:
-<a name="l00105"></a><a class="code" href="classtbe_1_1_texture.html#a0def637a391dd58b4179e683f297a06c">00105</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1_texture.html#a0def637a391dd58b4179e683f297a06c">m_filename</a>;
-<a name="l00106"></a><a class="code" href="classtbe_1_1_texture.html#a4936831339dbecb770e6783424f63ee3">00106</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1_texture.html#a4936831339dbecb770e6783424f63ee3">m_textureName</a>;
-<a name="l00107"></a><a class="code" href="classtbe_1_1_texture.html#ad019788605f7132e03f42f1a52361fd8">00107</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1_texture.html#ad019788605f7132e03f42f1a52361fd8">m_size</a>;
-<a name="l00108"></a><a class="code" href="classtbe_1_1_texture.html#a78f1f68695064609575484cbf33b000e">00108</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_texture.html#a78f1f68695064609575484cbf33b000e">m_filtring</a>;
-<a name="l00109"></a><a class="code" href="classtbe_1_1_texture.html#a898066bece88b5afa8a427ea1d00ce87">00109</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_texture.html#a898066bece88b5afa8a427ea1d00ce87">m_genMipMap</a>;
-<a name="l00110"></a><a class="code" href="classtbe_1_1_texture.html#aeff5e0bb527e56700c4af1526d32d495">00110</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_texture.html#aeff5e0bb527e56700c4af1526d32d495">m_upperLeftOrigin</a>;
-<a name="l00111"></a>00111 };
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113 }
-<a name="l00114"></a>00114 
-<a name="l00115"></a>00115 <span class="preprocessor">#endif // _TEXTURE_H</span>
+<a name="l00109"></a>00109     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_texture.html#aabe5dffbb6a517ecdff5b71031c6d8af">isUpperLeftOrigin</a>() <span class="keyword">const</span>;
+<a name="l00110"></a>00110 
+<a name="l00115"></a>00115     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_texture.html#a69a992336bc019f6cdb4def9b80ccaec">isGenMipMap</a>() <span class="keyword">const</span>;
+<a name="l00116"></a>00116 
+<a name="l00118"></a>00118     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1_texture.html#a423bf7f9059805cf74801d8150a6df8d" title="Renvois le chemin d&#39;accée a la texture par un fichier.">getFilename</a>() <span class="keyword">const</span>;
+<a name="l00119"></a>00119 
+<a name="l00120"></a><a class="code" href="classtbe_1_1_texture.html#a69a5abf496a3dbef97b8649779653c50">00120</a>     <span class="keyword">enum</span> <a class="code" href="classtbe_1_1_texture.html#a69a5abf496a3dbef97b8649779653c50">MulTexBlend</a>
+<a name="l00121"></a>00121     {
+<a name="l00122"></a><a class="code" href="classtbe_1_1_texture.html#a69a5abf496a3dbef97b8649779653c50ab50a064605ce4fb33f4c073b42e27583">00122</a>         <a class="code" href="classtbe_1_1_texture.html#a69a5abf496a3dbef97b8649779653c50ab50a064605ce4fb33f4c073b42e27583">MODULATE</a>,
+<a name="l00123"></a><a class="code" href="classtbe_1_1_texture.html#a69a5abf496a3dbef97b8649779653c50a2c74072deab0b28d17f258fbc20c0c89">00123</a>         <a class="code" href="classtbe_1_1_texture.html#a69a5abf496a3dbef97b8649779653c50a2c74072deab0b28d17f258fbc20c0c89">REPLACE</a>,
+<a name="l00124"></a><a class="code" href="classtbe_1_1_texture.html#a69a5abf496a3dbef97b8649779653c50a9568ea930d0b0d2f352f14ad928c4b30">00124</a>         <a class="code" href="classtbe_1_1_texture.html#a69a5abf496a3dbef97b8649779653c50a9568ea930d0b0d2f352f14ad928c4b30">ADDITIVE</a>,
+<a name="l00125"></a>00125     };
+<a name="l00126"></a>00126 
+<a name="l00130"></a>00130     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#abaa39920aa79437d4a1ed077c19e0c63">setMulTexBlend</a>(<a class="code" href="classtbe_1_1_texture.html#a69a5abf496a3dbef97b8649779653c50">MulTexBlend</a> flags);
+<a name="l00131"></a>00131 
+<a name="l00135"></a>00135     <a class="code" href="classtbe_1_1_texture.html#a69a5abf496a3dbef97b8649779653c50">MulTexBlend</a> <a class="code" href="classtbe_1_1_texture.html#afd73a6c7698dd3bca0e80ba4595b2c2b">getMulTexBlend</a>();
+<a name="l00136"></a>00136 
+<a name="l00141"></a>00141     <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_texture.html#a9f220e626afe3003ea179f960782e92c">resetCache</a>();
+<a name="l00142"></a>00142 
+<a name="l00143"></a><a class="code" href="classtbe_1_1_texture.html#a923039f7548562f78526e4b201f4495b">00143</a>     <span class="keyword">typedef</span> std::map&lt;unsigned, Texture&gt; <a class="code" href="classtbe_1_1_texture.html#a923039f7548562f78526e4b201f4495b">Map</a>;
+<a name="l00144"></a>00144 
+<a name="l00145"></a>00145 <span class="keyword">protected</span>:
+<a name="l00146"></a>00146 
+<a name="l00147"></a><a class="code" href="classtbe_1_1_texture.html#a0def637a391dd58b4179e683f297a06c">00147</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1_texture.html#a0def637a391dd58b4179e683f297a06c">m_filename</a>;
+<a name="l00148"></a>00148 
+<a name="l00149"></a><a class="code" href="classtbe_1_1_texture.html#a4936831339dbecb770e6783424f63ee3">00149</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1_texture.html#a4936831339dbecb770e6783424f63ee3">m_textureName</a>;
+<a name="l00150"></a>00150 
+<a name="l00151"></a><a class="code" href="classtbe_1_1_texture.html#ad019788605f7132e03f42f1a52361fd8">00151</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1_texture.html#ad019788605f7132e03f42f1a52361fd8">m_size</a>;
+<a name="l00152"></a>00152 
+<a name="l00153"></a><a class="code" href="classtbe_1_1_texture.html#a898066bece88b5afa8a427ea1d00ce87">00153</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_texture.html#a898066bece88b5afa8a427ea1d00ce87">m_genMipMap</a>;
+<a name="l00154"></a><a class="code" href="classtbe_1_1_texture.html#aeff5e0bb527e56700c4af1526d32d495">00154</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_texture.html#aeff5e0bb527e56700c4af1526d32d495">m_upperLeftOrigin</a>;
+<a name="l00155"></a>00155 
+<a name="l00156"></a><a class="code" href="classtbe_1_1_texture.html#a78f1f68695064609575484cbf33b000e">00156</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_texture.html#a78f1f68695064609575484cbf33b000e">m_filtring</a>;
+<a name="l00157"></a><a class="code" href="classtbe_1_1_texture.html#ac820abcb325025bac581413dbb4f2e62">00157</a>     <a class="code" href="classtbe_1_1_texture.html#a69a5abf496a3dbef97b8649779653c50">MulTexBlend</a> <a class="code" href="classtbe_1_1_texture.html#ac820abcb325025bac581413dbb4f2e62">m_mulTexBlend</a>;
+<a name="l00158"></a>00158 };
+<a name="l00159"></a>00159 
+<a name="l00160"></a>00160 }
+<a name="l00161"></a>00161 
+<a name="l00162"></a>00162 <span class="preprocessor">#endif // _TEXTURE_H</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

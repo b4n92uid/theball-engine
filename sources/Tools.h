@@ -24,64 +24,6 @@ namespace tbe
 namespace tools
 {
 
-#define FLOAT_TEST_FACTOR 0.001
-
-inline bool isEqual(float a, float b, float factor = FLOAT_TEST_FACTOR)
-{
-    return (fabs(a - b) < factor);
-}
-
-inline bool isEqual(Vector3f a, float b, float factor = FLOAT_TEST_FACTOR)
-{
-    return (isEqual(a.x, b, factor) && isEqual(a.y, b, factor) && isEqual(a.z, b, factor));
-}
-
-inline bool isEqual(Vector3f a, Vector3f b, float factor = FLOAT_TEST_FACTOR)
-{
-    return (isEqual(a.x, b.x, factor) && isEqual(a.y, b.y, factor) && isEqual(a.z, b.z, factor));
-}
-
-inline bool isZero(float a, float factor = FLOAT_TEST_FACTOR)
-{
-    return (a > -factor && a < factor);
-}
-
-inline bool isAnyZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
-{
-    return (isZero(a.x, factor) || isZero(a.y, factor) || isZero(a.z, factor));
-}
-
-inline bool isZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
-{
-    return (isZero(a.x, factor) && isZero(a.y, factor) && isZero(a.z, factor));
-}
-
-/**
- * Indique si la valeur 'value' est de puissance 2
- *
- * @param value
- * @return
- */
-template<typename T> inline bool isPow2(T value)
-{
-    return (value != 0) && !(value & (value - 1));
-}
-
-/**
- * Renvois la premiere valeur de puissance-deux apres 'v'
- *
- * @param a
- * @return
- */
-template<typename T> inline T nextPow2(T v)
-{
-    T rval = 2;
-    // rval<<=1 Is A Prettier Way Of Writing rval*=2;
-    while(rval < v) rval <<= 1;
-
-    return rval;
-}
-
 /**
  * Renvois le chemin avec les separateur en slash
  *
@@ -134,6 +76,15 @@ inline std::string basename(std::string filename, bool withExt = true)
         return filename.substr(pos + 1, filename.find_last_of('.'));
 }
 
+/**
+ * Renvois un tableau contenant les partie découper de str par sep
+ *  si le parametre skipempty est a true alors les patie vide seront effacer
+ *
+ * @param str
+ * @param sep
+ * @param skipempty
+ * @return
+ */
 template<typename T> std::vector<T> tokenize(std::string str, char sep, bool skipempty = false)
 {
     std::vector<T> tokens;
@@ -165,6 +116,16 @@ template<typename T> std::vector<T> tokenize(std::string str, char sep, bool ski
     return tokens;
 }
 
+/**
+ * Renvois un tableau contenant les partie de chaine de caracteres
+ *  découper de str par sep, si le parametre skipempty est a true
+ *  alors les patie vide seront effacer
+ *
+ * @param str
+ * @param sep
+ * @param skipempty
+ * @return
+ */
 inline std::vector<std::string> tokenize(std::string str, char sep, bool skipempty = false)
 {
     using namespace std;
@@ -193,6 +154,13 @@ inline std::vector<std::string> tokenize(std::string str, char sep, bool skipemp
     return tokens;
 }
 
+/**
+ * Ré-assemble les élement de vec en une chaine de caracteres séparer par glue
+ *
+ * @param vec
+ * @param glue
+ * @return
+ */
 inline std::string joinstr(std::vector<std::string> vec, char glue)
 {
     using namespace std;
@@ -301,25 +269,6 @@ inline std::string pathScope(std::string absfile, std::string relfile, bool abso
     }
 
     return out;
-}
-
-/**
- * Renvois la valeur 'value' si elle se situe entre min et max,
- *  sinon elle renvois une des extrémité
- *
- * @param value
- * @param min
- * @param max
- * @return
- */
-template<typename T> T clamp(const T& value, const T& min, const T& max)
-{
-    return std::max(min, std::min(value, max));
-}
-
-template<typename T> void erase(std::vector<T>& vec, unsigned index)
-{
-    vec.erase(vec.begin() + index);
 }
 
 /**
@@ -434,22 +383,6 @@ inline bool getline(std::istream& stream, std::string& buffer)
     #endif
 
     return status;
-}
-
-/**
- * Renvois la premier puissance-deux après 'v'
- *
- * @param v
- * @return
- */
-template<typename T> inline Vector2<T> nextPow2(Vector2<T> v)
-{
-    Vector2<T> rval = 2;
-    // rval<<=1 Is A Prettier Way Of Writing rval*=2;
-    while(rval.x < v.x) rval.x <<= 1;
-    while(rval.y < v.y) rval.y <<= 1;
-
-    return rval;
 }
 
 /**
@@ -635,224 +568,7 @@ template <typename T> Vector4<T> strToVec4(std::string str, bool withsep = false
     return vec;
 }
 
-/**
- * Conversion d'une matrice 4x4 en chaine de caracteres
- *  au format "0.1, 0.2, 0.3[...]"
- *
- * @param mat
- * @return
- */
-inline std::string mat4ToStr(const Matrix4& mat)
-{
-    std::stringstream stream;
-    for(unsigned i = 0; i < 15; i++)
-        stream << mat[i] << ",";
-
-    stream << mat[15];
-
-    return stream.str();
-}
-
-/**
- * Conversion d'un vecteur a 2 composant en chaine de caracteres
- *  au format "x, y"
- *
- * @param vec
- * @return
- */
-template<typename T> inline std::string vec2ToStr(const Vector2<T>& vec)
-{
-    std::stringstream stream;
-    stream << vec.x << ", " << vec.y;
-
-    return stream.str();
-}
-
-/**
- * Conversion d'un vecteur a " composant en chaine de caracteres
- *  au format "x, y, z"
- *
- * @param vec
- * @return
- */
-template<typename T> inline std::string vec3ToStr(const Vector3<T>& vec)
-{
-    std::stringstream stream;
-    stream << vec.x << ", " << vec.y << ", " << vec.z;
-
-    return stream.str();
-}
-
-/**
- * Conversion d'un vecteur a 4 composant en chaine de caracteres
- *  au format "x, y, z, w"
- *
- * @param vec
- * @return
- */
-template<typename T> inline std::string vec4ToStr(const Vector4<T>& vec)
-{
-    std::stringstream stream;
-    stream << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w;
-
-    return stream.str();
-}
-
-/**
- * Renvoi un nombre entier aléatoir entre min et max
- *
- * @param min
- * @param max
- * @return
- */
-inline int rand(int min, int max)
-{
-    if(!min && !max)
-
-        return 0;
-
-    return std::rand() % max + min;
-}
-
-/**
- * Renvoi un nombre flotant aléatoir entre min et max
- *
- * @param min
- * @param max
- * @return
- */
-inline float rand(float min, float max)
-{
-    if(!min && !max)
-
-        return 0;
-
-    //return (min + ((float) std::rand() / RAND_MAX * (max - min + 1.0)));
-    return (min + ((float)std::rand() / RAND_MAX * (max - min)));
-}
-
-/**
- * Renvoi un vectur aléatoir situer entre min et max
- *
- * @param min
- * @param max
- * @return
- */
-inline Vector3f rand(Vector3f min, Vector3f max)
-{
-
-    return Vector3f(
-                    rand(min.x, max.x),
-                    rand(min.y, max.y),
-                    rand(min.z, max.z)
-                    );
-}
-
-/**
- * Renvoi un vectur aléatoir situer a l'interieur de la boite englobant 'aabb'
- *
- * @param min
- * @param max
- * @return
- */
-inline Vector3f rand(AABB aabb)
-{
-    return rand(aabb.min, aabb.max);
-}
-
-/**
- * fmod() implementation
- *
- * @param lvalue
- * @param rvalue
- * @return
- */
-inline float floatModulo(float lvalue, float rvalue)
-{
-    if(lvalue - rvalue > 0)
-        return floatModulo(lvalue - rvalue, rvalue);
-    else
-        return lvalue;
-}
-
-/**
- * Renvois le valeur arrodis de 'value' par 'unit'
- *
- * @param value
- * @param unit
- * @return
- */
-template<typename T>
-void round(T& value, const T& unit)
-{
-    T sign = value >= 0 ? 1 : -1;
-
-    value = std::abs(value);
-
-    T diff = value % unit;
-
-    if(diff >= unit / T(2))
-        value += unit - diff;
-    else
-        value -= diff;
-
-    value *= sign;
-}
-
-/**
- * Spécialisation de round() pour float
- *
- * @param value
- * @param unit
- * @return
- */
-template<>
-inline void round<float>(float& value, const float& unit)
-{
-    float sign = value >= 0 ? 1 : -1;
-
-    value = std::abs(value);
-
-    float diff = floatModulo(value, unit);
-
-    if(diff >= unit / 2.0f)
-        value += unit - diff;
-    else
-        value -= diff;
-
-    value *= sign;
-}
-
-/**
- * round() sur Vector2
- *
- * @param value
- * @param unit
- * @return
- */
-template<typename T>
-void round(Vector2<T>& value, const Vector2<T>& unit)
-{
-    tools::round(value.x, unit.x);
-    tools::round(value.y, unit.y);
-}
-
-/**
- * round() sur Vector3
- *
- * @param value
- * @param unit
- * @return
- */
-template<typename T>
-void round(Vector3<T>& value, const Vector3<T>& unit)
-{
-    tools::round(value.x, unit.x);
-    tools::round(value.y, unit.y);
-    tools::round(value.z, unit.z);
-}
-
 }
 }
+
 #endif	/* _TBE_TOOLS_H */
-

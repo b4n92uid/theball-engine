@@ -124,8 +124,14 @@ public:
         ADDITIVE,
     };
 
+    /**
+     * Spécifier la méthode de mélange utiliser lors du multi-texturing
+     */
     void setMulTexBlend(MulTexBlend flags);
 
+    /**
+     * Renvois la méthode de mélange utiliser lors du multi-texturing
+     */
     MulTexBlend getMulTexBlend();
 
     /**

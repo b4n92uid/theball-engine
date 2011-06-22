@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -92,52 +92,59 @@ Types publics</h2></td></tr>
 Fonctions membres publiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#aa730aeda4517f40bc48ba1e46ebded77">Control</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#aedda1328c4f8b8d49bca8f0812d3bfd1">~Control</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a4d049d984fc7160fd9e016ceadfb0da9">OnEvent</a> (const <a class="el" href="structtbe_1_1_event_manager.html">EventManager</a> &amp;)=0</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction appler par <a class="el" href="classtbe_1_1gui_1_1_gui_manager.html" title="Gestionnaire de l&#39;interface graphique.">GuiManager</a> lors d'un evenement.  <a href="#a4d049d984fc7160fd9e016ceadfb0da9"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a90ce9c753143c8b6ce078686b634a059">SetSkin</a> (const <a class="el" href="structtbe_1_1gui_1_1_gui_skin.html">GuiSkin</a> &amp;)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifier une apparence du controle.  <a href="#a90ce9c753143c8b6ce078686b634a059"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a37bcb301bd589ba835aa39c6c117ea51">Render</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendue.  <a href="#a37bcb301bd589ba835aa39c6c117ea51"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a7940641de41c3b942ed490424315a393">SetLabel</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> label)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Label du controle.  <a href="#a7940641de41c3b942ed490424315a393"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#aea571c8fd1366b911d4a337d900f8126">GetLabel</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a8c325dc23078950dc2b7ac001d31276d">SetEnable</a> (bool enable)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Etat du controle (allumer, éteint)  <a href="#a8c325dc23078950dc2b7ac001d31276d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#ab8c2a940cb5ee1fec36628268ad1a6fc">IsEnable</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a6a5582b97a378ca3edf9742cb6f0f7dd">SetStretch</a> (bool stretch)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Etat du controle (étirable, fixe)  <a href="#a6a5582b97a378ca3edf9742cb6f0f7dd"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a124fc81d35bb8fcce7f7e686dd5bf196">IsStretch</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a4421295f7ef8bcfac78bd1376c5de049">SetActivate</a> (bool activate)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Etat du controle (actif, inactife)  <a href="#a4421295f7ef8bcfac78bd1376c5de049"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a33af33ad1707a2187e8a1f488c957155">IsActivate</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a4e603bf7d55e36c30f1f7ea95f758461">Move</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> relPos)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Position du controle.  <a href="#a4e603bf7d55e36c30f1f7ea95f758461"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a8828afae5b9f6c82ec5e6a1e5b00849d">SetPos</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#ae3db523b645d81195ea660a19975f579">GetPos</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a93ba6cbeeedd1bbceef2c473a15658c9">SetSize</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille du controle.  <a href="#a93ba6cbeeedd1bbceef2c473a15658c9"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a367cae394268a1b02b808cf0ca9263d7">GetSize</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#ae2941056f0130e6e39b8a6425acce4bb">SetBackground</a> (<a class="el" href="classtbe_1_1_texture.html">Texture</a> background)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifier l'arrier plan du controle.  <a href="#ae2941056f0130e6e39b8a6425acce4bb"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a2e0a9b38b8cf69187195ed79f2d9f516">GetBackground</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a247ea13291c3f204c00d8aa434c8325b">SetPencil</a> (<a class="el" href="classtbe_1_1gui_1_1_pencil.html">Pencil</a> pencil)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Spécifier la police d'écriture.  <a href="#a247ea13291c3f204c00d8aa434c8325b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1gui_1_1_pencil.html">Pencil</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a0c7fc6e8d3daab134de60dbb7dc2ebe4">GetPencil</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a2356de68a610795d228612daa90f3759">SetEnableAlpha</a> (bool enableAlpha)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Spécifier l'état de la transparence alpha.  <a href="#a2356de68a610795d228612daa90f3759"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a9ae741ac67834734f750cecf05d70080">IsEnableAlpha</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a4fd943500a98a6be2216ea9956e356f2">SetEnableBackground</a> (bool enableBackground)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Spécifier l'état de l'arrier plan.  <a href="#a4fd943500a98a6be2216ea9956e356f2"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a4261cb8b1f7a245166c1110325938ed8">IsEnableBackground</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a73e48cdc1581fd123efd654bc5ce596f">SetOpacity</a> (float opacity)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#aaa7fc74542b7ae5bb8c221237d364b00">GetOpacity</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a930ff177eb89cafc213bcf773e14a6de">SetName</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#afa02f622fd9a92dc2d9d568d47005ee3">GetName</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#ab964af64a36d1480b22e2ca312090085">onEvent</a> (const <a class="el" href="structtbe_1_1_event_manager.html">EventManager</a> &amp;)=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction appler par <a class="el" href="classtbe_1_1gui_1_1_gui_manager.html" title="Gestionnaire de l&#39;interface graphique.">GuiManager</a> lors d'un evenement.  <a href="#ab964af64a36d1480b22e2ca312090085"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a3ffdbdbd82bc8fc7274554489b907dd7">setSkin</a> (const <a class="el" href="structtbe_1_1gui_1_1_gui_skin.html">GuiSkin</a> &amp;)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifier une apparence du controle.  <a href="#a3ffdbdbd82bc8fc7274554489b907dd7"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#ade4e06eb3086e930c9bd07c07780a1d8">render</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendue.  <a href="#ade4e06eb3086e930c9bd07c07780a1d8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#aa2bbb5939a7199e621a8e0a84efb4206">setLabel</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> label)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Label du controle.  <a href="#aa2bbb5939a7199e621a8e0a84efb4206"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a3a138018a8f6672a5e56fd2df48ae816">getLabel</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#aaf37a1d89e3d6f63fb7ae7493e7b61da">setEnable</a> (bool enable)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Etat du controle (allumer, éteint)  <a href="#aaf37a1d89e3d6f63fb7ae7493e7b61da"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a50908f8882f606c3c3f86ff5260a4859">isEnable</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#aed66423427eb21a13dd2f6a5a814d2d7">setStretch</a> (bool stretch)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Etat du controle (étirable, fixe)  <a href="#aed66423427eb21a13dd2f6a5a814d2d7"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#ac6ad01de9ace353bb1b342f4ab17918c">isStretch</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#af34532c17961eff5201b22a753026b59">setActivate</a> (bool activate)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Etat du controle (actif, inactife)  <a href="#af34532c17961eff5201b22a753026b59"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a4d45eaf2ed5dfda6346cacec03a6f394">isActivate</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#af27ef5b431e601b0960a18c73655ea3d">move</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> relPos)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Position du controle.  <a href="#af27ef5b431e601b0960a18c73655ea3d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a3ca48028bedde383f649d7f50af803be">setPos</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a8275e3f30f61411dbd54621e934dd9a1">getPos</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#af64f7bd2f3dc8c7e7f7e43475334d159">setSize</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Taille du controle.  <a href="#af64f7bd2f3dc8c7e7f7e43475334d159"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a85d95e08a99fd894c8b07a9a63d5bbf3">getSize</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#ae9daf8e50eb3135cdc51efbaaf98fe70">setBackground</a> (<a class="el" href="classtbe_1_1_texture.html">Texture</a> background)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifier l'arrier plan du controle.  <a href="#ae9daf8e50eb3135cdc51efbaaf98fe70"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a105c9941ba11abca5f4c43c6c2085778">getBackground</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a7f51527d178ac678d00823117b933439">setBackgroundMask</a> (<a class="el" href="classtbe_1_1_texture.html">Texture</a> backgroundMask)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#afd34fc8c13791873ca13d15cd2d43580">getBackgroundMask</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a32a2f0075aac7834c2a5b67a38fc23f1">setPencil</a> (<a class="el" href="classtbe_1_1gui_1_1_pencil.html">Pencil</a> pencil)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Spécifier la police d'écriture.  <a href="#a32a2f0075aac7834c2a5b67a38fc23f1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1gui_1_1_pencil.html">Pencil</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a8d648ac835ca302e80b2bfa3735586d3">getPencil</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a2cf5d0fc5c237a712230487c2c1323bd">setEnableAlpha</a> (bool enableAlpha)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Spécifier l'état de la transparence alpha.  <a href="#a2cf5d0fc5c237a712230487c2c1323bd"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a602aaec6a80eaa10f9abd4889d8c6ded">isEnableAlpha</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a83e981e6b2f53c90eab9da501b03973a">setEnableBackground</a> (bool enableBackground)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Spécifier l'état de l'arrier plan.  <a href="#a83e981e6b2f53c90eab9da501b03973a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#af959f2773c82247f56f400ccb912fa2b">isEnableBackground</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#aedf022efca3ebeb94beceb06fe7c8948">setOpacity</a> (float opacity)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a104f3fe71e9ef323da591d9d312c5419">getOpacity</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a24bf2e675282d0c520998ea2b2ad06ab">setName</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#adf188fdb96796f8ac444cae9981a3ab6">getName</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a97139ee78c1dc89638fad4ae42e908bb">setOutput</a> (<a class="el" href="classtbe_1_1_rtt.html">Rtt</a> *output)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_rtt.html">Rtt</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#ab59732da114208949f98faaf6eedaf88">getOutput</a> () const </td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Fonctions membres protégées</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a4fb90008e761e3e58d2758ffd5d7fa01">ObjectRender</a> ()=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a310a91cfd4b159da8420ef3181fd1e53">DrawSurface</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>[], <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> st[], unsigned <a class="el" href="_g_lee_8h.html#a3ae8bf9d2f2d075f326e6ed513ca2fcb">draw</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a60244415411b1847e0446ffc8171ce68">DrawSurface</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>, <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> tcOffset, <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> tcLength)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#af1bc20b8f62e416ab706b3e59eb34b84">objectRender</a> ()=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">tbe::Vector2f::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#ac92f75485bcb3392eebe5abc37be5530">vertexPos</a> (<a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2f</a> <a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2f</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">tbe::Vector2f::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a31565ddbaac7260239326fcb10804766">vertexUv</a> (<a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2f</a> <a class="el" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>, <a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2f</a> <a class="el" href="_g_lee_8h.html#a3c8469415bbc83dd1341af15c67f1cef">length</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a0992db325a6c996de9cdce0d9ecdf1f2">drawBackground</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#ae3ab34c01ce60b99479b6bfe7b391dbe">drawSurface</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>[], <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> st[], unsigned <a class="el" href="_g_lee_8h.html#a3ae8bf9d2f2d075f326e6ed513ca2fcb">draw</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#ae3ad4864b5317fd5b707dc0509f4fa4a">drawSurface</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>, <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> tcOffset, <a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> tcLength)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a27fef275ce288b0fb8087822a9625f87">m_name</a></td></tr>
@@ -151,12 +158,14 @@ Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a1eb1e2a15ab4c7b477ca07e86c47371d">m_size</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a7d8323d8d3a1099977f5d80f1cecef3f">m_opacity</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a4e8302c4e0299e889e861875a601e698">m_background</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a3e66af99a1d94fbe23248076d063172a">m_backgroundMask</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1gui_1_1_pencil.html">Pencil</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#a682d9c4cd25e82a61c4db680dfb4349e">m_pencil</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_rtt.html">Rtt</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1gui_1_1_control.html#ac747c0b5b2312ba217784bb911a9c732">m_output</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Description détaillée</h2>
 <div class="textblock"><p>Class de bass pour tout les elements de l'interface graphique. </p>
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00034">34</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00035">35</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 </div><hr/><h2>Documentation des définitions de type membres</h2>
 <a class="anchor" id="a40cf859148b3ddd95c598285fc02ea07"></a><!-- doxytag: member="tbe::gui::Control::Array" ref="a40cf859148b3ddd95c598285fc02ea07" args="" -->
 <div class="memitem">
@@ -171,7 +180,7 @@ Attributs protégés</h2></td></tr>
 
 <p>Réimplémentée dans <a class="el" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#ab2e27fc024daca6cf5b2db131d643ff6">tbe::gui::ListBox::Item</a>.</p>
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00041">41</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00042">42</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -186,7 +195,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00040">40</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00041">41</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -205,7 +214,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00007">7</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00008">8</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
@@ -223,17 +232,35 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00017">17</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00019">19</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Documentation des fonctions membres</h2>
-<a class="anchor" id="a310a91cfd4b159da8420ef3181fd1e53"></a><!-- doxytag: member="tbe::gui::Control::DrawSurface" ref="a310a91cfd4b159da8420ef3181fd1e53" args="(Vector2f pos[], Vector2f st[], unsigned draw)" -->
+<a class="anchor" id="a0992db325a6c996de9cdce0d9ecdf1f2"></a><!-- doxytag: member="tbe::gui::Control::drawBackground" ref="a0992db325a6c996de9cdce0d9ecdf1f2" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::DrawSurface </td>
+          <td class="memname">void Control::drawBackground </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00047">47</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae3ab34c01ce60b99479b6bfe7b391dbe"></a><!-- doxytag: member="tbe::gui::Control::drawSurface" ref="ae3ab34c01ce60b99479b6bfe7b391dbe" args="(Vector2f pos[], Vector2f st[], unsigned draw)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Control::drawSurface </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td>
           <td class="paramname"><em>pos</em>[], </td>
@@ -259,16 +286,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00049">49</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00121">121</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a60244415411b1847e0446ffc8171ce68"></a><!-- doxytag: member="tbe::gui::Control::DrawSurface" ref="a60244415411b1847e0446ffc8171ce68" args="(Vector2f pos, Vector2f size, Vector2f tcOffset, Vector2f tcLength)" -->
+<a class="anchor" id="ae3ad4864b5317fd5b707dc0509f4fa4a"></a><!-- doxytag: member="tbe::gui::Control::drawSurface" ref="ae3ad4864b5317fd5b707dc0509f4fa4a" args="(Vector2f pos, Vector2f size, Vector2f tcOffset, Vector2f tcLength)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::DrawSurface </td>
+          <td class="memname">void Control::drawSurface </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
@@ -300,196 +327,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00021">21</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00104">104</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2e0a9b38b8cf69187195ed79f2d9f516"></a><!-- doxytag: member="tbe::gui::Control::GetBackground" ref="a2e0a9b38b8cf69187195ed79f2d9f516" args="() const " -->
+<a class="anchor" id="a105c9941ba11abca5f4c43c6c2085778"></a><!-- doxytag: member="tbe::gui::Control::getBackground" ref="a105c9941ba11abca5f4c43c6c2085778" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_texture.html">Texture</a> Control::GetBackground </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00127">127</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aea571c8fd1366b911d4a337d900f8126"></a><!-- doxytag: member="tbe::gui::Control::GetLabel" ref="aea571c8fd1366b911d4a337d900f8126" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Control::GetLabel </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00157">157</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="afa02f622fd9a92dc2d9d568d47005ee3"></a><!-- doxytag: member="tbe::gui::Control::GetName" ref="afa02f622fd9a92dc2d9d568d47005ee3" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Control::GetName </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00235">235</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aaa7fc74542b7ae5bb8c221237d364b00"></a><!-- doxytag: member="tbe::gui::Control::GetOpacity" ref="aaa7fc74542b7ae5bb8c221237d364b00" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float Control::GetOpacity </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00215">215</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0c7fc6e8d3daab134de60dbb7dc2ebe4"></a><!-- doxytag: member="tbe::gui::Control::GetPencil" ref="a0c7fc6e8d3daab134de60dbb7dc2ebe4" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1gui_1_1_pencil.html">Pencil</a> Control::GetPencil </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00225">225</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae3db523b645d81195ea660a19975f579"></a><!-- doxytag: member="tbe::gui::Control::GetPos" ref="ae3db523b645d81195ea660a19975f579" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> Control::GetPos </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00117">117</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a367cae394268a1b02b808cf0ca9263d7"></a><!-- doxytag: member="tbe::gui::Control::GetSize" ref="a367cae394268a1b02b808cf0ca9263d7" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> Control::GetSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00175">175</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a33af33ad1707a2187e8a1f488c957155"></a><!-- doxytag: member="tbe::gui::Control::IsActivate" ref="a33af33ad1707a2187e8a1f488c957155" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Control::IsActivate </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00137">137</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab8c2a940cb5ee1fec36628268ad1a6fc"></a><!-- doxytag: member="tbe::gui::Control::IsEnable" ref="ab8c2a940cb5ee1fec36628268ad1a6fc" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Control::IsEnable </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00185">185</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9ae741ac67834734f750cecf05d70080"></a><!-- doxytag: member="tbe::gui::Control::IsEnableAlpha" ref="a9ae741ac67834734f750cecf05d70080" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Control::IsEnableAlpha </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00195">195</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4261cb8b1f7a245166c1110325938ed8"></a><!-- doxytag: member="tbe::gui::Control::IsEnableBackground" ref="a4261cb8b1f7a245166c1110325938ed8" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Control::IsEnableBackground </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_texture.html">Texture</a> Control::getBackground </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -502,12 +349,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a124fc81d35bb8fcce7f7e686dd5bf196"></a><!-- doxytag: member="tbe::gui::Control::IsStretch" ref="a124fc81d35bb8fcce7f7e686dd5bf196" args="() const " -->
+<a class="anchor" id="afd34fc8c13791873ca13d15cd2d43580"></a><!-- doxytag: member="tbe::gui::Control::getBackgroundMask" ref="afd34fc8c13791873ca13d15cd2d43580" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Control::IsStretch </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_texture.html">Texture</a> Control::getBackgroundMask </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -516,16 +363,232 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00147">147</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00215">215</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4e603bf7d55e36c30f1f7ea95f758461"></a><!-- doxytag: member="tbe::gui::Control::Move" ref="a4e603bf7d55e36c30f1f7ea95f758461" args="(Vector2f relPos)" -->
+<a class="anchor" id="a3a138018a8f6672a5e56fd2df48ae816"></a><!-- doxytag: member="tbe::gui::Control::getLabel" ref="a3a138018a8f6672a5e56fd2df48ae816" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::Move </td>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Control::getLabel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00245">245</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adf188fdb96796f8ac444cae9981a3ab6"></a><!-- doxytag: member="tbe::gui::Control::getName" ref="adf188fdb96796f8ac444cae9981a3ab6" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> Control::getName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00323">323</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a104f3fe71e9ef323da591d9d312c5419"></a><!-- doxytag: member="tbe::gui::Control::getOpacity" ref="a104f3fe71e9ef323da591d9d312c5419" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Control::getOpacity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00303">303</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab59732da114208949f98faaf6eedaf88"></a><!-- doxytag: member="tbe::gui::Control::getOutput" ref="ab59732da114208949f98faaf6eedaf88" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_rtt.html">Rtt</a> * Control::getOutput </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00333">333</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8d648ac835ca302e80b2bfa3735586d3"></a><!-- doxytag: member="tbe::gui::Control::getPencil" ref="a8d648ac835ca302e80b2bfa3735586d3" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1gui_1_1_pencil.html">Pencil</a> Control::getPencil </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00313">313</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8275e3f30f61411dbd54621e934dd9a1"></a><!-- doxytag: member="tbe::gui::Control::getPos" ref="a8275e3f30f61411dbd54621e934dd9a1" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> Control::getPos </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00195">195</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a85d95e08a99fd894c8b07a9a63d5bbf3"></a><!-- doxytag: member="tbe::gui::Control::getSize" ref="a85d95e08a99fd894c8b07a9a63d5bbf3" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> Control::getSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00263">263</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4d45eaf2ed5dfda6346cacec03a6f394"></a><!-- doxytag: member="tbe::gui::Control::isActivate" ref="a4d45eaf2ed5dfda6346cacec03a6f394" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Control::isActivate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00225">225</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a50908f8882f606c3c3f86ff5260a4859"></a><!-- doxytag: member="tbe::gui::Control::isEnable" ref="a50908f8882f606c3c3f86ff5260a4859" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Control::isEnable </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00273">273</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a602aaec6a80eaa10f9abd4889d8c6ded"></a><!-- doxytag: member="tbe::gui::Control::isEnableAlpha" ref="a602aaec6a80eaa10f9abd4889d8c6ded" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Control::isEnableAlpha </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00283">283</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af959f2773c82247f56f400ccb912fa2b"></a><!-- doxytag: member="tbe::gui::Control::isEnableBackground" ref="af959f2773c82247f56f400ccb912fa2b" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Control::isEnableBackground </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00293">293</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac6ad01de9ace353bb1b342f4ab17918c"></a><!-- doxytag: member="tbe::gui::Control::isStretch" ref="ac6ad01de9ace353bb1b342f4ab17918c" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Control::isStretch </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00235">235</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af27ef5b431e601b0960a18c73655ea3d"></a><!-- doxytag: member="tbe::gui::Control::move" ref="af27ef5b431e601b0960a18c73655ea3d" args="(Vector2f relPos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Control::move </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td>
           <td class="paramname"><em>relPos</em></td><td>)</td>
@@ -537,16 +600,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Position du controle. </p>
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00099">99</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00177">177</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4fb90008e761e3e58d2758ffd5d7fa01"></a><!-- doxytag: member="tbe::gui::Control::ObjectRender" ref="a4fb90008e761e3e58d2758ffd5d7fa01" args="()=0" -->
+<a class="anchor" id="af1bc20b8f62e416ab706b3e59eb34b84"></a><!-- doxytag: member="tbe::gui::Control::objectRender" ref="af1bc20b8f62e416ab706b3e59eb34b84" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void tbe::gui::Control::ObjectRender </td>
+          <td class="memname">virtual void tbe::gui::Control::objectRender </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [protected, pure virtual]</code></td>
@@ -555,16 +618,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implémenté dans <a class="el" href="classtbe_1_1gui_1_1_button.html#aa8cbc05c75637b2e8e9e1942f6959809">tbe::gui::Button</a>, <a class="el" href="classtbe_1_1gui_1_1_edit_box.html#af56ea16b152419c453856fca1e7c2134">tbe::gui::EditBox</a>, <a class="el" href="classtbe_1_1gui_1_1_gauge.html#a273fac2ac9d0bc235981a4ccf80583b5">tbe::gui::Gauge</a>, <a class="el" href="classtbe_1_1gui_1_1_image.html#a2d236d6feb983e4a7857730fc18acd8b">tbe::gui::Image</a>, <a class="el" href="classtbe_1_1gui_1_1_key_config.html#a09bbd54312586c6a3ce699b84728a9a5">tbe::gui::KeyConfig</a>, <a class="el" href="class_spacer.html#a548472bccf1e1f03efc1f819fb52d47f">Spacer</a>, <a class="el" href="classtbe_1_1gui_1_1_list_box.html#ab3f4bd10896a113d2bdec526a9db69b5">tbe::gui::ListBox</a>, <a class="el" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#a4b075560c4f8bed7c0a9b539e6559362">tbe::gui::ListBox::Item</a>, <a class="el" href="classtbe_1_1gui_1_1_state_show.html#a02ed856b769ee1670ae9763c7a21d335">tbe::gui::StateShow</a>, <a class="el" href="classtbe_1_1gui_1_1_switch.html#a6c8ab0120f730de66424e3b832b93d42">tbe::gui::Switch</a>, <a class="el" href="classtbe_1_1gui_1_1_text_box.html#a29b34f9e1251b60793257e1923831e0e">tbe::gui::TextBox</a>, et <a class="el" href="classtbe_1_1gui_1_1_vector_box.html#a468fdf6f7421c7f286cf79e01ba56031">tbe::gui::VectorBox</a>.</p>
+<p>Implémenté dans <a class="el" href="classtbe_1_1gui_1_1_button.html#ad56e950c27e6c4fd67410d0106aca139">tbe::gui::Button</a>, <a class="el" href="classtbe_1_1gui_1_1_edit_box.html#a08ce9dd08cc308e8a01de552bdb3fb7e">tbe::gui::EditBox</a>, <a class="el" href="classtbe_1_1gui_1_1_gauge.html#ab9a65a1ad2d32fc62dcf1130a4cd0fe2">tbe::gui::Gauge</a>, <a class="el" href="classtbe_1_1gui_1_1_image.html#a38e610f06ae50fded3188e49fec644c6">tbe::gui::Image</a>, <a class="el" href="classtbe_1_1gui_1_1_key_config.html#a222ba5d7b7faf96252068ae3c5fd9dc6">tbe::gui::KeyConfig</a>, <a class="el" href="class_spacer.html#a4877c6f21e2f2f3ee676e28a5a351135">Spacer</a>, <a class="el" href="classtbe_1_1gui_1_1_list_box.html#a7b70c2cd824c481b661eeae70f7b4a6c">tbe::gui::ListBox</a>, <a class="el" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#a9741726abb8303f10f9847e901a6bbec">tbe::gui::ListBox::Item</a>, <a class="el" href="classtbe_1_1gui_1_1_state_show.html#abe232cd407faa7071e5af330afc5d4d7">tbe::gui::StateShow</a>, <a class="el" href="classtbe_1_1gui_1_1_switch.html#a8f32c614666e0f4f415c8dc97fc28c41">tbe::gui::Switch</a>, <a class="el" href="classtbe_1_1gui_1_1_text_box.html#a67db1bded2354a07f2a8c0aaae67d355">tbe::gui::TextBox</a>, et <a class="el" href="classtbe_1_1gui_1_1_vector_box.html#a7ecd376bdc6105ce5a52a98a33714ad5">tbe::gui::VectorBox</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4d049d984fc7160fd9e016ceadfb0da9"></a><!-- doxytag: member="tbe::gui::Control::OnEvent" ref="a4d049d984fc7160fd9e016ceadfb0da9" args="(const EventManager &amp;)=0" -->
+<a class="anchor" id="ab964af64a36d1480b22e2ca312090085"></a><!-- doxytag: member="tbe::gui::Control::onEvent" ref="ab964af64a36d1480b22e2ca312090085" args="(const EventManager &amp;)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool tbe::gui::Control::OnEvent </td>
+          <td class="memname">virtual bool tbe::gui::Control::onEvent </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structtbe_1_1_event_manager.html">EventManager</a> &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -576,16 +639,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Fonction appler par <a class="el" href="classtbe_1_1gui_1_1_gui_manager.html" title="Gestionnaire de l&#39;interface graphique.">GuiManager</a> lors d'un evenement. </p>
 
-<p>Implémenté dans <a class="el" href="classtbe_1_1gui_1_1_button.html#ab3fc9ec445182fa37e9f7841d7b89c27">tbe::gui::Button</a>, <a class="el" href="classtbe_1_1gui_1_1_edit_box.html#aad15a215b74ca0ae642e449e9afd951a">tbe::gui::EditBox</a>, <a class="el" href="classtbe_1_1gui_1_1_gauge.html#a5efc0179c2ea1a49f80207f24c8f5b2d">tbe::gui::Gauge</a>, <a class="el" href="classtbe_1_1gui_1_1_image.html#ac103ca6e66d244a92861ec324f703663">tbe::gui::Image</a>, <a class="el" href="classtbe_1_1gui_1_1_key_config.html#a062c5f9e400e540c94bc89480712262a">tbe::gui::KeyConfig</a>, <a class="el" href="class_spacer.html#a762c8b16def5a08c18160209b115d8f5">Spacer</a>, <a class="el" href="classtbe_1_1gui_1_1_list_box.html#a4dbe4cf824519f46a23762b4d531dbf8">tbe::gui::ListBox</a>, <a class="el" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#a43dcf8f6e6271866d1f34b0fdc1a9c4c">tbe::gui::ListBox::Item</a>, <a class="el" href="classtbe_1_1gui_1_1_state_show.html#a62652618bba9fbd7357d969d47799511">tbe::gui::StateShow</a>, <a class="el" href="classtbe_1_1gui_1_1_switch.html#abea26ed4072af647aa43037b33cde636">tbe::gui::Switch</a>, <a class="el" href="classtbe_1_1gui_1_1_text_box.html#a49dd7c727ac1ef2d6e4d90dad086156e">tbe::gui::TextBox</a>, et <a class="el" href="classtbe_1_1gui_1_1_vector_box.html#a1a1a484076dda1c91c71e52f1900933d">tbe::gui::VectorBox</a>.</p>
+<p>Implémenté dans <a class="el" href="classtbe_1_1gui_1_1_button.html#a7a7d222ad800cb88a795fdfeed32dcae">tbe::gui::Button</a>, <a class="el" href="classtbe_1_1gui_1_1_edit_box.html#afae9fce19e1d6778f91c3aa87a758d53">tbe::gui::EditBox</a>, <a class="el" href="classtbe_1_1gui_1_1_gauge.html#abe8e169457de6acd4d53d08b85462686">tbe::gui::Gauge</a>, <a class="el" href="classtbe_1_1gui_1_1_image.html#aee8efde48340b33963e68a846c956619">tbe::gui::Image</a>, <a class="el" href="classtbe_1_1gui_1_1_key_config.html#adedafed921a059fa5949d202d119d09f">tbe::gui::KeyConfig</a>, <a class="el" href="class_spacer.html#a494d867c3858fb16c81bcf4ad3a408e3">Spacer</a>, <a class="el" href="classtbe_1_1gui_1_1_list_box.html#a3b52c2b51db9b415b67df69f5fbb0b17">tbe::gui::ListBox</a>, <a class="el" href="classtbe_1_1gui_1_1_list_box_1_1_item.html#afa5b5438d643a28a40cec1bad11cbec2">tbe::gui::ListBox::Item</a>, <a class="el" href="classtbe_1_1gui_1_1_state_show.html#a1d26e11e0d43fc6d4545c4e286269f72">tbe::gui::StateShow</a>, <a class="el" href="classtbe_1_1gui_1_1_switch.html#aa72e756af6ba72023eaf4c1bc8084425">tbe::gui::Switch</a>, <a class="el" href="classtbe_1_1gui_1_1_text_box.html#aab43416cde2449509017470ab124c06c">tbe::gui::TextBox</a>, et <a class="el" href="classtbe_1_1gui_1_1_vector_box.html#acad319dc25785fc7a44f4b707a642a6d">tbe::gui::VectorBox</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a37bcb301bd589ba835aa39c6c117ea51"></a><!-- doxytag: member="tbe::gui::Control::Render" ref="a37bcb301bd589ba835aa39c6c117ea51" args="()" -->
+<a class="anchor" id="ade4e06eb3086e930c9bd07c07780a1d8"></a><!-- doxytag: member="tbe::gui::Control::render" ref="ade4e06eb3086e930c9bd07c07780a1d8" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::Render </td>
+          <td class="memname">void Control::render </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -596,16 +659,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Rendue. </p>
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00071">71</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00143">143</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4421295f7ef8bcfac78bd1376c5de049"></a><!-- doxytag: member="tbe::gui::Control::SetActivate" ref="a4421295f7ef8bcfac78bd1376c5de049" args="(bool activate)" -->
+<a class="anchor" id="af34532c17961eff5201b22a753026b59"></a><!-- doxytag: member="tbe::gui::Control::setActivate" ref="af34532c17961eff5201b22a753026b59" args="(bool activate)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetActivate </td>
+          <td class="memname">void Control::setActivate </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>activate</em></td><td>)</td>
@@ -617,16 +680,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Etat du controle (actif, inactife) </p>
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00132">132</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00220">220</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae2941056f0130e6e39b8a6425acce4bb"></a><!-- doxytag: member="tbe::gui::Control::SetBackground" ref="ae2941056f0130e6e39b8a6425acce4bb" args="(Texture background)" -->
+<a class="anchor" id="ae9daf8e50eb3135cdc51efbaaf98fe70"></a><!-- doxytag: member="tbe::gui::Control::setBackground" ref="ae9daf8e50eb3135cdc51efbaaf98fe70" args="(Texture background)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetBackground </td>
+          <td class="memname">void Control::setBackground </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td>
           <td class="paramname"><em>background</em></td><td>)</td>
@@ -638,16 +701,35 @@ Attributs protégés</h2></td></tr>
 
 <p>Specifier l'arrier plan du controle. </p>
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00122">122</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00200">200</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a8c325dc23078950dc2b7ac001d31276d"></a><!-- doxytag: member="tbe::gui::Control::SetEnable" ref="a8c325dc23078950dc2b7ac001d31276d" args="(bool enable)" -->
+<a class="anchor" id="a7f51527d178ac678d00823117b933439"></a><!-- doxytag: member="tbe::gui::Control::setBackgroundMask" ref="a7f51527d178ac678d00823117b933439" args="(Texture backgroundMask)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetEnable </td>
+          <td class="memname">void Control::setBackgroundMask </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td>
+          <td class="paramname"><em>backgroundMask</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00210">210</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaf37a1d89e3d6f63fb7ae7493e7b61da"></a><!-- doxytag: member="tbe::gui::Control::setEnable" ref="aaf37a1d89e3d6f63fb7ae7493e7b61da" args="(bool enable)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Control::setEnable </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>enable</em></td><td>)</td>
@@ -659,16 +741,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Etat du controle (allumer, éteint) </p>
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00180">180</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00268">268</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2356de68a610795d228612daa90f3759"></a><!-- doxytag: member="tbe::gui::Control::SetEnableAlpha" ref="a2356de68a610795d228612daa90f3759" args="(bool enableAlpha)" -->
+<a class="anchor" id="a2cf5d0fc5c237a712230487c2c1323bd"></a><!-- doxytag: member="tbe::gui::Control::setEnableAlpha" ref="a2cf5d0fc5c237a712230487c2c1323bd" args="(bool enableAlpha)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetEnableAlpha </td>
+          <td class="memname">void Control::setEnableAlpha </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>enableAlpha</em></td><td>)</td>
@@ -680,16 +762,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Spécifier l'état de la transparence alpha. </p>
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00190">190</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00278">278</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4fd943500a98a6be2216ea9956e356f2"></a><!-- doxytag: member="tbe::gui::Control::SetEnableBackground" ref="a4fd943500a98a6be2216ea9956e356f2" args="(bool enableBackground)" -->
+<a class="anchor" id="a83e981e6b2f53c90eab9da501b03973a"></a><!-- doxytag: member="tbe::gui::Control::setEnableBackground" ref="a83e981e6b2f53c90eab9da501b03973a" args="(bool enableBackground)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetEnableBackground </td>
+          <td class="memname">void Control::setEnableBackground </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>enableBackground</em></td><td>)</td>
@@ -701,16 +783,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Spécifier l'état de l'arrier plan. </p>
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00200">200</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00288">288</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a7940641de41c3b942ed490424315a393"></a><!-- doxytag: member="tbe::gui::Control::SetLabel" ref="a7940641de41c3b942ed490424315a393" args="(std::string label)" -->
+<a class="anchor" id="aa2bbb5939a7199e621a8e0a84efb4206"></a><!-- doxytag: member="tbe::gui::Control::setLabel" ref="aa2bbb5939a7199e621a8e0a84efb4206" args="(std::string label)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetLabel </td>
+          <td class="memname">void Control::setLabel </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
           <td class="paramname"><em>label</em></td><td>)</td>
@@ -722,16 +804,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Label du controle. </p>
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00152">152</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00240">240</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a930ff177eb89cafc213bcf773e14a6de"></a><!-- doxytag: member="tbe::gui::Control::SetName" ref="a930ff177eb89cafc213bcf773e14a6de" args="(std::string name)" -->
+<a class="anchor" id="a24bf2e675282d0c520998ea2b2ad06ab"></a><!-- doxytag: member="tbe::gui::Control::setName" ref="a24bf2e675282d0c520998ea2b2ad06ab" args="(std::string name)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetName </td>
+          <td class="memname">void Control::setName </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
@@ -741,16 +823,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00230">230</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00318">318</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a73e48cdc1581fd123efd654bc5ce596f"></a><!-- doxytag: member="tbe::gui::Control::SetOpacity" ref="a73e48cdc1581fd123efd654bc5ce596f" args="(float opacity)" -->
+<a class="anchor" id="aedf022efca3ebeb94beceb06fe7c8948"></a><!-- doxytag: member="tbe::gui::Control::setOpacity" ref="aedf022efca3ebeb94beceb06fe7c8948" args="(float opacity)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetOpacity </td>
+          <td class="memname">void Control::setOpacity </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>opacity</em></td><td>)</td>
@@ -760,16 +842,35 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00210">210</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00298">298</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a247ea13291c3f204c00d8aa434c8325b"></a><!-- doxytag: member="tbe::gui::Control::SetPencil" ref="a247ea13291c3f204c00d8aa434c8325b" args="(Pencil pencil)" -->
+<a class="anchor" id="a97139ee78c1dc89638fad4ae42e908bb"></a><!-- doxytag: member="tbe::gui::Control::setOutput" ref="a97139ee78c1dc89638fad4ae42e908bb" args="(Rtt *output)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetPencil </td>
+          <td class="memname">void Control::setOutput </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_rtt.html">Rtt</a> *&#160;</td>
+          <td class="paramname"><em>output</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00328">328</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a32a2f0075aac7834c2a5b67a38fc23f1"></a><!-- doxytag: member="tbe::gui::Control::setPencil" ref="a32a2f0075aac7834c2a5b67a38fc23f1" args="(Pencil pencil)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Control::setPencil </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1gui_1_1_pencil.html">Pencil</a>&#160;</td>
           <td class="paramname"><em>pencil</em></td><td>)</td>
@@ -781,16 +882,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Spécifier la police d'écriture. </p>
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00220">220</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00308">308</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a8828afae5b9f6c82ec5e6a1e5b00849d"></a><!-- doxytag: member="tbe::gui::Control::SetPos" ref="a8828afae5b9f6c82ec5e6a1e5b00849d" args="(Vector2f pos)" -->
+<a class="anchor" id="a3ca48028bedde383f649d7f50af803be"></a><!-- doxytag: member="tbe::gui::Control::setPos" ref="a3ca48028bedde383f649d7f50af803be" args="(Vector2f pos)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetPos </td>
+          <td class="memname">void Control::setPos </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
@@ -800,16 +901,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00104">104</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00182">182</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a93ba6cbeeedd1bbceef2c473a15658c9"></a><!-- doxytag: member="tbe::gui::Control::SetSize" ref="a93ba6cbeeedd1bbceef2c473a15658c9" args="(Vector2f size)" -->
+<a class="anchor" id="af64f7bd2f3dc8c7e7f7e43475334d159"></a><!-- doxytag: member="tbe::gui::Control::setSize" ref="af64f7bd2f3dc8c7e7f7e43475334d159" args="(Vector2f size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetSize </td>
+          <td class="memname">void Control::setSize </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td>
           <td class="paramname"><em>size</em></td><td>)</td>
@@ -821,16 +922,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Taille du controle. </p>
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00162">162</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00250">250</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a90ce9c753143c8b6ce078686b634a059"></a><!-- doxytag: member="tbe::gui::Control::SetSkin" ref="a90ce9c753143c8b6ce078686b634a059" args="(const GuiSkin &amp;)" -->
+<a class="anchor" id="a3ffdbdbd82bc8fc7274554489b907dd7"></a><!-- doxytag: member="tbe::gui::Control::setSkin" ref="a3ffdbdbd82bc8fc7274554489b907dd7" args="(const GuiSkin &amp;)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetSkin </td>
+          <td class="memname">void Control::setSkin </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structtbe_1_1gui_1_1_gui_skin.html">GuiSkin</a> &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -842,18 +943,18 @@ Attributs protégés</h2></td></tr>
 
 <p>Specifier une apparence du controle. </p>
 
-<p>Réimplémentée dans <a class="el" href="classtbe_1_1gui_1_1_button.html#a1027b4516ca7d511527256df7f8ea95b">tbe::gui::Button</a>, <a class="el" href="classtbe_1_1gui_1_1_edit_box.html#ad4ff3ad3843f7a0f242173a665aaee79">tbe::gui::EditBox</a>, <a class="el" href="classtbe_1_1gui_1_1_gauge.html#af2d09a9ec029bf333b088af56bf18e3a">tbe::gui::Gauge</a>, <a class="el" href="classtbe_1_1gui_1_1_image.html#a6ad0fdbaa6459066083214b298cb2e7b">tbe::gui::Image</a>, <a class="el" href="classtbe_1_1gui_1_1_key_config.html#aeb7eda12e547a36b93b388e1c92ecead">tbe::gui::KeyConfig</a>, <a class="el" href="classtbe_1_1gui_1_1_list_box.html#a4f4bf8a42d740aeb6a61abc88b53a8a9">tbe::gui::ListBox</a>, <a class="el" href="classtbe_1_1gui_1_1_state_show.html#a8e8c0851deddf3f158475bb0ea42d815">tbe::gui::StateShow</a>, <a class="el" href="classtbe_1_1gui_1_1_switch.html#ac781e18ed9b6370a2a66986028f1ab9e">tbe::gui::Switch</a>, <a class="el" href="classtbe_1_1gui_1_1_text_box.html#a049e7672be66bda39ae1ee52a8fde96a">tbe::gui::TextBox</a>, et <a class="el" href="classtbe_1_1gui_1_1_vector_box.html#acac8a0a726a34aef40f662b6f16ddd8b">tbe::gui::VectorBox</a>.</p>
+<p>Réimplémentée dans <a class="el" href="classtbe_1_1gui_1_1_button.html#aad01230866ce7fb33dfc8e9f83efca99">tbe::gui::Button</a>, <a class="el" href="classtbe_1_1gui_1_1_edit_box.html#af4a24191abb3cc8b33634b6312de0219">tbe::gui::EditBox</a>, <a class="el" href="classtbe_1_1gui_1_1_gauge.html#a8a981af343db572ce1b71d9e9332c5ff">tbe::gui::Gauge</a>, <a class="el" href="classtbe_1_1gui_1_1_image.html#a0948c2bff6de5fbce98440ffa0f62605">tbe::gui::Image</a>, <a class="el" href="classtbe_1_1gui_1_1_key_config.html#a0d59498041877122532ff3ac472749bf">tbe::gui::KeyConfig</a>, <a class="el" href="classtbe_1_1gui_1_1_list_box.html#abf287b545efaa1d522f111dc90608dd2">tbe::gui::ListBox</a>, <a class="el" href="classtbe_1_1gui_1_1_state_show.html#a16d8ec9310afe7bf593aa3a124cd3a16">tbe::gui::StateShow</a>, <a class="el" href="classtbe_1_1gui_1_1_switch.html#a60cac956b29d30f4fac79ca9a6f3d43b">tbe::gui::Switch</a>, <a class="el" href="classtbe_1_1gui_1_1_text_box.html#aebc62728edfda18b286316af145b2202">tbe::gui::TextBox</a>, et <a class="el" href="classtbe_1_1gui_1_1_vector_box.html#a7a51030c35e80c6154198031722dc43b">tbe::gui::VectorBox</a>.</p>
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00094">94</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00172">172</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a6a5582b97a378ca3edf9742cb6f0f7dd"></a><!-- doxytag: member="tbe::gui::Control::SetStretch" ref="a6a5582b97a378ca3edf9742cb6f0f7dd" args="(bool stretch)" -->
+<a class="anchor" id="aed66423427eb21a13dd2f6a5a814d2d7"></a><!-- doxytag: member="tbe::gui::Control::setStretch" ref="aed66423427eb21a13dd2f6a5a814d2d7" args="(bool stretch)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Control::SetStretch </td>
+          <td class="memname">void Control::setStretch </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>stretch</em></td><td>)</td>
@@ -865,7 +966,65 @@ Attributs protégés</h2></td></tr>
 
 <p>Etat du controle (étirable, fixe) </p>
 
-<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00142">142</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00230">230</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac92f75485bcb3392eebe5abc37be5530"></a><!-- doxytag: member="tbe::gui::Control::vertexPos" ref="ac92f75485bcb3392eebe5abc37be5530" args="(tbe::Vector2f pos, tbe::Vector2f size)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">tbe::Vector2f::Array</a> Control::vertexPos </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2f</a>&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2f</a>&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00023">23</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a31565ddbaac7260239326fcb10804766"></a><!-- doxytag: member="tbe::gui::Control::vertexUv" ref="a31565ddbaac7260239326fcb10804766" args="(tbe::Vector2f offset, tbe::Vector2f length)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">tbe::Vector2f::Array</a> Control::vertexUv </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2f</a>&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2f</a>&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8cpp_source.html#l00035">35</a> du fichier <a class="el" href="_control_8cpp_source.html">Control.cpp</a>.</p>
 
 </div>
 </div>
@@ -881,7 +1040,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00111">111</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00122">122</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -896,7 +1055,22 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00119">119</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00130">130</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3e66af99a1d94fbe23248076d063172a"></a><!-- doxytag: member="tbe::gui::Control::m_backgroundMask" ref="a3e66af99a1d94fbe23248076d063172a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_texture.html">Texture</a> <a class="el" href="classtbe_1_1gui_1_1_control.html#a3e66af99a1d94fbe23248076d063172a">tbe::gui::Control::m_backgroundMask</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00131">131</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -911,7 +1085,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00108">108</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00119">119</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -926,7 +1100,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00109">109</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00120">120</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -941,7 +1115,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00110">110</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00121">121</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -956,7 +1130,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00106">106</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00117">117</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -971,7 +1145,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00105">105</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00116">116</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -986,7 +1160,22 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00117">117</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00128">128</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac747c0b5b2312ba217784bb911a9c732"></a><!-- doxytag: member="tbe::gui::Control::m_output" ref="ac747c0b5b2312ba217784bb911a9c732" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_rtt.html">Rtt</a>* <a class="el" href="classtbe_1_1gui_1_1_control.html#ac747c0b5b2312ba217784bb911a9c732">tbe::gui::Control::m_output</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00134">134</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -1001,7 +1190,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00120">120</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00132">132</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -1016,7 +1205,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00114">114</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00125">125</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -1031,7 +1220,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00115">115</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00126">126</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -1046,7 +1235,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00112">112</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_control_8h_source.html#l00123">123</a> du fichier <a class="el" href="_control_8h_source.html">Control.h</a>.</p>
 
 </div>
 </div>
@@ -1055,7 +1244,7 @@ Attributs protégés</h2></td></tr>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_control_8cpp_source.html">Control.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:03 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:55 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

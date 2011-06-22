@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -66,39 +66,39 @@
 <a name="l00026"></a>00026 
 <a name="l00027"></a><a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5">00027</a>     <span class="keyword">enum</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5">Type</a>
 <a name="l00028"></a>00028     {
-<a name="l00029"></a><a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5a704d344e13295419c64eccc3c4cd41c8">00029</a>         <a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5a704d344e13295419c64eccc3c4cd41c8">DIRI</a>,
-<a name="l00030"></a><a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5ab169dbaa5bc925b415af9129d54d49c6">00030</a>         <a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5ab169dbaa5bc925b415af9129d54d49c6">POINT</a>,
+<a name="l00029"></a><a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5ab169dbaa5bc925b415af9129d54d49c6">00029</a>         <a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5ab169dbaa5bc925b415af9129d54d49c6">POINT</a>,
+<a name="l00030"></a><a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5a704d344e13295419c64eccc3c4cd41c8">00030</a>         <a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5a704d344e13295419c64eccc3c4cd41c8">DIRI</a>,
 <a name="l00031"></a>00031     };
 <a name="l00032"></a>00032 
 <a name="l00033"></a>00033     <a class="code" href="classtbe_1_1scene_1_1_light.html#a3d78234a5321446eeff9741c5992991c">Light</a>(<a class="code" href="classtbe_1_1scene_1_1_light_parallel_scene.html">LightParallelScene</a>* scene, <a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5">Type</a> <a class="code" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a> = <a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5ab169dbaa5bc925b415af9129d54d49c6">POINT</a>);
-<a name="l00034"></a>00034     <a class="code" href="classtbe_1_1scene_1_1_light.html#a3d78234a5321446eeff9741c5992991c">Light</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a>&amp; copy);
+<a name="l00034"></a>00034     <a class="code" href="classtbe_1_1scene_1_1_light.html#a3d78234a5321446eeff9741c5992991c">Light</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a>&amp; orig);
 <a name="l00035"></a>00035     <a class="code" href="classtbe_1_1scene_1_1_light.html#ad0e59fad13bb6cfadc25b2c477e9ddc7">~Light</a>();
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037     <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_light.html#a8ca513b0a07bd1dd4c71c9d7dc5b4f0b">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a>&amp; copy);
+<a name="l00037"></a>00037     <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_light.html#aec69b7b2268a353719730b950b5c9cb7">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a>&amp; orig);
 <a name="l00038"></a>00038 
-<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#aaa798fc76a7d3fec06ddc8e74cce54ed">Process</a>();
+<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#af697a40e47eec42cb34658719b4103e9">process</a>();
 <a name="l00040"></a>00040 
-<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#a44550ae09e953731d0bf262a2c443e5d">Render</a>();
+<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#a079892de32d6fbbbb3263856e86a9744">render</a>();
 <a name="l00042"></a>00042 
-<a name="l00043"></a>00043     <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a>* <a class="code" href="classtbe_1_1scene_1_1_light.html#a61517d99af2f1aea0e84a9d44337812e">Clone</a>();
+<a name="l00043"></a>00043     <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a>* <a class="code" href="classtbe_1_1scene_1_1_light.html#a6ca69b5a797dbda277c93443cf02fe35">clone</a>();
 <a name="l00044"></a>00044 
-<a name="l00045"></a>00045     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#a74b7f3232766c0d28b4e970ddd4bc253">SetSpecular</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> specular);
-<a name="l00046"></a>00046     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_light.html#a5047564d4c253e7e16b1fd0c5366edb7">GetSpecular</a>() <span class="keyword">const</span>;
+<a name="l00045"></a>00045     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#aec616feff83dcacebae55cf14223f057">setSpecular</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> specular);
+<a name="l00046"></a>00046     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_light.html#a48898434c0ca2e9986a1adb57899578f">getSpecular</a>() <span class="keyword">const</span>;
 <a name="l00047"></a>00047 
-<a name="l00048"></a>00048     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#ab20605376bcfe29f051ec413ee048c00">SetDiffuse</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> diffuse);
-<a name="l00049"></a>00049     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_light.html#ab395d2c3911f87b3ec41759263635d02">GetDiffuse</a>() <span class="keyword">const</span>;
+<a name="l00048"></a>00048     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#ab48c0982241f00630f807da5613b95e4">setDiffuse</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> diffuse);
+<a name="l00049"></a>00049     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_light.html#a1364c65f91041aa1d436e376bd44e76a">getDiffuse</a>() <span class="keyword">const</span>;
 <a name="l00050"></a>00050 
-<a name="l00051"></a>00051     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#ab92bf81b0af8ce2cacada963146b0f37">SetAmbient</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> ambient);
-<a name="l00052"></a>00052     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_light.html#a18ddf0d8162caa2b53e1d908e42d942c">GetAmbient</a>() <span class="keyword">const</span>;
+<a name="l00051"></a>00051     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#a7f8edb9c6d45e56d4264a9fc86145c40">setAmbient</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> ambient);
+<a name="l00052"></a>00052     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_light.html#a35ee44896522645b2ab5a5a49ce27c4b">getAmbient</a>() <span class="keyword">const</span>;
 <a name="l00053"></a>00053 
-<a name="l00054"></a>00054     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#ae217bf24fc58dbb770fc7f7be94ce894">SetRadius</a>(<span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
-<a name="l00055"></a>00055     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#ab9e3bba283535da91ee9f5f8a1cf4d1a">GetRadius</a>() <span class="keyword">const</span>;
+<a name="l00054"></a>00054     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#a5d61f8c40e2a08c61986bf8080cd9052">setRadius</a>(<span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
+<a name="l00055"></a>00055     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#a2d4e2eda71acaca3ac2d4d864cedfd2a">getRadius</a>() <span class="keyword">const</span>;
 <a name="l00056"></a>00056 
-<a name="l00057"></a>00057     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#a1c4ff2a2bd5ed71abfc724f4a18eab6a">SetType</a>(<a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5">Type</a> <a class="code" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a>);
-<a name="l00058"></a>00058     <a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5">Type</a> <a class="code" href="classtbe_1_1scene_1_1_light.html#a496a20562b1f0559731f7bcae4eddc12">GetType</a>() <span class="keyword">const</span>;
+<a name="l00057"></a>00057     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_light.html#af4820ee37405f0d1b21cfae7ef7aa7b2">setType</a>(<a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5">Type</a> <a class="code" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a>);
+<a name="l00058"></a>00058     <a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5">Type</a> <a class="code" href="classtbe_1_1scene_1_1_light.html#a1acc8e39102ff78f95c0cba4aec46d9f">getType</a>() <span class="keyword">const</span>;
 <a name="l00059"></a>00059 
-<a name="l00060"></a>00060     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_light.html#a563a9e6a56f1324eb8b80e554c98029b">ConstructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
-<a name="l00061"></a>00061     
+<a name="l00060"></a>00060     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_light.html#a9f4223a3abde32459c2c894b8b8e9cb0">constructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
+<a name="l00061"></a>00061 
 <a name="l00062"></a><a class="code" href="classtbe_1_1scene_1_1_light.html#ab386ac7f0b7b415883c7aa9f648ce5c3">00062</a>     <span class="keyword">typedef</span> std::vector&lt;scene::Light*&gt; <a class="code" href="classtbe_1_1scene_1_1_light.html#ab386ac7f0b7b415883c7aa9f648ce5c3">Array</a>;
 <a name="l00063"></a>00063 
 <a name="l00064"></a>00064 <span class="keyword">protected</span>:
@@ -123,29 +123,33 @@
 <a name="l00083"></a><a class="code" href="classtbe_1_1scene_1_1_light.html#a2f069917e39c512ac1356085b1e028a8">00083</a>     <a class="code" href="classtbe_1_1scene_1_1_light.html#a80c403f43e2e0842a109e3c17c1735d5">Type</a> <a class="code" href="classtbe_1_1scene_1_1_light.html#a2f069917e39c512ac1356085b1e028a8">m_type</a>;
 <a name="l00084"></a>00084 
 <a name="l00085"></a><a class="code" href="classtbe_1_1scene_1_1_light.html#aab7700c3cac8e1e1520a5bedc6cef3d5">00085</a>     <a class="code" href="classtbe_1_1scene_1_1_light_parallel_scene.html">LightParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_light.html#aab7700c3cac8e1e1520a5bedc6cef3d5">m_parallelScene</a>;
-<a name="l00086"></a>00086 };
-<a name="l00087"></a>00087 
-<a name="l00089"></a>00089 
-<a name="l00090"></a><a class="code" href="classtbe_1_1scene_1_1_diri_light.html">00090</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_diri_light.html" title="Lumiere dirictionelle.">DiriLight</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a>
-<a name="l00091"></a>00091 {
-<a name="l00092"></a>00092 <span class="keyword">public</span>:
-<a name="l00093"></a>00093     <a class="code" href="classtbe_1_1scene_1_1_diri_light.html#a8381f1d04109b72152d700840f3dc44c">DiriLight</a>(<a class="code" href="classtbe_1_1scene_1_1_light_parallel_scene.html">LightParallelScene</a>* scene);
-<a name="l00094"></a>00094 };
-<a name="l00095"></a>00095 
-<a name="l00097"></a>00097 
-<a name="l00098"></a><a class="code" href="classtbe_1_1scene_1_1_point_light.html">00098</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_point_light.html" title="Lumiere pointctuelle.">PointLight</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a>
-<a name="l00099"></a>00099 {
-<a name="l00100"></a>00100 <span class="keyword">public</span>:
-<a name="l00101"></a>00101     <a class="code" href="classtbe_1_1scene_1_1_point_light.html#a332426e640cd3289bb6ffbc5fc79999e">PointLight</a>(<a class="code" href="classtbe_1_1scene_1_1_light_parallel_scene.html">LightParallelScene</a>* scene);
-<a name="l00102"></a>00102 };
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104 }
-<a name="l00105"></a>00105 }
-<a name="l00106"></a>00106 
-<a name="l00107"></a>00107 <span class="preprocessor">#endif // LIGHT_H</span>
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087 <span class="keyword">private</span> :
+<a name="l00088"></a>00088     <span class="keywordtype">void</span> copy(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a>&amp; orig);
+<a name="l00089"></a>00089     <span class="keywordtype">void</span> initid();
+<a name="l00090"></a>00090 };
+<a name="l00091"></a>00091 
+<a name="l00093"></a>00093 
+<a name="l00094"></a><a class="code" href="classtbe_1_1scene_1_1_diri_light.html">00094</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_diri_light.html" title="Lumiere dirictionelle.">DiriLight</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a>
+<a name="l00095"></a>00095 {
+<a name="l00096"></a>00096 <span class="keyword">public</span>:
+<a name="l00097"></a>00097     <a class="code" href="classtbe_1_1scene_1_1_diri_light.html#a8381f1d04109b72152d700840f3dc44c">DiriLight</a>(<a class="code" href="classtbe_1_1scene_1_1_light_parallel_scene.html">LightParallelScene</a>* scene);
+<a name="l00098"></a>00098 };
+<a name="l00099"></a>00099 
+<a name="l00101"></a>00101 
+<a name="l00102"></a><a class="code" href="classtbe_1_1scene_1_1_point_light.html">00102</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_point_light.html" title="Lumiere pointctuelle.">PointLight</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_light.html" title="Représentation d&#39;un lumieres.">Light</a>
+<a name="l00103"></a>00103 {
+<a name="l00104"></a>00104 <span class="keyword">public</span>:
+<a name="l00105"></a>00105     <a class="code" href="classtbe_1_1scene_1_1_point_light.html#a332426e640cd3289bb6ffbc5fc79999e">PointLight</a>(<a class="code" href="classtbe_1_1scene_1_1_light_parallel_scene.html">LightParallelScene</a>* scene);
+<a name="l00106"></a>00106 };
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108 }
+<a name="l00109"></a>00109 }
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111 <span class="preprocessor">#endif // LIGHT_H</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -84,11 +84,11 @@ Types publics</h2></td></tr>
 Fonctions membres publiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#a4dae74244f59936a49847da9217b4126">Effect</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#ac26c0a394247e14c9081f875522b5b66">~Effect</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#aefc04dfa8ef2dcf08650bf0bf57b26be">Process</a> (<a class="el" href="classtbe_1_1_rtt.html">Rtt</a> *rtt)=0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#aa51952db1f16d4472c4ec11d61119a85">SetEnable</a> (bool enable)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#a939be5701671f710bad20d2fafd1f86a">IsEnable</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#a3b775d0da853663ec465e893d9783c89">SetRttFrameSize</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#abdcb80f4e730f8f82dd9891626ca55d0">GetRttFrameSize</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#a72993bb8087476c17c1d6875732e02ba">process</a> (<a class="el" href="classtbe_1_1_rtt.html">Rtt</a> *rtt)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#ac7c10b9a5e36b072cea9614afa56cfce">setEnable</a> (bool enable)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#a3830df7fc94d57ad46355590dd9da903">isEnable</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#a2aaaab85bc7ec61a3e6569c7b6a429c1">setRttFrameSize</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#a5277b8a8babfac675108756bd53bf736">getRttFrameSize</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_shader.html">Shader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1ppe_1_1_effect.html#a1a7933265a5117adc7ce17dc156fb4bf">m_processShader</a></td></tr>
@@ -99,7 +99,7 @@ Attributs protégés</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Description détaillée</h2>
 <div class="textblock"><p>Class de base pour tout les effets apres-traitement. </p>
 
-<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00049">49</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00050">50</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
 </div><hr/><h2>Documentation des définitions de type membres</h2>
 <a class="anchor" id="a77ca9214e2188d0876aead193e65e21a"></a><!-- doxytag: member="tbe::ppe::Effect::Array" ref="a77ca9214e2188d0876aead193e65e21a" args="" -->
 <div class="memitem">
@@ -112,7 +112,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00064">64</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00065">65</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
 
 </div>
 </div>
@@ -127,7 +127,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00063">63</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00064">64</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
 
 </div>
 </div>
@@ -169,12 +169,12 @@ Attributs protégés</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Documentation des fonctions membres</h2>
-<a class="anchor" id="abdcb80f4e730f8f82dd9891626ca55d0"></a><!-- doxytag: member="tbe::ppe::Effect::GetRttFrameSize" ref="abdcb80f4e730f8f82dd9891626ca55d0" args="()" -->
+<a class="anchor" id="a5277b8a8babfac675108756bd53bf736"></a><!-- doxytag: member="tbe::ppe::Effect::getRttFrameSize" ref="a5277b8a8babfac675108756bd53bf736" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> Effect::GetRttFrameSize </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> Effect::getRttFrameSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -187,12 +187,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a939be5701671f710bad20d2fafd1f86a"></a><!-- doxytag: member="tbe::ppe::Effect::IsEnable" ref="a939be5701671f710bad20d2fafd1f86a" args="() const " -->
+<a class="anchor" id="a3830df7fc94d57ad46355590dd9da903"></a><!-- doxytag: member="tbe::ppe::Effect::isEnable" ref="a3830df7fc94d57ad46355590dd9da903" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Effect::IsEnable </td>
+          <td class="memname">bool Effect::isEnable </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -205,12 +205,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aefc04dfa8ef2dcf08650bf0bf57b26be"></a><!-- doxytag: member="tbe::ppe::Effect::Process" ref="aefc04dfa8ef2dcf08650bf0bf57b26be" args="(Rtt *rtt)=0" -->
+<a class="anchor" id="a72993bb8087476c17c1d6875732e02ba"></a><!-- doxytag: member="tbe::ppe::Effect::process" ref="a72993bb8087476c17c1d6875732e02ba" args="(Rtt *rtt)=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void tbe::ppe::Effect::Process </td>
+          <td class="memname">virtual void tbe::ppe::Effect::process </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_rtt.html">Rtt</a> *&#160;</td>
           <td class="paramname"><em>rtt</em></td><td>)</td>
@@ -220,16 +220,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implémenté dans <a class="el" href="classtbe_1_1ppe_1_1_bloom_effect.html#ae4c7e8b91f8805d14c2f25af93007d9c">tbe::ppe::BloomEffect</a>, <a class="el" href="classtbe_1_1ppe_1_1_blur_effect.html#ada15402cd9ae570e888692c9970d3250">tbe::ppe::BlurEffect</a>, <a class="el" href="classtbe_1_1ppe_1_1_color_effect.html#acebb953d4ec9cbd634daa29bff8ce1c0">tbe::ppe::ColorEffect</a>, <a class="el" href="classtbe_1_1ppe_1_1_dof_effect.html#aa4eac3c161e8327a2982f7e101583fb9">tbe::ppe::DofEffect</a>, et <a class="el" href="classtbe_1_1ppe_1_1_motion_blur_effect.html#a956da9d94a838c8ecee48d96c63c1080">tbe::ppe::MotionBlurEffect</a>.</p>
+<p>Implémenté dans <a class="el" href="classtbe_1_1ppe_1_1_bloom_effect.html#abc051ca7bc68d03413f5c81b279ba5d3">tbe::ppe::BloomEffect</a>, <a class="el" href="classtbe_1_1ppe_1_1_blur_effect.html#a2d28e83c90473ac7042a0b7bf77a4018">tbe::ppe::BlurEffect</a>, <a class="el" href="classtbe_1_1ppe_1_1_color_effect.html#ac971c6aaeb72b327bb6f8aa92f970c45">tbe::ppe::ColorEffect</a>, <a class="el" href="classtbe_1_1ppe_1_1_dof_effect.html#a370cfdf08d0f7bb3fe43a4ce7f985d09">tbe::ppe::DofEffect</a>, et <a class="el" href="classtbe_1_1ppe_1_1_motion_blur_effect.html#a1d59e5bcb26055f0769891725c09be28">tbe::ppe::MotionBlurEffect</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aa51952db1f16d4472c4ec11d61119a85"></a><!-- doxytag: member="tbe::ppe::Effect::SetEnable" ref="aa51952db1f16d4472c4ec11d61119a85" args="(bool enable)" -->
+<a class="anchor" id="ac7c10b9a5e36b072cea9614afa56cfce"></a><!-- doxytag: member="tbe::ppe::Effect::setEnable" ref="ac7c10b9a5e36b072cea9614afa56cfce" args="(bool enable)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Effect::SetEnable </td>
+          <td class="memname">void Effect::setEnable </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>enable</em></td><td>)</td>
@@ -243,12 +243,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3b775d0da853663ec465e893d9783c89"></a><!-- doxytag: member="tbe::ppe::Effect::SetRttFrameSize" ref="a3b775d0da853663ec465e893d9783c89" args="(Vector2i size)" -->
+<a class="anchor" id="a2aaaab85bc7ec61a3e6569c7b6a429c1"></a><!-- doxytag: member="tbe::ppe::Effect::setRttFrameSize" ref="a2aaaab85bc7ec61a3e6569c7b6a429c1" args="(Vector2i size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Effect::SetRttFrameSize </td>
+          <td class="memname">void Effect::setRttFrameSize </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td>
           <td class="paramname"><em>size</em></td><td>)</td>
@@ -274,7 +274,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00070">70</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00071">71</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
 
 </div>
 </div>
@@ -289,7 +289,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00068">68</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00069">69</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
 
 </div>
 </div>
@@ -304,7 +304,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00067">67</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00068">68</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
 
 </div>
 </div>
@@ -319,7 +319,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00069">69</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_post_process_manager_8h_source.html#l00070">70</a> du fichier <a class="el" href="_post_process_manager_8h_source.html">PostProcessManager.h</a>.</p>
 
 </div>
 </div>
@@ -328,7 +328,7 @@ Attributs protégés</h2></td></tr>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_post_process_manager_8cpp_source.html">PostProcessManager.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:04 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:55 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

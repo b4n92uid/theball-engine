@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -57,75 +57,78 @@
 <a name="l00014"></a>00014 <span class="keyword">namespace </span>tbe
 <a name="l00015"></a>00015 {
 <a name="l00016"></a>00016 
-<a name="l00018"></a>00018 
-<a name="l00019"></a><a class="code" href="classtbe_1_1_rtt.html">00019</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>
-<a name="l00020"></a>00020 {
-<a name="l00021"></a>00021 <span class="keyword">public</span>:
-<a name="l00022"></a>00022     <a class="code" href="classtbe_1_1_rtt.html#a202215a27c5f07491da4420d6d260ee5">Rtt</a>();
-<a name="l00023"></a>00023     <a class="code" href="classtbe_1_1_rtt.html#a202215a27c5f07491da4420d6d260ee5">Rtt</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> frameSize);
-<a name="l00024"></a>00024     <a class="code" href="classtbe_1_1_rtt.html#af3c905f39b98ec53d192bdba3c2455f6">~Rtt</a>();
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#a21f65ac07ccfe71320d5ee5b89c940cb">Use</a>(<span class="keywordtype">bool</span> state);
-<a name="l00027"></a>00027 
-<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#abdf06433392daa0bb543e3b2c623ca48">Clear</a>();
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#a1d460a41d402af8166a04cc9bb73cc9b">SetCaptureDepth</a>(<span class="keywordtype">bool</span> captureDepth);
-<a name="l00031"></a>00031     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_rtt.html#a9e6b96283388f7ab16b493f3930de43c">IsCaptureDepth</a>() <span class="keyword">const</span>;
-<a name="l00032"></a>00032 
-<a name="l00033"></a>00033     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#a26b66dcb515bc073cbe7d5703f7fcef3">SetCaptureColor</a>(<span class="keywordtype">bool</span> captureColor);
-<a name="l00034"></a>00034     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_rtt.html#ae970571a804c2e33461148a8067c5e73">IsCaptureColor</a>() <span class="keyword">const</span>;
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#a22fe3d7facef3386e2349a9309081736">SetFrameSize</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> frameSize);
-<a name="l00037"></a>00037     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1_rtt.html#a121220ac4c0ffbb02d0e24575e046489">GetFrameSize</a>() <span class="keyword">const</span>;
+<a name="l00024"></a><a class="code" href="classtbe_1_1_rtt.html">00024</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>
+<a name="l00025"></a>00025 {
+<a name="l00026"></a>00026 <span class="keyword">public</span>:
+<a name="l00027"></a>00027     <a class="code" href="classtbe_1_1_rtt.html#a202215a27c5f07491da4420d6d260ee5">Rtt</a>();
+<a name="l00028"></a>00028     <a class="code" href="classtbe_1_1_rtt.html#a202215a27c5f07491da4420d6d260ee5">Rtt</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> frameSize);
+<a name="l00029"></a>00029     <a class="code" href="classtbe_1_1_rtt.html#af3c905f39b98ec53d192bdba3c2455f6">~Rtt</a>();
+<a name="l00030"></a>00030 
+<a name="l00037"></a>00037     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#a34f4bbf5b1326efd7bb99b80578d9b08">use</a>(<span class="keywordtype">bool</span> state);
 <a name="l00038"></a>00038 
-<a name="l00039"></a>00039     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1_rtt.html#a0b6188115de2c7f37c50f93e0a8af2dc">GetColor</a>();
-<a name="l00040"></a>00040     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1_rtt.html#a4b989c42b998529d68f412a61490f67f">GetDepht</a>();
+<a name="l00040"></a>00040     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#a43a464796617629e8fa7c59d6c736e54" title="Vide le buffer du rtt.">clear</a>();
 <a name="l00041"></a>00041 
-<a name="l00042"></a>00042     <span class="comment">// FBO Methode Functions ---------------------------------------------------</span>
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#a17f540c0f3e8ecfe0a8b2e0338b05d63">FBO_SetMultisamplesCount</a>(<span class="keywordtype">unsigned</span> multisamples);
-<a name="l00045"></a>00045     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_rtt.html#a42b8faaddf8ec8747a66c728904c7259">FBO_GetMultisamplesCount</a>();
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#aa81e1b6d572876ae2c8eabf2dabf12bf">FBO_SetUseRenderBuffer</a>(<span class="keywordtype">bool</span> state);
-<a name="l00048"></a>00048     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_rtt.html#a0ff15af76ff93ab37450ee5413a92cf2">FBO_IsUseRenderBuffer</a>();
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#adf416298ea18dda09e5df00f82ce55b9">FBO_BlitToTexutre</a>();
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052     <span class="comment">// -------------------------------------------------------------------------</span>
+<a name="l00043"></a>00043     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#a78b3b951bf877e76252cb5d5cec0f71e" title="Spécifier l&#39;état de la capture des information relatife a la profondeur.">setCaptureDepth</a>(<span class="keywordtype">bool</span> captureDepth);
+<a name="l00044"></a>00044 
+<a name="l00046"></a>00046     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_rtt.html#aca0435af8d85486d9d447eae691ffa45" title="Revois l&#39;état de la capture des information relatife a la profondeur.">isCaptureDepth</a>() <span class="keyword">const</span>;
+<a name="l00047"></a>00047 
+<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#a534f34a71372467a6cdde9ef46356d4f" title="Spécifier l&#39;état de la capture des information relatife a la couleur.">setCaptureColor</a>(<span class="keywordtype">bool</span> captureColor);
+<a name="l00050"></a>00050 
+<a name="l00052"></a>00052     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_rtt.html#acd65e3ec2f293808c1ea4a3e1dd35612" title="Revois l&#39;état de la capture des information relatife a la couleur.">isCaptureColor</a>() <span class="keyword">const</span>;
 <a name="l00053"></a>00053 
-<a name="l00054"></a>00054 <span class="keyword">protected</span>:
-<a name="l00055"></a><a class="code" href="classtbe_1_1_rtt.html#a86235a3e5345d9e6576001875f5bb1a8">00055</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1_rtt.html#a86235a3e5345d9e6576001875f5bb1a8">m_frameSize</a>;
-<a name="l00056"></a><a class="code" href="classtbe_1_1_rtt.html#a47c32c36f18af0edc895dbc6a57d4b0f">00056</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_rtt.html#a47c32c36f18af0edc895dbc6a57d4b0f">m_captureColor</a>;
-<a name="l00057"></a><a class="code" href="classtbe_1_1_rtt.html#af9a6512e33586c4a13722a360b82e033">00057</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_rtt.html#af9a6512e33586c4a13722a360b82e033">m_captureDepth</a>;
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059 <span class="keyword">private</span>:
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061     <span class="keyword">struct</span>
-<a name="l00062"></a>00062     {
-<a name="l00063"></a><a class="code" href="classtbe_1_1_rtt.html#ac0242cc539e08331be7b7c81be0eaf69">00063</a>         <a class="code" href="classtbe_1_1_frame_buffer_object.html" title="Class de manibulation des Frame buffer object.">FrameBufferObject</a>* <a class="code" href="classtbe_1_1_rtt.html#ac0242cc539e08331be7b7c81be0eaf69">display</a>;
-<a name="l00064"></a><a class="code" href="classtbe_1_1_rtt.html#afae1c24b9e1bb2895eba4f5d2a6eb341">00064</a>         <a class="code" href="classtbe_1_1_frame_buffer_object.html" title="Class de manibulation des Frame buffer object.">FrameBufferObject</a>* <a class="code" href="classtbe_1_1_rtt.html#afae1c24b9e1bb2895eba4f5d2a6eb341">render</a>;
-<a name="l00065"></a><a class="code" href="classtbe_1_1_rtt.html#a67039c5cb7f44d99a95873f261cb391c">00065</a>         <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_rtt.html#a67039c5cb7f44d99a95873f261cb391c">useRenderBuffer</a>;
-<a name="l00066"></a>00066     } m_fboMethod;
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068     <span class="keyword">struct</span>
-<a name="l00069"></a>00069     {
-<a name="l00070"></a><a class="code" href="classtbe_1_1_rtt.html#a98d26b58f39ba31b2ff2a71f4e44185e">00070</a>         <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1_rtt.html#a98d26b58f39ba31b2ff2a71f4e44185e">color</a>;
-<a name="l00071"></a><a class="code" href="classtbe_1_1_rtt.html#a61f2086b4f165edcca71bca9bd59da88">00071</a>         <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1_rtt.html#a61f2086b4f165edcca71bca9bd59da88">depth</a>;
-<a name="l00072"></a>00072     } m_textureMethod;
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074     <span class="keywordtype">bool</span> m_supportFbo;
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* m_prevActive;
-<a name="l00077"></a>00077     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* m_curActive;
-<a name="l00078"></a>00078     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4f</a> m_prevMat;
-<a name="l00079"></a>00079 };
-<a name="l00080"></a>00080 
-<a name="l00081"></a>00081 }
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083 <span class="preprocessor">#endif  </span><span class="comment">/* _RTT_H */</span>
+<a name="l00055"></a>00055     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#abe0d3799621aa7b47bbd8721c75a67f9" title="Spécifier la taille du rtt pour le rendue.">setFrameSize</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> frameSize);
+<a name="l00056"></a>00056 
+<a name="l00058"></a>00058     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1_rtt.html#a6a84c5a0b767374956848fba6f8a4644" title="Renvois la taille du rtt pour le rendue.">getFrameSize</a>() <span class="keyword">const</span>;
+<a name="l00059"></a>00059 
+<a name="l00061"></a>00061     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1_rtt.html#a79ef0bb9edec815e5941c4d57a2ffa2e" title="Renvois, sous forme de texture, le rendue effectuer sur le buffer.">getColor</a>();
+<a name="l00062"></a>00062 
+<a name="l00065"></a>00065     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1_rtt.html#a2107d60f2337fef28949c712d78863ef">getDepht</a>();
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     <span class="comment">// FBO Methode Functions ---------------------------------------------------</span>
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#a17f540c0f3e8ecfe0a8b2e0338b05d63">FBO_SetMultisamplesCount</a>(<span class="keywordtype">unsigned</span> multisamples);
+<a name="l00070"></a>00070     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_rtt.html#a42b8faaddf8ec8747a66c728904c7259">FBO_GetMultisamplesCount</a>();
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#aa81e1b6d572876ae2c8eabf2dabf12bf">FBO_SetUseRenderBuffer</a>(<span class="keywordtype">bool</span> state);
+<a name="l00073"></a>00073     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_rtt.html#a0ff15af76ff93ab37450ee5413a92cf2">FBO_IsUseRenderBuffer</a>();
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_rtt.html#adf416298ea18dda09e5df00f82ce55b9">FBO_BlitToTexutre</a>();
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077     <span class="comment">// -------------------------------------------------------------------------</span>
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079 <span class="keyword">protected</span>:
+<a name="l00080"></a><a class="code" href="classtbe_1_1_rtt.html#a86235a3e5345d9e6576001875f5bb1a8">00080</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="classtbe_1_1_rtt.html#a86235a3e5345d9e6576001875f5bb1a8">m_frameSize</a>;
+<a name="l00081"></a><a class="code" href="classtbe_1_1_rtt.html#a47c32c36f18af0edc895dbc6a57d4b0f">00081</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_rtt.html#a47c32c36f18af0edc895dbc6a57d4b0f">m_captureColor</a>;
+<a name="l00082"></a><a class="code" href="classtbe_1_1_rtt.html#af9a6512e33586c4a13722a360b82e033">00082</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_rtt.html#af9a6512e33586c4a13722a360b82e033">m_captureDepth</a>;
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084 <span class="keyword">private</span>:
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086     <span class="keyword">struct</span>
+<a name="l00087"></a>00087     {
+<a name="l00088"></a><a class="code" href="classtbe_1_1_rtt.html#ac0242cc539e08331be7b7c81be0eaf69">00088</a>         <a class="code" href="classtbe_1_1_frame_buffer_object.html" title="Class de manibulation des Frame buffer object.">FrameBufferObject</a>* <a class="code" href="classtbe_1_1_rtt.html#ac0242cc539e08331be7b7c81be0eaf69">display</a>;
+<a name="l00089"></a><a class="code" href="classtbe_1_1_rtt.html#afae1c24b9e1bb2895eba4f5d2a6eb341">00089</a>         <a class="code" href="classtbe_1_1_frame_buffer_object.html" title="Class de manibulation des Frame buffer object.">FrameBufferObject</a>* <a class="code" href="classtbe_1_1_rtt.html#afae1c24b9e1bb2895eba4f5d2a6eb341">render</a>;
+<a name="l00090"></a><a class="code" href="classtbe_1_1_rtt.html#a67039c5cb7f44d99a95873f261cb391c">00090</a>         <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_rtt.html#a67039c5cb7f44d99a95873f261cb391c">useRenderBuffer</a>;
+<a name="l00091"></a>00091     } m_fboMethod;
+<a name="l00092"></a>00092 
+<a name="l00093"></a>00093     <span class="keyword">struct</span>
+<a name="l00094"></a>00094     {
+<a name="l00095"></a><a class="code" href="classtbe_1_1_rtt.html#a98d26b58f39ba31b2ff2a71f4e44185e">00095</a>         <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1_rtt.html#a98d26b58f39ba31b2ff2a71f4e44185e">color</a>;
+<a name="l00096"></a><a class="code" href="classtbe_1_1_rtt.html#a61f2086b4f165edcca71bca9bd59da88">00096</a>         <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1_rtt.html#a61f2086b4f165edcca71bca9bd59da88">depth</a>;
+<a name="l00097"></a>00097     } m_textureMethod;
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099     <span class="keywordtype">bool</span> m_supportFbo;
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* m_prevActive;
+<a name="l00102"></a>00102     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* m_curActive;
+<a name="l00103"></a>00103     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> m_prevMat;
+<a name="l00104"></a>00104 };
+<a name="l00105"></a>00105 
+<a name="l00106"></a>00106 }
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108 <span class="preprocessor">#endif  </span><span class="comment">/* _RTT_H */</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

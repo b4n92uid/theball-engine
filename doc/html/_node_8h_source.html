@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -77,114 +77,141 @@
 <a name="l00039"></a>00039     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a85863000140e1cdb4a23298262e60de0" title="Operateur de comparaison par nom (m_name)">operator==</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* node) <span class="keyword">const</span>;
 <a name="l00040"></a>00040     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a85863000140e1cdb4a23298262e60de0" title="Operateur de comparaison par nom (m_name)">operator==</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>) <span class="keyword">const</span>;
 <a name="l00041"></a>00041 
-<a name="l00043"></a>00043     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#ab4018d65cffc18773255c901d408feea" title="Renvois le AABB du noeud.">GetAabb</a>() <span class="keyword">const</span>;
-<a name="l00044"></a>00044     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a5f278195dc303165271c6531374246cf">GetAbsolutAabb</a>() <span class="keyword">const</span>;
-<a name="l00045"></a>00045 
-<a name="l00047"></a>00047     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a054d4b01608297597c83e97feb79493c" title="Specifier si l&#39;objet est activer.">SetEnable</a>(<span class="keywordtype">bool</span> enbale);
-<a name="l00048"></a>00048     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a1dac7ca69935311cbd023a839c95c32a">IsEnable</a>() <span class="keyword">const</span>;
-<a name="l00049"></a>00049 
-<a name="l00051"></a>00051     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a9b1802f40cf63be1cf5b919e7c2349d7" title="Identifiant du noeud.">SetName</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
-<a name="l00052"></a>00052     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a418aabced8e011e49077148f6dc66ef6">GetName</a>() <span class="keyword">const</span>;
+<a name="l00043"></a>00043     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#ac4e814db5a2776bacd63955038df745e" title="Renvois le AABB du noeud.">getAabb</a>() <span class="keyword">const</span>;
+<a name="l00044"></a>00044 
+<a name="l00046"></a>00046     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a04a1a71ec1ae634e38f0656200544acc" title="Renvois le AABB du noeud avec des coordonées sur le repere global.">getAbsolutAabb</a>() <span class="keyword">const</span>;
+<a name="l00047"></a>00047 
+<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#aa21033db35726d1bd0261a032cf32c4b" title="Specifier si l&#39;objet est activer.">setEnable</a>(<span class="keywordtype">bool</span> enbale);
+<a name="l00050"></a>00050 
+<a name="l00052"></a>00052     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a586d9be2c0d82d1970c8014840916585" title="Etat de l&#39;objet si activer.">isEnable</a>() <span class="keyword">const</span>;
 <a name="l00053"></a>00053 
-<a name="l00055"></a>00055     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#acef3c2d850c4850b03b6610a4862ee44" title="Matrice du noeud.">SetMatrix</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4f</a>&amp; <a class="code" href="_g_lee_8h.html#a7b24a3f2f56eb1244ae69dacb4fecb6f">matrix</a>);
-<a name="l00056"></a>00056     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a068a1c1828010daebc3dfff20e79223e">MulMatrix</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4f</a>&amp; matrix);
+<a name="l00055"></a>00055     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a14da684101ad9f22553b54ef30a29a58" title="Identifiant du noeud.">setName</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
+<a name="l00056"></a>00056     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#ac0e1bf66136011341971a9bd96dbb77a">getName</a>() <span class="keyword">const</span>;
 <a name="l00057"></a>00057 
-<a name="l00058"></a>00058     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4f</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a236bb6a8d77f224287a4f224e31d0e72">GetAbsoluteMatrix</a>() <span class="keyword">const</span>;
-<a name="l00059"></a>00059     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4f</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_node.html#add121eb6d8079729a58685718aea239b">GetMatrix</a>();
-<a name="l00060"></a>00060 
-<a name="l00062"></a>00062     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a8e09a64fb4766ff3f66a56fe1e14e9ea" title="Spécifier la scene parallel parent.">SetParallelScene</a>(<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* parallelScene);
-<a name="l00063"></a>00063     <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#a73afefb7f637cc0633fa6c50a895b9f1">GetParallelScene</a>() <span class="keyword">const</span>;
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a104e96d63d5b87c542c2c2484b25c48d">SetSceneManager</a>(<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html" title="Gestionnaire de scene inclus des fonctions de gestion des scenes parallel, des lumiers et encapsule l...">SceneManager</a>* sceneManager);
-<a name="l00066"></a>00066     <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html" title="Gestionnaire de scene inclus des fonctions de gestion des scenes parallel, des lumiers et encapsule l...">SceneManager</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#a89d2f01c71ee8a5ec02f23b9d395cede">GetSceneManager</a>() <span class="keyword">const</span>;
-<a name="l00067"></a>00067 
-<a name="l00069"></a>00069     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a0be01ac75660f8c38898df309361a656" title="Racourcie pour sépcifier la postion de la matrice du noeud.">SetPos</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>);
-<a name="l00070"></a>00070     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a3b93d70a9cc25d5afa8a4cc4d33c74f2">GetPos</a>() <span class="keyword">const</span>;
-<a name="l00071"></a>00071 
-<a name="l00072"></a>00072     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a8d2229ea6ff0c3640d5c9d5e03717c9d">MapFromGlobal</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> pos);
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a7340d79586c6fa260c33f0beb6f40636">IsRoot</a>() <span class="keyword">const</span>;
-<a name="l00075"></a>00075     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a4dba92fa4b3d1f01ed4027d26e0541b2">IsAttached</a>() <span class="keyword">const</span>;
-<a name="l00076"></a>00076     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#acdcc6398c17257ca586f47c5e74944b4">ReleaseParent</a>();
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a77b72a449977dbb00950359fa4a79a9f">DeepPosition</a>() <span class="keyword">const</span>;
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a50723866b36f214de7d3544aaee3d327">SetParent</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* parent);
-<a name="l00081"></a>00081     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#aaca5909bc7e27be8adfa058f471bd4de">GetParent</a>() <span class="keyword">const</span>;
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#aaa0fc820f6d7aa9d752fef133e231de4">AddChild</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* child);
-<a name="l00084"></a>00084     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#a95cdf4f2fc4203326baa5807110e4d5a">GetChild</a>(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>) <span class="keyword">const</span>;
-<a name="l00085"></a>00085     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a6d3c9dbbf1e6e93448100ec2d579dde2">GetChildCount</a>() <span class="keyword">const</span>;
+<a name="l00059"></a>00059     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a97dc18994c9ffaccb8830369c60ee7eb" title="Matrice du noeud.">setMatrix</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a>&amp; <a class="code" href="_g_lee_8h.html#a7b24a3f2f56eb1244ae69dacb4fecb6f">matrix</a>);
+<a name="l00060"></a>00060     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_node.html#a92591639179fd7cd680957208bc354fa">getMatrix</a>();
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a78832bbb92e9497089039349b2912283">mulMatrix</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a>&amp; matrix);
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#ab3f5fb35fe3bae47526c656c1cc34bdd">getAbsoluteMatrix</a>() <span class="keyword">const</span>;
+<a name="l00065"></a>00065 
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a15d8f7e8235c10ea6e3e2789e3f810cb" title="Spécifier la scene parallel parent.">setParallelScene</a>(<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* parallelScene);
+<a name="l00068"></a>00068     <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#a1cdffdcdff12757e66cfe5d33b1083c4">getParallelScene</a>() <span class="keyword">const</span>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#ad7cee351670d3d0ccae90eb2e632e90a">setSceneManager</a>(<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html" title="Gestionnaire de scene inclus des fonctions de gestion des scenes parallel, des lumiers et encapsule l...">SceneManager</a>* sceneManager);
+<a name="l00071"></a>00071     <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html" title="Gestionnaire de scene inclus des fonctions de gestion des scenes parallel, des lumiers et encapsule l...">SceneManager</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#ada8ed7b5670fee66a065c5ce8db52f2e">getSceneManager</a>() <span class="keyword">const</span>;
+<a name="l00072"></a>00072 
+<a name="l00074"></a>00074     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a7c8c5a5926b501d3555ed51ce097a29b" title="Racourcie pour sépcifier la postion de la matrice du noeud.">setPos</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>);
+<a name="l00075"></a>00075     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a7a0aa7b71d51573b216ede91662c8939">getPos</a>() <span class="keyword">const</span>;
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#abfc13b324d4d9f517203f31d8a17613d">mapToGlobal</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> pos);
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#ae42a94edbbb5c9f41d6e871e3e8eb939">isParent</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* searche) <span class="keyword">const</span>;
+<a name="l00080"></a>00080     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a76f86548ff63a2a843f20630c48e9bbf">isChild</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* searche, <span class="keywordtype">bool</span> recursiv = <span class="keyword">false</span>) <span class="keyword">const</span>;
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#af5e3b3ac0f3ab959cb15c351bd6f14b9">isRoot</a>() <span class="keyword">const</span>;
+<a name="l00083"></a>00083     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a824851e81e7aecd0fce843a47739ad45">isAttached</a>() <span class="keyword">const</span>;
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a59d937d2c41a64f721643c47a6cc548d">releaseFromParent</a>();
 <a name="l00086"></a>00086 
-<a name="l00087"></a>00087     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#afd25bc1d78887c9ca3307afa2e4e80dc">ClearAllChild</a>();
+<a name="l00087"></a>00087     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a4850ebbb6585b7a191881ba80c88196a">deepPosition</a>() <span class="keyword">const</span>;
 <a name="l00088"></a>00088 
-<a name="l00089"></a>00089     <a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;Node*&gt;</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#ac074260c666e3ef88b738ff0281a5395">GetChildIterator</a>();
-<a name="l00090"></a>00090 
-<a name="l00091"></a>00091     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#ac19ba8d039add0253acbf54b5684300b">ReleaseChild</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* child);
-<a name="l00092"></a>00092     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#ac19ba8d039add0253acbf54b5684300b">ReleaseChild</a>(<span class="keywordtype">unsigned</span> index);
-<a name="l00093"></a>00093 
-<a name="l00094"></a>00094     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a37dc3dddcb76c260e4558f91a5828b4f">DeleteChild</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* child);
-<a name="l00095"></a>00095     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a37dc3dddcb76c260e4558f91a5828b4f">DeleteChild</a>(<span class="keywordtype">unsigned</span> index);
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#a618cf8258583f6fbde8e222f74530882">Clone</a>() = 0;
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#aed8e845b6efa0ce1ee6e241412902866">Process</a>() = 0;
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#afcc93286aed5d5f6369e47192ac33725">Render</a>() = 0;
+<a name="l00089"></a>00089     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#ab5f0786bcb59591c528efb0b776797fc">setParent</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* parent);
+<a name="l00090"></a>00090     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#aee7fa50380cd3d5fd82c022e45ba2d37">getParent</a>() <span class="keyword">const</span>;
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a132699398b350e83b548a5645e69beb0">addChild</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* child);
+<a name="l00093"></a>00093     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#a678ac99c345ee4e2789e0caabb9eb9e5">getChild</a>(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>) <span class="keyword">const</span>;
+<a name="l00094"></a>00094     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a172e3798d79f09f3142425b059c3f0e2">getChildCount</a>() <span class="keyword">const</span>;
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#ad47d3a5781fa3018fcf4a69dbd0289f3">clearAllChild</a>();
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098     <a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;Node*&gt;</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#aa44d60bf01eaf0aeacc8d3443629308a">getChildIterator</a>();
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a06351367f939b4cc4845dd383b52a8a5">releaseChild</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* child);
+<a name="l00101"></a>00101     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#a06351367f939b4cc4845dd383b52a8a5">releaseChild</a>(<span class="keywordtype">unsigned</span> index);
 <a name="l00102"></a>00102 
-<a name="l00103"></a>00103     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a598eb9d11b5135b431d6d2409a0f7a0b">SetUserData</a>(<a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> userData);
-<a name="l00104"></a>00104     <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a46f22b9076a53715aecd0613e9a7a207">GetUserData</a>() <span class="keyword">const</span>;
+<a name="l00103"></a>00103     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a04fe0a934c15cfef4db75b37f5eec0d5">deleteChild</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* child);
+<a name="l00104"></a>00104     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a04fe0a934c15cfef4db75b37f5eec0d5">deleteChild</a>(<span class="keywordtype">unsigned</span> index);
 <a name="l00105"></a>00105 
-<a name="l00106"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">00106</a>     <span class="keyword">typedef</span> std::map&lt;std::string, std::string&gt; <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a>;
+<a name="l00106"></a>00106     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#a1f0050c1fe725e71da783733f8cc77ec">clone</a>() = 0;
 <a name="l00107"></a>00107 
-<a name="l00108"></a>00108     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a3e11df7d7d1cef5c977f36f91d9233c5">ConstructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
+<a name="l00108"></a>00108     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#aacdbcac0c832a727cd9a083290b82467">process</a>() = 0;
 <a name="l00109"></a>00109 
-<a name="l00110"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a5c173ba0dcb14bd216253537113317ad">00110</a>     <span class="keyword">typedef</span> std::map&lt;std::string, Node*&gt; <a class="code" href="classtbe_1_1scene_1_1_node.html#a5c173ba0dcb14bd216253537113317ad">Map</a>;
-<a name="l00111"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a2999d055ea6712ab4d6a273a99303cde">00111</a>     <span class="keyword">typedef</span> std::vector&lt;Node*&gt; <a class="code" href="classtbe_1_1scene_1_1_node.html#a2999d055ea6712ab4d6a273a99303cde">Array</a>;
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113 <span class="keyword">protected</span>:
-<a name="l00114"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a90431205e5035b7fdb1c445bac2f8a12">00114</a>     <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#a90431205e5035b7fdb1c445bac2f8a12">m_parallelScene</a>;
-<a name="l00115"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#ac729e342e44a4314bb5e51bf0b4c968b">00115</a>     <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html" title="Gestionnaire de scene inclus des fonctions de gestion des scenes parallel, des lumiers et encapsule l...">SceneManager</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#ac729e342e44a4314bb5e51bf0b4c968b">m_sceneManager</a>;
-<a name="l00116"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a0d9c7beec95981c1eace9ee98493ae48">00116</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a0d9c7beec95981c1eace9ee98493ae48">m_name</a>;
-<a name="l00117"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a7f2420cfab5d67a1b6d4de34c8aaad3a">00117</a>     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4f</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a7f2420cfab5d67a1b6d4de34c8aaad3a">m_matrix</a>;
-<a name="l00118"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a7992ade912f78d8d94560639af863048">00118</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a7992ade912f78d8d94560639af863048">m_enable</a>;
-<a name="l00119"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">00119</a>     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">m_aabb</a>;
+<a name="l00110"></a>00110     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a688c15ece4a1a405c11eb22bd4964310">render</a>() = 0;
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a22740af74a990f7a3957aacdfbba3722">setUserData</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> key, <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a> <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
+<a name="l00113"></a>00113     <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a7940d76f8fed98a6ed9fd0132d4cfaba">getUserData</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> key) <span class="keyword">const</span>;
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a8d5b6cfc0e1d584bbac961107aebf7a7">delUserData</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> key);
+<a name="l00116"></a>00116 
+<a name="l00117"></a>00117     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a1819a7140cfd33d17b80f359b68deabf">clearUserData</a>();
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a1d891d18c6c02de268e2385626143ff4">hasUserData</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> key) <span class="keyword">const</span>;
 <a name="l00120"></a>00120 
-<a name="l00121"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">00121</a>     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">m_parent</a>;
-<a name="l00122"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a6d285b20d93526c60141e3979ca381ad">00122</a>     <a class="code" href="classtbe_1_1scene_1_1_node.html#a2999d055ea6712ab4d6a273a99303cde">Node::Array</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a6d285b20d93526c60141e3979ca381ad">m_childs</a>;
-<a name="l00123"></a>00123 
-<a name="l00124"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#af1e3ea82ac13f5d24055a60458287459">00124</a>     <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#af1e3ea82ac13f5d24055a60458287459">m_userData</a>;
-<a name="l00125"></a>00125 };
+<a name="l00121"></a>00121     <span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html#a7f5a0db92a8dbe0a57539bfe5703d59f">Any::Map</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#ab730f568422bc171ee56adc1cc021a88">getUserDatas</a>() <span class="keyword">const</span>;
+<a name="l00122"></a>00122 
+<a name="l00123"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">00123</a>     <span class="keyword">typedef</span> std::map&lt;std::string, std::string&gt; <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a>;
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125     <span class="keyword">virtual</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a9a94ddee792cba92636a1f048d0eee3f">constructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
 <a name="l00126"></a>00126 
-<a name="l00127"></a><a class="code" href="classtbe_1_1scene_1_1_bull_node.html">00127</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_bull_node.html">BullNode</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>
-<a name="l00128"></a>00128 {
+<a name="l00127"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a5c173ba0dcb14bd216253537113317ad">00127</a>     <span class="keyword">typedef</span> std::map&lt;std::string, Node*&gt; <a class="code" href="classtbe_1_1scene_1_1_node.html#a5c173ba0dcb14bd216253537113317ad">Map</a>;
+<a name="l00128"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a2999d055ea6712ab4d6a273a99303cde">00128</a>     <span class="keyword">typedef</span> std::vector&lt;Node*&gt; <a class="code" href="classtbe_1_1scene_1_1_node.html#a2999d055ea6712ab4d6a273a99303cde">Array</a>;
 <a name="l00129"></a>00129 
-<a name="l00130"></a>00130     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* Clone()
-<a name="l00131"></a>00131     {
-<a name="l00132"></a>00132         <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_bull_node.html">BullNode</a>(*<span class="keyword">this</span>);
-<a name="l00133"></a>00133     }
-<a name="l00134"></a>00134 
-<a name="l00135"></a>00135     <span class="keywordtype">void</span> Process()
-<a name="l00136"></a>00136     {
-<a name="l00137"></a>00137         <span class="keywordflow">if</span>(!<a class="code" href="classtbe_1_1scene_1_1_node.html#a7992ade912f78d8d94560639af863048">m_enable</a>)
-<a name="l00138"></a>00138             <span class="keywordflow">return</span>;
-<a name="l00139"></a>00139 
-<a name="l00140"></a>00140         for_each(<a class="code" href="classtbe_1_1scene_1_1_node.html#a6d285b20d93526c60141e3979ca381ad">m_childs</a>.begin(), <a class="code" href="classtbe_1_1scene_1_1_node.html#a6d285b20d93526c60141e3979ca381ad">m_childs</a>.end(), std::mem_fun(&amp;<a class="code" href="classtbe_1_1scene_1_1_node.html#aed8e845b6efa0ce1ee6e241412902866">Node::Process</a>));
-<a name="l00141"></a>00141     }
+<a name="l00130"></a>00130 <span class="keyword">protected</span>:
+<a name="l00131"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a90431205e5035b7fdb1c445bac2f8a12">00131</a>     <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#a90431205e5035b7fdb1c445bac2f8a12">m_parallelScene</a>;
+<a name="l00132"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#ac729e342e44a4314bb5e51bf0b4c968b">00132</a>     <a class="code" href="classtbe_1_1scene_1_1_scene_manager.html" title="Gestionnaire de scene inclus des fonctions de gestion des scenes parallel, des lumiers et encapsule l...">SceneManager</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#ac729e342e44a4314bb5e51bf0b4c968b">m_sceneManager</a>;
+<a name="l00133"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a0d9c7beec95981c1eace9ee98493ae48">00133</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a0d9c7beec95981c1eace9ee98493ae48">m_name</a>;
+<a name="l00134"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#af01bcf301012ae16ac5a11110838c0c0">00134</a>     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#af01bcf301012ae16ac5a11110838c0c0">m_matrix</a>;
+<a name="l00135"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a7992ade912f78d8d94560639af863048">00135</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_node.html#a7992ade912f78d8d94560639af863048">m_enable</a>;
+<a name="l00136"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">00136</a>     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">m_aabb</a>;
+<a name="l00137"></a>00137 
+<a name="l00138"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">00138</a>     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">m_parent</a>;
+<a name="l00139"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a6d285b20d93526c60141e3979ca381ad">00139</a>     <a class="code" href="classtbe_1_1scene_1_1_node.html#a2999d055ea6712ab4d6a273a99303cde">Node::Array</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a6d285b20d93526c60141e3979ca381ad">m_childs</a>;
+<a name="l00140"></a>00140 
+<a name="l00141"></a><a class="code" href="classtbe_1_1scene_1_1_node.html#a753fb9993ea9ec2a199d800f4cd99a8c">00141</a>     <a class="code" href="classtbe_1_1_any.html#a7f5a0db92a8dbe0a57539bfe5703d59f">Any::Map</a> <a class="code" href="classtbe_1_1scene_1_1_node.html#a753fb9993ea9ec2a199d800f4cd99a8c">m_userDatas</a>;
 <a name="l00142"></a>00142 
-<a name="l00143"></a>00143     <span class="keywordtype">void</span> Render()
-<a name="l00144"></a>00144     {
-<a name="l00145"></a>00145         <span class="comment">// Nothging to do...</span>
-<a name="l00146"></a>00146     }
-<a name="l00147"></a>00147 };
-<a name="l00148"></a>00148 
-<a name="l00149"></a>00149 }
-<a name="l00150"></a>00150 }
-<a name="l00151"></a>00151 
-<a name="l00152"></a>00152 <span class="preprocessor">#endif // _NODE_H</span>
+<a name="l00143"></a>00143 <span class="keyword">private</span>:
+<a name="l00144"></a>00144     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>&amp; copy(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>&amp; copy);
+<a name="l00145"></a>00145 };
+<a name="l00146"></a>00146 
+<a name="l00147"></a><a class="code" href="classtbe_1_1scene_1_1_bull_node.html">00147</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_bull_node.html">BullNode</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>
+<a name="l00148"></a>00148 {
+<a name="l00149"></a>00149 
+<a name="l00150"></a>00150     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* clone()
+<a name="l00151"></a>00151     {
+<a name="l00152"></a>00152         <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_bull_node.html">BullNode</a>(*<span class="keyword">this</span>);
+<a name="l00153"></a>00153     }
+<a name="l00154"></a>00154 
+<a name="l00155"></a>00155     <span class="keywordtype">void</span> process()
+<a name="l00156"></a>00156     {
+<a name="l00157"></a>00157         <span class="keywordflow">if</span>(!<a class="code" href="classtbe_1_1scene_1_1_node.html#a7992ade912f78d8d94560639af863048">m_enable</a>)
+<a name="l00158"></a>00158             <span class="keywordflow">return</span>;
+<a name="l00159"></a>00159 
+<a name="l00160"></a>00160         for_each(<a class="code" href="classtbe_1_1scene_1_1_node.html#a6d285b20d93526c60141e3979ca381ad">m_childs</a>.begin(), <a class="code" href="classtbe_1_1scene_1_1_node.html#a6d285b20d93526c60141e3979ca381ad">m_childs</a>.end(), std::mem_fun(&amp;<a class="code" href="classtbe_1_1scene_1_1_node.html#aacdbcac0c832a727cd9a083290b82467">Node::process</a>));
+<a name="l00161"></a>00161     }
+<a name="l00162"></a>00162 
+<a name="l00163"></a>00163     <span class="keywordtype">void</span> render()
+<a name="l00164"></a>00164     {
+<a name="l00165"></a>00165         <span class="comment">// Nothging to do...</span>
+<a name="l00166"></a>00166     }
+<a name="l00167"></a>00167 
+<a name="l00168"></a>00168     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">Node::CtorMap</a> constructionMap(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root)
+<a name="l00169"></a>00169     {
+<a name="l00170"></a>00170         <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">Node::CtorMap</a> ctormap = <a class="code" href="classtbe_1_1scene_1_1_node.html#a9a94ddee792cba92636a1f048d0eee3f">Node::constructionMap</a>(root);
+<a name="l00171"></a>00171 
+<a name="l00172"></a>00172         ctormap[<span class="stringliteral">&quot;class&quot;</span>] = <span class="stringliteral">&quot;BullNode&quot;</span>;
+<a name="l00173"></a>00173 
+<a name="l00174"></a>00174         <span class="keywordflow">return</span> ctormap;
+<a name="l00175"></a>00175     }
+<a name="l00176"></a>00176 };
+<a name="l00177"></a>00177 
+<a name="l00178"></a>00178 }
+<a name="l00179"></a>00179 }
+<a name="l00180"></a>00180 
+<a name="l00181"></a>00181 <span class="preprocessor">#endif // _NODE_H</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

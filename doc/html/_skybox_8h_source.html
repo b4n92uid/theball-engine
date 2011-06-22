@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -59,18 +59,18 @@
 <a name="l00020"></a>00020     <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#a548db645757da94296cb80402206dd3b">SkyBox</a>(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="_g_lee_8h.html#a450062c0770127a605331b58382bfa3b">textures</a>[]);
 <a name="l00021"></a>00021     <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#aef6a9b7d384358fd2095d1e171d8a997">~SkyBox</a>();
 <a name="l00022"></a>00022 
-<a name="l00024"></a>00024     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#a17f4a2b1522cdbe5a236945b5edefccf" title="Tableaux de 6 texture pour l&#39;affichage.">SetTextures</a>(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> textures[]);
-<a name="l00025"></a>00025     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a>* <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#ab7f1539aa7a444b0fce18aa730cb7cc7">GetTextures</a>();
+<a name="l00024"></a>00024     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#af0331e96393c4d8532cd15a1686d66a7" title="Tableaux de 6 texture pour l&#39;affichage.">setTextures</a>(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> textures[]);
+<a name="l00025"></a>00025     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a>* <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#a8a3844e1101059f35ccd1ab2a26e40d4">getTextures</a>();
 <a name="l00026"></a>00026 
-<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#a65b3928ee19e4532b252010046c3bb9f" title="Réinitialisation.">Clear</a>();
+<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#ae9df81f4966028eb5e537eea3b62243e" title="Réinitialisation.">clear</a>();
 <a name="l00029"></a>00029     
-<a name="l00032"></a>00032     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#ab295f26b80c4ba30aaab7f0ca63b421d">Render</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; camerapos);
+<a name="l00032"></a>00032     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#a8ff829450f70c43c6ef3d2b7b7ad2d53">render</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; camerapos);
 <a name="l00033"></a>00033 
-<a name="l00034"></a>00034     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#ac4997c1f653727130ba75a6644c4ed9c">SetEnable</a>(<span class="keywordtype">bool</span> enable);
-<a name="l00035"></a>00035     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#a03698d5995bdb4c163bbab1040e8904d">IsEnable</a>() <span class="keyword">const</span>;
+<a name="l00034"></a>00034     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#a0d556bab3b550ad720532eab98540ba8">setEnable</a>(<span class="keywordtype">bool</span> enable);
+<a name="l00035"></a>00035     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#a14a97c2663d9c3562899033a22d5d939">isEnable</a>() <span class="keyword">const</span>;
 <a name="l00036"></a>00036 
 <a name="l00037"></a>00037 <span class="keyword">protected</span>:
-<a name="l00038"></a>00038     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#a71a397b4d1f563bc7f1b23b828941615">InitRender</a>();
+<a name="l00038"></a>00038     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#abb7737d8e43cb95cf55965369c9f117e">initRender</a>();
 <a name="l00039"></a>00039 
 <a name="l00040"></a>00040 <span class="keyword">protected</span>:
 <a name="l00041"></a><a class="code" href="classtbe_1_1scene_1_1_sky_box.html#a1edc0a08b48c75fd82b9c02424ac6f5b">00041</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html#a1edc0a08b48c75fd82b9c02424ac6f5b">m_renderID</a>;
@@ -84,7 +84,7 @@
 <a name="l00049"></a>00049 <span class="preprocessor">#endif // _SKYBOX_H</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

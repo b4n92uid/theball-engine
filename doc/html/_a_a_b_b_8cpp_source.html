@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -62,8 +62,8 @@
 <a name="l00019"></a>00019 
 <a name="l00020"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#ab74c67511c6ca3dc58a3b6a2d9114ff5">00020</a> AABB::AABB(<span class="keywordtype">float</span> minmax)
 <a name="l00021"></a>00021 {
-<a name="l00022"></a>00022     this-&gt;min = minmax;
-<a name="l00023"></a>00023     this-&gt;<a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> = minmax;
+<a name="l00022"></a>00022     this-&gt;<a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> = minmax;
+<a name="l00023"></a>00023     this-&gt;min = -minmax;
 <a name="l00024"></a>00024 }
 <a name="l00025"></a>00025 
 <a name="l00026"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#ac1ec50fd9f3efc797c82290d6a9d5da0">00026</a> AABB::AABB(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> min, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)
@@ -76,27 +76,27 @@
 <a name="l00033"></a>00033 {
 <a name="l00034"></a>00034 }
 <a name="l00035"></a>00035 
-<a name="l00036"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a76615dc73ea1dc723fbaa46e3eb83404">00036</a> <span class="keywordtype">void</span> AABB::Clear()
+<a name="l00036"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#abf13df62ac2d5802d02f8198a47dcf88">00036</a> <span class="keywordtype">void</span> AABB::clear()
 <a name="l00037"></a>00037 {
 <a name="l00038"></a>00038     min = <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> = 0;
 <a name="l00039"></a>00039 }
 <a name="l00040"></a>00040 
-<a name="l00041"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a91d2dec24e65cbf3b6c48f6695f8f5ef">00041</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::Count(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">scene::Node</a>* node)
+<a name="l00041"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a180cc2d616d6c9dad1ede1d5e49bda27">00041</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; <a class="code" href="_g_lee_8h.html#a9274fa62feb8371797c4c0312446e333">AABB::count</a>(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">scene::Node</a>* node)
 <a name="l00042"></a>00042 {
-<a name="l00043"></a>00043     Count(node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a5f278195dc303165271c6531374246cf">GetAbsolutAabb</a>());
+<a name="l00043"></a>00043     <a class="code" href="_g_lee_8h.html#a9274fa62feb8371797c4c0312446e333">count</a>(node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a04a1a71ec1ae634e38f0656200544acc" title="Renvois le AABB du noeud avec des coordonées sur le repere global.">getAbsolutAabb</a>());
 <a name="l00044"></a>00044 
 <a name="l00045"></a>00045     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00046"></a>00046 }
 <a name="l00047"></a>00047 
-<a name="l00048"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#ab83e21b570253b81f8e3421949761018">00048</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::Count(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
+<a name="l00048"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#aa956c8112c525dec3decf00d875bee94">00048</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; <a class="code" href="_g_lee_8h.html#a9274fa62feb8371797c4c0312446e333">AABB::count</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
 <a name="l00049"></a>00049 {
-<a name="l00050"></a>00050     Count(aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#ab699aed87c56cfafe94ec22c0d4105b3">min</a>);
-<a name="l00051"></a>00051     Count(aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>);
+<a name="l00050"></a>00050     <a class="code" href="_g_lee_8h.html#a9274fa62feb8371797c4c0312446e333">count</a>(aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#ab699aed87c56cfafe94ec22c0d4105b3">min</a>);
+<a name="l00051"></a>00051     <a class="code" href="_g_lee_8h.html#a9274fa62feb8371797c4c0312446e333">count</a>(aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>);
 <a name="l00052"></a>00052 
 <a name="l00053"></a>00053     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00054"></a>00054 }
 <a name="l00055"></a>00055 
-<a name="l00056"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a1ee3535134debcd76e4a624425df2d6e">00056</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::Count(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
+<a name="l00056"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a2adf6959fb4ec28af6ab5f6cd757be72">00056</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; <a class="code" href="_g_lee_8h.html#a9274fa62feb8371797c4c0312446e333">AABB::count</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
 <a name="l00057"></a>00057 {
 <a name="l00058"></a>00058     <span class="keywordflow">if</span>(min.x &gt; pos.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>) min.x = pos.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>;
 <a name="l00059"></a>00059     <span class="keywordflow">if</span>(min.y &gt; pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>) min.y = pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>;
@@ -109,101 +109,106 @@
 <a name="l00066"></a>00066     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00067"></a>00067 }
 <a name="l00068"></a>00068 
-<a name="l00069"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a4ca4399172a279fab06ed4b8e905cb08">00069</a> <span class="keywordtype">bool</span> AABB::IsInner(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">scene::Node</a>* node)<span class="keyword"> const</span>
+<a name="l00069"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a367295c6e04567eb93c8444df90187d5">00069</a> <span class="keywordtype">bool</span> AABB::isInner(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">scene::Node</a>* node)<span class="keyword"> const</span>
 <a name="l00070"></a>00070 <span class="keyword"></span>{
-<a name="l00071"></a>00071     <span class="keywordflow">return</span> IsInner(node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a3b93d70a9cc25d5afa8a4cc4d33c74f2">GetPos</a>());
+<a name="l00071"></a>00071     <span class="keywordflow">return</span> isInner(node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a7a0aa7b71d51573b216ede91662c8939">getPos</a>());
 <a name="l00072"></a>00072 }
 <a name="l00073"></a>00073 
-<a name="l00074"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#aced664309939896fcc1670bff1ef8d2d">00074</a> <span class="keywordtype">bool</span> AABB::IsInner(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)<span class="keyword"> const</span>
+<a name="l00074"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a89b6a17a7094bc41515369885e4ac64e">00074</a> <span class="keywordtype">bool</span> AABB::isInner(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)<span class="keyword"> const</span>
 <a name="l00075"></a>00075 <span class="keyword"></span>{
-<a name="l00076"></a>00076     <span class="keywordflow">return</span> (aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#ab699aed87c56cfafe94ec22c0d4105b3">min</a>.<a class="code" href="classtbe_1_1_vector3.html#aa0b830d6144d440326a02a8f8a496862">IsInside</a>(min, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>) || aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>.<a class="code" href="classtbe_1_1_vector3.html#aa0b830d6144d440326a02a8f8a496862">IsInside</a>(min, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>));
+<a name="l00076"></a>00076     <span class="keywordflow">return</span> (aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#ab699aed87c56cfafe94ec22c0d4105b3">min</a>.<a class="code" href="classtbe_1_1_vector3.html#ae6a782307c0fd944430f5f2201680332">isInside</a>(min, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>) || aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>.<a class="code" href="classtbe_1_1_vector3.html#ae6a782307c0fd944430f5f2201680332">isInside</a>(min, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>));
 <a name="l00077"></a>00077 }
 <a name="l00078"></a>00078 
-<a name="l00079"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#ad4a48de2dcc89dd7f24ed3b5c787d843">00079</a> <span class="keywordtype">bool</span> AABB::IsInner(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; point)<span class="keyword"> const</span>
+<a name="l00079"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a278685a6958931d4bc0b2842a169ecd6">00079</a> <span class="keywordtype">bool</span> AABB::isInner(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; point)<span class="keyword"> const</span>
 <a name="l00080"></a>00080 <span class="keyword"></span>{
-<a name="l00081"></a>00081     <span class="keywordflow">return</span> point.<a class="code" href="classtbe_1_1_vector3.html#aa0b830d6144d440326a02a8f8a496862">IsInside</a>(min, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>);
+<a name="l00081"></a>00081     <span class="keywordflow">return</span> point.<a class="code" href="classtbe_1_1_vector3.html#ae6a782307c0fd944430f5f2201680332">isInside</a>(min, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>);
 <a name="l00082"></a>00082 }
 <a name="l00083"></a>00083 
-<a name="l00084"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a240e51e6841dad8084c0a4917cc7e2ac">00084</a> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> AABB::GetCenter()<span class="keyword"> const</span>
+<a name="l00084"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a665696111048da78b1da67172be9fab7">00084</a> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> AABB::getCenter()<span class="keyword"> const</span>
 <a name="l00085"></a>00085 <span class="keyword"></span>{
 <a name="l00086"></a>00086     <span class="keywordflow">return</span> (<a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> - min) / 2.0f + min;
 <a name="l00087"></a>00087 }
 <a name="l00088"></a>00088 
-<a name="l00089"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#ad40b364b3fd436764dd297336a902040">00089</a> <span class="keywordtype">float</span> AABB::GetSize()<span class="keyword"> const</span>
+<a name="l00089"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a834338d35a24060f1e106fd5754d9c06">00089</a> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> AABB::getSize()<span class="keyword"> const</span>
 <a name="l00090"></a>00090 <span class="keyword"></span>{
-<a name="l00091"></a>00091     <span class="keywordflow">return</span> (<a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> - min).<a class="code" href="classtbe_1_1_vector3.html#ab5ded6a2490ba5010d8c34c2062da5a1">GetMagnitude</a>();
+<a name="l00091"></a>00091     <span class="keywordflow">return</span> (<a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> - min);
 <a name="l00092"></a>00092 }
 <a name="l00093"></a>00093 
-<a name="l00094"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#abd193af30306071835fb7798afad6468">00094</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::operator()(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; min, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)
-<a name="l00095"></a>00095 {
-<a name="l00096"></a>00096     this-&gt;min = min;
-<a name="l00097"></a>00097     this-&gt;max = <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>;
+<a name="l00094"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#aede2810bc93179046ae02375ec35d63e">00094</a> <span class="keywordtype">float</span> AABB::getLength()<span class="keyword"> const</span>
+<a name="l00095"></a>00095 <span class="keyword"></span>{
+<a name="l00096"></a>00096     <span class="keywordflow">return</span> (<a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> - min).<a class="code" href="classtbe_1_1_vector3.html#a2d086e2c678de533426add2db0c1a9e0">getMagnitude</a>();
+<a name="l00097"></a>00097 }
 <a name="l00098"></a>00098 
-<a name="l00099"></a>00099     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
-<a name="l00100"></a>00100 }
-<a name="l00101"></a>00101 
-<a name="l00102"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#ab4ea26886aa3de3ceb35c8cd7a5ab4a6">00102</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; AABB::Add(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
-<a name="l00103"></a>00103 {
-<a name="l00104"></a>00104     <span class="keywordflow">return</span> *<span class="keyword">this</span> += <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>;
+<a name="l00099"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#abd193af30306071835fb7798afad6468">00099</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::operator()(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; min, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)
+<a name="l00100"></a>00100 {
+<a name="l00101"></a>00101     this-&gt;min = min;
+<a name="l00102"></a>00102     this-&gt;max = <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>;
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00105"></a>00105 }
 <a name="l00106"></a>00106 
-<a name="l00107"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a9b5042faab5dae06a931d6e1bc33ba3d">00107</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; AABB::Add(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
+<a name="l00107"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a02f3ad32189c68c1a242c7f3aae7cb3e">00107</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; AABB::add(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
 <a name="l00108"></a>00108 {
-<a name="l00109"></a>00109     <span class="keywordflow">return</span> *<span class="keyword">this</span> += aabb;
+<a name="l00109"></a>00109     <span class="keywordflow">return</span> *<span class="keyword">this</span> += <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>;
 <a name="l00110"></a>00110 }
 <a name="l00111"></a>00111 
-<a name="l00112"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a94b8009a800c3d33eacb52597156fdd9">00112</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; AABB::Sub(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
+<a name="l00112"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a0be0b170c0b7e47c391b86210112206c">00112</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; AABB::add(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
 <a name="l00113"></a>00113 {
-<a name="l00114"></a>00114     <span class="keywordflow">return</span> *<span class="keyword">this</span> -= <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>;
+<a name="l00114"></a>00114     <span class="keywordflow">return</span> *<span class="keyword">this</span> += aabb;
 <a name="l00115"></a>00115 }
 <a name="l00116"></a>00116 
-<a name="l00117"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#aefe4590e3d7f9b92af73e6311ce3c237">00117</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; AABB::Sub(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
+<a name="l00117"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a8416fff9c8fe2e2445b1c1015fcceec6">00117</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; AABB::sub(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
 <a name="l00118"></a>00118 {
-<a name="l00119"></a>00119     <span class="keywordflow">return</span> *<span class="keyword">this</span> -= aabb;
+<a name="l00119"></a>00119     <span class="keywordflow">return</span> *<span class="keyword">this</span> -= <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>;
 <a name="l00120"></a>00120 }
 <a name="l00121"></a>00121 
-<a name="l00122"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a16c831c386f9cd39dd8f78ce05e3b976">00122</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::operator+=(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
+<a name="l00122"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a64ebc439e3ef658aaacec422eff28670">00122</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> &amp; AABB::sub(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
 <a name="l00123"></a>00123 {
-<a name="l00124"></a>00124     <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(min - <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> + <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>);
+<a name="l00124"></a>00124     <span class="keywordflow">return</span> *<span class="keyword">this</span> -= aabb;
 <a name="l00125"></a>00125 }
 <a name="l00126"></a>00126 
-<a name="l00127"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a6b7a016bf5ca3a8b93a298d550546345">00127</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::operator+=(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
+<a name="l00127"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a16c831c386f9cd39dd8f78ce05e3b976">00127</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::operator+=(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
 <a name="l00128"></a>00128 {
-<a name="l00129"></a>00129     <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(min + aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#ab699aed87c56cfafe94ec22c0d4105b3">min</a>, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> + aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>);
+<a name="l00129"></a>00129     <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(min - <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> + <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>);
 <a name="l00130"></a>00130 }
 <a name="l00131"></a>00131 
-<a name="l00132"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#abab065b2ee5e708d3febab3440063443">00132</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::operator-=(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
+<a name="l00132"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a6b7a016bf5ca3a8b93a298d550546345">00132</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::operator+=(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
 <a name="l00133"></a>00133 {
-<a name="l00134"></a>00134     <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(min + <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> - <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>);
+<a name="l00134"></a>00134     <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(min + aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#ab699aed87c56cfafe94ec22c0d4105b3">min</a>, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> + aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>);
 <a name="l00135"></a>00135 }
 <a name="l00136"></a>00136 
-<a name="l00137"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a1d3e5b95f58901b386d7bddf9f686966">00137</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::operator-=(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
+<a name="l00137"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#abab065b2ee5e708d3febab3440063443">00137</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::operator-=(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
 <a name="l00138"></a>00138 {
-<a name="l00139"></a>00139     <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(min + aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#ab699aed87c56cfafe94ec22c0d4105b3">min</a>, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> - aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>);
+<a name="l00139"></a>00139     <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(min + <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> - <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>);
 <a name="l00140"></a>00140 }
 <a name="l00141"></a>00141 
-<a name="l00142"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a9cca3d30c552a9d57e342968a67c4bb6">00142</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> AABB::operator-(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00142"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a1d3e5b95f58901b386d7bddf9f686966">00142</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; AABB::operator-=(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
 <a name="l00143"></a>00143 {
-<a name="l00144"></a>00144     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>(*<span class="keyword">this</span>) -= <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
+<a name="l00144"></a>00144     <span class="keywordflow">return</span> (*<span class="keyword">this</span>)(min + aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#ab699aed87c56cfafe94ec22c0d4105b3">min</a>, <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a> - aabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>);
 <a name="l00145"></a>00145 }
 <a name="l00146"></a>00146 
-<a name="l00147"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a9ce395868d40a115ef9d16e2cc047103">00147</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> AABB::operator-(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
+<a name="l00147"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a9cca3d30c552a9d57e342968a67c4bb6">00147</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> AABB::operator-(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
 <a name="l00148"></a>00148 {
-<a name="l00149"></a>00149     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>(*<span class="keyword">this</span>) -= aabb;
+<a name="l00149"></a>00149     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>(*<span class="keyword">this</span>) -= <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
 <a name="l00150"></a>00150 }
 <a name="l00151"></a>00151 
-<a name="l00152"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a1e1560849a134bf9e38d7b798b147f21">00152</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> AABB::operator+(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00152"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a9ce395868d40a115ef9d16e2cc047103">00152</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> AABB::operator-(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
 <a name="l00153"></a>00153 {
-<a name="l00154"></a>00154     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>(*<span class="keyword">this</span>) += <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
+<a name="l00154"></a>00154     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>(*<span class="keyword">this</span>) -= aabb;
 <a name="l00155"></a>00155 }
 <a name="l00156"></a>00156 
-<a name="l00157"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a312faaf850b2336f535587958fefec4a">00157</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> AABB::operator+(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
+<a name="l00157"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a1e1560849a134bf9e38d7b798b147f21">00157</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> AABB::operator+(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
 <a name="l00158"></a>00158 {
-<a name="l00159"></a>00159     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>(*<span class="keyword">this</span>) += aabb;
+<a name="l00159"></a>00159     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>(*<span class="keyword">this</span>) += <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
 <a name="l00160"></a>00160 }
+<a name="l00161"></a>00161 
+<a name="l00162"></a><a class="code" href="classtbe_1_1_a_a_b_b.html#a312faaf850b2336f535587958fefec4a">00162</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> AABB::operator+(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>&amp; aabb)
+<a name="l00163"></a>00163 {
+<a name="l00164"></a>00164     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a>(*<span class="keyword">this</span>) += aabb;
+<a name="l00165"></a>00165 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:55 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:48 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

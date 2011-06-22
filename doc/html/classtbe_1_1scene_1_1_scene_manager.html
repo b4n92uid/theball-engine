@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -67,59 +67,61 @@ Fonctions membres publiques</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ctor.  <a href="#a52085e6737c23b491c228e86781af808"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a2bb376a85d29e85f47753e26c7539229">~SceneManager</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Dtor.  <a href="#a2bb376a85d29e85f47753e26c7539229"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#acc9cd2578976686bd57ccdb1481b4299">ClearParallelScenes</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime tout les scene paralleles.  <a href="#acc9cd2578976686bd57ccdb1481b4299"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#ac98c164a0a57f4307996da97d1e69cf4">ClearCameras</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime tout les caméras.  <a href="#ac98c164a0a57f4307996da97d1e69cf4"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#ad754d5b62b372a82a01988a54e4ecbe4">ClearAll</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Vide tout la scene.  <a href="#ad754d5b62b372a82a01988a54e4ecbe4"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#ab6cde47cf68a7432c200fd914966a9b0">Setup</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> viewport, float ratio, float fovy, float <a class="el" href="_g_lee_8h.html#a12d99226e590bbaaf0be69169eeb4834">zNear</a>, float <a class="el" href="_g_lee_8h.html#a18a2583fe65967bceff8903e2769f8e2">zFar</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration.  <a href="#ab6cde47cf68a7432c200fd914966a9b0"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#ab5272006a107a313930da72a1ce56c2c">AddParallelScene</a> (<a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *scene)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajouter une sous-scene.  <a href="#ab5272006a107a313930da72a1ce56c2c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#ad426fc179a772304a667e9138ea085e6">GetParallelScene</a> (unsigned <a class="el" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Accès a une sous-scene.  <a href="#ad426fc179a772304a667e9138ea085e6"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a25c4148ddfbb8ff0406be479225d75e6">DeleteParallelScene</a> (unsigned <a class="el" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruite une scene parallele.  <a href="#a25c4148ddfbb8ff0406be479225d75e6"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a0a77e92e1712f692f3385478f8a7f746">DeleteParallelScene</a> (<a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *scene)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a7e066c1da18bc40ca37a06ff740e29bc">ReleaseParallelScene</a> (unsigned <a class="el" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Détache une scene parallele du gestionnaire.  <a href="#a7e066c1da18bc40ca37a06ff740e29bc"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a2be0461bd26165e063cd46f5dafd267b">ReleaseParallelScene</a> (<a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *scene)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt; <a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a4ce2714541c220e6e950d1b813f79732">GetParallelSceneIterator</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a363d7cd532197f801d259bf1e24ab0f5">Render</a> (bool setupView=true)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendue.  <a href="#a363d7cd532197f801d259bf1e24ab0f5"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a19131142217b48f46f0928ae78c340aa">GetRootNode</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a727892547c3fc1281780ed111111b61d">AddCamera</a> (<a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *camera)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une camera.  <a href="#a727892547c3fc1281780ed111111b61d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#ae90f056ea8e97c43649a73ecf307ea49">SetCurCamera</a> (<a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *camera)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifier la camera courante.  <a href="#ae90f056ea8e97c43649a73ecf307ea49"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#ad3aa8e32997a79db8e44b47cc4295cd6">GetCurCamera</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Accès a la camera courante.  <a href="#ad3aa8e32997a79db8e44b47cc4295cd6"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#aca0c147cb97e82a6868518ac068dd9c9">DeleteCamera</a> (<a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *camera)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a05a670a565d8a7d8ac6a13834a28daeb">ReleaseCamera</a> (<a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *camera)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt; <a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a994d475af3d73058dc62ce0db05d1460">GetCameraIterator</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a2daf30b0281dfa0f5312e4d50fbb0ab8">SetAmbientLight</a> (<a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="el" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifer la composant ambient de la scene.  <a href="#a2daf30b0281dfa0f5312e4d50fbb0ab8"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#aef38aac2302abb28b4e6382f29bf92c1">GetAmbientLight</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois la composant ambient de la scene.  <a href="#aef38aac2302abb28b4e6382f29bf92c1"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_frustum.html">Frustum</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a5fc89b88742ae7d7a6c8b85d20ebd8f8">GetFrustum</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_sky_box.html">SkyBox</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a9680857b8d680aa471fda4db23d285e6">GetSkybox</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_fog.html">Fog</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a927458f067e4e59868857ea25a2c74d3">GetFog</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#aea3189433074d3897bf959ec118bba0e">SetViewport</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> viewport)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#ad115a41870d3e4dab0521182fadb661f">GetViewport</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a92f46aa074245d7f921608d34094dfa0">GetFovy</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a1690ecd61edbc0cc7d5a63dbd5f005b7">SetFovy</a> (float fovy)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a72703fb4c7e6e97d07e5c9c6f76d1c37">SetZNear</a> (float <a class="el" href="_g_lee_8h.html#a12d99226e590bbaaf0be69169eeb4834">zNear</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a5dfb458903b2cf258b019f4a9ce26efd">GetZNear</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#ae413a91d1855147434a1e269c263be08">SetZFar</a> (float <a class="el" href="_g_lee_8h.html#a18a2583fe65967bceff8903e2769f8e2">zFar</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a6c72847bc8bfec738fe342652ec51070">GetZFar</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a2f5965347d584f5568b3ca9ff7f3b197">SetRatio</a> (float ratio)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#adea98c5a807ed7ae5624524c34669013">GetRatio</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#af2bde6c66496045ef9e81548570f1e16">UpdateViewParameter</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a63e0f5ab44ca4a3aa34c1d827dd018db">ScreenToWorld</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="el" href="_g_lee_8h.html#af9d0cbbbeb7414e786c41899e5a856d7">target</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de picking 2D-&gt;3D.  <a href="#a63e0f5ab44ca4a3aa34c1d827dd018db"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a7bfb06e8dea27c91dbddfbd5a38eb4ec">ScreenToWorld</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="el" href="_g_lee_8h.html#af9d0cbbbeb7414e786c41899e5a856d7">target</a>, <a class="el" href="classtbe_1_1_rtt.html">Rtt</a> *rtt)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a3fe8e13e12aa85a93775d9d2f7982a9e">computeBillboard</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_g_lee_8h.html#a0c0d4701a6c89f4f7f0640715d27ab26">obj</a>, <a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a> init=<a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a>())</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a2d8ccaeecc8e5e6af478c56a39924cce">clearParallelScenes</a> (bool deleteHim=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime tout les scene paralleles.  <a href="#a2d8ccaeecc8e5e6af478c56a39924cce"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a22e38f3b1279a56c55f6168c89991af5">clearCameras</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime tout les caméras.  <a href="#a22e38f3b1279a56c55f6168c89991af5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#aa145eb4a484e6cbba3a4e6b72b75c360">clearAll</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Vide tout la scene.  <a href="#aa145eb4a484e6cbba3a4e6b72b75c360"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a2672af5395025cd82ffd3b8519b8070c">setup</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> viewport, float ratio, float fovy, float <a class="el" href="_g_lee_8h.html#a12d99226e590bbaaf0be69169eeb4834">zNear</a>, float <a class="el" href="_g_lee_8h.html#a18a2583fe65967bceff8903e2769f8e2">zFar</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration.  <a href="#a2672af5395025cd82ffd3b8519b8070c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#aae3b518b6ef57242658573b09d173d9b">addParallelScene</a> (<a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *scene)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajouter une sous-scene.  <a href="#aae3b518b6ef57242658573b09d173d9b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a6a540f27c9454a9a568af3b3fa0b4936">getParallelScene</a> (unsigned <a class="el" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Accès a une sous-scene.  <a href="#a6a540f27c9454a9a568af3b3fa0b4936"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a370aec102562216a67bf9b1fd45430c3">deleteParallelScene</a> (unsigned <a class="el" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruite une scene parallele.  <a href="#a370aec102562216a67bf9b1fd45430c3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a1ce5b06772c17ae057d2e5df078d8c7f">deleteParallelScene</a> (<a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *scene)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a751913584cac90be24ca90518a79f326">releaseParallelScene</a> (unsigned <a class="el" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Détache une scene parallele du gestionnaire.  <a href="#a751913584cac90be24ca90518a79f326"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a9bc2e24f50b25f05437e31301d55fb52">releaseParallelScene</a> (<a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *scene)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt; <a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#ae53b1ee2293d7bedf7238112660fd262">getParallelSceneIterator</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a66fadddacf0710366b7c7c94bee7a897">render</a> (bool setupView=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendue.  <a href="#a66fadddacf0710366b7c7c94bee7a897"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a02a77a78b15a9c9eb985524b9f68b457">getRootNode</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a2d1d6c0a1256a6d58fdc70e764ac5efb">addCamera</a> (<a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *camera)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une camera.  <a href="#a2d1d6c0a1256a6d58fdc70e764ac5efb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a0ee69c2f85706e9a974c93749733897f">setCurCamera</a> (<a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *camera)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifier la camera courante.  <a href="#a0ee69c2f85706e9a974c93749733897f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a94153e545b03832cb2245a29b0f98c5a">getCurCamera</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Accès a la camera courante.  <a href="#a94153e545b03832cb2245a29b0f98c5a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a704ff527ae646c32107a7405da00692c">deleteCamera</a> (<a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *camera)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#aff90f8d8660efc61b1fd06f1ca7e0b89">releaseCamera</a> (<a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *camera)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt; <a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a79f8e515fcdb7c23ef8bb94e77962853">getCameraIterator</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a886681d3cbe1b08b75b657fe8f8bbe0d">setAmbientLight</a> (<a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="el" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifer la composant ambient de la scene.  <a href="#a886681d3cbe1b08b75b657fe8f8bbe0d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a9934c02605571e828fec71ef2a89430e">getAmbientLight</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois la composant ambient de la scene.  <a href="#a9934c02605571e828fec71ef2a89430e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_frustum.html">Frustum</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a03e738e51b3dce5385dc5fce12581d92">getFrustum</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_sky_box.html">SkyBox</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a6046c0d4d11388fbc29aeb7263735043">getSkybox</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_fog.html">Fog</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#abe4c34e4262881497b7d38d33ad50bc6">getFog</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#acf8b7dd450b41d3fb4ab1ed53a11ba9c">setViewport</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> viewport)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a5646a815f356fc190c42c50dadc79dd4">getViewport</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#af6382339cf2415222a428916199631d3">getFovy</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a795a17f977a21046310b51e2a5b019f7">setFovy</a> (float fovy)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a855bbad953f8c6dcb09fbc70e348590d">setZNear</a> (float <a class="el" href="_g_lee_8h.html#a12d99226e590bbaaf0be69169eeb4834">zNear</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#aecb523f4ffbcb6aa96ab348a6c05cb90">getZNear</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a9bc036c1a829db92121b92e393943464">setZFar</a> (float <a class="el" href="_g_lee_8h.html#a18a2583fe65967bceff8903e2769f8e2">zFar</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a8708c1dba3141e5ed2d68f8295fd8aaf">getZFar</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a0389f7fcc0cbea4bb13b0574eb9471e5">setRatio</a> (float ratio)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#adabaef88439f0ac71161f3cdd55e23b3">getRatio</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a1e1139c5ff3e018631be4894deacad29">updateViewParameter</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a72f08ed29443c1929acf1f752bb1d383">screenToWorld</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="el" href="_g_lee_8h.html#af9d0cbbbeb7414e786c41899e5a856d7">target</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Picking 2D-&gt;3D.  <a href="#a72f08ed29443c1929acf1f752bb1d383"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a1705caca3a2aca7de8748631eacfdf0e">screenToWorld</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="el" href="_g_lee_8h.html#af9d0cbbbeb7414e786c41899e5a856d7">target</a>, <a class="el" href="classtbe_1_1_rtt.html">Rtt</a> *rtt)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Picking 2D-&gt;3D, dans le cas d'utilisation des PPE.  <a href="#a1705caca3a2aca7de8748631eacfdf0e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_matrix4.html">Matrix4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a130530127d17c97784f8760fb4d978b3">computeBillboard</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_g_lee_8h.html#a0c0d4701a6c89f4f7f0640715d27ab26">obj</a>, <a class="el" href="classtbe_1_1_matrix4.html">Matrix4</a> init=<a class="el" href="classtbe_1_1_matrix4.html">Matrix4</a>(), <a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> cam=0, <a class="el" href="classtbe_1_1_vector2.html">Vector2b</a> diri=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule de la matrice de rotation d'un billboard (face a la caméra)  <a href="#a130530127d17c97784f8760fb4d978b3"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#af6bc475feac0cc601108a1c3961122f9">ParallelScene::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html#a25dce61eed00bbacc1bea3dbb0ded777">m_parallelScenes</a></td></tr>
@@ -182,12 +184,12 @@ Attributs protégés</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Documentation des fonctions membres</h2>
-<a class="anchor" id="a727892547c3fc1281780ed111111b61d"></a><!-- doxytag: member="tbe::scene::SceneManager::AddCamera" ref="a727892547c3fc1281780ed111111b61d" args="(Camera *camera)" -->
+<a class="anchor" id="a2d1d6c0a1256a6d58fdc70e764ac5efb"></a><!-- doxytag: member="tbe::scene::SceneManager::addCamera" ref="a2d1d6c0a1256a6d58fdc70e764ac5efb" args="(Camera *camera)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::AddCamera </td>
+          <td class="memname">void SceneManager::addCamera </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *&#160;</td>
           <td class="paramname"><em>camera</em></td><td>)</td>
@@ -199,16 +201,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Ajoute une camera. </p>
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00187">187</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00195">195</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ab5272006a107a313930da72a1ce56c2c"></a><!-- doxytag: member="tbe::scene::SceneManager::AddParallelScene" ref="ab5272006a107a313930da72a1ce56c2c" args="(ParallelScene *scene)" -->
+<a class="anchor" id="aae3b518b6ef57242658573b09d173d9b"></a><!-- doxytag: member="tbe::scene::SceneManager::addParallelScene" ref="aae3b518b6ef57242658573b09d173d9b" args="(ParallelScene *scene)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::AddParallelScene </td>
+          <td class="memname">void SceneManager::addParallelScene </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *&#160;</td>
           <td class="paramname"><em>scene</em></td><td>)</td>
@@ -220,16 +222,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Ajouter une sous-scene. </p>
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00125">125</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00133">133</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ad754d5b62b372a82a01988a54e4ecbe4"></a><!-- doxytag: member="tbe::scene::SceneManager::ClearAll" ref="ad754d5b62b372a82a01988a54e4ecbe4" args="()" -->
+<a class="anchor" id="aa145eb4a484e6cbba3a4e6b72b75c360"></a><!-- doxytag: member="tbe::scene::SceneManager::clearAll" ref="aa145eb4a484e6cbba3a4e6b72b75c360" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::ClearAll </td>
+          <td class="memname">void SceneManager::clearAll </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -240,16 +242,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Vide tout la scene. </p>
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00088">88</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00096">96</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ac98c164a0a57f4307996da97d1e69cf4"></a><!-- doxytag: member="tbe::scene::SceneManager::ClearCameras" ref="ac98c164a0a57f4307996da97d1e69cf4" args="()" -->
+<a class="anchor" id="a22e38f3b1279a56c55f6168c89991af5"></a><!-- doxytag: member="tbe::scene::SceneManager::clearCameras" ref="a22e38f3b1279a56c55f6168c89991af5" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::ClearCameras </td>
+          <td class="memname">void SceneManager::clearCameras </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -264,14 +266,15 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="acc9cd2578976686bd57ccdb1481b4299"></a><!-- doxytag: member="tbe::scene::SceneManager::ClearParallelScenes" ref="acc9cd2578976686bd57ccdb1481b4299" args="()" -->
+<a class="anchor" id="a2d8ccaeecc8e5e6af478c56a39924cce"></a><!-- doxytag: member="tbe::scene::SceneManager::clearParallelScenes" ref="a2d8ccaeecc8e5e6af478c56a39924cce" args="(bool deleteHim=true)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::ClearParallelScenes </td>
+          <td class="memname">void SceneManager::clearParallelScenes </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>deleteHim</em> = <code>true</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -284,12 +287,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3fe8e13e12aa85a93775d9d2f7982a9e"></a><!-- doxytag: member="tbe::scene::SceneManager::computeBillboard" ref="a3fe8e13e12aa85a93775d9d2f7982a9e" args="(Vector3f obj, Matrix4f init=Matrix4f())" -->
+<a class="anchor" id="a130530127d17c97784f8760fb4d978b3"></a><!-- doxytag: member="tbe::scene::SceneManager::computeBillboard" ref="a130530127d17c97784f8760fb4d978b3" args="(Vector3f obj, Matrix4 init=Matrix4(), Vector3f cam=0, Vector2b diri=true)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a> SceneManager::computeBillboard </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_matrix4.html">Matrix4</a> SceneManager::computeBillboard </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
           <td class="paramname"><em>obj</em>, </td>
@@ -297,8 +300,20 @@ Attributs protégés</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a>&#160;</td>
-          <td class="paramname"><em>init</em> = <code><a class="el" href="classtbe_1_1_matrix4.html">Matrix4f</a>()</code>&#160;</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_matrix4.html">Matrix4</a>&#160;</td>
+          <td class="paramname"><em>init</em> = <code><a class="el" href="classtbe_1_1_matrix4.html">Matrix4</a>()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>cam</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2b</a>&#160;</td>
+          <td class="paramname"><em>diri</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -309,16 +324,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00338">338</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Calcule de la matrice de rotation d'un billboard (face a la caméra) </p>
+
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00346">346</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aca0c147cb97e82a6868518ac068dd9c9"></a><!-- doxytag: member="tbe::scene::SceneManager::DeleteCamera" ref="aca0c147cb97e82a6868518ac068dd9c9" args="(Camera *camera)" -->
+<a class="anchor" id="a704ff527ae646c32107a7405da00692c"></a><!-- doxytag: member="tbe::scene::SceneManager::deleteCamera" ref="a704ff527ae646c32107a7405da00692c" args="(Camera *camera)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void tbe::scene::SceneManager::DeleteCamera </td>
+          <td class="memname">void tbe::scene::SceneManager::deleteCamera </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *&#160;</td>
           <td class="paramname"><em>camera</em></td><td>)</td>
@@ -330,12 +347,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0a77e92e1712f692f3385478f8a7f746"></a><!-- doxytag: member="tbe::scene::SceneManager::DeleteParallelScene" ref="a0a77e92e1712f692f3385478f8a7f746" args="(ParallelScene *scene)" -->
+<a class="anchor" id="a1ce5b06772c17ae057d2e5df078d8c7f"></a><!-- doxytag: member="tbe::scene::SceneManager::deleteParallelScene" ref="a1ce5b06772c17ae057d2e5df078d8c7f" args="(ParallelScene *scene)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::DeleteParallelScene </td>
+          <td class="memname">void SceneManager::deleteParallelScene </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *&#160;</td>
           <td class="paramname"><em>scene</em></td><td>)</td>
@@ -345,16 +362,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00154">154</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00162">162</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a25c4148ddfbb8ff0406be479225d75e6"></a><!-- doxytag: member="tbe::scene::SceneManager::DeleteParallelScene" ref="a25c4148ddfbb8ff0406be479225d75e6" args="(unsigned index)" -->
+<a class="anchor" id="a370aec102562216a67bf9b1fd45430c3"></a><!-- doxytag: member="tbe::scene::SceneManager::deleteParallelScene" ref="a370aec102562216a67bf9b1fd45430c3" args="(unsigned index)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::DeleteParallelScene </td>
+          <td class="memname">void SceneManager::deleteParallelScene </td>
           <td>(</td>
           <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>index</em></td><td>)</td>
@@ -366,16 +383,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Destruite une scene parallele. </p>
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00164">164</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00172">172</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aef38aac2302abb28b4e6382f29bf92c1"></a><!-- doxytag: member="tbe::scene::SceneManager::GetAmbientLight" ref="aef38aac2302abb28b4e6382f29bf92c1" args="() const " -->
+<a class="anchor" id="a9934c02605571e828fec71ef2a89430e"></a><!-- doxytag: member="tbe::scene::SceneManager::getAmbientLight" ref="a9934c02605571e828fec71ef2a89430e" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> SceneManager::GetAmbientLight </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> SceneManager::getAmbientLight </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -386,16 +403,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Renvois la composant ambient de la scene. </p>
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00375">375</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00387">387</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a994d475af3d73058dc62ce0db05d1460"></a><!-- doxytag: member="tbe::scene::SceneManager::GetCameraIterator" ref="a994d475af3d73058dc62ce0db05d1460" args="()" -->
+<a class="anchor" id="a79f8e515fcdb7c23ef8bb94e77962853"></a><!-- doxytag: member="tbe::scene::SceneManager::getCameraIterator" ref="a79f8e515fcdb7c23ef8bb94e77962853" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt; <a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> * &gt; SceneManager::GetCameraIterator </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt; <a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> * &gt; SceneManager::getCameraIterator </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -404,16 +421,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00209">209</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00217">217</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ad3aa8e32997a79db8e44b47cc4295cd6"></a><!-- doxytag: member="tbe::scene::SceneManager::GetCurCamera" ref="ad3aa8e32997a79db8e44b47cc4295cd6" args="()" -->
+<a class="anchor" id="a94153e545b03832cb2245a29b0f98c5a"></a><!-- doxytag: member="tbe::scene::SceneManager::getCurCamera" ref="a94153e545b03832cb2245a29b0f98c5a" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> * SceneManager::GetCurCamera </td>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> * SceneManager::getCurCamera </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -424,16 +441,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Accès a la camera courante. </p>
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00204">204</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00212">212</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a927458f067e4e59868857ea25a2c74d3"></a><!-- doxytag: member="tbe::scene::SceneManager::GetFog" ref="a927458f067e4e59868857ea25a2c74d3" args="() const " -->
+<a class="anchor" id="abe4c34e4262881497b7d38d33ad50bc6"></a><!-- doxytag: member="tbe::scene::SceneManager::getFog" ref="abe4c34e4262881497b7d38d33ad50bc6" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_fog.html">Fog</a> * SceneManager::GetFog </td>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_fog.html">Fog</a> * SceneManager::getFog </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -442,16 +459,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00224">224</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00232">232</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a92f46aa074245d7f921608d34094dfa0"></a><!-- doxytag: member="tbe::scene::SceneManager::GetFovy" ref="a92f46aa074245d7f921608d34094dfa0" args="() const " -->
+<a class="anchor" id="af6382339cf2415222a428916199631d3"></a><!-- doxytag: member="tbe::scene::SceneManager::getFovy" ref="af6382339cf2415222a428916199631d3" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float SceneManager::GetFovy </td>
+          <td class="memname">float SceneManager::getFovy </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -460,16 +477,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00264">264</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00272">272</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a5fc89b88742ae7d7a6c8b85d20ebd8f8"></a><!-- doxytag: member="tbe::scene::SceneManager::GetFrustum" ref="a5fc89b88742ae7d7a6c8b85d20ebd8f8" args="() const " -->
+<a class="anchor" id="a03e738e51b3dce5385dc5fce12581d92"></a><!-- doxytag: member="tbe::scene::SceneManager::getFrustum" ref="a03e738e51b3dce5385dc5fce12581d92" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_frustum.html">Frustum</a> * SceneManager::GetFrustum </td>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_frustum.html">Frustum</a> * SceneManager::getFrustum </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -478,16 +495,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00214">214</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00222">222</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ad426fc179a772304a667e9138ea085e6"></a><!-- doxytag: member="tbe::scene::SceneManager::GetParallelScene" ref="ad426fc179a772304a667e9138ea085e6" args="(unsigned index)" -->
+<a class="anchor" id="a6a540f27c9454a9a568af3b3fa0b4936"></a><!-- doxytag: member="tbe::scene::SceneManager::getParallelScene" ref="a6a540f27c9454a9a568af3b3fa0b4936" args="(unsigned index)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> * SceneManager::GetParallelScene </td>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> * SceneManager::getParallelScene </td>
           <td>(</td>
           <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>index</em></td><td>)</td>
@@ -499,16 +516,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Accès a une sous-scene. </p>
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00174">174</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00182">182</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4ce2714541c220e6e950d1b813f79732"></a><!-- doxytag: member="tbe::scene::SceneManager::GetParallelSceneIterator" ref="a4ce2714541c220e6e950d1b813f79732" args="()" -->
+<a class="anchor" id="ae53b1ee2293d7bedf7238112660fd262"></a><!-- doxytag: member="tbe::scene::SceneManager::getParallelSceneIterator" ref="ae53b1ee2293d7bedf7238112660fd262" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt; <a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> * &gt; SceneManager::GetParallelSceneIterator </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt; <a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> * &gt; SceneManager::getParallelSceneIterator </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -517,16 +534,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00182">182</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00190">190</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="adea98c5a807ed7ae5624524c34669013"></a><!-- doxytag: member="tbe::scene::SceneManager::GetRatio" ref="adea98c5a807ed7ae5624524c34669013" args="() const " -->
+<a class="anchor" id="adabaef88439f0ac71161f3cdd55e23b3"></a><!-- doxytag: member="tbe::scene::SceneManager::getRatio" ref="adabaef88439f0ac71161f3cdd55e23b3" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float SceneManager::GetRatio </td>
+          <td class="memname">float SceneManager::getRatio </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -535,16 +552,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00274">274</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00282">282</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a19131142217b48f46f0928ae78c340aa"></a><!-- doxytag: member="tbe::scene::SceneManager::GetRootNode" ref="a19131142217b48f46f0928ae78c340aa" args="() const " -->
+<a class="anchor" id="a02a77a78b15a9c9eb985524b9f68b457"></a><!-- doxytag: member="tbe::scene::SceneManager::getRootNode" ref="a02a77a78b15a9c9eb985524b9f68b457" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> * SceneManager::GetRootNode </td>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> * SceneManager::getRootNode </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -553,16 +570,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00380">380</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00392">392</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9680857b8d680aa471fda4db23d285e6"></a><!-- doxytag: member="tbe::scene::SceneManager::GetSkybox" ref="a9680857b8d680aa471fda4db23d285e6" args="() const " -->
+<a class="anchor" id="a6046c0d4d11388fbc29aeb7263735043"></a><!-- doxytag: member="tbe::scene::SceneManager::getSkybox" ref="a6046c0d4d11388fbc29aeb7263735043" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_sky_box.html">SkyBox</a> * SceneManager::GetSkybox </td>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_sky_box.html">SkyBox</a> * SceneManager::getSkybox </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -571,16 +588,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00219">219</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00227">227</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ad115a41870d3e4dab0521182fadb661f"></a><!-- doxytag: member="tbe::scene::SceneManager::GetViewport" ref="ad115a41870d3e4dab0521182fadb661f" args="() const " -->
+<a class="anchor" id="a5646a815f356fc190c42c50dadc79dd4"></a><!-- doxytag: member="tbe::scene::SceneManager::getViewport" ref="a5646a815f356fc190c42c50dadc79dd4" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> SceneManager::GetViewport </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a> SceneManager::getViewport </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -589,16 +606,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00234">234</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00242">242</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a6c72847bc8bfec738fe342652ec51070"></a><!-- doxytag: member="tbe::scene::SceneManager::GetZFar" ref="a6c72847bc8bfec738fe342652ec51070" args="() const " -->
+<a class="anchor" id="a8708c1dba3141e5ed2d68f8295fd8aaf"></a><!-- doxytag: member="tbe::scene::SceneManager::getZFar" ref="a8708c1dba3141e5ed2d68f8295fd8aaf" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float SceneManager::GetZFar </td>
+          <td class="memname">float SceneManager::getZFar </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -607,16 +624,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00244">244</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00252">252</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a5dfb458903b2cf258b019f4a9ce26efd"></a><!-- doxytag: member="tbe::scene::SceneManager::GetZNear" ref="a5dfb458903b2cf258b019f4a9ce26efd" args="() const " -->
+<a class="anchor" id="aecb523f4ffbcb6aa96ab348a6c05cb90"></a><!-- doxytag: member="tbe::scene::SceneManager::getZNear" ref="aecb523f4ffbcb6aa96ab348a6c05cb90" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float SceneManager::GetZNear </td>
+          <td class="memname">float SceneManager::getZNear </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -625,16 +642,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00254">254</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00262">262</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a05a670a565d8a7d8ac6a13834a28daeb"></a><!-- doxytag: member="tbe::scene::SceneManager::ReleaseCamera" ref="a05a670a565d8a7d8ac6a13834a28daeb" args="(Camera *camera)" -->
+<a class="anchor" id="aff90f8d8660efc61b1fd06f1ca7e0b89"></a><!-- doxytag: member="tbe::scene::SceneManager::releaseCamera" ref="aff90f8d8660efc61b1fd06f1ca7e0b89" args="(Camera *camera)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void tbe::scene::SceneManager::ReleaseCamera </td>
+          <td class="memname">void tbe::scene::SceneManager::releaseCamera </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *&#160;</td>
           <td class="paramname"><em>camera</em></td><td>)</td>
@@ -646,12 +663,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7e066c1da18bc40ca37a06ff740e29bc"></a><!-- doxytag: member="tbe::scene::SceneManager::ReleaseParallelScene" ref="a7e066c1da18bc40ca37a06ff740e29bc" args="(unsigned index)" -->
+<a class="anchor" id="a751913584cac90be24ca90518a79f326"></a><!-- doxytag: member="tbe::scene::SceneManager::releaseParallelScene" ref="a751913584cac90be24ca90518a79f326" args="(unsigned index)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> * SceneManager::ReleaseParallelScene </td>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> * SceneManager::releaseParallelScene </td>
           <td>(</td>
           <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>index</em></td><td>)</td>
@@ -663,16 +680,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Détache une scene parallele du gestionnaire. </p>
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00143">143</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00151">151</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2be0461bd26165e063cd46f5dafd267b"></a><!-- doxytag: member="tbe::scene::SceneManager::ReleaseParallelScene" ref="a2be0461bd26165e063cd46f5dafd267b" args="(ParallelScene *scene)" -->
+<a class="anchor" id="a9bc2e24f50b25f05437e31301d55fb52"></a><!-- doxytag: member="tbe::scene::SceneManager::releaseParallelScene" ref="a9bc2e24f50b25f05437e31301d55fb52" args="(ParallelScene *scene)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::ReleaseParallelScene </td>
+          <td class="memname">void SceneManager::releaseParallelScene </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html">ParallelScene</a> *&#160;</td>
           <td class="paramname"><em>scene</em></td><td>)</td>
@@ -682,16 +699,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00135">135</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00143">143</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a363d7cd532197f801d259bf1e24ab0f5"></a><!-- doxytag: member="tbe::scene::SceneManager::Render" ref="a363d7cd532197f801d259bf1e24ab0f5" args="(bool setupView=true)" -->
+<a class="anchor" id="a66fadddacf0710366b7c7c94bee7a897"></a><!-- doxytag: member="tbe::scene::SceneManager::render" ref="a66fadddacf0710366b7c7c94bee7a897" args="(bool setupView=true)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::Render </td>
+          <td class="memname">void SceneManager::render </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>setupView</em> = <code>true</code></td><td>)</td>
@@ -703,16 +720,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Rendue. </p>
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00099">99</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00107">107</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a7bfb06e8dea27c91dbddfbd5a38eb4ec"></a><!-- doxytag: member="tbe::scene::SceneManager::ScreenToWorld" ref="a7bfb06e8dea27c91dbddfbd5a38eb4ec" args="(Vector2i target, Rtt *rtt)" -->
+<a class="anchor" id="a1705caca3a2aca7de8748631eacfdf0e"></a><!-- doxytag: member="tbe::scene::SceneManager::screenToWorld" ref="a1705caca3a2aca7de8748631eacfdf0e" args="(Vector2i target, Rtt *rtt)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> SceneManager::ScreenToWorld </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> SceneManager::screenToWorld </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td>
           <td class="paramname"><em>target</em>, </td>
@@ -732,16 +749,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00279">279</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Picking 2D-&gt;3D, dans le cas d'utilisation des PPE. </p>
+
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00287">287</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a63e0f5ab44ca4a3aa34c1d827dd018db"></a><!-- doxytag: member="tbe::scene::SceneManager::ScreenToWorld" ref="a63e0f5ab44ca4a3aa34c1d827dd018db" args="(Vector2i target)" -->
+<a class="anchor" id="a72f08ed29443c1929acf1f752bb1d383"></a><!-- doxytag: member="tbe::scene::SceneManager::screenToWorld" ref="a72f08ed29443c1929acf1f752bb1d383" args="(Vector2i target)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> SceneManager::ScreenToWorld </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> SceneManager::screenToWorld </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td>
           <td class="paramname"><em>target</em></td><td>)</td>
@@ -751,18 +770,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Fonction de picking 2D-&gt;3D. </p>
+<p>Picking 2D-&gt;3D. </p>
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00309">309</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00317">317</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2daf30b0281dfa0f5312e4d50fbb0ab8"></a><!-- doxytag: member="tbe::scene::SceneManager::SetAmbientLight" ref="a2daf30b0281dfa0f5312e4d50fbb0ab8" args="(Vector4f color)" -->
+<a class="anchor" id="a886681d3cbe1b08b75b657fe8f8bbe0d"></a><!-- doxytag: member="tbe::scene::SceneManager::setAmbientLight" ref="a886681d3cbe1b08b75b657fe8f8bbe0d" args="(Vector4f color)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::SetAmbientLight </td>
+          <td class="memname">void SceneManager::setAmbientLight </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td>
           <td class="paramname"><em>color</em></td><td>)</td>
@@ -774,16 +793,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Specifer la composant ambient de la scene. </p>
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00369">369</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00381">381</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae90f056ea8e97c43649a73ecf307ea49"></a><!-- doxytag: member="tbe::scene::SceneManager::SetCurCamera" ref="ae90f056ea8e97c43649a73ecf307ea49" args="(Camera *camera)" -->
+<a class="anchor" id="a0ee69c2f85706e9a974c93749733897f"></a><!-- doxytag: member="tbe::scene::SceneManager::setCurCamera" ref="a0ee69c2f85706e9a974c93749733897f" args="(Camera *camera)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::SetCurCamera </td>
+          <td class="memname">void SceneManager::setCurCamera </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_camera.html">Camera</a> *&#160;</td>
           <td class="paramname"><em>camera</em></td><td>)</td>
@@ -795,16 +814,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Specifier la camera courante. </p>
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00196">196</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00204">204</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a1690ecd61edbc0cc7d5a63dbd5f005b7"></a><!-- doxytag: member="tbe::scene::SceneManager::SetFovy" ref="a1690ecd61edbc0cc7d5a63dbd5f005b7" args="(float fovy)" -->
+<a class="anchor" id="a795a17f977a21046310b51e2a5b019f7"></a><!-- doxytag: member="tbe::scene::SceneManager::setFovy" ref="a795a17f977a21046310b51e2a5b019f7" args="(float fovy)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::SetFovy </td>
+          <td class="memname">void SceneManager::setFovy </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>fovy</em></td><td>)</td>
@@ -814,16 +833,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00259">259</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00267">267</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2f5965347d584f5568b3ca9ff7f3b197"></a><!-- doxytag: member="tbe::scene::SceneManager::SetRatio" ref="a2f5965347d584f5568b3ca9ff7f3b197" args="(float ratio)" -->
+<a class="anchor" id="a0389f7fcc0cbea4bb13b0574eb9471e5"></a><!-- doxytag: member="tbe::scene::SceneManager::setRatio" ref="a0389f7fcc0cbea4bb13b0574eb9471e5" args="(float ratio)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::SetRatio </td>
+          <td class="memname">void SceneManager::setRatio </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>ratio</em></td><td>)</td>
@@ -833,16 +852,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00269">269</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00277">277</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ab6cde47cf68a7432c200fd914966a9b0"></a><!-- doxytag: member="tbe::scene::SceneManager::Setup" ref="ab6cde47cf68a7432c200fd914966a9b0" args="(Vector2i viewport, float ratio, float fovy, float zNear, float zFar)" -->
+<a class="anchor" id="a2672af5395025cd82ffd3b8519b8070c"></a><!-- doxytag: member="tbe::scene::SceneManager::setup" ref="a2672af5395025cd82ffd3b8519b8070c" args="(Vector2i viewport, float ratio, float fovy, float zNear, float zFar)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::Setup </td>
+          <td class="memname">void SceneManager::setup </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td>
           <td class="paramname"><em>viewport</em>, </td>
@@ -886,12 +905,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aea3189433074d3897bf959ec118bba0e"></a><!-- doxytag: member="tbe::scene::SceneManager::SetViewport" ref="aea3189433074d3897bf959ec118bba0e" args="(Vector2i viewport)" -->
+<a class="anchor" id="acf8b7dd450b41d3fb4ab1ed53a11ba9c"></a><!-- doxytag: member="tbe::scene::SceneManager::setViewport" ref="acf8b7dd450b41d3fb4ab1ed53a11ba9c" args="(Vector2i viewport)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::SetViewport </td>
+          <td class="memname">void SceneManager::setViewport </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2i</a>&#160;</td>
           <td class="paramname"><em>viewport</em></td><td>)</td>
@@ -901,16 +920,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00229">229</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00237">237</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae413a91d1855147434a1e269c263be08"></a><!-- doxytag: member="tbe::scene::SceneManager::SetZFar" ref="ae413a91d1855147434a1e269c263be08" args="(float zFar)" -->
+<a class="anchor" id="a9bc036c1a829db92121b92e393943464"></a><!-- doxytag: member="tbe::scene::SceneManager::setZFar" ref="a9bc036c1a829db92121b92e393943464" args="(float zFar)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::SetZFar </td>
+          <td class="memname">void SceneManager::setZFar </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>zFar</em></td><td>)</td>
@@ -920,16 +939,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00239">239</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00247">247</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a72703fb4c7e6e97d07e5c9c6f76d1c37"></a><!-- doxytag: member="tbe::scene::SceneManager::SetZNear" ref="a72703fb4c7e6e97d07e5c9c6f76d1c37" args="(float zNear)" -->
+<a class="anchor" id="a855bbad953f8c6dcb09fbc70e348590d"></a><!-- doxytag: member="tbe::scene::SceneManager::setZNear" ref="a855bbad953f8c6dcb09fbc70e348590d" args="(float zNear)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::SetZNear </td>
+          <td class="memname">void SceneManager::setZNear </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>zNear</em></td><td>)</td>
@@ -939,16 +958,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00249">249</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8cpp_source.html#l00257">257</a> du fichier <a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af2bde6c66496045ef9e81548570f1e16"></a><!-- doxytag: member="tbe::scene::SceneManager::UpdateViewParameter" ref="af2bde6c66496045ef9e81548570f1e16" args="()" -->
+<a class="anchor" id="a1e1139c5ff3e018631be4894deacad29"></a><!-- doxytag: member="tbe::scene::SceneManager::updateViewParameter" ref="a1e1139c5ff3e018631be4894deacad29" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SceneManager::UpdateViewParameter </td>
+          <td class="memname">void SceneManager::updateViewParameter </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -973,7 +992,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00146">146</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00149">149</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -988,7 +1007,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00148">148</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00151">151</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -1003,7 +1022,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00149">149</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00152">152</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -1018,7 +1037,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00158">158</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00161">161</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -1033,7 +1052,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00154">154</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00157">157</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -1048,7 +1067,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00156">156</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00159">159</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -1063,7 +1082,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00144">144</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00147">147</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -1078,7 +1097,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00154">154</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00157">157</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -1093,7 +1112,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00151">151</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00154">154</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -1108,7 +1127,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00159">159</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00162">162</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -1123,7 +1142,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00153">153</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00156">156</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -1138,7 +1157,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00154">154</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00157">157</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -1153,7 +1172,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00154">154</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_scene_manager_8h_source.html#l00157">157</a> du fichier <a class="el" href="_scene_manager_8h_source.html">SceneManager.h</a>.</p>
 
 </div>
 </div>
@@ -1162,7 +1181,7 @@ Attributs protégés</h2></td></tr>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_scene_manager_8cpp_source.html">SceneManager.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:05 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:56 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -41,7 +41,7 @@
 <div class="title">D:/projets/cpp/tbengine/sources/Ball3DMesh.h</div>  </div>
 </div>
 <div class="contents">
-<a href="_ball3_d_mesh_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a href="_ball3_d_mesh_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
 <a name="l00002"></a>00002 <span class="comment"> * File:   Ball3DMesh.h</span>
 <a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
 <a name="l00004"></a>00004 <span class="comment"> *</span>
@@ -75,28 +75,32 @@
 <a name="l00032"></a>00032 
 <a name="l00033"></a>00033     <a class="code" href="classtbe_1_1scene_1_1_ball3_d_mesh.html">Ball3DMesh</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#a2a35d64fea533066cbaadeab5c429973">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_ball3_d_mesh.html">Ball3DMesh</a>&amp; copy);
 <a name="l00034"></a>00034 
-<a name="l00035"></a>00035     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#a2b26a1fd4c3b74e347382a661db85765">Open</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filepath);
+<a name="l00035"></a>00035     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#a7ed7ae887301c16ddf3913f271967852">open</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filepath);
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#ac42a4bd5169007e5df4bf68d510d78fc">GetFilename</a>();
+<a name="l00037"></a>00037     <a class="code" href="classtbe_1_1scene_1_1_ball3_d_mesh.html">Ball3DMesh</a>* <a class="code" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#a6c76847857d280fdd0fe2f0215799944" title="Méthode polymorphique de clonage du noueud.">clone</a>();
 <a name="l00038"></a>00038 
-<a name="l00039"></a>00039     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">Node::CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#ad240be61c11196c7b43cd34376ce4ad7">ConstructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
+<a name="l00039"></a>00039     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#acc6122455453235f7dfbac7a3ef45850">getFilename</a>();
 <a name="l00040"></a>00040 
-<a name="l00041"></a>00041 <span class="keyword">private</span>:
-<a name="l00042"></a>00042     <span class="keywordtype">void</span> ReadMaterial(std::ifstream&amp; file, <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* mat);
-<a name="l00043"></a>00043     <span class="keywordtype">void</span> ReadVertexs(std::ifstream&amp; file);
+<a name="l00041"></a>00041     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">Node::CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#a7024e4f92b7041d17afe712ac3ad3ee0">constructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043     std::vector&lt;std::string&gt; <a class="code" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#a87d9c2916259342f00d3870528ea30c7">getUsedRessources</a>();
 <a name="l00044"></a>00044 
 <a name="l00045"></a>00045 <span class="keyword">private</span>:
-<a name="l00046"></a>00046     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> m_filename;
-<a name="l00047"></a>00047 };
+<a name="l00046"></a>00046     <span class="keywordtype">void</span> readMaterial(std::ifstream&amp; file, <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* mat);
+<a name="l00047"></a>00047     <span class="keywordtype">void</span> readVertexs(std::ifstream&amp; file);
 <a name="l00048"></a>00048 
-<a name="l00049"></a>00049 }
-<a name="l00050"></a>00050 }
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052 <span class="preprocessor">#endif  </span><span class="comment">/* BALL3DMESH_H */</span>
-<a name="l00053"></a>00053 
+<a name="l00049"></a>00049 <span class="keyword">private</span>:
+<a name="l00050"></a>00050     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> m_filename;
+<a name="l00051"></a>00051 };
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053 }
+<a name="l00054"></a>00054 }
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056 <span class="preprocessor">#endif  </span><span class="comment">/* BALL3DMESH_H */</span>
+<a name="l00057"></a>00057 
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:55 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:48 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -88,24 +88,24 @@
 <a name="l00045"></a>00045 
 <a name="l00046"></a><a class="code" href="classtbe_1_1ppe_1_1_dof_effect.html#adb65776d01347daa7bf140081a3bff64">00046</a> DofEffect::DofEffect()
 <a name="l00047"></a>00047 {
-<a name="l00048"></a>00048     m_processShader.ParseFragmentShader(<a class="code" href="_water_8cpp.html#a12c661be997aa0ff946a88175afdee89">fragmentShader</a>);
-<a name="l00049"></a>00049     m_processShader.ParseVertexShader(<a class="code" href="_water_8cpp.html#aea8e0959f6b7eabf6156f801e179da60">vertexShader</a>);
-<a name="l00050"></a>00050     m_processShader.LoadProgram();
+<a name="l00048"></a>00048     m_processShader.parseFragmentShader(<a class="code" href="_water_8cpp.html#a12c661be997aa0ff946a88175afdee89">fragmentShader</a>);
+<a name="l00049"></a>00049     m_processShader.parseVertexShader(<a class="code" href="_water_8cpp.html#aea8e0959f6b7eabf6156f801e179da60">vertexShader</a>);
+<a name="l00050"></a>00050     m_processShader.loadProgram();
 <a name="l00051"></a>00051 
-<a name="l00052"></a>00052     m_processShader.Use(<span class="keyword">true</span>);
-<a name="l00053"></a>00053     m_processShader.SetUniform(<span class="stringliteral">&quot;tColor&quot;</span>, 0);
-<a name="l00054"></a>00054     m_processShader.SetUniform(<span class="stringliteral">&quot;tBlur&quot;</span>, 1);
-<a name="l00055"></a>00055     m_processShader.SetUniform(<span class="stringliteral">&quot;tDepth&quot;</span>, 2);
-<a name="l00056"></a>00056     m_processShader.Use(<span class="keyword">false</span>);
+<a name="l00052"></a>00052     m_processShader.use(<span class="keyword">true</span>);
+<a name="l00053"></a>00053     m_processShader.uniform(<span class="stringliteral">&quot;tColor&quot;</span>, 0);
+<a name="l00054"></a>00054     m_processShader.uniform(<span class="stringliteral">&quot;tBlur&quot;</span>, 1);
+<a name="l00055"></a>00055     m_processShader.uniform(<span class="stringliteral">&quot;tDepth&quot;</span>, 2);
+<a name="l00056"></a>00056     m_processShader.use(<span class="keyword">false</span>);
 <a name="l00057"></a>00057 
-<a name="l00058"></a>00058     m_blur.SetPasse(5);
+<a name="l00058"></a>00058     m_blur.setPasse(5);
 <a name="l00059"></a>00059 }
 <a name="l00060"></a>00060 
 <a name="l00061"></a><a class="code" href="classtbe_1_1ppe_1_1_dof_effect.html#a4aa442493e416de09727e4aefa435ac3">00061</a> DofEffect::~DofEffect()
 <a name="l00062"></a>00062 {
 <a name="l00063"></a>00063 }
 <a name="l00064"></a>00064 
-<a name="l00065"></a><a class="code" href="classtbe_1_1ppe_1_1_dof_effect.html#aa4eac3c161e8327a2982f7e101583fb9">00065</a> <span class="keywordtype">void</span> DofEffect::Process(<a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* rtt)
+<a name="l00065"></a><a class="code" href="classtbe_1_1ppe_1_1_dof_effect.html#a370cfdf08d0f7bb3fe43a4ce7f985d09">00065</a> <span class="keywordtype">void</span> DofEffect::process(<a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* rtt)
 <a name="l00066"></a>00066 {
 <a name="l00067"></a>00067     <span class="comment">/*</span>
 <a name="l00068"></a>00068 <span class="comment">     Etape du DOF :</span>
@@ -115,68 +115,68 @@
 <a name="l00072"></a>00072 <span class="comment">     Rendue workFbo -&gt; fbo (Seulment dans les zones éloigné)</span>
 <a name="l00073"></a>00073 <span class="comment">     */</span>
 <a name="l00074"></a>00074 
-<a name="l00075"></a>00075     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> screenColor = rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a0b6188115de2c7f37c50f93e0a8af2dc">GetColor</a>();
-<a name="l00076"></a>00076     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> screenDepth = rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a4b989c42b998529d68f412a61490f67f">GetDepht</a>();
-<a name="l00077"></a>00077     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> workColor = m_workRtt-&gt;GetColor();
+<a name="l00075"></a>00075     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> screenColor = rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a79ef0bb9edec815e5941c4d57a2ffa2e" title="Renvois, sous forme de texture, le rendue effectuer sur le buffer.">getColor</a>();
+<a name="l00076"></a>00076     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> screenDepth = rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a2107d60f2337fef28949c712d78863ef">getDepht</a>();
+<a name="l00077"></a>00077     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> workColor = m_workRtt-&gt;getColor();
 <a name="l00078"></a>00078 
 <a name="l00079"></a>00079     <span class="comment">// Etape 1 -----------------------------------------------------------------</span>
 <a name="l00080"></a>00080 
-<a name="l00081"></a>00081     m_workRtt-&gt;<a class="code" href="classtbe_1_1_texture.html#aeaef6bc03e7f5f656dad70f54c75e08a" title="Utilisation de la texture.">Use</a>(<span class="keyword">true</span>);
+<a name="l00081"></a>00081     m_workRtt-&gt;<a class="code" href="classtbe_1_1_texture.html#ab9a22f6ff833115a7cbe913c4a1b6e4b" title="Utilisation de la texture (bind)">use</a>(<span class="keyword">true</span>);
 <a name="l00082"></a>00082 
-<a name="l00083"></a>00083     screenColor.<a class="code" href="classtbe_1_1_texture.html#aeaef6bc03e7f5f656dad70f54c75e08a" title="Utilisation de la texture.">Use</a>(<span class="keyword">true</span>);
-<a name="l00084"></a>00084     m_layer.Draw();
+<a name="l00083"></a>00083     screenColor.<a class="code" href="classtbe_1_1_texture.html#ab9a22f6ff833115a7cbe913c4a1b6e4b" title="Utilisation de la texture (bind)">use</a>(<span class="keyword">true</span>);
+<a name="l00084"></a>00084     m_layer.draw();
 <a name="l00085"></a>00085 
-<a name="l00086"></a>00086     m_workRtt-&gt;Use(<span class="keyword">false</span>);
+<a name="l00086"></a>00086     m_workRtt-&gt;use(<span class="keyword">false</span>);
 <a name="l00087"></a>00087 
 <a name="l00088"></a>00088     <span class="comment">// Etape 2 -----------------------------------------------------------------</span>
 <a name="l00089"></a>00089 
-<a name="l00090"></a>00090     m_blur.Process(m_workRtt);
+<a name="l00090"></a>00090     m_blur.process(m_workRtt);
 <a name="l00091"></a>00091 
 <a name="l00092"></a>00092     <span class="comment">// Etape 3 -----------------------------------------------------------------</span>
 <a name="l00093"></a>00093 
-<a name="l00094"></a>00094     rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a21f65ac07ccfe71320d5ee5b89c940cb">Use</a>(<span class="keyword">true</span>);
-<a name="l00095"></a>00095     m_processShader.Use(<span class="keyword">true</span>);
+<a name="l00094"></a>00094     rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a34f4bbf5b1326efd7bb99b80578d9b08">use</a>(<span class="keyword">true</span>);
+<a name="l00095"></a>00095     m_processShader.use(<span class="keyword">true</span>);
 <a name="l00096"></a>00096 
-<a name="l00097"></a>00097     m_layer.Begin();
+<a name="l00097"></a>00097     m_layer.begin();
 <a name="l00098"></a>00098 
 <a name="l00099"></a>00099     <a class="code" href="_g_lee_8h.html#af15266b67de988f5ddf442bbbdd1b3fc">glActiveTexture</a>(<a class="code" href="_g_lee_8h.html#a16cc91096144fc7048b45e2add14915b">GL_TEXTURE0</a>);
 <a name="l00100"></a>00100     <a class="code" href="_g_lee_8h.html#a21827cd469c04eaf79c6f64b24104ae6">glClientActiveTexture</a>(<a class="code" href="_g_lee_8h.html#a16cc91096144fc7048b45e2add14915b">GL_TEXTURE0</a>);
-<a name="l00101"></a>00101     screenColor.<a class="code" href="classtbe_1_1_texture.html#aeaef6bc03e7f5f656dad70f54c75e08a" title="Utilisation de la texture.">Use</a>(<span class="keyword">true</span>);
+<a name="l00101"></a>00101     screenColor.<a class="code" href="classtbe_1_1_texture.html#ab9a22f6ff833115a7cbe913c4a1b6e4b" title="Utilisation de la texture (bind)">use</a>(<span class="keyword">true</span>);
 <a name="l00102"></a>00102 
 <a name="l00103"></a>00103     <a class="code" href="_g_lee_8h.html#af15266b67de988f5ddf442bbbdd1b3fc">glActiveTexture</a>(<a class="code" href="_g_lee_8h.html#a171671ae6383113df51b846373930771">GL_TEXTURE1</a>);
 <a name="l00104"></a>00104     <a class="code" href="_g_lee_8h.html#a21827cd469c04eaf79c6f64b24104ae6">glClientActiveTexture</a>(<a class="code" href="_g_lee_8h.html#a171671ae6383113df51b846373930771">GL_TEXTURE1</a>);
 <a name="l00105"></a>00105     glEnable(GL_TEXTURE_2D);
-<a name="l00106"></a>00106     workColor.<a class="code" href="classtbe_1_1_texture.html#aeaef6bc03e7f5f656dad70f54c75e08a" title="Utilisation de la texture.">Use</a>(<span class="keyword">true</span>);
+<a name="l00106"></a>00106     workColor.<a class="code" href="classtbe_1_1_texture.html#ab9a22f6ff833115a7cbe913c4a1b6e4b" title="Utilisation de la texture (bind)">use</a>(<span class="keyword">true</span>);
 <a name="l00107"></a>00107 
 <a name="l00108"></a>00108     <a class="code" href="_g_lee_8h.html#af15266b67de988f5ddf442bbbdd1b3fc">glActiveTexture</a>(<a class="code" href="_g_lee_8h.html#a0058cf020ea54103d5533abcb2d6899c">GL_TEXTURE2</a>);
 <a name="l00109"></a>00109     <a class="code" href="_g_lee_8h.html#a21827cd469c04eaf79c6f64b24104ae6">glClientActiveTexture</a>(<a class="code" href="_g_lee_8h.html#a0058cf020ea54103d5533abcb2d6899c">GL_TEXTURE2</a>);
 <a name="l00110"></a>00110     glEnable(GL_TEXTURE_2D);
-<a name="l00111"></a>00111     screenDepth.<a class="code" href="classtbe_1_1_texture.html#aeaef6bc03e7f5f656dad70f54c75e08a" title="Utilisation de la texture.">Use</a>(<span class="keyword">true</span>);
+<a name="l00111"></a>00111     screenDepth.<a class="code" href="classtbe_1_1_texture.html#ab9a22f6ff833115a7cbe913c4a1b6e4b" title="Utilisation de la texture (bind)">use</a>(<span class="keyword">true</span>);
 <a name="l00112"></a>00112 
-<a name="l00113"></a>00113     m_layer.Draw(<span class="keyword">false</span>);
+<a name="l00113"></a>00113     m_layer.draw(<span class="keyword">false</span>);
 <a name="l00114"></a>00114 
 <a name="l00115"></a>00115     <a class="code" href="_g_lee_8h.html#af15266b67de988f5ddf442bbbdd1b3fc">glActiveTexture</a>(<a class="code" href="_g_lee_8h.html#a0058cf020ea54103d5533abcb2d6899c">GL_TEXTURE2</a>);
 <a name="l00116"></a>00116     <a class="code" href="_g_lee_8h.html#a21827cd469c04eaf79c6f64b24104ae6">glClientActiveTexture</a>(<a class="code" href="_g_lee_8h.html#a0058cf020ea54103d5533abcb2d6899c">GL_TEXTURE2</a>);
-<a name="l00117"></a>00117     screenColor.<a class="code" href="classtbe_1_1_texture.html#aeaef6bc03e7f5f656dad70f54c75e08a" title="Utilisation de la texture.">Use</a>(<span class="keyword">false</span>);
+<a name="l00117"></a>00117     screenColor.<a class="code" href="classtbe_1_1_texture.html#ab9a22f6ff833115a7cbe913c4a1b6e4b" title="Utilisation de la texture (bind)">use</a>(<span class="keyword">false</span>);
 <a name="l00118"></a>00118 
 <a name="l00119"></a>00119     <a class="code" href="_g_lee_8h.html#af15266b67de988f5ddf442bbbdd1b3fc">glActiveTexture</a>(<a class="code" href="_g_lee_8h.html#a171671ae6383113df51b846373930771">GL_TEXTURE1</a>);
 <a name="l00120"></a>00120     <a class="code" href="_g_lee_8h.html#a21827cd469c04eaf79c6f64b24104ae6">glClientActiveTexture</a>(<a class="code" href="_g_lee_8h.html#a171671ae6383113df51b846373930771">GL_TEXTURE1</a>);
-<a name="l00121"></a>00121     workColor.<a class="code" href="classtbe_1_1_texture.html#aeaef6bc03e7f5f656dad70f54c75e08a" title="Utilisation de la texture.">Use</a>(<span class="keyword">false</span>);
+<a name="l00121"></a>00121     workColor.<a class="code" href="classtbe_1_1_texture.html#ab9a22f6ff833115a7cbe913c4a1b6e4b" title="Utilisation de la texture (bind)">use</a>(<span class="keyword">false</span>);
 <a name="l00122"></a>00122 
 <a name="l00123"></a>00123     <a class="code" href="_g_lee_8h.html#af15266b67de988f5ddf442bbbdd1b3fc">glActiveTexture</a>(<a class="code" href="_g_lee_8h.html#a16cc91096144fc7048b45e2add14915b">GL_TEXTURE0</a>);
 <a name="l00124"></a>00124     <a class="code" href="_g_lee_8h.html#a21827cd469c04eaf79c6f64b24104ae6">glClientActiveTexture</a>(<a class="code" href="_g_lee_8h.html#a16cc91096144fc7048b45e2add14915b">GL_TEXTURE0</a>);
-<a name="l00125"></a>00125     screenDepth.<a class="code" href="classtbe_1_1_texture.html#aeaef6bc03e7f5f656dad70f54c75e08a" title="Utilisation de la texture.">Use</a>(<span class="keyword">false</span>);
+<a name="l00125"></a>00125     screenDepth.<a class="code" href="classtbe_1_1_texture.html#ab9a22f6ff833115a7cbe913c4a1b6e4b" title="Utilisation de la texture (bind)">use</a>(<span class="keyword">false</span>);
 <a name="l00126"></a>00126 
-<a name="l00127"></a>00127     m_layer.End();
+<a name="l00127"></a>00127     m_layer.end();
 <a name="l00128"></a>00128 
-<a name="l00129"></a>00129     workColor.<a class="code" href="classtbe_1_1_texture.html#aeaef6bc03e7f5f656dad70f54c75e08a" title="Utilisation de la texture.">Use</a>(<span class="keyword">false</span>);
+<a name="l00129"></a>00129     workColor.<a class="code" href="classtbe_1_1_texture.html#ab9a22f6ff833115a7cbe913c4a1b6e4b" title="Utilisation de la texture (bind)">use</a>(<span class="keyword">false</span>);
 <a name="l00130"></a>00130 
-<a name="l00131"></a>00131     m_processShader.Use(<span class="keyword">false</span>);
-<a name="l00132"></a>00132     rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a21f65ac07ccfe71320d5ee5b89c940cb">Use</a>(<span class="keyword">false</span>);
+<a name="l00131"></a>00131     m_processShader.use(<span class="keyword">false</span>);
+<a name="l00132"></a>00132     rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a34f4bbf5b1326efd7bb99b80578d9b08">use</a>(<span class="keyword">false</span>);
 <a name="l00133"></a>00133 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:55 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:48 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

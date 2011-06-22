@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -85,26 +85,26 @@
 <a name="l00049"></a>00049 
 <a name="l00050"></a>00050     <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html" title="Emitter de particules. Encapsule tout les propriétés de génération.">ParticlesEmiter</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#abef7644dcf3ebd7c2673f4fa032f93b8">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html" title="Emitter de particules. Encapsule tout les propriétés de génération.">ParticlesEmiter</a>&amp; copy);
 <a name="l00051"></a>00051 
-<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#afbe30105eadad2f84357c8c389a42020">Build</a>();
+<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a4fea0bede21f3bc7092cd69e8c992e03">build</a>();
 <a name="l00053"></a>00053 
-<a name="l00054"></a>00054     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a9b466453a708f70eac7c3890fd957d12">Render</a>();
+<a name="l00054"></a>00054     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a690355702b56eed26eae7c693318bff6">render</a>();
 <a name="l00055"></a>00055 
-<a name="l00056"></a>00056     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a1b49564702fc2e61ef7df077221f9d92">Destroy</a>();
+<a name="l00056"></a>00056     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a11b765fbe0feae49fd3b0db0a615362b">destroy</a>();
 <a name="l00057"></a>00057 
-<a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a72bc993a3b76642c721cece364582781">SetDeadEmiter</a>(<span class="keywordtype">bool</span> deadEmiter);
-<a name="l00059"></a>00059     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a266d62d8c50edea3ed0bbeeb0f0796e2">IsDeadEmiter</a>() <span class="keyword">const</span>;
+<a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#ad6ac28d8da871143236c421d0e4521f1">setDeadEmiter</a>(<span class="keywordtype">bool</span> deadEmiter);
+<a name="l00059"></a>00059     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#ae1ccbff4a4196779d07e625b49d64547">isDeadEmiter</a>() <span class="keyword">const</span>;
 <a name="l00060"></a>00060 
-<a name="l00061"></a>00061     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a99d1ec8e8877756235c503fb719f1f5e">SetNumber</a>(<span class="keywordtype">unsigned</span> number);
-<a name="l00062"></a>00062     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#af44cfbcab66c157507e084e78691f99d">GetNumber</a>() <span class="keyword">const</span>;
+<a name="l00061"></a>00061     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a0625532764f5c12c5bb88ac695ef4922">setNumber</a>(<span class="keywordtype">unsigned</span> number);
+<a name="l00062"></a>00062     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#afbefd24c62b38f9c4ecc345fe2516232">getNumber</a>() <span class="keyword">const</span>;
 <a name="l00063"></a>00063 
-<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a5dcda5245fb80f7c3b762988e5044f12">SetTexture</a>(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>);
-<a name="l00065"></a>00065     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#aa26bb475aec7e4d084f04d7ce1ae89f0">GetTexture</a>() <span class="keyword">const</span>;
+<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a6eb13e44f6620194885b8bc7d4fbd8cf">setTexture</a>(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>);
+<a name="l00065"></a>00065     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#ac63c8f2e907aadf3c0bb1f203d375d14">getTexture</a>() <span class="keyword">const</span>;
 <a name="l00066"></a>00066 
-<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a5f21a8361eb33c96803b1bd88ba1c694">SetDrawNumber</a>(<span class="keywordtype">unsigned</span> drawNumber);
-<a name="l00068"></a>00068     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a599bfab34a29e057045c35e9ce0f79bd">GetDrawNumber</a>() <span class="keyword">const</span>;
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#aa91ed09c7d472a334a0b86a438f4e339">setDrawNumber</a>(<span class="keywordtype">unsigned</span> drawNumber);
+<a name="l00068"></a>00068     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a4d9447ac66f4c2e29769fcb3eacfa46f">getDrawNumber</a>() <span class="keyword">const</span>;
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a6a93fb690451ccfddf88a21584a88e3e">SetDepthTest</a>(<span class="keywordtype">bool</span> depthTest);
-<a name="l00071"></a>00071     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a3ec761acec74e6c29fd42174f4a3a135">IsDepthTest</a>() <span class="keyword">const</span>;
+<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#af526064ff17aa64cbcfccde1d978ce77">setDepthTest</a>(<span class="keywordtype">bool</span> depthTest);
+<a name="l00071"></a>00071     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#affa1586b8aa099619c25bae725e53b84">isDepthTest</a>() <span class="keyword">const</span>;
 <a name="l00072"></a>00072 
 <a name="l00073"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">00073</a>     <span class="keyword">enum</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a>
 <a name="l00074"></a>00074     {
@@ -112,47 +112,100 @@
 <a name="l00076"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665a370190e2e655b480648a03f0d6795c2c">00076</a>         <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665a370190e2e655b480648a03f0d6795c2c">ADDITIVE</a>,
 <a name="l00077"></a>00077     };
 <a name="l00078"></a>00078 
-<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a22557b77d60c70d3ba6d840fa985029e">SetBlendEq</a>(<a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a> blendEq);
-<a name="l00080"></a>00080     <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a49d524fdb795dbe1da9e7a82f67b594d">GetBlendEq</a>() <span class="keyword">const</span>;
+<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#aad355c30fc3cd4ef3f89619f8d1a57e9">setBlendEq</a>(<a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a> blendEq);
+<a name="l00080"></a>00080     <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a0f28233708a18ed9e3b3344cf32df255">getBlendEq</a>() <span class="keyword">const</span>;
 <a name="l00081"></a>00081 
-<a name="l00082"></a>00082     <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a98c15d173239311af8b426c411e10f8e">CheckHardware</a>();
+<a name="l00082"></a>00082     <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html" title="Emitter de particules. Encapsule tout les propriétés de génération.">ParticlesEmiter</a>* <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#ae7ef0c248ba883f53a82b4e5074a67d0">clone</a>();
 <a name="l00083"></a>00083 
-<a name="l00084"></a>00084     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a19119f0c331c4f169cc0c35dd2be596a">ConstructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
+<a name="l00084"></a>00084     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a5415e878667b2fd92bf702cde4476515">process</a>();
 <a name="l00085"></a>00085 
-<a name="l00086"></a>00086     <a class="code" href="structtbe_1_1scene_1_1_particle.html" title="Représentation d&#39;une particule.">Particle</a>* <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a0e47951146e192048b277581ae3ad9ce">BeginParticlesPosProcess</a>();
-<a name="l00087"></a>00087     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a29e8c61298236c002741c6f9cba549ac">EndParticlesPosProcess</a>();
+<a name="l00086"></a>00086     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a30f4426c13a9056fdbcbc315c24ad235">setFreeMove</a>(<span class="keywordtype">float</span> freeMove);
+<a name="l00087"></a>00087     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#af0fdb0e25344115786102d0f0d2f3049">getFreeMove</a>() <span class="keyword">const</span>;
 <a name="l00088"></a>00088 
-<a name="l00089"></a>00089 <span class="keyword">protected</span>:
-<a name="l00090"></a>00090     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a550cbc2c248a607f29a7165c54f22c7f">SetupBullet</a>(<a class="code" href="structtbe_1_1scene_1_1_particle.html" title="Représentation d&#39;une particule.">Particle</a>&amp; <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>) = 0;
+<a name="l00089"></a>00089     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#aa226e2af2bfe49c49306febc7ecf5076">setAutoRebuild</a>(<span class="keywordtype">bool</span> autoRebuild);
+<a name="l00090"></a>00090     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a3f503a1a993e7728b43f48785c20d80c">isAutoRebuild</a>() <span class="keyword">const</span>;
 <a name="l00091"></a>00091 
-<a name="l00092"></a>00092 <span class="keyword">protected</span>:
-<a name="l00093"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a66a1fbaef6397084d3c618d922a9e1bc">00093</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a66a1fbaef6397084d3c618d922a9e1bc">m_deadEmiter</a>;
-<a name="l00094"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a19c044c69d9f30dd6da3cb70a8eebfe5">00094</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a19c044c69d9f30dd6da3cb70a8eebfe5">m_depthTest</a>;
-<a name="l00095"></a>00095 
-<a name="l00096"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a5bbfced45b5e1c9bb821f9391d19a3cc">00096</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a5bbfced45b5e1c9bb821f9391d19a3cc">m_number</a>;
-<a name="l00097"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#abf5976416ffdccece25c74479fe50ec4">00097</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#abf5976416ffdccece25c74479fe50ec4">m_drawNumber</a>;
-<a name="l00098"></a>00098 
-<a name="l00099"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a09521d38aea13642b0fa79b660a79cc4">00099</a>     <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a09521d38aea13642b0fa79b660a79cc4">m_blendEq</a>;
+<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a881ae22f977b7663c25fe5ea74a5d793">setContinousMode</a>(<span class="keywordtype">bool</span> continousMode);
+<a name="l00093"></a>00093     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#acf04d3fff96de674632b5c64f4e73b69">isContinousMode</a>() <span class="keyword">const</span>;
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a0ff292e117f20923e73226d0490f58a2">setLifeDown</a>(<span class="keywordtype">float</span> lifeDown);
+<a name="l00096"></a>00096     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adbb7fd20a5ab8b2e940942ada350eb9a">getLifeDown</a>() <span class="keyword">const</span>;
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#afa93b56e24a71ad3cc134be4d77926d1">setLifeInit</a>(<span class="keywordtype">float</span> lifeInit);
+<a name="l00099"></a>00099     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#af9b5b7bd85375ebb7ebc3f1fa5c1fdfb">getLifeInit</a>() <span class="keyword">const</span>;
 <a name="l00100"></a>00100 
-<a name="l00101"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#addbcecbcbb524fba332b2f96d3d042c8">00101</a>     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#addbcecbcbb524fba332b2f96d3d042c8">m_texture</a>;
-<a name="l00102"></a>00102 
-<a name="l00103"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a8114b313e172025b65af6232db46d2b3">00103</a>     <a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html" title="Scene parallele de rendue des particules.">ParticlesParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a8114b313e172025b65af6232db46d2b3">m_parallelScene</a>;
-<a name="l00104"></a>00104 
-<a name="l00105"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a51f1bd1d6aabfe39a8ee0604ee1fb17e">00105</a>     <a class="code" href="classtbe_1_1ticks_1_1_clock.html" title="Gestion du temps Inclus des fonctions statique pour le formatage des dates et de controle du processu...">ticks::Clock</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a51f1bd1d6aabfe39a8ee0604ee1fb17e">m_timestamp</a>;
+<a name="l00101"></a>00101     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#ad75a5995e3fd6d4aa7c22c5814c21b5a">setGravity</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> gravity);
+<a name="l00102"></a>00102     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#afab9400e0e4a053c1ac4fccacb19f010">getGravity</a>() <span class="keyword">const</span>;
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a55fd7b73d073c295869289821e14e9c3">setBoxSize</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> boxSize);
+<a name="l00105"></a>00105     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a143ed5f9176c1f6f5c1335da70e7c1cc">getBoxSize</a>() <span class="keyword">const</span>;
 <a name="l00106"></a>00106 
-<a name="l00107"></a>00107 <span class="keyword">private</span>:
-<a name="l00108"></a>00108     <a class="code" href="structtbe_1_1scene_1_1_particle.html#aa13ecb0f3a9cffc11fd3c98362c1f30f">Particle::Array</a> m_particles;
-<a name="l00109"></a>00109     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> m_renderId;
-<a name="l00110"></a>00110     <span class="keywordtype">bool</span> m_pointsprite;
-<a name="l00111"></a>00111 };
+<a name="l00107"></a>00107     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#af5f7b48b3c1381cce3162468fb126dd2">setEmitPos</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> emitPos);
+<a name="l00108"></a>00108     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a0c6703b13d9a61a354e465346576d9f7">getEmitPos</a>() <span class="keyword">const</span>;
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a577cdbba8d03498ca4c47683b7bb0f16">setBrustCount</a>(<span class="keywordtype">int</span> brustCount);
+<a name="l00111"></a>00111     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a4e5e74a12e57f2d074b94733c8c8ff7d">getBrustCount</a>() <span class="keyword">const</span>;
 <a name="l00112"></a>00112 
-<a name="l00113"></a>00113 }
-<a name="l00114"></a>00114 }
-<a name="l00115"></a>00115 
-<a name="l00116"></a>00116 <span class="preprocessor">#endif</span>
+<a name="l00113"></a>00113     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a7cf2d93ca0a8366d0af80cc5c442b10b">constructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115     <a class="code" href="structtbe_1_1scene_1_1_particle.html" title="Représentation d&#39;une particule.">Particle</a>* <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#abfb0f5a54ccedc4ea68c75e5cb84710e">beginParticlesPosProcess</a>();
+<a name="l00116"></a>00116     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a22ae2e4e60e970e9dc14cc47266e52f7">endParticlesPosProcess</a>();
+<a name="l00117"></a>00117 
+<a name="l00118"></a>00118     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a42165975c61cb819a5ea15911bd6712c">setUsePointSprite</a>(<span class="keywordtype">bool</span> usePointSprite);
+<a name="l00119"></a>00119     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#abffeeeced7b0e3d5045e12d1990817c4">isUsePointSprite</a>() <span class="keyword">const</span>;
+<a name="l00120"></a>00120 
+<a name="l00121"></a>00121     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a1921e7694f7b4542c29146a7c1b0d605">setBulletSize</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> bulletSize);
+<a name="l00122"></a>00122     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#aff03fafd7d96d77158a57195ebd95960">getBulletSize</a>() <span class="keyword">const</span>;
+<a name="l00123"></a>00123 
+<a name="l00124"></a>00124     <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a82fea39b21ebf13aad0ae539a5fb1ded">checkHardware</a>();
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126 <span class="keyword">protected</span>:
+<a name="l00127"></a>00127     <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a8a25586df06cb4b62f2091223d6e8094">setupBullet</a>(<a class="code" href="structtbe_1_1scene_1_1_particle.html" title="Représentation d&#39;une particule.">Particle</a>&amp; <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>);
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129 <span class="keyword">protected</span>:
+<a name="l00130"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a66a1fbaef6397084d3c618d922a9e1bc">00130</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a66a1fbaef6397084d3c618d922a9e1bc">m_deadEmiter</a>;
+<a name="l00131"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a19c044c69d9f30dd6da3cb70a8eebfe5">00131</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a19c044c69d9f30dd6da3cb70a8eebfe5">m_depthTest</a>;
+<a name="l00132"></a>00132 
+<a name="l00133"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a5bbfced45b5e1c9bb821f9391d19a3cc">00133</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a5bbfced45b5e1c9bb821f9391d19a3cc">m_number</a>;
+<a name="l00134"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#abf5976416ffdccece25c74479fe50ec4">00134</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#abf5976416ffdccece25c74479fe50ec4">m_drawNumber</a>;
+<a name="l00135"></a>00135 
+<a name="l00136"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a09521d38aea13642b0fa79b660a79cc4">00136</a>     <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a09521d38aea13642b0fa79b660a79cc4">m_blendEq</a>;
+<a name="l00137"></a>00137 
+<a name="l00138"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#addbcecbcbb524fba332b2f96d3d042c8">00138</a>     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#addbcecbcbb524fba332b2f96d3d042c8">m_texture</a>;
+<a name="l00139"></a>00139 
+<a name="l00140"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a8114b313e172025b65af6232db46d2b3">00140</a>     <a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html" title="Scene parallele de rendue des particules.">ParticlesParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a8114b313e172025b65af6232db46d2b3">m_parallelScene</a>;
+<a name="l00141"></a>00141 
+<a name="l00142"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a51f1bd1d6aabfe39a8ee0604ee1fb17e">00142</a>     <a class="code" href="classtbe_1_1ticks_1_1_clock.html" title="Gestion du temps Inclus des fonctions statique pour le formatage des dates et de controle du processu...">ticks::Clock</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a51f1bd1d6aabfe39a8ee0604ee1fb17e">m_timestamp</a>;
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144 <span class="keyword">protected</span>:
+<a name="l00145"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a40664f6e865edad9250f6ccfe70459f4">00145</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a40664f6e865edad9250f6ccfe70459f4">m_lifeInit</a>;
+<a name="l00146"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#afaf8212c41340ad51fd9cdb181a2a1bd">00146</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#afaf8212c41340ad51fd9cdb181a2a1bd">m_lifeDown</a>;
+<a name="l00147"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a92f8d21245d1318e13e464951039f19a">00147</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a92f8d21245d1318e13e464951039f19a">m_freeMove</a>;
+<a name="l00148"></a>00148 
+<a name="l00149"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a422e97dc95fe6debf3d2fb562a054b71">00149</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a422e97dc95fe6debf3d2fb562a054b71">m_continousMode</a>;
+<a name="l00150"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a95002e8d2181fdc31fbad93b392c7cd2">00150</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a95002e8d2181fdc31fbad93b392c7cd2">m_autoRebuild</a>;
+<a name="l00151"></a>00151 
+<a name="l00152"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a731890011bafc5cbef2ebde2880131bd">00152</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a731890011bafc5cbef2ebde2880131bd">m_bulletSize</a>;
+<a name="l00153"></a>00153 
+<a name="l00154"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a7755593d999f068501f11c659a6d295b">00154</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a7755593d999f068501f11c659a6d295b">m_emitPos</a>;
+<a name="l00155"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a2b50f7f052d29fc7fbe28808e849c2fe">00155</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a2b50f7f052d29fc7fbe28808e849c2fe">m_gravity</a>;
+<a name="l00156"></a><a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a25a6d5c91ee14fb0b0380f5368f57b3c">00156</a>     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a25a6d5c91ee14fb0b0380f5368f57b3c">m_boxSize</a>;
+<a name="l00157"></a>00157 
+<a name="l00158"></a>00158 <span class="keyword">private</span>:
+<a name="l00159"></a>00159     <a class="code" href="structtbe_1_1scene_1_1_particle.html#aa13ecb0f3a9cffc11fd3c98362c1f30f">Particle::Array</a> m_particles;
+<a name="l00160"></a>00160     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> m_renderId;
+<a name="l00161"></a>00161     <span class="keywordtype">bool</span> m_usePointSprite;
+<a name="l00162"></a>00162 
+<a name="l00163"></a>00163     <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html" title="Emitter de particules. Encapsule tout les propriétés de génération.">ParticlesEmiter</a>&amp; copy(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html" title="Emitter de particules. Encapsule tout les propriétés de génération.">ParticlesEmiter</a>&amp; copy);
+<a name="l00164"></a>00164 };
+<a name="l00165"></a>00165 
+<a name="l00166"></a>00166 }
+<a name="l00167"></a>00167 }
+<a name="l00168"></a>00168 
+<a name="l00169"></a>00169 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

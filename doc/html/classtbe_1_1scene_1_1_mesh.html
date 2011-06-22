@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -50,7 +50,6 @@
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Types publics</a> &#124;
 <a href="#pub-methods">Fonctions membres publiques</a> &#124;
-<a href="#pro-methods">Fonctions membres protégées</a> &#124;
 <a href="#pro-attribs">Attributs protégés</a>  </div>
   <div class="headertitle">
 <div class="title">Référence de la classe tbe::scene::Mesh</div>  </div>
@@ -67,14 +66,15 @@ Graphe d'héritage de tbe::scene::Mesh:</div>
  <div class="center">
   <img src="classtbe_1_1scene_1_1_mesh.png" usemap="#tbe::scene::Mesh_map" alt=""/>
   <map id="tbe::scene::Mesh_map" name="tbe::scene::Mesh_map">
-<area href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom..." alt="tbe::scene::Node" shape="rect" coords="459,0,602,24"/>
-<area href="classtbe_1_1scene_1_1_axes.html" title="Axes aligner en X, Y, Z." alt="tbe::scene::Axes" shape="rect" coords="0,112,143,136"/>
-<area href="classtbe_1_1scene_1_1_ball3_d_mesh.html" alt="tbe::scene::Ball3DMesh" shape="rect" coords="153,112,296,136"/>
-<area href="classtbe_1_1scene_1_1_box.html" title="Primitive de type cube." alt="tbe::scene::Box" shape="rect" coords="306,112,449,136"/>
-<area href="classtbe_1_1scene_1_1_heightmap.html" title="Loader de fichier Heightmap (.raw)" alt="tbe::scene::Heightmap" shape="rect" coords="459,112,602,136"/>
-<area href="classtbe_1_1scene_1_1_o_b_j_mesh.html" title="Loader de fichier Wavefront OBJ (.obj)" alt="tbe::scene::OBJMesh" shape="rect" coords="612,112,755,136"/>
-<area href="classtbe_1_1scene_1_1_plane.html" title="Primitives de type Plan." alt="tbe::scene::Plane" shape="rect" coords="765,112,908,136"/>
-<area href="classtbe_1_1scene_1_1_sphere.html" title="Primitive de type Sphere." alt="tbe::scene::Sphere" shape="rect" coords="918,112,1061,136"/>
+<area href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom..." alt="tbe::scene::Node" shape="rect" coords="0,0,143,24"/>
+<area href="classtbe_1_1scene_1_1_axes.html" title="Axes aligner en X, Y, Z." alt="tbe::scene::Axes" shape="rect" coords="153,112,296,136"/>
+<area href="classtbe_1_1scene_1_1_ball3_d_mesh.html" alt="tbe::scene::Ball3DMesh" shape="rect" coords="153,168,296,192"/>
+<area href="classtbe_1_1scene_1_1_box.html" title="Primitive de type cube." alt="tbe::scene::Box" shape="rect" coords="153,224,296,248"/>
+<area href="classtbe_1_1scene_1_1_grid.html" title="Primitives de type Grille." alt="tbe::scene::Grid" shape="rect" coords="153,280,296,304"/>
+<area href="classtbe_1_1scene_1_1_heightmap.html" title="Loader de fichier Heightmap (.raw)" alt="tbe::scene::Heightmap" shape="rect" coords="153,336,296,360"/>
+<area href="classtbe_1_1scene_1_1_o_b_j_mesh.html" title="Loader de fichier Wavefront OBJ (.obj)" alt="tbe::scene::OBJMesh" shape="rect" coords="153,392,296,416"/>
+<area href="classtbe_1_1scene_1_1_plane.html" title="Primitives de type Plan." alt="tbe::scene::Plane" shape="rect" coords="153,448,296,472"/>
+<area href="classtbe_1_1scene_1_1_sphere.html" title="Primitive de type Sphere." alt="tbe::scene::Sphere" shape="rect" coords="153,504,296,528"/>
 </map>
  </div></div>
 
@@ -95,64 +95,77 @@ Fonctions membres publiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a5efe4da1a4c0971cfb037bd70304c303">~Mesh</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_mesh.html">Mesh</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a6f3675745ab8f0b175afef169fba7fd8">operator=</a> (const <a class="el" href="classtbe_1_1scene_1_1_mesh.html">Mesh</a> &amp;copy)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Opérateur d'assignation.  <a href="#a6f3675745ab8f0b175afef169fba7fd8"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a5c24ddcb1b3780b25181193f03e61596">Clone</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Méthode polymorphique de clonage du noueud.  <a href="#a5c24ddcb1b3780b25181193f03e61596"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a75e66bcd90c09492676a4cfe5b23c3af">Render</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendue.  <a href="#a75e66bcd90c09492676a4cfe5b23c3af"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a182d82e681402c6ec9311cd03b08a274">Process</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Traitement.  <a href="#a182d82e681402c6ec9311cd03b08a274"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a83beb1ae915146cbccec18230119a19d">ComputeAabb</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule l'AABB du mesh.  <a href="#a83beb1ae915146cbccec18230119a19d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a119b6a2f78b7de3b9f1cc72614fde54b">ComputeTangent</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule l'espace tangente des vertex du mesh.  <a href="#a119b6a2f78b7de3b9f1cc72614fde54b"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a6e640686cf9dedb9d58c03544eec443d">ComputeAocc</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule l'occlusion ambiante.  <a href="#a6e640686cf9dedb9d58c03544eec443d"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#af2c28f6f6a7c6aad70f4825b19aac7d6">FindFloor</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> &amp;<a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, bool global)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois la position y des coordonnés x z dans le repere local du mesh.  <a href="#af2c28f6f6a7c6aad70f4825b19aac7d6"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a7df534750837062b4b48c5100e108373">AddMaterial</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> *material)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajout un materieux au noeud.  <a href="#a7df534750837062b4b48c5100e108373"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a0fd1b99f7ede3f7592e019a261c8d145">GetMaterialCount</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois le nombre de materials assosier au noeud.  <a href="#a0fd1b99f7ede3f7592e019a261c8d145"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Vector2i::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#af36ec086b1ae099221a11512084b5ca6">GetMaterialApply</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a15e0b2cad9f7c24d2bbcf0e1626b4c72">GetMaterial</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois le materieux identifier par son nom.  <a href="#a15e0b2cad9f7c24d2bbcf0e1626b4c72"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">Material::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a160f8073a7584dc41fc5a2cdc455f777">GetAllMaterial</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois tout les materials du mesh.  <a href="#a160f8073a7584dc41fc5a2cdc455f777"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a057d7afd1041cf4116e8dcbfa1338fef">ApplyShader</a> (<a class="el" href="classtbe_1_1_shader.html">Shader</a> <a class="el" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique un shader a tout les materieux du mesh.  <a href="#a057d7afd1041cf4116e8dcbfa1338fef"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ae35ce88a09293429880272dbf64fd9a6">ApplyColor</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> materialName, <a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="el" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique une couleur a tout les vertecies du mesh.  <a href="#ae35ce88a09293429880272dbf64fd9a6"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#aa08178f97526dd243384cd60da962de3">DeleteMaterial</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime le materieux name.  <a href="#aa08178f97526dd243384cd60da962de3"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a442cd89e1b48ffd840cb573e5d5e0c67">ReleaseMaterial</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Déttache le materieux name du noeud.  <a href="#a442cd89e1b48ffd840cb573e5d5e0c67"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a657f8bfafaf4b4d354a6b229235fae29">SetWithTexCoord</a> (bool withTexCoord)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Contien les coordonnés pour l'application d'une texture.  <a href="#a657f8bfafaf4b4d354a6b229235fae29"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a578892e9088b16ef2bc57fac67be6830">IsWithTexCoord</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a521744aeb5f325a204714c8fa4d89e2c">SetWithNormal</a> (bool withNotmal)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Contien les vecteur des normlas pour les faces.  <a href="#a521744aeb5f325a204714c8fa4d89e2c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#aba0369bf0252d9e2940de2bc839d3ff3">IsWithNormal</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a334effbd2dd53a996bbc683071b97691">SetTriangulate</a> (bool triangulate)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Triangulation des face du model.  <a href="#a334effbd2dd53a996bbc683071b97691"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ae29b94ffd35dfa170769a1d4cffa6424">IsTriangulate</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a39203c84d94e3db0b341d16874c845d2">ApplyMaterial</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, unsigned <a class="el" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>, unsigned <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a8ed1f849f16d8a88b798822c996ffe00">ApplyMaterial</a> (<a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> *material, unsigned <a class="el" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>, unsigned <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a9120406aab8763dbedd150fa34c959bf">IsTransparent</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoi 'true' si le mesh contien un materieu transparent.  <a href="#a9120406aab8763dbedd150fa34c959bf"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a7ab17698ddd91cdacaa1a04b35b54615">SetVisible</a> (bool visible)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a570976d71b2bda2c52d39ba0d165d9bf">IsVisible</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_hardware_buffer.html">HardwareBuffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ae9c65799ed03efbaf0a1617f21d25f35">GetHardwareBuffer</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois le buffer graphique de rendue.  <a href="#ae9c65799ed03efbaf0a1617f21d25f35"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a5d6cd3898f1af824284cbe796e13dc29">ConstructionMap</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root)</td></tr>
-<tr><td colspan="2"><h2><a name="pro-methods"></a>
-Fonctions membres protégées</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a237a3f0b04943de2792a13fd1d7f6465">RayCast</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> rayStart, <a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> rayDiri, <a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> &amp;intersect, bool global)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_mesh.html">Mesh</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a95eab562b89e2078765630e29ced1e49">clone</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Méthode polymorphique de clonage du noueud.  <a href="#a95eab562b89e2078765630e29ced1e49"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a7008e23cbaacd2878b7e81a01ac5d96b">clear</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#aa196429f3e87ecd53e8770ba979222f4">render</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendue.  <a href="#aa196429f3e87ecd53e8770ba979222f4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a13a9487ad1502929421a922e75b87487">process</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Traitement.  <a href="#a13a9487ad1502929421a922e75b87487"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a2e8fd09ebaf0413e2d73f54286ce20f1">computeAabb</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule l'AABB du mesh.  <a href="#a2e8fd09ebaf0413e2d73f54286ce20f1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_a_a_b_b.html">AABB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a8e8cd13605126cb19aa71447dcfb8415">getAbsolutAabb</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoi l'AABB Absolue du mesh.  <a href="#a8e8cd13605126cb19aa71447dcfb8415"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ab8a8215c5c0df4a1f71e4aa321d7c4a9">computeTangent</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule l'espace tangente des vertex du mesh.  <a href="#ab8a8215c5c0df4a1f71e4aa321d7c4a9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#aa59da978c8a9dfe43cd803ff5a10dbe2">computeAocc</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule l'occlusion ambiante.  <a href="#aa59da978c8a9dfe43cd803ff5a10dbe2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#adaaf5e95a84fd7513efe406f38428583">findFloor</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> &amp;<a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, bool global)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois la position y des coordonnés x z dans le repere local du mesh.  <a href="#adaaf5e95a84fd7513efe406f38428583"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a8960b9034c0402d5bd19f2d4352acb32">addMaterial</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> *material)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajout un materieux au noeud.  <a href="#a8960b9034c0402d5bd19f2d4352acb32"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a1f2c02daec521b8c9770aa5bdfaa0c6e">getMaterialCount</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois le nombre de materials assosier au noeud.  <a href="#a1f2c02daec521b8c9770aa5bdfaa0c6e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Vector2i::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ad8d005bd2d74345200d266b0e772033b">getMaterialApply</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a8a4b4918b529ae223804c44c8afa185b">getMaterial</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois le materieux identifier par son nom.  <a href="#a8a4b4918b529ae223804c44c8afa185b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">Material::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a9c8b4cde329d9101b6671eb4646d27eb">getAllMaterial</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois tout les materials du mesh.  <a href="#a9c8b4cde329d9101b6671eb4646d27eb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a69e978ce6e4cf41c23ad8489a3b7cd4a">applyShader</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> materialName, <a class="el" href="classtbe_1_1_shader.html">Shader</a> <a class="el" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique un shader a tout les materieux du mesh.  <a href="#a69e978ce6e4cf41c23ad8489a3b7cd4a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#af36083fa49572482ab61654fd8977f6a">applyShader</a> (<a class="el" href="classtbe_1_1_shader.html">Shader</a> <a class="el" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a411aa1a838ca61c0e27a5e5edeac587a">setColor</a> (<a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="el" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique une couleur a tout les vertecies du mesh.  <a href="#a411aa1a838ca61c0e27a5e5edeac587a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a0664773fbdff56c619ec162297955459">getColor</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ae64ec2c8b450cba12f5dd244440128af">setOpacity</a> (float opacity)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a0623ac5ab2146435483faf89be60a2ea">getOpacity</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#adfd4089fe817b42cda2bc78064585313">deleteMaterial</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime le materieux name.  <a href="#adfd4089fe817b42cda2bc78064585313"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ad6891f844611aa2c7b8a5837c1c01d6d">releaseMaterial</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Déttache le materieux name du noeud.  <a href="#ad6891f844611aa2c7b8a5837c1c01d6d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a8fede60532c5359f36053c07e9cad3e3">setWithTexCoord</a> (bool withTexCoord)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Contien les coordonnés pour l'application d'une texture.  <a href="#a8fede60532c5359f36053c07e9cad3e3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a7637c065627dede21493391fc169e701">isWithTexCoord</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a942d68274179690753aba4beba42d28a">setWithNormal</a> (bool withNotmal)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Contien les vecteur des normlas pour les faces.  <a href="#a942d68274179690753aba4beba42d28a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#afb3d6bb2e0caa743a709a5f7c70fb07d">isWithNormal</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a4e90aa9fd7b79773b5913c796336f75a">setTriangulate</a> (bool triangulate)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Triangulation des face du model.  <a href="#a4e90aa9fd7b79773b5913c796336f75a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a2c2d475b5314aedd6bf51842eef65c64">isTriangulate</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a94e75f603a2f9c6502a3b655aa0f5828">applyMaterial</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, unsigned <a class="el" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>, unsigned <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a0ed13a2a1a3036ba5f4d0cf887b97a41">applyMaterial</a> (<a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> *material, unsigned <a class="el" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>, unsigned <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ad57833d90d76a48b3fb5eed87803d3dd">isTransparent</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoi `true` si le mesh contien un materieu transparent.  <a href="#ad57833d90d76a48b3fb5eed87803d3dd"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a4b1d195f81afe1429d5fdffeaab2a25b">setVisible</a> (bool visible)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a485141fe6cab6b36fe5bd2627b9d592b">isVisible</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_hardware_buffer.html">HardwareBuffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#aef33fa9c19b72b2d358512b40e2cec09">getHardwareBuffer</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois le buffer graphique de rendue.  <a href="#aef33fa9c19b72b2d358512b40e2cec09"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a0bc907f6c104505c9d793c81b28f0f94">constructionMap</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ac85b236dcf61a9d29f21e107fdb0859c">setOutputMaterial</a> (bool outputMaterial)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ac20a54629b6fcf1b04c3252ddb356af8">isOutputMaterial</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a423fe6055b1e656a890fcd5d491c5190">setVertexScale</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> vertexScale)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ad4b3108eabbb1d4596519b1c1dea4abc">getVertexScale</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a3d672898d0c9cfba2b4170903f24b21a">setBillBoard</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2b</a> billBoard)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">Vector2b</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a1ad9c93c05f3454820200c3229c6bc88">getBillBoard</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a62396735a71f3d252ac94f379b714b9c">rayCast</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> rayStart, <a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> rayDiri, <a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> &amp;intersect, bool global)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a85594fe24835271caa10895a6fc53c52">getUsedRessources</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ab37f2ef03c7150858266d6f1c547a639">m_triangulate</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a9f450ba50810ce901bcc5ff5a64f4f39">m_withNormal</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ad7ecc8dd85c6b3d7f5c01e96e3a8998d">m_withTexCoord</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a96083e04f965f730bdcea94d5ec07d4c">m_visible</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ae54db1999d555a5107343c2de1263d00">m_outputMaterial</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_hardware_buffer.html">HardwareBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html">MeshParallelScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">m_parallelScene</a></td></tr>
 </table>
@@ -174,7 +187,7 @@ Attributs protégés</h2></td></tr>
 
 <p>Réimplémentée à partir de <a class="el" href="classtbe_1_1scene_1_1_node.html#a2999d055ea6712ab4d6a273a99303cde">tbe::scene::Node</a>.</p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00134">134</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00150">150</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
 
 </div>
 </div>
@@ -191,7 +204,7 @@ Attributs protégés</h2></td></tr>
 
 <p>Réimplémentée à partir de <a class="el" href="classtbe_1_1scene_1_1_node.html#a5c173ba0dcb14bd216253537113317ad">tbe::scene::Node</a>.</p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00133">133</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00149">149</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
 
 </div>
 </div>
@@ -230,7 +243,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00031">31</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00037">37</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -248,17 +261,17 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00038">38</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00044">44</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Documentation des fonctions membres</h2>
-<a class="anchor" id="a7df534750837062b4b48c5100e108373"></a><!-- doxytag: member="tbe::scene::Mesh::AddMaterial" ref="a7df534750837062b4b48c5100e108373" args="(std::string name, Material *material)" -->
+<a class="anchor" id="a8960b9034c0402d5bd19f2d4352acb32"></a><!-- doxytag: member="tbe::scene::Mesh::addMaterial" ref="a8960b9034c0402d5bd19f2d4352acb32" args="(std::string name, Material *material)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::AddMaterial </td>
+          <td class="memname">void Mesh::addMaterial </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
           <td class="paramname"><em>name</em>, </td>
@@ -280,47 +293,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Ajout un materieux au noeud. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00597">597</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00685">685</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae35ce88a09293429880272dbf64fd9a6"></a><!-- doxytag: member="tbe::scene::Mesh::ApplyColor" ref="ae35ce88a09293429880272dbf64fd9a6" args="(std::string materialName, Vector4f color)" -->
+<a class="anchor" id="a94e75f603a2f9c6502a3b655aa0f5828"></a><!-- doxytag: member="tbe::scene::Mesh::applyMaterial" ref="a94e75f603a2f9c6502a3b655aa0f5828" args="(std::string name, unsigned offset, unsigned size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::ApplyColor </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
-          <td class="paramname"><em>materialName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td>
-          <td class="paramname"><em>color</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Applique une couleur a tout les vertecies du mesh. </p>
-
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00614">614</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a39203c84d94e3db0b341d16874c845d2"></a><!-- doxytag: member="tbe::scene::Mesh::ApplyMaterial" ref="a39203c84d94e3db0b341d16874c845d2" args="(std::string name, unsigned offset, unsigned size)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Mesh::ApplyMaterial </td>
+          <td class="memname">void Mesh::applyMaterial </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
           <td class="paramname"><em>name</em>, </td>
@@ -355,16 +337,16 @@ Attributs protégés</h2></td></tr>
   </dd>
 </dl>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00680">680</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00795">795</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a8ed1f849f16d8a88b798822c996ffe00"></a><!-- doxytag: member="tbe::scene::Mesh::ApplyMaterial" ref="a8ed1f849f16d8a88b798822c996ffe00" args="(Material *material, unsigned offset, unsigned size)" -->
+<a class="anchor" id="a0ed13a2a1a3036ba5f4d0cf887b97a41"></a><!-- doxytag: member="tbe::scene::Mesh::applyMaterial" ref="a0ed13a2a1a3036ba5f4d0cf887b97a41" args="(Material *material, unsigned offset, unsigned size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::ApplyMaterial </td>
+          <td class="memname">void Mesh::applyMaterial </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> *&#160;</td>
           <td class="paramname"><em>material</em>, </td>
@@ -399,16 +381,47 @@ Attributs protégés</h2></td></tr>
   </dd>
 </dl>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00686">686</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00801">801</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a057d7afd1041cf4116e8dcbfa1338fef"></a><!-- doxytag: member="tbe::scene::Mesh::ApplyShader" ref="a057d7afd1041cf4116e8dcbfa1338fef" args="(Shader shader)" -->
+<a class="anchor" id="a69e978ce6e4cf41c23ad8489a3b7cd4a"></a><!-- doxytag: member="tbe::scene::Mesh::applyShader" ref="a69e978ce6e4cf41c23ad8489a3b7cd4a" args="(std::string materialName, Shader shader)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::ApplyShader </td>
+          <td class="memname">void Mesh::applyShader </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>materialName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_shader.html">Shader</a>&#160;</td>
+          <td class="paramname"><em>shader</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Applique un shader a tout les materieux du mesh. </p>
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00736">736</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af36083fa49572482ab61654fd8977f6a"></a><!-- doxytag: member="tbe::scene::Mesh::applyShader" ref="af36083fa49572482ab61654fd8977f6a" args="(Shader shader)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Mesh::applyShader </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_shader.html">Shader</a>&#160;</td>
           <td class="paramname"><em>shader</em></td><td>)</td>
@@ -418,18 +431,34 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Applique un shader a tout les materieux du mesh. </p>
-
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00627">627</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00742">742</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a5c24ddcb1b3780b25181193f03e61596"></a><!-- doxytag: member="tbe::scene::Mesh::Clone" ref="a5c24ddcb1b3780b25181193f03e61596" args="()" -->
+<a class="anchor" id="a7008e23cbaacd2878b7e81a01ac5d96b"></a><!-- doxytag: member="tbe::scene::Mesh::clear" ref="a7008e23cbaacd2878b7e81a01ac5d96b" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html">Node</a> * Mesh::Clone </td>
+          <td class="memname">void Mesh::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00058">58</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a95eab562b89e2078765630e29ced1e49"></a><!-- doxytag: member="tbe::scene::Mesh::clone" ref="a95eab562b89e2078765630e29ced1e49" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_mesh.html">Mesh</a> * Mesh::clone </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [virtual]</code></td>
@@ -440,18 +469,20 @@ Attributs protégés</h2></td></tr>
 
 <p>Méthode polymorphique de clonage du noueud. </p>
 
-<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_node.html#a618cf8258583f6fbde8e222f74530882">tbe::scene::Node</a>.</p>
+<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_node.html#a1f0050c1fe725e71da783733f8cc77ec">tbe::scene::Node</a>.</p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00075">75</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Réimplémentée dans <a class="el" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#a6c76847857d280fdd0fe2f0215799944">tbe::scene::Ball3DMesh</a>, et <a class="el" href="classtbe_1_1scene_1_1_o_b_j_mesh.html#a2612e095b8cdd6203cc0f36d71bdfd11">tbe::scene::OBJMesh</a>.</p>
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00111">111</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a83beb1ae915146cbccec18230119a19d"></a><!-- doxytag: member="tbe::scene::Mesh::ComputeAabb" ref="a83beb1ae915146cbccec18230119a19d" args="()" -->
+<a class="anchor" id="a2e8fd09ebaf0413e2d73f54286ce20f1"></a><!-- doxytag: member="tbe::scene::Mesh::computeAabb" ref="a2e8fd09ebaf0413e2d73f54286ce20f1" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::ComputeAabb </td>
+          <td class="memname">void Mesh::computeAabb </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -462,16 +493,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Calcule l'AABB du mesh. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00080">80</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00133">133</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a6e640686cf9dedb9d58c03544eec443d"></a><!-- doxytag: member="tbe::scene::Mesh::ComputeAocc" ref="a6e640686cf9dedb9d58c03544eec443d" args="()" -->
+<a class="anchor" id="aa59da978c8a9dfe43cd803ff5a10dbe2"></a><!-- doxytag: member="tbe::scene::Mesh::computeAocc" ref="aa59da978c8a9dfe43cd803ff5a10dbe2" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::ComputeAocc </td>
+          <td class="memname">void Mesh::computeAocc </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -482,16 +513,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Calcule l'occlusion ambiante. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00157">157</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00212">212</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a119b6a2f78b7de3b9f1cc72614fde54b"></a><!-- doxytag: member="tbe::scene::Mesh::ComputeTangent" ref="a119b6a2f78b7de3b9f1cc72614fde54b" args="()" -->
+<a class="anchor" id="ab8a8215c5c0df4a1f71e4aa321d7c4a9"></a><!-- doxytag: member="tbe::scene::Mesh::computeTangent" ref="ab8a8215c5c0df4a1f71e4aa321d7c4a9" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::ComputeTangent </td>
+          <td class="memname">void Mesh::computeTangent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -502,16 +533,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Calcule l'espace tangente des vertex du mesh. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00092">92</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00147">147</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a5d6cd3898f1af824284cbe796e13dc29"></a><!-- doxytag: member="tbe::scene::Mesh::ConstructionMap" ref="a5d6cd3898f1af824284cbe796e13dc29" args="(std::string root)" -->
+<a class="anchor" id="a0bc907f6c104505c9d793c81b28f0f94"></a><!-- doxytag: member="tbe::scene::Mesh::constructionMap" ref="a0bc907f6c104505c9d793c81b28f0f94" args="(std::string root)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">Node::CtorMap</a> Mesh::ConstructionMap </td>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">Node::CtorMap</a> Mesh::constructionMap </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
           <td class="paramname"><em>root</em></td><td>)</td>
@@ -521,20 +552,20 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Réimplémentée à partir de <a class="el" href="classtbe_1_1scene_1_1_node.html#a3e11df7d7d1cef5c977f36f91d9233c5">tbe::scene::Node</a>.</p>
+<p>Réimplémentée à partir de <a class="el" href="classtbe_1_1scene_1_1_node.html#a9a94ddee792cba92636a1f048d0eee3f">tbe::scene::Node</a>.</p>
 
-<p>Réimplémentée dans <a class="el" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#ad240be61c11196c7b43cd34376ce4ad7">tbe::scene::Ball3DMesh</a>, et <a class="el" href="classtbe_1_1scene_1_1_o_b_j_mesh.html#a700dd2ef5e799cad6f7a56ce66932f7e">tbe::scene::OBJMesh</a>.</p>
+<p>Réimplémentée dans <a class="el" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#a7024e4f92b7041d17afe712ac3ad3ee0">tbe::scene::Ball3DMesh</a>, et <a class="el" href="classtbe_1_1scene_1_1_o_b_j_mesh.html#a5c044d95a25d628ac89abfecbb4df3b3">tbe::scene::OBJMesh</a>.</p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00715">715</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00830">830</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aa08178f97526dd243384cd60da962de3"></a><!-- doxytag: member="tbe::scene::Mesh::DeleteMaterial" ref="aa08178f97526dd243384cd60da962de3" args="(std::string name)" -->
+<a class="anchor" id="adfd4089fe817b42cda2bc78064585313"></a><!-- doxytag: member="tbe::scene::Mesh::deleteMaterial" ref="adfd4089fe817b42cda2bc78064585313" args="(std::string name)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::DeleteMaterial </td>
+          <td class="memname">void Mesh::deleteMaterial </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
@@ -546,16 +577,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Supprime le materieux name. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00604">604</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00692">692</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af2c28f6f6a7c6aad70f4825b19aac7d6"></a><!-- doxytag: member="tbe::scene::Mesh::FindFloor" ref="af2c28f6f6a7c6aad70f4825b19aac7d6" args="(Vector3f &amp;pos, bool global)" -->
+<a class="anchor" id="adaaf5e95a84fd7513efe406f38428583"></a><!-- doxytag: member="tbe::scene::Mesh::findFloor" ref="adaaf5e95a84fd7513efe406f38428583" args="(Vector3f &amp;pos, bool global)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Mesh::FindFloor </td>
+          <td class="memname">bool Mesh::findFloor </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
@@ -577,16 +608,36 @@ Attributs protégés</h2></td></tr>
 
 <p>Renvois la position y des coordonnés x z dans le repere local du mesh. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00580">580</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00668">668</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a160f8073a7584dc41fc5a2cdc455f777"></a><!-- doxytag: member="tbe::scene::Mesh::GetAllMaterial" ref="a160f8073a7584dc41fc5a2cdc455f777" args="()" -->
+<a class="anchor" id="a8e8cd13605126cb19aa71447dcfb8415"></a><!-- doxytag: member="tbe::scene::Mesh::getAbsolutAabb" ref="a8e8cd13605126cb19aa71447dcfb8415" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">Material::Array</a> Mesh::GetAllMaterial </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_a_a_b_b.html">AABB</a> Mesh::getAbsolutAabb </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Renvoi l'AABB Absolue du mesh. </p>
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00116">116</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9c8b4cde329d9101b6671eb4646d27eb"></a><!-- doxytag: member="tbe::scene::Mesh::getAllMaterial" ref="a9c8b4cde329d9101b6671eb4646d27eb" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">Material::Array</a> Mesh::getAllMaterial </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -597,16 +648,52 @@ Attributs protégés</h2></td></tr>
 
 <p>Renvois tout les materials du mesh. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00636">636</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00751">751</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae9c65799ed03efbaf0a1617f21d25f35"></a><!-- doxytag: member="tbe::scene::Mesh::GetHardwareBuffer" ref="ae9c65799ed03efbaf0a1617f21d25f35" args="()" -->
+<a class="anchor" id="a1ad9c93c05f3454820200c3229c6bc88"></a><!-- doxytag: member="tbe::scene::Mesh::getBillBoard" ref="a1ad9c93c05f3454820200c3229c6bc88" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_hardware_buffer.html">HardwareBuffer</a> &amp; Mesh::GetHardwareBuffer </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2b</a> Mesh::getBillBoard </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00663">663</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0664773fbdff56c619ec162297955459"></a><!-- doxytag: member="tbe::scene::Mesh::getColor" ref="a0664773fbdff56c619ec162297955459" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a> Mesh::getColor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00731">731</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aef33fa9c19b72b2d358512b40e2cec09"></a><!-- doxytag: member="tbe::scene::Mesh::getHardwareBuffer" ref="aef33fa9c19b72b2d358512b40e2cec09" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_hardware_buffer.html">HardwareBuffer</a> &amp; Mesh::getHardwareBuffer </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -617,16 +704,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Renvois le buffer graphique de rendue. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00700">700</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00815">815</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a15e0b2cad9f7c24d2bbcf0e1626b4c72"></a><!-- doxytag: member="tbe::scene::Mesh::GetMaterial" ref="a15e0b2cad9f7c24d2bbcf0e1626b4c72" args="(std::string name)" -->
+<a class="anchor" id="a8a4b4918b529ae223804c44c8afa185b"></a><!-- doxytag: member="tbe::scene::Mesh::getMaterial" ref="a8a4b4918b529ae223804c44c8afa185b" args="(std::string name)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> * Mesh::GetMaterial </td>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> * Mesh::getMaterial </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
@@ -638,16 +725,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Renvois le materieux identifier par son nom. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00662">662</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00777">777</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af36ec086b1ae099221a11512084b5ca6"></a><!-- doxytag: member="tbe::scene::Mesh::GetMaterialApply" ref="af36ec086b1ae099221a11512084b5ca6" args="(std::string name)" -->
+<a class="anchor" id="ad8d005bd2d74345200d266b0e772033b"></a><!-- doxytag: member="tbe::scene::Mesh::getMaterialApply" ref="ad8d005bd2d74345200d266b0e772033b" args="(std::string name)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Vector2i::Array</a> Mesh::GetMaterialApply </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Vector2i::Array</a> Mesh::getMaterialApply </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
@@ -665,16 +752,16 @@ Attributs protégés</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Renvoie:</b></dt><dd></dd></dl>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00647">647</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00762">762</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a0fd1b99f7ede3f7592e019a261c8d145"></a><!-- doxytag: member="tbe::scene::Mesh::GetMaterialCount" ref="a0fd1b99f7ede3f7592e019a261c8d145" args="()" -->
+<a class="anchor" id="a1f2c02daec521b8c9770aa5bdfaa0c6e"></a><!-- doxytag: member="tbe::scene::Mesh::getMaterialCount" ref="a1f2c02daec521b8c9770aa5bdfaa0c6e" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned Mesh::GetMaterialCount </td>
+          <td class="memname">unsigned Mesh::getMaterialCount </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -685,16 +772,90 @@ Attributs protégés</h2></td></tr>
 
 <p>Renvois le nombre de materials assosier au noeud. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00609">609</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00697">697</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9120406aab8763dbedd150fa34c959bf"></a><!-- doxytag: member="tbe::scene::Mesh::IsTransparent" ref="a9120406aab8763dbedd150fa34c959bf" args="()" -->
+<a class="anchor" id="a0623ac5ab2146435483faf89be60a2ea"></a><!-- doxytag: member="tbe::scene::Mesh::getOpacity" ref="a0623ac5ab2146435483faf89be60a2ea" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Mesh::IsTransparent </td>
+          <td class="memname">float Mesh::getOpacity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00715">715</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a85594fe24835271caa10895a6fc53c52"></a><!-- doxytag: member="tbe::scene::Mesh::getUsedRessources" ref="a85594fe24835271caa10895a6fc53c52" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> &gt; Mesh::getUsedRessources </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Réimplémentée dans <a class="el" href="classtbe_1_1scene_1_1_ball3_d_mesh.html#a87d9c2916259342f00d3870528ea30c7">tbe::scene::Ball3DMesh</a>, et <a class="el" href="classtbe_1_1scene_1_1_o_b_j_mesh.html#aead1434a9b4dc267ea8a2547b09f8f29">tbe::scene::OBJMesh</a>.</p>
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00921">921</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad4b3108eabbb1d4596519b1c1dea4abc"></a><!-- doxytag: member="tbe::scene::Mesh::getVertexScale" ref="ad4b3108eabbb1d4596519b1c1dea4abc" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> Mesh::getVertexScale </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00916">916</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac20a54629b6fcf1b04c3252ddb356af8"></a><!-- doxytag: member="tbe::scene::Mesh::isOutputMaterial" ref="ac20a54629b6fcf1b04c3252ddb356af8" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Mesh::isOutputMaterial </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00885">885</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad57833d90d76a48b3fb5eed87803d3dd"></a><!-- doxytag: member="tbe::scene::Mesh::isTransparent" ref="ad57833d90d76a48b3fb5eed87803d3dd" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Mesh::isTransparent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -703,18 +864,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Renvoi 'true' si le mesh contien un materieu transparent. </p>
+<p>Renvoi `true` si le mesh contien un materieu transparent. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00588">588</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00676">676</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae29b94ffd35dfa170769a1d4cffa6424"></a><!-- doxytag: member="tbe::scene::Mesh::IsTriangulate" ref="ae29b94ffd35dfa170769a1d4cffa6424" args="() const " -->
+<a class="anchor" id="a2c2d475b5314aedd6bf51842eef65c64"></a><!-- doxytag: member="tbe::scene::Mesh::isTriangulate" ref="a2c2d475b5314aedd6bf51842eef65c64" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tbe::scene::Mesh::IsTriangulate </td>
+          <td class="memname">bool tbe::scene::Mesh::isTriangulate </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -725,12 +886,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a570976d71b2bda2c52d39ba0d165d9bf"></a><!-- doxytag: member="tbe::scene::Mesh::IsVisible" ref="a570976d71b2bda2c52d39ba0d165d9bf" args="() const " -->
+<a class="anchor" id="a485141fe6cab6b36fe5bd2627b9d592b"></a><!-- doxytag: member="tbe::scene::Mesh::isVisible" ref="a485141fe6cab6b36fe5bd2627b9d592b" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Mesh::IsVisible </td>
+          <td class="memname">bool Mesh::isVisible </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -739,16 +900,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00710">710</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00825">825</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aba0369bf0252d9e2940de2bc839d3ff3"></a><!-- doxytag: member="tbe::scene::Mesh::IsWithNormal" ref="aba0369bf0252d9e2940de2bc839d3ff3" args="() const " -->
+<a class="anchor" id="afb3d6bb2e0caa743a709a5f7c70fb07d"></a><!-- doxytag: member="tbe::scene::Mesh::isWithNormal" ref="afb3d6bb2e0caa743a709a5f7c70fb07d" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tbe::scene::Mesh::IsWithNormal </td>
+          <td class="memname">bool tbe::scene::Mesh::isWithNormal </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -759,12 +920,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a578892e9088b16ef2bc57fac67be6830"></a><!-- doxytag: member="tbe::scene::Mesh::IsWithTexCoord" ref="a578892e9088b16ef2bc57fac67be6830" args="() const " -->
+<a class="anchor" id="a7637c065627dede21493391fc169e701"></a><!-- doxytag: member="tbe::scene::Mesh::isWithTexCoord" ref="a7637c065627dede21493391fc169e701" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool tbe::scene::Mesh::IsWithTexCoord </td>
+          <td class="memname">bool tbe::scene::Mesh::isWithTexCoord </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -792,16 +953,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Opérateur d'assignation. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00046">46</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00051">51</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a182d82e681402c6ec9311cd03b08a274"></a><!-- doxytag: member="tbe::scene::Mesh::Process" ref="a182d82e681402c6ec9311cd03b08a274" args="()" -->
+<a class="anchor" id="a13a9487ad1502929421a922e75b87487"></a><!-- doxytag: member="tbe::scene::Mesh::process" ref="a13a9487ad1502929421a922e75b87487" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::Process </td>
+          <td class="memname">void Mesh::process </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [virtual]</code></td>
@@ -812,18 +973,18 @@ Attributs protégés</h2></td></tr>
 
 <p>Traitement. </p>
 
-<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_node.html#aed8e845b6efa0ce1ee6e241412902866">tbe::scene::Node</a>.</p>
+<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_node.html#aacdbcac0c832a727cd9a083290b82467">tbe::scene::Node</a>.</p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00485">485</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00563">563</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a237a3f0b04943de2792a13fd1d7f6465"></a><!-- doxytag: member="tbe::scene::Mesh::RayCast" ref="a237a3f0b04943de2792a13fd1d7f6465" args="(Vector3f rayStart, Vector3f rayDiri, Vector3f &amp;intersect, bool global)" -->
+<a class="anchor" id="a62396735a71f3d252ac94f379b714b9c"></a><!-- doxytag: member="tbe::scene::Mesh::rayCast" ref="a62396735a71f3d252ac94f379b714b9c" args="(Vector3f rayStart, Vector3f rayDiri, Vector3f &amp;intersect, bool global)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Mesh::RayCast </td>
+          <td class="memname">bool Mesh::rayCast </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
           <td class="paramname"><em>rayStart</em>, </td>
@@ -849,22 +1010,22 @@ Attributs protégés</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td><code> [protected]</code></td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00536">536</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00614">614</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a442cd89e1b48ffd840cb573e5d5e0c67"></a><!-- doxytag: member="tbe::scene::Mesh::ReleaseMaterial" ref="a442cd89e1b48ffd840cb573e5d5e0c67" args="(std::string name)" -->
+<a class="anchor" id="ad6891f844611aa2c7b8a5837c1c01d6d"></a><!-- doxytag: member="tbe::scene::Mesh::releaseMaterial" ref="ad6891f844611aa2c7b8a5837c1c01d6d" args="(std::string name)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> * Mesh::ReleaseMaterial </td>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_material.html">Material</a> * Mesh::releaseMaterial </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
@@ -876,16 +1037,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Déttache le materieux name du noeud. </p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00670">670</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00785">785</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a75e66bcd90c09492676a4cfe5b23c3af"></a><!-- doxytag: member="tbe::scene::Mesh::Render" ref="a75e66bcd90c09492676a4cfe5b23c3af" args="()" -->
+<a class="anchor" id="aa196429f3e87ecd53e8770ba979222f4"></a><!-- doxytag: member="tbe::scene::Mesh::render" ref="aa196429f3e87ecd53e8770ba979222f4" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::Render </td>
+          <td class="memname">void Mesh::render </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [virtual]</code></td>
@@ -896,18 +1057,96 @@ Attributs protégés</h2></td></tr>
 
 <p>Rendue. </p>
 
-<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_node.html#afcc93286aed5d5f6369e47192ac33725">tbe::scene::Node</a>.</p>
+<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_node.html#a688c15ece4a1a405c11eb22bd4964310">tbe::scene::Node</a>.</p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00454">454</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00532">532</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a334effbd2dd53a996bbc683071b97691"></a><!-- doxytag: member="tbe::scene::Mesh::SetTriangulate" ref="a334effbd2dd53a996bbc683071b97691" args="(bool triangulate)" -->
+<a class="anchor" id="a3d672898d0c9cfba2b4170903f24b21a"></a><!-- doxytag: member="tbe::scene::Mesh::setBillBoard" ref="a3d672898d0c9cfba2b4170903f24b21a" args="(Vector2b billBoard)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void tbe::scene::Mesh::SetTriangulate </td>
+          <td class="memname">void Mesh::setBillBoard </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2b</a>&#160;</td>
+          <td class="paramname"><em>billBoard</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00658">658</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a411aa1a838ca61c0e27a5e5edeac587a"></a><!-- doxytag: member="tbe::scene::Mesh::setColor" ref="a411aa1a838ca61c0e27a5e5edeac587a" args="(Vector4f color)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Mesh::setColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector4.html">Vector4f</a>&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Applique une couleur a tout les vertecies du mesh. </p>
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00720">720</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae64ec2c8b450cba12f5dd244440128af"></a><!-- doxytag: member="tbe::scene::Mesh::setOpacity" ref="ae64ec2c8b450cba12f5dd244440128af" args="(float opacity)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Mesh::setOpacity </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>opacity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00702">702</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac85b236dcf61a9d29f21e107fdb0859c"></a><!-- doxytag: member="tbe::scene::Mesh::setOutputMaterial" ref="ac85b236dcf61a9d29f21e107fdb0859c" args="(bool outputMaterial)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Mesh::setOutputMaterial </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>outputMaterial</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00880">880</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4e90aa9fd7b79773b5913c796336f75a"></a><!-- doxytag: member="tbe::scene::Mesh::setTriangulate" ref="a4e90aa9fd7b79773b5913c796336f75a" args="(bool triangulate)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tbe::scene::Mesh::setTriangulate </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>triangulate</em></td><td>)</td>
@@ -921,12 +1160,31 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7ab17698ddd91cdacaa1a04b35b54615"></a><!-- doxytag: member="tbe::scene::Mesh::SetVisible" ref="a7ab17698ddd91cdacaa1a04b35b54615" args="(bool visible)" -->
+<a class="anchor" id="a423fe6055b1e656a890fcd5d491c5190"></a><!-- doxytag: member="tbe::scene::Mesh::setVertexScale" ref="a423fe6055b1e656a890fcd5d491c5190" args="(Vector3f vertexScale)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::SetVisible </td>
+          <td class="memname">void Mesh::setVertexScale </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>vertexScale</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00890">890</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4b1d195f81afe1429d5fdffeaab2a25b"></a><!-- doxytag: member="tbe::scene::Mesh::setVisible" ref="a4b1d195f81afe1429d5fdffeaab2a25b" args="(bool visible)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Mesh::setVisible </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>visible</em></td><td>)</td>
@@ -936,16 +1194,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00705">705</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8cpp_source.html#l00820">820</a> du fichier <a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a521744aeb5f325a204714c8fa4d89e2c"></a><!-- doxytag: member="tbe::scene::Mesh::SetWithNormal" ref="a521744aeb5f325a204714c8fa4d89e2c" args="(bool withNotmal)" -->
+<a class="anchor" id="a942d68274179690753aba4beba42d28a"></a><!-- doxytag: member="tbe::scene::Mesh::setWithNormal" ref="a942d68274179690753aba4beba42d28a" args="(bool withNotmal)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void tbe::scene::Mesh::SetWithNormal </td>
+          <td class="memname">void tbe::scene::Mesh::setWithNormal </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>withNotmal</em></td><td>)</td>
@@ -959,12 +1217,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a657f8bfafaf4b4d354a6b229235fae29"></a><!-- doxytag: member="tbe::scene::Mesh::SetWithTexCoord" ref="a657f8bfafaf4b4d354a6b229235fae29" args="(bool withTexCoord)" -->
+<a class="anchor" id="a8fede60532c5359f36053c07e9cad3e3"></a><!-- doxytag: member="tbe::scene::Mesh::setWithTexCoord" ref="a8fede60532c5359f36053c07e9cad3e3" args="(bool withTexCoord)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void tbe::scene::Mesh::SetWithTexCoord </td>
+          <td class="memname">void tbe::scene::Mesh::setWithTexCoord </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>withTexCoord</em></td><td>)</td>
@@ -990,7 +1248,22 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00142">142</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00167">167</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae54db1999d555a5107343c2de1263d00"></a><!-- doxytag: member="tbe::scene::Mesh::m_outputMaterial" ref="ae54db1999d555a5107343c2de1263d00" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classtbe_1_1scene_1_1_mesh.html#ae54db1999d555a5107343c2de1263d00">tbe::scene::Mesh::m_outputMaterial</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00165">165</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
 
 </div>
 </div>
@@ -1007,7 +1280,7 @@ Attributs protégés</h2></td></tr>
 
 <p>Réimplémentée à partir de <a class="el" href="classtbe_1_1scene_1_1_node.html#a90431205e5035b7fdb1c445bac2f8a12">tbe::scene::Node</a>.</p>
 
-<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00144">144</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00169">169</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
 
 </div>
 </div>
@@ -1022,7 +1295,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00137">137</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00161">161</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
 
 </div>
 </div>
@@ -1037,7 +1310,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00140">140</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00164">164</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
 
 </div>
 </div>
@@ -1052,7 +1325,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00138">138</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00162">162</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
 
 </div>
 </div>
@@ -1067,7 +1340,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00139">139</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mesh_8h_source.html#l00163">163</a> du fichier <a class="el" href="_mesh_8h_source.html">Mesh.h</a>.</p>
 
 </div>
 </div>
@@ -1076,7 +1349,7 @@ Attributs protégés</h2></td></tr>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_mesh_8cpp_source.html">Mesh.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:04 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:56 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

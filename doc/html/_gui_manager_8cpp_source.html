@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -72,18 +72,18 @@
 <a name="l00029"></a>00029     m_guiSkin = NULL;
 <a name="l00030"></a>00030     m_currentSession = m_sessions.end();
 <a name="l00031"></a>00031 
-<a name="l00032"></a>00032     SetSession(0);
+<a name="l00032"></a>00032     setSession(0);
 <a name="l00033"></a>00033 }
 <a name="l00034"></a>00034 
 <a name="l00035"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a75cd08c639bdfc969e2a8159d3e4ad39">00035</a> GuiManager::~GuiManager()
 <a name="l00036"></a>00036 {
-<a name="l00037"></a>00037     ClearAll();
+<a name="l00037"></a>00037     clearAll();
 <a name="l00038"></a>00038 
 <a name="l00039"></a>00039     <span class="keywordflow">if</span>(m_guiSkin)
 <a name="l00040"></a>00040         <span class="keyword">delete</span> m_guiSkin;
 <a name="l00041"></a>00041 }
 <a name="l00042"></a>00042 
-<a name="l00043"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a611f954aac0db93b7681f26003bdd6ab">00043</a> <span class="keywordtype">void</span> GuiManager::ClearAll()
+<a name="l00043"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a95b554478baa640bc28df0273d2517f6">00043</a> <span class="keywordtype">void</span> GuiManager::clearAll()
 <a name="l00044"></a>00044 {
 <a name="l00045"></a>00045     <span class="keywordflow">for</span>(GuiManager::Session::Map::iterator its = m_sessions.begin(); its != m_sessions.end(); its++)
 <a name="l00046"></a>00046         <span class="keyword">delete</span> its-&gt;second;
@@ -92,7 +92,7 @@
 <a name="l00049"></a>00049     m_currentSession = m_sessions.end();
 <a name="l00050"></a>00050 }
 <a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a8112a701723981a0ab42915061c700e1">00052</a> <span class="keywordtype">void</span> GuiManager::Setup(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> scrsize)
+<a name="l00052"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a14f3f4af7bb5b5aa4abd35a2f4e46338">00052</a> <span class="keywordtype">void</span> GuiManager::setup(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> scrsize)
 <a name="l00053"></a>00053 {
 <a name="l00054"></a>00054     m_screenSize = scrsize;
 <a name="l00055"></a>00055 
@@ -102,20 +102,20 @@
 <a name="l00059"></a>00059 
 <a name="l00060"></a>00060         <span class="keywordflow">if</span>(!lay.empty())
 <a name="l00061"></a>00061         {
-<a name="l00062"></a>00062             lay.front()-&gt;SetScreenSize(m_screenSize);
-<a name="l00063"></a>00063             lay.front()-&gt;Update();
+<a name="l00062"></a>00062             lay.front()-&gt;setScreenSize(m_screenSize);
+<a name="l00063"></a>00063             lay.front()-&gt;update();
 <a name="l00064"></a>00064         }
 <a name="l00065"></a>00065     }
 <a name="l00066"></a>00066 }
 <a name="l00067"></a>00067 
-<a name="l00068"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a045165482ec04cdfe9138b89e37db0b2">00068</a> <span class="keywordtype">void</span> GuiManager::UpdateLayout()
+<a name="l00068"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a0dc0fbda3d2e87de3fa8cc625dc1e6d4">00068</a> <span class="keywordtype">void</span> GuiManager::updateLayout()
 <a name="l00069"></a>00069 {
 <a name="l00070"></a>00070     for_each(m_currentSession-&gt;second-&gt;m_headLayouts.begin(),
 <a name="l00071"></a>00071              m_currentSession-&gt;second-&gt;m_headLayouts.end(),
-<a name="l00072"></a>00072              mem_fun(&amp;Layout::Update));
+<a name="l00072"></a>00072              mem_fun(&amp;Layout::update));
 <a name="l00073"></a>00073 }
 <a name="l00074"></a>00074 
-<a name="l00075"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a3228f508d6d0bc4ec8d181305ba854a2">00075</a> <span class="keywordtype">void</span> GuiManager::Render()
+<a name="l00075"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#abdb5ec7143683d1c93c8bde30759b073">00075</a> <span class="keywordtype">void</span> GuiManager::render()
 <a name="l00076"></a>00076 {
 <a name="l00077"></a>00077     <span class="comment">// Passage en Ortho 2D</span>
 <a name="l00078"></a>00078     glMatrixMode(GL_PROJECTION);
@@ -135,11 +135,11 @@
 <a name="l00092"></a>00092     glDisable(GL_DEPTH_TEST);
 <a name="l00093"></a>00093     glDisable(GL_LIGHTING);
 <a name="l00094"></a>00094 
-<a name="l00095"></a>00095     UpdateLayout();
+<a name="l00095"></a>00095     updateLayout();
 <a name="l00096"></a>00096 
 <a name="l00097"></a>00097     <span class="keywordflow">for</span>(Control::Map::iterator itt = m_currentSession-&gt;second-&gt;m_ctrls.begin();
 <a name="l00098"></a>00098         itt != m_currentSession-&gt;second-&gt;m_ctrls.end(); itt++)
-<a name="l00099"></a>00099         itt-&gt;second-&gt;Render();
+<a name="l00099"></a>00099         itt-&gt;second-&gt;render();
 <a name="l00100"></a>00100 
 <a name="l00101"></a>00101     glPopAttrib();
 <a name="l00102"></a>00102 
@@ -147,7 +147,7 @@
 <a name="l00104"></a>00104     glPopMatrix();
 <a name="l00105"></a>00105 }
 <a name="l00106"></a>00106 
-<a name="l00107"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a88aef2930c903d623a65b1a128457e5b">00107</a> <span class="keywordtype">void</span> GuiManager::PageUp()
+<a name="l00107"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a231dd3f7c0d6dd3c59ea54532cd62121">00107</a> <span class="keywordtype">void</span> GuiManager::pageUp()
 <a name="l00108"></a>00108 {
 <a name="l00109"></a>00109     m_currentSession--;
 <a name="l00110"></a>00110 
@@ -155,7 +155,7 @@
 <a name="l00112"></a>00112         m_currentSession = --m_sessions.end();
 <a name="l00113"></a>00113 }
 <a name="l00114"></a>00114 
-<a name="l00115"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a7b0c243f10d262b8e077b4297959c1f5">00115</a> <span class="keywordtype">void</span> GuiManager::PageDown()
+<a name="l00115"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a8fbece90cb6cd45caf31d44bc5235bc3">00115</a> <span class="keywordtype">void</span> GuiManager::pageDown()
 <a name="l00116"></a>00116 {
 <a name="l00117"></a>00117     m_currentSession++;
 <a name="l00118"></a>00118 
@@ -163,12 +163,12 @@
 <a name="l00120"></a>00120         m_currentSession = m_sessions.begin();
 <a name="l00121"></a>00121 }
 <a name="l00122"></a>00122 
-<a name="l00123"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a198bf977f8abe70b24cf0631ec439a2d">00123</a> <span class="keywordtype">void</span> GuiManager::SetSession(<span class="keywordtype">unsigned</span> sessID)
+<a name="l00123"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#abb3b557d286c74bbef010a66b5136d87">00123</a> <span class="keywordtype">void</span> GuiManager::setSession(<span class="keywordtype">unsigned</span> sessID)
 <a name="l00124"></a>00124 {
 <a name="l00125"></a>00125     <span class="keywordflow">if</span>(m_currentSession-&gt;first != sessID &amp;&amp; m_currentSession != m_sessions.end())
 <a name="l00126"></a>00126         <span class="keywordflow">for</span>(Control::Map::iterator itt = m_currentSession-&gt;second-&gt;m_ctrls.begin();
 <a name="l00127"></a>00127             itt != m_currentSession-&gt;second-&gt;m_ctrls.end(); itt++)
-<a name="l00128"></a>00128             itt-&gt;second-&gt;SetActivate(<span class="keyword">false</span>);
+<a name="l00128"></a>00128             itt-&gt;second-&gt;setActivate(<span class="keyword">false</span>);
 <a name="l00129"></a>00129 
 <a name="l00130"></a>00130     <span class="keywordflow">if</span>(m_sessions.find(sessID) == m_sessions.end())
 <a name="l00131"></a>00131         m_sessions[sessID] = <span class="keyword">new</span> <a class="code" href="structtbe_1_1gui_1_1_gui_manager_1_1_session.html">Session</a>;
@@ -176,12 +176,12 @@
 <a name="l00133"></a>00133     m_currentSession = m_sessions.find(sessID);
 <a name="l00134"></a>00134 }
 <a name="l00135"></a>00135 
-<a name="l00136"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ada49337ec555f853d2cbce190c48d39c">00136</a> <span class="keywordtype">unsigned</span> GuiManager::GetSession()
+<a name="l00136"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ad42bf9ac8d7f83f260e6dd1ce572989f">00136</a> <span class="keywordtype">unsigned</span> GuiManager::getSession()
 <a name="l00137"></a>00137 {
 <a name="l00138"></a>00138     <span class="keywordflow">return</span> m_currentSession-&gt;first;
 <a name="l00139"></a>00139 }
 <a name="l00140"></a>00140 
-<a name="l00141"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a94a900c29525550b69613d9e42f0cd94">00141</a> <span class="keywordtype">void</span> GuiManager::DestroySession(<span class="keywordtype">unsigned</span> sessID)
+<a name="l00141"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a7e371d166b90bbf50f7e1acb3f3d5d92">00141</a> <span class="keywordtype">void</span> GuiManager::destroySession(<span class="keywordtype">unsigned</span> sessID)
 <a name="l00142"></a>00142 {
 <a name="l00143"></a>00143     <span class="keywordflow">if</span>(m_currentSession-&gt;first == sessID)
 <a name="l00144"></a>00144         m_currentSession++;
@@ -194,19 +194,19 @@
 <a name="l00151"></a>00151             m_currentSession = m_sessions.begin();
 <a name="l00152"></a>00152 }
 <a name="l00153"></a>00153 
-<a name="l00154"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#abe9ff4d29b76cbb4d0f544ff683c2b07">00154</a> <span class="keywordtype">void</span> GuiManager::TrasmitEvent(<a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp; e)
+<a name="l00154"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#aced57c9be155649b4ccb819b12d5c65c">00154</a> <span class="keywordtype">void</span> GuiManager::trasmitEvent(<a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp; e)
 <a name="l00155"></a>00155 {
 <a name="l00156"></a>00156     <span class="keywordflow">if</span>(m_currentSession != m_sessions.end())
 <a name="l00157"></a>00157         <span class="keywordflow">for</span>(Control::Map::iterator it = m_currentSession-&gt;second-&gt;m_ctrls.begin();
 <a name="l00158"></a>00158             it != m_currentSession-&gt;second-&gt;m_ctrls.end(); ++it)
-<a name="l00159"></a>00159             <span class="keywordflow">if</span>(it-&gt;second-&gt;OnEvent(e))
+<a name="l00159"></a>00159             <span class="keywordflow">if</span>(it-&gt;second-&gt;onEvent(e))
 <a name="l00160"></a>00160             {
 <a name="l00161"></a>00161                 e.<a class="code" href="structtbe_1_1_event_manager.html#a8474e50f23ea64707bd1c3dd6e4f7331">notify</a> = <a class="code" href="structtbe_1_1_event_manager.html#aeb4c4637bd786afae9c28de5f946e7a6aaaf03dfc5ecd6ef84f660662398aed86">EventManager::EVENT_NO_EVENT</a>;
 <a name="l00162"></a>00162                 <span class="keywordflow">break</span>;
 <a name="l00163"></a>00163             }
 <a name="l00164"></a>00164 }
 <a name="l00165"></a>00165 
-<a name="l00166"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a53de65b617b31eb9790647952206a09d">00166</a> <span class="keywordtype">void</span> GuiManager::SetSkin(<a class="code" href="structtbe_1_1gui_1_1_gui_skin.html" title="Structure contenant l&#39;apparence et la configuration des controles de l&#39;interface graphique.">GuiSkin</a>* skin)
+<a name="l00166"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a50468cbd7c31852c8c478a045643597c">00166</a> <span class="keywordtype">void</span> GuiManager::setSkin(<a class="code" href="structtbe_1_1gui_1_1_gui_skin.html" title="Structure contenant l&#39;apparence et la configuration des controles de l&#39;interface graphique.">GuiSkin</a>* skin)
 <a name="l00167"></a>00167 {
 <a name="l00168"></a>00168     <span class="keywordflow">if</span>(m_guiSkin)
 <a name="l00169"></a>00169         <span class="keyword">delete</span> m_guiSkin;
@@ -216,143 +216,143 @@
 <a name="l00173"></a>00173     <span class="keywordflow">if</span>(m_guiSkin)
 <a name="l00174"></a>00174         <span class="keywordflow">for</span>(Session::Map::iterator i = m_sessions.begin(); i != m_sessions.end(); i++)
 <a name="l00175"></a>00175             <span class="keywordflow">for</span>(Control::Map::iterator j = i-&gt;second-&gt;m_ctrls.begin(); j != i-&gt;second-&gt;m_ctrls.end(); j++)
-<a name="l00176"></a>00176                 j-&gt;second-&gt;SetSkin(*m_guiSkin);
+<a name="l00176"></a>00176                 j-&gt;second-&gt;setSkin(*m_guiSkin);
 <a name="l00177"></a>00177 
 <a name="l00178"></a>00178 }
 <a name="l00179"></a>00179 
-<a name="l00180"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ab6fc1c8f0d2c06e1b4aca3c51949ec2c">00180</a> <a class="code" href="classtbe_1_1gui_1_1_text_box.html" title="Controle d&#39;affichage du text pour l&#39;interface graphique.">TextBox</a>* GuiManager::AddTextBox(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
+<a name="l00180"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a06f0d7743ffce17f871fff8e554c0bfb">00180</a> <a class="code" href="classtbe_1_1gui_1_1_text_box.html" title="Controle d&#39;affichage du text pour l&#39;interface graphique.">TextBox</a>* GuiManager::addTextBox(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
 <a name="l00181"></a>00181 {
 <a name="l00182"></a>00182     <a class="code" href="classtbe_1_1gui_1_1_text_box.html" title="Controle d&#39;affichage du text pour l&#39;interface graphique.">TextBox</a>* <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a> = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_text_box.html" title="Controle d&#39;affichage du text pour l&#39;interface graphique.">TextBox</a>;
 <a name="l00183"></a>00183 
-<a name="l00184"></a>00184     AddControl(name, p);
+<a name="l00184"></a>00184     addControl(name, p);
 <a name="l00185"></a>00185 
 <a name="l00186"></a>00186     <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
 <a name="l00187"></a>00187 }
 <a name="l00188"></a>00188 
-<a name="l00189"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a90a0feb6128f56c3df061561dae36cc3">00189</a> <a class="code" href="classtbe_1_1gui_1_1_key_config.html" title="Controle de configuration d&#39;une touche enregistre le nom et le code de la touche entrer.">KeyConfig</a>* GuiManager::AddKeyConfig(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
+<a name="l00189"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a5696fe58c6d8ea93e715d568d638fbdd">00189</a> <a class="code" href="classtbe_1_1gui_1_1_key_config.html" title="Controle de configuration d&#39;une touche enregistre le nom et le code de la touche entrer.">KeyConfig</a>* GuiManager::addKeyConfig(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
 <a name="l00190"></a>00190 {
 <a name="l00191"></a>00191     <a class="code" href="classtbe_1_1gui_1_1_key_config.html" title="Controle de configuration d&#39;une touche enregistre le nom et le code de la touche entrer.">KeyConfig</a>* <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a> = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html" title="Controle de configuration d&#39;une touche enregistre le nom et le code de la touche entrer.">KeyConfig</a>;
 <a name="l00192"></a>00192 
-<a name="l00193"></a>00193     AddControl(name, p);
+<a name="l00193"></a>00193     addControl(name, p);
 <a name="l00194"></a>00194 
 <a name="l00195"></a>00195     <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
 <a name="l00196"></a>00196 }
 <a name="l00197"></a>00197 
-<a name="l00198"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a8efb72d64337e8854a8ef8341155d38d">00198</a> <a class="code" href="classtbe_1_1gui_1_1_gauge.html" title="Bar de progression.">Gauge</a>* GuiManager::AddGauge(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> label)
+<a name="l00198"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a053c56b27a8b4c1287ea13423ebf3b87">00198</a> <a class="code" href="classtbe_1_1gui_1_1_gauge.html" title="Bar de progression.">Gauge</a>* GuiManager::addGauge(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> label)
 <a name="l00199"></a>00199 {
 <a name="l00200"></a>00200     <a class="code" href="classtbe_1_1gui_1_1_gauge.html" title="Bar de progression.">Gauge</a>* <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a> = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_gauge.html" title="Bar de progression.">Gauge</a>;
-<a name="l00201"></a>00201     p-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a7940641de41c3b942ed490424315a393" title="Label du controle.">SetLabel</a>(label);
+<a name="l00201"></a>00201     p-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#aa2bbb5939a7199e621a8e0a84efb4206" title="Label du controle.">setLabel</a>(label);
 <a name="l00202"></a>00202 
-<a name="l00203"></a>00203     AddControl(name, p);
+<a name="l00203"></a>00203     addControl(name, p);
 <a name="l00204"></a>00204 
 <a name="l00205"></a>00205     <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
 <a name="l00206"></a>00206 }
 <a name="l00207"></a>00207 
-<a name="l00208"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a528e132c3c59a865ca4a94b8cf2d5464">00208</a> <a class="code" href="classtbe_1_1gui_1_1_edit_box.html" title="Champ editibale par l&#39;utilisateur.">EditBox</a>* GuiManager::AddEditBox(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> label)
+<a name="l00208"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a5153d24356655704abe3698c03277f0e">00208</a> <a class="code" href="classtbe_1_1gui_1_1_edit_box.html" title="Champ editibale par l&#39;utilisateur.">EditBox</a>* GuiManager::addEditBox(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> label)
 <a name="l00209"></a>00209 {
 <a name="l00210"></a>00210     <a class="code" href="classtbe_1_1gui_1_1_edit_box.html" title="Champ editibale par l&#39;utilisateur.">EditBox</a>* <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a> = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_edit_box.html" title="Champ editibale par l&#39;utilisateur.">EditBox</a>;
-<a name="l00211"></a>00211     p-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a7940641de41c3b942ed490424315a393" title="Label du controle.">SetLabel</a>(label);
+<a name="l00211"></a>00211     p-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#aa2bbb5939a7199e621a8e0a84efb4206" title="Label du controle.">setLabel</a>(label);
 <a name="l00212"></a>00212 
-<a name="l00213"></a>00213     AddControl(name, p);
+<a name="l00213"></a>00213     addControl(name, p);
 <a name="l00214"></a>00214 
 <a name="l00215"></a>00215     <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
 <a name="l00216"></a>00216 }
 <a name="l00217"></a>00217 
-<a name="l00218"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#adab0a5e6b7c7851e8920d48941fbba5a">00218</a> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html" title="Peut contenire plusieur élément de type string pour un Switch.">SwitchString</a>* GuiManager::AddSwitchString(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
+<a name="l00218"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#acb78b36b3e27ac3085b3224cbd8d44c8">00218</a> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html" title="Peut contenire plusieur élément de type string pour un Switch.">SwitchString</a>* GuiManager::addSwitchString(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
 <a name="l00219"></a>00219 {
 <a name="l00220"></a>00220     <a class="code" href="classtbe_1_1gui_1_1_switch_string.html" title="Peut contenire plusieur élément de type string pour un Switch.">SwitchString</a>* <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a> = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_switch_string.html" title="Peut contenire plusieur élément de type string pour un Switch.">SwitchString</a>;
 <a name="l00221"></a>00221 
-<a name="l00222"></a>00222     AddControl(name, p);
+<a name="l00222"></a>00222     addControl(name, p);
 <a name="l00223"></a>00223 
 <a name="l00224"></a>00224     <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
 <a name="l00225"></a>00225 }
 <a name="l00226"></a>00226 
-<a name="l00227"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a0f37f7518a1cb46911124658b99344d0">00227</a> <a class="code" href="classtbe_1_1gui_1_1_image.html" title="Controle pout l&#39;affichage d&#39;image.">Image</a>* GuiManager::AddImage(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> path)
+<a name="l00227"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a820ef517049debed1a7dd5351c4a3671">00227</a> <a class="code" href="classtbe_1_1gui_1_1_image.html" title="Controle pout l&#39;affichage d&#39;image.">Image</a>* GuiManager::addImage(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> path)
 <a name="l00228"></a>00228 {
 <a name="l00229"></a>00229 
 <a name="l00230"></a>00230     <a class="code" href="classtbe_1_1gui_1_1_image.html" title="Controle pout l&#39;affichage d&#39;image.">Image</a>* <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a> = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_image.html" title="Controle pout l&#39;affichage d&#39;image.">Image</a>(path);
 <a name="l00231"></a>00231 
-<a name="l00232"></a>00232     AddControl(name, p);
+<a name="l00232"></a>00232     addControl(name, p);
 <a name="l00233"></a>00233 
 <a name="l00234"></a>00234     <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
 <a name="l00235"></a>00235 }
 <a name="l00236"></a>00236 
-<a name="l00237"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a0438fa8b04f04f01ca0a16c99bbbbdb8">00237</a> <a class="code" href="classtbe_1_1gui_1_1_state_show.html" title="Afficheur d&#39;état.">StateShow</a>* GuiManager::AddStateShow(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> path, <span class="keywordtype">int</span> stateCount)
+<a name="l00237"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ae7f7315eb845024b256933e8e8e5a0a9">00237</a> <a class="code" href="classtbe_1_1gui_1_1_state_show.html" title="Afficheur d&#39;état.">StateShow</a>* GuiManager::addStateShow(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> path, <span class="keywordtype">int</span> stateCount)
 <a name="l00238"></a>00238 {
 <a name="l00239"></a>00239 
 <a name="l00240"></a>00240     <a class="code" href="classtbe_1_1gui_1_1_state_show.html" title="Afficheur d&#39;état.">StateShow</a>* <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a> = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_state_show.html" title="Afficheur d&#39;état.">StateShow</a>;
-<a name="l00241"></a>00241     p-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#ae2941056f0130e6e39b8a6425acce4bb" title="Specifier l&#39;arrier plan du controle.">SetBackground</a>(path);
-<a name="l00242"></a>00242     p-&gt;<a class="code" href="classtbe_1_1gui_1_1_state_show.html#aba6ef23ca006b6c8b249adac385933f7">SetStateCount</a>(stateCount);
+<a name="l00241"></a>00241     p-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#ae9daf8e50eb3135cdc51efbaaf98fe70" title="Specifier l&#39;arrier plan du controle.">setBackground</a>(path);
+<a name="l00242"></a>00242     p-&gt;<a class="code" href="classtbe_1_1gui_1_1_state_show.html#af1e8fbbe756b853e076d84d63ff9224d">setStateCount</a>(stateCount);
 <a name="l00243"></a>00243 
-<a name="l00244"></a>00244     AddControl(name, p);
+<a name="l00244"></a>00244     addControl(name, p);
 <a name="l00245"></a>00245 
 <a name="l00246"></a>00246     <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
 <a name="l00247"></a>00247 }
 <a name="l00248"></a>00248 
-<a name="l00249"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a79517b6fd485729b73e4c59bdaeb95b1">00249</a> <a class="code" href="classtbe_1_1gui_1_1_list_box.html" title="List d&#39;élément.">ListBox</a>* GuiManager::AddListBox(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
+<a name="l00249"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ab4c6a08aadb203a7dde0e57caca27c78">00249</a> <a class="code" href="classtbe_1_1gui_1_1_list_box.html" title="List d&#39;élément.">ListBox</a>* GuiManager::addListBox(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
 <a name="l00250"></a>00250 {
 <a name="l00251"></a>00251     <a class="code" href="classtbe_1_1gui_1_1_list_box.html" title="List d&#39;élément.">ListBox</a>* <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a> = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_list_box.html" title="List d&#39;élément.">ListBox</a>;
 <a name="l00252"></a>00252 
-<a name="l00253"></a>00253     AddControl(name, p);
+<a name="l00253"></a>00253     addControl(name, p);
 <a name="l00254"></a>00254 
 <a name="l00255"></a>00255     <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
 <a name="l00256"></a>00256 }
 <a name="l00257"></a>00257 
-<a name="l00258"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a6b9c3e90813e946b84b38f0919b92ad9">00258</a> <a class="code" href="classtbe_1_1gui_1_1_vector_box.html" title="Controle de manipulation de Vector3f par l&#39;utlisateur via l&#39;interface graphique.">VectorBox</a>* GuiManager::AddVectorBox(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00258"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a990c30c42e12562edffc1d3aba5347b8">00258</a> <a class="code" href="classtbe_1_1gui_1_1_vector_box.html" title="Controle de manipulation de Vector3f par l&#39;utlisateur via l&#39;interface graphique.">VectorBox</a>* GuiManager::addVectorBox(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
 <a name="l00259"></a>00259 {
 <a name="l00260"></a>00260     <a class="code" href="classtbe_1_1gui_1_1_vector_box.html" title="Controle de manipulation de Vector3f par l&#39;utlisateur via l&#39;interface graphique.">VectorBox</a>* <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a> = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_vector_box.html" title="Controle de manipulation de Vector3f par l&#39;utlisateur via l&#39;interface graphique.">VectorBox</a>;
-<a name="l00261"></a>00261     p-&gt;<a class="code" href="classtbe_1_1gui_1_1_vector_box.html#a1a17da0d3d4438108b4dd9e5c2babf27">SetValue</a>(value);
+<a name="l00261"></a>00261     p-&gt;<a class="code" href="classtbe_1_1gui_1_1_vector_box.html#a1a3ec5922b7fe2390c7fac0a47191413">setValue</a>(value);
 <a name="l00262"></a>00262 
-<a name="l00263"></a>00263     AddControl(name, p);
+<a name="l00263"></a>00263     addControl(name, p);
 <a name="l00264"></a>00264 
 <a name="l00265"></a>00265     <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
 <a name="l00266"></a>00266 }
 <a name="l00267"></a>00267 
-<a name="l00268"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#aa74421f09a75dc98aa2eb492e65f5010">00268</a> <a class="code" href="classtbe_1_1gui_1_1_button.html" title="Boutton poussoire.">Button</a>* GuiManager::AddButton(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> label)
+<a name="l00268"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ab005a85ba1891b83ff5789592996ad18">00268</a> <a class="code" href="classtbe_1_1gui_1_1_button.html" title="Boutton poussoire.">Button</a>* GuiManager::addButton(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> label)
 <a name="l00269"></a>00269 {
 <a name="l00270"></a>00270     <a class="code" href="classtbe_1_1gui_1_1_button.html" title="Boutton poussoire.">Button</a>* <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a> = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_button.html" title="Boutton poussoire.">Button</a>;
-<a name="l00271"></a>00271     p-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a7940641de41c3b942ed490424315a393" title="Label du controle.">SetLabel</a>(label);
+<a name="l00271"></a>00271     p-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#aa2bbb5939a7199e621a8e0a84efb4206" title="Label du controle.">setLabel</a>(label);
 <a name="l00272"></a>00272 
-<a name="l00273"></a>00273     AddControl(name, p);
+<a name="l00273"></a>00273     addControl(name, p);
 <a name="l00274"></a>00274 
 <a name="l00275"></a>00275     <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>;
 <a name="l00276"></a>00276 }
 <a name="l00277"></a>00277 
-<a name="l00278"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a430e95fb3229fa12f67e2f2b640c76ff">00278</a> <span class="keywordtype">void</span> GuiManager::AddControl(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>* ctrl)
+<a name="l00278"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ae0569f3772996019e53b11506d9f7c7d">00278</a> <span class="keywordtype">void</span> GuiManager::addControl(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>* ctrl)
 <a name="l00279"></a>00279 {
 <a name="l00280"></a>00280     <span class="keywordflow">if</span>(name.empty())
-<a name="l00281"></a>00281         name = <a class="code" href="namespacetbe_1_1tools.html#a60e847ef5678a16f02d806d44d59581b">tools::NameGen</a>(m_currentSession-&gt;second-&gt;m_ctrls);
+<a name="l00281"></a>00281         name = <a class="code" href="namespacetbe_1_1tools.html#a38275404dd06328e44826b151f5a7361">tools::nameGen</a>(m_currentSession-&gt;second-&gt;m_ctrls);
 <a name="l00282"></a>00282 
 <a name="l00283"></a>00283     <span class="keywordflow">if</span>(m_currentSession-&gt;second-&gt;m_ctrls.find(name) != m_currentSession-&gt;second-&gt;m_ctrls.end())
-<a name="l00284"></a>00284         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;GuiManager::AddControl; Control already exist (%s)&quot;</span>, name.c_str());
+<a name="l00284"></a>00284         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">Exception</a>(<span class="stringliteral">&quot;GuiManager::AddControl; Control already exist (%s)&quot;</span>, name.c_str());
 <a name="l00285"></a>00285 
 <a name="l00286"></a>00286     m_currentSession-&gt;second-&gt;m_ctrls[<a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>] = ctrl;
 <a name="l00287"></a>00287 
 <a name="l00288"></a>00288     <span class="keywordflow">if</span>(m_guiSkin)
-<a name="l00289"></a>00289         ctrl-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a90ce9c753143c8b6ce078686b634a059" title="Specifier une apparence du controle.">SetSkin</a>(*m_guiSkin);
+<a name="l00289"></a>00289         ctrl-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a3ffdbdbd82bc8fc7274554489b907dd7" title="Specifier une apparence du controle.">setSkin</a>(*m_guiSkin);
 <a name="l00290"></a>00290 
-<a name="l00291"></a>00291     ctrl-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a930ff177eb89cafc213bcf773e14a6de">SetName</a>(name);
+<a name="l00291"></a>00291     ctrl-&gt;<a class="code" href="classtbe_1_1gui_1_1_control.html#a24bf2e675282d0c520998ea2b2ad06ab">setName</a>(name);
 <a name="l00292"></a>00292 
 <a name="l00293"></a>00293     <span class="keywordflow">if</span>(m_currentSession-&gt;second-&gt;m_activeLayout)
-<a name="l00294"></a>00294         m_currentSession-&gt;second-&gt;m_activeLayout-&gt;AddControl(ctrl);
+<a name="l00294"></a>00294         m_currentSession-&gt;second-&gt;m_activeLayout-&gt;addControl(ctrl);
 <a name="l00295"></a>00295 }
 <a name="l00296"></a>00296 
-<a name="l00297"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a6a854e14aed6ab50c4c32ce8834e58e7">00297</a> <span class="keywordtype">void</span> GuiManager::DeleteControl(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
+<a name="l00297"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ab9692071cbec7934ab5e60c279d6b07f">00297</a> <span class="keywordtype">void</span> GuiManager::deleteControl(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
 <a name="l00298"></a>00298 {
 <a name="l00299"></a>00299 
 <a name="l00300"></a>00300     <span class="keywordflow">if</span>(m_currentSession-&gt;second-&gt;m_ctrls.find(name) == m_currentSession-&gt;second-&gt;m_ctrls.end())
-<a name="l00301"></a>00301         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;GuiManager::DeleteControl; Control not found (%s); Session #%d&quot;</span>, name.c_str(), m_currentSession-&gt;first);
+<a name="l00301"></a>00301         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">Exception</a>(<span class="stringliteral">&quot;GuiManager::DeleteControl; Control not found (%s); Session #%d&quot;</span>, name.c_str(), m_currentSession-&gt;first);
 <a name="l00302"></a>00302 
 <a name="l00303"></a>00303     <span class="keyword">delete</span> m_currentSession-&gt;second-&gt;m_ctrls[<a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>];
 <a name="l00304"></a>00304     m_currentSession-&gt;second-&gt;m_ctrls.erase(name);
 <a name="l00305"></a>00305 }
 <a name="l00306"></a>00306 
-<a name="l00307"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a6e9a33b15b4479ed5a5e53225161db8d">00307</a> <a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>* GuiManager::GetControl(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <span class="keywordtype">int</span> sess)
+<a name="l00307"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#aa17674ad3426748ddb3f1fce9b6909db">00307</a> <a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>* GuiManager::getControl(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <span class="keywordtype">int</span> sess)
 <a name="l00308"></a>00308 {
 <a name="l00309"></a>00309     <span class="keywordflow">if</span>(sess != -1)
 <a name="l00310"></a>00310     {
 <a name="l00311"></a>00311         <span class="keywordflow">if</span>(m_sessions[sess]-&gt;m_ctrls.find(name) == m_sessions[sess]-&gt;m_ctrls.end())
-<a name="l00312"></a>00312             <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;Session::GetControl; Control not found (%s)&quot;</span>, name.c_str());
+<a name="l00312"></a>00312             <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">Exception</a>(<span class="stringliteral">&quot;Session::GetControl; Control not found (%s)&quot;</span>, name.c_str());
 <a name="l00313"></a>00313 
 <a name="l00314"></a>00314         <span class="keywordflow">return</span> m_sessions[sess]-&gt;m_ctrls[<a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>];
 <a name="l00315"></a>00315     }
@@ -361,18 +361,18 @@
 <a name="l00318"></a>00318     {
 <a name="l00319"></a>00319 
 <a name="l00320"></a>00320         <span class="keywordflow">if</span>(m_currentSession-&gt;second-&gt;m_ctrls.find(name) == m_currentSession-&gt;second-&gt;m_ctrls.end())
-<a name="l00321"></a>00321             <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;Session::GetControl; Control not found (%s); Session #%d&quot;</span>, name.c_str(), sess);
+<a name="l00321"></a>00321             <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">Exception</a>(<span class="stringliteral">&quot;Session::GetControl; Control not found (%s); Session #%d&quot;</span>, name.c_str(), sess);
 <a name="l00322"></a>00322 
 <a name="l00323"></a>00323         <span class="keywordflow">return</span> m_currentSession-&gt;second-&gt;m_ctrls[<a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>];
 <a name="l00324"></a>00324     }
 <a name="l00325"></a>00325 
 <a name="l00326"></a>00326 }
 <a name="l00327"></a>00327 
-<a name="l00328"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#aa9e75ec4896d6cb8b2cb9337d881641f">00328</a> <a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>* GuiManager::ReleaseControl(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
+<a name="l00328"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a9cafdd91935d8a14a43680ea5531d0be">00328</a> <a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a>* GuiManager::releaseControl(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>)
 <a name="l00329"></a>00329 {
 <a name="l00330"></a>00330 
 <a name="l00331"></a>00331     <span class="keywordflow">if</span>(m_currentSession-&gt;second-&gt;m_ctrls.find(name) == m_currentSession-&gt;second-&gt;m_ctrls.end())
-<a name="l00332"></a>00332         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;Session::ReleaseControl; Control not found (%s); Session #%d&quot;</span>, name.c_str(), m_currentSession-&gt;first);
+<a name="l00332"></a>00332         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">Exception</a>(<span class="stringliteral">&quot;Session::ReleaseControl; Control not found (%s); Session #%d&quot;</span>, name.c_str(), m_currentSession-&gt;first);
 <a name="l00333"></a>00333 
 <a name="l00334"></a>00334     <a class="code" href="classtbe_1_1gui_1_1_control.html" title="Class de bass pour tout les elements de l&#39;interface graphique.">Control</a> * releaseNode = m_currentSession-&gt;second-&gt;m_ctrls[<a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>];
 <a name="l00335"></a>00335 
@@ -381,13 +381,13 @@
 <a name="l00338"></a>00338     <span class="keywordflow">return</span> releaseNode;
 <a name="l00339"></a>00339 }
 <a name="l00340"></a>00340 
-<a name="l00341"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#adfa16ae952e6db2f17d94168b1c2ae6c">00341</a> GridLayout* GuiManager::AddGridLayout(<a class="code" href="classtbe_1_1gui_1_1_layout.html#a633d7fd9d9b6006454f6ba572dcc484b">Layout::Orientation</a> <a class="code" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a>, <span class="keywordtype">int</span> rows, <span class="keywordtype">int</span> cols, <span class="keywordtype">float</span> space, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a02c6e7bba1429df9dc35325cdfb8e30b">border</a>)
+<a name="l00341"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a8a38faf31017641c8a383ba31330ad7f">00341</a> GridLayout* GuiManager::addGridLayout(<a class="code" href="classtbe_1_1gui_1_1_layout.html#a633d7fd9d9b6006454f6ba572dcc484b">Layout::Orientation</a> <a class="code" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a>, <span class="keywordtype">int</span> rows, <span class="keywordtype">int</span> cols, <span class="keywordtype">float</span> space, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a02c6e7bba1429df9dc35325cdfb8e30b">border</a>)
 <a name="l00342"></a>00342 {
 <a name="l00343"></a>00343 
 <a name="l00344"></a>00344     <span class="keywordflow">return</span> 0;
 <a name="l00345"></a>00345 }
 <a name="l00346"></a>00346 
-<a name="l00347"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ad67645c88a5f28847737add902638aab">00347</a> <a class="code" href="classtbe_1_1gui_1_1_layout.html" title="Gestion de l&#39;alingement des controle de l&#39;interface graphique.">Layout</a>* GuiManager::AddLayout(<a class="code" href="classtbe_1_1gui_1_1_layout.html#a633d7fd9d9b6006454f6ba572dcc484b">Layout::Orientation</a> <a class="code" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a>, <span class="keywordtype">float</span> space, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a02c6e7bba1429df9dc35325cdfb8e30b">border</a>)
+<a name="l00347"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ada6eac39bec05e137dc16c1ec413509a">00347</a> <a class="code" href="classtbe_1_1gui_1_1_layout.html" title="Gestion de l&#39;alingement des controle de l&#39;interface graphique.">Layout</a>* GuiManager::addLayout(<a class="code" href="classtbe_1_1gui_1_1_layout.html#a633d7fd9d9b6006454f6ba572dcc484b">Layout::Orientation</a> <a class="code" href="_g_lee_8h.html#a7d05960f4f1c1b11f3177dc963a45d86">type</a>, <span class="keywordtype">float</span> space, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a02c6e7bba1429df9dc35325cdfb8e30b">border</a>)
 <a name="l00348"></a>00348 {
 <a name="l00349"></a>00349     <a class="code" href="classtbe_1_1gui_1_1_layout.html" title="Gestion de l&#39;alingement des controle de l&#39;interface graphique.">Layout</a>* lay = <span class="keyword">new</span> <a class="code" href="classtbe_1_1gui_1_1_layout.html" title="Gestion de l&#39;alingement des controle de l&#39;interface graphique.">Layout</a>(m_screenSize, border, space, type);
 <a name="l00350"></a>00350 
@@ -395,7 +395,7 @@
 <a name="l00352"></a>00352     m_currentSession-&gt;second-&gt;m_layouts.push_back(lay);
 <a name="l00353"></a>00353 
 <a name="l00354"></a>00354     <span class="keywordflow">if</span>(m_currentSession-&gt;second-&gt;m_activeLayout)
-<a name="l00355"></a>00355         m_currentSession-&gt;second-&gt;m_activeLayout-&gt;AddLayout(lay);
+<a name="l00355"></a>00355         m_currentSession-&gt;second-&gt;m_activeLayout-&gt;addLayout(lay);
 <a name="l00356"></a>00356 
 <a name="l00357"></a>00357     <span class="keywordflow">else</span>
 <a name="l00358"></a>00358         m_currentSession-&gt;second-&gt;m_headLayouts.push_back(lay);
@@ -405,36 +405,36 @@
 <a name="l00362"></a>00362     <span class="keywordflow">return</span> lay;
 <a name="l00363"></a>00363 }
 <a name="l00364"></a>00364 
-<a name="l00365"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ac0ce206ae404b930be1a736d9e33ce77">00365</a> <span class="keywordtype">void</span> GuiManager::AddLayoutSpace(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> space)
+<a name="l00365"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ab9982c65dc78c340cd7b280de9ddb0a4">00365</a> <span class="keywordtype">void</span> GuiManager::addLayoutSpace(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> space)
 <a name="l00366"></a>00366 {
 <a name="l00367"></a>00367 
 <a name="l00368"></a>00368     <span class="keywordflow">if</span>(m_currentSession-&gt;second-&gt;m_activeLayout)
-<a name="l00369"></a>00369         m_currentSession-&gt;second-&gt;m_activeLayout-&gt;<a class="code" href="classtbe_1_1gui_1_1_layout.html#a2ae07e432e7c2c98f21e175fca5cdab2" title="Ajoute un espcae fixe.">AddSpace</a>(space);
+<a name="l00369"></a>00369         m_currentSession-&gt;second-&gt;m_activeLayout-&gt;<a class="code" href="classtbe_1_1gui_1_1_layout.html#a1bd7bc4004a024df055b3709c69fe898" title="Ajoute un espcae fixe.">addSpace</a>(space);
 <a name="l00370"></a>00370 }
 <a name="l00371"></a>00371 
-<a name="l00372"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a17d7cbf956b25cef31ad31ea4b208c2f">00372</a> <span class="keywordtype">void</span> GuiManager::AddLayoutStretchSpace()
+<a name="l00372"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#ad78677885a44dd7e02ed53c37cd6505b">00372</a> <span class="keywordtype">void</span> GuiManager::addLayoutStretchSpace()
 <a name="l00373"></a>00373 {
 <a name="l00374"></a>00374 
 <a name="l00375"></a>00375     <span class="keywordflow">if</span>(m_currentSession-&gt;second-&gt;m_activeLayout)
-<a name="l00376"></a>00376         m_currentSession-&gt;second-&gt;m_activeLayout-&gt;AddStretchSpace();
+<a name="l00376"></a>00376         m_currentSession-&gt;second-&gt;m_activeLayout-&gt;addStretchSpace();
 <a name="l00377"></a>00377 }
 <a name="l00378"></a>00378 
-<a name="l00379"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a0eb54b5d695e9154767725c07c0e837d">00379</a> <a class="code" href="classtbe_1_1gui_1_1_layout.html" title="Gestion de l&#39;alingement des controle de l&#39;interface graphique.">Layout</a>* GuiManager::EndLayout()
+<a name="l00379"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a51f76d72aa6ace8306c53b57297a5316">00379</a> <a class="code" href="classtbe_1_1gui_1_1_layout.html" title="Gestion de l&#39;alingement des controle de l&#39;interface graphique.">Layout</a>* GuiManager::endLayout()
 <a name="l00380"></a>00380 {
 <a name="l00381"></a>00381     <span class="keywordflow">if</span>(m_currentSession-&gt;second-&gt;m_activeLayout)
 <a name="l00382"></a>00382     {
-<a name="l00383"></a>00383         m_currentSession-&gt;second-&gt;m_activeLayout-&gt;<a class="code" href="classtbe_1_1gui_1_1_layout.html#a582cbf3b0507d50beae8bcd3fe761aa1" title="Mise a jour du Layout.">Update</a>();
+<a name="l00383"></a>00383         m_currentSession-&gt;second-&gt;m_activeLayout-&gt;<a class="code" href="classtbe_1_1gui_1_1_layout.html#a8fbdbb5b9f755f287164a5597f2d4609" title="Mise a jour du Layout.">update</a>();
 <a name="l00384"></a>00384 
-<a name="l00385"></a>00385         m_currentSession-&gt;second-&gt;m_activeLayout = m_currentSession-&gt;second-&gt;m_activeLayout-&gt;GetParent();
+<a name="l00385"></a>00385         m_currentSession-&gt;second-&gt;m_activeLayout = m_currentSession-&gt;second-&gt;m_activeLayout-&gt;getParent();
 <a name="l00386"></a>00386 
 <a name="l00387"></a>00387         <span class="keywordflow">if</span>(m_currentSession-&gt;second-&gt;m_activeLayout)
-<a name="l00388"></a>00388             m_currentSession-&gt;second-&gt;m_activeLayout-&gt;Update();
+<a name="l00388"></a>00388             m_currentSession-&gt;second-&gt;m_activeLayout-&gt;update();
 <a name="l00389"></a>00389     }
 <a name="l00390"></a>00390 
 <a name="l00391"></a>00391     <span class="keywordflow">return</span> m_currentSession-&gt;second-&gt;m_activeLayout;
 <a name="l00392"></a>00392 }
 <a name="l00393"></a>00393 
-<a name="l00394"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a226421f62607498e896ba5ed215c7b4e">00394</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> GuiManager::GetScreenSize()<span class="keyword"> const</span>
+<a name="l00394"></a><a class="code" href="classtbe_1_1gui_1_1_gui_manager.html#a2420ed6096cb15aece1dcbb6a95500c2">00394</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> GuiManager::getScreenSize()<span class="keyword"> const</span>
 <a name="l00395"></a>00395 <span class="keyword"></span>{
 <a name="l00396"></a>00396     <span class="keywordflow">return</span> m_screenSize;
 <a name="l00397"></a>00397 }
@@ -457,7 +457,7 @@
 <a name="l00414"></a>00414 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:50 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

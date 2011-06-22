@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -51,113 +51,144 @@
 <a name="l00008"></a>00008 <span class="preprocessor">#ifndef _ANY_H</span>
 <a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define _ANY_H</span>
 <a name="l00010"></a>00010 <span class="preprocessor"></span>
-<a name="l00011"></a>00011 <span class="keyword">namespace </span>tbe
-<a name="l00012"></a>00012 {
-<a name="l00013"></a>00013 
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="keyword">namespace </span>tbe
+<a name="l00014"></a>00014 {
 <a name="l00015"></a>00015 
-<a name="l00016"></a><a class="code" href="classtbe_1_1_any.html">00016</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>
-<a name="l00017"></a>00017 {
-<a name="l00018"></a>00018 <span class="keyword">public</span>:
-<a name="l00019"></a>00019 
-<a name="l00020"></a><a class="code" href="classtbe_1_1_any.html#a8c256019f54cf08f736b38e77a9551b0">00020</a>     <a class="code" href="classtbe_1_1_any.html#a8c256019f54cf08f736b38e77a9551b0">Any</a>()
-<a name="l00021"></a>00021     {
-<a name="l00022"></a>00022         m_data = NULL;
-<a name="l00023"></a>00023     }
+<a name="l00021"></a><a class="code" href="classtbe_1_1_any.html">00021</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a>
+<a name="l00022"></a>00022 {
+<a name="l00023"></a>00023 <span class="keyword">public</span>:
 <a name="l00024"></a>00024 
-<a name="l00025"></a><a class="code" href="classtbe_1_1_any.html#a84525d26921135a31bba6c4f4bb0d3c0">00025</a>     <a class="code" href="classtbe_1_1_any.html#a8c256019f54cf08f736b38e77a9551b0">Any</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00025"></a><a class="code" href="classtbe_1_1_any.html#a8c256019f54cf08f736b38e77a9551b0">00025</a>     <a class="code" href="classtbe_1_1_any.html#a8c256019f54cf08f736b38e77a9551b0">Any</a>()
 <a name="l00026"></a>00026     {
 <a name="l00027"></a>00027         m_data = NULL;
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029         <a class="code" href="classtbe_1_1_any.html#acd83becb4ee10ac73d3713bb16848644">SetValue</a>(value);
-<a name="l00030"></a>00030     }
-<a name="l00031"></a>00031 
-<a name="l00032"></a><a class="code" href="classtbe_1_1_any.html#a9740c0f5d5b7266af9490129cbc47cf5">00032</a>     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <a class="code" href="classtbe_1_1_any.html#a8c256019f54cf08f736b38e77a9551b0">Any</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
-<a name="l00033"></a>00033     {
-<a name="l00034"></a>00034         m_data = NULL;
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036         <a class="code" href="classtbe_1_1_any.html#acd83becb4ee10ac73d3713bb16848644">SetValue</a>(value);
-<a name="l00037"></a>00037     }
-<a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="classtbe_1_1_any.html#aabea1852ded8cc958181e808f6c737ec">00039</a>     <a class="code" href="classtbe_1_1_any.html#aabea1852ded8cc958181e808f6c737ec">~Any</a>()
-<a name="l00040"></a>00040     {
-<a name="l00041"></a>00041         <span class="keywordflow">if</span>(m_data)
-<a name="l00042"></a>00042             <span class="keyword">delete</span> m_data, m_data = NULL;
+<a name="l00028"></a>00028     }
+<a name="l00029"></a>00029 
+<a name="l00030"></a><a class="code" href="classtbe_1_1_any.html#a84525d26921135a31bba6c4f4bb0d3c0">00030</a>     <a class="code" href="classtbe_1_1_any.html#a8c256019f54cf08f736b38e77a9551b0">Any</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a>&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00031"></a>00031     {
+<a name="l00032"></a>00032         m_data = NULL;
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034         <a class="code" href="classtbe_1_1_any.html#a609b3335ce71f9387de18ad4f546fafc">setValue</a>(value);
+<a name="l00035"></a>00035     }
+<a name="l00036"></a>00036 
+<a name="l00037"></a>00037     <span class="comment">// Constructeur par template accepet n&#39;import quelle type</span>
+<a name="l00038"></a><a class="code" href="classtbe_1_1_any.html#a9740c0f5d5b7266af9490129cbc47cf5">00038</a>     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <a class="code" href="classtbe_1_1_any.html#a8c256019f54cf08f736b38e77a9551b0">Any</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00039"></a>00039     {
+<a name="l00040"></a>00040         m_data = NULL;
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042         <a class="code" href="classtbe_1_1_any.html#a609b3335ce71f9387de18ad4f546fafc">setValue</a>(value);
 <a name="l00043"></a>00043     }
 <a name="l00044"></a>00044 
-<a name="l00045"></a><a class="code" href="classtbe_1_1_any.html#ae3d73d4bc96ace27e50f6a19178faec6">00045</a>     <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> &amp; <a class="code" href="classtbe_1_1_any.html#ae3d73d4bc96ace27e50f6a19178faec6">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
-<a name="l00046"></a>00046     {
-<a name="l00047"></a>00047         <a class="code" href="classtbe_1_1_any.html#acd83becb4ee10ac73d3713bb16848644">SetValue</a>(value);
-<a name="l00048"></a>00048         <span class="keywordflow">return</span> *<span class="keyword">this</span>;
-<a name="l00049"></a>00049     }
-<a name="l00050"></a>00050 
-<a name="l00051"></a><a class="code" href="classtbe_1_1_any.html#adcc9bf50aab7c584d95c6d8327e66785">00051</a>     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a> &amp; <a class="code" href="classtbe_1_1_any.html#ae3d73d4bc96ace27e50f6a19178faec6">operator=</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
-<a name="l00052"></a>00052     {
-<a name="l00053"></a>00053         <a class="code" href="classtbe_1_1_any.html#acd83becb4ee10ac73d3713bb16848644">SetValue</a>(value);
-<a name="l00054"></a>00054         <span class="keywordflow">return</span> *<span class="keyword">this</span>;
-<a name="l00055"></a>00055     }
-<a name="l00056"></a>00056 
-<a name="l00057"></a><a class="code" href="classtbe_1_1_any.html#acd83becb4ee10ac73d3713bb16848644">00057</a>     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_any.html#acd83becb4ee10ac73d3713bb16848644">SetValue</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de donné">Any</a>&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
-<a name="l00058"></a>00058     {
-<a name="l00059"></a>00059         <span class="keywordflow">if</span>(m_data)
-<a name="l00060"></a>00060             <span class="keyword">delete</span> m_data, m_data = NULL;
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062         <span class="keywordflow">if</span>(value.m_data)
-<a name="l00063"></a>00063             m_data = value.m_data-&gt;Clone();
+<a name="l00045"></a>00045     <span class="comment">// Constructeur pour les chaine de caractere en C</span>
+<a name="l00046"></a><a class="code" href="classtbe_1_1_any.html#a2f43c8735befc29ce65aa56a5939440d">00046</a>     <a class="code" href="classtbe_1_1_any.html#a8c256019f54cf08f736b38e77a9551b0">Any</a>(<span class="keywordtype">char</span>* <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00047"></a>00047     {
+<a name="l00048"></a>00048         m_data = NULL;
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050         <a class="code" href="classtbe_1_1_any.html#a609b3335ce71f9387de18ad4f546fafc">setValue</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>(value));
+<a name="l00051"></a>00051     }
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053     <span class="comment">// Constructeur pour les chaine de caractere constant en C</span>
+<a name="l00054"></a><a class="code" href="classtbe_1_1_any.html#acaced10c17efa9280455ffa8f5d358e5">00054</a>     <a class="code" href="classtbe_1_1_any.html#a8c256019f54cf08f736b38e77a9551b0">Any</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00055"></a>00055     {
+<a name="l00056"></a>00056         m_data = NULL;
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058         <a class="code" href="classtbe_1_1_any.html#a609b3335ce71f9387de18ad4f546fafc">setValue</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>(value));
+<a name="l00059"></a>00059     }
+<a name="l00060"></a>00060 
+<a name="l00061"></a><a class="code" href="classtbe_1_1_any.html#aabea1852ded8cc958181e808f6c737ec">00061</a>     <a class="code" href="classtbe_1_1_any.html#aabea1852ded8cc958181e808f6c737ec">~Any</a>()
+<a name="l00062"></a>00062     {
+<a name="l00063"></a>00063         <a class="code" href="classtbe_1_1_any.html#ab6165da8c45cc778945538723c7d0cc6">clear</a>();
 <a name="l00064"></a>00064     }
 <a name="l00065"></a>00065 
-<a name="l00066"></a><a class="code" href="classtbe_1_1_any.html#aef91397d398e316f7ffa62707ff21726">00066</a>     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_any.html#acd83becb4ee10ac73d3713bb16848644">SetValue</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00066"></a><a class="code" href="classtbe_1_1_any.html#ae3d73d4bc96ace27e50f6a19178faec6">00066</a>     <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a> &amp; <a class="code" href="classtbe_1_1_any.html#ae3d73d4bc96ace27e50f6a19178faec6">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a>&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
 <a name="l00067"></a>00067     {
-<a name="l00068"></a>00068         <span class="keywordflow">if</span>(m_data)
-<a name="l00069"></a>00069             <span class="keyword">delete</span> m_data, m_data = NULL;
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071         m_data = <span class="keyword">new</span> DataHolder&lt;T &gt; (<a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
-<a name="l00072"></a>00072     }
-<a name="l00073"></a>00073 
-<a name="l00074"></a><a class="code" href="classtbe_1_1_any.html#a17c7420d72902b9fb85604b4eafb74c1">00074</a>     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; T <a class="code" href="classtbe_1_1_any.html#a17c7420d72902b9fb85604b4eafb74c1">GetValue</a>()
-<a name="l00075"></a>00075     {
-<a name="l00076"></a>00076         DataHolder &lt; T &gt;* <a class="code" href="_g_lee_8h.html#a7e9cc00a03db31e765a5cc7fce338bbc">dh</a> = <span class="keyword">static_cast&lt;</span>DataHolder &lt; T &gt;*<span class="keyword">&gt;</span>(m_data);
-<a name="l00077"></a>00077         <span class="keywordflow">return</span> dh-&gt;content;
-<a name="l00078"></a>00078     }
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080 <span class="keyword">private</span>:
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082     <span class="keyword">class </span>Data
-<a name="l00083"></a>00083     {
-<a name="l00084"></a>00084     <span class="keyword">public</span>:
-<a name="l00085"></a>00085         <span class="keyword">virtual</span> Data* Clone() = 0;
-<a name="l00086"></a>00086     };
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span>DataHolder : <span class="keyword">public</span> Data
-<a name="l00089"></a>00089     {
-<a name="l00090"></a>00090     <span class="keyword">public</span>:
+<a name="l00068"></a>00068         <a class="code" href="classtbe_1_1_any.html#a609b3335ce71f9387de18ad4f546fafc">setValue</a>(value);
+<a name="l00069"></a>00069         <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00070"></a>00070     }
+<a name="l00071"></a>00071 
+<a name="l00072"></a><a class="code" href="classtbe_1_1_any.html#adcc9bf50aab7c584d95c6d8327e66785">00072</a>     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a> &amp; <a class="code" href="classtbe_1_1_any.html#ae3d73d4bc96ace27e50f6a19178faec6">operator=</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00073"></a>00073     {
+<a name="l00074"></a>00074         <a class="code" href="classtbe_1_1_any.html#a609b3335ce71f9387de18ad4f546fafc">setValue</a>(value);
+<a name="l00075"></a>00075         <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00076"></a>00076     }
+<a name="l00077"></a>00077 
+<a name="l00078"></a><a class="code" href="classtbe_1_1_any.html#a609b3335ce71f9387de18ad4f546fafc">00078</a>     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_any.html#a609b3335ce71f9387de18ad4f546fafc">setValue</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_any.html" title="Class de stockage peut contenir n&#39;import quelle type de variable implementer apartir des sources de b...">Any</a>&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00079"></a>00079     {
+<a name="l00080"></a>00080         <span class="keywordflow">if</span>(m_data)
+<a name="l00081"></a>00081             <span class="keyword">delete</span> m_data, m_data = NULL;
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083         <span class="keywordflow">if</span>(value.m_data)
+<a name="l00084"></a>00084             m_data = value.m_data-&gt;clone();
+<a name="l00085"></a>00085     }
+<a name="l00086"></a>00086 
+<a name="l00087"></a><a class="code" href="classtbe_1_1_any.html#acdfebf243d42ef57ece2df8c5d99ccbc">00087</a>     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_any.html#a609b3335ce71f9387de18ad4f546fafc">setValue</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)
+<a name="l00088"></a>00088     {
+<a name="l00089"></a>00089         <span class="keywordflow">if</span>(m_data)
+<a name="l00090"></a>00090             <span class="keyword">delete</span> m_data, m_data = NULL;
 <a name="l00091"></a>00091 
-<a name="l00092"></a>00092         DataHolder(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a> = 0)
-<a name="l00093"></a>00093         {
-<a name="l00094"></a>00094             content = <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
-<a name="l00095"></a>00095         }
-<a name="l00096"></a>00096 
-<a name="l00097"></a>00097         Data* Clone()
-<a name="l00098"></a>00098         {
-<a name="l00099"></a>00099             <span class="keywordflow">return</span> <span class="keyword">new</span> DataHolder&lt;T &gt; (content);
-<a name="l00100"></a>00100         }
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102         <span class="keyword">virtual</span> ~DataHolder()
-<a name="l00103"></a>00103         {
-<a name="l00104"></a>00104         }
+<a name="l00092"></a>00092         m_data = <span class="keyword">new</span> DataHolder&lt;T &gt; (<a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
+<a name="l00093"></a>00093     }
+<a name="l00094"></a>00094 
+<a name="l00095"></a><a class="code" href="classtbe_1_1_any.html#aa670d52e88f2e2706aa5ceb6e24b4387">00095</a>     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; T <a class="code" href="classtbe_1_1_any.html#aa670d52e88f2e2706aa5ceb6e24b4387">getValue</a>()<span class="keyword"> const</span>
+<a name="l00096"></a>00096 <span class="keyword">    </span>{
+<a name="l00097"></a>00097         DataHolder &lt; T &gt;* <a class="code" href="_g_lee_8h.html#a7e9cc00a03db31e765a5cc7fce338bbc">dh</a> = <span class="keyword">static_cast&lt;</span>DataHolder &lt; T &gt;*<span class="keyword">&gt;</span>(m_data);
+<a name="l00098"></a>00098         <span class="keywordflow">return</span> dh-&gt;content;
+<a name="l00099"></a>00099     }
+<a name="l00100"></a>00100 
+<a name="l00101"></a><a class="code" href="classtbe_1_1_any.html#a5cece749db913c1546c4258d2c07d98c">00101</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_any.html#a5cece749db913c1546c4258d2c07d98c">isNull</a>()<span class="keyword"> const</span>
+<a name="l00102"></a>00102 <span class="keyword">    </span>{
+<a name="l00103"></a>00103         <span class="keywordflow">return</span> (m_data == NULL);
+<a name="l00104"></a>00104     }
 <a name="l00105"></a>00105 
-<a name="l00106"></a>00106         T content;
-<a name="l00107"></a>00107     };
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109     Data* m_data;
-<a name="l00110"></a>00110 };
+<a name="l00106"></a><a class="code" href="classtbe_1_1_any.html#ab6165da8c45cc778945538723c7d0cc6">00106</a>     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_any.html#ab6165da8c45cc778945538723c7d0cc6">clear</a>()
+<a name="l00107"></a>00107     {
+<a name="l00108"></a>00108         <span class="keywordflow">if</span>(m_data)
+<a name="l00109"></a>00109             <span class="keyword">delete</span> m_data, m_data = NULL;
+<a name="l00110"></a>00110     }
 <a name="l00111"></a>00111 
-<a name="l00112"></a>00112 }
-<a name="l00113"></a>00113 
-<a name="l00114"></a>00114 <span class="preprocessor">#endif  </span><span class="comment">/* _ANY_H */</span>
-<a name="l00115"></a>00115 
+<a name="l00112"></a><a class="code" href="classtbe_1_1_any.html#a7f5a0db92a8dbe0a57539bfe5703d59f">00112</a>     <span class="keyword">typedef</span> std::map&lt;std::string, Any&gt; <a class="code" href="classtbe_1_1_any.html#a7f5a0db92a8dbe0a57539bfe5703d59f">Map</a>;
+<a name="l00113"></a><a class="code" href="classtbe_1_1_any.html#ac5303a1085d2d3f9d3339e8e3832d844">00113</a>     <span class="keyword">typedef</span> std::vector&lt;Any&gt; <a class="code" href="classtbe_1_1_any.html#ac5303a1085d2d3f9d3339e8e3832d844">Array</a>;
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115 <span class="keyword">private</span>:
+<a name="l00116"></a>00116 
+<a name="l00117"></a>00117     <span class="keyword">class </span>Data
+<a name="l00118"></a>00118     {
+<a name="l00119"></a>00119     <span class="keyword">public</span>:
+<a name="l00120"></a>00120         <span class="keyword">virtual</span> Data* clone() = 0;
+<a name="l00121"></a>00121     };
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123     <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span>DataHolder : <span class="keyword">public</span> Data
+<a name="l00124"></a>00124     {
+<a name="l00125"></a>00125     <span class="keyword">public</span>:
+<a name="l00126"></a>00126 
+<a name="l00127"></a>00127         DataHolder(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a> = 0)
+<a name="l00128"></a>00128         {
+<a name="l00129"></a>00129             content = <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
+<a name="l00130"></a>00130         }
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132         Data* clone()
+<a name="l00133"></a>00133         {
+<a name="l00134"></a>00134             <span class="keywordflow">return</span> <span class="keyword">new</span> DataHolder&lt;T &gt; (content);
+<a name="l00135"></a>00135         }
+<a name="l00136"></a>00136 
+<a name="l00137"></a>00137         <span class="keyword">virtual</span> ~DataHolder()
+<a name="l00138"></a>00138         {
+<a name="l00139"></a>00139         }
+<a name="l00140"></a>00140 
+<a name="l00141"></a>00141         T content;
+<a name="l00142"></a>00142     };
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144     Data* m_data;
+<a name="l00145"></a>00145 };
+<a name="l00146"></a>00146 
+<a name="l00147"></a>00147 }
+<a name="l00148"></a>00148 
+<a name="l00149"></a>00149 <span class="preprocessor">#endif  </span><span class="comment">/* _ANY_H */</span>
+<a name="l00150"></a>00150 
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:55 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:48 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

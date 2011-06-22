@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>theBall Engine:  Fichier source de D:/projets/cpp/tbengine/sources/Matrix4.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Généré par Doxygen 1.7.4 -->
+<div id="top">
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<div class="header">
+  <div class="headertitle">
+<div class="title">D:/projets/cpp/tbengine/sources/Matrix4.h</div>  </div>
+</div>
+<div class="contents">
+<a href="_matrix4_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a name="l00002"></a>00002 <span class="comment"> * File:   Matrix4.h</span>
+<a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
+<a name="l00005"></a>00005 <span class="comment"> * Created on 19 avril 2011, 15:18</span>
+<a name="l00006"></a>00006 <span class="comment"> */</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef MATRIX4_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define MATRIX4_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;sstream&gt;</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="keyword">namespace </span>tbe
+<a name="l00015"></a>00015 {
+<a name="l00016"></a>00016 
+<a name="l00017"></a><a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">00017</a> <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span><a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>;
+<a name="l00018"></a>00018 <span class="keyword">typedef</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3&lt;float&gt;</a> <a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>;
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 <span class="keyword">class </span><a class="code" href="classtbe_1_1_quaternion.html">Quaternion</a>;
+<a name="l00021"></a>00021 
+<a name="l00022"></a><a class="code" href="classtbe_1_1_matrix4.html">00022</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a>
+<a name="l00023"></a>00023 {
+<a name="l00024"></a>00024 <span class="keyword">public</span>:
+<a name="l00025"></a>00025 
+<a name="l00026"></a>00026     <a class="code" href="classtbe_1_1_matrix4.html#a21e70a74447b9b05cf9a06400bc9c661">Matrix4</a>();
+<a name="l00027"></a>00027     <a class="code" href="classtbe_1_1_matrix4.html#a21e70a74447b9b05cf9a06400bc9c661">Matrix4</a>(<span class="keyword">const</span> <span class="keywordtype">float</span> fmatrix[16]);
+<a name="l00028"></a>00028     <a class="code" href="classtbe_1_1_matrix4.html#a21e70a74447b9b05cf9a06400bc9c661">Matrix4</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>);
+<a name="l00029"></a>00029     <a class="code" href="classtbe_1_1_matrix4.html#a21e70a74447b9b05cf9a06400bc9c661">Matrix4</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> exp);
+<a name="l00030"></a>00030     <a class="code" href="classtbe_1_1_matrix4.html#a21e70a74447b9b05cf9a06400bc9c661">Matrix4</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a>&amp; copy);
+<a name="l00031"></a>00031 
+<a name="l00033"></a>00033     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#ab09bc36bf102e3fc6c4506e1bb069aa9" title="Mets la matrice d&#39;identitÃ©">identity</a>();
+<a name="l00034"></a>00034     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#aafc3ab1288768d0ff18ed7116a8270db">transpose</a>();
+<a name="l00035"></a>00035 
+<a name="l00037"></a>00037     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_matrix4.html#a33a6d28ef884d6bce0111ec9a9266a39" title="Operateur d&#39;assignement.">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a>&amp; copy);
+<a name="l00038"></a>00038 
+<a name="l00040"></a>00040     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#aeaf1716eff32770b7fb7676ca00fd857" title="Mets une position a la matrice.">setPos</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
+<a name="l00041"></a>00041 
+<a name="l00043"></a>00043     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_matrix4.html#a7eddb444149c5a52b6c6dcb7884306fc" title="Renvoi la position de la matrice.">getPos</a>() <span class="keyword">const</span>;
+<a name="l00044"></a>00044 
+<a name="l00046"></a>00046     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#a9ee704b77386ea705e2fe8a28fdd2fbb" title="Mets une taille a la matrice.">setScale</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> value);
+<a name="l00047"></a>00047 
+<a name="l00049"></a>00049     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_matrix4.html#aec78312e735ac38ce82b982ae342d3a1" title="Renvoi la taille de la matrice.">getScale</a>() <span class="keyword">const</span>;
+<a name="l00050"></a>00050 
+<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#a3671c5879cb180e9bdc2693f96156867" title="Mets une rotation a la matrice AxisAngle.">setRotate</a>(<span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a9e06c1f76a20fed54ca742cd25cb02c4">angle</a>, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> axe);
+<a name="l00053"></a>00053 
+<a name="l00055"></a>00055     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#adc9db94c62ccf45ffc2ee5f1094af999" title="Mets une rotation X a la matrice Euler.">setRotateX</a>(<span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a14cfbe2fc2234f5504618905b69d1e06">v</a>);
+<a name="l00056"></a>00056 
+<a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#acb4c4b77ac65081b9d793b671f200c1b" title="Mets une rotation Y a la matrice Euler.">setRotateY</a>(<span class="keywordtype">float</span> v);
+<a name="l00059"></a>00059 
+<a name="l00061"></a>00061     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#a43d66acea68529261ba3dda5a2e1fb31" title="Mets une rotation Z a la matrice Euler.">setRotateZ</a>(<span class="keywordtype">float</span> v);
+<a name="l00062"></a>00062 
+<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#a3671c5879cb180e9bdc2693f96156867" title="Mets une rotation a la matrice AxisAngle.">setRotate</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> v);
+<a name="l00065"></a>00065 
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#a3671c5879cb180e9bdc2693f96156867" title="Mets une rotation a la matrice AxisAngle.">setRotate</a>(<a class="code" href="classtbe_1_1_quaternion.html">Quaternion</a> rotation);
+<a name="l00068"></a>00068 
+<a name="l00070"></a>00070     <a class="code" href="classtbe_1_1_quaternion.html">Quaternion</a> <a class="code" href="classtbe_1_1_matrix4.html#a1805f0452c1804e3faea0a7e3ab8f5df" title="Renvoi la rotation de la matrice.">getRotate</a>() <span class="keyword">const</span>;
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072     <a class="code" href="classtbe_1_1_matrix4.html#a2e7288854ced733b99b5ad05e83ad208">operator Vector3f</a>();
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074     <a class="code" href="classtbe_1_1_matrix4.html#ab21fc1e54677109e5b25e530fdac2b83">operator const float*</a>() <span class="keyword">const</span>;
+<a name="l00075"></a>00075     <a class="code" href="classtbe_1_1_matrix4.html#a0ffdcf73a5b8cc15fcc7960c28e902d6">operator float*</a>();
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1_matrix4.html#abf770574f6929140a95a795e0b62398f">operator()</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j)<span class="keyword">const</span>;
+<a name="l00078"></a>00078     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1_matrix4.html#a2a91baca7b733b3603e56119e48d9108">operator[]</a>(<span class="keywordtype">int</span> i)<span class="keyword">const</span>;
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080     <span class="keywordtype">float</span> &amp; <a class="code" href="classtbe_1_1_matrix4.html#abf770574f6929140a95a795e0b62398f">operator()</a>(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j);
+<a name="l00081"></a>00081     <span class="keywordtype">float</span> &amp; <a class="code" href="classtbe_1_1_matrix4.html#a2a91baca7b733b3603e56119e48d9108">operator[]</a>(<span class="keywordtype">int</span> i);
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> &amp; <a class="code" href="classtbe_1_1_matrix4.html#ab1c47f5a310579d36316971e2d7f700b">operator*=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a>&amp; mat);
+<a name="l00084"></a>00084     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> <a class="code" href="classtbe_1_1_matrix4.html#aba2a72f3cb8625fff7223c8742c603d4">operator*</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a>&amp; mat) <span class="keyword">const</span>;
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_matrix4.html#ab1c47f5a310579d36316971e2d7f700b">operator*=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; vec);
+<a name="l00087"></a>00087     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_matrix4.html#aba2a72f3cb8625fff7223c8742c603d4">operator*</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; vec) <span class="keyword">const</span>;
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#a44cd957c407dea56812aaa1333c61778">translate</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> pos);
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#a7bcfb1211ebf559f551634fa78bb5847">rotate</a>(<span class="keywordtype">float</span> angle, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> axe);
+<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#a7bcfb1211ebf559f551634fa78bb5847">rotate</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> euler);
+<a name="l00093"></a>00093     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#a7bcfb1211ebf559f551634fa78bb5847">rotate</a>(<a class="code" href="classtbe_1_1_quaternion.html">Quaternion</a> rotation);
+<a name="l00094"></a>00094 
+<a name="l00095"></a>00095     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_matrix4.html#a37325e9a2025bb984aab3a9bcd0e5ed4">scale</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#a281421b881aa7a1266842b73a3bc7655">scale</a>);
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> <a class="code" href="classtbe_1_1_matrix4.html#aafc3ab1288768d0ff18ed7116a8270db">transpose</a>(<a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> mat);
+<a name="l00098"></a>00098 
+<a name="l00099"></a>00099     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> <a class="code" href="classtbe_1_1_matrix4.html#a44cd957c407dea56812aaa1333c61778">translate</a>(<a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> mat, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> pos);
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> <a class="code" href="classtbe_1_1_matrix4.html#a7bcfb1211ebf559f551634fa78bb5847">rotate</a>(<a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> mat, <span class="keywordtype">float</span> angle, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> axe);
+<a name="l00102"></a>00102     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> <a class="code" href="classtbe_1_1_matrix4.html#a7bcfb1211ebf559f551634fa78bb5847">rotate</a>(<a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> mat, <a class="code" href="classtbe_1_1_quaternion.html">Quaternion</a> quat);
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> <a class="code" href="classtbe_1_1_matrix4.html#a37325e9a2025bb984aab3a9bcd0e5ed4">scale</a>(<a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> mat, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> pos);
+<a name="l00105"></a>00105 
+<a name="l00106"></a><a class="code" href="classtbe_1_1_matrix4.html#ae4258e0530f66d79f817550afb4de9c0">00106</a>     <span class="keyword">friend</span> std::istream &amp; <a class="code" href="classtbe_1_1_matrix4.html#ae4258e0530f66d79f817550afb4de9c0">operator &gt;&gt;</a>(std::istream&amp; stream, <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a>&amp; mat)
+<a name="l00107"></a>00107     {
+<a name="l00108"></a>00108         <span class="keywordtype">char</span> sep;
+<a name="l00109"></a>00109         <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; 15; i++)
+<a name="l00110"></a>00110             stream &gt;&gt; mat[i] &gt;&gt; sep;
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112         stream &gt;&gt; mat[15];
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114         <span class="keywordflow">return</span> stream;
+<a name="l00115"></a>00115     }
+<a name="l00116"></a>00116 
+<a name="l00117"></a><a class="code" href="classtbe_1_1_matrix4.html#abdad5a9f3a2fb8e95f633718c092b954">00117</a>     <span class="keyword">friend</span> std::ostream &amp; <a class="code" href="classtbe_1_1_matrix4.html#abdad5a9f3a2fb8e95f633718c092b954">operator &lt;&lt;</a>(std::ostream&amp; stream, <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> mat)
+<a name="l00118"></a>00118     {
+<a name="l00119"></a>00119         <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; 15; i++)
+<a name="l00120"></a>00120             stream &lt;&lt; mat[i] &lt;&lt; <span class="stringliteral">&quot;,&quot;</span>;
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122         stream &lt;&lt; mat[15];
+<a name="l00123"></a>00123 
+<a name="l00124"></a>00124         <span class="keywordflow">return</span> stream;
+<a name="l00125"></a>00125     }
+<a name="l00126"></a>00126 
+<a name="l00127"></a>00127 <span class="keyword">private</span>:
+<a name="l00128"></a>00128     <span class="keywordtype">float</span> m_matrix[16];
+<a name="l00129"></a>00129 };
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131 }
+<a name="l00132"></a>00132 
+<a name="l00133"></a>00133 <span class="preprocessor">#endif  </span><span class="comment">/* MATRIX4_H */</span>
+<a name="l00134"></a>00134 
+</pre></div></div>
+</div>
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
+</body>
+</html>

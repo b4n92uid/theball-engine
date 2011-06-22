@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -66,7 +66,7 @@
 <a name="l00023"></a>00023     <a class="code" href="classtbe_1_1scene_1_1_heightmap.html#ab5612da910f063572d2dabbbfc0c2450">m_precision</a> = min(1u, precision);
 <a name="l00024"></a>00024     <a class="code" href="classtbe_1_1scene_1_1_heightmap.html#a700f8fd2ee2d5064fc25b07a4e21e3e8">m_rendreId</a> = 0;
 <a name="l00025"></a>00025 
-<a name="l00026"></a>00026     <a class="code" href="classtbe_1_1scene_1_1_heightmap.html#af4a746ee1bf788ae88610c50b11fff96" title="Construction depuis un fichier.">Open</a>(path);
+<a name="l00026"></a>00026     <a class="code" href="classtbe_1_1scene_1_1_heightmap.html#a97ada9853950c97db6d5df85769fbe54" title="Construction depuis un fichier.">open</a>(path);
 <a name="l00027"></a>00027 }
 <a name="l00028"></a>00028 
 <a name="l00029"></a><a class="code" href="classtbe_1_1scene_1_1_heightmap.html#a448aaa0f76856f5952ab8bc0e85504e7">00029</a> <a class="code" href="classtbe_1_1scene_1_1_heightmap.html#a448aaa0f76856f5952ab8bc0e85504e7" title="Dtor.">Heightmap::~Heightmap</a>()
@@ -87,7 +87,7 @@
 <a name="l00044"></a>00044     <span class="keywordflow">return</span> (GLfloat)<a class="code" href="classtbe_1_1scene_1_1_heightmap.html#a253c0fb2958d59528736452a8a062462">m_pixels</a>[z * <a class="code" href="classtbe_1_1scene_1_1_heightmap.html#a6846af3ed243785baab150f9a426b5b1">m_length</a> + <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a>];
 <a name="l00045"></a>00045 }
 <a name="l00046"></a>00046 
-<a name="l00047"></a><a class="code" href="classtbe_1_1scene_1_1_heightmap.html#af4a746ee1bf788ae88610c50b11fff96">00047</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_heightmap.html#af4a746ee1bf788ae88610c50b11fff96" title="Construction depuis un fichier.">Heightmap::Open</a>(<span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; path)
+<a name="l00047"></a><a class="code" href="classtbe_1_1scene_1_1_heightmap.html#a97ada9853950c97db6d5df85769fbe54">00047</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_heightmap.html#a97ada9853950c97db6d5df85769fbe54" title="Construction depuis un fichier.">Heightmap::open</a>(<span class="keyword">const</span> <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&amp; path)
 <a name="l00048"></a>00048 {
 <a name="l00049"></a>00049     <span class="keywordflow">if</span>(<a class="code" href="classtbe_1_1scene_1_1_heightmap.html#a253c0fb2958d59528736452a8a062462">m_pixels</a>);
 <a name="l00050"></a>00050     <span class="keyword">delete</span>[] <a class="code" href="classtbe_1_1scene_1_1_heightmap.html#a253c0fb2958d59528736452a8a062462">m_pixels</a>;
@@ -95,7 +95,7 @@
 <a name="l00052"></a>00052     FILE * pFile = fopen(path.c_str(), <span class="stringliteral">&quot;rb&quot;</span>);
 <a name="l00053"></a>00053 
 <a name="l00054"></a>00054     <span class="keywordflow">if</span>(!pFile)
-<a name="l00055"></a>00055         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">tbe::Exception</a>(<span class="stringliteral">&quot;Heightmap::Open; Open file error (%s)&quot;</span>, path.c_str());
+<a name="l00055"></a>00055         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">tbe::Exception</a>(<span class="stringliteral">&quot;Heightmap::Open; Open file error (%s)&quot;</span>, path.c_str());
 <a name="l00056"></a>00056 
 <a name="l00057"></a>00057     fseek(pFile, 0, SEEK_END);
 <a name="l00058"></a>00058     <a class="code" href="classtbe_1_1scene_1_1_heightmap.html#a51e65877dfc443896e15d2c7f5fd591c">m_fileSize</a> = ftell(pFile);
@@ -121,8 +121,8 @@
 <a name="l00078"></a>00078             <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>(<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a>, <a class="code" href="classtbe_1_1scene_1_1_heightmap.html#aafc00aa64a245d40833ad9a1751ae533">GetY</a>(<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a>, <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>) / 10.0<a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a>, <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>);
 <a name="l00079"></a>00079             <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> pos2(<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> + m_precision, <a class="code" href="classtbe_1_1scene_1_1_heightmap.html#aafc00aa64a245d40833ad9a1751ae533">GetY</a>(<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> + m_precision, <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>) / 10.0<a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a>, <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>);
 <a name="l00080"></a>00080 
-<a name="l00081"></a>00081             <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> normal = <a class="code" href="classtbe_1_1_vector3.html#a75aaddb20980513ebfcb11c986da8a7d">Vector3f::Cross</a>(<a class="code" href="classtbe_1_1_vector3.html#a417cd513dc9cd1b943e3f3e284d470bf">Vector3f::Normalize</a>(pos3), <a class="code" href="classtbe_1_1_vector3.html#a417cd513dc9cd1b943e3f3e284d470bf">Vector3f::Normalize</a>(pos2));
-<a name="l00082"></a>00082             <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> normal2 = <a class="code" href="classtbe_1_1_vector3.html#a75aaddb20980513ebfcb11c986da8a7d">Vector3f::Cross</a>(<a class="code" href="classtbe_1_1_vector3.html#a417cd513dc9cd1b943e3f3e284d470bf">Vector3f::Normalize</a>(pos), <a class="code" href="classtbe_1_1_vector3.html#a417cd513dc9cd1b943e3f3e284d470bf">Vector3f::Normalize</a>(pos3));
+<a name="l00081"></a>00081             <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> normal = <a class="code" href="classtbe_1_1_vector3.html#a54c0dd2aedaf99bef09f3c9de241cc58">Vector3f::cross</a>(<a class="code" href="classtbe_1_1_vector3.html#a4969ef337439f3848353db1f512d4b6e">Vector3f::normalize</a>(pos3), <a class="code" href="classtbe_1_1_vector3.html#a4969ef337439f3848353db1f512d4b6e">Vector3f::normalize</a>(pos2));
+<a name="l00082"></a>00082             <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> normal2 = <a class="code" href="classtbe_1_1_vector3.html#a54c0dd2aedaf99bef09f3c9de241cc58">Vector3f::cross</a>(<a class="code" href="classtbe_1_1_vector3.html#a4969ef337439f3848353db1f512d4b6e">Vector3f::normalize</a>(pos), <a class="code" href="classtbe_1_1_vector3.html#a4969ef337439f3848353db1f512d4b6e">Vector3f::normalize</a>(pos3));
 <a name="l00083"></a>00083 
 <a name="l00084"></a>00084             pos3 = <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>;
 <a name="l00085"></a>00085 
@@ -135,24 +135,24 @@
 <a name="l00092"></a>00092             vertexsCount += 2;
 <a name="l00093"></a>00093         }
 <a name="l00094"></a>00094 
-<a name="l00095"></a>00095         <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a7240943f4818a85b28c62aa352a0a18c">AddFace</a>(face);
+<a name="l00095"></a>00095         <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a6aaac76da0ba46684085c53735368a6e" title="Ajoute une face au buffer.">addFace</a>(face);
 <a name="l00096"></a>00096     }
 <a name="l00097"></a>00097 
-<a name="l00098"></a>00098     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a8da57b8baf8ad73ddaadd8bc2b736fd0">Compile</a>();
+<a name="l00098"></a>00098     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a40ede3d49750eacdf3505fcecf7792a0">compile</a>();
 <a name="l00099"></a>00099 
-<a name="l00100"></a>00100     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a83beb1ae915146cbccec18230119a19d" title="Calcule l&#39;AABB du mesh.">ComputeAabb</a>();
+<a name="l00100"></a>00100     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a2e8fd09ebaf0413e2d73f54286ce20f1" title="Calcule l&#39;AABB du mesh.">computeAabb</a>();
 <a name="l00101"></a>00101 
 <a name="l00102"></a>00102     <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* mainMaterial = <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>;
 <a name="l00103"></a>00103     <span class="comment">//    mainMaterial-&gt;Enable(Material::FRONTFACE_CULL);</span>
 <a name="l00104"></a>00104     <span class="comment">//    mainMaterial-&gt;Disable(Material::BACKFACE_CULL);</span>
-<a name="l00105"></a>00105     mainMaterial-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#acf177c396e3ff1012d37bc46b8932777">SetFaceType</a>(<a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea52aafa9583e740807cbe06d9e494b704">Material::TRIANGLE_STRIP</a>);
+<a name="l00105"></a>00105     mainMaterial-&gt;<a class="code" href="classtbe_1_1scene_1_1_material.html#a7140257d779ecff753c8da65268101f4">setFaceType</a>(<a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea52aafa9583e740807cbe06d9e494b704">Material::TRIANGLE_STRIP</a>);
 <a name="l00106"></a>00106 
-<a name="l00107"></a>00107     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a7df534750837062b4b48c5100e108373" title="Ajout un materieux au noeud.">AddMaterial</a>(<span class="stringliteral">&quot;main&quot;</span>, mainMaterial);
-<a name="l00108"></a>00108     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a39203c84d94e3db0b341d16874c845d2">ApplyMaterial</a>(mainMaterial, 0, vertexsCount);
+<a name="l00107"></a>00107     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a8960b9034c0402d5bd19f2d4352acb32" title="Ajout un materieux au noeud.">addMaterial</a>(<span class="stringliteral">&quot;main&quot;</span>, mainMaterial);
+<a name="l00108"></a>00108     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a94e75f603a2f9c6502a3b655aa0f5828">applyMaterial</a>(mainMaterial, 0, vertexsCount);
 <a name="l00109"></a>00109 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:50 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

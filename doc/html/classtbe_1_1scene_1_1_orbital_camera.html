@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -74,11 +74,11 @@ Graphe d'héritage de tbe::scene::OrbitalCamera:</div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Fonctions membres publiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_orbital_camera.html#a7f8960b34be604cb8d7bb63989ee729c">OrbitalCamera</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_orbital_camera.html#a1355fc414a6066008689a868cf608f71">OnEvent</a> (<a class="el" href="structtbe_1_1_event_manager.html">EventManager</a> *event)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_orbital_camera.html#a6a740c15fb703e0631204bd2aabcaae9">SetDistance</a> (float distance)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_orbital_camera.html#a6aab24d5fa24bac6ca0dfd9dd36bae0e">GetDistance</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_orbital_camera.html#aed05c4bee2006b4d153875a7f49e659a">SetCenter</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> center)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_orbital_camera.html#a102589085d65209e553a2a46b09caf40">GetCenter</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_orbital_camera.html#ae43b145ec169cad4a5a8db4140eab649">onEvent</a> (<a class="el" href="structtbe_1_1_event_manager.html">EventManager</a> *event)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_orbital_camera.html#a0d618da7ab322ef36e86ab0633cdabf1">setDistance</a> (float distance)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_orbital_camera.html#a53e3230524b34c3278368a257bf8dad6">getDistance</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_orbital_camera.html#a67b13f65c38b69da7a859953ef7b1ccf">setCenter</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> center)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_orbital_camera.html#a9f1d596ddf701215ea14de76344afcb2">getCenter</a> () const </td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_orbital_camera.html#ab7bcc38d7c8907a2c47b2b8c481e5305">m_center</a></td></tr>
@@ -87,7 +87,7 @@ Attributs protégés</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Description détaillée</h2>
 <div class="textblock"><p>Caméra pré-conçue pour la vue en orbite. </p>
 
-<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00106">106</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00107">107</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
 </div><hr/><h2>Documentation des constructeurs et destructeur</h2>
 <a class="anchor" id="a7f8960b34be604cb8d7bb63989ee729c"></a><!-- doxytag: member="tbe::scene::OrbitalCamera::OrbitalCamera" ref="a7f8960b34be604cb8d7bb63989ee729c" args="()" -->
 <div class="memitem">
@@ -108,12 +108,12 @@ Attributs protégés</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Documentation des fonctions membres</h2>
-<a class="anchor" id="a102589085d65209e553a2a46b09caf40"></a><!-- doxytag: member="tbe::scene::OrbitalCamera::GetCenter" ref="a102589085d65209e553a2a46b09caf40" args="() const " -->
+<a class="anchor" id="a9f1d596ddf701215ea14de76344afcb2"></a><!-- doxytag: member="tbe::scene::OrbitalCamera::getCenter" ref="a9f1d596ddf701215ea14de76344afcb2" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> OrbitalCamera::GetCenter </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> OrbitalCamera::getCenter </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -126,12 +126,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6aab24d5fa24bac6ca0dfd9dd36bae0e"></a><!-- doxytag: member="tbe::scene::OrbitalCamera::GetDistance" ref="a6aab24d5fa24bac6ca0dfd9dd36bae0e" args="() const " -->
+<a class="anchor" id="a53e3230524b34c3278368a257bf8dad6"></a><!-- doxytag: member="tbe::scene::OrbitalCamera::getDistance" ref="a53e3230524b34c3278368a257bf8dad6" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float OrbitalCamera::GetDistance </td>
+          <td class="memname">float OrbitalCamera::getDistance </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -144,12 +144,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1355fc414a6066008689a868cf608f71"></a><!-- doxytag: member="tbe::scene::OrbitalCamera::OnEvent" ref="a1355fc414a6066008689a868cf608f71" args="(EventManager *event)" -->
+<a class="anchor" id="ae43b145ec169cad4a5a8db4140eab649"></a><!-- doxytag: member="tbe::scene::OrbitalCamera::onEvent" ref="ae43b145ec169cad4a5a8db4140eab649" args="(EventManager *event)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OrbitalCamera::OnEvent </td>
+          <td class="memname">void OrbitalCamera::onEvent </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structtbe_1_1_event_manager.html">EventManager</a> *&#160;</td>
           <td class="paramname"><em>event</em></td><td>)</td>
@@ -159,18 +159,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_user_camera.html#acd9954ff4b0fa75ff7d9526741f8753c">tbe::scene::UserCamera</a>.</p>
+<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_user_camera.html#a06b3142afa11c6a2acafb26b67febc36">tbe::scene::UserCamera</a>.</p>
 
 <p>Définition à la ligne <a class="el" href="_camera_8cpp_source.html#l00207">207</a> du fichier <a class="el" href="_camera_8cpp_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aed05c4bee2006b4d153875a7f49e659a"></a><!-- doxytag: member="tbe::scene::OrbitalCamera::SetCenter" ref="aed05c4bee2006b4d153875a7f49e659a" args="(Vector3f center)" -->
+<a class="anchor" id="a67b13f65c38b69da7a859953ef7b1ccf"></a><!-- doxytag: member="tbe::scene::OrbitalCamera::setCenter" ref="a67b13f65c38b69da7a859953ef7b1ccf" args="(Vector3f center)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OrbitalCamera::SetCenter </td>
+          <td class="memname">void OrbitalCamera::setCenter </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
           <td class="paramname"><em>center</em></td><td>)</td>
@@ -184,12 +184,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6a740c15fb703e0631204bd2aabcaae9"></a><!-- doxytag: member="tbe::scene::OrbitalCamera::SetDistance" ref="a6a740c15fb703e0631204bd2aabcaae9" args="(float distance)" -->
+<a class="anchor" id="a0d618da7ab322ef36e86ab0633cdabf1"></a><!-- doxytag: member="tbe::scene::OrbitalCamera::setDistance" ref="a0d618da7ab322ef36e86ab0633cdabf1" args="(float distance)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void OrbitalCamera::SetDistance </td>
+          <td class="memname">void OrbitalCamera::setDistance </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>distance</em></td><td>)</td>
@@ -215,7 +215,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00119">119</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00121">121</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
 
 </div>
 </div>
@@ -230,7 +230,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00120">120</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_camera_8h_source.html#l00122">122</a> du fichier <a class="el" href="_camera_8h_source.html">Camera.h</a>.</p>
 
 </div>
 </div>
@@ -239,7 +239,7 @@ Attributs protégés</h2></td></tr>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_camera_8cpp_source.html">Camera.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:04 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:55 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

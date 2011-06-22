@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Iterator.h
  * Author: b4n92uid
  *
@@ -12,6 +12,11 @@
 
 namespace tbe
 {
+
+/**
+ * Class d'itiration du conteneur std::vector
+ * utiliser par les noeud et les scenes parallel
+ */
 
 template<typename T> class Iterator
 {

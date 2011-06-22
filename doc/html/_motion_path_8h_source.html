@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -41,7 +41,7 @@
 <div class="title">D:/projets/cpp/tbengine/sources/MotionPath.h</div>  </div>
 </div>
 <div class="contents">
-<a href="_motion_path_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a href="_motion_path_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
 <a name="l00002"></a>00002 <span class="comment"> * File:   MotionPath.h</span>
 <a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
 <a name="l00004"></a>00004 <span class="comment"> *</span>
@@ -57,45 +57,46 @@
 <a name="l00014"></a>00014 <span class="keyword">namespace </span>tbe
 <a name="l00015"></a>00015 {
 <a name="l00016"></a>00016 
-<a name="l00018"></a>00018 
-<a name="l00019"></a><a class="code" href="classtbe_1_1_motion_path.html">00019</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_motion_path.html" title="Gestion des chemin de mouvement linéariser par key-frame.">MotionPath</a>
-<a name="l00020"></a>00020 {
-<a name="l00021"></a>00021 <span class="keyword">public</span>:
-<a name="l00022"></a>00022     <a class="code" href="classtbe_1_1_motion_path.html#a1c97319376e4f1138f7ff25febbd3f17">MotionPath</a>();
-<a name="l00023"></a>00023     <a class="code" href="classtbe_1_1_motion_path.html#ad9fe00dc3d8ed90343ee9a189458d885">~MotionPath</a>();
+<a name="l00021"></a><a class="code" href="classtbe_1_1_motion_path.html">00021</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1_motion_path.html" title="Gestion des chemins de mouvement linéariser par key-frame.">MotionPath</a>
+<a name="l00022"></a>00022 {
+<a name="l00023"></a>00023 <span class="keyword">public</span>:
 <a name="l00024"></a>00024 
-<a name="l00025"></a>00025     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_motion_path.html#a8efa8ecf9a2e5c68d19ae86fc0cf7ff3">AddKeyFrame</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <span class="keywordtype">float</span> speed = 1.0<a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a>);
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_motion_path.html#a65455bd97c6121429416bf2b071ac95e">Update</a>();
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_motion_path.html#ab4509dc89a1a28fd80b5dbd38e6595ea">GetCurrentPos</a>() <span class="keyword">const</span>;
+<a name="l00026"></a>00026     <a class="code" href="classtbe_1_1_motion_path.html#a1c97319376e4f1138f7ff25febbd3f17" title="Constructeur.">MotionPath</a>();
+<a name="l00027"></a>00027 
+<a name="l00029"></a>00029     <a class="code" href="classtbe_1_1_motion_path.html#ad9fe00dc3d8ed90343ee9a189458d885" title="Destructeur.">~MotionPath</a>();
 <a name="l00030"></a>00030 
-<a name="l00031"></a>00031 <span class="keyword">protected</span>:
-<a name="l00032"></a>00032 
-<a name="l00033"></a><a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html">00033</a>     <span class="keyword">struct </span><a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html">KeyFrame</a>
-<a name="l00034"></a>00034     {
-<a name="l00035"></a><a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#a070e71c4c6654b4fd31d109c3a08c880">00035</a>         <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#a070e71c4c6654b4fd31d109c3a08c880">pos</a>;
-<a name="l00036"></a><a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#a9c74630e468800bec3d31c5e12b9507a">00036</a>         <span class="keywordtype">float</span> <a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#a9c74630e468800bec3d31c5e12b9507a">speed</a>;
-<a name="l00037"></a><a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#aeab4b420145e1661652349551225175a">00037</a>         <span class="keyword">typedef</span> std::vector&lt;KeyFrame&gt; <a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#aeab4b420145e1661652349551225175a">Array</a>;
-<a name="l00038"></a>00038     };
+<a name="l00032"></a>00032     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_motion_path.html#a85f4e06c9b76df5779782e6044877735" title="Ajoute une image clé a l&#39;animation.">addKeyFrame</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <span class="keywordtype">float</span> speed = 1.0<a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a>);
+<a name="l00033"></a>00033 
+<a name="l00035"></a>00035     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_motion_path.html#a56bab2667498df8b3f52d34389ca7651" title="Traitement.">update</a>();
+<a name="l00036"></a>00036 
+<a name="l00038"></a>00038     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1_motion_path.html#ad5f1b51613a8a16d0e1f708d4375e768" title="Renvois la valeur interpolé de l&#39;animation.">getCurrentPos</a>() <span class="keyword">const</span>;
 <a name="l00039"></a>00039 
-<a name="l00040"></a><a class="code" href="classtbe_1_1_motion_path.html#a0b6febb2e268e7d0c4590679db08f0ff">00040</a>     <a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#aeab4b420145e1661652349551225175a">KeyFrame::Array</a> <a class="code" href="classtbe_1_1_motion_path.html#a0b6febb2e268e7d0c4590679db08f0ff">m_keyframe</a>;
-<a name="l00041"></a><a class="code" href="classtbe_1_1_motion_path.html#a962fac2d9918b8581bb3157838a982fc">00041</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_motion_path.html#a962fac2d9918b8581bb3157838a982fc">m_currentIndex</a>;
-<a name="l00042"></a>00042 
-<a name="l00043"></a>00043 <span class="keyword">private</span>:
-<a name="l00044"></a>00044     <span class="keywordtype">float</span> m_speed;
-<a name="l00045"></a>00045     <span class="keywordtype">float</span> m_progress;
-<a name="l00046"></a>00046     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> m_startPos;
-<a name="l00047"></a>00047     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> m_currentPos;
-<a name="l00048"></a>00048     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> m_endPos;
-<a name="l00049"></a>00049 };
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051 }
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053 <span class="preprocessor">#endif  </span><span class="comment">/* _MOTIONPATH_H */</span>
+<a name="l00040"></a>00040 <span class="keyword">protected</span>:
+<a name="l00041"></a>00041 
+<a name="l00042"></a><a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html">00042</a>     <span class="keyword">struct </span><a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html">KeyFrame</a>
+<a name="l00043"></a>00043     {
+<a name="l00044"></a><a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#a070e71c4c6654b4fd31d109c3a08c880">00044</a>         <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#a070e71c4c6654b4fd31d109c3a08c880">pos</a>;
+<a name="l00045"></a><a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#a9c74630e468800bec3d31c5e12b9507a">00045</a>         <span class="keywordtype">float</span> <a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#a9c74630e468800bec3d31c5e12b9507a">speed</a>;
+<a name="l00046"></a><a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#aeab4b420145e1661652349551225175a">00046</a>         <span class="keyword">typedef</span> std::vector&lt;KeyFrame&gt; <a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#aeab4b420145e1661652349551225175a">Array</a>;
+<a name="l00047"></a>00047     };
+<a name="l00048"></a>00048 
+<a name="l00049"></a><a class="code" href="classtbe_1_1_motion_path.html#a0b6febb2e268e7d0c4590679db08f0ff">00049</a>     <a class="code" href="structtbe_1_1_motion_path_1_1_key_frame.html#aeab4b420145e1661652349551225175a">KeyFrame::Array</a> <a class="code" href="classtbe_1_1_motion_path.html#a0b6febb2e268e7d0c4590679db08f0ff">m_keyframe</a>;
+<a name="l00050"></a><a class="code" href="classtbe_1_1_motion_path.html#a962fac2d9918b8581bb3157838a982fc">00050</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1_motion_path.html#a962fac2d9918b8581bb3157838a982fc">m_currentIndex</a>;
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052 <span class="keyword">private</span>:
+<a name="l00053"></a>00053     <span class="keywordtype">float</span> m_speed;
+<a name="l00054"></a>00054     <span class="keywordtype">float</span> m_progress;
+<a name="l00055"></a>00055     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> m_startPos;
+<a name="l00056"></a>00056     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> m_currentPos;
+<a name="l00057"></a>00057     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> m_endPos;
+<a name="l00058"></a>00058 };
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060 }
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062 <span class="preprocessor">#endif  </span><span class="comment">/* _MOTIONPATH_H */</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

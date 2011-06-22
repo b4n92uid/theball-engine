@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -70,19 +70,19 @@
 <a name="l00031"></a>00031 {
 <a name="l00032"></a>00032 <span class="keyword">public</span>:
 <a name="l00033"></a>00033 
-<a name="l00035"></a>00035     <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#a3c56a389c43f54d5f1c937a9b4fcbf2e" title="Ctor.">FpsManager</a>();
-<a name="l00036"></a>00036 
-<a name="l00038"></a>00038     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#a54ba51bb020a9ccea2c5d24d96b55286" title="...">DoARender</a>();
+<a name="l00034"></a>00034     <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#a3c56a389c43f54d5f1c937a9b4fcbf2e">FpsManager</a>();
+<a name="l00035"></a>00035 
+<a name="l00038"></a>00038     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#a47d44b641fad4d405ad345402a53405e">doRender</a>();
 <a name="l00039"></a>00039 
-<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#a1d40cfd80ece517967288ce1621beb9c" title="Met a jour le FPS courant.">Update</a>();
+<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#a467f038b53ab3e1071031b860fc2f7af" title="Met a jour le FPS courant.">update</a>();
 <a name="l00042"></a>00042 
-<a name="l00044"></a>00044     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#a7c4e01c8a112c242e1c2b57cc2db6fdd" title="Renvoi le FPS courant.">GetCurFps</a>();
+<a name="l00044"></a>00044     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#a2e1cf7ea975e085c21b733d638c0f744" title="Renvoi le FPS courant.">getCurFps</a>();
 <a name="l00045"></a>00045 
-<a name="l00047"></a>00047     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#aac493ca3e47e13e942c4d1a24e6c896c" title="Renvoi le meilleur FPS enregistrer.">GetBetterFps</a>();
+<a name="l00047"></a>00047     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#a1bfaeda2390b017aa5880a82acee7220" title="Renvoi le meilleur FPS enregistrer.">getBetterFps</a>();
 <a name="l00048"></a>00048 
-<a name="l00050"></a>00050     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#a4fa8abf1f0d8a6931f21bea512f446ca" title="Specifier le framerate de l&#39;application.">SetRunFps</a>(<span class="keywordtype">unsigned</span> setFps);
+<a name="l00050"></a>00050     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#abce61ac70b2f0cc2242a2860bec3c654" title="Specifier le framerate de l&#39;application.">setRunFps</a>(<span class="keywordtype">unsigned</span> setFps);
 <a name="l00051"></a>00051 
-<a name="l00053"></a>00053     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#a11e658bba0798d705f5f8368606a5c80" title="Renvois le framerate specifier de l&#39;application.">GetRunFps</a>() <span class="keyword">const</span>;
+<a name="l00053"></a>00053     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1ticks_1_1_fps_manager.html#ac7b55d27305588e6e8e34c533126c6a8" title="Renvois le framerate specifier de l&#39;application.">getRunFps</a>() <span class="keyword">const</span>;
 <a name="l00054"></a>00054 
 <a name="l00055"></a>00055 <span class="keyword">protected</span>:
 <a name="l00056"></a>00056 
@@ -117,7 +117,7 @@
 <a name="l00085"></a>00085 
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:56 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:48 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

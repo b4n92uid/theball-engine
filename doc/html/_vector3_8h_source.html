@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -45,8 +45,8 @@
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _VECTOR3_H</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;cmath&gt;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;sstream&gt;</span>
-<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;sstream&gt;</span>
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 <span class="keyword">namespace </span>tbe
 <a name="l00009"></a>00009 {
@@ -125,13 +125,13 @@
 <a name="l00083"></a>00083         <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00084"></a>00084     }
 <a name="l00085"></a>00085 
-<a name="l00086"></a><a class="code" href="classtbe_1_1_vector3.html#a54995b8f9cdd61351a2d38b937dc6ae3">00086</a>     T <a class="code" href="classtbe_1_1_vector3.html#a54995b8f9cdd61351a2d38b937dc6ae3">operator[]</a>(<span class="keywordtype">unsigned</span> i)<span class="keyword"> const</span>
+<a name="l00086"></a><a class="code" href="classtbe_1_1_vector3.html#a54995b8f9cdd61351a2d38b937dc6ae3">00086</a>     T <a class="code" href="classtbe_1_1_vector3.html#a54995b8f9cdd61351a2d38b937dc6ae3">operator[]</a>(<span class="keywordtype">unsigned</span> i)<span class="keyword">const</span>
 <a name="l00087"></a>00087 <span class="keyword">    </span>{
 <a name="l00088"></a>00088         <span class="keywordflow">switch</span>(i)
 <a name="l00089"></a>00089         {
-<a name="l00090"></a>00090         <span class="keywordflow">case</span> 0: <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>;
-<a name="l00091"></a>00091         <span class="keywordflow">case</span> 1: <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>;
-<a name="l00092"></a>00092         <span class="keywordflow">default</span>: <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>;
+<a name="l00090"></a>00090             <span class="keywordflow">case</span> 0: <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>;
+<a name="l00091"></a>00091             <span class="keywordflow">case</span> 1: <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>;
+<a name="l00092"></a>00092             <span class="keywordflow">default</span>: <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>;
 <a name="l00093"></a>00093         }
 <a name="l00094"></a>00094     }
 <a name="l00095"></a>00095 
@@ -221,201 +221,239 @@
 <a name="l00179"></a>00179         <span class="keywordflow">return</span> (!<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &amp;&amp; !<a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> &amp;&amp; !<a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>);
 <a name="l00180"></a>00180     }
 <a name="l00181"></a>00181 
-<a name="l00182"></a><a class="code" href="classtbe_1_1_vector3.html#aa85db3c89eb4f13ca3335688ee3f9e51">00182</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#aa85db3c89eb4f13ca3335688ee3f9e51">IsNull</a>()
-<a name="l00183"></a>00183     {
-<a name="l00184"></a>00184         <span class="keywordflow">return</span> (!<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &amp;&amp; !<a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> &amp;&amp; !<a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>);
+<a name="l00182"></a><a class="code" href="classtbe_1_1_vector3.html#ad9383a9135a566e0e3bba92156550bc2">00182</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#ad9383a9135a566e0e3bba92156550bc2">operator-</a>()<span class="keyword"> const</span>
+<a name="l00183"></a>00183 <span class="keyword">    </span>{
+<a name="l00184"></a>00184         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) * (T) - 1;
 <a name="l00185"></a>00185     }
 <a name="l00186"></a>00186 
-<a name="l00187"></a><a class="code" href="classtbe_1_1_vector3.html#a28e0070765dc52d548d5baa0fd47c0ff">00187</a>     <a class="code" href="classtbe_1_1_vector3.html#a28e0070765dc52d548d5baa0fd47c0ff">operator bool</a>()<span class="keyword"> const</span>
-<a name="l00188"></a>00188 <span class="keyword">    </span>{
-<a name="l00189"></a>00189         <span class="keywordflow">return</span> (<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> || <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> || <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>);
+<a name="l00187"></a><a class="code" href="classtbe_1_1_vector3.html#a324e845c848d2b40206bf17df5fffaf4">00187</a>     <a class="code" href="classtbe_1_1_vector3.html#a324e845c848d2b40206bf17df5fffaf4">operator T*</a>()
+<a name="l00188"></a>00188     {
+<a name="l00189"></a>00189         <span class="keywordflow">return</span> &amp;<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>;
 <a name="l00190"></a>00190     }
 <a name="l00191"></a>00191 
-<a name="l00192"></a><a class="code" href="classtbe_1_1_vector3.html#ad9383a9135a566e0e3bba92156550bc2">00192</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#ad9383a9135a566e0e3bba92156550bc2">operator-</a>()<span class="keyword"> const</span>
+<a name="l00192"></a><a class="code" href="classtbe_1_1_vector3.html#a02251f0f53ec086a189ddf32833f22e2">00192</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#a02251f0f53ec086a189ddf32833f22e2">operator==</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vect1)<span class="keyword"> const</span>
 <a name="l00193"></a>00193 <span class="keyword">    </span>{
-<a name="l00194"></a>00194         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) * (T) - 1;
+<a name="l00194"></a>00194         <span class="keywordflow">return</span> (vect1.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> == <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &amp;&amp; vect1.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> == <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> &amp;&amp; vect1.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> == <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>);
 <a name="l00195"></a>00195     }
 <a name="l00196"></a>00196 
-<a name="l00197"></a><a class="code" href="classtbe_1_1_vector3.html#a324e845c848d2b40206bf17df5fffaf4">00197</a>     <a class="code" href="classtbe_1_1_vector3.html#a324e845c848d2b40206bf17df5fffaf4">operator T*</a>()
-<a name="l00198"></a>00198     {
-<a name="l00199"></a>00199         <span class="keywordflow">return</span> &amp;<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>;
+<a name="l00197"></a><a class="code" href="classtbe_1_1_vector3.html#a81012a1d449ee489c604b573238ddfe1">00197</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#a81012a1d449ee489c604b573238ddfe1">operator!=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vect1)<span class="keyword"> const</span>
+<a name="l00198"></a>00198 <span class="keyword">    </span>{
+<a name="l00199"></a>00199         <span class="keywordflow">return</span> !(vect1.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> == <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &amp;&amp; vect1.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> == <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> &amp;&amp; vect1.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> == <a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>);
 <a name="l00200"></a>00200     }
 <a name="l00201"></a>00201 
-<a name="l00202"></a><a class="code" href="classtbe_1_1_vector3.html#a02251f0f53ec086a189ddf32833f22e2">00202</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#a02251f0f53ec086a189ddf32833f22e2">operator==</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vect1)<span class="keyword"> const</span>
+<a name="l00202"></a><a class="code" href="classtbe_1_1_vector3.html#ac567e04bd7a142819f0ee2e6499d6dbd">00202</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#ac567e04bd7a142819f0ee2e6499d6dbd">operator&gt;</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vect1)<span class="keyword"> const</span>
 <a name="l00203"></a>00203 <span class="keyword">    </span>{
-<a name="l00204"></a>00204         <span class="keywordflow">return</span> (vect1.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> == <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &amp;&amp; vect1.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> == <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> &amp;&amp; vect1.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> == <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>);
+<a name="l00204"></a>00204         <span class="keywordflow">return</span> (<a class="code" href="classtbe_1_1_vector3.html#a2d086e2c678de533426add2db0c1a9e0">getMagnitude</a>() &gt; vect1.<a class="code" href="classtbe_1_1_vector3.html#a2d086e2c678de533426add2db0c1a9e0">getMagnitude</a>());
 <a name="l00205"></a>00205     }
 <a name="l00206"></a>00206 
-<a name="l00207"></a><a class="code" href="classtbe_1_1_vector3.html#a81012a1d449ee489c604b573238ddfe1">00207</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#a81012a1d449ee489c604b573238ddfe1">operator!=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vect1)<span class="keyword"> const</span>
+<a name="l00207"></a><a class="code" href="classtbe_1_1_vector3.html#adc3e6aeb3841b23fb116026011344e3a">00207</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#adc3e6aeb3841b23fb116026011344e3a">operator&lt;</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vect1)<span class="keyword"> const</span>
 <a name="l00208"></a>00208 <span class="keyword">    </span>{
-<a name="l00209"></a>00209         <span class="keywordflow">return</span> !(vect1.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> == <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &amp;&amp; vect1.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> == <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> &amp;&amp; vect1.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> == <a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>);
+<a name="l00209"></a>00209         <span class="keywordflow">return</span> (<a class="code" href="classtbe_1_1_vector3.html#a2d086e2c678de533426add2db0c1a9e0">getMagnitude</a>() &lt; vect1.<a class="code" href="classtbe_1_1_vector3.html#a2d086e2c678de533426add2db0c1a9e0">getMagnitude</a>());
 <a name="l00210"></a>00210     }
 <a name="l00211"></a>00211 
-<a name="l00212"></a><a class="code" href="classtbe_1_1_vector3.html#ac567e04bd7a142819f0ee2e6499d6dbd">00212</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#ac567e04bd7a142819f0ee2e6499d6dbd">operator&gt;</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vect1)<span class="keyword"> const</span>
+<a name="l00212"></a><a class="code" href="classtbe_1_1_vector3.html#aa78f142944b32f10b6fe50d3284025ef">00212</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#a02251f0f53ec086a189ddf32833f22e2">operator==</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
 <a name="l00213"></a>00213 <span class="keyword">    </span>{
-<a name="l00214"></a>00214         <span class="keywordflow">return</span> (<a class="code" href="classtbe_1_1_vector3.html#ab5ded6a2490ba5010d8c34c2062da5a1">GetMagnitude</a>() &gt; vect1.<a class="code" href="classtbe_1_1_vector3.html#ab5ded6a2490ba5010d8c34c2062da5a1">GetMagnitude</a>());
+<a name="l00214"></a>00214         <span class="keywordflow">return</span> (<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> == value &amp;&amp; <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> == value &amp;&amp; <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> == value);
 <a name="l00215"></a>00215     }
 <a name="l00216"></a>00216 
-<a name="l00217"></a><a class="code" href="classtbe_1_1_vector3.html#adc3e6aeb3841b23fb116026011344e3a">00217</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#adc3e6aeb3841b23fb116026011344e3a">operator&lt;</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vect1)<span class="keyword"> const</span>
+<a name="l00217"></a><a class="code" href="classtbe_1_1_vector3.html#a5ec1732a8637d0e5fdbb79d25eef5e18">00217</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#a81012a1d449ee489c604b573238ddfe1">operator!=</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
 <a name="l00218"></a>00218 <span class="keyword">    </span>{
-<a name="l00219"></a>00219         <span class="keywordflow">return</span> (<a class="code" href="classtbe_1_1_vector3.html#ab5ded6a2490ba5010d8c34c2062da5a1">GetMagnitude</a>() &lt; vect1.<a class="code" href="classtbe_1_1_vector3.html#ab5ded6a2490ba5010d8c34c2062da5a1">GetMagnitude</a>());
+<a name="l00219"></a>00219         <span class="keywordflow">return</span> !(<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> == value &amp;&amp; <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> == value &amp;&amp; <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> == <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
 <a name="l00220"></a>00220     }
 <a name="l00221"></a>00221 
-<a name="l00222"></a><a class="code" href="classtbe_1_1_vector3.html#aa78f142944b32f10b6fe50d3284025ef">00222</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#a02251f0f53ec086a189ddf32833f22e2">operator==</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
+<a name="l00222"></a><a class="code" href="classtbe_1_1_vector3.html#a68c6a05910106cd026549a611f141bae">00222</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#ac567e04bd7a142819f0ee2e6499d6dbd">operator&gt;</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
 <a name="l00223"></a>00223 <span class="keyword">    </span>{
-<a name="l00224"></a>00224         <span class="keywordflow">return</span> (<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> == value &amp;&amp; <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> == value &amp;&amp; <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> == value);
+<a name="l00224"></a>00224         <span class="keywordflow">return</span> (<a class="code" href="classtbe_1_1_vector3.html#a2d086e2c678de533426add2db0c1a9e0">getMagnitude</a>() &gt; value);
 <a name="l00225"></a>00225     }
 <a name="l00226"></a>00226 
-<a name="l00227"></a><a class="code" href="classtbe_1_1_vector3.html#a5ec1732a8637d0e5fdbb79d25eef5e18">00227</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#a81012a1d449ee489c604b573238ddfe1">operator!=</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
+<a name="l00227"></a><a class="code" href="classtbe_1_1_vector3.html#a22775f8928309e99108b7724834df28b">00227</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#adc3e6aeb3841b23fb116026011344e3a">operator&lt;</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
 <a name="l00228"></a>00228 <span class="keyword">    </span>{
-<a name="l00229"></a>00229         <span class="keywordflow">return</span> !(<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> == value &amp;&amp; <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> == value &amp;&amp; <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> == <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
+<a name="l00229"></a>00229         <span class="keywordflow">return</span> (<a class="code" href="classtbe_1_1_vector3.html#a2d086e2c678de533426add2db0c1a9e0">getMagnitude</a>() &lt; value);
 <a name="l00230"></a>00230     }
 <a name="l00231"></a>00231 
-<a name="l00232"></a><a class="code" href="classtbe_1_1_vector3.html#a68c6a05910106cd026549a611f141bae">00232</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#ac567e04bd7a142819f0ee2e6499d6dbd">operator&gt;</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
+<a name="l00232"></a><a class="code" href="classtbe_1_1_vector3.html#abc9eaac8c51fd075c0f64ae65b32f0d5">00232</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#abc9eaac8c51fd075c0f64ae65b32f0d5">operator+</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)<span class="keyword"> const</span>
 <a name="l00233"></a>00233 <span class="keyword">    </span>{
-<a name="l00234"></a>00234         <span class="keywordflow">return</span> (<a class="code" href="classtbe_1_1_vector3.html#ab5ded6a2490ba5010d8c34c2062da5a1">GetMagnitude</a>() &gt; value);
+<a name="l00234"></a>00234         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) += vec;
 <a name="l00235"></a>00235     }
 <a name="l00236"></a>00236 
-<a name="l00237"></a><a class="code" href="classtbe_1_1_vector3.html#a22775f8928309e99108b7724834df28b">00237</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#adc3e6aeb3841b23fb116026011344e3a">operator&lt;</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
+<a name="l00237"></a><a class="code" href="classtbe_1_1_vector3.html#a2bdc177f5b0032e375f55ede05e059af">00237</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#ad9383a9135a566e0e3bba92156550bc2">operator-</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)<span class="keyword"> const</span>
 <a name="l00238"></a>00238 <span class="keyword">    </span>{
-<a name="l00239"></a>00239         <span class="keywordflow">return</span> (<a class="code" href="classtbe_1_1_vector3.html#ab5ded6a2490ba5010d8c34c2062da5a1">GetMagnitude</a>() &lt; value);
+<a name="l00239"></a>00239         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) -= vec;
 <a name="l00240"></a>00240     }
 <a name="l00241"></a>00241 
-<a name="l00242"></a><a class="code" href="classtbe_1_1_vector3.html#abc9eaac8c51fd075c0f64ae65b32f0d5">00242</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#abc9eaac8c51fd075c0f64ae65b32f0d5">operator+</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)<span class="keyword"> const</span>
+<a name="l00242"></a><a class="code" href="classtbe_1_1_vector3.html#abcc7a477d69bbc9d71f4ce83d3df2c18">00242</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#abcc7a477d69bbc9d71f4ce83d3df2c18">operator*</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)<span class="keyword"> const</span>
 <a name="l00243"></a>00243 <span class="keyword">    </span>{
-<a name="l00244"></a>00244         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) += vec;
+<a name="l00244"></a>00244         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) *= vec;
 <a name="l00245"></a>00245     }
 <a name="l00246"></a>00246 
-<a name="l00247"></a><a class="code" href="classtbe_1_1_vector3.html#a2bdc177f5b0032e375f55ede05e059af">00247</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#ad9383a9135a566e0e3bba92156550bc2">operator-</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)<span class="keyword"> const</span>
+<a name="l00247"></a><a class="code" href="classtbe_1_1_vector3.html#af354261d0572e7b67bd79456dc848e41">00247</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#af354261d0572e7b67bd79456dc848e41">operator/</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)<span class="keyword"> const</span>
 <a name="l00248"></a>00248 <span class="keyword">    </span>{
-<a name="l00249"></a>00249         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) -= vec;
+<a name="l00249"></a>00249         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) /= vec;
 <a name="l00250"></a>00250     }
 <a name="l00251"></a>00251 
-<a name="l00252"></a><a class="code" href="classtbe_1_1_vector3.html#abcc7a477d69bbc9d71f4ce83d3df2c18">00252</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#abcc7a477d69bbc9d71f4ce83d3df2c18">operator*</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)<span class="keyword"> const</span>
+<a name="l00252"></a><a class="code" href="classtbe_1_1_vector3.html#a0d45a9d53fa58b61ec83302aa2f95b55">00252</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#abc9eaac8c51fd075c0f64ae65b32f0d5">operator+</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
 <a name="l00253"></a>00253 <span class="keyword">    </span>{
-<a name="l00254"></a>00254         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) *= vec;
+<a name="l00254"></a>00254         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) += <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
 <a name="l00255"></a>00255     }
 <a name="l00256"></a>00256 
-<a name="l00257"></a><a class="code" href="classtbe_1_1_vector3.html#af354261d0572e7b67bd79456dc848e41">00257</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#af354261d0572e7b67bd79456dc848e41">operator/</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)<span class="keyword"> const</span>
+<a name="l00257"></a><a class="code" href="classtbe_1_1_vector3.html#a5d03cb7d3304cd63d47407563e47de9b">00257</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#ad9383a9135a566e0e3bba92156550bc2">operator-</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
 <a name="l00258"></a>00258 <span class="keyword">    </span>{
-<a name="l00259"></a>00259         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) /= vec;
+<a name="l00259"></a>00259         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) -= <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
 <a name="l00260"></a>00260     }
 <a name="l00261"></a>00261 
-<a name="l00262"></a><a class="code" href="classtbe_1_1_vector3.html#a0d45a9d53fa58b61ec83302aa2f95b55">00262</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#abc9eaac8c51fd075c0f64ae65b32f0d5">operator+</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
+<a name="l00262"></a><a class="code" href="classtbe_1_1_vector3.html#a3c5c3f38f0a8d7d851b0146bb6cb3c6f">00262</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#abcc7a477d69bbc9d71f4ce83d3df2c18">operator*</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
 <a name="l00263"></a>00263 <span class="keyword">    </span>{
-<a name="l00264"></a>00264         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) += <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
+<a name="l00264"></a>00264         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) *= <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
 <a name="l00265"></a>00265     }
 <a name="l00266"></a>00266 
-<a name="l00267"></a><a class="code" href="classtbe_1_1_vector3.html#a5d03cb7d3304cd63d47407563e47de9b">00267</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#ad9383a9135a566e0e3bba92156550bc2">operator-</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
+<a name="l00267"></a><a class="code" href="classtbe_1_1_vector3.html#aacc0bdca7b729a678edf5cc044cc265e">00267</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#af354261d0572e7b67bd79456dc848e41">operator/</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
 <a name="l00268"></a>00268 <span class="keyword">    </span>{
-<a name="l00269"></a>00269         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) -= <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
+<a name="l00269"></a>00269         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) /= <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
 <a name="l00270"></a>00270     }
 <a name="l00271"></a>00271 
-<a name="l00272"></a><a class="code" href="classtbe_1_1_vector3.html#a3c5c3f38f0a8d7d851b0146bb6cb3c6f">00272</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#abcc7a477d69bbc9d71f4ce83d3df2c18">operator*</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
-<a name="l00273"></a>00273 <span class="keyword">    </span>{
-<a name="l00274"></a>00274         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) *= <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
+<a name="l00272"></a><a class="code" href="classtbe_1_1_vector3.html#a3ab203590de0be07f51092fea956958e">00272</a>     <span class="keyword">friend</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#abc9eaac8c51fd075c0f64ae65b32f0d5">operator+</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)
+<a name="l00273"></a>00273     {
+<a name="l00274"></a>00274         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(value) += vec;
 <a name="l00275"></a>00275     }
 <a name="l00276"></a>00276 
-<a name="l00277"></a><a class="code" href="classtbe_1_1_vector3.html#aacc0bdca7b729a678edf5cc044cc265e">00277</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#af354261d0572e7b67bd79456dc848e41">operator/</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)<span class="keyword"> const</span>
-<a name="l00278"></a>00278 <span class="keyword">    </span>{
-<a name="l00279"></a>00279         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(*<span class="keyword">this</span>) /= <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>;
+<a name="l00277"></a><a class="code" href="classtbe_1_1_vector3.html#a46ba4c9bd16ffd2c774e20050622b983">00277</a>     <span class="keyword">friend</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#ad9383a9135a566e0e3bba92156550bc2">operator-</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)
+<a name="l00278"></a>00278     {
+<a name="l00279"></a>00279         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(value) -= vec;
 <a name="l00280"></a>00280     }
 <a name="l00281"></a>00281 
-<a name="l00282"></a><a class="code" href="classtbe_1_1_vector3.html#a3ab203590de0be07f51092fea956958e">00282</a>     <span class="keyword">friend</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#abc9eaac8c51fd075c0f64ae65b32f0d5">operator+</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)
+<a name="l00282"></a><a class="code" href="classtbe_1_1_vector3.html#a4a1b1c5eb9dd7bb90c50e9bf6e50917f">00282</a>     <span class="keyword">friend</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#abcc7a477d69bbc9d71f4ce83d3df2c18">operator*</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)
 <a name="l00283"></a>00283     {
-<a name="l00284"></a>00284         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(value) += vec;
+<a name="l00284"></a>00284         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(value) *= vec;
 <a name="l00285"></a>00285     }
 <a name="l00286"></a>00286 
-<a name="l00287"></a><a class="code" href="classtbe_1_1_vector3.html#a46ba4c9bd16ffd2c774e20050622b983">00287</a>     <span class="keyword">friend</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#ad9383a9135a566e0e3bba92156550bc2">operator-</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)
+<a name="l00287"></a><a class="code" href="classtbe_1_1_vector3.html#a41a6d01416d3d4432e6924e107c6d06c">00287</a>     <span class="keyword">friend</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#af354261d0572e7b67bd79456dc848e41">operator/</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)
 <a name="l00288"></a>00288     {
-<a name="l00289"></a>00289         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(value) -= vec;
+<a name="l00289"></a>00289         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(value) /= vec;
 <a name="l00290"></a>00290     }
 <a name="l00291"></a>00291 
-<a name="l00292"></a><a class="code" href="classtbe_1_1_vector3.html#a4a1b1c5eb9dd7bb90c50e9bf6e50917f">00292</a>     <span class="keyword">friend</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#abcc7a477d69bbc9d71f4ce83d3df2c18">operator*</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)
+<a name="l00292"></a><a class="code" href="classtbe_1_1_vector3.html#a24105444a727610b1e1de0ce4a2d2f72">00292</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="classtbe_1_1_vector3.html#a24105444a727610b1e1de0ce4a2d2f72">rotate</a>(<span class="keyword">const</span> T&amp; xrel, <span class="keyword">const</span> T&amp; yrel)
 <a name="l00293"></a>00293     {
-<a name="l00294"></a>00294         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(value) *= vec;
-<a name="l00295"></a>00295     }
-<a name="l00296"></a>00296 
-<a name="l00297"></a><a class="code" href="classtbe_1_1_vector3.html#a41a6d01416d3d4432e6924e107c6d06c">00297</a>     <span class="keyword">friend</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#af354261d0572e7b67bd79456dc848e41">operator/</a>(<span class="keyword">const</span> T&amp; <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)
-<a name="l00298"></a>00298     {
-<a name="l00299"></a>00299         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(value) /= vec;
-<a name="l00300"></a>00300     }
+<a name="l00294"></a>00294         <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#af593500c283bf1a787a6f947f503a5c2">m</a> = <a class="code" href="classtbe_1_1_vector3.html#a2d086e2c678de533426add2db0c1a9e0">getMagnitude</a>();
+<a name="l00295"></a>00295 
+<a name="l00296"></a>00296         <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> = cos(yrel * M_PI / 180) * cos(xrel * M_PI / 180);
+<a name="l00297"></a>00297         <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> = sin(yrel * M_PI / 180);
+<a name="l00298"></a>00298         <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> = cos(yrel * M_PI / 180) * sin(xrel * M_PI / 180);
+<a name="l00299"></a>00299 
+<a name="l00300"></a>00300         *<span class="keyword">this</span> *= <a class="code" href="_g_lee_8h.html#af593500c283bf1a787a6f947f503a5c2">m</a>;
 <a name="l00301"></a>00301 
-<a name="l00302"></a><a class="code" href="classtbe_1_1_vector3.html#ab790e5175e96b450d5bda6f998985a43">00302</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="classtbe_1_1_vector3.html#ab790e5175e96b450d5bda6f998985a43">Rotate</a>(<span class="keyword">const</span> T&amp; xrel, <span class="keyword">const</span> T&amp; yrel)
-<a name="l00303"></a>00303     {
-<a name="l00304"></a>00304         <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#af593500c283bf1a787a6f947f503a5c2">m</a> = <a class="code" href="classtbe_1_1_vector3.html#ab5ded6a2490ba5010d8c34c2062da5a1">GetMagnitude</a>();
-<a name="l00305"></a>00305 
-<a name="l00306"></a>00306         <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> = cos(yrel * M_PI / 180) * cos(xrel * M_PI / 180);
-<a name="l00307"></a>00307         <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> = sin(yrel * M_PI / 180);
-<a name="l00308"></a>00308         <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> = cos(yrel * M_PI / 180) * sin(xrel * M_PI / 180);
+<a name="l00302"></a>00302         <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00303"></a>00303     }
+<a name="l00304"></a>00304 
+<a name="l00305"></a><a class="code" href="classtbe_1_1_vector3.html#aac573ed91bb32f57d6559604dbccbe49">00305</a>     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#a24105444a727610b1e1de0ce4a2d2f72">rotate</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec, <span class="keyword">const</span> T&amp; xrel, <span class="keyword">const</span> T&amp; yrel)
+<a name="l00306"></a>00306     {
+<a name="l00307"></a>00307         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(vec).rotate(xrel, yrel);
+<a name="l00308"></a>00308     }
 <a name="l00309"></a>00309 
-<a name="l00310"></a>00310         *<span class="keyword">this</span> *= <a class="code" href="_g_lee_8h.html#af593500c283bf1a787a6f947f503a5c2">m</a>;
-<a name="l00311"></a>00311 
-<a name="l00312"></a>00312         <span class="keywordflow">return</span> *<span class="keyword">this</span>;
-<a name="l00313"></a>00313     }
-<a name="l00314"></a>00314 
-<a name="l00315"></a><a class="code" href="classtbe_1_1_vector3.html#a4011459d9039749d258d217804969f74">00315</a>     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#ab790e5175e96b450d5bda6f998985a43">Rotate</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec, <span class="keyword">const</span> T&amp; xrel, <span class="keyword">const</span> T&amp; yrel)
-<a name="l00316"></a>00316     {
-<a name="l00317"></a>00317         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(vec).Rotate(xrel, yrel);
-<a name="l00318"></a>00318     }
-<a name="l00319"></a>00319 
-<a name="l00320"></a><a class="code" href="classtbe_1_1_vector3.html#a417cd513dc9cd1b943e3f3e284d470bf">00320</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="classtbe_1_1_vector3.html#a417cd513dc9cd1b943e3f3e284d470bf">Normalize</a>()
-<a name="l00321"></a>00321     {
-<a name="l00322"></a>00322         T <a class="code" href="_g_lee_8h.html#a3c8469415bbc83dd1341af15c67f1cef">length</a> = <a class="code" href="classtbe_1_1_vector3.html#ab5ded6a2490ba5010d8c34c2062da5a1">GetMagnitude</a>();
-<a name="l00323"></a>00323 
-<a name="l00324"></a>00324         <span class="keywordflow">return</span> (length == 0) ? (*this)(0) : (*<span class="keyword">this</span> /= length);
+<a name="l00310"></a><a class="code" href="classtbe_1_1_vector3.html#a4969ef337439f3848353db1f512d4b6e">00310</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="classtbe_1_1_vector3.html#a4969ef337439f3848353db1f512d4b6e">normalize</a>()
+<a name="l00311"></a>00311     {
+<a name="l00312"></a>00312         T <a class="code" href="_g_lee_8h.html#a3c8469415bbc83dd1341af15c67f1cef">length</a> = <a class="code" href="classtbe_1_1_vector3.html#a2d086e2c678de533426add2db0c1a9e0">getMagnitude</a>();
+<a name="l00313"></a>00313 
+<a name="l00314"></a>00314         <span class="keywordflow">return</span> (length == 0) ? (*this)(0) : (*<span class="keyword">this</span> /= length);
+<a name="l00315"></a>00315     }
+<a name="l00316"></a>00316 
+<a name="l00317"></a><a class="code" href="classtbe_1_1_vector3.html#a5b98a16df1b20fe093504cef49bbaeba">00317</a>     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#a4969ef337439f3848353db1f512d4b6e">normalize</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)
+<a name="l00318"></a>00318     {
+<a name="l00319"></a>00319         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(vec).normalize();
+<a name="l00320"></a>00320     }
+<a name="l00321"></a>00321 
+<a name="l00322"></a><a class="code" href="classtbe_1_1_vector3.html#a2d086e2c678de533426add2db0c1a9e0">00322</a>     T <a class="code" href="classtbe_1_1_vector3.html#a2d086e2c678de533426add2db0c1a9e0">getMagnitude</a>()<span class="keyword"> const</span>
+<a name="l00323"></a>00323 <span class="keyword">    </span>{
+<a name="l00324"></a>00324         <span class="keywordflow">return</span> (T)sqrt(<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> * <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> + <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> * <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> + <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> * <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>);
 <a name="l00325"></a>00325     }
 <a name="l00326"></a>00326 
-<a name="l00327"></a><a class="code" href="classtbe_1_1_vector3.html#a8cfa59ff56d618b648a59d19c3269700">00327</a>     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#a417cd513dc9cd1b943e3f3e284d470bf">Normalize</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; vec)
-<a name="l00328"></a>00328     {
-<a name="l00329"></a>00329         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(vec).Normalize();
+<a name="l00327"></a><a class="code" href="classtbe_1_1_vector3.html#ad11f03fae91ded1fd4411f5a5eb1de5a">00327</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1_vector3.html#ad11f03fae91ded1fd4411f5a5eb1de5a">getAverage</a>()<span class="keyword"> const</span>
+<a name="l00328"></a>00328 <span class="keyword">    </span>{
+<a name="l00329"></a>00329         <span class="keywordflow">return</span> (<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> + <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> + <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>) / 3;
 <a name="l00330"></a>00330     }
 <a name="l00331"></a>00331 
-<a name="l00332"></a><a class="code" href="classtbe_1_1_vector3.html#ab5ded6a2490ba5010d8c34c2062da5a1">00332</a>     T <a class="code" href="classtbe_1_1_vector3.html#ab5ded6a2490ba5010d8c34c2062da5a1">GetMagnitude</a>()<span class="keyword"> const</span>
+<a name="l00332"></a><a class="code" href="classtbe_1_1_vector3.html#ae6a782307c0fd944430f5f2201680332">00332</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#ae6a782307c0fd944430f5f2201680332">isInside</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; min, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)<span class="keyword"> const</span>
 <a name="l00333"></a>00333 <span class="keyword">    </span>{
-<a name="l00334"></a>00334         <span class="keywordflow">return</span> (T)sqrt(<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> * <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> + <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> * <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> + <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> * <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>);
+<a name="l00334"></a>00334         <span class="keywordflow">return</span> (<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &gt;= min.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> &gt;= min.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> &gt;= min.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &lt;= max.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> &lt;= max.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> &lt;= max.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>);
 <a name="l00335"></a>00335     }
 <a name="l00336"></a>00336 
-<a name="l00337"></a><a class="code" href="classtbe_1_1_vector3.html#adf72b47cbedf5f7df14fa89b164fdc75">00337</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1_vector3.html#adf72b47cbedf5f7df14fa89b164fdc75">GetAverage</a>()<span class="keyword"> const</span>
-<a name="l00338"></a>00338 <span class="keyword">    </span>{
-<a name="l00339"></a>00339         <span class="keywordflow">return</span> (<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> + <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> + <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>) / 3;
-<a name="l00340"></a>00340     }
-<a name="l00341"></a>00341 
-<a name="l00342"></a><a class="code" href="classtbe_1_1_vector3.html#aa0b830d6144d440326a02a8f8a496862">00342</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_vector3.html#aa0b830d6144d440326a02a8f8a496862">IsInside</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; min, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)<span class="keyword"> const</span>
-<a name="l00343"></a>00343 <span class="keyword">    </span>{
-<a name="l00344"></a>00344         <span class="keywordflow">return</span> (<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &gt;= min.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> &gt;= min.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> &gt;= min.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &lt;= max.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> &lt;= max.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> &lt;= max.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>);
-<a name="l00345"></a>00345     }
-<a name="l00346"></a>00346 
-<a name="l00347"></a><a class="code" href="classtbe_1_1_vector3.html#a30cd9ff57dc9d002e945dbfbb6142f44">00347</a>     <span class="keyword">static</span> <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1_vector3.html#a30cd9ff57dc9d002e945dbfbb6142f44">Dot</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>)
-<a name="l00348"></a>00348     {
-<a name="l00349"></a>00349         <span class="keywordflow">return</span> (a.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> * b.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> + a.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> * b.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> + a.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> * b.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>);
-<a name="l00350"></a>00350     }
-<a name="l00351"></a>00351 
-<a name="l00352"></a><a class="code" href="classtbe_1_1_vector3.html#a75aaddb20980513ebfcb11c986da8a7d">00352</a>     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#a75aaddb20980513ebfcb11c986da8a7d">Cross</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>)
-<a name="l00353"></a>00353     {
-<a name="l00354"></a>00354         <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="_g_lee_8h.html#a830e6eb5d1b77f7226a78592ba9d2613">n</a>;
-<a name="l00355"></a>00355 
-<a name="l00356"></a>00356         n.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> = (a.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> * b.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>) - (a.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> * b.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>);
-<a name="l00357"></a>00357         n.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> = (a.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> * b.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>) - (a.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> * b.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>);
-<a name="l00358"></a>00358         n.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> = (a.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> * b.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>) - (a.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> * b.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>);
-<a name="l00359"></a>00359 
-<a name="l00360"></a>00360         <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#a830e6eb5d1b77f7226a78592ba9d2613">n</a>;
-<a name="l00361"></a>00361     }
-<a name="l00362"></a>00362 
-<a name="l00363"></a><a class="code" href="classtbe_1_1_vector3.html#a0e1674e5336e53361b312931e9193bc7">00363</a>     <span class="keyword">typedef</span> std::vector&lt; Vector3&lt;T&gt; &gt; <a class="code" href="classtbe_1_1_vector3.html#a0e1674e5336e53361b312931e9193bc7">Array</a>;
-<a name="l00364"></a>00364 
-<a name="l00365"></a><a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">00365</a>     T <a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>, <a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>, <a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>;
-<a name="l00366"></a>00366 };
-<a name="l00367"></a>00367 
-<a name="l00368"></a><a class="code" href="namespacetbe.html#a03849da3ab180ba7842fe5013b543d35">00368</a> <span class="keyword">typedef</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3&lt;float&gt;</a> <a class="code" href="namespacetbe.html#a03849da3ab180ba7842fe5013b543d35">Vector3f</a>;
-<a name="l00369"></a><a class="code" href="namespacetbe.html#a3a11fbfc01fd62a1d4b0ae155c7ce98a">00369</a> <span class="keyword">typedef</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3&lt;int&gt;</a> <a class="code" href="namespacetbe.html#a3a11fbfc01fd62a1d4b0ae155c7ce98a">Vector3i</a>;
-<a name="l00370"></a>00370 
-<a name="l00371"></a>00371 }
-<a name="l00372"></a>00372 
-<a name="l00373"></a>00373 <span class="preprocessor">#endif</span>
+<a name="l00337"></a><a class="code" href="classtbe_1_1_vector3.html#adcc82176d934fcd5e54100a67f050763">00337</a>     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_vector3.html#adcc82176d934fcd5e54100a67f050763">reSet</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3&lt;T&gt;</a>&amp; diri)
+<a name="l00338"></a>00338     {
+<a name="l00339"></a>00339         <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> = !<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> ? 0 : (<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &gt; 0 ? diri.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> : -diri.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>);
+<a name="l00340"></a>00340         <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> = !<a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> ? 0 : (<a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> &gt; 0 ? diri.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> : -diri.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>);
+<a name="l00341"></a>00341         <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> = !<a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> ? 0 : (<a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a> &gt; 0 ? diri.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> : -diri.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>);
+<a name="l00342"></a>00342     }
+<a name="l00343"></a>00343 
+<a name="l00344"></a><a class="code" href="classtbe_1_1_vector3.html#af21f11261bf9af36970d05b9f53b0719">00344</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#af21f11261bf9af36970d05b9f53b0719">X</a>()
+<a name="l00345"></a>00345     {
+<a name="l00346"></a>00346         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(<a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a>, 0, 0);
+<a name="l00347"></a>00347     }
+<a name="l00348"></a>00348 
+<a name="l00349"></a><a class="code" href="classtbe_1_1_vector3.html#a52396e7d780b2a4160633f16aa4b108e">00349</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#a52396e7d780b2a4160633f16aa4b108e">Y</a>()
+<a name="l00350"></a>00350     {
+<a name="l00351"></a>00351         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(0, <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a>, 0);
+<a name="l00352"></a>00352     }
+<a name="l00353"></a>00353 
+<a name="l00354"></a><a class="code" href="classtbe_1_1_vector3.html#a11038979c2aa1fbf17a176d9e860dd16">00354</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#a11038979c2aa1fbf17a176d9e860dd16">Z</a>()
+<a name="l00355"></a>00355     {
+<a name="l00356"></a>00356         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(0, 0, <a class="code" href="_g_lee_8h.html#acb78bf1972d3eaf07da34ff2e0a2f133">z</a>);
+<a name="l00357"></a>00357     }
+<a name="l00358"></a>00358 
+<a name="l00359"></a><a class="code" href="classtbe_1_1_vector3.html#ab168b2b613cfcb308467ba505d61b1d3">00359</a>     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#af21f11261bf9af36970d05b9f53b0719">X</a>(<span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a> = 1)
+<a name="l00360"></a>00360     {
+<a name="l00361"></a>00361         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(<a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, 0, 0);
+<a name="l00362"></a>00362     }
+<a name="l00363"></a>00363 
+<a name="l00364"></a><a class="code" href="classtbe_1_1_vector3.html#a1983f1a4752d916a6ddbde7c7673f5ba">00364</a>     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#a52396e7d780b2a4160633f16aa4b108e">Y</a>(<span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a> = 1)
+<a name="l00365"></a>00365     {
+<a name="l00366"></a>00366         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(0, <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, 0);
+<a name="l00367"></a>00367     }
+<a name="l00368"></a>00368 
+<a name="l00369"></a><a class="code" href="classtbe_1_1_vector3.html#ac6771590783b5ad849c27b7c344cce65">00369</a>     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#a11038979c2aa1fbf17a176d9e860dd16">Z</a>(<span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a> = 1)
+<a name="l00370"></a>00370     {
+<a name="l00371"></a>00371         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>(0, 0, <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
+<a name="l00372"></a>00372     }
+<a name="l00373"></a>00373 
+<a name="l00374"></a><a class="code" href="classtbe_1_1_vector3.html#af0170cb25e46e1ad54d9f98a641e7db5">00374</a>     <span class="keyword">static</span> <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1_vector3.html#af0170cb25e46e1ad54d9f98a641e7db5">dot</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>)
+<a name="l00375"></a>00375     {
+<a name="l00376"></a>00376         <span class="keywordflow">return</span> (a.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> * b.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> + a.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> * b.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> + a.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> * b.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>);
+<a name="l00377"></a>00377     }
+<a name="l00378"></a>00378 
+<a name="l00379"></a><a class="code" href="classtbe_1_1_vector3.html#a54c0dd2aedaf99bef09f3c9de241cc58">00379</a>     <span class="keyword">static</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="classtbe_1_1_vector3.html#a54c0dd2aedaf99bef09f3c9de241cc58">cross</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, <span class="keyword">const</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a>&amp; <a class="code" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>)
+<a name="l00380"></a>00380     {
+<a name="l00381"></a>00381         <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3</a> <a class="code" href="_g_lee_8h.html#a830e6eb5d1b77f7226a78592ba9d2613">n</a>;
+<a name="l00382"></a>00382 
+<a name="l00383"></a>00383         n.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> = (a.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> * b.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>) - (a.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> * b.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>);
+<a name="l00384"></a>00384         n.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> = (a.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> * b.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>) - (a.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> * b.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>);
+<a name="l00385"></a>00385         n.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a> = (a.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> * b.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>) - (a.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> * b.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>);
+<a name="l00386"></a>00386 
+<a name="l00387"></a>00387         <span class="keywordflow">return</span> <a class="code" href="_g_lee_8h.html#a830e6eb5d1b77f7226a78592ba9d2613">n</a>;
+<a name="l00388"></a>00388     }
+<a name="l00389"></a>00389 
+<a name="l00390"></a><a class="code" href="classtbe_1_1_vector3.html#a1dca080cfc3655b8dda060b6c242eca6">00390</a>     <span class="keyword">friend</span> std::istream &amp; <a class="code" href="classtbe_1_1_vector3.html#a1dca080cfc3655b8dda060b6c242eca6">operator &gt;&gt;</a>(std::istream&amp; stream, <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">tbe::Vector3&lt;T&gt;</a>&amp; vec)
+<a name="l00391"></a>00391     {
+<a name="l00392"></a>00392         <span class="keywordtype">char</span> sep;
+<a name="l00393"></a>00393         <span class="keywordflow">return</span> stream &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a> &gt;&gt; sep &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> &gt;&gt; sep &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>;
+<a name="l00394"></a>00394     }
+<a name="l00395"></a>00395 
+<a name="l00396"></a><a class="code" href="classtbe_1_1_vector3.html#a5d8a821be78b521871b40bf403462672">00396</a>     <span class="keyword">friend</span> std::ostream &amp; operator &lt;&lt;(std::ostream&amp; stream, tbe::Vector3&lt;T&gt; vec)
+<a name="l00397"></a>00397     {
+<a name="l00398"></a>00398         <span class="keywordflow">return</span> stream &lt;&lt; vec.x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; vec.y &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; vec.z;
+<a name="l00399"></a>00399     }
+<a name="l00400"></a>00400 
+<a name="l00401"></a><a class="code" href="classtbe_1_1_vector3.html#a0e1674e5336e53361b312931e9193bc7">00401</a>     <span class="keyword">typedef</span> std::vector&lt; Vector3&lt;T&gt; &gt; <a class="code" href="classtbe_1_1_vector3.html#a0e1674e5336e53361b312931e9193bc7">Array</a>;
+<a name="l00402"></a>00402 
+<a name="l00403"></a><a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">00403</a>     T <a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>, <a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>, <a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>;
+<a name="l00404"></a>00404 };
+<a name="l00405"></a>00405 
+<a name="l00406"></a>00406 <span class="keyword">typedef</span> <a class="code" href="classtbe_1_1_vector3.html">Vector3&lt;float&gt;</a> <a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>;
+<a name="l00407"></a><a class="code" href="namespacetbe.html#a3a11fbfc01fd62a1d4b0ae155c7ce98a">00407</a> <span class="keyword">typedef</span> <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3&lt;int&gt;</a> <a class="code" href="namespacetbe.html#a3a11fbfc01fd62a1d4b0ae155c7ce98a">Vector3i</a>;
+<a name="l00408"></a>00408 
+<a name="l00409"></a>00409 }
+<a name="l00410"></a>00410 
+<a name="l00411"></a>00411 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

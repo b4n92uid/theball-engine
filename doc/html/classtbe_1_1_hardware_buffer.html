@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -67,28 +67,45 @@ Fonctions membres publiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a761db2d5bdccd9ec2f29de2306e33b07">~HardwareBuffer</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#afc4e1aadb47e4d0bf16146e3adee691b">HardwareBuffer</a> (const <a class="el" href="classtbe_1_1_hardware_buffer.html">HardwareBuffer</a> &amp;hb)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_hardware_buffer.html">HardwareBuffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a232f4f5c126a4ba5df1e85ab168b43b3">operator=</a> (const <a class="el" href="classtbe_1_1_hardware_buffer.html">HardwareBuffer</a> &amp;hb)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vertex.html">Vertex</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a270d05309f0ea16f468b9791064411b9">Lock</a> (GLenum <a class="el" href="_g_lee_8h.html#ae759ed0394ed5353d8bef2fb755305da">usage</a>=GL_READ_WRITE)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#ac8d9f43286321deff01fba5bd42573f6">UnLock</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a7240943f4818a85b28c62aa352a0a18c">AddFace</a> (const <a class="el" href="classtbe_1_1_face.html">Face</a> &amp;<a class="el" href="_g_lee_8h.html#a676ca580c460c0154eb58200433d2a9e">face</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a44b32dbac6294bb61258dadbb259536b">AddVertex</a> (const <a class="el" href="classtbe_1_1_vertex.html">Vertex</a> &amp;vertex)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a114fa4aeaa54d0b638a3b63f6f6ad47c">AddVertex</a> (const <a class="el" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a> &amp;array)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#ac7b062edc9b2194dfb433f5d47f9ba8c">AddVertex</a> (const <a class="el" href="classtbe_1_1_vertex.html">Vertex</a> *array, unsigned <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a8da57b8baf8ad73ddaadd8bc2b736fd0">Compile</a> (GLenum <a class="el" href="_g_lee_8h.html#ae759ed0394ed5353d8bef2fb755305da">usage</a>=GL_STATIC_DRAW)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#aafc7c03293ae3333158f0de417edc859">BindBuffer</a> (bool state=true)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a9a924200aa664d0bcf74f8e6afce723c">BindTexture</a> (bool state=true)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a8300686cefa6442542a59c327c15c756">BindColor</a> (bool state=true)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a1cca836dc542b8bb2f815373e8f04df5">BindNormal</a> (bool state=true)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#aaabdb464324af47ef5cfc8d7e9f11da4">BindTangent</a> (bool state=true, GLint <a class="el" href="_g_lee_8h.html#a6f0165ed903f22b8bb600c3e0b628e73">location</a>=-1)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#ae204b36865312dc677b2bb61366cd150">BindAocc</a> (bool state=true, GLint <a class="el" href="_g_lee_8h.html#a6f0165ed903f22b8bb600c3e0b628e73">location</a>=-1)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#affadcfee220e80abd31097b695e9234e">Render</a> (GLenum <a class="el" href="_g_lee_8h.html#a1e71d9c196e4683cc06c4b54d53f7ef5">mode</a>=GL_TRIANGLES, unsigned <a class="el" href="_g_lee_8h.html#a970a385f6f880f2b620451db4ca4299a">first</a>=0, unsigned <a class="el" href="_g_lee_8h.html#a9274fa62feb8371797c4c0312446e333">count</a>=0)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a35eb1fe5358554c56393a1c6cace1252">IsEmpty</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#ad7d49f11919bc6d4e6731fc3aa7aaa23">GetBufferSize</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a1070fa40c21848a7ee2f359b702f08d8">GetVertexCount</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_face.html#ae9027b7573351affebe9d3e6d1c40ecd">Face::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a9d0c51a5c9b3686356011f663bb0e8d2">GetAllFace</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a2691dc131783849195d533e52b7102fe">GetAllVertex</a> (bool makeUnique=false)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vertex.html">Vertex</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a2fe840145da3bffad4f1f67e91f99e79">lock</a> (GLenum <a class="el" href="_g_lee_8h.html#ae759ed0394ed5353d8bef2fb755305da">usage</a>=GL_READ_WRITE)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Véroulleu le buffer pour d'éventuelle modification.  <a href="#a2fe840145da3bffad4f1f67e91f99e79"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#af4a1de83d85a4453774d612076a85a3d">unlock</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Dévéroulleu le buffer pour signaler la fin des modification.  <a href="#af4a1de83d85a4453774d612076a85a3d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a6aaac76da0ba46684085c53735368a6e">addFace</a> (const <a class="el" href="classtbe_1_1_face.html">Face</a> &amp;<a class="el" href="_g_lee_8h.html#a676ca580c460c0154eb58200433d2a9e">face</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une face au buffer.  <a href="#a6aaac76da0ba46684085c53735368a6e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#aed7aa23a396553848f4a3224d3d3a188">addVertex</a> (const <a class="el" href="classtbe_1_1_vertex.html">Vertex</a> &amp;vertex)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un vertex au buffer.  <a href="#aed7aa23a396553848f4a3224d3d3a188"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a62696b6babd88c46f8de4beb5b9d913c">addVertex</a> (const <a class="el" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a> &amp;array)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un tablaux de vertex au buffer.  <a href="#a62696b6babd88c46f8de4beb5b9d913c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#ae7c85f4028f53c7c3388c8e3b12a6cb8">addVertex</a> (const <a class="el" href="classtbe_1_1_vertex.html">Vertex</a> *array, unsigned <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un tablaux de vertex au buffer (Style C)  <a href="#ae7c85f4028f53c7c3388c8e3b12a6cb8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a40ede3d49750eacdf3505fcecf7792a0">compile</a> (GLenum <a class="el" href="_g_lee_8h.html#ae759ed0394ed5353d8bef2fb755305da">usage</a>=GL_STATIC_DRAW)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a5dde25813c02e071b2b8e441941d0626">clear</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a99eabc03815717253d817780d1209d19">bindBuffer</a> (bool state=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Activer le rendue des position vertex (activation minimum)  <a href="#a99eabc03815717253d817780d1209d19"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#aa92b1d65d24ab27c1ad41310ac6c18d6">bindTexture</a> (bool state=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Activer le rendue des coordonnées de texture.  <a href="#aa92b1d65d24ab27c1ad41310ac6c18d6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a4cb905e8dd858ad495a1e504ff9fcda6">bindColor</a> (bool state=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Activer le rendue des couleur associer aux vertexs.  <a href="#a4cb905e8dd858ad495a1e504ff9fcda6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#aff51e6584913c84cfb7274126b94a242">bindNormal</a> (bool state=true)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Activer le pris en compte des normals associer aux vertexs.  <a href="#aff51e6584913c84cfb7274126b94a242"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a25b41dc8e16b51464cd0f68be1138e0a">bindTangent</a> (bool state=true, GLint <a class="el" href="_g_lee_8h.html#a6f0165ed903f22b8bb600c3e0b628e73">location</a>=-1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#afa1aa8dbd86a41d98cfb956edd7fb5cc">bindAocc</a> (bool state=true, GLint <a class="el" href="_g_lee_8h.html#a6f0165ed903f22b8bb600c3e0b628e73">location</a>=-1)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Activer le pris en compte des de l'ampbient occlusion.  <a href="#afa1aa8dbd86a41d98cfb956edd7fb5cc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a2427459a224b3fc8c209fd0c3de6b801">render</a> (GLenum <a class="el" href="_g_lee_8h.html#a1e71d9c196e4683cc06c4b54d53f7ef5">mode</a>=GL_TRIANGLES, unsigned <a class="el" href="_g_lee_8h.html#a970a385f6f880f2b620451db4ca4299a">first</a>=0, unsigned <a class="el" href="_g_lee_8h.html#a9274fa62feb8371797c4c0312446e333">count</a>=0)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendue du buffer.  <a href="#a2427459a224b3fc8c209fd0c3de6b801"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#af6b4b9413c74951424d733edb6a00ed3">isEmpty</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois true si le buffer est compiler et pret au rendue.  <a href="#af6b4b9413c74951424d733edb6a00ed3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a5654aee74e6bc0890b131200eb17aeef">getBufferSize</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois la taille du buffer en octet.  <a href="#a5654aee74e6bc0890b131200eb17aeef"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#ac04b3e4971a3fb2c8819184b565ec789">getVertexCount</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois la nombre de vertexs contenue dans le buffer.  <a href="#ac04b3e4971a3fb2c8819184b565ec789"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_face.html#ae9027b7573351affebe9d3e6d1c40ecd">Face::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a33c9481cf5d274ba1109c89f7856ff05">getAllFace</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois un tableau contenant les face triangulaire du buffer.  <a href="#a33c9481cf5d274ba1109c89f7856ff05"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#a9cf18e2e7ec9b007890bb98051897220">getAllVertex</a> (bool makeUnique=false)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Fonctions membres publiques statiques</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#aed6535b9702c34a28639a5c902abf611">CheckHardware</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#aae7ae5d93dcce722b323a496da7cd644">checkHardware</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_hardware_buffer.html#abb7f337c01389bfd3a4fc5a938ace3fa">m_bufferId</a></td></tr>
@@ -100,7 +117,7 @@ Attributs protégés</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Description détaillée</h2>
 <div class="textblock"><p>Tempon de stockage en mémoire GPU (<a class="el" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a> buffer object) </p>
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8h_source.html#l00051">51</a> du fichier <a class="el" href="_hardware_buffer_8h_source.html">HardwareBuffer.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8h_source.html#l00062">62</a> du fichier <a class="el" href="_hardware_buffer_8h_source.html">HardwareBuffer.h</a>.</p>
 </div><hr/><h2>Documentation des constructeurs et destructeur</h2>
 <a class="anchor" id="a599369a49ae04eff4472f6b8b418e313"></a><!-- doxytag: member="tbe::HardwareBuffer::HardwareBuffer" ref="a599369a49ae04eff4472f6b8b418e313" args="()" -->
 <div class="memitem">
@@ -158,12 +175,12 @@ Attributs protégés</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Documentation des fonctions membres</h2>
-<a class="anchor" id="a7240943f4818a85b28c62aa352a0a18c"></a><!-- doxytag: member="tbe::HardwareBuffer::AddFace" ref="a7240943f4818a85b28c62aa352a0a18c" args="(const Face &amp;face)" -->
+<a class="anchor" id="a6aaac76da0ba46684085c53735368a6e"></a><!-- doxytag: member="tbe::HardwareBuffer::addFace" ref="a6aaac76da0ba46684085c53735368a6e" args="(const Face &amp;face)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::AddFace </td>
+          <td class="memname">void HardwareBuffer::addFace </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classtbe_1_1_face.html">Face</a> &amp;&#160;</td>
           <td class="paramname"><em>face</em></td><td>)</td>
@@ -173,16 +190,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Ajoute une face au buffer. </p>
+
 <p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00084">84</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a44b32dbac6294bb61258dadbb259536b"></a><!-- doxytag: member="tbe::HardwareBuffer::AddVertex" ref="a44b32dbac6294bb61258dadbb259536b" args="(const Vertex &amp;vertex)" -->
+<a class="anchor" id="aed7aa23a396553848f4a3224d3d3a188"></a><!-- doxytag: member="tbe::HardwareBuffer::addVertex" ref="aed7aa23a396553848f4a3224d3d3a188" args="(const Vertex &amp;vertex)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::AddVertex </td>
+          <td class="memname">void HardwareBuffer::addVertex </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classtbe_1_1_vertex.html">Vertex</a> &amp;&#160;</td>
           <td class="paramname"><em>vertex</em></td><td>)</td>
@@ -192,16 +211,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Ajoute un vertex au buffer. </p>
+
 <p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00089">89</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a114fa4aeaa54d0b638a3b63f6f6ad47c"></a><!-- doxytag: member="tbe::HardwareBuffer::AddVertex" ref="a114fa4aeaa54d0b638a3b63f6f6ad47c" args="(const Vertex::Array &amp;array)" -->
+<a class="anchor" id="a62696b6babd88c46f8de4beb5b9d913c"></a><!-- doxytag: member="tbe::HardwareBuffer::addVertex" ref="a62696b6babd88c46f8de4beb5b9d913c" args="(const Vertex::Array &amp;array)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::AddVertex </td>
+          <td class="memname">void HardwareBuffer::addVertex </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a> &amp;&#160;</td>
           <td class="paramname"><em>array</em></td><td>)</td>
@@ -211,16 +232,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Ajoute un tablaux de vertex au buffer. </p>
+
 <p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00099">99</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ac7b062edc9b2194dfb433f5d47f9ba8c"></a><!-- doxytag: member="tbe::HardwareBuffer::AddVertex" ref="ac7b062edc9b2194dfb433f5d47f9ba8c" args="(const Vertex *array, unsigned size)" -->
+<a class="anchor" id="ae7c85f4028f53c7c3388c8e3b12a6cb8"></a><!-- doxytag: member="tbe::HardwareBuffer::addVertex" ref="ae7c85f4028f53c7c3388c8e3b12a6cb8" args="(const Vertex *array, unsigned size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::AddVertex </td>
+          <td class="memname">void HardwareBuffer::addVertex </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classtbe_1_1_vertex.html">Vertex</a> *&#160;</td>
           <td class="paramname"><em>array</em>, </td>
@@ -240,16 +263,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Ajoute un tablaux de vertex au buffer (Style C) </p>
+
 <p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00094">94</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae204b36865312dc677b2bb61366cd150"></a><!-- doxytag: member="tbe::HardwareBuffer::BindAocc" ref="ae204b36865312dc677b2bb61366cd150" args="(bool state=true, GLint location=&#45;1)" -->
+<a class="anchor" id="afa1aa8dbd86a41d98cfb956edd7fb5cc"></a><!-- doxytag: member="tbe::HardwareBuffer::bindAocc" ref="afa1aa8dbd86a41d98cfb956edd7fb5cc" args="(bool state=true, GLint location=&#45;1)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::BindAocc </td>
+          <td class="memname">void HardwareBuffer::bindAocc </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>state</em> = <code>true</code>, </td>
@@ -269,16 +294,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00185">185</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Activer le pris en compte des de l'ampbient occlusion. </p>
+
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00195">195</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aafc7c03293ae3333158f0de417edc859"></a><!-- doxytag: member="tbe::HardwareBuffer::BindBuffer" ref="aafc7c03293ae3333158f0de417edc859" args="(bool state=true)" -->
+<a class="anchor" id="a99eabc03815717253d817780d1209d19"></a><!-- doxytag: member="tbe::HardwareBuffer::bindBuffer" ref="a99eabc03815717253d817780d1209d19" args="(bool state=true)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::BindBuffer </td>
+          <td class="memname">void HardwareBuffer::bindBuffer </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>state</em> = <code>true</code></td><td>)</td>
@@ -288,16 +315,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00119">119</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Activer le rendue des position vertex (activation minimum) </p>
+
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00129">129</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a8300686cefa6442542a59c327c15c756"></a><!-- doxytag: member="tbe::HardwareBuffer::BindColor" ref="a8300686cefa6442542a59c327c15c756" args="(bool state=true)" -->
+<a class="anchor" id="a4cb905e8dd858ad495a1e504ff9fcda6"></a><!-- doxytag: member="tbe::HardwareBuffer::bindColor" ref="a4cb905e8dd858ad495a1e504ff9fcda6" args="(bool state=true)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::BindColor </td>
+          <td class="memname">void HardwareBuffer::bindColor </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>state</em> = <code>true</code></td><td>)</td>
@@ -307,16 +336,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00149">149</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Activer le rendue des couleur associer aux vertexs. </p>
+
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00159">159</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a1cca836dc542b8bb2f815373e8f04df5"></a><!-- doxytag: member="tbe::HardwareBuffer::BindNormal" ref="a1cca836dc542b8bb2f815373e8f04df5" args="(bool state=true)" -->
+<a class="anchor" id="aff51e6584913c84cfb7274126b94a242"></a><!-- doxytag: member="tbe::HardwareBuffer::bindNormal" ref="aff51e6584913c84cfb7274126b94a242" args="(bool state=true)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::BindNormal </td>
+          <td class="memname">void HardwareBuffer::bindNormal </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>state</em> = <code>true</code></td><td>)</td>
@@ -326,16 +357,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00137">137</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Activer le pris en compte des normals associer aux vertexs. </p>
+
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00147">147</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aaabdb464324af47ef5cfc8d7e9f11da4"></a><!-- doxytag: member="tbe::HardwareBuffer::BindTangent" ref="aaabdb464324af47ef5cfc8d7e9f11da4" args="(bool state=true, GLint location=&#45;1)" -->
+<a class="anchor" id="a25b41dc8e16b51464cd0f68be1138e0a"></a><!-- doxytag: member="tbe::HardwareBuffer::bindTangent" ref="a25b41dc8e16b51464cd0f68be1138e0a" args="(bool state=true, GLint location=&#45;1)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::BindTangent </td>
+          <td class="memname">void HardwareBuffer::bindTangent </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>state</em> = <code>true</code>, </td>
@@ -354,17 +387,18 @@ Attributs protégés</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Activer le pris en compte des tangent associer aux vertexs pour le rendue du bump-mapping </p>
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00173">173</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00183">183</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9a924200aa664d0bcf74f8e6afce723c"></a><!-- doxytag: member="tbe::HardwareBuffer::BindTexture" ref="a9a924200aa664d0bcf74f8e6afce723c" args="(bool state=true)" -->
+<a class="anchor" id="aa92b1d65d24ab27c1ad41310ac6c18d6"></a><!-- doxytag: member="tbe::HardwareBuffer::bindTexture" ref="aa92b1d65d24ab27c1ad41310ac6c18d6" args="(bool state=true)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::BindTexture </td>
+          <td class="memname">void HardwareBuffer::bindTexture </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>state</em> = <code>true</code></td><td>)</td>
@@ -374,16 +408,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00161">161</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Activer le rendue des coordonnées de texture. </p>
+
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00171">171</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aed6535b9702c34a28639a5c902abf611"></a><!-- doxytag: member="tbe::HardwareBuffer::CheckHardware" ref="aed6535b9702c34a28639a5c902abf611" args="()" -->
+<a class="anchor" id="aae7ae5d93dcce722b323a496da7cd644"></a><!-- doxytag: member="tbe::HardwareBuffer::checkHardware" ref="aae7ae5d93dcce722b323a496da7cd644" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool HardwareBuffer::CheckHardware </td>
+          <td class="memname">bool HardwareBuffer::checkHardware </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [static]</code></td>
@@ -392,18 +428,37 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>Vérifier le support des extention requis par la carte graphique pour le rendue</p>
-<dl class="return"><dt><b>Renvoie:</b></dt><dd></dd></dl>
+<p>Pour déterminer le support des VBO's, l'extention suivante est tester : GL_ARB_vertex_buffer_object </p>
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00256">256</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00267">267</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a8da57b8baf8ad73ddaadd8bc2b736fd0"></a><!-- doxytag: member="tbe::HardwareBuffer::Compile" ref="a8da57b8baf8ad73ddaadd8bc2b736fd0" args="(GLenum usage=GL_STATIC_DRAW)" -->
+<a class="anchor" id="a5dde25813c02e071b2b8e441941d0626"></a><!-- doxytag: member="tbe::HardwareBuffer::clear" ref="a5dde25813c02e071b2b8e441941d0626" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::Compile </td>
+          <td class="memname">void HardwareBuffer::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Réinitialise le buffer de rendue (efface tout les vertexs) </p>
+
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00104">104</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a40ede3d49750eacdf3505fcecf7792a0"></a><!-- doxytag: member="tbe::HardwareBuffer::compile" ref="a40ede3d49750eacdf3505fcecf7792a0" args="(GLenum usage=GL_STATIC_DRAW)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HardwareBuffer::compile </td>
           <td>(</td>
           <td class="paramtype">GLenum&#160;</td>
           <td class="paramname"><em>usage</em> = <code>GL_STATIC_DRAW</code></td><td>)</td>
@@ -412,17 +467,19 @@ Attributs protégés</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Compile le buffer avec les vertex enregistrer</p>
+<p>Cette fonction doit etre appeller après que tout les ajoute de vertex soit effectuer, si des les vertex sont ajouter après l'appelle de cette fonction, ils seront ignorer </p>
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00104">104</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00114">114</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9d0c51a5c9b3686356011f663bb0e8d2"></a><!-- doxytag: member="tbe::HardwareBuffer::GetAllFace" ref="a9d0c51a5c9b3686356011f663bb0e8d2" args="()" -->
+<a class="anchor" id="a33c9481cf5d274ba1109c89f7856ff05"></a><!-- doxytag: member="tbe::HardwareBuffer::getAllFace" ref="a33c9481cf5d274ba1109c89f7856ff05" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_face.html#ae9027b7573351affebe9d3e6d1c40ecd">Face::Array</a> HardwareBuffer::GetAllFace </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_face.html#ae9027b7573351affebe9d3e6d1c40ecd">Face::Array</a> HardwareBuffer::getAllFace </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -431,16 +488,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00217">217</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Renvois un tableau contenant les face triangulaire du buffer. </p>
+
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00228">228</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2691dc131783849195d533e52b7102fe"></a><!-- doxytag: member="tbe::HardwareBuffer::GetAllVertex" ref="a2691dc131783849195d533e52b7102fe" args="(bool makeUnique=false)" -->
+<a class="anchor" id="a9cf18e2e7ec9b007890bb98051897220"></a><!-- doxytag: member="tbe::HardwareBuffer::getAllVertex" ref="a9cf18e2e7ec9b007890bb98051897220" args="(bool makeUnique=false)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a> HardwareBuffer::GetAllVertex </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_vertex.html#a96a1c92c95355d3034b4fc2d2c93aedf">Vertex::Array</a> HardwareBuffer::getAllVertex </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>makeUnique</em> = <code>false</code></td><td>)</td>
@@ -449,17 +508,24 @@ Attributs protégés</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Renvois un tableau contenant tout les vertexs du buffer</p>
+<dl><dt><b>Paramètres:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">makeUnique</td><td>Indique si les vertex qui partagent la même position seront supprimer </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00239">239</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00250">250</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ad7d49f11919bc6d4e6731fc3aa7aaa23"></a><!-- doxytag: member="tbe::HardwareBuffer::GetBufferSize" ref="ad7d49f11919bc6d4e6731fc3aa7aaa23" args="() const " -->
+<a class="anchor" id="a5654aee74e6bc0890b131200eb17aeef"></a><!-- doxytag: member="tbe::HardwareBuffer::getBufferSize" ref="a5654aee74e6bc0890b131200eb17aeef" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned HardwareBuffer::GetBufferSize </td>
+          <td class="memname">unsigned HardwareBuffer::getBufferSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -468,16 +534,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00202">202</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Renvois la taille du buffer en octet. </p>
+
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00213">213</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a1070fa40c21848a7ee2f359b702f08d8"></a><!-- doxytag: member="tbe::HardwareBuffer::GetVertexCount" ref="a1070fa40c21848a7ee2f359b702f08d8" args="() const " -->
+<a class="anchor" id="ac04b3e4971a3fb2c8819184b565ec789"></a><!-- doxytag: member="tbe::HardwareBuffer::getVertexCount" ref="ac04b3e4971a3fb2c8819184b565ec789" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned HardwareBuffer::GetVertexCount </td>
+          <td class="memname">unsigned HardwareBuffer::getVertexCount </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -486,16 +554,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00207">207</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Renvois la nombre de vertexs contenue dans le buffer. </p>
+
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00218">218</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a35eb1fe5358554c56393a1c6cace1252"></a><!-- doxytag: member="tbe::HardwareBuffer::IsEmpty" ref="a35eb1fe5358554c56393a1c6cace1252" args="()" -->
+<a class="anchor" id="af6b4b9413c74951424d733edb6a00ed3"></a><!-- doxytag: member="tbe::HardwareBuffer::isEmpty" ref="af6b4b9413c74951424d733edb6a00ed3" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool HardwareBuffer::IsEmpty </td>
+          <td class="memname">bool HardwareBuffer::isEmpty </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -504,16 +574,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Renvois true si le buffer est compiler et pret au rendue. </p>
+
 <p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00079">79</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a270d05309f0ea16f468b9791064411b9"></a><!-- doxytag: member="tbe::HardwareBuffer::Lock" ref="a270d05309f0ea16f468b9791064411b9" args="(GLenum usage=GL_READ_WRITE)" -->
+<a class="anchor" id="a2fe840145da3bffad4f1f67e91f99e79"></a><!-- doxytag: member="tbe::HardwareBuffer::lock" ref="a2fe840145da3bffad4f1f67e91f99e79" args="(GLenum usage=GL_READ_WRITE)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vertex.html">Vertex</a> * HardwareBuffer::Lock </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_vertex.html">Vertex</a> * HardwareBuffer::lock </td>
           <td>(</td>
           <td class="paramtype">GLenum&#160;</td>
           <td class="paramname"><em>usage</em> = <code>GL_READ_WRITE</code></td><td>)</td>
@@ -522,6 +594,8 @@ Attributs protégés</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Véroulleu le buffer pour d'éventuelle modification. </p>
 
 <p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00065">65</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
@@ -546,12 +620,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="affadcfee220e80abd31097b695e9234e"></a><!-- doxytag: member="tbe::HardwareBuffer::Render" ref="affadcfee220e80abd31097b695e9234e" args="(GLenum mode=GL_TRIANGLES, unsigned first=0, unsigned count=0)" -->
+<a class="anchor" id="a2427459a224b3fc8c209fd0c3de6b801"></a><!-- doxytag: member="tbe::HardwareBuffer::render" ref="a2427459a224b3fc8c209fd0c3de6b801" args="(GLenum mode=GL_TRIANGLES, unsigned first=0, unsigned count=0)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::Render </td>
+          <td class="memname">void HardwareBuffer::render </td>
           <td>(</td>
           <td class="paramtype">GLenum&#160;</td>
           <td class="paramname"><em>mode</em> = <code>GL_TRIANGLES</code>, </td>
@@ -577,16 +651,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00197">197</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
+<p>Rendue du buffer. </p>
+
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00207">207</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ac8d9f43286321deff01fba5bd42573f6"></a><!-- doxytag: member="tbe::HardwareBuffer::UnLock" ref="ac8d9f43286321deff01fba5bd42573f6" args="()" -->
+<a class="anchor" id="af4a1de83d85a4453774d612076a85a3d"></a><!-- doxytag: member="tbe::HardwareBuffer::unlock" ref="af4a1de83d85a4453774d612076a85a3d" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void HardwareBuffer::UnLock </td>
+          <td class="memname">void HardwareBuffer::unlock </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -594,6 +670,8 @@ Attributs protégés</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Dévéroulleu le buffer pour signaler la fin des modification. </p>
 
 <p>Définition à la ligne <a class="el" href="_hardware_buffer_8cpp_source.html#l00073">73</a> du fichier <a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a>.</p>
 
@@ -611,7 +689,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8h_source.html#l00101">101</a> du fichier <a class="el" href="_hardware_buffer_8h_source.html">HardwareBuffer.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8h_source.html#l00156">156</a> du fichier <a class="el" href="_hardware_buffer_8h_source.html">HardwareBuffer.h</a>.</p>
 
 </div>
 </div>
@@ -626,7 +704,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8h_source.html#l00106">106</a> du fichier <a class="el" href="_hardware_buffer_8h_source.html">HardwareBuffer.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8h_source.html#l00161">161</a> du fichier <a class="el" href="_hardware_buffer_8h_source.html">HardwareBuffer.h</a>.</p>
 
 </div>
 </div>
@@ -641,7 +719,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8h_source.html#l00102">102</a> du fichier <a class="el" href="_hardware_buffer_8h_source.html">HardwareBuffer.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8h_source.html#l00157">157</a> du fichier <a class="el" href="_hardware_buffer_8h_source.html">HardwareBuffer.h</a>.</p>
 
 </div>
 </div>
@@ -656,7 +734,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8h_source.html#l00103">103</a> du fichier <a class="el" href="_hardware_buffer_8h_source.html">HardwareBuffer.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8h_source.html#l00158">158</a> du fichier <a class="el" href="_hardware_buffer_8h_source.html">HardwareBuffer.h</a>.</p>
 
 </div>
 </div>
@@ -671,7 +749,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_hardware_buffer_8h_source.html#l00105">105</a> du fichier <a class="el" href="_hardware_buffer_8h_source.html">HardwareBuffer.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_hardware_buffer_8h_source.html#l00160">160</a> du fichier <a class="el" href="_hardware_buffer_8h_source.html">HardwareBuffer.h</a>.</p>
 
 </div>
 </div>
@@ -680,7 +758,7 @@ Attributs protégés</h2></td></tr>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_hardware_buffer_8cpp_source.html">HardwareBuffer.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:03 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:55 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

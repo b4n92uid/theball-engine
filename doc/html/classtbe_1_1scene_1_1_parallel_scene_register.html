@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -70,12 +70,13 @@ Graphe d'héritage de tbe::scene::ParallelSceneRegister&lt; T &gt;:</div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Fonctions membres publiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#a8aad3681d0287c7d5bc9dbd8858f5d50">~ParallelSceneRegister</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#a3b0a8a3ca516a3627ff14671693330e1">Count</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#a70a68e1d4da18acaf797a041c6fa5096">Clear</a> ()</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Methode la liberation memoire.  <a href="#a70a68e1d4da18acaf797a041c6fa5096"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#a70e6d86db2108330f614d34a436ea37e">Register</a> (T *node)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#aee810386dc12873e967af07e6218689f">UnRegister</a> (T *node, bool deleteptr=false)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt; T * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#aab0ea868ae42c95d0395d750f3882655">GetIterator</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#a66fe859c7d78eb512c8fa473120261e6">count</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#ae53bf656821591231442c052b36899d0">clear</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Methode la liberation memoire.  <a href="#ae53bf656821591231442c052b36899d0"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#aa7eed54280b9cd1238f53e6ae76164c7">isRegistred</a> (T *node)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#ade50798c98e3010866719422b73fb497">registerNode</a> (T *node)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#ae73c7f2c9ee826645a0a52c364415f62">unregisterNode</a> (T *node, bool deleteptr=false)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt; T * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#a01d02f19d5e380c5247e8e6fd509e02b">iterator</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; T * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#accdf4d3bed385a657e63e7baf0d8aa62">m_nodes</a></td></tr>
@@ -108,14 +109,14 @@ template&lt;typename T&gt; </div>
 </div>
 </div>
 <hr/><h2>Documentation des fonctions membres</h2>
-<a class="anchor" id="a70a68e1d4da18acaf797a041c6fa5096"></a><!-- doxytag: member="tbe::scene::ParallelSceneRegister::Clear" ref="a70a68e1d4da18acaf797a041c6fa5096" args="()" -->
+<a class="anchor" id="ae53bf656821591231442c052b36899d0"></a><!-- doxytag: member="tbe::scene::ParallelSceneRegister::clear" ref="ae53bf656821591231442c052b36899d0" args="()" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html">tbe::scene::ParallelSceneRegister</a>&lt; T &gt;::Clear </td>
+          <td class="memname">void <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html">tbe::scene::ParallelSceneRegister</a>&lt; T &gt;::clear </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [inline, virtual]</code></td>
@@ -126,20 +127,20 @@ template&lt;typename T&gt; </div>
 
 <p>Methode la liberation memoire. </p>
 
-<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#a60f62d85e55cbb861972fc3c66de22f9">tbe::scene::ParallelScene</a>.</p>
+<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#a424a56a162042923cdec981bb1637b15">tbe::scene::ParallelScene</a>.</p>
 
 <p>Définition à la ligne <a class="el" href="_parallel_scene_8h_source.html#l00071">71</a> du fichier <a class="el" href="_parallel_scene_8h_source.html">ParallelScene.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a3b0a8a3ca516a3627ff14671693330e1"></a><!-- doxytag: member="tbe::scene::ParallelSceneRegister::Count" ref="a3b0a8a3ca516a3627ff14671693330e1" args="()" -->
+<a class="anchor" id="a66fe859c7d78eb512c8fa473120261e6"></a><!-- doxytag: member="tbe::scene::ParallelSceneRegister::count" ref="a66fe859c7d78eb512c8fa473120261e6" args="()" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">unsigned <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html">tbe::scene::ParallelSceneRegister</a>&lt; T &gt;::Count </td>
+          <td class="memname">unsigned <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html">tbe::scene::ParallelSceneRegister</a>&lt; T &gt;::<a class="el" href="_g_lee_8h.html#a9274fa62feb8371797c4c0312446e333">count</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [inline]</code></td>
@@ -152,34 +153,14 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="aab0ea868ae42c95d0395d750f3882655"></a><!-- doxytag: member="tbe::scene::ParallelSceneRegister::GetIterator" ref="aab0ea868ae42c95d0395d750f3882655" args="()" -->
+<a class="anchor" id="aa7eed54280b9cd1238f53e6ae76164c7"></a><!-- doxytag: member="tbe::scene::ParallelSceneRegister::isRegistred" ref="aa7eed54280b9cd1238f53e6ae76164c7" args="(T *node)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt;T*&gt; <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html">tbe::scene::ParallelSceneRegister</a>&lt; T &gt;::GetIterator </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_parallel_scene_8h_source.html#l00101">101</a> du fichier <a class="el" href="_parallel_scene_8h_source.html">ParallelScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a70e6d86db2108330f614d34a436ea37e"></a><!-- doxytag: member="tbe::scene::ParallelSceneRegister::Register" ref="a70e6d86db2108330f614d34a436ea37e" args="(T *node)" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html">tbe::scene::ParallelSceneRegister</a>&lt; T &gt;::Register </td>
+          <td class="memname">bool <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html">tbe::scene::ParallelSceneRegister</a>&lt; T &gt;::isRegistred </td>
           <td>(</td>
           <td class="paramtype">T *&#160;</td>
           <td class="paramname"><em>node</em></td><td>)</td>
@@ -193,14 +174,55 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="aee810386dc12873e967af07e6218689f"></a><!-- doxytag: member="tbe::scene::ParallelSceneRegister::UnRegister" ref="aee810386dc12873e967af07e6218689f" args="(T *node, bool deleteptr=false)" -->
+<a class="anchor" id="a01d02f19d5e380c5247e8e6fd509e02b"></a><!-- doxytag: member="tbe::scene::ParallelSceneRegister::iterator" ref="a01d02f19d5e380c5247e8e6fd509e02b" args="()" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html">tbe::scene::ParallelSceneRegister</a>&lt; T &gt;::UnRegister </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_iterator.html">Iterator</a>&lt;T*&gt; <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html">tbe::scene::ParallelSceneRegister</a>&lt; T &gt;::iterator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_parallel_scene_8h_source.html#l00111">111</a> du fichier <a class="el" href="_parallel_scene_8h_source.html">ParallelScene.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ade50798c98e3010866719422b73fb497"></a><!-- doxytag: member="tbe::scene::ParallelSceneRegister::registerNode" ref="ade50798c98e3010866719422b73fb497" args="(T *node)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html">tbe::scene::ParallelSceneRegister</a>&lt; T &gt;::registerNode </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_parallel_scene_8h_source.html#l00086">86</a> du fichier <a class="el" href="_parallel_scene_8h_source.html">ParallelScene.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae73c7f2c9ee826645a0a52c364415f62"></a><!-- doxytag: member="tbe::scene::ParallelSceneRegister::unregisterNode" ref="ae73c7f2c9ee826645a0a52c364415f62" args="(T *node, bool deleteptr=false)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html">tbe::scene::ParallelSceneRegister</a>&lt; T &gt;::unregisterNode </td>
           <td>(</td>
           <td class="paramtype">T *&#160;</td>
           <td class="paramname"><em>node</em>, </td>
@@ -220,7 +242,7 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_parallel_scene_8h_source.html#l00086">86</a> du fichier <a class="el" href="_parallel_scene_8h_source.html">ParallelScene.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_parallel_scene_8h_source.html#l00096">96</a> du fichier <a class="el" href="_parallel_scene_8h_source.html">ParallelScene.h</a>.</p>
 
 </div>
 </div>
@@ -238,7 +260,7 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_parallel_scene_8h_source.html#l00107">107</a> du fichier <a class="el" href="_parallel_scene_8h_source.html">ParallelScene.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_parallel_scene_8h_source.html#l00117">117</a> du fichier <a class="el" href="_parallel_scene_8h_source.html">ParallelScene.h</a>.</p>
 
 </div>
 </div>
@@ -246,7 +268,7 @@ template&lt;typename T&gt; </div>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_parallel_scene_8h_source.html">ParallelScene.h</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:05 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:56 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

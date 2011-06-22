@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -41,7 +41,7 @@
 <div class="title">D:/projets/cpp/tbengine/sources/Material.h</div>  </div>
 </div>
 <div class="contents">
-<a href="_material_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a href="_material_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
 <a name="l00002"></a>00002 <span class="comment"> * File:   Material.h</span>
 <a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
 <a name="l00004"></a>00004 <span class="comment"> *</span>
@@ -73,131 +73,147 @@
 <a name="l00034"></a>00034 
 <a name="l00035"></a>00035     <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_material.html#aa575aafa3a3a860e9053beb2aaf70766">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>&amp; copy);
 <a name="l00036"></a>00036 
-<a name="l00037"></a>00037     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a8c8d4595f54cc3e936d542b9a98eb980">SetRenderFlags</a>(<span class="keywordtype">unsigned</span> renderFlags);
-<a name="l00038"></a>00038     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#ac480fb855e5882f9897a0b0a371225ac">GetRenderFlags</a>() <span class="keyword">const</span>;
+<a name="l00037"></a>00037     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#af773e22c1175d3935aff77eab941da43">setRenderFlags</a>(<span class="keywordtype">unsigned</span> renderFlags);
+<a name="l00038"></a>00038     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a7aaa432769250dd3dc2987e21778b9a9">getRenderFlags</a>() <span class="keyword">const</span>;
 <a name="l00039"></a>00039 
-<a name="l00040"></a>00040     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a02dca2282b99f3e234cc8a55f3ef7da7">IsEnable</a>(<span class="keywordtype">unsigned</span> flag);
-<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a5f626a6782d1809fc575f47afab2ef06">Enable</a>(<span class="keywordtype">unsigned</span> flag);
-<a name="l00042"></a>00042     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a3eff6a2ed93fd1b47f8ec9e81ad1cf50">Disable</a>(<span class="keywordtype">unsigned</span> flag);
+<a name="l00040"></a>00040     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#ab95234dfaa30b0c8c4766c388af16d0c">isEnable</a>(<span class="keywordtype">unsigned</span> flag);
+<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a11bf27da05972493f4fb8bc9b2201d60">enable</a>(<span class="keywordtype">unsigned</span> flag);
+<a name="l00042"></a>00042     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#af45b6b0d14b15dd8a691bf40ce0386c1">disable</a>(<span class="keywordtype">unsigned</span> flag);
 <a name="l00043"></a>00043 
-<a name="l00044"></a>00044     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#ac1aaae6b65e87dd6d0167f8bd1c2f373">SetTexture</a>(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a> = 0);
-<a name="l00045"></a>00045     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a00abbf05fc2b376727cca55d5ca89e9e">GetTexture</a>(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a> = 0) <span class="keyword">const</span>;
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#ae3628f8be6e1a1f7a4d9af5e1b90e2de">GetTexturesCount</a>() <span class="keyword">const</span>;
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a255b43de5c9f381cc9f6b84f71af3287">SetShininess</a>(<span class="keywordtype">float</span> shininess);
-<a name="l00050"></a>00050     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a27d724af8a76dc8d64f8ffeb555aa00e">GetShininess</a>() <span class="keyword">const</span>;
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a2fa98e137f8d0259d111851e2dc95324">SetSpecular</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> specular);
-<a name="l00053"></a>00053     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a504da534a54163cce80ccff7ee085930">GetSpecular</a>() <span class="keyword">const</span>;
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#abf87e6226ad426b59291124a6db65de1">SetDiffuse</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> diffuse);
-<a name="l00056"></a>00056     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#ade68eceeaf328bdcd76f40380b5f5f13">GetDiffuse</a>() <span class="keyword">const</span>;
-<a name="l00057"></a>00057 
-<a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a89fd2560c96b62119c8b2199b5b8a749">SetAmbient</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> ambient);
-<a name="l00059"></a>00059     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#af6514c1779d80dc4d27fd5b56b43d736">GetAmbient</a>() <span class="keyword">const</span>;
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a7684f643c94961726686c86f82e7917e">SetShader</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a>&amp; <a class="code" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>);
-<a name="l00062"></a>00062     <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#aa753ff49394dabcd3d3df073b04f7b41">GetShader</a>() <span class="keyword">const</span>;
-<a name="l00063"></a>00063 
-<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#ae7a7f00bf062a0b8af8315eb6d3d1021">SetRendWithShader</a>(<span class="keywordtype">bool</span> rendWithShader);
-<a name="l00065"></a>00065     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a730867e1e926fac5840996cf223791e7">IsRendWithShader</a>() <span class="keyword">const</span>;
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#afaaf98fd0ce17f13e9c65ad49f1349dc">SetRendWithTexture</a>(<span class="keywordtype">bool</span> rendWithTexture);
-<a name="l00068"></a>00068     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a127f04293c70cd367fae5d42314d6a79">IsRendWithTexture</a>() <span class="keyword">const</span>;
-<a name="l00069"></a>00069 
-<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#aa4d3239dbb3668fc56e61ec87d91144d">SetLineWidth</a>(<span class="keywordtype">float</span> lineWidth);
-<a name="l00071"></a>00071     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#acc667841eda4788618b5d6aa58e1e958">GetLineWidth</a>() <span class="keyword">const</span>;
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#aabbadaf4944c2282b6693e926a316f0f">SetName</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>);
-<a name="l00074"></a>00074     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a2ee727f561b47466788834db893e981c">GetName</a>() <span class="keyword">const</span>;
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a1cca25542cafa4793e1cd1201d7e396e">SetAlphaThershold</a>(<span class="keywordtype">float</span> alphaThershold);
-<a name="l00077"></a>00077     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a668290213f5b5a40de270933de9c57b1">GetAlphaThershold</a>() <span class="keyword">const</span>;
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#aa1a31da7c3e1f754534e47e79d390e2f">IsTransparent</a>();
-<a name="l00080"></a>00080 
-<a name="l00081"></a>00081     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a68d071f46ffeb54c82826e0b91cd4cf0">SetFrameSortWait</a>(<span class="keywordtype">unsigned</span> frameSortWait);
-<a name="l00082"></a>00082     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a4c3264bd5057e3510047f91ae923090a">GetFrameSortWait</a>() <span class="keyword">const</span>;
-<a name="l00083"></a>00083 
-<a name="l00084"></a>00084     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a0181498ac2298bc8aa93d49e201d79b3">SetTangentLocation</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> tangentLocation);
-<a name="l00085"></a>00085     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#adf4dc520790575571c84b5a04a380813">GetTangentLocation</a>() <span class="keyword">const</span>;
-<a name="l00086"></a>00086 
-<a name="l00087"></a>00087     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#aa2202e5cec3bd03ceac0bde827858ed7">SetAoccLocation</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> aoccLocation);
-<a name="l00088"></a>00088     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a6b704225a2a9a2d7b8ced9a1498df776">GetAoccLocation</a>() <span class="keyword">const</span>;
-<a name="l00089"></a>00089 
-<a name="l00090"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">00090</a>     <span class="keyword">enum</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a>
-<a name="l00091"></a>00091     {
-<a name="l00092"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea0635cb4ee051445c277bae1201b86300">00092</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea0635cb4ee051445c277bae1201b86300">QUADS</a> = GL_QUADS,
-<a name="l00093"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea3106cf2a4c01d85fa6d34d6cb7ea9f05">00093</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea3106cf2a4c01d85fa6d34d6cb7ea9f05">TRIANGLES</a> = GL_TRIANGLES,
-<a name="l00094"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea52aafa9583e740807cbe06d9e494b704">00094</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea52aafa9583e740807cbe06d9e494b704">TRIANGLE_STRIP</a> = GL_TRIANGLE_STRIP,
-<a name="l00095"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea1dad2ee6a9c811cf553a321af2242f4d">00095</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea1dad2ee6a9c811cf553a321af2242f4d">POLYGON</a> = GL_POLYGON,
-<a name="l00096"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965eafb70dd59a3cf3c0ba87ccec12dd3126f">00096</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965eafb70dd59a3cf3c0ba87ccec12dd3126f">LINES</a> = GL_LINES,
-<a name="l00097"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965eae227fab93076fb47db3e71b2150c41eb">00097</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965eae227fab93076fb47db3e71b2150c41eb">LINE_STRIP</a> = GL_LINE_STRIP,
-<a name="l00098"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea777a7c1df01e61bb7de0cc5f3771204f">00098</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea777a7c1df01e61bb7de0cc5f3771204f">LINE_LOOP</a> = GL_LINE_LOOP,
-<a name="l00099"></a>00099     };
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#acf177c396e3ff1012d37bc46b8932777">SetFaceType</a>(<a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a> faceType);
-<a name="l00102"></a>00102     <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a72b0c321b2eeff34363707959bab7bdd">GetFaceType</a>() <span class="keyword">const</span>;
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104     <span class="keyword">enum</span>
-<a name="l00105"></a>00105     {
-<a name="l00106"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea4e6fa15b5463d259edd09438be453b6f">00106</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea4e6fa15b5463d259edd09438be453b6f">LIGHT</a> = 0x1,
-<a name="l00107"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea5a02f47fa2ce4d829cf898a155bb75bb">00107</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea5a02f47fa2ce4d829cf898a155bb75bb">TEXTURE</a> = 0x2,
-<a name="l00108"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea72a0aa450f6cdde51d235868d725162b">00108</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea72a0aa450f6cdde51d235868d725162b">COLOR</a> = 0x4,
-<a name="l00109"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea0c5eda082269b4e000f80cc28cc7b896">00109</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea0c5eda082269b4e000f80cc28cc7b896">SHADER</a> = 0x8,
+<a name="l00044"></a>00044     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a0b754d3c9d74bae8af25cbcdf84be471">setTexture</a>(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a> = 0);
+<a name="l00045"></a>00045     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a8391c7a27551b730f5beb9d49dd6b0d9">getTexture</a>(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a> = 0) <span class="keyword">const</span>;
+<a name="l00046"></a>00046     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#acad2ab759d920148c354c0ad3c2fc106">dropTexture</a>(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a> = 0);
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a14675bc3845bb05804e2413b5b24ac7b">getTexturesCount</a>() <span class="keyword">const</span>;
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a329d0ae8403956a71b1d45b3284f7dd7">setShininess</a>(<span class="keywordtype">float</span> shininess);
+<a name="l00051"></a>00051     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#ab77327797143dd7d797297326bc5a6a1">getShininess</a>() <span class="keyword">const</span>;
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a723d7df12c9252179536c32396614d51">setSpecular</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> specular);
+<a name="l00054"></a>00054     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a54dfbfee3a9323520696eeceea5a32c6">getSpecular</a>() <span class="keyword">const</span>;
+<a name="l00055"></a>00055 
+<a name="l00056"></a>00056     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a45f987d2caa51a4e621151ac12259351">setDiffuse</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> diffuse);
+<a name="l00057"></a>00057     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a6c0aeb43e10b85101fdaf8c9109aa72e">getDiffuse</a>() <span class="keyword">const</span>;
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#ab5b47bf71c9f6cab6aa4d34c1b10c2ce">setAmbient</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> ambient);
+<a name="l00060"></a>00060     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a71e5a38ebc56d2fc28463cc4d4db196c">getAmbient</a>() <span class="keyword">const</span>;
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a83765d0cd529c8a6f9159d742ce5b7af">setShader</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a>&amp; <a class="code" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>);
+<a name="l00063"></a>00063     <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a5dceda13bb2e1ca4f76691cf99ca6f2f">getShader</a>() <span class="keyword">const</span>;
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#adb134da6ce448270a3973e7c4bbe52bb">setRendWithShader</a>(<span class="keywordtype">bool</span> rendWithShader);
+<a name="l00066"></a>00066     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#aa446e416f0883da0849d9936723b12d6">isRendWithShader</a>() <span class="keyword">const</span>;
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#ab5dc49996bae1622b1b4638a5920dbcf">setRendWithTexture</a>(<span class="keywordtype">bool</span> rendWithTexture);
+<a name="l00069"></a>00069     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a85133689083949a2901ad409fa17fd49">isRendWithTexture</a>() <span class="keyword">const</span>;
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#aa2ec27f667d8ae76a065d3e21d3c4df7">setLineWidth</a>(<span class="keywordtype">float</span> lineWidth);
+<a name="l00072"></a>00072     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#ae01b2f07b9ac8e1de3b46cfb3cca9f5b">getLineWidth</a>() <span class="keyword">const</span>;
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a8d3228e94c92ffffc1c5a9504ee5fd90">setName</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>);
+<a name="l00075"></a>00075     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a275072930daf2dc4dec61e9cf174d47c">getName</a>() <span class="keyword">const</span>;
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#abc33a600794b838e781bb5deb123b29d">setAlphaThershold</a>(<span class="keywordtype">float</span> alphaThershold);
+<a name="l00078"></a>00078     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a950511d0032468204933084bc0a3d628">getAlphaThershold</a>() <span class="keyword">const</span>;
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#aebbf2f38964d3601bee4a73231e50683">isTransparent</a>();
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#abdca875516dd9a5b736d3ea4bb84c44a">setFrameSortWait</a>(<span class="keywordtype">unsigned</span> frameSortWait);
+<a name="l00083"></a>00083     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#adb266629a4828b2a72d927b48ca7b4fc">getFrameSortWait</a>() <span class="keyword">const</span>;
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#aedb3aa3daf31fdfb94002ad2c0e64881">setTangentLocation</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> tangentLocation);
+<a name="l00086"></a>00086     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a9e9cdb9b7f40c98c1d86dcc8af7c91fd">getTangentLocation</a>() <span class="keyword">const</span>;
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#abea82f7657f3a1df3ef3c540b8aa8763">setAoccLocation</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> aoccLocation);
+<a name="l00089"></a>00089     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a9cc37223c148bf3408b9eb0d03c6f93f">getAoccLocation</a>() <span class="keyword">const</span>;
+<a name="l00090"></a>00090 
+<a name="l00091"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">00091</a>     <span class="keyword">enum</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a>
+<a name="l00092"></a>00092     {
+<a name="l00093"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea0635cb4ee051445c277bae1201b86300">00093</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea0635cb4ee051445c277bae1201b86300">QUADS</a> = GL_QUADS,
+<a name="l00094"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea3106cf2a4c01d85fa6d34d6cb7ea9f05">00094</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea3106cf2a4c01d85fa6d34d6cb7ea9f05">TRIANGLES</a> = GL_TRIANGLES,
+<a name="l00095"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea52aafa9583e740807cbe06d9e494b704">00095</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea52aafa9583e740807cbe06d9e494b704">TRIANGLE_STRIP</a> = GL_TRIANGLE_STRIP,
+<a name="l00096"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea1dad2ee6a9c811cf553a321af2242f4d">00096</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea1dad2ee6a9c811cf553a321af2242f4d">POLYGON</a> = GL_POLYGON,
+<a name="l00097"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965eafb70dd59a3cf3c0ba87ccec12dd3126f">00097</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965eafb70dd59a3cf3c0ba87ccec12dd3126f">LINES</a> = GL_LINES,
+<a name="l00098"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965eae227fab93076fb47db3e71b2150c41eb">00098</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965eae227fab93076fb47db3e71b2150c41eb">LINE_STRIP</a> = GL_LINE_STRIP,
+<a name="l00099"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea777a7c1df01e61bb7de0cc5f3771204f">00099</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965ea777a7c1df01e61bb7de0cc5f3771204f">LINE_LOOP</a> = GL_LINE_LOOP,
+<a name="l00100"></a>00100     };
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a7140257d779ecff753c8da65268101f4">setFaceType</a>(<a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a> faceType);
+<a name="l00103"></a>00103     <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#ac0695316140c47be0f1ecae06949a327">getFaceType</a>() <span class="keyword">const</span>;
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a53d0aacec8158c220a5c040933dbcebc">setDepthWrite</a>(<span class="keywordtype">bool</span> depthWrite);
+<a name="l00106"></a>00106     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#ad68b656e9d07cb72d4c650851eae72f1">isDepthWrite</a>() <span class="keyword">const</span>;
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a890b98cfe14e65db64de1e50ef158edd">setDepthTest</a>(<span class="keywordtype">bool</span> depthTest);
+<a name="l00109"></a>00109     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a380e2ec14f9f9cc4a2df2eef3e6bc0cd">isDepthTest</a>() <span class="keyword">const</span>;
 <a name="l00110"></a>00110 
-<a name="l00111"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea659a4b27948afd0faf9cd9060b00d5db">00111</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea659a4b27948afd0faf9cd9060b00d5db">TANGENT</a> = 0x10,
-<a name="l00112"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea4b5a258b5a0676389466e841b25683fa">00112</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea4b5a258b5a0676389466e841b25683fa">AOCC</a> = 0x2000,
+<a name="l00111"></a>00111     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#af139d4822ea41f58542af9673c7550de">setDrawPass</a>(<span class="keywordtype">unsigned</span> drawPass);
+<a name="l00112"></a>00112     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a4e69e33700733c56e48347097e67185e">getDrawPass</a>() <span class="keyword">const</span>;
 <a name="l00113"></a>00113 
-<a name="l00114"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea82cbd2e3aebd7e504783b2ee8c9d5ebd">00114</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea82cbd2e3aebd7e504783b2ee8c9d5ebd">VERTEX_SORT</a> = 0x20,
-<a name="l00115"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea5c952364d669b8a72db688b0b3ddb388">00115</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea5c952364d669b8a72db688b0b3ddb388">VERTEX_SORT_CULL_TRICK</a> = 0x40,
-<a name="l00116"></a>00116 
-<a name="l00117"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea32690371d6335e40f3868724f84cb78d">00117</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea32690371d6335e40f3868724f84cb78d">BLEND_ADD</a> = 0x80,
-<a name="l00118"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eace6908227ebc50855acc3c6724892468">00118</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eace6908227ebc50855acc3c6724892468">BLEND_MUL</a> = 0x100,
-<a name="l00119"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea2b0344fac36bd462632e07e44e50b5fe">00119</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea2b0344fac36bd462632e07e44e50b5fe">BLEND_MOD</a> = 0x200,
+<a name="l00114"></a>00114     <span class="keyword">enum</span>
+<a name="l00115"></a>00115     {
+<a name="l00116"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eac10abe07d2f8decf15c770a15a7b8179">00116</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eac10abe07d2f8decf15c770a15a7b8179">LIGHTED</a> = 0x1,
+<a name="l00117"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea0a088e77156a91cff5f58348f3427300">00117</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea0a088e77156a91cff5f58348f3427300">TEXTURED</a> = 0x2,
+<a name="l00118"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea02acc5b7d8cc0847d3df7292d54df33b">00118</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea02acc5b7d8cc0847d3df7292d54df33b">COLORED</a> = 0x4,
+<a name="l00119"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea0ae1714529f930657874fc3132736467">00119</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea0ae1714529f930657874fc3132736467">FOGED</a> = 0x8,
 <a name="l00120"></a>00120 
-<a name="l00121"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eae385079e7bb1bd2e9c3f0c4fd7be0236">00121</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eae385079e7bb1bd2e9c3f0c4fd7be0236">ALPHA</a> = 0x400,
+<a name="l00121"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea0c5eda082269b4e000f80cc28cc7b896">00121</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea0c5eda082269b4e000f80cc28cc7b896">SHADER</a> = 0x10,
 <a name="l00122"></a>00122 
-<a name="l00123"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ead8779d616591f2aa2327b88c3457c45b">00123</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ead8779d616591f2aa2327b88c3457c45b">FRONTFACE_CULL</a> = 0x800,
-<a name="l00124"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea8bbf2076ab12022abfa5dd4c19f8b763">00124</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea8bbf2076ab12022abfa5dd4c19f8b763">BACKFACE_CULL</a> = 0x1000,
-<a name="l00125"></a>00125     };
-<a name="l00126"></a>00126 
-<a name="l00127"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">00127</a>     <span class="keyword">typedef</span> std::vector&lt;Material*&gt; <a class="code" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">Array</a>;
-<a name="l00128"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad84ffc7b17364b85ced7e4ca5e2efa1d">00128</a>     <span class="keyword">typedef</span> std::map&lt;std::string, Material*&gt; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad84ffc7b17364b85ced7e4ca5e2efa1d">Map</a>;
-<a name="l00129"></a>00129 
-<a name="l00130"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#aa41a130f156b145bffb3f4b5172c4c93">00130</a>     <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>;
-<a name="l00131"></a>00131 
-<a name="l00132"></a>00132 <span class="keyword">protected</span>:
-<a name="l00133"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a0334a5f3ab0014a401c46c3c2ee8d094">00133</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a0334a5f3ab0014a401c46c3c2ee8d094">m_name</a>;
+<a name="l00123"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea659a4b27948afd0faf9cd9060b00d5db">00123</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea659a4b27948afd0faf9cd9060b00d5db">TANGENT</a> = 0x20,
+<a name="l00124"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea4b5a258b5a0676389466e841b25683fa">00124</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea4b5a258b5a0676389466e841b25683fa">AOCC</a> = 0x40,
+<a name="l00125"></a>00125 
+<a name="l00126"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea82cbd2e3aebd7e504783b2ee8c9d5ebd">00126</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea82cbd2e3aebd7e504783b2ee8c9d5ebd">VERTEX_SORT</a> = 0x80,
+<a name="l00127"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea5c952364d669b8a72db688b0b3ddb388">00127</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea5c952364d669b8a72db688b0b3ddb388">VERTEX_SORT_CULL_TRICK</a> = 0x100,
+<a name="l00128"></a>00128 
+<a name="l00129"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea32690371d6335e40f3868724f84cb78d">00129</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea32690371d6335e40f3868724f84cb78d">BLEND_ADD</a> = 0x200,
+<a name="l00130"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eace6908227ebc50855acc3c6724892468">00130</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eace6908227ebc50855acc3c6724892468">BLEND_MUL</a> = 0x400,
+<a name="l00131"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea2b0344fac36bd462632e07e44e50b5fe">00131</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea2b0344fac36bd462632e07e44e50b5fe">BLEND_MOD</a> = 0x800,
+<a name="l00132"></a>00132 
+<a name="l00133"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eae385079e7bb1bd2e9c3f0c4fd7be0236">00133</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65eae385079e7bb1bd2e9c3f0c4fd7be0236">ALPHA</a> = 0x1000,
 <a name="l00134"></a>00134 
-<a name="l00135"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a44811dac5d63f8069fa70be14578e685">00135</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a44811dac5d63f8069fa70be14578e685">m_aoccLocation</a>;
-<a name="l00136"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a91235fca2b94cdad3090b81cee4a5853">00136</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a91235fca2b94cdad3090b81cee4a5853">m_tangentLocation</a>;
-<a name="l00137"></a>00137 
-<a name="l00138"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a3955b865a9e43212ed7d1666e1878a9a">00138</a>     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a979c86bc286f2434e1b90da93f7ef55e">m_ambient</a>, <a class="code" href="classtbe_1_1scene_1_1_material.html#a97b23359a66346f1d8f1590580900e2f">m_diffuse</a>, <a class="code" href="classtbe_1_1scene_1_1_material.html#a3955b865a9e43212ed7d1666e1878a9a">m_specular</a>;
-<a name="l00139"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ab859db576f6fda1d3d81e7730bb31a3d">00139</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#ab859db576f6fda1d3d81e7730bb31a3d">m_shininess</a>;
-<a name="l00140"></a>00140 
-<a name="l00141"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a5c3f3750f9320034ccd553b02f4ca28f">00141</a>     <a class="code" href="classtbe_1_1_texture.html#a923039f7548562f78526e4b201f4495b">Texture::Map</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a5c3f3750f9320034ccd553b02f4ca28f">m_textures</a>;
-<a name="l00142"></a>00142 
-<a name="l00143"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ac6e2741d3c9a9fddaca6b09adb8f436e">00143</a>     <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#ac6e2741d3c9a9fddaca6b09adb8f436e">m_shader</a>;
-<a name="l00144"></a>00144 
-<a name="l00145"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a9a07197ea1b0ea29f770bdb31a77dc18">00145</a>     <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a9a07197ea1b0ea29f770bdb31a77dc18">m_faceType</a>;
+<a name="l00135"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ead8779d616591f2aa2327b88c3457c45b">00135</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ead8779d616591f2aa2327b88c3457c45b">FRONTFACE_CULL</a> = 0x2000,
+<a name="l00136"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea8bbf2076ab12022abfa5dd4c19f8b763">00136</a>         <a class="code" href="classtbe_1_1scene_1_1_material.html#ad46adc37ade01ba6f18d4dd8f6c1f65ea8bbf2076ab12022abfa5dd4c19f8b763">BACKFACE_CULL</a> = 0x4000,
+<a name="l00137"></a>00137     };
+<a name="l00138"></a>00138 
+<a name="l00139"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">00139</a>     <span class="keyword">typedef</span> std::vector&lt;Material*&gt; <a class="code" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">Array</a>;
+<a name="l00140"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ad84ffc7b17364b85ced7e4ca5e2efa1d">00140</a>     <span class="keyword">typedef</span> std::map&lt;std::string, Material*&gt; <a class="code" href="classtbe_1_1scene_1_1_material.html#ad84ffc7b17364b85ced7e4ca5e2efa1d">Map</a>;
+<a name="l00141"></a>00141 
+<a name="l00142"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#aa41a130f156b145bffb3f4b5172c4c93">00142</a>     <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>;
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144 <span class="keyword">protected</span>:
+<a name="l00145"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a0334a5f3ab0014a401c46c3c2ee8d094">00145</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a0334a5f3ab0014a401c46c3c2ee8d094">m_name</a>;
 <a name="l00146"></a>00146 
-<a name="l00147"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">00147</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a>;
-<a name="l00148"></a>00148 
-<a name="l00149"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a9d6387c161a6b841937f724d24ee2bf4">00149</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a9d6387c161a6b841937f724d24ee2bf4">m_frameSortWait</a>;
-<a name="l00150"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a13c55930920015d78eda809b2aa51432">00150</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a13c55930920015d78eda809b2aa51432">m_lineWidth</a>;
-<a name="l00151"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a12bca0cd0f3ca8db5314653256878e1e">00151</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a12bca0cd0f3ca8db5314653256878e1e">m_alphaThershold</a>;
-<a name="l00152"></a>00152 };
-<a name="l00153"></a>00153 
-<a name="l00154"></a>00154 }
-<a name="l00155"></a>00155 }
+<a name="l00147"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a44811dac5d63f8069fa70be14578e685">00147</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a44811dac5d63f8069fa70be14578e685">m_aoccLocation</a>;
+<a name="l00148"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a91235fca2b94cdad3090b81cee4a5853">00148</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a91235fca2b94cdad3090b81cee4a5853">m_tangentLocation</a>;
+<a name="l00149"></a>00149 
+<a name="l00150"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a3955b865a9e43212ed7d1666e1878a9a">00150</a>     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a979c86bc286f2434e1b90da93f7ef55e">m_ambient</a>, <a class="code" href="classtbe_1_1scene_1_1_material.html#a97b23359a66346f1d8f1590580900e2f">m_diffuse</a>, <a class="code" href="classtbe_1_1scene_1_1_material.html#a3955b865a9e43212ed7d1666e1878a9a">m_specular</a>;
+<a name="l00151"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ab859db576f6fda1d3d81e7730bb31a3d">00151</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#ab859db576f6fda1d3d81e7730bb31a3d">m_shininess</a>;
+<a name="l00152"></a>00152 
+<a name="l00153"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a5c3f3750f9320034ccd553b02f4ca28f">00153</a>     <a class="code" href="classtbe_1_1_texture.html#a923039f7548562f78526e4b201f4495b">Texture::Map</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a5c3f3750f9320034ccd553b02f4ca28f">m_textures</a>;
+<a name="l00154"></a>00154 
+<a name="l00155"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#ac6e2741d3c9a9fddaca6b09adb8f436e">00155</a>     <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#ac6e2741d3c9a9fddaca6b09adb8f436e">m_shader</a>;
 <a name="l00156"></a>00156 
-<a name="l00157"></a>00157 <span class="preprocessor">#endif  </span><span class="comment">/* _MATERIAL_H */</span>
+<a name="l00157"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a9a07197ea1b0ea29f770bdb31a77dc18">00157</a>     <a class="code" href="classtbe_1_1scene_1_1_material.html#abde433eced8079e3c3f85d02337b965e">FaceType</a> <a class="code" href="classtbe_1_1scene_1_1_material.html#a9a07197ea1b0ea29f770bdb31a77dc18">m_faceType</a>;
 <a name="l00158"></a>00158 
+<a name="l00159"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">00159</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a168efef2a4acecf06d995ec7f5ab71f1">m_renderFlags</a>;
+<a name="l00160"></a>00160 
+<a name="l00161"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a9d6387c161a6b841937f724d24ee2bf4">00161</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a9d6387c161a6b841937f724d24ee2bf4">m_frameSortWait</a>;
+<a name="l00162"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a1a5e95b49c23316ed41c4eae2417c3f0">00162</a>     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a1a5e95b49c23316ed41c4eae2417c3f0">m_drawPass</a>;
+<a name="l00163"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a13c55930920015d78eda809b2aa51432">00163</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a13c55930920015d78eda809b2aa51432">m_lineWidth</a>;
+<a name="l00164"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a12bca0cd0f3ca8db5314653256878e1e">00164</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a12bca0cd0f3ca8db5314653256878e1e">m_alphaThershold</a>;
+<a name="l00165"></a>00165 
+<a name="l00166"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a4aecdb9ba2cc767d138633a7c8ded12c">00166</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a4aecdb9ba2cc767d138633a7c8ded12c">m_depthTest</a>;
+<a name="l00167"></a><a class="code" href="classtbe_1_1scene_1_1_material.html#a65942fab7f998214c30a238a21a43ddd">00167</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_material.html#a65942fab7f998214c30a238a21a43ddd">m_depthWrite</a>;
+<a name="l00168"></a>00168 };
+<a name="l00169"></a>00169 
+<a name="l00170"></a>00170 }
+<a name="l00171"></a>00171 }
+<a name="l00172"></a>00172 
+<a name="l00173"></a>00173 <span class="preprocessor">#endif  </span><span class="comment">/* _MATERIAL_H */</span>
+<a name="l00174"></a>00174 
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

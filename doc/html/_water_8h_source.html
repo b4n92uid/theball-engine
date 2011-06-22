@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -52,97 +52,96 @@
 <a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define _WATER_H</span>
 <a name="l00010"></a>00010 <span class="preprocessor"></span>
 <a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="_mathematics_8h.html">Mathematics.h</a>&quot;</span>
-<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="_matrix_8h.html">Matrix.h</a>&quot;</span>
-<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;<a class="code" href="_shader_8h.html">Shader.h</a>&quot;</span>
-<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span>
-<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="_hardware_buffer_8h.html">HardwareBuffer.h</a>&quot;</span>
-<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="_node_8h.html">Node.h</a>&quot;</span>
-<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="_rtt_8h.html">Rtt.h</a>&quot;</span>
-<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;<a class="code" href="_parallel_scene_8h.html">ParallelScene.h</a>&quot;</span>
-<a name="l00019"></a>00019 <span class="preprocessor">#include &quot;<a class="code" href="_camera_8h.html">Camera.h</a>&quot;</span>
-<a name="l00020"></a>00020 <span class="preprocessor">#include &quot;<a class="code" href="_clock_8h.html">Clock.h</a>&quot;</span>
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022 <span class="preprocessor">#include &lt;map&gt;</span>
-<a name="l00023"></a>00023 <span class="preprocessor">#include &lt;string&gt;</span>
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025 <span class="keyword">namespace </span>tbe
-<a name="l00026"></a>00026 {
-<a name="l00027"></a>00027 <span class="keyword">namespace </span>scene
-<a name="l00028"></a>00028 {
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 <span class="keyword">class </span>WaterParallelScene;
-<a name="l00031"></a>00031 
-<a name="l00035"></a><a class="code" href="classtbe_1_1scene_1_1_water.html">00035</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_water.html" title="Représentation d&#39;un plan d&#39;eau.">Water</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>
-<a name="l00036"></a>00036 {
-<a name="l00037"></a>00037 <span class="keyword">public</span>:
-<a name="l00038"></a>00038     <a class="code" href="classtbe_1_1scene_1_1_water.html#acb09970d52836d4f13fd30b1263c5b05">Water</a>(<a class="code" href="classtbe_1_1scene_1_1_water_parallel_scene.html" title="Scene parallel pour la gestion des plans d&#39;eau.">WaterParallelScene</a>* scene);
-<a name="l00039"></a>00039     <a class="code" href="classtbe_1_1scene_1_1_water.html#acb09970d52836d4f13fd30b1263c5b05">Water</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_water.html" title="Représentation d&#39;un plan d&#39;eau.">Water</a>&amp; copy);
-<a name="l00040"></a>00040     <a class="code" href="classtbe_1_1scene_1_1_water.html#aa613ad181694d2d0e18059f3822415fe">~Water</a>();
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042     <a class="code" href="classtbe_1_1scene_1_1_water.html" title="Représentation d&#39;un plan d&#39;eau.">Water</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_water.html#a4d1ef8dde49b9e39a80e3c6beaed7e72">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_water.html" title="Représentation d&#39;un plan d&#39;eau.">Water</a>&amp; copy);
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a703be38223bac312b39559b22445242f">Render</a>();
-<a name="l00045"></a>00045     
-<a name="l00046"></a>00046     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a7c66f2d30e92c0724ecb1daa91cfe13e">Process</a>();
-<a name="l00047"></a>00047     
-<a name="l00048"></a>00048     <a class="code" href="classtbe_1_1scene_1_1_water.html" title="Représentation d&#39;un plan d&#39;eau.">Water</a>* <a class="code" href="classtbe_1_1scene_1_1_water.html#aa544a7871ebcaec3f0d18bf978be1d17">Clone</a>();
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a3fb75be5e92ff75376bc067211227668">SetNormalMap</a>(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> normalMap);
-<a name="l00051"></a>00051     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a76b79b20c768b9607f0e9b0c8519bbb6">GetNormalMap</a>() <span class="keyword">const</span>;
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#aabf34f686171cd908c2866106f7521e8">SetSize</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>);
-<a name="l00054"></a>00054     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#af85067e2c56be90a22830636c5417009">GetSize</a>() <span class="keyword">const</span>;
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a05d8fd357cf86a4105bed95dbcc0594e">BeginReflection</a>();
-<a name="l00057"></a>00057     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a2bb1f6c4ae5322384435ec23f8f54465">EndReflection</a>();
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#ae7b70e3448abadac35431d8128939e05">BeginRefraction</a>();
-<a name="l00060"></a>00060     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a54f9d6f07d33944f17d76b9dd9bdbe82">EndRefraction</a>();
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_water.html#a26a28b13f0ca43308a67e1bfef82e8da">GetReflection</a>();
-<a name="l00063"></a>00063     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_water.html#a996d5ef1a427b07feea7ac1ddb016a2f">GetRefraction</a>();
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#ae759145bc5faf8dcd73f2d41d1c2c34e">SetSpeed</a>(<span class="keywordtype">float</span> speed);
-<a name="l00066"></a>00066     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#acdb98127fffb2ac85c8812a1d8ca2bc3">GetSpeed</a>() <span class="keyword">const</span>;
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#ac4677b5509e9f8106e59de3b84883fb3">SetDeform</a>(<span class="keywordtype">float</span> deform);
-<a name="l00069"></a>00069     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a362ee3b5c048ec75f8c76e67a7b043f3">GetDeform</a>() <span class="keyword">const</span>;
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a67a59f07135bc278998743382c64daae">SetBlend</a>(<span class="keywordtype">float</span> blend);
-<a name="l00072"></a>00072     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a4a9f068988f2c326e49ad6dbddd50641">GetBlend</a>() <span class="keyword">const</span>;
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#aa92013169964dbd43a8a72e3e57a6931">SetUvRepeat</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> uvRepeat);
-<a name="l00075"></a>00075     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a92c92126f9ae739b7561773eb442728b">GetUvRepeat</a>() <span class="keyword">const</span>;
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a2504437a1eb4c4099030a8552184d75b">ConstructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
-<a name="l00078"></a>00078 
-<a name="l00079"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#adf79f9c270528f520132dc8a529bca11">00079</a>     <span class="keyword">typedef</span> std::vector&lt;Water*&gt; <a class="code" href="classtbe_1_1scene_1_1_water.html#adf79f9c270528f520132dc8a529bca11">Array</a>;
-<a name="l00080"></a>00080 
-<a name="l00081"></a>00081 <span class="keyword">protected</span>:
-<a name="l00082"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a1994cc3251c320e7fb46ca3ed9798ced">00082</a>     <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a1994cc3251c320e7fb46ca3ed9798ced">m_buffer</a>;
-<a name="l00083"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#aacc386a54754179929f8b427c9eccc3e">00083</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#aacc386a54754179929f8b427c9eccc3e">m_size</a>;
-<a name="l00084"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a99b49841ee4eb83786dc8a9b3c3bcdf2">00084</a>     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a99b49841ee4eb83786dc8a9b3c3bcdf2">m_normalMap</a>;
-<a name="l00085"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#aaa6587552cfeb4ce66ac69253392fe0e">00085</a>     <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#aaa6587552cfeb4ce66ac69253392fe0e">m_shader</a>;
-<a name="l00086"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a22e83b038c281f78e26c0813b42c5f4a">00086</a>     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a22e83b038c281f78e26c0813b42c5f4a">m_reflection</a>;
-<a name="l00087"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a37cdac20fb9c3fa3649709088030d206">00087</a>     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a37cdac20fb9c3fa3649709088030d206">m_refraction</a>;
-<a name="l00088"></a>00088     
-<a name="l00089"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a095103d9480fb3d0c9a31bb8ae0a581c">00089</a>     <a class="code" href="classtbe_1_1ticks_1_1_clock.html" title="Gestion du temps Inclus des fonctions statique pour le formatage des dates et de controle du processu...">ticks::Clock</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a095103d9480fb3d0c9a31bb8ae0a581c">m_clock</a>;
-<a name="l00090"></a>00090 
-<a name="l00091"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a01066862ef8a0b65742c5b78693faa8e">00091</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a01066862ef8a0b65742c5b78693faa8e">m_uvRepeat</a>;
-<a name="l00092"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a63feef0045fbed6c7c81c1104b3e4f59">00092</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a63feef0045fbed6c7c81c1104b3e4f59">m_blend</a>;
-<a name="l00093"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a2dd7cd0d6c12afaa7129a97477f09db8">00093</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a2dd7cd0d6c12afaa7129a97477f09db8">m_deform</a>;
-<a name="l00094"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a25797b6632586ea9a6be801e40a6ce41">00094</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a25797b6632586ea9a6be801e40a6ce41">m_speed</a>;
-<a name="l00095"></a>00095 
-<a name="l00096"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#acbbde3ef4f65d93591f5576395734fd7">00096</a>     <a class="code" href="classtbe_1_1scene_1_1_water_parallel_scene.html" title="Scene parallel pour la gestion des plans d&#39;eau.">WaterParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_water.html#acbbde3ef4f65d93591f5576395734fd7">m_parallelScene</a>;
-<a name="l00097"></a>00097 };
-<a name="l00098"></a>00098 
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="_shader_8h.html">Shader.h</a>&quot;</span>
+<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;<a class="code" href="_texture_8h.html">Texture.h</a>&quot;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="_hardware_buffer_8h.html">HardwareBuffer.h</a>&quot;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="_node_8h.html">Node.h</a>&quot;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="_rtt_8h.html">Rtt.h</a>&quot;</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="_parallel_scene_8h.html">ParallelScene.h</a>&quot;</span>
+<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;<a class="code" href="_camera_8h.html">Camera.h</a>&quot;</span>
+<a name="l00019"></a>00019 <span class="preprocessor">#include &quot;<a class="code" href="_clock_8h.html">Clock.h</a>&quot;</span>
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021 <span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00022"></a>00022 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 <span class="keyword">namespace </span>tbe
+<a name="l00025"></a>00025 {
+<a name="l00026"></a>00026 <span class="keyword">namespace </span>scene
+<a name="l00027"></a>00027 {
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029 <span class="keyword">class </span>WaterParallelScene;
+<a name="l00030"></a>00030 
+<a name="l00034"></a><a class="code" href="classtbe_1_1scene_1_1_water.html">00034</a> <span class="keyword">class </span><a class="code" href="classtbe_1_1scene_1_1_water.html" title="Représentation d&#39;un plan d&#39;eau.">Water</a> : <span class="keyword">public</span> <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>
+<a name="l00035"></a>00035 {
+<a name="l00036"></a>00036 <span class="keyword">public</span>:
+<a name="l00037"></a>00037     <a class="code" href="classtbe_1_1scene_1_1_water.html#acb09970d52836d4f13fd30b1263c5b05">Water</a>(<a class="code" href="classtbe_1_1scene_1_1_water_parallel_scene.html" title="Scene parallel pour la gestion des plans d&#39;eau.">WaterParallelScene</a>* scene);
+<a name="l00038"></a>00038     <a class="code" href="classtbe_1_1scene_1_1_water.html#acb09970d52836d4f13fd30b1263c5b05">Water</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_water.html" title="Représentation d&#39;un plan d&#39;eau.">Water</a>&amp; copy);
+<a name="l00039"></a>00039     <a class="code" href="classtbe_1_1scene_1_1_water.html#aa613ad181694d2d0e18059f3822415fe">~Water</a>();
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041     <a class="code" href="classtbe_1_1scene_1_1_water.html" title="Représentation d&#39;un plan d&#39;eau.">Water</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_water.html#a4d1ef8dde49b9e39a80e3c6beaed7e72">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_water.html" title="Représentation d&#39;un plan d&#39;eau.">Water</a>&amp; copy);
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a6941e2a31e8ec84ee774bc365a0aedeb">render</a>();
+<a name="l00044"></a>00044     
+<a name="l00045"></a>00045     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a38b033c35790adc36a921cbf4096c804">process</a>();
+<a name="l00046"></a>00046     
+<a name="l00047"></a>00047     <a class="code" href="classtbe_1_1scene_1_1_water.html" title="Représentation d&#39;un plan d&#39;eau.">Water</a>* <a class="code" href="classtbe_1_1scene_1_1_water.html#a83a7985a89b4c00aea5f16587087dfc3">clone</a>();
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#af948b2f0308d1b6835c0d9dd195b84ce">setNormalMap</a>(<a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> normalMap);
+<a name="l00050"></a>00050     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a5c28af47f9eed572b4bb8d7a7bfa2c83">getNormalMap</a>() <span class="keyword">const</span>;
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#aec0d16d4354118cd4af25ce396cd866b">setSize</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>);
+<a name="l00053"></a>00053     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a4cc4bf06d01438d3b6d64dd0a6d9456a">getSize</a>() <span class="keyword">const</span>;
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a7ab95607d3bb920085255effca557eae">beginReflection</a>();
+<a name="l00056"></a>00056     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a1dd71c420453da6e06a82349f3e3320a">endReflection</a>();
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#ab3797a3fa9ef285b02117bafa8925022">beginRefraction</a>();
+<a name="l00059"></a>00059     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a4d6a2eb79e249b05eb206fd50c1fd5bc">endRefraction</a>();
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_water.html#ad513480ebd5483cdec021344e8560f2e">getReflection</a>();
+<a name="l00062"></a>00062     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_water.html#aaf49047c94e2936d133a7d0855c9f890">getRefraction</a>();
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#aef28e6be84210b43d8efd9102f0d8f90">setSpeed</a>(<span class="keywordtype">float</span> speed);
+<a name="l00065"></a>00065     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a803acd67e1b8ae75cc648e20657aa1b8">getSpeed</a>() <span class="keyword">const</span>;
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#ab17da98018ee383829c2b6751d2903e2">setDeform</a>(<span class="keywordtype">float</span> deform);
+<a name="l00068"></a>00068     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#ae010b01ac80791092dceefa41bfa53e8">getDeform</a>() <span class="keyword">const</span>;
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a1028b24d3bc9189dc6bd63551ffc862d">setBlend</a>(<span class="keywordtype">float</span> blend);
+<a name="l00071"></a>00071     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a90562c37f63f0e392c82f84cfb7faf40">getBlend</a>() <span class="keyword">const</span>;
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#acbe5a70c745876dfed0acc339be26f7b">setUvRepeat</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> uvRepeat);
+<a name="l00074"></a>00074     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#ac7290513078c0cfe6d104f191c0ea945">getUvRepeat</a>() <span class="keyword">const</span>;
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a8a3c9b01f67874555300e9302c64117a">constructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
+<a name="l00077"></a>00077 
+<a name="l00078"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#adf79f9c270528f520132dc8a529bca11">00078</a>     <span class="keyword">typedef</span> std::vector&lt;Water*&gt; <a class="code" href="classtbe_1_1scene_1_1_water.html#adf79f9c270528f520132dc8a529bca11">Array</a>;
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080 <span class="keyword">protected</span>:
+<a name="l00081"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a1994cc3251c320e7fb46ca3ed9798ced">00081</a>     <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a1994cc3251c320e7fb46ca3ed9798ced">m_buffer</a>;
+<a name="l00082"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#aacc386a54754179929f8b427c9eccc3e">00082</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#aacc386a54754179929f8b427c9eccc3e">m_size</a>;
+<a name="l00083"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a99b49841ee4eb83786dc8a9b3c3bcdf2">00083</a>     <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a99b49841ee4eb83786dc8a9b3c3bcdf2">m_normalMap</a>;
+<a name="l00084"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#aaa6587552cfeb4ce66ac69253392fe0e">00084</a>     <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#aaa6587552cfeb4ce66ac69253392fe0e">m_shader</a>;
+<a name="l00085"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a22e83b038c281f78e26c0813b42c5f4a">00085</a>     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a22e83b038c281f78e26c0813b42c5f4a">m_reflection</a>;
+<a name="l00086"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a37cdac20fb9c3fa3649709088030d206">00086</a>     <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a37cdac20fb9c3fa3649709088030d206">m_refraction</a>;
+<a name="l00087"></a>00087     
+<a name="l00088"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a095103d9480fb3d0c9a31bb8ae0a581c">00088</a>     <a class="code" href="classtbe_1_1ticks_1_1_clock.html" title="Gestion du temps Inclus des fonctions statique pour le formatage des dates et de controle du processu...">ticks::Clock</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a095103d9480fb3d0c9a31bb8ae0a581c">m_clock</a>;
+<a name="l00089"></a>00089 
+<a name="l00090"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a01066862ef8a0b65742c5b78693faa8e">00090</a>     <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="code" href="classtbe_1_1scene_1_1_water.html#a01066862ef8a0b65742c5b78693faa8e">m_uvRepeat</a>;
+<a name="l00091"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a63feef0045fbed6c7c81c1104b3e4f59">00091</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a63feef0045fbed6c7c81c1104b3e4f59">m_blend</a>;
+<a name="l00092"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a2dd7cd0d6c12afaa7129a97477f09db8">00092</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a2dd7cd0d6c12afaa7129a97477f09db8">m_deform</a>;
+<a name="l00093"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#a25797b6632586ea9a6be801e40a6ce41">00093</a>     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_water.html#a25797b6632586ea9a6be801e40a6ce41">m_speed</a>;
+<a name="l00094"></a>00094 
+<a name="l00095"></a><a class="code" href="classtbe_1_1scene_1_1_water.html#acbbde3ef4f65d93591f5576395734fd7">00095</a>     <a class="code" href="classtbe_1_1scene_1_1_water_parallel_scene.html" title="Scene parallel pour la gestion des plans d&#39;eau.">WaterParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_water.html#acbbde3ef4f65d93591f5576395734fd7">m_parallelScene</a>;
+<a name="l00096"></a>00096 };
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098 }
 <a name="l00099"></a>00099 }
-<a name="l00100"></a>00100 }
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102 <span class="preprocessor">#endif  </span><span class="comment">/* _WATER_H */</span>
+<a name="l00100"></a>00100 
+<a name="l00101"></a>00101 <span class="preprocessor">#endif  </span><span class="comment">/* _WATER_H */</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

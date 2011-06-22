@@ -13,7 +13,10 @@
 namespace tbe
 {
 
-/// \brief Class de stockage peut contenir n'import quelle type de donné
+/**
+ * \brief Class de stockage peut contenir n'import quelle type de variable
+ * implementer apartir des sources de boost::any
+ */
 
 class Any
 {
@@ -31,6 +34,7 @@ public:
         setValue(value);
     }
 
+    // Constructeur par template accepet n'import quelle type
     template<typename T> Any(const T& value)
     {
         m_data = NULL;
@@ -38,6 +42,7 @@ public:
         setValue(value);
     }
 
+    // Constructeur pour les chaine de caractere en C
     Any(char* value)
     {
         m_data = NULL;
@@ -45,6 +50,7 @@ public:
         setValue(std::string(value));
     }
 
+    // Constructeur pour les chaine de caractere constant en C
     Any(const char* value)
     {
         m_data = NULL;

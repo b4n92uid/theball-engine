@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -74,9 +74,10 @@ Graphe d'héritage de tbe::scene::Box:</div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Fonctions membres publiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_box.html#a1a042c977bcd90b2f6a623b7148853e1">Box</a> (<a class="el" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html">MeshParallelScene</a> *scene)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_box.html#a6b0efac4029812767fa8e5e6b9a7a144">Box</a> (<a class="el" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html">MeshParallelScene</a> *scene, <a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>, bool quadFace=false)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_box.html#aea53c806d3aa2c7ff033d25b3b928714">Setup</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>, bool quadFace=false)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_box.html#ad3608d87c69e3fbb031964119fb87926">GetSize</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_box.html#a1a05c03af506b3a1fb35438568a62a8f">Box</a> (<a class="el" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html">MeshParallelScene</a> *scene, <a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_box.html#ab05029eb53eb05d437e6f532e5fb30f4">setup</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_box.html#a6e07ec88e0777692f8bd8934ad07240d">setSize</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_box.html#a32795bb02ce91339943de6103c7e0f39">getSize</a> () const </td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_box.html#afd9e6cb0cbfcc5d8dc1f647434c3135f">m_size</a></td></tr>
@@ -105,7 +106,7 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6b0efac4029812767fa8e5e6b9a7a144"></a><!-- doxytag: member="tbe::scene::Box::Box" ref="a6b0efac4029812767fa8e5e6b9a7a144" args="(MeshParallelScene *scene, Vector3f size, bool quadFace=false)" -->
+<a class="anchor" id="a1a05c03af506b3a1fb35438568a62a8f"></a><!-- doxytag: member="tbe::scene::Box::Box" ref="a1a05c03af506b3a1fb35438568a62a8f" args="(MeshParallelScene *scene, Vector3f size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -119,13 +120,7 @@ Attributs protégés</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>quadFace</em> = <code>false</code>&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -141,12 +136,12 @@ Attributs protégés</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Documentation des fonctions membres</h2>
-<a class="anchor" id="ad3608d87c69e3fbb031964119fb87926"></a><!-- doxytag: member="tbe::scene::Box::GetSize" ref="ad3608d87c69e3fbb031964119fb87926" args="() const " -->
+<a class="anchor" id="a32795bb02ce91339943de6103c7e0f39"></a><!-- doxytag: member="tbe::scene::Box::getSize" ref="a32795bb02ce91339943de6103c7e0f39" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> Box::GetSize </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> Box::getSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -155,30 +150,39 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_primitives_8cpp_source.html#l00155">155</a> du fichier <a class="el" href="_primitives_8cpp_source.html">Primitives.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_primitives_8cpp_source.html#l00162">162</a> du fichier <a class="el" href="_primitives_8cpp_source.html">Primitives.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aea53c806d3aa2c7ff033d25b3b928714"></a><!-- doxytag: member="tbe::scene::Box::Setup" ref="aea53c806d3aa2c7ff033d25b3b928714" args="(Vector3f size, bool quadFace=false)" -->
+<a class="anchor" id="a6e07ec88e0777692f8bd8934ad07240d"></a><!-- doxytag: member="tbe::scene::Box::setSize" ref="a6e07ec88e0777692f8bd8934ad07240d" args="(Vector3f size)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Box::Setup </td>
+          <td class="memname">void Box::setSize </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>size</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>quadFace</em> = <code>false</code>&#160;</td>
         </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_primitives_8cpp_source.html#l00145">145</a> du fichier <a class="el" href="_primitives_8cpp_source.html">Primitives.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab05029eb53eb05d437e6f532e5fb30f4"></a><!-- doxytag: member="tbe::scene::Box::setup" ref="ab05029eb53eb05d437e6f532e5fb30f4" args="(Vector3f size)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
         <tr>
+          <td class="memname">void Box::setup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -200,7 +204,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_primitives_8h_source.html#l00034">34</a> du fichier <a class="el" href="_primitives_8h_source.html">Primitives.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_primitives_8h_source.html#l00035">35</a> du fichier <a class="el" href="_primitives_8h_source.html">Primitives.h</a>.</p>
 
 </div>
 </div>
@@ -209,7 +213,7 @@ Attributs protégés</h2></td></tr>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_primitives_8cpp_source.html">Primitives.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:05 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:56 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

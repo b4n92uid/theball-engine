@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -68,7 +68,6 @@ Graphe d'héritage de tbe::scene::ParticlesEmiter:</div>
   <img src="classtbe_1_1scene_1_1_particles_emiter.png" usemap="#tbe::scene::ParticlesEmiter_map" alt=""/>
   <map id="tbe::scene::ParticlesEmiter_map" name="tbe::scene::ParticlesEmiter_map">
 <area href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom..." alt="tbe::scene::Node" shape="rect" coords="0,0,159,24"/>
-<area href="classtbe_1_1scene_1_1_burning_emitter.html" alt="tbe::scene::BurningEmitter" shape="rect" coords="0,112,159,136"/>
 </map>
  </div></div>
 
@@ -89,30 +88,54 @@ Fonctions membres publiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a36a1fdd73cc9ddef25a16e8f77c5f881">ParticlesEmiter</a> (const <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html">ParticlesEmiter</a> &amp;copy)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a500e077141ac004df0b96939b00d518d">~ParticlesEmiter</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html">ParticlesEmiter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#abef7644dcf3ebd7c2673f4fa032f93b8">operator=</a> (const <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html">ParticlesEmiter</a> &amp;copy)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#afbe30105eadad2f84357c8c389a42020">Build</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a9b466453a708f70eac7c3890fd957d12">Render</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a1b49564702fc2e61ef7df077221f9d92">Destroy</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a72bc993a3b76642c721cece364582781">SetDeadEmiter</a> (bool deadEmiter)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a266d62d8c50edea3ed0bbeeb0f0796e2">IsDeadEmiter</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a99d1ec8e8877756235c503fb719f1f5e">SetNumber</a> (unsigned number)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#af44cfbcab66c157507e084e78691f99d">GetNumber</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a5dcda5245fb80f7c3b762988e5044f12">SetTexture</a> (<a class="el" href="classtbe_1_1_texture.html">Texture</a> <a class="el" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#aa26bb475aec7e4d084f04d7ce1ae89f0">GetTexture</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a5f21a8361eb33c96803b1bd88ba1c694">SetDrawNumber</a> (unsigned drawNumber)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a599bfab34a29e057045c35e9ce0f79bd">GetDrawNumber</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a6a93fb690451ccfddf88a21584a88e3e">SetDepthTest</a> (bool depthTest)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a3ec761acec74e6c29fd42174f4a3a135">IsDepthTest</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a22557b77d60c70d3ba6d840fa985029e">SetBlendEq</a> (<a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a> blendEq)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a49d524fdb795dbe1da9e7a82f67b594d">GetBlendEq</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a19119f0c331c4f169cc0c35dd2be596a">ConstructionMap</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtbe_1_1scene_1_1_particle.html">Particle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a0e47951146e192048b277581ae3ad9ce">BeginParticlesPosProcess</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a29e8c61298236c002741c6f9cba549ac">EndParticlesPosProcess</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a4fea0bede21f3bc7092cd69e8c992e03">build</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a690355702b56eed26eae7c693318bff6">render</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a11b765fbe0feae49fd3b0db0a615362b">destroy</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#ad6ac28d8da871143236c421d0e4521f1">setDeadEmiter</a> (bool deadEmiter)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#ae1ccbff4a4196779d07e625b49d64547">isDeadEmiter</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a0625532764f5c12c5bb88ac695ef4922">setNumber</a> (unsigned number)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#afbefd24c62b38f9c4ecc345fe2516232">getNumber</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a6eb13e44f6620194885b8bc7d4fbd8cf">setTexture</a> (<a class="el" href="classtbe_1_1_texture.html">Texture</a> <a class="el" href="_g_lee_8h.html#ab21590c4736d1459a5a0674a42b5a655">texture</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#ac63c8f2e907aadf3c0bb1f203d375d14">getTexture</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#aa91ed09c7d472a334a0b86a438f4e339">setDrawNumber</a> (unsigned drawNumber)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a4d9447ac66f4c2e29769fcb3eacfa46f">getDrawNumber</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#af526064ff17aa64cbcfccde1d978ce77">setDepthTest</a> (bool depthTest)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#affa1586b8aa099619c25bae725e53b84">isDepthTest</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#aad355c30fc3cd4ef3f89619f8d1a57e9">setBlendEq</a> (<a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a> blendEq)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a0f28233708a18ed9e3b3344cf32df255">getBlendEq</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html">ParticlesEmiter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#ae7ef0c248ba883f53a82b4e5074a67d0">clone</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a5415e878667b2fd92bf702cde4476515">process</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a30f4426c13a9056fdbcbc315c24ad235">setFreeMove</a> (float freeMove)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#af0fdb0e25344115786102d0f0d2f3049">getFreeMove</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#aa226e2af2bfe49c49306febc7ecf5076">setAutoRebuild</a> (bool autoRebuild)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a3f503a1a993e7728b43f48785c20d80c">isAutoRebuild</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a881ae22f977b7663c25fe5ea74a5d793">setContinousMode</a> (bool continousMode)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#acf04d3fff96de674632b5c64f4e73b69">isContinousMode</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a0ff292e117f20923e73226d0490f58a2">setLifeDown</a> (float lifeDown)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#adbb7fd20a5ab8b2e940942ada350eb9a">getLifeDown</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#afa93b56e24a71ad3cc134be4d77926d1">setLifeInit</a> (float lifeInit)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#af9b5b7bd85375ebb7ebc3f1fa5c1fdfb">getLifeInit</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#ad75a5995e3fd6d4aa7c22c5814c21b5a">setGravity</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> gravity)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#afab9400e0e4a053c1ac4fccacb19f010">getGravity</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a55fd7b73d073c295869289821e14e9c3">setBoxSize</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> boxSize)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a143ed5f9176c1f6f5c1335da70e7c1cc">getBoxSize</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#af5f7b48b3c1381cce3162468fb126dd2">setEmitPos</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> emitPos)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a0c6703b13d9a61a354e465346576d9f7">getEmitPos</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a577cdbba8d03498ca4c47683b7bb0f16">setBrustCount</a> (int brustCount)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a4e5e74a12e57f2d074b94733c8c8ff7d">getBrustCount</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a7cf2d93ca0a8366d0af80cc5c442b10b">constructionMap</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtbe_1_1scene_1_1_particle.html">Particle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#abfb0f5a54ccedc4ea68c75e5cb84710e">beginParticlesPosProcess</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a22ae2e4e60e970e9dc14cc47266e52f7">endParticlesPosProcess</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a42165975c61cb819a5ea15911bd6712c">setUsePointSprite</a> (bool usePointSprite)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#abffeeeced7b0e3d5045e12d1990817c4">isUsePointSprite</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a1921e7694f7b4542c29146a7c1b0d605">setBulletSize</a> (<a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> bulletSize)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#aff03fafd7d96d77158a57195ebd95960">getBulletSize</a> () const </td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Fonctions membres publiques statiques</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a98c15d173239311af8b426c411e10f8e">CheckHardware</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a82fea39b21ebf13aad0ae539a5fb1ded">checkHardware</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Fonctions membres protégées</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a550cbc2c248a607f29a7165c54f22c7f">SetupBullet</a> (<a class="el" href="structtbe_1_1scene_1_1_particle.html">Particle</a> &amp;<a class="el" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a8a25586df06cb4b62f2091223d6e8094">setupBullet</a> (<a class="el" href="structtbe_1_1scene_1_1_particle.html">Particle</a> &amp;<a class="el" href="_g_lee_8h.html#aa5367c14d90f462230c2611b81b41d23">p</a>)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a66a1fbaef6397084d3c618d922a9e1bc">m_deadEmiter</a></td></tr>
@@ -123,6 +146,15 @@ Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#addbcecbcbb524fba332b2f96d3d042c8">m_texture</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_particles_parallel_scene.html">ParticlesParallelScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a8114b313e172025b65af6232db46d2b3">m_parallelScene</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1ticks_1_1_clock.html">ticks::Clock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a51f1bd1d6aabfe39a8ee0604ee1fb17e">m_timestamp</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a40664f6e865edad9250f6ccfe70459f4">m_lifeInit</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#afaf8212c41340ad51fd9cdb181a2a1bd">m_lifeDown</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a92f8d21245d1318e13e464951039f19a">m_freeMove</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a422e97dc95fe6debf3d2fb562a054b71">m_continousMode</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a95002e8d2181fdc31fbad93b392c7cd2">m_autoRebuild</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a731890011bafc5cbef2ebde2880131bd">m_bulletSize</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a7755593d999f068501f11c659a6d295b">m_emitPos</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a2b50f7f052d29fc7fbe28808e849c2fe">m_gravity</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a25a6d5c91ee14fb0b0380f5368f57b3c">m_boxSize</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Description détaillée</h2>
 <div class="textblock"><p>Emitter de particules. Encapsule tout les propriétés de génération. </p>
@@ -222,7 +254,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00035">35</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00044">44</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
@@ -240,17 +272,17 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00048">48</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00055">55</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Documentation des fonctions membres</h2>
-<a class="anchor" id="a0e47951146e192048b277581ae3ad9ce"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::BeginParticlesPosProcess" ref="a0e47951146e192048b277581ae3ad9ce" args="()" -->
+<a class="anchor" id="abfb0f5a54ccedc4ea68c75e5cb84710e"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::beginParticlesPosProcess" ref="abfb0f5a54ccedc4ea68c75e5cb84710e" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structtbe_1_1scene_1_1_particle.html">Particle</a> * ParticlesEmiter::BeginParticlesPosProcess </td>
+          <td class="memname"><a class="el" href="structtbe_1_1scene_1_1_particle.html">Particle</a> * ParticlesEmiter::beginParticlesPosProcess </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -259,16 +291,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00286">286</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00312">312</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="afbe30105eadad2f84357c8c389a42020"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::Build" ref="afbe30105eadad2f84357c8c389a42020" args="()" -->
+<a class="anchor" id="a4fea0bede21f3bc7092cd69e8c992e03"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::build" ref="a4fea0bede21f3bc7092cd69e8c992e03" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ParticlesEmiter::Build </td>
+          <td class="memname">void ParticlesEmiter::build </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -277,16 +309,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00080">80</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00106">106</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a98c15d173239311af8b426c411e10f8e"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::CheckHardware" ref="a98c15d173239311af8b426c411e10f8e" args="()" -->
+<a class="anchor" id="a82fea39b21ebf13aad0ae539a5fb1ded"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::checkHardware" ref="a82fea39b21ebf13aad0ae539a5fb1ded" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool ParticlesEmiter::CheckHardware </td>
+          <td class="memname">bool ParticlesEmiter::checkHardware </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [static]</code></td>
@@ -295,16 +327,36 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00306">306</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00332">332</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a19119f0c331c4f169cc0c35dd2be596a"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::ConstructionMap" ref="a19119f0c331c4f169cc0c35dd2be596a" args="(std::string root)" -->
+<a class="anchor" id="ae7ef0c248ba883f53a82b4e5074a67d0"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::clone" ref="ae7ef0c248ba883f53a82b4e5074a67d0" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">Node::CtorMap</a> ParticlesEmiter::ConstructionMap </td>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html">ParticlesEmiter</a> * ParticlesEmiter::clone </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_node.html#a1f0050c1fe725e71da783733f8cc77ec">tbe::scene::Node</a>.</p>
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00359">359</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7cf2d93ca0a8366d0af80cc5c442b10b"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::constructionMap" ref="a7cf2d93ca0a8366d0af80cc5c442b10b" args="(std::string root)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">Node::CtorMap</a> ParticlesEmiter::constructionMap </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
           <td class="paramname"><em>root</em></td><td>)</td>
@@ -314,20 +366,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Réimplémentée à partir de <a class="el" href="classtbe_1_1scene_1_1_node.html#a3e11df7d7d1cef5c977f36f91d9233c5">tbe::scene::Node</a>.</p>
+<p>Réimplémentée à partir de <a class="el" href="classtbe_1_1scene_1_1_node.html#a9a94ddee792cba92636a1f048d0eee3f">tbe::scene::Node</a>.</p>
 
-<p>Réimplémentée dans <a class="el" href="classtbe_1_1scene_1_1_burning_emitter.html#a034af81b7e2029269aa19bb3a96a8769">tbe::scene::BurningEmitter</a>.</p>
-
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00311">311</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00512">512</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a1b49564702fc2e61ef7df077221f9d92"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::Destroy" ref="a1b49564702fc2e61ef7df077221f9d92" args="()" -->
+<a class="anchor" id="a11b765fbe0feae49fd3b0db0a615362b"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::destroy" ref="a11b765fbe0feae49fd3b0db0a615362b" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ParticlesEmiter::Destroy </td>
+          <td class="memname">void ParticlesEmiter::destroy </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -336,19 +386,215 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00220">220</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00247">247</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a29e8c61298236c002741c6f9cba549ac"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::EndParticlesPosProcess" ref="a29e8c61298236c002741c6f9cba549ac" args="()" -->
+<a class="anchor" id="a22ae2e4e60e970e9dc14cc47266e52f7"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::endParticlesPosProcess" ref="a22ae2e4e60e970e9dc14cc47266e52f7" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ParticlesEmiter::EndParticlesPosProcess </td>
+          <td class="memname">void ParticlesEmiter::endParticlesPosProcess </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00323">323</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0f28233708a18ed9e3b3344cf32df255"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::getBlendEq" ref="a0f28233708a18ed9e3b3344cf32df255" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">ParticlesEmiter::BlendEq</a> ParticlesEmiter::getBlendEq </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00277">277</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a143ed5f9176c1f6f5c1335da70e7c1cc"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::getBoxSize" ref="a143ed5f9176c1f6f5c1335da70e7c1cc" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> ParticlesEmiter::getBoxSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00507">507</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4e5e74a12e57f2d074b94733c8c8ff7d"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::getBrustCount" ref="a4e5e74a12e57f2d074b94733c8c8ff7d" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int tbe::scene::ParticlesEmiter::getBrustCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aff03fafd7d96d77158a57195ebd95960"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::getBulletSize" ref="aff03fafd7d96d77158a57195ebd95960" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> ParticlesEmiter::getBulletSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00342">342</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4d9447ac66f4c2e29769fcb3eacfa46f"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::getDrawNumber" ref="a4d9447ac66f4c2e29769fcb3eacfa46f" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned ParticlesEmiter::getDrawNumber </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00267">267</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0c6703b13d9a61a354e465346576d9f7"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::getEmitPos" ref="a0c6703b13d9a61a354e465346576d9f7" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> ParticlesEmiter::getEmitPos </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00487">487</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af0fdb0e25344115786102d0f0d2f3049"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::getFreeMove" ref="af0fdb0e25344115786102d0f0d2f3049" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float ParticlesEmiter::getFreeMove </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00437">437</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afab9400e0e4a053c1ac4fccacb19f010"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::getGravity" ref="afab9400e0e4a053c1ac4fccacb19f010" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> ParticlesEmiter::getGravity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00467">467</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adbb7fd20a5ab8b2e940942ada350eb9a"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::getLifeDown" ref="adbb7fd20a5ab8b2e940942ada350eb9a" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float ParticlesEmiter::getLifeDown </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00457">457</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af9b5b7bd85375ebb7ebc3f1fa5c1fdfb"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::getLifeInit" ref="af9b5b7bd85375ebb7ebc3f1fa5c1fdfb" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float ParticlesEmiter::getLifeInit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00477">477</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afbefd24c62b38f9c4ecc345fe2516232"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::getNumber" ref="afbefd24c62b38f9c4ecc345fe2516232" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned ParticlesEmiter::getNumber </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div>
@@ -358,12 +604,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a49d524fdb795dbe1da9e7a82f67b594d"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::GetBlendEq" ref="a49d524fdb795dbe1da9e7a82f67b594d" args="() const " -->
+<a class="anchor" id="ac63c8f2e907aadf3c0bb1f203d375d14"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::getTexture" ref="ac63c8f2e907aadf3c0bb1f203d375d14" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">ParticlesEmiter::BlendEq</a> ParticlesEmiter::GetBlendEq </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_texture.html">Texture</a> ParticlesEmiter::getTexture </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -372,16 +618,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00250">250</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00307">307</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a599bfab34a29e057045c35e9ce0f79bd"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::GetDrawNumber" ref="a599bfab34a29e057045c35e9ce0f79bd" args="() const " -->
+<a class="anchor" id="a3f503a1a993e7728b43f48785c20d80c"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::isAutoRebuild" ref="a3f503a1a993e7728b43f48785c20d80c" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned ParticlesEmiter::GetDrawNumber </td>
+          <td class="memname">bool ParticlesEmiter::isAutoRebuild </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -390,16 +636,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00240">240</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00497">497</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="af44cfbcab66c157507e084e78691f99d"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::GetNumber" ref="af44cfbcab66c157507e084e78691f99d" args="() const " -->
+<a class="anchor" id="acf04d3fff96de674632b5c64f4e73b69"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::isContinousMode" ref="acf04d3fff96de674632b5c64f4e73b69" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned ParticlesEmiter::GetNumber </td>
+          <td class="memname">bool ParticlesEmiter::isContinousMode </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -408,16 +654,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00271">271</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00447">447</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aa26bb475aec7e4d084f04d7ce1ae89f0"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::GetTexture" ref="aa26bb475aec7e4d084f04d7ce1ae89f0" args="() const " -->
+<a class="anchor" id="ae1ccbff4a4196779d07e625b49d64547"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::isDeadEmiter" ref="ae1ccbff4a4196779d07e625b49d64547" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_texture.html">Texture</a> ParticlesEmiter::GetTexture </td>
+          <td class="memname">bool ParticlesEmiter::isDeadEmiter </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -426,16 +672,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00281">281</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00287">287</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a266d62d8c50edea3ed0bbeeb0f0796e2"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::IsDeadEmiter" ref="a266d62d8c50edea3ed0bbeeb0f0796e2" args="() const " -->
+<a class="anchor" id="affa1586b8aa099619c25bae725e53b84"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::isDepthTest" ref="affa1586b8aa099619c25bae725e53b84" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool ParticlesEmiter::IsDeadEmiter </td>
+          <td class="memname">bool ParticlesEmiter::isDepthTest </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -444,16 +690,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00260">260</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00257">257</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a3ec761acec74e6c29fd42174f4a3a135"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::IsDepthTest" ref="a3ec761acec74e6c29fd42174f4a3a135" args="() const " -->
+<a class="anchor" id="abffeeeced7b0e3d5045e12d1990817c4"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::isUsePointSprite" ref="abffeeeced7b0e3d5045e12d1990817c4" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool ParticlesEmiter::IsDepthTest </td>
+          <td class="memname">bool ParticlesEmiter::isUsePointSprite </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -462,7 +708,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00230">230</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00354">354</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
@@ -481,16 +727,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00057">57</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00064">64</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9b466453a708f70eac7c3890fd957d12"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::Render" ref="a9b466453a708f70eac7c3890fd957d12" args="()" -->
+<a class="anchor" id="a5415e878667b2fd92bf702cde4476515"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::process" ref="a5415e878667b2fd92bf702cde4476515" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ParticlesEmiter::Render </td>
+          <td class="memname">void ParticlesEmiter::process </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [virtual]</code></td>
@@ -499,18 +745,57 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_node.html#afcc93286aed5d5f6369e47192ac33725">tbe::scene::Node</a>.</p>
+<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_node.html#aacdbcac0c832a727cd9a083290b82467">tbe::scene::Node</a>.</p>
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00124">124</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00383">383</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a22557b77d60c70d3ba6d840fa985029e"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::SetBlendEq" ref="a22557b77d60c70d3ba6d840fa985029e" args="(BlendEq blendEq)" -->
+<a class="anchor" id="a690355702b56eed26eae7c693318bff6"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::render" ref="a690355702b56eed26eae7c693318bff6" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ParticlesEmiter::SetBlendEq </td>
+          <td class="memname">void ParticlesEmiter::render </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implémente <a class="el" href="classtbe_1_1scene_1_1_node.html#a688c15ece4a1a405c11eb22bd4964310">tbe::scene::Node</a>.</p>
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00152">152</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa226e2af2bfe49c49306febc7ecf5076"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setAutoRebuild" ref="aa226e2af2bfe49c49306febc7ecf5076" args="(bool autoRebuild)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ParticlesEmiter::setAutoRebuild </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>autoRebuild</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00492">492</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aad355c30fc3cd4ef3f89619f8d1a57e9"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setBlendEq" ref="aad355c30fc3cd4ef3f89619f8d1a57e9" args="(BlendEq blendEq)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ParticlesEmiter::setBlendEq </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#adf7808900980ac33dfd069a4d4a2e665">BlendEq</a>&#160;</td>
           <td class="paramname"><em>blendEq</em></td><td>)</td>
@@ -520,16 +805,90 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00245">245</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00272">272</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a72bc993a3b76642c721cece364582781"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::SetDeadEmiter" ref="a72bc993a3b76642c721cece364582781" args="(bool deadEmiter)" -->
+<a class="anchor" id="a55fd7b73d073c295869289821e14e9c3"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setBoxSize" ref="a55fd7b73d073c295869289821e14e9c3" args="(Vector3f boxSize)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ParticlesEmiter::SetDeadEmiter </td>
+          <td class="memname">void ParticlesEmiter::setBoxSize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>boxSize</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00502">502</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a577cdbba8d03498ca4c47683b7bb0f16"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setBrustCount" ref="a577cdbba8d03498ca4c47683b7bb0f16" args="(int brustCount)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tbe::scene::ParticlesEmiter::setBrustCount </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>brustCount</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1921e7694f7b4542c29146a7c1b0d605"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setBulletSize" ref="a1921e7694f7b4542c29146a7c1b0d605" args="(Vector2f bulletSize)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ParticlesEmiter::setBulletSize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a>&#160;</td>
+          <td class="paramname"><em>bulletSize</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00337">337</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a881ae22f977b7663c25fe5ea74a5d793"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setContinousMode" ref="a881ae22f977b7663c25fe5ea74a5d793" args="(bool continousMode)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ParticlesEmiter::setContinousMode </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>continousMode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00442">442</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad6ac28d8da871143236c421d0e4521f1"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setDeadEmiter" ref="ad6ac28d8da871143236c421d0e4521f1" args="(bool deadEmiter)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ParticlesEmiter::setDeadEmiter </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>deadEmiter</em></td><td>)</td>
@@ -539,16 +898,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00255">255</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00282">282</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a6a93fb690451ccfddf88a21584a88e3e"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::SetDepthTest" ref="a6a93fb690451ccfddf88a21584a88e3e" args="(bool depthTest)" -->
+<a class="anchor" id="af526064ff17aa64cbcfccde1d978ce77"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setDepthTest" ref="af526064ff17aa64cbcfccde1d978ce77" args="(bool depthTest)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ParticlesEmiter::SetDepthTest </td>
+          <td class="memname">void ParticlesEmiter::setDepthTest </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>depthTest</em></td><td>)</td>
@@ -558,16 +917,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00225">225</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00252">252</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a5f21a8361eb33c96803b1bd88ba1c694"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::SetDrawNumber" ref="a5f21a8361eb33c96803b1bd88ba1c694" args="(unsigned drawNumber)" -->
+<a class="anchor" id="aa91ed09c7d472a334a0b86a438f4e339"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setDrawNumber" ref="aa91ed09c7d472a334a0b86a438f4e339" args="(unsigned drawNumber)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ParticlesEmiter::SetDrawNumber </td>
+          <td class="memname">void ParticlesEmiter::setDrawNumber </td>
           <td>(</td>
           <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>drawNumber</em></td><td>)</td>
@@ -577,16 +936,111 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00235">235</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00262">262</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a99d1ec8e8877756235c503fb719f1f5e"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::SetNumber" ref="a99d1ec8e8877756235c503fb719f1f5e" args="(unsigned number)" -->
+<a class="anchor" id="af5f7b48b3c1381cce3162468fb126dd2"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setEmitPos" ref="af5f7b48b3c1381cce3162468fb126dd2" args="(Vector3f emitPos)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ParticlesEmiter::SetNumber </td>
+          <td class="memname">void ParticlesEmiter::setEmitPos </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>emitPos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00482">482</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a30f4426c13a9056fdbcbc315c24ad235"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setFreeMove" ref="a30f4426c13a9056fdbcbc315c24ad235" args="(float freeMove)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ParticlesEmiter::setFreeMove </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>freeMove</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00432">432</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad75a5995e3fd6d4aa7c22c5814c21b5a"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setGravity" ref="ad75a5995e3fd6d4aa7c22c5814c21b5a" args="(Vector3f gravity)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ParticlesEmiter::setGravity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>gravity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00462">462</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0ff292e117f20923e73226d0490f58a2"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setLifeDown" ref="a0ff292e117f20923e73226d0490f58a2" args="(float lifeDown)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ParticlesEmiter::setLifeDown </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>lifeDown</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00452">452</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afa93b56e24a71ad3cc134be4d77926d1"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setLifeInit" ref="afa93b56e24a71ad3cc134be4d77926d1" args="(float lifeInit)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ParticlesEmiter::setLifeInit </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>lifeInit</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00472">472</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0625532764f5c12c5bb88ac695ef4922"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setNumber" ref="a0625532764f5c12c5bb88ac695ef4922" args="(unsigned number)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ParticlesEmiter::setNumber </td>
           <td>(</td>
           <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>number</em></td><td>)</td>
@@ -596,16 +1050,16 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00265">265</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00292">292</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a5dcda5245fb80f7c3b762988e5044f12"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::SetTexture" ref="a5dcda5245fb80f7c3b762988e5044f12" args="(Texture texture)" -->
+<a class="anchor" id="a6eb13e44f6620194885b8bc7d4fbd8cf"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setTexture" ref="a6eb13e44f6620194885b8bc7d4fbd8cf" args="(Texture texture)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ParticlesEmiter::SetTexture </td>
+          <td class="memname">void ParticlesEmiter::setTexture </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_texture.html">Texture</a>&#160;</td>
           <td class="paramname"><em>texture</em></td><td>)</td>
@@ -615,30 +1069,64 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00276">276</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00302">302</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a550cbc2c248a607f29a7165c54f22c7f"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::SetupBullet" ref="a550cbc2c248a607f29a7165c54f22c7f" args="(Particle &amp;p)=0" -->
+<a class="anchor" id="a8a25586df06cb4b62f2091223d6e8094"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setupBullet" ref="a8a25586df06cb4b62f2091223d6e8094" args="(Particle &amp;p)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void tbe::scene::ParticlesEmiter::SetupBullet </td>
+          <td class="memname">void ParticlesEmiter::setupBullet </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structtbe_1_1scene_1_1_particle.html">Particle</a> &amp;&#160;</td>
           <td class="paramname"><em>p</em></td><td>)</td>
-          <td><code> [protected, pure virtual]</code></td>
+          <td><code> [protected, virtual]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Implémenté dans <a class="el" href="classtbe_1_1scene_1_1_burning_emitter.html#a53f7bafaa3bcb1fa075a12032c9caaea">tbe::scene::BurningEmitter</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00364">364</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a42165975c61cb819a5ea15911bd6712c"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::setUsePointSprite" ref="a42165975c61cb819a5ea15911bd6712c" args="(bool usePointSprite)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ParticlesEmiter::setUsePointSprite </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>usePointSprite</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8cpp_source.html#l00347">347</a> du fichier <a class="el" href="_particles_8cpp_source.html">Particles.cpp</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Documentation des données membres</h2>
+<a class="anchor" id="a95002e8d2181fdc31fbad93b392c7cd2"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::m_autoRebuild" ref="a95002e8d2181fdc31fbad93b392c7cd2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a95002e8d2181fdc31fbad93b392c7cd2">tbe::scene::ParticlesEmiter::m_autoRebuild</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00150">150</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a09521d38aea13642b0fa79b660a79cc4"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::m_blendEq" ref="a09521d38aea13642b0fa79b660a79cc4" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -650,7 +1138,52 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00099">99</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00136">136</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a25a6d5c91ee14fb0b0380f5368f57b3c"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::m_boxSize" ref="a25a6d5c91ee14fb0b0380f5368f57b3c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a25a6d5c91ee14fb0b0380f5368f57b3c">tbe::scene::ParticlesEmiter::m_boxSize</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00156">156</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a731890011bafc5cbef2ebde2880131bd"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::m_bulletSize" ref="a731890011bafc5cbef2ebde2880131bd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector2.html">Vector2f</a> <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a731890011bafc5cbef2ebde2880131bd">tbe::scene::ParticlesEmiter::m_bulletSize</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00152">152</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a422e97dc95fe6debf3d2fb562a054b71"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::m_continousMode" ref="a422e97dc95fe6debf3d2fb562a054b71" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a422e97dc95fe6debf3d2fb562a054b71">tbe::scene::ParticlesEmiter::m_continousMode</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00149">149</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
 
 </div>
 </div>
@@ -665,7 +1198,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00093">93</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00130">130</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
 
 </div>
 </div>
@@ -680,7 +1213,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00094">94</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00131">131</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
 
 </div>
 </div>
@@ -695,7 +1228,82 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00097">97</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00134">134</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7755593d999f068501f11c659a6d295b"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::m_emitPos" ref="a7755593d999f068501f11c659a6d295b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a7755593d999f068501f11c659a6d295b">tbe::scene::ParticlesEmiter::m_emitPos</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00154">154</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a92f8d21245d1318e13e464951039f19a"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::m_freeMove" ref="a92f8d21245d1318e13e464951039f19a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a92f8d21245d1318e13e464951039f19a">tbe::scene::ParticlesEmiter::m_freeMove</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00147">147</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2b50f7f052d29fc7fbe28808e849c2fe"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::m_gravity" ref="a2b50f7f052d29fc7fbe28808e849c2fe" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a2b50f7f052d29fc7fbe28808e849c2fe">tbe::scene::ParticlesEmiter::m_gravity</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00155">155</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afaf8212c41340ad51fd9cdb181a2a1bd"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::m_lifeDown" ref="afaf8212c41340ad51fd9cdb181a2a1bd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#afaf8212c41340ad51fd9cdb181a2a1bd">tbe::scene::ParticlesEmiter::m_lifeDown</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00146">146</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a40664f6e865edad9250f6ccfe70459f4"></a><!-- doxytag: member="tbe::scene::ParticlesEmiter::m_lifeInit" ref="a40664f6e865edad9250f6ccfe70459f4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classtbe_1_1scene_1_1_particles_emiter.html#a40664f6e865edad9250f6ccfe70459f4">tbe::scene::ParticlesEmiter::m_lifeInit</a><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00145">145</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
 
 </div>
 </div>
@@ -710,7 +1318,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00096">96</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00133">133</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
 
 </div>
 </div>
@@ -727,7 +1335,7 @@ Attributs protégés</h2></td></tr>
 
 <p>Réimplémentée à partir de <a class="el" href="classtbe_1_1scene_1_1_node.html#a90431205e5035b7fdb1c445bac2f8a12">tbe::scene::Node</a>.</p>
 
-<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00103">103</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00140">140</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
 
 </div>
 </div>
@@ -742,7 +1350,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00101">101</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00138">138</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
 
 </div>
 </div>
@@ -757,7 +1365,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00105">105</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_particles_8h_source.html#l00142">142</a> du fichier <a class="el" href="_particles_8h_source.html">Particles.h</a>.</p>
 
 </div>
 </div>
@@ -766,7 +1374,7 @@ Attributs protégés</h2></td></tr>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_particles_8cpp_source.html">Particles.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:05 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:56 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

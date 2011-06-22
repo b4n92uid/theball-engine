@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -68,18 +68,18 @@
 <a name="l00030"></a>00030     <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a072f390adf2f334e7666fb13573ef600">KeyConfig</a>(<a class="code" href="classtbe_1_1gui_1_1_pencil.html" title="Gestion du texte dans l&#39;interface graphique contine la couleur, taille et police du texte...">Pencil</a> font, <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> background);
 <a name="l00031"></a>00031     <a class="code" href="classtbe_1_1gui_1_1_key_config.html#ae7125c884ce336cd982500f8cd3f3af0">~KeyConfig</a>();
 <a name="l00032"></a>00032 
-<a name="l00034"></a>00034     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#aeb7eda12e547a36b93b388e1c92ecead" title="Changer l&#39;apparance du controle.">SetSkin</a>(<span class="keyword">const</span> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html" title="Structure contenant l&#39;apparence et la configuration des controles de l&#39;interface graphique.">GuiSkin</a>&amp; skin);
+<a name="l00034"></a>00034     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a0d59498041877122532ff3ac472749bf" title="Changer l&#39;apparance du controle.">setSkin</a>(<span class="keyword">const</span> <a class="code" href="structtbe_1_1gui_1_1_gui_skin.html" title="Structure contenant l&#39;apparence et la configuration des controles de l&#39;interface graphique.">GuiSkin</a>&amp; skin);
 <a name="l00035"></a>00035 
-<a name="l00037"></a>00037     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a062c5f9e400e540c94bc89480712262a" title="Fonction appler lors d&#39;un evenement.">OnEvent</a>(<span class="keyword">const</span> <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp; event);
+<a name="l00037"></a>00037     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#adedafed921a059fa5949d202d119d09f" title="Fonction appler lors d&#39;un evenement.">onEvent</a>(<span class="keyword">const</span> <a class="code" href="structtbe_1_1_event_manager.html" title="Structure de savegarde des evenements d&#39;entrer par l&#39;utilisateur.">EventManager</a>&amp; event);
 <a name="l00038"></a>00038 
-<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a89f72fa586fae581a06d5b52829d20ae">SetKeyCode</a>(<span class="keywordtype">int</span> keyCode, <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> keyName = <span class="stringliteral">&quot;&quot;</span>);
-<a name="l00040"></a>00040     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a9e17fab2091f4b9d7a8a2fa60af9404f">GetKeyCode</a>() <span class="keyword">const</span>;
+<a name="l00039"></a>00039     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a589c9954d6a0a7e251d232fa73a98450">setKeyCode</a>(<span class="keywordtype">int</span> keyCode, <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> keyName = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00040"></a>00040     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a5e03a36b890044f1fb22f2e1daa0ed74">getKeyCode</a>() <span class="keyword">const</span>;
 <a name="l00041"></a>00041 
-<a name="l00042"></a>00042     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a5c4dbc9d0b7da3848c3bf22a3fc004f2">SetMouseCode</a>(<span class="keywordtype">int</span> mouseCode, <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> buttonName = <span class="stringliteral">&quot;&quot;</span>);
-<a name="l00043"></a>00043     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a1a90dcfead740766bc1197832a9b40c4">GetMouseCode</a>() <span class="keyword">const</span>;
+<a name="l00042"></a>00042     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a78e223d4b0541e07c70c77abe442c9a0">setMouseCode</a>(<span class="keywordtype">int</span> mouseCode, <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> buttonName = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00043"></a>00043     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a24bc591170f1b95d4bb81401b7dadc6f">getMouseCode</a>() <span class="keyword">const</span>;
 <a name="l00044"></a>00044 
 <a name="l00045"></a>00045 <span class="keyword">protected</span>:
-<a name="l00046"></a>00046     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a09bbd54312586c6a3ce699b84728a9a5">ObjectRender</a>();
+<a name="l00046"></a>00046     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a222ba5d7b7faf96252068ae3c5fd9dc6">objectRender</a>();
 <a name="l00047"></a>00047 
 <a name="l00048"></a><a class="code" href="classtbe_1_1gui_1_1_key_config.html#a4e058f66cd8a7edcbe4d155ec8454bc8">00048</a>     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#a4e058f66cd8a7edcbe4d155ec8454bc8">m_keyCode</a>;
 <a name="l00049"></a><a class="code" href="classtbe_1_1gui_1_1_key_config.html#ad993d2b7876a3b2db4730cf5267bfb88">00049</a>     <span class="keywordtype">int</span> <a class="code" href="classtbe_1_1gui_1_1_key_config.html#ad993d2b7876a3b2db4730cf5267bfb88">m_mouseCode</a>;
@@ -97,7 +97,7 @@
 <a name="l00061"></a>00061 
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:50 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

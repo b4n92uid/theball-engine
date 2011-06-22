@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -62,7 +62,7 @@
 <a name="l00019"></a>00019 
 <a name="l00020"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#a4f1c5280f4fc7b6488cda5e3b0e924f8">00020</a> ParticlesParallelScene::ParticlesParallelScene()
 <a name="l00021"></a>00021 {
-<a name="l00022"></a>00022     m_pointSprite = ParticlesEmiter::CheckHardware();
+<a name="l00022"></a>00022     m_pointSprite = ParticlesEmiter::checkHardware();
 <a name="l00023"></a>00023 
 <a name="l00024"></a>00024     m_particleMinSize = 1.0;
 <a name="l00025"></a>00025     m_particleMaxSize = 64.0;
@@ -88,7 +88,7 @@
 <a name="l00045"></a>00045 {
 <a name="l00046"></a>00046 }
 <a name="l00047"></a>00047 
-<a name="l00048"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#aa5f5fd9abc01a6e32894da387220471c">00048</a> <span class="keywordtype">void</span> ParticlesParallelScene::Render()
+<a name="l00048"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#aae75b397a9af0adc38659c5cad92f503">00048</a> <span class="keywordtype">void</span> ParticlesParallelScene::render()
 <a name="l00049"></a>00049 {
 <a name="l00050"></a>00050     glPushAttrib(GL_ENABLE_BIT | GL_DEPTH_BITS | GL_POINT_BIT);
 <a name="l00051"></a>00051 
@@ -102,63 +102,64 @@
 <a name="l00059"></a>00059 
 <a name="l00060"></a>00060     glDisable(GL_LIGHTING);
 <a name="l00061"></a>00061     glDisable(GL_FOG);
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063     <span class="keywordflow">if</span>(m_pointSprite)
-<a name="l00064"></a>00064     {
-<a name="l00065"></a>00065         <span class="comment">// Configuration de la taille des points suivant la formule :</span>
-<a name="l00066"></a>00066         <span class="comment">// derived_size = size * sqrt (1 / (a + b * d + c * d), d : distance en Z par rapport à l&#39;écran.</span>
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068         <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#ab375df5e95c5fc63fc9165319162bddc">height</a> = m_sceneManager-&gt;GetViewport().y;
-<a name="l00069"></a>00069         <span class="keywordtype">float</span> fovy = m_sceneManager-&gt;GetFovy();
-<a name="l00070"></a>00070 
-<a name="l00071"></a>00071         <span class="keywordtype">float</span> pixelPerUnit = height / (2.0f * tan(fovy * 0.5<a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a>));
-<a name="l00072"></a>00072         <span class="keywordtype">float</span> sqrtC = <a class="code" href="_particles_parallel_scene_8cpp.html#afb28eac60dcab27a2959766a0db95b6e">POINT_SIZE_CURRENT</a> / (<a class="code" href="_particles_parallel_scene_8cpp.html#a5b748b2b1d95168a4447a233d4cfdf04">POINT_SIZE</a> * pixelPerUnit);
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074         <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> distAtt(0, 0, sqrtC * sqrtC);
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076         <a class="code" href="_g_lee_8h.html#af694ba25f2216bcf76308a30eef1bb4d">glPointParameterfvARB</a>(<a class="code" href="_g_lee_8h.html#a8436c933eb189392754de2518665d94c">GL_POINT_DISTANCE_ATTENUATION_ARB</a>, distAtt);
-<a name="l00077"></a>00077     }
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_nodes.size(); i++)
-<a name="l00080"></a>00080         <span class="keywordflow">if</span>(m_nodes[i]-&gt;IsAttached())
-<a name="l00081"></a>00081             m_nodes[i]-&gt;Render();
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083     glPopAttrib();
-<a name="l00084"></a>00084 }
-<a name="l00085"></a>00085 
-<a name="l00086"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#a8a7190c8f3c3df760d0d4374a05edef6">00086</a> <span class="keywordtype">void</span> ParticlesParallelScene::HardwareParticleMaxSize()
-<a name="l00087"></a>00087 {
-<a name="l00088"></a>00088     glGetFloatv(<a class="code" href="_g_lee_8h.html#a015ae9d32c5b744a62492459147efe83">GL_POINT_SIZE_MAX_ARB</a>, &amp;m_particleMaxSize);
-<a name="l00089"></a>00089 }
-<a name="l00090"></a>00090 
-<a name="l00091"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#a7baa4f3885a4d7cbb6d8c299af9b3a7d">00091</a> <span class="keywordtype">void</span> ParticlesParallelScene::SetParticleMaxSize(<span class="keywordtype">float</span> particleMaxSize)
-<a name="l00092"></a>00092 {
-<a name="l00093"></a>00093     this-&gt;m_particleMaxSize = particleMaxSize;
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095     <span class="keywordflow">if</span>(m_pointSprite)
-<a name="l00096"></a>00096         <a class="code" href="_g_lee_8h.html#a028fcff1f343b0b9cd1fdaf35256dc6c">glPointParameterfARB</a>(<a class="code" href="_g_lee_8h.html#a015ae9d32c5b744a62492459147efe83">GL_POINT_SIZE_MAX_ARB</a>, m_particleMaxSize);
-<a name="l00097"></a>00097 }
-<a name="l00098"></a>00098 
-<a name="l00099"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#a8e610420f3715639eb564d0168e2a014">00099</a> <span class="keywordtype">float</span> ParticlesParallelScene::GetParticleMaxSize()<span class="keyword"> const</span>
-<a name="l00100"></a>00100 <span class="keyword"></span>{
-<a name="l00101"></a>00101     <span class="keywordflow">return</span> m_particleMaxSize;
-<a name="l00102"></a>00102 }
-<a name="l00103"></a>00103 
-<a name="l00104"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#af9e1123ba61df0adee09f6884ee7c95d">00104</a> <span class="keywordtype">void</span> ParticlesParallelScene::SetParticleMinSize(<span class="keywordtype">float</span> particleMinSize)
-<a name="l00105"></a>00105 {
-<a name="l00106"></a>00106     this-&gt;m_particleMinSize = particleMinSize;
-<a name="l00107"></a>00107 
-<a name="l00108"></a>00108     <span class="keywordflow">if</span>(m_pointSprite)
-<a name="l00109"></a>00109         <a class="code" href="_g_lee_8h.html#a028fcff1f343b0b9cd1fdaf35256dc6c">glPointParameterfARB</a>(<a class="code" href="_g_lee_8h.html#a3dffec2a58d27eeda9baca31088940b0">GL_POINT_SIZE_MIN_ARB</a>, m_particleMinSize);
-<a name="l00110"></a>00110 }
-<a name="l00111"></a>00111 
-<a name="l00112"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#acac097cc35e8e56d00ce44b73b74fa62">00112</a> <span class="keywordtype">float</span> ParticlesParallelScene::GetParticleMinSize()<span class="keyword"> const</span>
-<a name="l00113"></a>00113 <span class="keyword"></span>{
-<a name="l00114"></a>00114     <span class="keywordflow">return</span> m_particleMinSize;
-<a name="l00115"></a>00115 }
+<a name="l00062"></a>00062     glDisable(GL_CULL_FACE);
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064     <span class="keywordflow">if</span>(m_pointSprite)
+<a name="l00065"></a>00065     {
+<a name="l00066"></a>00066         <span class="comment">// Configuration de la taille des points suivant la formule :</span>
+<a name="l00067"></a>00067         <span class="comment">// derived_size = size * sqrtf (1 / (a + b * d + c * d), d : distance en Z par rapport à l&#39;écran.</span>
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069         <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#ab375df5e95c5fc63fc9165319162bddc">height</a> = m_sceneManager-&gt;getViewport().y;
+<a name="l00070"></a>00070         <span class="keywordtype">float</span> fovy = m_sceneManager-&gt;getFovy();
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072         <span class="keywordtype">float</span> pixelPerUnit = height / (2.0f * tan(fovy * 0.5<a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a>));
+<a name="l00073"></a>00073         <span class="keywordtype">float</span> sqrtC = <a class="code" href="_particles_parallel_scene_8cpp.html#afb28eac60dcab27a2959766a0db95b6e">POINT_SIZE_CURRENT</a> / (<a class="code" href="_particles_parallel_scene_8cpp.html#a5b748b2b1d95168a4447a233d4cfdf04">POINT_SIZE</a> * pixelPerUnit);
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075         <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> distAtt(0, 0, sqrtC * sqrtC);
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077         <a class="code" href="_g_lee_8h.html#af694ba25f2216bcf76308a30eef1bb4d">glPointParameterfvARB</a>(<a class="code" href="_g_lee_8h.html#a8436c933eb189392754de2518665d94c">GL_POINT_DISTANCE_ATTENUATION_ARB</a>, distAtt);
+<a name="l00078"></a>00078     }
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_nodes.size(); i++)
+<a name="l00081"></a>00081         <span class="keywordflow">if</span>(m_nodes[i]-&gt;isAttached())
+<a name="l00082"></a>00082             m_nodes[i]-&gt;render();
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084     glPopAttrib();
+<a name="l00085"></a>00085 }
+<a name="l00086"></a>00086 
+<a name="l00087"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#a73a485ade3fa510388dabe88ee87d9cd">00087</a> <span class="keywordtype">void</span> ParticlesParallelScene::hardwareParticleMaxSize()
+<a name="l00088"></a>00088 {
+<a name="l00089"></a>00089     glGetFloatv(<a class="code" href="_g_lee_8h.html#a015ae9d32c5b744a62492459147efe83">GL_POINT_SIZE_MAX_ARB</a>, &amp;m_particleMaxSize);
+<a name="l00090"></a>00090 }
+<a name="l00091"></a>00091 
+<a name="l00092"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#aa1569990fc44585b3e376ab2b33b40b1">00092</a> <span class="keywordtype">void</span> ParticlesParallelScene::setParticleMaxSize(<span class="keywordtype">float</span> particleMaxSize)
+<a name="l00093"></a>00093 {
+<a name="l00094"></a>00094     this-&gt;m_particleMaxSize = particleMaxSize;
+<a name="l00095"></a>00095 
+<a name="l00096"></a>00096     <span class="keywordflow">if</span>(m_pointSprite)
+<a name="l00097"></a>00097         <a class="code" href="_g_lee_8h.html#a028fcff1f343b0b9cd1fdaf35256dc6c">glPointParameterfARB</a>(<a class="code" href="_g_lee_8h.html#a015ae9d32c5b744a62492459147efe83">GL_POINT_SIZE_MAX_ARB</a>, m_particleMaxSize);
+<a name="l00098"></a>00098 }
+<a name="l00099"></a>00099 
+<a name="l00100"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#a2665d4a059afbe64c880c3cb42832a5d">00100</a> <span class="keywordtype">float</span> ParticlesParallelScene::getParticleMaxSize()<span class="keyword"> const</span>
+<a name="l00101"></a>00101 <span class="keyword"></span>{
+<a name="l00102"></a>00102     <span class="keywordflow">return</span> m_particleMaxSize;
+<a name="l00103"></a>00103 }
+<a name="l00104"></a>00104 
+<a name="l00105"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#ae766c8ccd2f47afeceff3f32fc13725c">00105</a> <span class="keywordtype">void</span> ParticlesParallelScene::setParticleMinSize(<span class="keywordtype">float</span> particleMinSize)
+<a name="l00106"></a>00106 {
+<a name="l00107"></a>00107     this-&gt;m_particleMinSize = particleMinSize;
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109     <span class="keywordflow">if</span>(m_pointSprite)
+<a name="l00110"></a>00110         <a class="code" href="_g_lee_8h.html#a028fcff1f343b0b9cd1fdaf35256dc6c">glPointParameterfARB</a>(<a class="code" href="_g_lee_8h.html#a3dffec2a58d27eeda9baca31088940b0">GL_POINT_SIZE_MIN_ARB</a>, m_particleMinSize);
+<a name="l00111"></a>00111 }
+<a name="l00112"></a>00112 
+<a name="l00113"></a><a class="code" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#a93e44708518fb6156fd86f50da2dd5cd">00113</a> <span class="keywordtype">float</span> ParticlesParallelScene::getParticleMinSize()<span class="keyword"> const</span>
+<a name="l00114"></a>00114 <span class="keyword"></span>{
+<a name="l00115"></a>00115     <span class="keywordflow">return</span> m_particleMinSize;
+<a name="l00116"></a>00116 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

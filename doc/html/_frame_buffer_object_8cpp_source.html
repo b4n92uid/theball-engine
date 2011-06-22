@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -122,10 +122,10 @@
 <a name="l00079"></a>00079     <a class="code" href="_g_lee_8h.html#a04684856c769fe5dea4d2d166df35c58">glDeleteFramebuffersEXT</a>(1, &amp;m_fboId);
 <a name="l00080"></a>00080 
 <a name="l00081"></a>00081     <span class="keywordflow">if</span>(m_colorTextureId)
-<a name="l00082"></a>00082         m_colorTextureId.Release();
+<a name="l00082"></a>00082         m_colorTextureId.release();
 <a name="l00083"></a>00083 
 <a name="l00084"></a>00084     <span class="keywordflow">if</span>(m_depthTextureId)
-<a name="l00085"></a>00085         m_depthTextureId.Release();
+<a name="l00085"></a>00085         m_depthTextureId.release();
 <a name="l00086"></a>00086 
 <a name="l00087"></a>00087     <span class="keywordflow">if</span>(m_colorRenderBuffer)
 <a name="l00088"></a>00088         <a class="code" href="_g_lee_8h.html#afe44228cf1fe894c35b2d617a0ee366e">glDeleteRenderbuffersEXT</a>(1, &amp;m_colorRenderBuffer);
@@ -141,12 +141,12 @@
 <a name="l00098"></a>00098     m_multiSamplesCount = orig.<a class="code" href="classtbe_1_1_frame_buffer_object.html#a79ad5a3fbad06b05b9a15190ee211e79">m_multiSamplesCount</a>;
 <a name="l00099"></a>00099 
 <a name="l00100"></a>00100     <span class="keywordflow">if</span>(m_attachedCompenent)
-<a name="l00101"></a>00101         Attach(m_attachedCompenent);
+<a name="l00101"></a>00101         attach(m_attachedCompenent);
 <a name="l00102"></a>00102 
 <a name="l00103"></a>00103     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
 <a name="l00104"></a>00104 }
 <a name="l00105"></a>00105 
-<a name="l00106"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a0b92f3541e4b742eb3358451129534ad">00106</a> <span class="keywordtype">void</span> FrameBufferObject::Attach(<span class="keywordtype">unsigned</span> compenent)
+<a name="l00106"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#ab03cf5db5f14aa78728479eeb664a5cb">00106</a> <span class="keywordtype">void</span> FrameBufferObject::attach(<span class="keywordtype">unsigned</span> compenent)
 <a name="l00107"></a>00107 {
 <a name="l00108"></a>00108     m_attachedCompenent |= compenent;
 <a name="l00109"></a>00109 
@@ -184,15 +184,15 @@
 <a name="l00141"></a>00141     <span class="keywordflow">if</span>(compenent &amp; COLOR_TEXTURE_2D)
 <a name="l00142"></a>00142     {
 <a name="l00143"></a>00143         <span class="keywordflow">if</span>(m_colorTextureId)
-<a name="l00144"></a>00144             m_colorTextureId.Release();
+<a name="l00144"></a>00144             m_colorTextureId.release();
 <a name="l00145"></a>00145 
 <a name="l00146"></a>00146         <span class="comment">// Génération buffer de rendue</span>
-<a name="l00147"></a>00147         m_colorTextureId.Build(m_frameSize);
+<a name="l00147"></a>00147         m_colorTextureId.build(m_frameSize);
 <a name="l00148"></a>00148 
-<a name="l00149"></a>00149         m_colorTextureId.Use(<span class="keyword">true</span>);
+<a name="l00149"></a>00149         m_colorTextureId.use(<span class="keyword">true</span>);
 <a name="l00150"></a>00150         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, <a class="code" href="_g_lee_8h.html#ae90f81f48642444b4ba7fa5cacf40569">GL_CLAMP_TO_EDGE</a>);
 <a name="l00151"></a>00151         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, <a class="code" href="_g_lee_8h.html#ae90f81f48642444b4ba7fa5cacf40569">GL_CLAMP_TO_EDGE</a>);
-<a name="l00152"></a>00152         m_colorTextureId.Use(<span class="keyword">false</span>);
+<a name="l00152"></a>00152         m_colorTextureId.use(<span class="keyword">false</span>);
 <a name="l00153"></a>00153 
 <a name="l00154"></a>00154         <span class="comment">// Attacher en tant que Color buffer</span>
 <a name="l00155"></a>00155         <a class="code" href="_g_lee_8h.html#a9a5506c7b4313b464610503008fb81c3">glFramebufferTexture2DEXT</a>(<a class="code" href="_g_lee_8h.html#ae5a5d93368758da93a44c2fe8df29185">GL_FRAMEBUFFER_EXT</a>, <a class="code" href="_g_lee_8h.html#a4ff278d72e0f56e9a713ef0dc40b744c">GL_COLOR_ATTACHMENT0_EXT</a>, GL_TEXTURE_2D, m_colorTextureId, 0);
@@ -201,15 +201,15 @@
 <a name="l00158"></a>00158     <span class="keywordflow">if</span>(compenent &amp; DEPTH_TEXTURE_2D)
 <a name="l00159"></a>00159     {
 <a name="l00160"></a>00160         <span class="keywordflow">if</span>(m_depthTextureId)
-<a name="l00161"></a>00161             m_depthTextureId.Release();
+<a name="l00161"></a>00161             m_depthTextureId.release();
 <a name="l00162"></a>00162 
 <a name="l00163"></a>00163         <span class="comment">// Génération buffer de rendue</span>
-<a name="l00164"></a>00164         m_depthTextureId.Build(m_frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
+<a name="l00164"></a>00164         m_depthTextureId.build(m_frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
 <a name="l00165"></a>00165 
-<a name="l00166"></a>00166         m_depthTextureId.Use(<span class="keyword">true</span>);
+<a name="l00166"></a>00166         m_depthTextureId.use(<span class="keyword">true</span>);
 <a name="l00167"></a>00167         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, <a class="code" href="_g_lee_8h.html#ae90f81f48642444b4ba7fa5cacf40569">GL_CLAMP_TO_EDGE</a>);
 <a name="l00168"></a>00168         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, <a class="code" href="_g_lee_8h.html#ae90f81f48642444b4ba7fa5cacf40569">GL_CLAMP_TO_EDGE</a>);
-<a name="l00169"></a>00169         m_depthTextureId.Use(<span class="keyword">false</span>);
+<a name="l00169"></a>00169         m_depthTextureId.use(<span class="keyword">false</span>);
 <a name="l00170"></a>00170 
 <a name="l00171"></a>00171         <a class="code" href="_g_lee_8h.html#a9a5506c7b4313b464610503008fb81c3">glFramebufferTexture2DEXT</a>(<a class="code" href="_g_lee_8h.html#ae5a5d93368758da93a44c2fe8df29185">GL_FRAMEBUFFER_EXT</a>, <a class="code" href="_g_lee_8h.html#a17871868e3ed0792b5782b36b94bd80c">GL_DEPTH_ATTACHMENT_EXT</a>, GL_TEXTURE_2D, m_depthTextureId, 0);
 <a name="l00172"></a>00172     }
@@ -218,12 +218,12 @@
 <a name="l00175"></a>00175     <span class="keywordtype">string</span> error = <a class="code" href="_frame_buffer_object_8cpp.html#a56fbf951a5793761c9d9fb6daf57805d">glStrCheckFramebufferStatus</a>();
 <a name="l00176"></a>00176 
 <a name="l00177"></a>00177     <span class="keywordflow">if</span>(!error.empty())
-<a name="l00178"></a>00178         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">tbe::Exception</a>(<span class="stringliteral">&quot;FboRenderBuffer::Attach; %s&quot;</span>, error.c_str());
+<a name="l00178"></a>00178         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">tbe::Exception</a>(<span class="stringliteral">&quot;FboRenderBuffer::Attach; %s&quot;</span>, error.c_str());
 <a name="l00179"></a>00179 
 <a name="l00180"></a>00180     <a class="code" href="_g_lee_8h.html#a5479ddcb7aeb8d79df1fe28beffc68ed">glBindFramebufferEXT</a>(<a class="code" href="_g_lee_8h.html#ae5a5d93368758da93a44c2fe8df29185">GL_FRAMEBUFFER_EXT</a>, 0);
 <a name="l00181"></a>00181 }
 <a name="l00182"></a>00182 
-<a name="l00183"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a67011782d6e7f03613144f65b1b674d0">00183</a> <span class="keywordtype">void</span> FrameBufferObject::Detach(<span class="keywordtype">unsigned</span> compenent)
+<a name="l00183"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#abb7412ae648b9f38afd3111a504bf1af">00183</a> <span class="keywordtype">void</span> FrameBufferObject::detach(<span class="keywordtype">unsigned</span> compenent)
 <a name="l00184"></a>00184 {
 <a name="l00185"></a>00185     m_attachedCompenent &amp;= ~compenent;
 <a name="l00186"></a>00186 
@@ -244,7 +244,7 @@
 <a name="l00201"></a>00201     <a class="code" href="_g_lee_8h.html#a7ea2e382a408e6ffc692e9e6fbaf0c22">glBindFramebuffer</a>(<a class="code" href="_g_lee_8h.html#ae5a5d93368758da93a44c2fe8df29185">GL_FRAMEBUFFER_EXT</a>, 0);
 <a name="l00202"></a>00202 }
 <a name="l00203"></a>00203 
-<a name="l00204"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#abf168fe1cce8be9344e68dfa0572917b">00204</a> <span class="keywordtype">void</span> FrameBufferObject::Use(<span class="keywordtype">bool</span> state)
+<a name="l00204"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#aa769b98be492e6df46513a7ca300bddb">00204</a> <span class="keywordtype">void</span> FrameBufferObject::use(<span class="keywordtype">bool</span> state)
 <a name="l00205"></a>00205 {
 <a name="l00206"></a>00206     <span class="keywordflow">if</span>(state)
 <a name="l00207"></a>00207     {
@@ -262,7 +262,7 @@
 <a name="l00219"></a>00219     }
 <a name="l00220"></a>00220 }
 <a name="l00221"></a>00221 
-<a name="l00222"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#afec879197cab1c2bc5272ec946abab10">00222</a> <span class="keywordtype">void</span> FrameBufferObject::Clear()
+<a name="l00222"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a2dd54d50731f15ec06621150986a37b8">00222</a> <span class="keywordtype">void</span> FrameBufferObject::clear()
 <a name="l00223"></a>00223 {
 <a name="l00224"></a>00224     glClear(GL_COLOR_BUFFER_BIT);
 <a name="l00225"></a>00225 
@@ -271,7 +271,7 @@
 <a name="l00228"></a>00228         glClear(GL_DEPTH_BUFFER_BIT);
 <a name="l00229"></a>00229 }
 <a name="l00230"></a>00230 
-<a name="l00231"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a5fa1d0074d08a8e32061314e5be6fcdf">00231</a> <span class="keywordtype">void</span> FrameBufferObject::SetFrameSize(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> frameSize)
+<a name="l00231"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#aa9f0304c5ebd8a280036839d4614ff58">00231</a> <span class="keywordtype">void</span> FrameBufferObject::setFrameSize(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> frameSize)
 <a name="l00232"></a>00232 {
 <a name="l00233"></a>00233     <span class="keywordtype">int</span> maxRenderbufferSize;
 <a name="l00234"></a>00234     glGetIntegerv(<a class="code" href="_g_lee_8h.html#a473758b67779f4b4e6f319f3693a5387">GL_MAX_RENDERBUFFER_SIZE_EXT</a>, &amp;maxRenderbufferSize);
@@ -288,17 +288,17 @@
 <a name="l00245"></a>00245 
 <a name="l00246"></a>00246     <span class="keywordflow">if</span>(<span class="keywordtype">unsigned</span> attachedCompenent = m_attachedCompenent)
 <a name="l00247"></a>00247     {
-<a name="l00248"></a>00248         Detach(attachedCompenent);
-<a name="l00249"></a>00249         Attach(attachedCompenent);
+<a name="l00248"></a>00248         detach(attachedCompenent);
+<a name="l00249"></a>00249         attach(attachedCompenent);
 <a name="l00250"></a>00250     }
 <a name="l00251"></a>00251 }
 <a name="l00252"></a>00252 
-<a name="l00253"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a6820b7915c8e081c6524fa205753794a">00253</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> FrameBufferObject::GetFrameSize()<span class="keyword"> const</span>
+<a name="l00253"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a101008e8b5136c87461a77d5f24c7b56">00253</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> FrameBufferObject::getFrameSize()<span class="keyword"> const</span>
 <a name="l00254"></a>00254 <span class="keyword"></span>{
 <a name="l00255"></a>00255     <span class="keywordflow">return</span> m_frameSize;
 <a name="l00256"></a>00256 }
 <a name="l00257"></a>00257 
-<a name="l00258"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a85d58e621af2144b14b92da27e8d8081">00258</a> <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> FrameBufferObject::GetTexture(<a class="code" href="classtbe_1_1_frame_buffer_object.html#a14c2789dd9c956a0fda1d4a1e0e233fa">Compenent</a> compenent)
+<a name="l00258"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a16b81abbd52631712c56215facdeca66">00258</a> <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> FrameBufferObject::getTexture(<a class="code" href="classtbe_1_1_frame_buffer_object.html#a14c2789dd9c956a0fda1d4a1e0e233fa">Compenent</a> compenent)
 <a name="l00259"></a>00259 {
 <a name="l00260"></a>00260     <span class="keywordflow">switch</span>(compenent)
 <a name="l00261"></a>00261     {
@@ -308,51 +308,56 @@
 <a name="l00265"></a>00265     }
 <a name="l00266"></a>00266 }
 <a name="l00267"></a>00267 
-<a name="l00268"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a90905d366de8f0ab3ae32ded497451c9">00268</a> <span class="keywordtype">void</span> FrameBufferObject::Blit(<a class="code" href="classtbe_1_1_frame_buffer_object.html" title="Class de manibulation des Frame buffer object.">FrameBufferObject</a>* <a class="code" href="_g_lee_8h.html#a92034251bfd455d524a9b5610cddba00">dst</a>, <span class="keywordtype">unsigned</span> compenentFlags)
+<a name="l00268"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#ae21a5bf45377edb3f1cb17c241736da4">00268</a> <a class="code" href="classtbe_1_1_texture.html" title="Class de manipulation des texture utilise DevIL.">Texture</a> FrameBufferObject::getColor()
 <a name="l00269"></a>00269 {
-<a name="l00270"></a>00270     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> srcRect = m_frameSize;
-<a name="l00271"></a>00271     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> dstRect = dst-&gt;<a class="code" href="classtbe_1_1_frame_buffer_object.html#ad7266463be8893623aa4a1546cabfcd5">m_frameSize</a>;
+<a name="l00270"></a>00270     <span class="keywordflow">return</span> getTexture(FrameBufferObject::COLOR_TEXTURE_2D);
+<a name="l00271"></a>00271 }
 <a name="l00272"></a>00272 
-<a name="l00273"></a>00273     <span class="keywordflow">if</span>(!compenentFlags)
-<a name="l00274"></a>00274         compenentFlags = m_attachedCompenent;
-<a name="l00275"></a>00275 
-<a name="l00276"></a>00276     <a class="code" href="_g_lee_8h.html#a5479ddcb7aeb8d79df1fe28beffc68ed">glBindFramebufferEXT</a>(<a class="code" href="_g_lee_8h.html#a954f2e7018d8a506b6f3f109b968c592">GL_READ_FRAMEBUFFER_EXT</a>, m_fboId);
-<a name="l00277"></a>00277     <a class="code" href="_g_lee_8h.html#a5479ddcb7aeb8d79df1fe28beffc68ed">glBindFramebufferEXT</a>(<a class="code" href="_g_lee_8h.html#aaf569bb118062058782da8e438c2258f">GL_DRAW_FRAMEBUFFER_EXT</a>, dst-&gt;<a class="code" href="classtbe_1_1_frame_buffer_object.html#a9778adf714957b656d46cce3e7defb89">m_fboId</a>);
-<a name="l00278"></a>00278 
-<a name="l00279"></a>00279     <span class="keywordflow">if</span>(compenentFlags &amp; COLOR_RENDER_BUFFER || compenentFlags &amp; COLOR_TEXTURE_2D)
-<a name="l00280"></a>00280         <a class="code" href="_g_lee_8h.html#ac3eb198c4a1842c6e06e6e8cb725b0cd">glBlitFramebufferEXT</a>(0, 0, srcRect.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, srcRect.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>, 0, 0, dstRect.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, dstRect.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>, GL_COLOR_BUFFER_BIT, GL_NEAREST);
-<a name="l00281"></a>00281 
-<a name="l00282"></a>00282     <span class="keywordflow">if</span>(compenentFlags &amp; DEPTH_RENDER_BUFFER || compenentFlags &amp; DEPTH_TEXTURE_2D)
-<a name="l00283"></a>00283         <a class="code" href="_g_lee_8h.html#ac3eb198c4a1842c6e06e6e8cb725b0cd">glBlitFramebufferEXT</a>(0, 0, srcRect.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, srcRect.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>, 0, 0, dstRect.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, dstRect.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
-<a name="l00284"></a>00284 
-<a name="l00285"></a>00285     <a class="code" href="_g_lee_8h.html#a5479ddcb7aeb8d79df1fe28beffc68ed">glBindFramebufferEXT</a>(<a class="code" href="_g_lee_8h.html#a954f2e7018d8a506b6f3f109b968c592">GL_READ_FRAMEBUFFER_EXT</a>, 0);
-<a name="l00286"></a>00286     <a class="code" href="_g_lee_8h.html#a5479ddcb7aeb8d79df1fe28beffc68ed">glBindFramebufferEXT</a>(<a class="code" href="_g_lee_8h.html#aaf569bb118062058782da8e438c2258f">GL_DRAW_FRAMEBUFFER_EXT</a>, 0);
-<a name="l00287"></a>00287 }
-<a name="l00288"></a>00288 
-<a name="l00289"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#ad21f7de4ee42c4686f959836457ea66b">00289</a> <span class="keywordtype">void</span> FrameBufferObject::SetMultiSamplesCount(<span class="keywordtype">unsigned</span> multiSamplesCount)
-<a name="l00290"></a>00290 {
-<a name="l00291"></a>00291     this-&gt;m_multiSamplesCount = multiSamplesCount;
-<a name="l00292"></a>00292 
-<a name="l00293"></a>00293     <span class="keywordflow">if</span>(<span class="keywordtype">unsigned</span> attachedCompenent = m_attachedCompenent)
-<a name="l00294"></a>00294     {
-<a name="l00295"></a>00295         Detach(attachedCompenent);
-<a name="l00296"></a>00296         Attach(attachedCompenent);
-<a name="l00297"></a>00297     }
-<a name="l00298"></a>00298 }
-<a name="l00299"></a>00299 
-<a name="l00300"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a8dd4c361dc9155d7866b92a1ea4d3320">00300</a> <span class="keywordtype">unsigned</span> FrameBufferObject::GetMultiSamplesCount()<span class="keyword"> const</span>
-<a name="l00301"></a>00301 <span class="keyword"></span>{
-<a name="l00302"></a>00302     <span class="keywordflow">return</span> m_multiSamplesCount;
+<a name="l00273"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a34c1ea2942a6701fb6c12008a2eb7989">00273</a> <span class="keywordtype">void</span> FrameBufferObject::blit(<a class="code" href="classtbe_1_1_frame_buffer_object.html" title="Class de manibulation des Frame buffer object.">FrameBufferObject</a>* <a class="code" href="_g_lee_8h.html#a92034251bfd455d524a9b5610cddba00">dst</a>, <span class="keywordtype">unsigned</span> compenentFlags)
+<a name="l00274"></a>00274 {
+<a name="l00275"></a>00275     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> srcRect = m_frameSize;
+<a name="l00276"></a>00276     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> dstRect = dst-&gt;<a class="code" href="classtbe_1_1_frame_buffer_object.html#ad7266463be8893623aa4a1546cabfcd5">m_frameSize</a>;
+<a name="l00277"></a>00277 
+<a name="l00278"></a>00278     <span class="keywordflow">if</span>(!compenentFlags)
+<a name="l00279"></a>00279         compenentFlags = m_attachedCompenent;
+<a name="l00280"></a>00280 
+<a name="l00281"></a>00281     <a class="code" href="_g_lee_8h.html#a5479ddcb7aeb8d79df1fe28beffc68ed">glBindFramebufferEXT</a>(<a class="code" href="_g_lee_8h.html#a954f2e7018d8a506b6f3f109b968c592">GL_READ_FRAMEBUFFER_EXT</a>, m_fboId);
+<a name="l00282"></a>00282     <a class="code" href="_g_lee_8h.html#a5479ddcb7aeb8d79df1fe28beffc68ed">glBindFramebufferEXT</a>(<a class="code" href="_g_lee_8h.html#aaf569bb118062058782da8e438c2258f">GL_DRAW_FRAMEBUFFER_EXT</a>, dst-&gt;<a class="code" href="classtbe_1_1_frame_buffer_object.html#a9778adf714957b656d46cce3e7defb89">m_fboId</a>);
+<a name="l00283"></a>00283 
+<a name="l00284"></a>00284     <span class="keywordflow">if</span>(compenentFlags &amp; COLOR_RENDER_BUFFER || compenentFlags &amp; COLOR_TEXTURE_2D)
+<a name="l00285"></a>00285         <a class="code" href="_g_lee_8h.html#ac3eb198c4a1842c6e06e6e8cb725b0cd">glBlitFramebufferEXT</a>(0, 0, srcRect.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, srcRect.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>, 0, 0, dstRect.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, dstRect.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+<a name="l00286"></a>00286 
+<a name="l00287"></a>00287     <span class="keywordflow">if</span>(compenentFlags &amp; DEPTH_RENDER_BUFFER || compenentFlags &amp; DEPTH_TEXTURE_2D)
+<a name="l00288"></a>00288         <a class="code" href="_g_lee_8h.html#ac3eb198c4a1842c6e06e6e8cb725b0cd">glBlitFramebufferEXT</a>(0, 0, srcRect.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, srcRect.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>, 0, 0, dstRect.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, dstRect.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+<a name="l00289"></a>00289 
+<a name="l00290"></a>00290     <a class="code" href="_g_lee_8h.html#a5479ddcb7aeb8d79df1fe28beffc68ed">glBindFramebufferEXT</a>(<a class="code" href="_g_lee_8h.html#a954f2e7018d8a506b6f3f109b968c592">GL_READ_FRAMEBUFFER_EXT</a>, 0);
+<a name="l00291"></a>00291     <a class="code" href="_g_lee_8h.html#a5479ddcb7aeb8d79df1fe28beffc68ed">glBindFramebufferEXT</a>(<a class="code" href="_g_lee_8h.html#aaf569bb118062058782da8e438c2258f">GL_DRAW_FRAMEBUFFER_EXT</a>, 0);
+<a name="l00292"></a>00292 }
+<a name="l00293"></a>00293 
+<a name="l00294"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a9ae7c8609c11a13770f1bc5f09278c52">00294</a> <span class="keywordtype">void</span> FrameBufferObject::setMultiSamplesCount(<span class="keywordtype">unsigned</span> multiSamplesCount)
+<a name="l00295"></a>00295 {
+<a name="l00296"></a>00296     this-&gt;m_multiSamplesCount = multiSamplesCount;
+<a name="l00297"></a>00297 
+<a name="l00298"></a>00298     <span class="keywordflow">if</span>(<span class="keywordtype">unsigned</span> attachedCompenent = m_attachedCompenent)
+<a name="l00299"></a>00299     {
+<a name="l00300"></a>00300         detach(attachedCompenent);
+<a name="l00301"></a>00301         attach(attachedCompenent);
+<a name="l00302"></a>00302     }
 <a name="l00303"></a>00303 }
 <a name="l00304"></a>00304 
-<a name="l00305"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a36c63640c8e017f19cdd094aeee22da1">00305</a> <span class="keywordtype">bool</span> FrameBufferObject::CheckHardware()
-<a name="l00306"></a>00306 {
-<a name="l00307"></a>00307     <span class="keyword">static</span> <span class="keywordtype">bool</span> supported = <a class="code" href="_g_lee_8h.html#ab6cd6c8317243897466bbd441d855c7d">GLEE_EXT_framebuffer_object</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#aad47b13762621123b2c1e54bbd9d0eb6">GLEE_EXT_framebuffer_blit</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#a1ce81179aaf2525da92461ee96898949">GLEE_EXT_framebuffer_multisample</a>;
-<a name="l00308"></a>00308     <span class="keywordflow">return</span> supported;
-<a name="l00309"></a>00309 }
+<a name="l00305"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#af97e892d18cd8b4d482b8345011c0a3b">00305</a> <span class="keywordtype">unsigned</span> FrameBufferObject::getMultiSamplesCount()<span class="keyword"> const</span>
+<a name="l00306"></a>00306 <span class="keyword"></span>{
+<a name="l00307"></a>00307     <span class="keywordflow">return</span> m_multiSamplesCount;
+<a name="l00308"></a>00308 }
+<a name="l00309"></a>00309 
+<a name="l00310"></a><a class="code" href="classtbe_1_1_frame_buffer_object.html#a6b7ef3907dac5219ecdefc63fc81b21b">00310</a> <span class="keywordtype">bool</span> FrameBufferObject::checkHardware()
+<a name="l00311"></a>00311 {
+<a name="l00312"></a>00312     <span class="keyword">static</span> <span class="keywordtype">bool</span> supported = <a class="code" href="_g_lee_8h.html#ab6cd6c8317243897466bbd441d855c7d">GLEE_EXT_framebuffer_object</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#aad47b13762621123b2c1e54bbd9d0eb6">GLEE_EXT_framebuffer_blit</a> &amp;&amp; <a class="code" href="_g_lee_8h.html#a1ce81179aaf2525da92461ee96898949">GLEE_EXT_framebuffer_multisample</a>;
+<a name="l00313"></a>00313     <span class="keywordflow">return</span> supported;
+<a name="l00314"></a>00314 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:56 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:48 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

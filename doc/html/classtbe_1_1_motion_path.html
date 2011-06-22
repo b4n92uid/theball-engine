@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -54,7 +54,7 @@
 </div>
 <div class="contents">
 <!-- doxytag: class="tbe::MotionPath" -->
-<p>Gestion des chemin de mouvement linéariser par key-frame.  
+<p>Gestion des chemins de mouvement linéariser par key-frame.  
  <a href="classtbe_1_1_motion_path.html#details">Plus de détails...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_motion_path_8h_source.html">MotionPath.h</a>&gt;</code></p>
@@ -67,19 +67,24 @@ Classes</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Fonctions membres publiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_motion_path.html#a1c97319376e4f1138f7ff25febbd3f17">MotionPath</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur.  <a href="#a1c97319376e4f1138f7ff25febbd3f17"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_motion_path.html#ad9fe00dc3d8ed90343ee9a189458d885">~MotionPath</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_motion_path.html#a8efa8ecf9a2e5c68d19ae86fc0cf7ff3">AddKeyFrame</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, float speed=1.0f)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_motion_path.html#a65455bd97c6121429416bf2b071ac95e">Update</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_motion_path.html#ab4509dc89a1a28fd80b5dbd38e6595ea">GetCurrentPos</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructeur.  <a href="#ad9fe00dc3d8ed90343ee9a189458d885"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_motion_path.html#a85f4e06c9b76df5779782e6044877735">addKeyFrame</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, float speed=1.0f)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une image clé a l'animation.  <a href="#a85f4e06c9b76df5779782e6044877735"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_motion_path.html#a56bab2667498df8b3f52d34389ca7651">update</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Traitement.  <a href="#a56bab2667498df8b3f52d34389ca7651"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_motion_path.html#ad5f1b51613a8a16d0e1f708d4375e768">getCurrentPos</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvois la valeur interpolé de l'animation.  <a href="#ad5f1b51613a8a16d0e1f708d4375e768"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtbe_1_1_motion_path_1_1_key_frame.html#aeab4b420145e1661652349551225175a">KeyFrame::Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_motion_path.html#a0b6febb2e268e7d0c4590679db08f0ff">m_keyframe</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_motion_path.html#a962fac2d9918b8581bb3157838a982fc">m_currentIndex</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Description détaillée</h2>
-<div class="textblock"><p>Gestion des chemin de mouvement linéariser par key-frame. </p>
+<div class="textblock"><p>Gestion des chemins de mouvement linéariser par key-frame. </p>
 
-<p>Définition à la ligne <a class="el" href="_motion_path_8h_source.html#l00019">19</a> du fichier <a class="el" href="_motion_path_8h_source.html">MotionPath.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_motion_path_8h_source.html#l00021">21</a> du fichier <a class="el" href="_motion_path_8h_source.html">MotionPath.h</a>.</p>
 </div><hr/><h2>Documentation des constructeurs et destructeur</h2>
 <a class="anchor" id="a1c97319376e4f1138f7ff25febbd3f17"></a><!-- doxytag: member="tbe::MotionPath::MotionPath" ref="a1c97319376e4f1138f7ff25febbd3f17" args="()" -->
 <div class="memitem">
@@ -94,6 +99,8 @@ Attributs protégés</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Constructeur. </p>
 
 <p>Définition à la ligne <a class="el" href="_motion_path_8cpp_source.html#l00013">13</a> du fichier <a class="el" href="_motion_path_8cpp_source.html">MotionPath.cpp</a>.</p>
 
@@ -113,17 +120,19 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Destructeur. </p>
+
 <p>Définition à la ligne <a class="el" href="_motion_path_8cpp_source.html#l00020">20</a> du fichier <a class="el" href="_motion_path_8cpp_source.html">MotionPath.cpp</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Documentation des fonctions membres</h2>
-<a class="anchor" id="a8efa8ecf9a2e5c68d19ae86fc0cf7ff3"></a><!-- doxytag: member="tbe::MotionPath::AddKeyFrame" ref="a8efa8ecf9a2e5c68d19ae86fc0cf7ff3" args="(Vector3f pos, float speed=1.0f)" -->
+<a class="anchor" id="a85f4e06c9b76df5779782e6044877735"></a><!-- doxytag: member="tbe::MotionPath::addKeyFrame" ref="a85f4e06c9b76df5779782e6044877735" args="(Vector3f pos, float speed=1.0f)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MotionPath::AddKeyFrame </td>
+          <td class="memname">void MotionPath::addKeyFrame </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
@@ -143,16 +152,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Ajoute une image clé a l'animation. </p>
+
 <p>Définition à la ligne <a class="el" href="_motion_path_8cpp_source.html#l00024">24</a> du fichier <a class="el" href="_motion_path_8cpp_source.html">MotionPath.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ab4509dc89a1a28fd80b5dbd38e6595ea"></a><!-- doxytag: member="tbe::MotionPath::GetCurrentPos" ref="ab4509dc89a1a28fd80b5dbd38e6595ea" args="() const " -->
+<a class="anchor" id="ad5f1b51613a8a16d0e1f708d4375e768"></a><!-- doxytag: member="tbe::MotionPath::getCurrentPos" ref="ad5f1b51613a8a16d0e1f708d4375e768" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> MotionPath::GetCurrentPos </td>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> MotionPath::getCurrentPos </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -161,16 +172,18 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Renvois la valeur interpolé de l'animation. </p>
+
 <p>Définition à la ligne <a class="el" href="_motion_path_8cpp_source.html#l00062">62</a> du fichier <a class="el" href="_motion_path_8cpp_source.html">MotionPath.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a65455bd97c6121429416bf2b071ac95e"></a><!-- doxytag: member="tbe::MotionPath::Update" ref="a65455bd97c6121429416bf2b071ac95e" args="()" -->
+<a class="anchor" id="a56bab2667498df8b3f52d34389ca7651"></a><!-- doxytag: member="tbe::MotionPath::update" ref="a56bab2667498df8b3f52d34389ca7651" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void MotionPath::Update </td>
+          <td class="memname">void MotionPath::update </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -178,6 +191,8 @@ Attributs protégés</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Traitement. </p>
 
 <p>Définition à la ligne <a class="el" href="_motion_path_8cpp_source.html#l00030">30</a> du fichier <a class="el" href="_motion_path_8cpp_source.html">MotionPath.cpp</a>.</p>
 
@@ -195,7 +210,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_motion_path_8h_source.html#l00041">41</a> du fichier <a class="el" href="_motion_path_8h_source.html">MotionPath.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_motion_path_8h_source.html#l00050">50</a> du fichier <a class="el" href="_motion_path_8h_source.html">MotionPath.h</a>.</p>
 
 </div>
 </div>
@@ -210,7 +225,7 @@ Attributs protégés</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_motion_path_8h_source.html#l00040">40</a> du fichier <a class="el" href="_motion_path_8h_source.html">MotionPath.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_motion_path_8h_source.html#l00049">49</a> du fichier <a class="el" href="_motion_path_8h_source.html">MotionPath.h</a>.</p>
 
 </div>
 </div>
@@ -219,7 +234,7 @@ Attributs protégés</h2></td></tr>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_motion_path_8cpp_source.html">MotionPath.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:03 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:55 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

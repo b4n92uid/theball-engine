@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -66,14 +66,16 @@ Graphe d'héritage de tbe::scene::ParallelScene:</div>
   <img src="classtbe_1_1scene_1_1_parallel_scene.png" usemap="#tbe::scene::ParallelScene_map" alt=""/>
   <map id="tbe::scene::ParallelScene_map" name="tbe::scene::ParallelScene_map">
 <area href="classtbe_1_1scene_1_1_parallel_scene_register.html" alt="tbe::scene::ParallelSceneRegister&lt; Light &gt;" shape="rect" coords="0,56,308,80"/>
-<area href="classtbe_1_1scene_1_1_parallel_scene_register.html" alt="tbe::scene::ParallelSceneRegister&lt; Mesh &gt;" shape="rect" coords="318,56,626,80"/>
-<area href="classtbe_1_1scene_1_1_parallel_scene_register.html" alt="tbe::scene::ParallelSceneRegister&lt; ParticlesEmiter &gt;" shape="rect" coords="636,56,944,80"/>
-<area href="classtbe_1_1scene_1_1_parallel_scene_register.html" alt="tbe::scene::ParallelSceneRegister&lt; Water &gt;" shape="rect" coords="954,56,1262,80"/>
-<area href="classtbe_1_1scene_1_1_parallel_scene_register.html" alt="tbe::scene::ParallelSceneRegister&lt; T &gt;" shape="rect" coords="1272,56,1580,80"/>
+<area href="classtbe_1_1scene_1_1_parallel_scene_register.html" alt="tbe::scene::ParallelSceneRegister&lt; MapMark &gt;" shape="rect" coords="318,56,626,80"/>
+<area href="classtbe_1_1scene_1_1_parallel_scene_register.html" alt="tbe::scene::ParallelSceneRegister&lt; Mesh &gt;" shape="rect" coords="636,56,944,80"/>
+<area href="classtbe_1_1scene_1_1_parallel_scene_register.html" alt="tbe::scene::ParallelSceneRegister&lt; ParticlesEmiter &gt;" shape="rect" coords="954,56,1262,80"/>
+<area href="classtbe_1_1scene_1_1_parallel_scene_register.html" alt="tbe::scene::ParallelSceneRegister&lt; Water &gt;" shape="rect" coords="1272,56,1580,80"/>
+<area href="classtbe_1_1scene_1_1_parallel_scene_register.html" alt="tbe::scene::ParallelSceneRegister&lt; T &gt;" shape="rect" coords="1590,56,1898,80"/>
 <area href="classtbe_1_1scene_1_1_light_parallel_scene.html" alt="tbe::scene::LightParallelScene" shape="rect" coords="0,112,308,136"/>
-<area href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage." alt="tbe::scene::MeshParallelScene" shape="rect" coords="318,112,626,136"/>
-<area href="classtbe_1_1scene_1_1_particles_parallel_scene.html" title="Scene parallele de rendue des particules." alt="tbe::scene::ParticlesParallelScene" shape="rect" coords="636,112,944,136"/>
-<area href="classtbe_1_1scene_1_1_water_parallel_scene.html" title="Scene parallel pour la gestion des plans d&#39;eau." alt="tbe::scene::WaterParallelScene" shape="rect" coords="954,112,1262,136"/>
+<area href="classtbe_1_1scene_1_1_map_mark_paralle_scene.html" alt="tbe::scene::MapMarkParalleScene" shape="rect" coords="318,112,626,136"/>
+<area href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage." alt="tbe::scene::MeshParallelScene" shape="rect" coords="636,112,944,136"/>
+<area href="classtbe_1_1scene_1_1_particles_parallel_scene.html" title="Scene parallele de rendue des particules." alt="tbe::scene::ParticlesParallelScene" shape="rect" coords="954,112,1262,136"/>
+<area href="classtbe_1_1scene_1_1_water_parallel_scene.html" title="Scene parallel pour la gestion des plans d&#39;eau." alt="tbe::scene::WaterParallelScene" shape="rect" coords="1272,112,1580,136"/>
 </map>
  </div></div>
 
@@ -87,14 +89,14 @@ Types publics</h2></td></tr>
 Fonctions membres publiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#ab4519d6ffb870b11ba3284483712a80a">ParallelScene</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#a5be8584347d96698dbbd13ccc032db2a">~ParallelScene</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#a90fb743a135bfe21d59c074f06dd6559">Render</a> ()=0</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Methode virtual pure pour le rendue.  <a href="#a90fb743a135bfe21d59c074f06dd6559"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#a60f62d85e55cbb861972fc3c66de22f9">Clear</a> ()=0</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Methode la liberation memoire.  <a href="#a60f62d85e55cbb861972fc3c66de22f9"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#a15b3ea8c5ff095ac77c3fdbff72510bd">SetSceneManager</a> (<a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> *sceneManager)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#ada7acea9a8841107d83703b3489e1744">GetSceneManager</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#aa2b2dd98fbc3c7ff994c4fa67355de76">SetEnable</a> (bool enable)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#a85820460586d90d4f6fef919c27a7385">IsEnable</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#aa2fd15a6d7c4d67aec89e8f6a775d58c">render</a> ()=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Methode virtual pure pour le rendue.  <a href="#aa2fd15a6d7c4d67aec89e8f6a775d58c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#a424a56a162042923cdec981bb1637b15">clear</a> ()=0</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Methode la liberation memoire.  <a href="#a424a56a162042923cdec981bb1637b15"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#a75064a2b74018b0ceddd4134ea22e48d">setSceneManager</a> (<a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> *sceneManager)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#a7b643166680a394f373283edd80b7373">getSceneManager</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#a6d3e0dd2c28b84c85a575c0b892be79a">setEnable</a> (bool enable)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#ac773a03101e4450015fa12129b3d6b5e">isEnable</a> () const </td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Attributs protégés</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1scene_1_1_parallel_scene.html#a77b3942cc4516c8c25b6f7758ded4c5c">m_sceneManager</a></td></tr>
@@ -158,12 +160,12 @@ Attributs protégés</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Documentation des fonctions membres</h2>
-<a class="anchor" id="a60f62d85e55cbb861972fc3c66de22f9"></a><!-- doxytag: member="tbe::scene::ParallelScene::Clear" ref="a60f62d85e55cbb861972fc3c66de22f9" args="()=0" -->
+<a class="anchor" id="a424a56a162042923cdec981bb1637b15"></a><!-- doxytag: member="tbe::scene::ParallelScene::clear" ref="a424a56a162042923cdec981bb1637b15" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void tbe::scene::ParallelScene::Clear </td>
+          <td class="memname">virtual void tbe::scene::ParallelScene::clear </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [pure virtual]</code></td>
@@ -174,16 +176,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Methode la liberation memoire. </p>
 
-<p>Implémenté dans <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#a70a68e1d4da18acaf797a041c6fa5096">tbe::scene::ParallelSceneRegister&lt; T &gt;</a>, <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#a70a68e1d4da18acaf797a041c6fa5096">tbe::scene::ParallelSceneRegister&lt; Water &gt;</a>, <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#a70a68e1d4da18acaf797a041c6fa5096">tbe::scene::ParallelSceneRegister&lt; ParticlesEmiter &gt;</a>, <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#a70a68e1d4da18acaf797a041c6fa5096">tbe::scene::ParallelSceneRegister&lt; Light &gt;</a>, et <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#a70a68e1d4da18acaf797a041c6fa5096">tbe::scene::ParallelSceneRegister&lt; Mesh &gt;</a>.</p>
+<p>Implémenté dans <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#ae53bf656821591231442c052b36899d0">tbe::scene::ParallelSceneRegister&lt; T &gt;</a>, <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#ae53bf656821591231442c052b36899d0">tbe::scene::ParallelSceneRegister&lt; Water &gt;</a>, <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#ae53bf656821591231442c052b36899d0">tbe::scene::ParallelSceneRegister&lt; ParticlesEmiter &gt;</a>, <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#ae53bf656821591231442c052b36899d0">tbe::scene::ParallelSceneRegister&lt; Light &gt;</a>, <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#ae53bf656821591231442c052b36899d0">tbe::scene::ParallelSceneRegister&lt; Mesh &gt;</a>, et <a class="el" href="classtbe_1_1scene_1_1_parallel_scene_register.html#ae53bf656821591231442c052b36899d0">tbe::scene::ParallelSceneRegister&lt; MapMark &gt;</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ada7acea9a8841107d83703b3489e1744"></a><!-- doxytag: member="tbe::scene::ParallelScene::GetSceneManager" ref="ada7acea9a8841107d83703b3489e1744" args="() const " -->
+<a class="anchor" id="a7b643166680a394f373283edd80b7373"></a><!-- doxytag: member="tbe::scene::ParallelScene::getSceneManager" ref="a7b643166680a394f373283edd80b7373" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> * ParallelScene::GetSceneManager </td>
+          <td class="memname"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> * ParallelScene::getSceneManager </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -196,12 +198,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a85820460586d90d4f6fef919c27a7385"></a><!-- doxytag: member="tbe::scene::ParallelScene::IsEnable" ref="a85820460586d90d4f6fef919c27a7385" args="() const " -->
+<a class="anchor" id="ac773a03101e4450015fa12129b3d6b5e"></a><!-- doxytag: member="tbe::scene::ParallelScene::isEnable" ref="ac773a03101e4450015fa12129b3d6b5e" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool ParallelScene::IsEnable </td>
+          <td class="memname">bool ParallelScene::isEnable </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -214,12 +216,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a90fb743a135bfe21d59c074f06dd6559"></a><!-- doxytag: member="tbe::scene::ParallelScene::Render" ref="a90fb743a135bfe21d59c074f06dd6559" args="()=0" -->
+<a class="anchor" id="aa2fd15a6d7c4d67aec89e8f6a775d58c"></a><!-- doxytag: member="tbe::scene::ParallelScene::render" ref="aa2fd15a6d7c4d67aec89e8f6a775d58c" args="()=0" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void tbe::scene::ParallelScene::Render </td>
+          <td class="memname">virtual void tbe::scene::ParallelScene::render </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [pure virtual]</code></td>
@@ -230,16 +232,16 @@ Attributs protégés</h2></td></tr>
 
 <p>Methode virtual pure pour le rendue. </p>
 
-<p>Implémenté dans <a class="el" href="classtbe_1_1scene_1_1_light_parallel_scene.html#af6dfa986689760eb4a0eae7d4c5f0daa">tbe::scene::LightParallelScene</a>, <a class="el" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#ad5afaf3e417923047410404c14ffcf48">tbe::scene::MeshParallelScene</a>, <a class="el" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#aa5f5fd9abc01a6e32894da387220471c">tbe::scene::ParticlesParallelScene</a>, et <a class="el" href="classtbe_1_1scene_1_1_water_parallel_scene.html#a3e3ab4826bed41e219dfbcbda7a0fbfa">tbe::scene::WaterParallelScene</a>.</p>
+<p>Implémenté dans <a class="el" href="classtbe_1_1scene_1_1_light_parallel_scene.html#aa4aee2ea64a90e6d72a86505dc75fa62">tbe::scene::LightParallelScene</a>, <a class="el" href="classtbe_1_1scene_1_1_map_mark_paralle_scene.html#a31ac1a1fb94146a409e1804f547ff692">tbe::scene::MapMarkParalleScene</a>, <a class="el" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a05f44a4806d0edefd8b2cde8e9afce88">tbe::scene::MeshParallelScene</a>, <a class="el" href="classtbe_1_1scene_1_1_particles_parallel_scene.html#aae75b397a9af0adc38659c5cad92f503">tbe::scene::ParticlesParallelScene</a>, et <a class="el" href="classtbe_1_1scene_1_1_water_parallel_scene.html#abff3a0d80fec037d2ebc4412101382ef">tbe::scene::WaterParallelScene</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aa2b2dd98fbc3c7ff994c4fa67355de76"></a><!-- doxytag: member="tbe::scene::ParallelScene::SetEnable" ref="aa2b2dd98fbc3c7ff994c4fa67355de76" args="(bool enable)" -->
+<a class="anchor" id="a6d3e0dd2c28b84c85a575c0b892be79a"></a><!-- doxytag: member="tbe::scene::ParallelScene::setEnable" ref="a6d3e0dd2c28b84c85a575c0b892be79a" args="(bool enable)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ParallelScene::SetEnable </td>
+          <td class="memname">void ParallelScene::setEnable </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>enable</em></td><td>)</td>
@@ -253,12 +255,12 @@ Attributs protégés</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a15b3ea8c5ff095ac77c3fdbff72510bd"></a><!-- doxytag: member="tbe::scene::ParallelScene::SetSceneManager" ref="a15b3ea8c5ff095ac77c3fdbff72510bd" args="(SceneManager *sceneManager)" -->
+<a class="anchor" id="a75064a2b74018b0ceddd4134ea22e48d"></a><!-- doxytag: member="tbe::scene::ParallelScene::setSceneManager" ref="a75064a2b74018b0ceddd4134ea22e48d" args="(SceneManager *sceneManager)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ParallelScene::SetSceneManager </td>
+          <td class="memname">void ParallelScene::setSceneManager </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classtbe_1_1scene_1_1_scene_manager.html">SceneManager</a> *&#160;</td>
           <td class="paramname"><em>sceneManager</em></td><td>)</td>
@@ -308,7 +310,7 @@ Attributs protégés</h2></td></tr>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_parallel_scene_8cpp_source.html">ParallelScene.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:54:05 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:56 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

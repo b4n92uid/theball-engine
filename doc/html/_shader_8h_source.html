@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -63,56 +63,60 @@
 <a name="l00021"></a>00021 
 <a name="l00022"></a>00022     <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> &amp; <a class="code" href="classtbe_1_1_shader.html#aa063c2927dcec3561f0a4598263daba5">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a>&amp; copy);
 <a name="l00023"></a>00023 
-<a name="l00025"></a>00025     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a8cd54dfd3e45e419d6929cd032de5231" title="Chargement d&#39;un FragmentShader depuis content.">ParseFragmentShader</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> content);
+<a name="l00025"></a>00025     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#ad0fb6857eb3f488ec1d598407b1c4342" title="Chargement d&#39;un fragment shader (pixel shader) depuis content.">parseFragmentShader</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> content);
 <a name="l00026"></a>00026 
-<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a5080011ecc331fb691b30b964f323bb2" title="Chargement d&#39;un VertexShader depuis content.">ParseVertexShader</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> content);
+<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a57540d7afa8eef51c6232b63db829ef9" title="Chargement d&#39;un vertex shader depuis content.">parseVertexShader</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> content);
 <a name="l00029"></a>00029 
-<a name="l00031"></a>00031     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a49bfbd4136b5bf69120697cf534357f8" title="Chargement d&#39;un FragmentShader depuis un fichier.">LoadFragmentShader</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filepath);
+<a name="l00031"></a>00031     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#aebddad027eddc9e077a543489708231c" title="Chargement d&#39;un fragment shader (pixel shader) depuis un fichier.">loadFragmentShader</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filepath);
 <a name="l00032"></a>00032 
-<a name="l00034"></a>00034     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a08ebaf5e1e61f99dd550976aac8a36f1" title="Chargement d&#39;un VertexShader depuis un fichier.">LoadVertexShader</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filepath);
+<a name="l00034"></a>00034     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a059a6a9784af66ae3ce5a186d01474cd" title="Chargement d&#39;un vertex shader depuis un fichier.">loadVertexShader</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> filepath);
 <a name="l00035"></a>00035 
-<a name="l00037"></a>00037     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#ae645a335aa70fcefdb39debb27af8ade" title="Chargement du program.">LoadProgram</a>();
-<a name="l00038"></a>00038 
-<a name="l00040"></a>00040     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a967abc428bc5980a2ff93f0fe2e1434b" title="Utilisation du program.">Use</a>(<span class="keywordtype">bool</span> use = <span class="keyword">true</span>);
-<a name="l00041"></a>00041 
-<a name="l00043"></a>00043     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#acef8473ef7b3f07b5c90c354fd33e41e" title="Transmet une variable au shader.">SetUniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <span class="keywordtype">int</span> <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
-<a name="l00044"></a>00044     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#acef8473ef7b3f07b5c90c354fd33e41e" title="Transmet une variable au shader.">SetUniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keywordtype">float</span> value);
-<a name="l00045"></a>00045     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#acef8473ef7b3f07b5c90c354fd33e41e" title="Transmet une variable au shader.">SetUniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> value);
-<a name="l00046"></a>00046     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#acef8473ef7b3f07b5c90c354fd33e41e" title="Transmet une variable au shader.">SetUniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3i</a> value);
-<a name="l00047"></a>00047     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#acef8473ef7b3f07b5c90c354fd33e41e" title="Transmet une variable au shader.">SetUniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> value);
-<a name="l00048"></a>00048     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#acef8473ef7b3f07b5c90c354fd33e41e" title="Transmet une variable au shader.">SetUniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">Vector4i</a> value);
-<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#acef8473ef7b3f07b5c90c354fd33e41e" title="Transmet une variable au shader.">SetUniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> value);
-<a name="l00050"></a>00050     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#acef8473ef7b3f07b5c90c354fd33e41e" title="Transmet une variable au shader.">SetUniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> value);
-<a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="classtbe_1_1_shader.html#a4cc931c5d1503fd8563f8382151978e2">00052</a>     <a class="code" href="classtbe_1_1_shader.html#a4cc931c5d1503fd8563f8382151978e2">operator bool</a>()
-<a name="l00053"></a>00053     {
-<a name="l00054"></a>00054         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_shader.html#a4cd843020b8c03be54048538524169ba">m_program</a>;
-<a name="l00055"></a>00055     }
+<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#aba8dd692cf9984103780d6c49d1d81b9">loadProgram</a>();
+<a name="l00042"></a>00042 
+<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a6a15824dc6f25c0cbce31bbaa5078605">use</a>(<span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_shader.html#a6a15824dc6f25c0cbce31bbaa5078605">use</a> = <span class="keyword">true</span>);
+<a name="l00050"></a>00050 
+<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a7ba1178d1609c690fcd1b1e4429fc9fd" title="Transmet une variable au shader de type int.">uniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <span class="keywordtype">int</span> <a class="code" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>);
+<a name="l00053"></a>00053 
+<a name="l00055"></a>00055     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a7ba1178d1609c690fcd1b1e4429fc9fd" title="Transmet une variable au shader de type int.">uniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keywordtype">float</span> value);
 <a name="l00056"></a>00056 
-<a name="l00057"></a><a class="code" href="classtbe_1_1_shader.html#ae5cc226fa12f658f31aec3fa7069735f">00057</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_shader.html#ae5cc226fa12f658f31aec3fa7069735f">operator!</a>()
-<a name="l00058"></a>00058     {
-<a name="l00059"></a>00059         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_shader.html#a4cd843020b8c03be54048538524169ba">m_program</a>;
-<a name="l00060"></a>00060     }
-<a name="l00061"></a>00061 
-<a name="l00062"></a><a class="code" href="classtbe_1_1_shader.html#a0f7187701e28e7e6fa96c0df650077ad">00062</a>     <a class="code" href="classtbe_1_1_shader.html#a0f7187701e28e7e6fa96c0df650077ad">operator GLuint</a>()
-<a name="l00063"></a>00063     {
-<a name="l00064"></a>00064         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_shader.html#a4cd843020b8c03be54048538524169ba">m_program</a>;
-<a name="l00065"></a>00065     }
-<a name="l00066"></a>00066 
-<a name="l00067"></a>00067     <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_shader.html#ae37a5adf0e941b9092550bd35bb19bba">CheckHardware</a>();
+<a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a7ba1178d1609c690fcd1b1e4429fc9fd" title="Transmet une variable au shader de type int.">uniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> value);
+<a name="l00059"></a>00059 
+<a name="l00061"></a>00061     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a7ba1178d1609c690fcd1b1e4429fc9fd" title="Transmet une variable au shader de type int.">uniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3i</a> value);
+<a name="l00062"></a>00062 
+<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a7ba1178d1609c690fcd1b1e4429fc9fd" title="Transmet une variable au shader de type int.">uniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> value);
+<a name="l00065"></a>00065 
+<a name="l00067"></a>00067     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a7ba1178d1609c690fcd1b1e4429fc9fd" title="Transmet une variable au shader de type int.">uniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classtbe_1_1_vector4.html" title="Template 4D Vector.">Vector4i</a> value);
 <a name="l00068"></a>00068 
-<a name="l00069"></a>00069 <span class="keyword">protected</span>:
-<a name="l00070"></a><a class="code" href="classtbe_1_1_shader.html#a4cd843020b8c03be54048538524169ba">00070</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1_shader.html#a4cd843020b8c03be54048538524169ba">m_program</a>;
-<a name="l00071"></a><a class="code" href="classtbe_1_1_shader.html#aef04fc23151c168dec34d104d6c1e2cc">00071</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1_shader.html#aef04fc23151c168dec34d104d6c1e2cc">m_frag_shader</a>;
-<a name="l00072"></a><a class="code" href="classtbe_1_1_shader.html#a2d66b72e432f0a9957d36430a5ed2417">00072</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1_shader.html#a2d66b72e432f0a9957d36430a5ed2417">m_vert_shader</a>;
-<a name="l00073"></a>00073 };
+<a name="l00070"></a>00070     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a7ba1178d1609c690fcd1b1e4429fc9fd" title="Transmet une variable au shader de type int.">uniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classtbe_1_1_vector2.html">Vector2f</a> value);
+<a name="l00071"></a>00071 
+<a name="l00073"></a>00073     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1_shader.html#a7ba1178d1609c690fcd1b1e4429fc9fd" title="Transmet une variable au shader de type int.">uniform</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> value);
 <a name="l00074"></a>00074 
-<a name="l00075"></a>00075 }
 <a name="l00076"></a>00076 
-<a name="l00077"></a>00077 <span class="preprocessor">#endif</span>
+<a name="l00077"></a><a class="code" href="classtbe_1_1_shader.html#ae5cc226fa12f658f31aec3fa7069735f">00077</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_shader.html#ae5cc226fa12f658f31aec3fa7069735f" title="Verification de statue, renvois true si un program est bien charger.">operator!</a>()
+<a name="l00078"></a>00078     {
+<a name="l00079"></a>00079         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_shader.html#a4cd843020b8c03be54048538524169ba">m_program</a>;
+<a name="l00080"></a>00080     }
+<a name="l00081"></a>00081 
+<a name="l00083"></a>00083 
+<a name="l00084"></a><a class="code" href="classtbe_1_1_shader.html#a0f7187701e28e7e6fa96c0df650077ad">00084</a>     <a class="code" href="classtbe_1_1_shader.html#a0f7187701e28e7e6fa96c0df650077ad" title="Récuperation d&#39;identifiant OpenGL.">operator GLuint</a>()
+<a name="l00085"></a>00085     {
+<a name="l00086"></a>00086         <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_shader.html#a4cd843020b8c03be54048538524169ba">m_program</a>;
+<a name="l00087"></a>00087     }
+<a name="l00088"></a>00088 
+<a name="l00100"></a>00100     <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1_shader.html#ac9b193728a5116a2399cbf4aa0bbfce9">checkHardware</a>();
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102 <span class="keyword">protected</span>:
+<a name="l00103"></a><a class="code" href="classtbe_1_1_shader.html#a4cd843020b8c03be54048538524169ba">00103</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1_shader.html#a4cd843020b8c03be54048538524169ba">m_program</a>;
+<a name="l00104"></a><a class="code" href="classtbe_1_1_shader.html#aef04fc23151c168dec34d104d6c1e2cc">00104</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1_shader.html#aef04fc23151c168dec34d104d6c1e2cc">m_frag_shader</a>;
+<a name="l00105"></a><a class="code" href="classtbe_1_1_shader.html#a2d66b72e432f0a9957d36430a5ed2417">00105</a>     <a class="code" href="_g_lee_8h.html#a957a9f4a8dae55a57239cd873e6b8cb9">GLuint</a> <a class="code" href="classtbe_1_1_shader.html#a2d66b72e432f0a9957d36430a5ed2417">m_vert_shader</a>;
+<a name="l00106"></a>00106 };
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108 }
+<a name="l00109"></a>00109 
+<a name="l00110"></a>00110 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

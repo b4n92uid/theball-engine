@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -71,105 +71,134 @@
 <a name="l00033"></a>00033 
 <a name="l00035"></a>00035     <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a> &amp; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a6f3675745ab8f0b175afef169fba7fd8" title="Opérateur d&#39;assignation.">operator=</a>(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>&amp; copy);
 <a name="l00036"></a>00036 
-<a name="l00038"></a>00038     <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a5c24ddcb1b3780b25181193f03e61596" title="Méthode polymorphique de clonage du noueud.">Clone</a>();
+<a name="l00038"></a>00038     <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a95eab562b89e2078765630e29ced1e49" title="Méthode polymorphique de clonage du noueud.">clone</a>();
 <a name="l00039"></a>00039 
-<a name="l00041"></a>00041     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a75e66bcd90c09492676a4cfe5b23c3af" title="Rendue.">Render</a>();
-<a name="l00042"></a>00042 
-<a name="l00044"></a>00044     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a182d82e681402c6ec9311cd03b08a274" title="Traitement.">Process</a>();
-<a name="l00045"></a>00045 
-<a name="l00047"></a>00047     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a83beb1ae915146cbccec18230119a19d" title="Calcule l&#39;AABB du mesh.">ComputeAabb</a>();
-<a name="l00048"></a>00048 
-<a name="l00050"></a>00050     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a119b6a2f78b7de3b9f1cc72614fde54b" title="Calcule l&#39;espace tangente des vertex du mesh.">ComputeTangent</a>();
-<a name="l00051"></a>00051 
-<a name="l00053"></a>00053     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a6e640686cf9dedb9d58c03544eec443d" title="Calcule l&#39;occlusion ambiante.">ComputeAocc</a>();
-<a name="l00054"></a>00054 
-<a name="l00056"></a>00056     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#af2c28f6f6a7c6aad70f4825b19aac7d6" title="Renvois la position y des coordonnés x z dans le repere local du mesh.">FindFloor</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <span class="keywordtype">bool</span> global);
-<a name="l00057"></a>00057 
-<a name="l00059"></a>00059     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a7df534750837062b4b48c5100e108373" title="Ajout un materieux au noeud.">AddMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* material);
-<a name="l00060"></a>00060 
-<a name="l00062"></a>00062     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0fd1b99f7ede3f7592e019a261c8d145" title="Renvois le nombre de materials assosier au noeud.">GetMaterialCount</a>();
-<a name="l00063"></a>00063 
-<a name="l00071"></a>00071     <a class="code" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Vector2i::Array</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#af36ec086b1ae099221a11512084b5ca6">GetMaterialApply</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
-<a name="l00072"></a>00072 
-<a name="l00074"></a>00074     <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a15e0b2cad9f7c24d2bbcf0e1626b4c72" title="Renvois le materieux identifier par son nom.">GetMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
-<a name="l00075"></a>00075 
-<a name="l00077"></a>00077     <a class="code" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">Material::Array</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a160f8073a7584dc41fc5a2cdc455f777" title="Renvois tout les materials du mesh.">GetAllMaterial</a>();
-<a name="l00078"></a>00078 
-<a name="l00080"></a>00080     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a057d7afd1041cf4116e8dcbfa1338fef" title="Applique un shader a tout les materieux du mesh.">ApplyShader</a>(<a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> <a class="code" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>);
-<a name="l00081"></a>00081 
-<a name="l00083"></a>00083     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae35ce88a09293429880272dbf64fd9a6" title="Applique une couleur a tout les vertecies du mesh.">ApplyColor</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> materialName, <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>);
-<a name="l00084"></a>00084 
-<a name="l00086"></a>00086     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#aa08178f97526dd243384cd60da962de3" title="Supprime le materieux name.">DeleteMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
+<a name="l00040"></a>00040     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a7008e23cbaacd2878b7e81a01ac5d96b">clear</a>();
+<a name="l00041"></a>00041 
+<a name="l00043"></a>00043     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#aa196429f3e87ecd53e8770ba979222f4" title="Rendue.">render</a>();
+<a name="l00044"></a>00044 
+<a name="l00046"></a>00046     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a13a9487ad1502929421a922e75b87487" title="Traitement.">process</a>();
+<a name="l00047"></a>00047 
+<a name="l00049"></a>00049     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a2e8fd09ebaf0413e2d73f54286ce20f1" title="Calcule l&#39;AABB du mesh.">computeAabb</a>();
+<a name="l00050"></a>00050 
+<a name="l00052"></a>00052     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a8e8cd13605126cb19aa71447dcfb8415" title="Renvoi l&#39;AABB Absolue du mesh.">getAbsolutAabb</a>();
+<a name="l00053"></a>00053 
+<a name="l00055"></a>00055     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ab8a8215c5c0df4a1f71e4aa321d7c4a9" title="Calcule l&#39;espace tangente des vertex du mesh.">computeTangent</a>();
+<a name="l00056"></a>00056 
+<a name="l00058"></a>00058     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#aa59da978c8a9dfe43cd803ff5a10dbe2" title="Calcule l&#39;occlusion ambiante.">computeAocc</a>();
+<a name="l00059"></a>00059 
+<a name="l00061"></a>00061     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#adaaf5e95a84fd7513efe406f38428583" title="Renvois la position y des coordonnés x z dans le repere local du mesh.">findFloor</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, <span class="keywordtype">bool</span> global);
+<a name="l00062"></a>00062 
+<a name="l00064"></a>00064     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a8960b9034c0402d5bd19f2d4352acb32" title="Ajout un materieux au noeud.">addMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="_g_lee_8h.html#ad977737dfc9a274a62741b9500c49a32">name</a>, <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* material);
+<a name="l00065"></a>00065 
+<a name="l00067"></a>00067     <span class="keywordtype">unsigned</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a1f2c02daec521b8c9770aa5bdfaa0c6e" title="Renvois le nombre de materials assosier au noeud.">getMaterialCount</a>();
+<a name="l00068"></a>00068 
+<a name="l00076"></a>00076     <a class="code" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Vector2i::Array</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad8d005bd2d74345200d266b0e772033b">getMaterialApply</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
+<a name="l00077"></a>00077 
+<a name="l00079"></a>00079     <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a8a4b4918b529ae223804c44c8afa185b" title="Renvois le materieux identifier par son nom.">getMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
+<a name="l00080"></a>00080 
+<a name="l00082"></a>00082     <a class="code" href="classtbe_1_1scene_1_1_material.html#af493ad6050ca10fff7d53cceebfd25aa">Material::Array</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9c8b4cde329d9101b6671eb4646d27eb" title="Renvois tout les materials du mesh.">getAllMaterial</a>();
+<a name="l00083"></a>00083 
+<a name="l00085"></a>00085     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a69e978ce6e4cf41c23ad8489a3b7cd4a" title="Applique un shader a tout les materieux du mesh.">applyShader</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> materialName, <a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> <a class="code" href="_g_lee_8h.html#a57b2a96adb1d51204909a82d861e395e">shader</a>);
+<a name="l00086"></a>00086     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a69e978ce6e4cf41c23ad8489a3b7cd4a" title="Applique un shader a tout les materieux du mesh.">applyShader</a>(<a class="code" href="classtbe_1_1_shader.html" title="Class d&#39;utilisation des shader GLSL.">Shader</a> shader);
 <a name="l00087"></a>00087 
-<a name="l00089"></a>00089     <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a442cd89e1b48ffd840cb573e5d5e0c67" title="Déttache le materieux name du noeud.">ReleaseMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
-<a name="l00090"></a>00090 
-<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a657f8bfafaf4b4d354a6b229235fae29" title="Contien les coordonnés pour l&#39;application d&#39;une texture.">SetWithTexCoord</a>(<span class="keywordtype">bool</span> withTexCoord);
-<a name="l00093"></a>00093     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a578892e9088b16ef2bc57fac67be6830">IsWithTexCoord</a>() <span class="keyword">const</span>;
+<a name="l00089"></a>00089     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a411aa1a838ca61c0e27a5e5edeac587a" title="Applique une couleur a tout les vertecies du mesh.">setColor</a>(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="_g_lee_8h.html#a3ea846f998d64f079b86052b6c4193a8">color</a>);
+<a name="l00090"></a>00090     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0664773fbdff56c619ec162297955459">getColor</a>();
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae64ec2c8b450cba12f5dd244440128af">setOpacity</a>(<span class="keywordtype">float</span> opacity);
+<a name="l00093"></a>00093     <span class="keywordtype">float</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0623ac5ab2146435483faf89be60a2ea">getOpacity</a>() <span class="keyword">const</span>;
 <a name="l00094"></a>00094 
-<a name="l00096"></a>00096     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a521744aeb5f325a204714c8fa4d89e2c" title="Contien les vecteur des normlas pour les faces.">SetWithNormal</a>(<span class="keywordtype">bool</span> withNotmal);
-<a name="l00097"></a>00097     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#aba0369bf0252d9e2940de2bc839d3ff3">IsWithNormal</a>() <span class="keyword">const</span>;
-<a name="l00098"></a>00098 
-<a name="l00100"></a>00100     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a334effbd2dd53a996bbc683071b97691" title="Triangulation des face du model.">SetTriangulate</a>(<span class="keywordtype">bool</span> triangulate);
-<a name="l00101"></a>00101     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae29b94ffd35dfa170769a1d4cffa6424">IsTriangulate</a>() <span class="keyword">const</span>;
-<a name="l00102"></a>00102 
-<a name="l00111"></a>00111     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a39203c84d94e3db0b341d16874c845d2">ApplyMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>);
+<a name="l00096"></a>00096     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#adfd4089fe817b42cda2bc78064585313" title="Supprime le materieux name.">deleteMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
+<a name="l00097"></a>00097 
+<a name="l00099"></a>00099     <a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad6891f844611aa2c7b8a5837c1c01d6d" title="Déttache le materieux name du noeud.">releaseMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name);
+<a name="l00100"></a>00100 
+<a name="l00102"></a>00102     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a8fede60532c5359f36053c07e9cad3e3" title="Contien les coordonnés pour l&#39;application d&#39;une texture.">setWithTexCoord</a>(<span class="keywordtype">bool</span> withTexCoord);
+<a name="l00103"></a>00103     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a7637c065627dede21493391fc169e701">isWithTexCoord</a>() <span class="keyword">const</span>;
+<a name="l00104"></a>00104 
+<a name="l00106"></a>00106     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a942d68274179690753aba4beba42d28a" title="Contien les vecteur des normlas pour les faces.">setWithNormal</a>(<span class="keywordtype">bool</span> withNotmal);
+<a name="l00107"></a>00107     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#afb3d6bb2e0caa743a709a5f7c70fb07d">isWithNormal</a>() <span class="keyword">const</span>;
+<a name="l00108"></a>00108 
+<a name="l00110"></a>00110     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a4e90aa9fd7b79773b5913c796336f75a" title="Triangulation des face du model.">setTriangulate</a>(<span class="keywordtype">bool</span> triangulate);
+<a name="l00111"></a>00111     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a2c2d475b5314aedd6bf51842eef65c64">isTriangulate</a>() <span class="keyword">const</span>;
 <a name="l00112"></a>00112 
-<a name="l00120"></a>00120     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a39203c84d94e3db0b341d16874c845d2">ApplyMaterial</a>(<a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* material, <span class="keywordtype">unsigned</span> offset, <span class="keywordtype">unsigned</span> size);
-<a name="l00121"></a>00121 
-<a name="l00123"></a>00123     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9120406aab8763dbedd150fa34c959bf" title="Renvoi &#39;true&#39; si le mesh contien un materieu transparent.">IsTransparent</a>();
-<a name="l00124"></a>00124 
-<a name="l00125"></a>00125     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a7ab17698ddd91cdacaa1a04b35b54615">SetVisible</a>(<span class="keywordtype">bool</span> visible);
-<a name="l00126"></a>00126     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a570976d71b2bda2c52d39ba0d165d9bf">IsVisible</a>() <span class="keyword">const</span>;
-<a name="l00127"></a>00127 
-<a name="l00129"></a>00129     <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae9c65799ed03efbaf0a1617f21d25f35" title="Renvois le buffer graphique de rendue.">GetHardwareBuffer</a>();
-<a name="l00130"></a>00130 
-<a name="l00131"></a>00131     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a5d6cd3898f1af824284cbe796e13dc29">ConstructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
-<a name="l00132"></a>00132 
-<a name="l00133"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a59090541d1b20d6d194cdc1dca1bf099">00133</a>     <span class="keyword">typedef</span> std::map&lt;std::string, Mesh*&gt; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a59090541d1b20d6d194cdc1dca1bf099">Map</a>;
-<a name="l00134"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0f5640b675f4e8e22ebcb20529cda664">00134</a>     <span class="keyword">typedef</span> std::vector&lt;Mesh*&gt; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0f5640b675f4e8e22ebcb20529cda664">Array</a>;
-<a name="l00135"></a>00135 
-<a name="l00136"></a>00136 <span class="keyword">protected</span>:
-<a name="l00137"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#ab37f2ef03c7150858266d6f1c547a639">00137</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ab37f2ef03c7150858266d6f1c547a639">m_triangulate</a>;
-<a name="l00138"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9f450ba50810ce901bcc5ff5a64f4f39">00138</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9f450ba50810ce901bcc5ff5a64f4f39">m_withNormal</a>;
-<a name="l00139"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad7ecc8dd85c6b3d7f5c01e96e3a8998d">00139</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad7ecc8dd85c6b3d7f5c01e96e3a8998d">m_withTexCoord</a>;
-<a name="l00140"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a96083e04f965f730bdcea94d5ec07d4c">00140</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a96083e04f965f730bdcea94d5ec07d4c">m_visible</a>;
-<a name="l00141"></a>00141 
-<a name="l00142"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">00142</a>     <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>;
-<a name="l00143"></a>00143 
-<a name="l00144"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">00144</a>     <a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">m_parallelScene</a>;
+<a name="l00121"></a>00121     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a94e75f603a2f9c6502a3b655aa0f5828">applyMaterial</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> name, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>, <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>);
+<a name="l00122"></a>00122 
+<a name="l00130"></a>00130     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a94e75f603a2f9c6502a3b655aa0f5828">applyMaterial</a>(<a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* material, <span class="keywordtype">unsigned</span> offset, <span class="keywordtype">unsigned</span> size);
+<a name="l00131"></a>00131 
+<a name="l00133"></a>00133     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad57833d90d76a48b3fb5eed87803d3dd" title="Renvoi `true` si le mesh contien un materieu transparent.">isTransparent</a>();
+<a name="l00134"></a>00134 
+<a name="l00135"></a>00135     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a4b1d195f81afe1429d5fdffeaab2a25b">setVisible</a>(<span class="keywordtype">bool</span> visible);
+<a name="l00136"></a>00136     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a485141fe6cab6b36fe5bd2627b9d592b">isVisible</a>() <span class="keyword">const</span>;
+<a name="l00137"></a>00137 
+<a name="l00139"></a>00139     <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a>&amp; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#aef33fa9c19b72b2d358512b40e2cec09" title="Renvois le buffer graphique de rendue.">getHardwareBuffer</a>();
+<a name="l00140"></a>00140 
+<a name="l00141"></a>00141     <a class="code" href="classtbe_1_1scene_1_1_node.html#ac5e20a2f403c22f97e9262caef8efa09">CtorMap</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0bc907f6c104505c9d793c81b28f0f94">constructionMap</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> root);
+<a name="l00142"></a>00142 
+<a name="l00143"></a>00143     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac85b236dcf61a9d29f21e107fdb0859c">setOutputMaterial</a>(<span class="keywordtype">bool</span> outputMaterial);
+<a name="l00144"></a>00144     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac20a54629b6fcf1b04c3252ddb356af8">isOutputMaterial</a>() <span class="keyword">const</span>;
 <a name="l00145"></a>00145 
-<a name="l00146"></a>00146     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a237a3f0b04943de2792a13fd1d7f6465">RayCast</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> rayStart, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> rayDiri,
-<a name="l00147"></a>00147                  <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; intersect, <span class="keywordtype">bool</span> global);
+<a name="l00146"></a>00146     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a423fe6055b1e656a890fcd5d491c5190">setVertexScale</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> vertexScale);
+<a name="l00147"></a>00147     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad4b3108eabbb1d4596519b1c1dea4abc">getVertexScale</a>() <span class="keyword">const</span>;
 <a name="l00148"></a>00148 
-<a name="l00149"></a>00149 <span class="keyword">private</span>:
-<a name="l00150"></a>00150     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a75e66bcd90c09492676a4cfe5b23c3af" title="Rendue.">Render</a>(<a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* material, <span class="keywordtype">unsigned</span> offset, <span class="keywordtype">unsigned</span> size);
+<a name="l00149"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a59090541d1b20d6d194cdc1dca1bf099">00149</a>     <span class="keyword">typedef</span> std::map&lt;std::string, Mesh*&gt; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a59090541d1b20d6d194cdc1dca1bf099">Map</a>;
+<a name="l00150"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0f5640b675f4e8e22ebcb20529cda664">00150</a>     <span class="keyword">typedef</span> std::vector&lt;Mesh*&gt; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0f5640b675f4e8e22ebcb20529cda664">Array</a>;
 <a name="l00151"></a>00151 
-<a name="l00152"></a>00152     <span class="keyword">struct </span>RenderProcess
-<a name="l00153"></a>00153     {
-<a name="l00154"></a>00154         <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>* parent;
-<a name="l00155"></a>00155         <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> applyMaterial;
-<a name="l00156"></a>00156         <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>;
-<a name="l00157"></a>00157         <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>;
-<a name="l00158"></a>00158 
-<a name="l00159"></a>00159         <span class="keyword">typedef</span> std::vector&lt;RenderProcess&gt; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0f5640b675f4e8e22ebcb20529cda664">Array</a>;
-<a name="l00160"></a>00160     };
-<a name="l00161"></a>00161 
-<a name="l00162"></a>00162     <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">bool</span> RenderProcessSortFunc(<span class="keyword">const</span> RenderProcess&amp; rp1, <span class="keyword">const</span> RenderProcess&amp;)
-<a name="l00163"></a>00163     {
-<a name="l00164"></a>00164         <span class="keywordflow">return</span> !rp1.parent-&gt;m_materials[rp1.applyMaterial]-&gt;IsTransparent();
-<a name="l00165"></a>00165     }
+<a name="l00152"></a>00152     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a3d672898d0c9cfba2b4170903f24b21a">setBillBoard</a>(<a class="code" href="classtbe_1_1_vector2.html">Vector2b</a> billBoard);
+<a name="l00153"></a>00153     <a class="code" href="classtbe_1_1_vector2.html">Vector2b</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a1ad9c93c05f3454820200c3229c6bc88">getBillBoard</a>() <span class="keyword">const</span>;
+<a name="l00154"></a>00154 
+<a name="l00155"></a>00155     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a62396735a71f3d252ac94f379b714b9c">rayCast</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> rayStart, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> rayDiri,
+<a name="l00156"></a>00156                  <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; intersect, <span class="keywordtype">bool</span> global);
+<a name="l00157"></a>00157 
+<a name="l00158"></a>00158     <span class="keyword">virtual</span> std::vector&lt;std::string&gt; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a85594fe24835271caa10895a6fc53c52">getUsedRessources</a>();
+<a name="l00159"></a>00159 
+<a name="l00160"></a>00160 <span class="keyword">protected</span>:
+<a name="l00161"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#ab37f2ef03c7150858266d6f1c547a639">00161</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ab37f2ef03c7150858266d6f1c547a639">m_triangulate</a>;
+<a name="l00162"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9f450ba50810ce901bcc5ff5a64f4f39">00162</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a9f450ba50810ce901bcc5ff5a64f4f39">m_withNormal</a>;
+<a name="l00163"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad7ecc8dd85c6b3d7f5c01e96e3a8998d">00163</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad7ecc8dd85c6b3d7f5c01e96e3a8998d">m_withTexCoord</a>;
+<a name="l00164"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a96083e04f965f730bdcea94d5ec07d4c">00164</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a96083e04f965f730bdcea94d5ec07d4c">m_visible</a>;
+<a name="l00165"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae54db1999d555a5107343c2de1263d00">00165</a>     <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ae54db1999d555a5107343c2de1263d00">m_outputMaterial</a>;
 <a name="l00166"></a>00166 
-<a name="l00167"></a>00167     RenderProcess::Array m_renderProess;
-<a name="l00168"></a>00168     <a class="code" href="classtbe_1_1scene_1_1_material.html#ad84ffc7b17364b85ced7e4ca5e2efa1d">Material::Map</a> m_materials;
-<a name="l00169"></a>00169 };
+<a name="l00167"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">00167</a>     <a class="code" href="classtbe_1_1_hardware_buffer.html" title="Tempon de stockage en mémoire GPU (Vertex buffer object)">HardwareBuffer</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>;
+<a name="l00168"></a>00168 
+<a name="l00169"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">00169</a>     <a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html" title="Scene parallel de rendue des mailliage.">MeshParallelScene</a>* <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a98c724d69d8752645b314ba577f31cf9">m_parallelScene</a>;
 <a name="l00170"></a>00170 
-<a name="l00171"></a>00171 }
-<a name="l00172"></a>00172 }
+<a name="l00171"></a>00171 <span class="keyword">private</span>:
+<a name="l00172"></a>00172     <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#aa196429f3e87ecd53e8770ba979222f4" title="Rendue.">render</a>(<a class="code" href="classtbe_1_1scene_1_1_material.html" title="Représentation d&#39;un matériau Stock les propriétés de rendue d&#39;un maillage.">Material</a>* material, <span class="keywordtype">unsigned</span> offset, <span class="keywordtype">unsigned</span> size);
 <a name="l00173"></a>00173 
-<a name="l00174"></a>00174 <span class="preprocessor">#endif  </span><span class="comment">/* _MESH_H */</span>
+<a name="l00174"></a>00174     <span class="keyword">struct </span>RenderProcess
+<a name="l00175"></a>00175     {
+<a name="l00176"></a>00176         <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>* parent;
+<a name="l00177"></a>00177         <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a94e75f603a2f9c6502a3b655aa0f5828">applyMaterial</a>;
+<a name="l00178"></a>00178         <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#ae1b92ae085ddef4b1cdca7d749339fb0">offset</a>;
+<a name="l00179"></a>00179         <span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a8f853268a6a93ade1ff556b79420cda3">size</a>;
+<a name="l00180"></a>00180 
+<a name="l00181"></a>00181         <span class="keyword">typedef</span> std::vector&lt;RenderProcess&gt; <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0f5640b675f4e8e22ebcb20529cda664">Array</a>;
+<a name="l00182"></a>00182     };
+<a name="l00183"></a>00183 
+<a name="l00184"></a>00184     <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">bool</span> renderProcessSortFunc(<span class="keyword">const</span> RenderProcess&amp; rp1, <span class="keyword">const</span> RenderProcess&amp;)
+<a name="l00185"></a>00185     {
+<a name="l00186"></a>00186         <span class="keywordflow">return</span> !rp1.parent-&gt;m_materials[rp1.applyMaterial]-&gt;isTransparent();
+<a name="l00187"></a>00187     }
+<a name="l00188"></a>00188 
+<a name="l00189"></a>00189     RenderProcess::Array m_renderProess;
+<a name="l00190"></a>00190     <a class="code" href="classtbe_1_1scene_1_1_material.html#ad84ffc7b17364b85ced7e4ca5e2efa1d">Material::Map</a> m_materials;
+<a name="l00191"></a>00191 
+<a name="l00192"></a>00192     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a422f59935ef81039d8f49975bf031160">Mesh</a>&amp; copy(<span class="keyword">const</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a422f59935ef81039d8f49975bf031160">Mesh</a>&amp; copy);
+<a name="l00193"></a>00193 
+<a name="l00194"></a>00194     <span class="keywordtype">float</span> m_opacity;
+<a name="l00195"></a>00195 
+<a name="l00196"></a>00196     <a class="code" href="classtbe_1_1_vector2.html">Vector2b</a> m_billBoard;
+<a name="l00197"></a>00197     <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> m_color;
+<a name="l00198"></a>00198     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> m_vertexScale;
+<a name="l00199"></a>00199 };
+<a name="l00200"></a>00200 
+<a name="l00201"></a>00201 }
+<a name="l00202"></a>00202 }
+<a name="l00203"></a>00203 
+<a name="l00204"></a>00204 <span class="preprocessor">#endif  </span><span class="comment">/* _MESH_H */</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

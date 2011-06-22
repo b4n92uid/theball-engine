@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -41,10 +41,10 @@
 <div class="title">D:/projets/cpp/tbengine/sources/MeshParallelScene.cpp</div>  </div>
 </div>
 <div class="contents">
-<a href="_mesh_parallel_scene_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* </span>
+<a href="_mesh_parallel_scene_8cpp.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
 <a name="l00002"></a>00002 <span class="comment"> * File:   MeshParallelScene.cpp</span>
 <a name="l00003"></a>00003 <span class="comment"> * Author: b4n92uid</span>
-<a name="l00004"></a>00004 <span class="comment"> * </span>
+<a name="l00004"></a>00004 <span class="comment"> *</span>
 <a name="l00005"></a>00005 <span class="comment"> * Created on 30 avril 2010, 23:02</span>
 <a name="l00006"></a>00006 <span class="comment"> */</span>
 <a name="l00007"></a>00007 
@@ -65,122 +65,161 @@
 <a name="l00022"></a>00022 {
 <a name="l00023"></a>00023     m_frustumCullingCount = 0;
 <a name="l00024"></a>00024     m_enableFrustumTest = <span class="keyword">true</span>;
-<a name="l00025"></a>00025 }
-<a name="l00026"></a>00026 
-<a name="l00027"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a5f1f8bf6ff8b7e6a49c3f1cb9d622822">00027</a> MeshParallelScene::~MeshParallelScene()
-<a name="l00028"></a>00028 {
-<a name="l00029"></a>00029 }
-<a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="struct_depth_sort_mesh_func.html">00031</a> <span class="keyword">struct </span><a class="code" href="struct_depth_sort_mesh_func.html">DepthSortMeshFunc</a>
-<a name="l00032"></a>00032 {
-<a name="l00033"></a>00033 
-<a name="l00034"></a><a class="code" href="struct_depth_sort_mesh_func.html#a159d50680b40e6111a4f1c5dba15605f">00034</a>     <span class="keywordtype">bool</span> operator()(<a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>* node1, <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a> * node2)
-<a name="l00035"></a>00035     {
-<a name="l00036"></a>00036         <span class="keywordflow">return</span> (node1-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a3b93d70a9cc25d5afa8a4cc4d33c74f2">GetPos</a>() - camPos) &gt; (node2-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a3b93d70a9cc25d5afa8a4cc4d33c74f2">GetPos</a>() - camPos);
-<a name="l00037"></a>00037     }
-<a name="l00038"></a>00038 
-<a name="l00039"></a><a class="code" href="struct_depth_sort_mesh_func.html#a7948f8a8293faf8851dd6080ea972ad4">00039</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3f</a> <a class="code" href="struct_depth_sort_mesh_func.html#a7948f8a8293faf8851dd6080ea972ad4">camPos</a>;
-<a name="l00040"></a>00040 };
-<a name="l00041"></a>00041 
-<a name="l00042"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#ad5afaf3e417923047410404c14ffcf48">00042</a> <span class="keywordtype">void</span> MeshParallelScene::Render()
-<a name="l00043"></a>00043 {
-<a name="l00044"></a>00044     <a class="code" href="classtbe_1_1scene_1_1_frustum.html" title="Représentation du frustum culling inclus des fonction de test.">Frustum</a>* frustum = m_sceneManager-&gt;GetFrustum();
+<a name="l00025"></a>00025     m_transparencySort = <span class="keyword">true</span>;
+<a name="l00026"></a>00026 }
+<a name="l00027"></a>00027 
+<a name="l00028"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a5f1f8bf6ff8b7e6a49c3f1cb9d622822">00028</a> MeshParallelScene::~MeshParallelScene()
+<a name="l00029"></a>00029 {
+<a name="l00030"></a>00030 }
+<a name="l00031"></a>00031 
+<a name="l00032"></a><a class="code" href="struct_depth_sort_mesh_func.html">00032</a> <span class="keyword">struct </span><a class="code" href="struct_depth_sort_mesh_func.html">DepthSortMeshFunc</a>
+<a name="l00033"></a>00033 {
+<a name="l00034"></a>00034 
+<a name="l00035"></a><a class="code" href="struct_depth_sort_mesh_func.html#a159d50680b40e6111a4f1c5dba15605f">00035</a>     <span class="keywordtype">bool</span> operator()(<a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>* node1, <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a> * node2)
+<a name="l00036"></a>00036     {
+<a name="l00037"></a>00037         <span class="keywordflow">if</span>(node1-&gt;<a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad57833d90d76a48b3fb5eed87803d3dd" title="Renvoi `true` si le mesh contien un materieu transparent.">isTransparent</a>() &amp;&amp; node2-&gt;<a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad57833d90d76a48b3fb5eed87803d3dd" title="Renvoi `true` si le mesh contien un materieu transparent.">isTransparent</a>())
+<a name="l00038"></a>00038             <span class="keywordflow">return</span> (node1-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ab3f5fb35fe3bae47526c656c1cc34bdd">getAbsoluteMatrix</a>().<a class="code" href="classtbe_1_1_matrix4.html#a7eddb444149c5a52b6c6dcb7884306fc" title="Renvoi la position de la matrice.">getPos</a>() - camPos) &gt; (node2-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ab3f5fb35fe3bae47526c656c1cc34bdd">getAbsoluteMatrix</a>().<a class="code" href="classtbe_1_1_matrix4.html#a7eddb444149c5a52b6c6dcb7884306fc" title="Renvoi la position de la matrice.">getPos</a>() - camPos);
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(node1-&gt;<a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad57833d90d76a48b3fb5eed87803d3dd" title="Renvoi `true` si le mesh contien un materieu transparent.">isTransparent</a>() &amp;&amp; !node2-&gt;<a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad57833d90d76a48b3fb5eed87803d3dd" title="Renvoi `true` si le mesh contien un materieu transparent.">isTransparent</a>())
+<a name="l00041"></a>00041             <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(!node1-&gt;<a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad57833d90d76a48b3fb5eed87803d3dd" title="Renvoi `true` si le mesh contien un materieu transparent.">isTransparent</a>() &amp;&amp; node2-&gt;<a class="code" href="classtbe_1_1scene_1_1_mesh.html#ad57833d90d76a48b3fb5eed87803d3dd" title="Renvoi `true` si le mesh contien un materieu transparent.">isTransparent</a>())
+<a name="l00044"></a>00044             <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00045"></a>00045 
-<a name="l00046"></a>00046     m_frustumCullingCount = 0;
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048     <span class="keyword">static</span> <a class="code" href="struct_depth_sort_mesh_func.html">DepthSortMeshFunc</a> sortFunc;
-<a name="l00049"></a>00049     sortFunc.<a class="code" href="struct_depth_sort_mesh_func.html#a7948f8a8293faf8851dd6080ea972ad4">camPos</a> = m_sceneManager-&gt;GetCurCamera()-&gt;GetPos();
-<a name="l00050"></a>00050     std::sort(m_nodes.begin(), m_nodes.end(), sortFunc);
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052     <span class="keywordflow">for</span>(Mesh::Array::iterator it = m_nodes.begin(); it != m_nodes.end(); ++it)
-<a name="l00053"></a>00053     {
-<a name="l00054"></a>00054         <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* node = *it;
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056         <span class="keywordflow">if</span>(!node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a4dba92fa4b3d1f01ed4027d26e0541b2">IsAttached</a>())
-<a name="l00057"></a>00057             <span class="keywordflow">continue</span>;
+<a name="l00046"></a>00046         <span class="keywordflow">else</span>
+<a name="l00047"></a>00047             <span class="keywordflow">return</span> (node1-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ab3f5fb35fe3bae47526c656c1cc34bdd">getAbsoluteMatrix</a>().<a class="code" href="classtbe_1_1_matrix4.html#a7eddb444149c5a52b6c6dcb7884306fc" title="Renvoi la position de la matrice.">getPos</a>() - camPos) &lt; (node2-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ab3f5fb35fe3bae47526c656c1cc34bdd">getAbsoluteMatrix</a>().<a class="code" href="classtbe_1_1_matrix4.html#a7eddb444149c5a52b6c6dcb7884306fc" title="Renvoi la position de la matrice.">getPos</a>() - camPos);
+<a name="l00048"></a>00048     }
+<a name="l00049"></a>00049 
+<a name="l00050"></a><a class="code" href="struct_depth_sort_mesh_func.html#a7948f8a8293faf8851dd6080ea972ad4">00050</a>     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3f</a> <a class="code" href="struct_depth_sort_mesh_func.html#a7948f8a8293faf8851dd6080ea972ad4">camPos</a>;
+<a name="l00051"></a>00051 };
+<a name="l00052"></a>00052 
+<a name="l00053"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a05f44a4806d0edefd8b2cde8e9afce88">00053</a> <span class="keywordtype">void</span> MeshParallelScene::render()
+<a name="l00054"></a>00054 {
+<a name="l00055"></a>00055     <a class="code" href="classtbe_1_1scene_1_1_frustum.html" title="Représentation du frustum culling inclus des fonction de test.">Frustum</a>* frustum = m_sceneManager-&gt;getFrustum();
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057     m_frustumCullingCount = 0;
 <a name="l00058"></a>00058 
-<a name="l00059"></a>00059         <span class="keywordflow">if</span>(m_enableFrustumTest &amp;&amp; !frustum-&gt;<a class="code" href="classtbe_1_1scene_1_1_frustum.html#aa1a0895d79133ef46d69e2e754d259ff">IsInside</a>(node))
-<a name="l00060"></a>00060         {
-<a name="l00061"></a>00061             m_frustumCullingCount++;
-<a name="l00062"></a>00062             <span class="keywordflow">continue</span>;
-<a name="l00063"></a>00063         }
+<a name="l00059"></a>00059     <span class="keyword">static</span> <a class="code" href="struct_depth_sort_mesh_func.html">DepthSortMeshFunc</a> sortFunc;
+<a name="l00060"></a>00060     sortFunc.<a class="code" href="struct_depth_sort_mesh_func.html#a7948f8a8293faf8851dd6080ea972ad4">camPos</a> = m_sceneManager-&gt;getCurCamera()-&gt;getPos();
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062     <span class="keywordflow">if</span>(m_transparencySort)
+<a name="l00063"></a>00063         std::sort(m_nodes.begin(), m_nodes.end(), sortFunc);
 <a name="l00064"></a>00064 
-<a name="l00065"></a>00065         node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#afcc93286aed5d5f6369e47192ac33725">Render</a>();
-<a name="l00066"></a>00066     }
-<a name="l00067"></a>00067 }
+<a name="l00065"></a>00065     <span class="keywordflow">for</span>(Mesh::Array::iterator it = m_nodes.begin(); it != m_nodes.end(); ++it)
+<a name="l00066"></a>00066     {
+<a name="l00067"></a>00067         <a class="code" href="classtbe_1_1scene_1_1_mesh.html" title="Représentation d&#39;un Mailliage inclus des fonctions de calcules additinelle, de lancé de rayon et d&#39;af...">Mesh</a>* node = *it;
 <a name="l00068"></a>00068 
-<a name="l00069"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a441ff58375a54852a71068738e3ead56">00069</a> <span class="keywordtype">bool</span> MeshParallelScene::FindFloor(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
-<a name="l00070"></a>00070 {
-<a name="l00071"></a>00071     <span class="keywordtype">bool</span> atleastone = <span class="keyword">false</span>;
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073     pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> = getSceneAabb().min.y - 1;
-<a name="l00074"></a>00074 
-<a name="l00075"></a>00075     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_nodes.size(); i++)
-<a name="l00076"></a>00076     {
-<a name="l00077"></a>00077         <span class="keywordtype">float</span> lastY = pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>;
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079         <span class="keywordflow">if</span>(m_nodes[i]-&gt;FindFloor(pos, <span class="keyword">true</span>))
-<a name="l00080"></a>00080         {
-<a name="l00081"></a>00081             atleastone = <span class="keyword">true</span>;
-<a name="l00082"></a>00082             pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> = <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">std::max</a>(pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>, lastY);
-<a name="l00083"></a>00083         }
-<a name="l00084"></a>00084     }
+<a name="l00069"></a>00069         <span class="keywordflow">if</span>(!node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a824851e81e7aecd0fce843a47739ad45">isAttached</a>())
+<a name="l00070"></a>00070             <span class="keywordflow">continue</span>;
+<a name="l00071"></a>00071 
+<a name="l00072"></a>00072         <span class="keywordflow">if</span>(m_enableFrustumTest &amp;&amp; !frustum-&gt;<a class="code" href="classtbe_1_1scene_1_1_frustum.html#a059c4ee99e28fc96edd8cb422daeb8f6">isInside</a>(node))
+<a name="l00073"></a>00073         {
+<a name="l00074"></a>00074             m_frustumCullingCount++;
+<a name="l00075"></a>00075             <span class="keywordflow">continue</span>;
+<a name="l00076"></a>00076         }
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078         node-&gt;<a class="code" href="classtbe_1_1scene_1_1_mesh.html#aa196429f3e87ecd53e8770ba979222f4" title="Rendue.">render</a>();
+<a name="l00079"></a>00079     }
+<a name="l00080"></a>00080 }
+<a name="l00081"></a>00081 
+<a name="l00082"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a2cde47f2048e8d6fb9c9a9ac15ded2d9">00082</a> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0f5640b675f4e8e22ebcb20529cda664">Mesh::Array</a> MeshParallelScene::findMeshs(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#a13be19455586e95d5a42ed8f054afad2">start</a>, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> diri)
+<a name="l00083"></a>00083 {
+<a name="l00084"></a>00084     <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a0f5640b675f4e8e22ebcb20529cda664">Mesh::Array</a> matches;
 <a name="l00085"></a>00085 
-<a name="l00086"></a>00086     <span class="keywordflow">return</span> atleastone;
-<a name="l00087"></a>00087 }
-<a name="l00088"></a>00088 
-<a name="l00089"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a0d99fff1466d827486578d2134b21ff9">00089</a> <span class="keywordtype">void</span> MeshParallelScene::SetInFloor(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* node)
-<a name="l00090"></a>00090 {
-<a name="l00091"></a>00091     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a> = node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a3b93d70a9cc25d5afa8a4cc4d33c74f2">GetPos</a>();
-<a name="l00092"></a>00092 
-<a name="l00093"></a>00093     pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> = getSceneAabb().min.y - 1;
+<a name="l00086"></a>00086     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_nodes.size(); i++)
+<a name="l00087"></a>00087     {
+<a name="l00088"></a>00088         <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> intersect;
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090         <span class="keywordflow">if</span>(m_nodes[i]-&gt;isEnable())
+<a name="l00091"></a>00091             <span class="keywordflow">if</span>(m_nodes[i]-&gt;rayCast(start, diri, intersect, <span class="keyword">true</span>))
+<a name="l00092"></a>00092                 matches.push_back(m_nodes[i]);
+<a name="l00093"></a>00093     }
 <a name="l00094"></a>00094 
-<a name="l00095"></a>00095     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_nodes.size(); i++)
-<a name="l00096"></a>00096     {
-<a name="l00097"></a>00097         <span class="keywordflow">if</span>(m_nodes[i] == node || !m_nodes[i]-&gt;IsEnable())
-<a name="l00098"></a>00098             <span class="keywordflow">continue</span>;
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100         <span class="keywordtype">float</span> lastY = pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>;
+<a name="l00095"></a>00095     <span class="keywordflow">return</span> matches;
+<a name="l00096"></a>00096 }
+<a name="l00097"></a>00097 
+<a name="l00098"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#aec8c6280ec1bc1be49fcd03c3f511b80">00098</a> <span class="keywordtype">bool</span> MeshParallelScene::findFloor(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>)
+<a name="l00099"></a>00099 {
+<a name="l00100"></a>00100     <span class="keywordtype">bool</span> atleastone = <span class="keyword">false</span>;
 <a name="l00101"></a>00101 
-<a name="l00102"></a>00102         <span class="keywordflow">if</span>(m_nodes[i]-&gt;FindFloor(pos, <span class="keyword">true</span>))
-<a name="l00103"></a>00103             pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> = <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">std::max</a>(pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>, lastY);
-<a name="l00104"></a>00104     }
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106     node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a0be01ac75660f8c38898df309361a656" title="Racourcie pour sépcifier la postion de la matrice du noeud.">SetPos</a>(pos);
-<a name="l00107"></a>00107 }
-<a name="l00108"></a>00108 
-<a name="l00109"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a6d315420a6ebcb66ee6423734b3db89d">00109</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> MeshParallelScene::getSceneAabb()
-<a name="l00110"></a>00110 {
-<a name="l00111"></a>00111     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> sceneAabb;
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_nodes.size(); i++)
-<a name="l00114"></a>00114         sceneAabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#a91d2dec24e65cbf3b6c48f6695f8f5ef">Count</a>(m_nodes[i]);
-<a name="l00115"></a>00115 
-<a name="l00116"></a>00116     <span class="keywordflow">return</span> sceneAabb;
-<a name="l00117"></a>00117 }
-<a name="l00118"></a>00118 
-<a name="l00119"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#ab93f2661622d73c7009a35717a929f6f">00119</a> <span class="keywordtype">void</span> MeshParallelScene::SetEnableFrustumTest(<span class="keywordtype">bool</span> enableFrustumTest)
-<a name="l00120"></a>00120 {
-<a name="l00121"></a>00121     this-&gt;m_enableFrustumTest = enableFrustumTest;
-<a name="l00122"></a>00122 }
+<a name="l00102"></a>00102     pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> = getSceneAabb().min.y - 1;
+<a name="l00103"></a>00103 
+<a name="l00104"></a>00104     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_nodes.size(); i++)
+<a name="l00105"></a>00105     {
+<a name="l00106"></a>00106         <span class="keywordtype">float</span> lastY = pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>;
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108         <span class="keywordflow">if</span>(m_nodes[i]-&gt;findFloor(pos, <span class="keyword">true</span>))
+<a name="l00109"></a>00109         {
+<a name="l00110"></a>00110             atleastone = <span class="keyword">true</span>;
+<a name="l00111"></a>00111             pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> = <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">std::max</a>(pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>, lastY);
+<a name="l00112"></a>00112         }
+<a name="l00113"></a>00113     }
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115     <span class="keywordflow">return</span> atleastone;
+<a name="l00116"></a>00116 }
+<a name="l00117"></a>00117 
+<a name="l00118"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#ad32cf12bd4c030f47ca883b9c83b1a93">00118</a> <span class="keywordtype">void</span> MeshParallelScene::setInFloor(<a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* node)
+<a name="l00119"></a>00119 {
+<a name="l00120"></a>00120     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a> = node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a7a0aa7b71d51573b216ede91662c8939">getPos</a>();
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122     pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> = getSceneAabb().min.y - 1;
 <a name="l00123"></a>00123 
-<a name="l00124"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a9f7446b5359f806b4438f05a48a47aac">00124</a> <span class="keywordtype">bool</span> MeshParallelScene::IsEnableFrustumTest()<span class="keyword"> const</span>
-<a name="l00125"></a>00125 <span class="keyword"></span>{
-<a name="l00126"></a>00126     <span class="keywordflow">return</span> m_enableFrustumTest;
-<a name="l00127"></a>00127 }
+<a name="l00124"></a>00124     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_nodes.size(); i++)
+<a name="l00125"></a>00125     {
+<a name="l00126"></a>00126         <span class="keywordflow">if</span>(m_nodes[i] == node || !m_nodes[i]-&gt;isEnable())
+<a name="l00127"></a>00127             <span class="keywordflow">continue</span>;
 <a name="l00128"></a>00128 
-<a name="l00129"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a1cddf7550cea1dadc9004d56c3bda82a">00129</a> <span class="keywordtype">void</span> MeshParallelScene::SetFrustumCullingCount(<span class="keywordtype">unsigned</span> frustumCullingCount)
-<a name="l00130"></a>00130 {
-<a name="l00131"></a>00131     this-&gt;m_frustumCullingCount = frustumCullingCount;
-<a name="l00132"></a>00132 }
-<a name="l00133"></a>00133 
-<a name="l00134"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#ad8fdf6f6310575ca5c775ee85a60b20b">00134</a> <span class="keywordtype">unsigned</span> MeshParallelScene::GetFrustumCullingCount()<span class="keyword"> const</span>
-<a name="l00135"></a>00135 <span class="keyword"></span>{
-<a name="l00136"></a>00136     <span class="keywordflow">return</span> m_frustumCullingCount;
-<a name="l00137"></a>00137 }
+<a name="l00129"></a>00129         <span class="keywordtype">float</span> lastY = pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>;
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131         <span class="keywordflow">if</span>(m_nodes[i]-&gt;findFloor(pos, <span class="keyword">true</span>))
+<a name="l00132"></a>00132             pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> = <a class="code" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">std::max</a>(pos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>, lastY);
+<a name="l00133"></a>00133     }
+<a name="l00134"></a>00134 
+<a name="l00135"></a>00135     node-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a7c8c5a5926b501d3555ed51ce097a29b" title="Racourcie pour sépcifier la postion de la matrice du noeud.">setPos</a>(pos);
+<a name="l00136"></a>00136 }
+<a name="l00137"></a>00137 
+<a name="l00138"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a6d315420a6ebcb66ee6423734b3db89d">00138</a> <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> MeshParallelScene::getSceneAabb()
+<a name="l00139"></a>00139 {
+<a name="l00140"></a>00140     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> sceneAabb;
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_nodes.size(); i++)
+<a name="l00143"></a>00143         sceneAabb.<a class="code" href="classtbe_1_1_a_a_b_b.html#a2adf6959fb4ec28af6ab5f6cd757be72">count</a>(m_nodes[i]);
+<a name="l00144"></a>00144 
+<a name="l00145"></a>00145     <span class="keywordflow">return</span> sceneAabb;
+<a name="l00146"></a>00146 }
+<a name="l00147"></a>00147 
+<a name="l00148"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a184aa13009a213c963ae99cd55892010">00148</a> <span class="keywordtype">void</span> MeshParallelScene::setTransparencySort(<span class="keywordtype">bool</span> transparencySort)
+<a name="l00149"></a>00149 {
+<a name="l00150"></a>00150     this-&gt;m_transparencySort = transparencySort;
+<a name="l00151"></a>00151 }
+<a name="l00152"></a>00152 
+<a name="l00153"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#ac0dbb59eb8d6fd08615e9696633c8d0a">00153</a> <span class="keywordtype">bool</span> MeshParallelScene::isTransparencySort()<span class="keyword"> const</span>
+<a name="l00154"></a>00154 <span class="keyword"></span>{
+<a name="l00155"></a>00155     <span class="keywordflow">return</span> m_transparencySort;
+<a name="l00156"></a>00156 }
+<a name="l00157"></a>00157 
+<a name="l00158"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a8ea0d8c0b2baff99b061dfaf097bd55f">00158</a> <span class="keywordtype">void</span> MeshParallelScene::setEnableFrustumTest(<span class="keywordtype">bool</span> enableFrustumTest)
+<a name="l00159"></a>00159 {
+<a name="l00160"></a>00160     this-&gt;m_enableFrustumTest = enableFrustumTest;
+<a name="l00161"></a>00161 }
+<a name="l00162"></a>00162 
+<a name="l00163"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a343bcc939e4c60f21f0c56f5ca740744">00163</a> <span class="keywordtype">bool</span> MeshParallelScene::isEnableFrustumTest()<span class="keyword"> const</span>
+<a name="l00164"></a>00164 <span class="keyword"></span>{
+<a name="l00165"></a>00165     <span class="keywordflow">return</span> m_enableFrustumTest;
+<a name="l00166"></a>00166 }
+<a name="l00167"></a>00167 
+<a name="l00168"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#a67fc23bb68340713af2f1ec027648a24">00168</a> <span class="keywordtype">void</span> MeshParallelScene::setFrustumCullingCount(<span class="keywordtype">unsigned</span> frustumCullingCount)
+<a name="l00169"></a>00169 {
+<a name="l00170"></a>00170     this-&gt;m_frustumCullingCount = frustumCullingCount;
+<a name="l00171"></a>00171 }
+<a name="l00172"></a>00172 
+<a name="l00173"></a><a class="code" href="classtbe_1_1scene_1_1_mesh_parallel_scene.html#ad71eda02d8e1865399fda4a1f62fd2f2">00173</a> <span class="keywordtype">unsigned</span> MeshParallelScene::getFrustumCullingCount()<span class="keyword"> const</span>
+<a name="l00174"></a>00174 <span class="keyword"></span>{
+<a name="l00175"></a>00175     <span class="keywordflow">return</span> m_frustumCullingCount;
+<a name="l00176"></a>00176 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:58 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

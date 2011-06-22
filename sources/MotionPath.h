@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   MotionPath.h
  * Author: b4n92uid
  *
@@ -14,7 +14,9 @@
 namespace tbe
 {
 
-/// \brief Gestion des chemin de mouvement linéariser par key-frame
+/**
+ * \brief Gestion des chemins de mouvement linéariser par key-frame
+ */
 
 class MotionPath
 {

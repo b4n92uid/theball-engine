@@ -13,10 +13,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.3</span></div>
-   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL, conçu dans le but de réaliser le jeu theBall</div>
+   <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
+   <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
   </td>
  </tr>
  </tbody>
@@ -78,12 +78,12 @@
 <a name="l00035"></a>00035     m_fovy = m_zNear = m_zFar = m_ratio = 0;
 <a name="l00036"></a>00036 
 <a name="l00037"></a>00037     m_rootNode = <span class="keyword">new</span> <a class="code" href="classtbe_1_1scene_1_1_bull_node.html">BullNode</a>;
-<a name="l00038"></a>00038     m_rootNode-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#a104e96d63d5b87c542c2c2484b25c48d">SetSceneManager</a>(<span class="keyword">this</span>);
+<a name="l00038"></a>00038     m_rootNode-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ad7cee351670d3d0ccae90eb2e632e90a">setSceneManager</a>(<span class="keyword">this</span>);
 <a name="l00039"></a>00039 }
 <a name="l00040"></a>00040 
 <a name="l00041"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2bb376a85d29e85f47753e26c7539229">00041</a> SceneManager::~SceneManager()
 <a name="l00042"></a>00042 {
-<a name="l00043"></a>00043     ClearAll();
+<a name="l00043"></a>00043     clearAll();
 <a name="l00044"></a>00044 
 <a name="l00045"></a>00045     <span class="keyword">delete</span> m_frustum;
 <a name="l00046"></a>00046     <span class="keyword">delete</span> m_skybox;
@@ -92,7 +92,7 @@
 <a name="l00049"></a>00049     <span class="keyword">delete</span> m_rootNode;
 <a name="l00050"></a>00050 }
 <a name="l00051"></a>00051 
-<a name="l00052"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#af2bde6c66496045ef9e81548570f1e16">00052</a> <span class="keywordtype">void</span> SceneManager::UpdateViewParameter()
+<a name="l00052"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a1e1139c5ff3e018631be4894deacad29">00052</a> <span class="keywordtype">void</span> SceneManager::updateViewParameter()
 <a name="l00053"></a>00053 {
 <a name="l00054"></a>00054     glViewport(0, 0, m_viewport.x, m_viewport.y);
 <a name="l00055"></a>00055 
@@ -101,7 +101,7 @@
 <a name="l00058"></a>00058     gluPerspective(m_fovy, m_ratio, m_zNear, m_zFar);
 <a name="l00059"></a>00059 }
 <a name="l00060"></a>00060 
-<a name="l00061"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ab6cde47cf68a7432c200fd914966a9b0">00061</a> <span class="keywordtype">void</span> SceneManager::Setup(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> viewport, <span class="keywordtype">float</span> ratio, <span class="keywordtype">float</span> fovy, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a12d99226e590bbaaf0be69169eeb4834">zNear</a>, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a18a2583fe65967bceff8903e2769f8e2">zFar</a>)
+<a name="l00061"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2672af5395025cd82ffd3b8519b8070c">00061</a> <span class="keywordtype">void</span> SceneManager::setup(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> viewport, <span class="keywordtype">float</span> ratio, <span class="keywordtype">float</span> fovy, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a12d99226e590bbaaf0be69169eeb4834">zNear</a>, <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a18a2583fe65967bceff8903e2769f8e2">zFar</a>)
 <a name="l00062"></a>00062 {
 <a name="l00063"></a>00063     m_viewport = viewport;
 <a name="l00064"></a>00064     m_fovy = fovy;
@@ -109,10 +109,10 @@
 <a name="l00066"></a>00066     m_zNear = zNear;
 <a name="l00067"></a>00067     m_zFar = zFar;
 <a name="l00068"></a>00068 
-<a name="l00069"></a>00069     UpdateViewParameter();
+<a name="l00069"></a>00069     updateViewParameter();
 <a name="l00070"></a>00070 }
 <a name="l00071"></a>00071 
-<a name="l00072"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ac98c164a0a57f4307996da97d1e69cf4">00072</a> <span class="keywordtype">void</span> SceneManager::ClearCameras()
+<a name="l00072"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a22e38f3b1279a56c55f6168c89991af5">00072</a> <span class="keywordtype">void</span> SceneManager::clearCameras()
 <a name="l00073"></a>00073 {
 <a name="l00074"></a>00074     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_cameras.size(); i++)
 <a name="l00075"></a>00075         <span class="keyword">delete</span> m_cameras[i];
@@ -120,313 +120,325 @@
 <a name="l00077"></a>00077     m_cameras.clear();
 <a name="l00078"></a>00078 }
 <a name="l00079"></a>00079 
-<a name="l00080"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#acc9cd2578976686bd57ccdb1481b4299">00080</a> <span class="keywordtype">void</span> SceneManager::ClearParallelScenes()
+<a name="l00080"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2d8ccaeecc8e5e6af478c56a39924cce">00080</a> <span class="keywordtype">void</span> SceneManager::clearParallelScenes(<span class="keywordtype">bool</span> deleteHim)
 <a name="l00081"></a>00081 {
-<a name="l00082"></a>00082     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_parallelScenes.size(); i++)
-<a name="l00083"></a>00083         <span class="keyword">delete</span> m_parallelScenes[i];
-<a name="l00084"></a>00084 
-<a name="l00085"></a>00085     m_parallelScenes.clear();
-<a name="l00086"></a>00086 }
-<a name="l00087"></a>00087 
-<a name="l00088"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ad754d5b62b372a82a01988a54e4ecbe4">00088</a> <span class="keywordtype">void</span> SceneManager::ClearAll()
-<a name="l00089"></a>00089 {
-<a name="l00090"></a>00090     m_rootNode-&gt;ClearAllChild();
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092     ClearCameras();
-<a name="l00093"></a>00093     ClearParallelScenes();
-<a name="l00094"></a>00094 
-<a name="l00095"></a>00095     m_skybox-&gt;Clear();
-<a name="l00096"></a>00096     m_fog-&gt;Clear();
-<a name="l00097"></a>00097 }
-<a name="l00098"></a>00098 
-<a name="l00099"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a363d7cd532197f801d259bf1e24ab0f5">00099</a> <span class="keywordtype">void</span> SceneManager::Render(<span class="keywordtype">bool</span> setupView)
-<a name="l00100"></a>00100 {
-<a name="l00101"></a>00101     glMatrixMode(GL_MODELVIEW);
+<a name="l00082"></a>00082     <span class="keywordflow">if</span>(deleteHim)
+<a name="l00083"></a>00083     {
+<a name="l00084"></a>00084         <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_parallelScenes.size(); i++)
+<a name="l00085"></a>00085             <span class="keyword">delete</span> m_parallelScenes[i];
+<a name="l00086"></a>00086 
+<a name="l00087"></a>00087         m_parallelScenes.clear();
+<a name="l00088"></a>00088     }
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090     <span class="keywordflow">else</span>
+<a name="l00091"></a>00091         <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; m_parallelScenes.size(); i++)
+<a name="l00092"></a>00092             m_parallelScenes[i]-&gt;clear();
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094 }
+<a name="l00095"></a>00095 
+<a name="l00096"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#aa145eb4a484e6cbba3a4e6b72b75c360">00096</a> <span class="keywordtype">void</span> SceneManager::clearAll()
+<a name="l00097"></a>00097 {
+<a name="l00098"></a>00098     m_rootNode-&gt;clearAllChild();
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100     clearCameras();
+<a name="l00101"></a>00101     clearParallelScenes();
 <a name="l00102"></a>00102 
-<a name="l00103"></a>00103     <span class="keywordflow">if</span>(setupView)
-<a name="l00104"></a>00104         glLoadIdentity();
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106     <span class="comment">// Camera et Skybox</span>
-<a name="l00107"></a>00107     <span class="keywordflow">if</span>(!m_cameras.empty() &amp;&amp; m_currentCamera != m_cameras.end())
-<a name="l00108"></a>00108     {
-<a name="l00109"></a>00109         <span class="keywordflow">if</span>(setupView)
-<a name="l00110"></a>00110             (*m_currentCamera)-&gt;Engine();
-<a name="l00111"></a>00111 
-<a name="l00112"></a>00112         m_frustum-&gt;ExtractPlane();
+<a name="l00103"></a>00103     m_skybox-&gt;clear();
+<a name="l00104"></a>00104     m_fog-&gt;clear();
+<a name="l00105"></a>00105 }
+<a name="l00106"></a>00106 
+<a name="l00107"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a66fadddacf0710366b7c7c94bee7a897">00107</a> <span class="keywordtype">void</span> SceneManager::render(<span class="keywordtype">bool</span> setupView)
+<a name="l00108"></a>00108 {
+<a name="l00109"></a>00109     glMatrixMode(GL_MODELVIEW);
+<a name="l00110"></a>00110 
+<a name="l00111"></a>00111     <span class="keywordflow">if</span>(setupView)
+<a name="l00112"></a>00112         glLoadIdentity();
 <a name="l00113"></a>00113 
-<a name="l00114"></a>00114         m_skybox-&gt;Render((*m_currentCamera)-&gt;GetPos());
-<a name="l00115"></a>00115     }
-<a name="l00116"></a>00116 
-<a name="l00117"></a>00117     <span class="comment">// Traitement Logique</span>
-<a name="l00118"></a>00118     m_rootNode-&gt;Process();
+<a name="l00114"></a>00114     <span class="comment">// Camera et Skybox</span>
+<a name="l00115"></a>00115     <span class="keywordflow">if</span>(!m_cameras.empty() &amp;&amp; m_currentCamera != m_cameras.end())
+<a name="l00116"></a>00116     {
+<a name="l00117"></a>00117         <span class="keywordflow">if</span>(setupView)
+<a name="l00118"></a>00118             (*m_currentCamera)-&gt;look();
 <a name="l00119"></a>00119 
-<a name="l00120"></a>00120     <span class="comment">// Traitement Graphique : Rendue des scenes parallele</span>
-<a name="l00121"></a>00121     std::for_each(m_parallelScenes.begin(), m_parallelScenes.end(),
-<a name="l00122"></a>00122                   mem_fun(&amp;ParallelScene::Render));
-<a name="l00123"></a>00123 }
+<a name="l00120"></a>00120         m_frustum-&gt;extractPlane();
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122         m_skybox-&gt;render((*m_currentCamera)-&gt;getPos());
+<a name="l00123"></a>00123     }
 <a name="l00124"></a>00124 
-<a name="l00125"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ab5272006a107a313930da72a1ce56c2c">00125</a> <span class="keywordtype">void</span> SceneManager::AddParallelScene(<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* scene)
-<a name="l00126"></a>00126 {
-<a name="l00127"></a>00127     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">tools::find</a>(m_parallelScenes, scene))
-<a name="l00128"></a>00128         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;SceneManager::AddParallelScene; Scene already exist&quot;</span>);
-<a name="l00129"></a>00129 
-<a name="l00130"></a>00130     scene-&gt;<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html#a15b3ea8c5ff095ac77c3fdbff72510bd">SetSceneManager</a>(<span class="keyword">this</span>);
-<a name="l00131"></a>00131 
-<a name="l00132"></a>00132     m_parallelScenes.push_back(scene);
-<a name="l00133"></a>00133 }
-<a name="l00134"></a>00134 
-<a name="l00135"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2be0461bd26165e063cd46f5dafd267b">00135</a> <span class="keywordtype">void</span> SceneManager::ReleaseParallelScene(<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* scene)
-<a name="l00136"></a>00136 {
-<a name="l00137"></a>00137     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">tools::find</a>(m_parallelScenes, scene))
-<a name="l00138"></a>00138         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;SceneManager::ReleaseParallelScene; ParallelScene not found&quot;</span>);
+<a name="l00125"></a>00125     <span class="comment">// Traitement Logique</span>
+<a name="l00126"></a>00126     m_rootNode-&gt;process();
+<a name="l00127"></a>00127 
+<a name="l00128"></a>00128     <span class="comment">// Traitement Graphique : Rendue des scenes parallele</span>
+<a name="l00129"></a>00129     std::for_each(m_parallelScenes.begin(), m_parallelScenes.end(),
+<a name="l00130"></a>00130                   mem_fun(&amp;ParallelScene::render));
+<a name="l00131"></a>00131 }
+<a name="l00132"></a>00132 
+<a name="l00133"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#aae3b518b6ef57242658573b09d173d9b">00133</a> <span class="keywordtype">void</span> SceneManager::addParallelScene(<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* scene)
+<a name="l00134"></a>00134 {
+<a name="l00135"></a>00135     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">tools::find</a>(m_parallelScenes, scene))
+<a name="l00136"></a>00136         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">Exception</a>(<span class="stringliteral">&quot;SceneManager::AddParallelScene; Scene already exist&quot;</span>);
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138     scene-&gt;<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html#a75064a2b74018b0ceddd4134ea22e48d">setSceneManager</a>(<span class="keyword">this</span>);
 <a name="l00139"></a>00139 
-<a name="l00140"></a>00140     <a class="code" href="namespacetbe_1_1tools.html#a2ff9df1db00285d06d073fecf66b0108">tools::erase</a>(m_parallelScenes, scene);
+<a name="l00140"></a>00140     m_parallelScenes.push_back(scene);
 <a name="l00141"></a>00141 }
 <a name="l00142"></a>00142 
-<a name="l00143"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a7e066c1da18bc40ca37a06ff740e29bc">00143</a> <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* SceneManager::ReleaseParallelScene(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
+<a name="l00143"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a9bc2e24f50b25f05437e31301d55fb52">00143</a> <span class="keywordtype">void</span> SceneManager::releaseParallelScene(<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* scene)
 <a name="l00144"></a>00144 {
-<a name="l00145"></a>00145     <span class="keywordflow">if</span>(index &gt; m_parallelScenes.size())
-<a name="l00146"></a>00146         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;SceneManager::DeleteParallelScene; ParallelScene not found&quot;</span>);
+<a name="l00145"></a>00145     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">tools::find</a>(m_parallelScenes, scene))
+<a name="l00146"></a>00146         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">Exception</a>(<span class="stringliteral">&quot;SceneManager::ReleaseParallelScene; ParallelScene not found&quot;</span>);
 <a name="l00147"></a>00147 
-<a name="l00148"></a>00148     <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* ps = m_parallelScenes[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>];
-<a name="l00149"></a>00149     <a class="code" href="namespacetbe_1_1tools.html#a2ff9df1db00285d06d073fecf66b0108">tools::erase</a>(m_parallelScenes, index);
+<a name="l00148"></a>00148     <a class="code" href="namespacetbe_1_1tools.html#a9c692e68fb5e2bd6538de0901336c5cc">tools::erase</a>(m_parallelScenes, scene);
+<a name="l00149"></a>00149 }
 <a name="l00150"></a>00150 
-<a name="l00151"></a>00151     <span class="keywordflow">return</span> ps;
-<a name="l00152"></a>00152 }
-<a name="l00153"></a>00153 
-<a name="l00154"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a0a77e92e1712f692f3385478f8a7f746">00154</a> <span class="keywordtype">void</span> SceneManager::DeleteParallelScene(<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* scene)
-<a name="l00155"></a>00155 {
-<a name="l00156"></a>00156     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">tools::find</a>(m_parallelScenes, scene))
-<a name="l00157"></a>00157         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;SceneManager::ReleaseParallelScene; ParallelScene not found&quot;</span>);
+<a name="l00151"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a751913584cac90be24ca90518a79f326">00151</a> <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* SceneManager::releaseParallelScene(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
+<a name="l00152"></a>00152 {
+<a name="l00153"></a>00153     <span class="keywordflow">if</span>(index &gt; m_parallelScenes.size())
+<a name="l00154"></a>00154         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">Exception</a>(<span class="stringliteral">&quot;SceneManager::DeleteParallelScene; ParallelScene not found&quot;</span>);
+<a name="l00155"></a>00155 
+<a name="l00156"></a>00156     <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* ps = m_parallelScenes[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>];
+<a name="l00157"></a>00157     <a class="code" href="namespacetbe_1_1tools.html#a9c692e68fb5e2bd6538de0901336c5cc">tools::erase</a>(m_parallelScenes, index);
 <a name="l00158"></a>00158 
-<a name="l00159"></a>00159     <span class="keyword">delete</span> scene;
-<a name="l00160"></a>00160 
-<a name="l00161"></a>00161     <a class="code" href="namespacetbe_1_1tools.html#a2ff9df1db00285d06d073fecf66b0108">tools::erase</a>(m_parallelScenes, scene);
-<a name="l00162"></a>00162 }
-<a name="l00163"></a>00163 
-<a name="l00164"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a25c4148ddfbb8ff0406be479225d75e6">00164</a> <span class="keywordtype">void</span> SceneManager::DeleteParallelScene(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
-<a name="l00165"></a>00165 {
-<a name="l00166"></a>00166     <span class="keywordflow">if</span>(index &gt; m_parallelScenes.size())
-<a name="l00167"></a>00167         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;SceneManager::DeleteParallelScene; ParallelScene not found&quot;</span>);
+<a name="l00159"></a>00159     <span class="keywordflow">return</span> ps;
+<a name="l00160"></a>00160 }
+<a name="l00161"></a>00161 
+<a name="l00162"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a1ce5b06772c17ae057d2e5df078d8c7f">00162</a> <span class="keywordtype">void</span> SceneManager::deleteParallelScene(<a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* scene)
+<a name="l00163"></a>00163 {
+<a name="l00164"></a>00164     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">tools::find</a>(m_parallelScenes, scene))
+<a name="l00165"></a>00165         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">Exception</a>(<span class="stringliteral">&quot;SceneManager::ReleaseParallelScene; ParallelScene not found&quot;</span>);
+<a name="l00166"></a>00166 
+<a name="l00167"></a>00167     <span class="keyword">delete</span> scene;
 <a name="l00168"></a>00168 
-<a name="l00169"></a>00169     <span class="keyword">delete</span> m_parallelScenes[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>];
-<a name="l00170"></a>00170 
-<a name="l00171"></a>00171     <a class="code" href="namespacetbe_1_1tools.html#a2ff9df1db00285d06d073fecf66b0108">tools::erase</a>(m_parallelScenes, index);
-<a name="l00172"></a>00172 }
-<a name="l00173"></a>00173 
-<a name="l00174"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ad426fc179a772304a667e9138ea085e6">00174</a> <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* SceneManager::GetParallelScene(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
-<a name="l00175"></a>00175 {
-<a name="l00176"></a>00176     <span class="keywordflow">if</span>(index &gt; m_parallelScenes.size())
-<a name="l00177"></a>00177         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">tbe::Exception</a>(<span class="stringliteral">&quot;SceneManager::GetParallelScene; ParallelScene not found&quot;</span>);
+<a name="l00169"></a>00169     <a class="code" href="namespacetbe_1_1tools.html#a9c692e68fb5e2bd6538de0901336c5cc">tools::erase</a>(m_parallelScenes, scene);
+<a name="l00170"></a>00170 }
+<a name="l00171"></a>00171 
+<a name="l00172"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a370aec102562216a67bf9b1fd45430c3">00172</a> <span class="keywordtype">void</span> SceneManager::deleteParallelScene(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
+<a name="l00173"></a>00173 {
+<a name="l00174"></a>00174     <span class="keywordflow">if</span>(index &gt; m_parallelScenes.size())
+<a name="l00175"></a>00175         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">Exception</a>(<span class="stringliteral">&quot;SceneManager::DeleteParallelScene; ParallelScene not found&quot;</span>);
+<a name="l00176"></a>00176 
+<a name="l00177"></a>00177     <span class="keyword">delete</span> m_parallelScenes[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>];
 <a name="l00178"></a>00178 
-<a name="l00179"></a>00179     <span class="keywordflow">return</span> m_parallelScenes[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>];
+<a name="l00179"></a>00179     <a class="code" href="namespacetbe_1_1tools.html#a9c692e68fb5e2bd6538de0901336c5cc">tools::erase</a>(m_parallelScenes, index);
 <a name="l00180"></a>00180 }
 <a name="l00181"></a>00181 
-<a name="l00182"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a4ce2714541c220e6e950d1b813f79732">00182</a> <a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;ParallelScene*&gt;</a> SceneManager::GetParallelSceneIterator()
+<a name="l00182"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a6a540f27c9454a9a568af3b3fa0b4936">00182</a> <a class="code" href="classtbe_1_1scene_1_1_parallel_scene.html" title="Class de base pour les scenes parallele inclus des fonctions commune de rendue et de libération mémoi...">ParallelScene</a>* SceneManager::getParallelScene(<span class="keywordtype">unsigned</span> <a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>)
 <a name="l00183"></a>00183 {
-<a name="l00184"></a>00184     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;ParallelScene*&gt;</a>(m_parallelScenes);
-<a name="l00185"></a>00185 }
+<a name="l00184"></a>00184     <span class="keywordflow">if</span>(index &gt; m_parallelScenes.size())
+<a name="l00185"></a>00185         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">tbe::Exception</a>(<span class="stringliteral">&quot;SceneManager::GetParallelScene; ParallelScene not found&quot;</span>);
 <a name="l00186"></a>00186 
-<a name="l00187"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a727892547c3fc1281780ed111111b61d">00187</a> <span class="keywordtype">void</span> SceneManager::AddCamera(<a class="code" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a>* camera)
-<a name="l00188"></a>00188 {
-<a name="l00189"></a>00189     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">tools::find</a>(m_cameras, camera))
-<a name="l00190"></a>00190         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;SceneManager::AddCamera; Camera already exist&quot;</span>);
-<a name="l00191"></a>00191 
-<a name="l00192"></a>00192     m_cameras.push_back(camera);
-<a name="l00193"></a>00193     m_currentCamera = --m_cameras.end();
-<a name="l00194"></a>00194 }
-<a name="l00195"></a>00195 
-<a name="l00196"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ae90f056ea8e97c43649a73ecf307ea49">00196</a> <span class="keywordtype">void</span> SceneManager::SetCurCamera(<a class="code" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a>* camera)
-<a name="l00197"></a>00197 {
-<a name="l00198"></a>00198     <span class="keywordflow">if</span>(!<a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">tools::find</a>(m_cameras, camera))
-<a name="l00199"></a>00199         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exception.">Exception</a>(<span class="stringliteral">&quot;SceneManager::SetCurCamera; Camera not found&quot;</span>);
-<a name="l00200"></a>00200 
-<a name="l00201"></a>00201     m_currentCamera = <a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">find</a>(m_cameras.begin(), m_cameras.end(), camera);
+<a name="l00187"></a>00187     <span class="keywordflow">return</span> m_parallelScenes[<a class="code" href="_g_lee_8h.html#a57f14e05b1900f16a2da82ade47d0c6d">index</a>];
+<a name="l00188"></a>00188 }
+<a name="l00189"></a>00189 
+<a name="l00190"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ae53b1ee2293d7bedf7238112660fd262">00190</a> <a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;ParallelScene*&gt;</a> SceneManager::getParallelSceneIterator()
+<a name="l00191"></a>00191 {
+<a name="l00192"></a>00192     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;ParallelScene*&gt;</a>(m_parallelScenes);
+<a name="l00193"></a>00193 }
+<a name="l00194"></a>00194 
+<a name="l00195"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2d1d6c0a1256a6d58fdc70e764ac5efb">00195</a> <span class="keywordtype">void</span> SceneManager::addCamera(<a class="code" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a>* camera)
+<a name="l00196"></a>00196 {
+<a name="l00197"></a>00197     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">tools::find</a>(m_cameras, camera))
+<a name="l00198"></a>00198         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">Exception</a>(<span class="stringliteral">&quot;SceneManager::AddCamera; Camera already exist&quot;</span>);
+<a name="l00199"></a>00199 
+<a name="l00200"></a>00200     m_cameras.push_back(camera);
+<a name="l00201"></a>00201     m_currentCamera = --m_cameras.end();
 <a name="l00202"></a>00202 }
 <a name="l00203"></a>00203 
-<a name="l00204"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ad3aa8e32997a79db8e44b47cc4295cd6">00204</a> <a class="code" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a>* SceneManager::GetCurCamera()
+<a name="l00204"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a0ee69c2f85706e9a974c93749733897f">00204</a> <span class="keywordtype">void</span> SceneManager::setCurCamera(<a class="code" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a>* camera)
 <a name="l00205"></a>00205 {
-<a name="l00206"></a>00206     <span class="keywordflow">return</span> *m_currentCamera;
-<a name="l00207"></a>00207 }
+<a name="l00206"></a>00206     <span class="keywordflow">if</span>(!<a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">tools::find</a>(m_cameras, camera))
+<a name="l00207"></a>00207         <span class="keywordflow">throw</span> <a class="code" href="classtbe_1_1_exception.html" title="Gestion des exceptions.">Exception</a>(<span class="stringliteral">&quot;SceneManager::SetCurCamera; Camera not found&quot;</span>);
 <a name="l00208"></a>00208 
-<a name="l00209"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a994d475af3d73058dc62ce0db05d1460">00209</a> <a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;Camera*&gt;</a> SceneManager::GetCameraIterator()
-<a name="l00210"></a>00210 {
-<a name="l00211"></a>00211     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;Camera*&gt;</a>(m_cameras);
-<a name="l00212"></a>00212 }
-<a name="l00213"></a>00213 
-<a name="l00214"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a5fc89b88742ae7d7a6c8b85d20ebd8f8">00214</a> <a class="code" href="classtbe_1_1scene_1_1_frustum.html" title="Représentation du frustum culling inclus des fonction de test.">Frustum</a>* SceneManager::GetFrustum()<span class="keyword"> const</span>
-<a name="l00215"></a>00215 <span class="keyword"></span>{
-<a name="l00216"></a>00216     <span class="keywordflow">return</span> m_frustum;
-<a name="l00217"></a>00217 }
-<a name="l00218"></a>00218 
-<a name="l00219"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a9680857b8d680aa471fda4db23d285e6">00219</a> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html" title="Class de représentation d&#39;un Skybox Ordre des texture : Devant, Derrier, Haut, Bas, Gauche, Droit.">SkyBox</a>* SceneManager::GetSkybox()<span class="keyword"> const</span>
-<a name="l00220"></a>00220 <span class="keyword"></span>{
-<a name="l00221"></a>00221     <span class="keywordflow">return</span> m_skybox;
-<a name="l00222"></a>00222 }
-<a name="l00223"></a>00223 
-<a name="l00224"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a927458f067e4e59868857ea25a2c74d3">00224</a> <a class="code" href="classtbe_1_1scene_1_1_fog.html" title="Gestion du brouiallrd.">Fog</a>* SceneManager::GetFog()<span class="keyword"> const</span>
-<a name="l00225"></a>00225 <span class="keyword"></span>{
-<a name="l00226"></a>00226     <span class="keywordflow">return</span> m_fog;
-<a name="l00227"></a>00227 }
-<a name="l00228"></a>00228 
-<a name="l00229"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#aea3189433074d3897bf959ec118bba0e">00229</a> <span class="keywordtype">void</span> SceneManager::SetViewport(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> viewport)
-<a name="l00230"></a>00230 {
-<a name="l00231"></a>00231     m_viewport = viewport;
-<a name="l00232"></a>00232 }
-<a name="l00233"></a>00233 
-<a name="l00234"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ad115a41870d3e4dab0521182fadb661f">00234</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> SceneManager::GetViewport()<span class="keyword"> const</span>
-<a name="l00235"></a>00235 <span class="keyword"></span>{
-<a name="l00236"></a>00236     <span class="keywordflow">return</span> m_viewport;
-<a name="l00237"></a>00237 }
-<a name="l00238"></a>00238 
-<a name="l00239"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#ae413a91d1855147434a1e269c263be08">00239</a> <span class="keywordtype">void</span> SceneManager::SetZFar(<span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a18a2583fe65967bceff8903e2769f8e2">zFar</a>)
-<a name="l00240"></a>00240 {
-<a name="l00241"></a>00241     this-&gt;m_zFar = <a class="code" href="_g_lee_8h.html#a18a2583fe65967bceff8903e2769f8e2">zFar</a>;
-<a name="l00242"></a>00242 }
-<a name="l00243"></a>00243 
-<a name="l00244"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a6c72847bc8bfec738fe342652ec51070">00244</a> <span class="keywordtype">float</span> SceneManager::GetZFar()<span class="keyword"> const</span>
-<a name="l00245"></a>00245 <span class="keyword"></span>{
-<a name="l00246"></a>00246     <span class="keywordflow">return</span> m_zFar;
-<a name="l00247"></a>00247 }
-<a name="l00248"></a>00248 
-<a name="l00249"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a72703fb4c7e6e97d07e5c9c6f76d1c37">00249</a> <span class="keywordtype">void</span> SceneManager::SetZNear(<span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a12d99226e590bbaaf0be69169eeb4834">zNear</a>)
-<a name="l00250"></a>00250 {
-<a name="l00251"></a>00251     this-&gt;m_zNear = <a class="code" href="_g_lee_8h.html#a12d99226e590bbaaf0be69169eeb4834">zNear</a>;
-<a name="l00252"></a>00252 }
-<a name="l00253"></a>00253 
-<a name="l00254"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a5dfb458903b2cf258b019f4a9ce26efd">00254</a> <span class="keywordtype">float</span> SceneManager::GetZNear()<span class="keyword"> const</span>
-<a name="l00255"></a>00255 <span class="keyword"></span>{
-<a name="l00256"></a>00256     <span class="keywordflow">return</span> m_zNear;
-<a name="l00257"></a>00257 }
-<a name="l00258"></a>00258 
-<a name="l00259"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a1690ecd61edbc0cc7d5a63dbd5f005b7">00259</a> <span class="keywordtype">void</span> SceneManager::SetFovy(<span class="keywordtype">float</span> fovy)
-<a name="l00260"></a>00260 {
-<a name="l00261"></a>00261     this-&gt;m_fovy = fovy;
-<a name="l00262"></a>00262 }
-<a name="l00263"></a>00263 
-<a name="l00264"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a92f46aa074245d7f921608d34094dfa0">00264</a> <span class="keywordtype">float</span> SceneManager::GetFovy()<span class="keyword"> const</span>
-<a name="l00265"></a>00265 <span class="keyword"></span>{
-<a name="l00266"></a>00266     <span class="keywordflow">return</span> m_fovy;
-<a name="l00267"></a>00267 }
-<a name="l00268"></a>00268 
-<a name="l00269"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2f5965347d584f5568b3ca9ff7f3b197">00269</a> <span class="keywordtype">void</span> SceneManager::SetRatio(<span class="keywordtype">float</span> ratio)
-<a name="l00270"></a>00270 {
-<a name="l00271"></a>00271     this-&gt;m_ratio = ratio;
-<a name="l00272"></a>00272 }
-<a name="l00273"></a>00273 
-<a name="l00274"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#adea98c5a807ed7ae5624524c34669013">00274</a> <span class="keywordtype">float</span> SceneManager::GetRatio()<span class="keyword"> const</span>
-<a name="l00275"></a>00275 <span class="keyword"></span>{
-<a name="l00276"></a>00276     <span class="keywordflow">return</span> m_ratio;
-<a name="l00277"></a>00277 }
-<a name="l00278"></a>00278 
-<a name="l00279"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a7bfb06e8dea27c91dbddfbd5a38eb4ec">00279</a> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> SceneManager::ScreenToWorld(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="_g_lee_8h.html#af9d0cbbbeb7414e786c41899e5a856d7">target</a>, <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* rtt)
-<a name="l00280"></a>00280 {
-<a name="l00281"></a>00281     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> pick;
-<a name="l00282"></a>00282 
-<a name="l00283"></a>00283     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> mouse;
-<a name="l00284"></a>00284     mouse.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> = target.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> * rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a121220ac4c0ffbb02d0e24575e046489">GetFrameSize</a>().<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> / m_viewport.x - 1;
-<a name="l00285"></a>00285     mouse.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> = target.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> * rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a121220ac4c0ffbb02d0e24575e046489">GetFrameSize</a>().<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> / m_viewport.y - 1;
+<a name="l00209"></a>00209     m_currentCamera = <a class="code" href="namespacetbe_1_1tools.html#a8958bb3f6bc0a2201907fc7a7fa0b535">find</a>(m_cameras.begin(), m_cameras.end(), camera);
+<a name="l00210"></a>00210 }
+<a name="l00211"></a>00211 
+<a name="l00212"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a94153e545b03832cb2245a29b0f98c5a">00212</a> <a class="code" href="classtbe_1_1scene_1_1_camera.html" title="Gestion de la Camera Objet qui represant le poit de vue de la scene inclus une fonction de rotation...">Camera</a>* SceneManager::getCurCamera()
+<a name="l00213"></a>00213 {
+<a name="l00214"></a>00214     <span class="keywordflow">return</span> *m_currentCamera;
+<a name="l00215"></a>00215 }
+<a name="l00216"></a>00216 
+<a name="l00217"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a79f8e515fcdb7c23ef8bb94e77962853">00217</a> <a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;Camera*&gt;</a> SceneManager::getCameraIterator()
+<a name="l00218"></a>00218 {
+<a name="l00219"></a>00219     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1_iterator.html">Iterator&lt;Camera*&gt;</a>(m_cameras);
+<a name="l00220"></a>00220 }
+<a name="l00221"></a>00221 
+<a name="l00222"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a03e738e51b3dce5385dc5fce12581d92">00222</a> <a class="code" href="classtbe_1_1scene_1_1_frustum.html" title="Représentation du frustum culling inclus des fonction de test.">Frustum</a>* SceneManager::getFrustum()<span class="keyword"> const</span>
+<a name="l00223"></a>00223 <span class="keyword"></span>{
+<a name="l00224"></a>00224     <span class="keywordflow">return</span> m_frustum;
+<a name="l00225"></a>00225 }
+<a name="l00226"></a>00226 
+<a name="l00227"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a6046c0d4d11388fbc29aeb7263735043">00227</a> <a class="code" href="classtbe_1_1scene_1_1_sky_box.html" title="Class de représentation d&#39;un Skybox Ordre des texture : Devant, Derrier, Haut, Bas, Gauche, Droit.">SkyBox</a>* SceneManager::getSkybox()<span class="keyword"> const</span>
+<a name="l00228"></a>00228 <span class="keyword"></span>{
+<a name="l00229"></a>00229     <span class="keywordflow">return</span> m_skybox;
+<a name="l00230"></a>00230 }
+<a name="l00231"></a>00231 
+<a name="l00232"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#abe4c34e4262881497b7d38d33ad50bc6">00232</a> <a class="code" href="classtbe_1_1scene_1_1_fog.html" title="Gestion du brouiallrd.">Fog</a>* SceneManager::getFog()<span class="keyword"> const</span>
+<a name="l00233"></a>00233 <span class="keyword"></span>{
+<a name="l00234"></a>00234     <span class="keywordflow">return</span> m_fog;
+<a name="l00235"></a>00235 }
+<a name="l00236"></a>00236 
+<a name="l00237"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#acf8b7dd450b41d3fb4ab1ed53a11ba9c">00237</a> <span class="keywordtype">void</span> SceneManager::setViewport(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> viewport)
+<a name="l00238"></a>00238 {
+<a name="l00239"></a>00239     m_viewport = viewport;
+<a name="l00240"></a>00240 }
+<a name="l00241"></a>00241 
+<a name="l00242"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a5646a815f356fc190c42c50dadc79dd4">00242</a> <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> SceneManager::getViewport()<span class="keyword"> const</span>
+<a name="l00243"></a>00243 <span class="keyword"></span>{
+<a name="l00244"></a>00244     <span class="keywordflow">return</span> m_viewport;
+<a name="l00245"></a>00245 }
+<a name="l00246"></a>00246 
+<a name="l00247"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a9bc036c1a829db92121b92e393943464">00247</a> <span class="keywordtype">void</span> SceneManager::setZFar(<span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a18a2583fe65967bceff8903e2769f8e2">zFar</a>)
+<a name="l00248"></a>00248 {
+<a name="l00249"></a>00249     this-&gt;m_zFar = <a class="code" href="_g_lee_8h.html#a18a2583fe65967bceff8903e2769f8e2">zFar</a>;
+<a name="l00250"></a>00250 }
+<a name="l00251"></a>00251 
+<a name="l00252"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a8708c1dba3141e5ed2d68f8295fd8aaf">00252</a> <span class="keywordtype">float</span> SceneManager::getZFar()<span class="keyword"> const</span>
+<a name="l00253"></a>00253 <span class="keyword"></span>{
+<a name="l00254"></a>00254     <span class="keywordflow">return</span> m_zFar;
+<a name="l00255"></a>00255 }
+<a name="l00256"></a>00256 
+<a name="l00257"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a855bbad953f8c6dcb09fbc70e348590d">00257</a> <span class="keywordtype">void</span> SceneManager::setZNear(<span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#a12d99226e590bbaaf0be69169eeb4834">zNear</a>)
+<a name="l00258"></a>00258 {
+<a name="l00259"></a>00259     this-&gt;m_zNear = <a class="code" href="_g_lee_8h.html#a12d99226e590bbaaf0be69169eeb4834">zNear</a>;
+<a name="l00260"></a>00260 }
+<a name="l00261"></a>00261 
+<a name="l00262"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#aecb523f4ffbcb6aa96ab348a6c05cb90">00262</a> <span class="keywordtype">float</span> SceneManager::getZNear()<span class="keyword"> const</span>
+<a name="l00263"></a>00263 <span class="keyword"></span>{
+<a name="l00264"></a>00264     <span class="keywordflow">return</span> m_zNear;
+<a name="l00265"></a>00265 }
+<a name="l00266"></a>00266 
+<a name="l00267"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a795a17f977a21046310b51e2a5b019f7">00267</a> <span class="keywordtype">void</span> SceneManager::setFovy(<span class="keywordtype">float</span> fovy)
+<a name="l00268"></a>00268 {
+<a name="l00269"></a>00269     this-&gt;m_fovy = fovy;
+<a name="l00270"></a>00270 }
+<a name="l00271"></a>00271 
+<a name="l00272"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#af6382339cf2415222a428916199631d3">00272</a> <span class="keywordtype">float</span> SceneManager::getFovy()<span class="keyword"> const</span>
+<a name="l00273"></a>00273 <span class="keyword"></span>{
+<a name="l00274"></a>00274     <span class="keywordflow">return</span> m_fovy;
+<a name="l00275"></a>00275 }
+<a name="l00276"></a>00276 
+<a name="l00277"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a0389f7fcc0cbea4bb13b0574eb9471e5">00277</a> <span class="keywordtype">void</span> SceneManager::setRatio(<span class="keywordtype">float</span> ratio)
+<a name="l00278"></a>00278 {
+<a name="l00279"></a>00279     this-&gt;m_ratio = ratio;
+<a name="l00280"></a>00280 }
+<a name="l00281"></a>00281 
+<a name="l00282"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#adabaef88439f0ac71161f3cdd55e23b3">00282</a> <span class="keywordtype">float</span> SceneManager::getRatio()<span class="keyword"> const</span>
+<a name="l00283"></a>00283 <span class="keyword"></span>{
+<a name="l00284"></a>00284     <span class="keywordflow">return</span> m_ratio;
+<a name="l00285"></a>00285 }
 <a name="l00286"></a>00286 
-<a name="l00287"></a>00287     <span class="keywordtype">bool</span> useRb = FrameBufferObject::CheckHardware() &amp;&amp; rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a0ff15af76ff93ab37450ee5413a92cf2">FBO_IsUseRenderBuffer</a>();
-<a name="l00288"></a>00288 
-<a name="l00289"></a>00289     <span class="keywordflow">if</span>(useRb)
-<a name="l00290"></a>00290     {
-<a name="l00291"></a>00291         rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#adf416298ea18dda09e5df00f82ce55b9">FBO_BlitToTexutre</a>();
-<a name="l00292"></a>00292         rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#aa81e1b6d572876ae2c8eabf2dabf12bf">FBO_SetUseRenderBuffer</a>(<span class="keyword">false</span>);
-<a name="l00293"></a>00293     }
+<a name="l00287"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a1705caca3a2aca7de8748631eacfdf0e">00287</a> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> SceneManager::screenToWorld(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="_g_lee_8h.html#af9d0cbbbeb7414e786c41899e5a856d7">target</a>, <a class="code" href="classtbe_1_1_rtt.html" title="Class d&#39;abstraction pour le rendue off-screen.">Rtt</a>* rtt)
+<a name="l00288"></a>00288 {
+<a name="l00289"></a>00289     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> pick;
+<a name="l00290"></a>00290 
+<a name="l00291"></a>00291     <a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> mouse;
+<a name="l00292"></a>00292     mouse.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> = target.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> * rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a6a84c5a0b767374956848fba6f8a4644" title="Renvois la taille du rtt pour le rendue.">getFrameSize</a>().<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> / m_viewport.x - 1;
+<a name="l00293"></a>00293     mouse.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> = target.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> * rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a6a84c5a0b767374956848fba6f8a4644" title="Renvois la taille du rtt pour le rendue.">getFrameSize</a>().<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a> / m_viewport.y - 1;
 <a name="l00294"></a>00294 
-<a name="l00295"></a>00295     rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a21f65ac07ccfe71320d5ee5b89c940cb">Use</a>(<span class="keyword">true</span>);
+<a name="l00295"></a>00295     <span class="keywordtype">bool</span> useRb = FrameBufferObject::checkHardware() &amp;&amp; rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a0ff15af76ff93ab37450ee5413a92cf2">FBO_IsUseRenderBuffer</a>();
 <a name="l00296"></a>00296 
-<a name="l00297"></a>00297     pick = ScreenToWorld(mouse);
-<a name="l00298"></a>00298 
-<a name="l00299"></a>00299     rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a21f65ac07ccfe71320d5ee5b89c940cb">Use</a>(<span class="keyword">false</span>);
-<a name="l00300"></a>00300 
-<a name="l00301"></a>00301     <span class="keywordflow">if</span>(useRb)
-<a name="l00302"></a>00302     {
-<a name="l00303"></a>00303         rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#aa81e1b6d572876ae2c8eabf2dabf12bf">FBO_SetUseRenderBuffer</a>(<span class="keyword">true</span>);
-<a name="l00304"></a>00304     }
-<a name="l00305"></a>00305 
-<a name="l00306"></a>00306     <span class="keywordflow">return</span> pick;
-<a name="l00307"></a>00307 }
+<a name="l00297"></a>00297     <span class="keywordflow">if</span>(useRb)
+<a name="l00298"></a>00298     {
+<a name="l00299"></a>00299         rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#adf416298ea18dda09e5df00f82ce55b9">FBO_BlitToTexutre</a>();
+<a name="l00300"></a>00300         rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#aa81e1b6d572876ae2c8eabf2dabf12bf">FBO_SetUseRenderBuffer</a>(<span class="keyword">false</span>);
+<a name="l00301"></a>00301     }
+<a name="l00302"></a>00302 
+<a name="l00303"></a>00303     rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a34f4bbf5b1326efd7bb99b80578d9b08">use</a>(<span class="keyword">true</span>);
+<a name="l00304"></a>00304 
+<a name="l00305"></a>00305     pick = screenToWorld(mouse);
+<a name="l00306"></a>00306 
+<a name="l00307"></a>00307     rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#a34f4bbf5b1326efd7bb99b80578d9b08">use</a>(<span class="keyword">false</span>);
 <a name="l00308"></a>00308 
-<a name="l00309"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a63e0f5ab44ca4a3aa34c1d827dd018db">00309</a> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> SceneManager::ScreenToWorld(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="_g_lee_8h.html#af9d0cbbbeb7414e786c41899e5a856d7">target</a>)
-<a name="l00310"></a>00310 {
-<a name="l00311"></a>00311     <span class="keywordtype">int</span> iViewport[4];
-<a name="l00312"></a>00312     <span class="keywordtype">double</span> fModelview[16];
-<a name="l00313"></a>00313     <span class="keywordtype">double</span> fProjection[16];
-<a name="l00314"></a>00314 
-<a name="l00315"></a>00315     <span class="keywordtype">float</span> fPosX, fPosY, fPosZ;
+<a name="l00309"></a>00309     <span class="keywordflow">if</span>(useRb)
+<a name="l00310"></a>00310     {
+<a name="l00311"></a>00311         rtt-&gt;<a class="code" href="classtbe_1_1_rtt.html#aa81e1b6d572876ae2c8eabf2dabf12bf">FBO_SetUseRenderBuffer</a>(<span class="keyword">true</span>);
+<a name="l00312"></a>00312     }
+<a name="l00313"></a>00313 
+<a name="l00314"></a>00314     <span class="keywordflow">return</span> pick;
+<a name="l00315"></a>00315 }
 <a name="l00316"></a>00316 
-<a name="l00317"></a>00317     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3&lt;double&gt;</a> pick;
-<a name="l00318"></a>00318 
-<a name="l00319"></a>00319     <span class="comment">// On récupére la matrice de visualisation</span>
-<a name="l00320"></a>00320     glGetDoublev(GL_MODELVIEW_MATRIX, fModelview);
-<a name="l00321"></a>00321     <span class="comment">// On récupére la matrice de projection</span>
-<a name="l00322"></a>00322     glGetDoublev(GL_PROJECTION_MATRIX, fProjection);
-<a name="l00323"></a>00323     <span class="comment">// On récupére le viewport</span>
-<a name="l00324"></a>00324     glGetIntegerv(GL_VIEWPORT, iViewport);
-<a name="l00325"></a>00325 
-<a name="l00326"></a>00326     fPosX = (float)target.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>;
-<a name="l00327"></a>00327     fPosY = (<span class="keywordtype">float</span>)target.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
-<a name="l00328"></a>00328 
-<a name="l00329"></a>00329     <span class="comment">// On lit la profondeur dans le tampon de profondeur</span>
-<a name="l00330"></a>00330     glReadPixels(<span class="keywordtype">int</span>(fPosX), <span class="keywordtype">int</span>(fPosY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &amp;fPosZ);
-<a name="l00331"></a>00331 
-<a name="l00332"></a>00332     <span class="comment">// Et hop la fonction magic de GLU, pour obtenir la position dans la scene.</span>
-<a name="l00333"></a>00333     gluUnProject(fPosX, fPosY, fPosZ, fModelview, fProjection, iViewport, &amp;pick.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>, &amp;pick.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>, &amp;pick.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>);
-<a name="l00334"></a>00334 
-<a name="l00335"></a>00335     <span class="keywordflow">return</span> <a class="code" href="namespacetbe.html#a03849da3ab180ba7842fe5013b543d35">Vector3f</a>(<span class="keywordtype">float</span>(pick.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>), <span class="keywordtype">float</span>(pick.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>), <span class="keywordtype">float</span>(pick.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>));
-<a name="l00336"></a>00336 }
-<a name="l00337"></a>00337 
-<a name="l00338"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a3fe8e13e12aa85a93775d9d2f7982a9e">00338</a> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4f</a> SceneManager::computeBillboard(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#a0c0d4701a6c89f4f7f0640715d27ab26">obj</a>, <a class="code" href="classtbe_1_1_matrix4.html">Matrix4f</a> init)
-<a name="l00339"></a>00339 {
-<a name="l00340"></a>00340     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4f</a> rotation = init;
-<a name="l00341"></a>00341 
-<a name="l00342"></a>00342     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> look(0, 0, 1);
-<a name="l00343"></a>00343     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> campos = (*m_currentCamera)-&gt;GetPos();
-<a name="l00344"></a>00344 
-<a name="l00345"></a>00345     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> proj = campos - <a class="code" href="_g_lee_8h.html#a0c0d4701a6c89f4f7f0640715d27ab26">obj</a>;
-<a name="l00346"></a>00346     proj.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> = 0;
-<a name="l00347"></a>00347     proj.<a class="code" href="classtbe_1_1_vector3.html#a417cd513dc9cd1b943e3f3e284d470bf">Normalize</a>();
-<a name="l00348"></a>00348 
-<a name="l00349"></a>00349     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> up = Vector3f::Cross(look, proj);
-<a name="l00350"></a>00350     up.<a class="code" href="classtbe_1_1_vector3.html#a417cd513dc9cd1b943e3f3e284d470bf">Normalize</a>();
-<a name="l00351"></a>00351 
-<a name="l00352"></a>00352     <span class="keywordtype">float</span> rotateH = Vector3f::Dot(look, proj);
-<a name="l00353"></a>00353 
-<a name="l00354"></a>00354     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> proj2 = campos - <a class="code" href="_g_lee_8h.html#a0c0d4701a6c89f4f7f0640715d27ab26">obj</a>;
-<a name="l00355"></a>00355     proj2.<a class="code" href="classtbe_1_1_vector3.html#a417cd513dc9cd1b943e3f3e284d470bf">Normalize</a>();
+<a name="l00317"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a72f08ed29443c1929acf1f752bb1d383">00317</a> <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> SceneManager::screenToWorld(<a class="code" href="classtbe_1_1_vector2.html">Vector2i</a> <a class="code" href="_g_lee_8h.html#af9d0cbbbeb7414e786c41899e5a856d7">target</a>)
+<a name="l00318"></a>00318 {
+<a name="l00319"></a>00319     <span class="keywordtype">int</span> iViewport[4] = {0};
+<a name="l00320"></a>00320     <span class="keywordtype">double</span> fModelview[16] = {0};
+<a name="l00321"></a>00321     <span class="keywordtype">double</span> fProjection[16] = {0};
+<a name="l00322"></a>00322 
+<a name="l00323"></a>00323     <span class="keywordtype">float</span> fPosX, fPosY, fPosZ;
+<a name="l00324"></a>00324 
+<a name="l00325"></a>00325     <a class="code" href="classtbe_1_1_vector3.html" title="Template 3D Vector.">Vector3&lt;double&gt;</a> pick;
+<a name="l00326"></a>00326 
+<a name="l00327"></a>00327     <span class="comment">// On récupére la matrice de visualisation</span>
+<a name="l00328"></a>00328     glGetDoublev(GL_MODELVIEW_MATRIX, fModelview);
+<a name="l00329"></a>00329     <span class="comment">// On récupére la matrice de projection</span>
+<a name="l00330"></a>00330     glGetDoublev(GL_PROJECTION_MATRIX, fProjection);
+<a name="l00331"></a>00331     <span class="comment">// On récupére le viewport</span>
+<a name="l00332"></a>00332     glGetIntegerv(GL_VIEWPORT, iViewport);
+<a name="l00333"></a>00333 
+<a name="l00334"></a>00334     fPosX = (float)target.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>;
+<a name="l00335"></a>00335     fPosY = (<span class="keywordtype">float</span>)target.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
+<a name="l00336"></a>00336 
+<a name="l00337"></a>00337     <span class="comment">// On lit la profondeur dans le tampon de profondeur</span>
+<a name="l00338"></a>00338     glReadPixels(<span class="keywordtype">int</span>(fPosX), <span class="keywordtype">int</span>(fPosY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &amp;fPosZ);
+<a name="l00339"></a>00339 
+<a name="l00340"></a>00340     <span class="comment">// Et hop la fonction magic de GLU, pour obtenir la position dans la scene.</span>
+<a name="l00341"></a>00341     gluUnProject(fPosX, fPosY, fPosZ, fModelview, fProjection, iViewport, &amp;pick.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>, &amp;pick.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>, &amp;pick.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>);
+<a name="l00342"></a>00342 
+<a name="l00343"></a>00343     <span class="keywordflow">return</span> <a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>(<span class="keywordtype">float</span>(pick.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>), <span class="keywordtype">float</span>(pick.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a>), <span class="keywordtype">float</span>(pick.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>));
+<a name="l00344"></a>00344 }
+<a name="l00345"></a>00345 
+<a name="l00346"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a130530127d17c97784f8760fb4d978b3">00346</a> <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> SceneManager::computeBillboard(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_g_lee_8h.html#a0c0d4701a6c89f4f7f0640715d27ab26">obj</a>, <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> init, <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> cam, <a class="code" href="classtbe_1_1_vector2.html">Vector2b</a> diri)
+<a name="l00347"></a>00347 {
+<a name="l00348"></a>00348     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> rotation = init;
+<a name="l00349"></a>00349 
+<a name="l00350"></a>00350     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> look(0, 0, 1);
+<a name="l00351"></a>00351     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> campos = !cam ? (*m_currentCamera)-&gt;getPos() : cam;
+<a name="l00352"></a>00352 
+<a name="l00353"></a>00353     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> proj = campos - <a class="code" href="_g_lee_8h.html#a0c0d4701a6c89f4f7f0640715d27ab26">obj</a>;
+<a name="l00354"></a>00354     proj.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> = 0;
+<a name="l00355"></a>00355     proj.<a class="code" href="classtbe_1_1_vector3.html#a4969ef337439f3848353db1f512d4b6e">normalize</a>();
 <a name="l00356"></a>00356 
-<a name="l00357"></a>00357     <span class="keywordtype">float</span> rotateV = Vector3f::Dot(proj, proj2);
-<a name="l00358"></a>00358 
-<a name="l00359"></a>00359     <span class="keywordflow">if</span>(campos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> &lt; obj.y)
-<a name="l00360"></a>00360         rotation.<a class="code" href="classtbe_1_1_matrix4.html#a5d37d0ce5dd722e793b6d94094f700cf">SetRotate</a>(acos(rotateV), <a class="code" href="namespacetbe.html#a03849da3ab180ba7842fe5013b543d35">Vector3f</a>(1, 0, 0));
-<a name="l00361"></a>00361     <span class="keywordflow">else</span>
-<a name="l00362"></a>00362         rotation.<a class="code" href="classtbe_1_1_matrix4.html#a5d37d0ce5dd722e793b6d94094f700cf">SetRotate</a>(acos(rotateV), <a class="code" href="namespacetbe.html#a03849da3ab180ba7842fe5013b543d35">Vector3f</a>(-1, 0, 0));
-<a name="l00363"></a>00363 
-<a name="l00364"></a>00364     rotation.<a class="code" href="classtbe_1_1_matrix4.html#a5d37d0ce5dd722e793b6d94094f700cf">SetRotate</a>(acos(rotateH), up);
-<a name="l00365"></a>00365 
-<a name="l00366"></a>00366     <span class="keywordflow">return</span> rotation;
-<a name="l00367"></a>00367 }
-<a name="l00368"></a>00368 
-<a name="l00369"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a2daf30b0281dfa0f5312e4d50fbb0ab8">00369</a> <span class="keywordtype">void</span> SceneManager::SetAmbientLight(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> ambient)
-<a name="l00370"></a>00370 {
-<a name="l00371"></a>00371     m_ambientLight = ambient;
-<a name="l00372"></a>00372     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, m_ambientLight);
-<a name="l00373"></a>00373 }
+<a name="l00357"></a>00357     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> up = Vector3f::cross(look, proj);
+<a name="l00358"></a>00358     up.<a class="code" href="classtbe_1_1_vector3.html#a4969ef337439f3848353db1f512d4b6e">normalize</a>();
+<a name="l00359"></a>00359 
+<a name="l00360"></a>00360     <span class="keywordtype">float</span> rotateH = Vector3f::dot(look, proj);
+<a name="l00361"></a>00361 
+<a name="l00362"></a>00362     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> proj2 = campos - <a class="code" href="_g_lee_8h.html#a0c0d4701a6c89f4f7f0640715d27ab26">obj</a>;
+<a name="l00363"></a>00363     proj2.<a class="code" href="classtbe_1_1_vector3.html#a4969ef337439f3848353db1f512d4b6e">normalize</a>();
+<a name="l00364"></a>00364 
+<a name="l00365"></a>00365     <span class="keywordtype">float</span> rotateV = Vector3f::dot(proj, proj2);
+<a name="l00366"></a>00366 
+<a name="l00367"></a>00367     <span class="keywordflow">if</span>(diri.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>)
+<a name="l00368"></a>00368     {
+<a name="l00369"></a>00369         <span class="keywordflow">if</span>(campos.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> &lt; obj.y)
+<a name="l00370"></a>00370             rotation.<a class="code" href="classtbe_1_1_matrix4.html#a7bcfb1211ebf559f551634fa78bb5847">rotate</a>(acos(rotateV), <a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>(1, 0, 0));
+<a name="l00371"></a>00371         <span class="keywordflow">else</span>
+<a name="l00372"></a>00372             rotation.<a class="code" href="classtbe_1_1_matrix4.html#a7bcfb1211ebf559f551634fa78bb5847">rotate</a>(acos(rotateV), <a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>(-1, 0, 0));
+<a name="l00373"></a>00373     }
 <a name="l00374"></a>00374 
-<a name="l00375"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#aef38aac2302abb28b4e6382f29bf92c1">00375</a> <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> SceneManager::GetAmbientLight()<span class="keyword"> const</span>
-<a name="l00376"></a>00376 <span class="keyword"></span>{
-<a name="l00377"></a>00377     <span class="keywordflow">return</span> m_ambientLight;
-<a name="l00378"></a>00378 }
-<a name="l00379"></a>00379 
-<a name="l00380"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a19131142217b48f46f0928ae78c340aa">00380</a> <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* SceneManager::GetRootNode()<span class="keyword"> const</span>
-<a name="l00381"></a>00381 <span class="keyword"></span>{
-<a name="l00382"></a>00382     <span class="keywordflow">return</span> m_rootNode;
-<a name="l00383"></a>00383 }
+<a name="l00375"></a>00375     <span class="keywordflow">if</span>(diri.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>)
+<a name="l00376"></a>00376         rotation.<a class="code" href="classtbe_1_1_matrix4.html#a7bcfb1211ebf559f551634fa78bb5847">rotate</a>(acos(rotateH), up);
+<a name="l00377"></a>00377 
+<a name="l00378"></a>00378     <span class="keywordflow">return</span> rotation;
+<a name="l00379"></a>00379 }
+<a name="l00380"></a>00380 
+<a name="l00381"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a886681d3cbe1b08b75b657fe8f8bbe0d">00381</a> <span class="keywordtype">void</span> SceneManager::setAmbientLight(<a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> ambient)
+<a name="l00382"></a>00382 {
+<a name="l00383"></a>00383     m_ambientLight = ambient;
+<a name="l00384"></a>00384     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, m_ambientLight);
+<a name="l00385"></a>00385 }
+<a name="l00386"></a>00386 
+<a name="l00387"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a9934c02605571e828fec71ef2a89430e">00387</a> <a class="code" href="classtbe_1_1_vector4.html">Vector4f</a> SceneManager::getAmbientLight()<span class="keyword"> const</span>
+<a name="l00388"></a>00388 <span class="keyword"></span>{
+<a name="l00389"></a>00389     <span class="keywordflow">return</span> m_ambientLight;
+<a name="l00390"></a>00390 }
+<a name="l00391"></a>00391 
+<a name="l00392"></a><a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a02a77a78b15a9c9eb985524b9f68b457">00392</a> <a class="code" href="classtbe_1_1scene_1_1_node.html" title="Class de base pour la représentation d&#39;une entité qui inclus une matrice, un AABB et un nom...">Node</a>* SceneManager::getRootNode()<span class="keyword"> const</span>
+<a name="l00393"></a>00393 <span class="keyword"></span>{
+<a name="l00394"></a>00394     <span class="keywordflow">return</span> m_rootNode;
+<a name="l00395"></a>00395 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Sat Apr 2 2011 18:53:59 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>
