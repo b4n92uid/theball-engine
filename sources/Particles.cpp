@@ -43,8 +43,6 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
 
 ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
 {
-    m_usePointSprite = true;
-
     m_renderId = 0;
 
     glGenBuffersARB(1, &m_renderId);
@@ -349,6 +347,8 @@ Vector2f ParticlesEmiter::getBulletSize() const
 void ParticlesEmiter::setUsePointSprite(bool usePointSprite)
 {
     this->m_usePointSprite = usePointSprite && checkHardware();
+
+    build();
 }
 
 bool ParticlesEmiter::isUsePointSprite() const
@@ -417,7 +417,6 @@ void ParticlesEmiter::process()
 
         else
         {
-
             p.life -= m_lifeDown * (timestamp * 0.001f);
             p.pos += p.diriction * (timestamp * 0.001f);
 

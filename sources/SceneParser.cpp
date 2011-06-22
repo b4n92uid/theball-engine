@@ -536,19 +536,21 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
         string modelFilepath;
 
-        if(rel.attr["texture"].find(':') != string::npos)
-            modelFilepath = rel.attr["texture"];
-        else
-            modelFilepath = tools::pathScope(m_mapDescriptor.fileName, rel.attr["texture"], true);
+        if(rel.attr.count("texture") && !rel.attr["texture"].empty())
+        {
+            if(rel.attr["texture"].find(':') != string::npos)
+                modelFilepath = rel.attr["texture"];
+            else
+                modelFilepath = tools::pathScope(m_mapDescriptor.fileName, rel.attr["texture"], true);
 
-        try
-        {
-            emiter->setTexture(modelFilepath);
-        }
-        catch(std::exception& e)
-        {
-            delete emiter;
-            cout << e.what() << endl;
+            try
+            {
+                emiter->setTexture(modelFilepath);
+            }
+            catch(std::exception& e)
+            {
+                cout << e.what() << endl;
+            }
         }
 
         if(rel.attr.count("lifeInit"))
@@ -561,7 +563,7 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
         if(rel.attr.count("boxSize"))
             emiter->setBoxSize(tools::strToVec3<float>(rel.attr["boxSize"], true));
         if(rel.attr.count("bulletSize"))
-            emiter->setBulletSize(tools::strToVec2<float>(rel.attr["bulletSize"]));
+            emiter->setBulletSize(tools::strToVec2<float>(rel.attr["bulletSize"], true));
 
         if(rel.attr.count("number"))
             emiter->setNumber(tools::strToNum<int>(rel.attr["number"]));
