@@ -8,6 +8,7 @@
 #ifndef _MATHEMATICS_H
 #define	_MATHEMATICS_H
 
+#include <iostream>
 #include <cmath>
 
 #include "Vector2.h"
@@ -15,8 +16,12 @@
 #include "Vector4.h"
 #include "Matrix4.h"
 #include "Quaternion.h"
+#include "AABB.h"
+#include "Tools.h"
 
 namespace tbe
+{
+namespace math
 {
 
 /**
@@ -243,18 +248,6 @@ inline Vector3f rand(Vector3f min, Vector3f max)
 }
 
 /**
- * Renvoi un vectur aléatoir situer a l'interieur de la boite englobant 'aabb'
- *
- * @param min
- * @param max
- * @return
- */
-inline Vector3f rand(AABB aabb)
-{
-    return rand(aabb.min, aabb.max);
-}
-
-/**
  * fmod() implementation
  *
  * @param lvalue
@@ -327,8 +320,8 @@ inline void round<float>(float& value, const float& unit)
 template<typename T>
 void round(Vector2<T>& value, const Vector2<T>& unit)
 {
-    tools::round(value.x, unit.x);
-    tools::round(value.y, unit.y);
+    round(value.x, unit.x);
+    round(value.y, unit.y);
 }
 
 /**
@@ -341,11 +334,12 @@ void round(Vector2<T>& value, const Vector2<T>& unit)
 template<typename T>
 void round(Vector3<T>& value, const Vector3<T>& unit)
 {
-    tools::round(value.x, unit.x);
-    tools::round(value.y, unit.y);
-    tools::round(value.z, unit.z);
+    round(value.x, unit.x);
+    round(value.y, unit.y);
+    round(value.z, unit.z);
 }
 
+}
 }
 
 #endif	/* _MATHEMATICS_H */

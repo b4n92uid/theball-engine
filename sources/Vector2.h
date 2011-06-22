@@ -348,6 +348,40 @@ public:
         return stream >> vec.x >> sep >> vec.y;
     }
 
+    /**
+     * Conversion d'un vecteur a 2 composant en chaine de caracteres
+     *  au format "x, y"
+     */
+    std::string toStr(char sep = ',') const
+    {
+        std::stringstream stream;
+        stream << x << sep << y;
+
+        return stream.str();
+    }
+
+    /**
+     * Interprétation d'une chaine de caracteres en vecteur a 2 composant
+     *  depuis le format "x, y"
+     */
+    Vector2 fromStr(std::string str, bool withsep = true)
+    {
+        Vector2<T> vec;
+        std::stringstream ss(str);
+
+        if(withsep)
+        {
+            char sep;
+            ss >> x >> sep >> y;
+        }
+        else
+        {
+            ss >> x >> y;
+        }
+
+        return *this;
+    }
+
     T x, y;
 
     typedef std::vector< Vector2<T> > Array;

@@ -163,7 +163,7 @@ public:
     void setValue(T value)
     {
         this->m_value = (m_range ? m_range->check(value) : value);
-        tools::round(this->m_value, m_step);
+        math::round(this->m_value, m_step);
         m_label = tools::numToStr(m_value);
     }
 

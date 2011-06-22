@@ -46,7 +46,7 @@ void PostProcessManager::clearAll()
 
 void PostProcessManager::setup(Vector2i screenSize)
 {
-    m_screenSize = tools::nextPow2(screenSize) / 2;
+    m_screenSize = math::nextPow2(screenSize) / 2;
 
     if(!m_rttRender)
     {

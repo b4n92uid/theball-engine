@@ -204,8 +204,8 @@ void Pencil::load(std::string path, int size, int charsp)
         // Use Our Helper Function To Get The Widths Of
         // The Bitmap Data That We Will Need In Order To Create
         // Our Texture.
-        int width = tools::nextPow2(bitmap.width);
-        int height = tools::nextPow2(bitmap.rows);
+        int width = math::nextPow2(bitmap.width);
+        int height = math::nextPow2(bitmap.rows);
 
         //m_charsWidth[i] = width;
 

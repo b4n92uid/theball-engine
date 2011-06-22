@@ -449,6 +449,40 @@ public:
         return stream << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w;
     }
 
+    /**
+     * Conversion d'un vecteur a 4 composant en chaine de caracteres
+     *  au format "x, y, z, w"
+     */
+    std::string toStr(char sep = ',') const
+    {
+        std::stringstream stream;
+        stream << x << sep << y << sep << z << sep << w;
+
+        return stream.str();
+    }
+
+    /**
+     * Interprétation d'une chaine de caracteres en vecteur a 4 composant
+     *  depuis le format "x, y, z, w"
+     */
+    Vector4& fromStr(std::string str, bool withsep = true)
+    {
+        Vector4<T> vec;
+        std::stringstream ss(str);
+
+        if(withsep)
+        {
+            char sep;
+            ss >> x >> sep >> y >> sep >> z >> sep >> w;
+        }
+        else
+        {
+            ss >> x >> y >> z >> w;
+        }
+
+        return *this;
+    }
+
     typedef std::vector< Vector4<T> > Array;
 
     T x, y, z, w;

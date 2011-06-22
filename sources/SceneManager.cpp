@@ -154,7 +154,7 @@ ParallelScene* SceneManager::releaseParallelScene(unsigned index)
         throw Exception("SceneManager::DeleteParallelScene; ParallelScene not found");
 
     ParallelScene* ps = m_parallelScenes[index];
-    tools::erase(m_parallelScenes, index);
+    m_parallelScenes.erase(m_parallelScenes.begin() + index);
 
     return ps;
 }
@@ -176,7 +176,7 @@ void SceneManager::deleteParallelScene(unsigned index)
 
     delete m_parallelScenes[index];
 
-    tools::erase(m_parallelScenes, index);
+    m_parallelScenes.erase(m_parallelScenes.begin() + index);
 }
 
 ParallelScene* SceneManager::getParallelScene(unsigned index)

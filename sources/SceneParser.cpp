@@ -307,7 +307,7 @@ void SceneParser::parseGeneral(AttribMap& att)
 {
     m_mapDescriptor.sceneName = att["name"];
     m_mapDescriptor.authorName = att["author"];
-    m_mapDescriptor.ambiante = tools::strToVec4<float>(att["ambient"], true);
+    m_mapDescriptor.ambiante.fromStr(att["ambient"]);
 
     if(!m_lightScene)
     {
@@ -336,7 +336,7 @@ void SceneParser::parseGeneral(AttribMap& att)
 
 void SceneParser::parseFog(AttribMap& att)
 {
-    m_mapDescriptor.fog.color = tools::strToVec4<float>(att["color"], true);
+    m_mapDescriptor.fog.color.fromStr(att["color"]);
     m_mapDescriptor.fog.start = tools::strToNum<float>(att["start"]);
     m_mapDescriptor.fog.end = tools::strToNum<float>(att["end"]);
     m_mapDescriptor.fog.enable = true;
@@ -513,13 +513,13 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
             node->open(modelFilepath);
 
             if(rel.attr.count("vertexScale"))
-                node->setVertexScale(tools::strToVec3<float>(rel.attr["vertexScale"], true));
+                node->setVertexScale(Vector3f().fromStr(rel.attr["vertexScale"]));
             if(rel.attr.count("color"))
-                node->setColor(tools::strToVec4<float>(rel.attr["color"], true));
+                node->setColor(Vector4f().fromStr(rel.attr["color"]));
             if(rel.attr.count("opacity"))
                 node->setOpacity(tools::strToNum<float>(rel.attr["opacity"]));
             if(rel.attr.count("billBoarding"))
-                node->setBillBoard(tools::strToVec2<bool>(rel.attr["billBoarding"]));
+                node->setBillBoard(Vector2b().fromStr(rel.attr["billBoarding"]));
 
             buildMaterial(rel.attr, node);
 
@@ -561,11 +561,11 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
             emiter->setLifeDown(tools::strToNum<float>(rel.attr["lifeDown"]));
 
         if(rel.attr.count("gravity"))
-            emiter->setGravity(tools::strToVec3<float>(rel.attr["gravity"], true));
+            emiter->setGravity(Vector3f().fromStr(rel.attr["gravity"]));
         if(rel.attr.count("boxSize"))
-            emiter->setBoxSize(tools::strToVec3<float>(rel.attr["boxSize"], true));
+            emiter->setBoxSize(Vector3f().fromStr(rel.attr["boxSize"]));
         if(rel.attr.count("bulletSize"))
-            emiter->setBulletSize(tools::strToVec2<float>(rel.attr["bulletSize"], true));
+            emiter->setBulletSize(Vector2f().fromStr(rel.attr["bulletSize"]));
 
         if(rel.attr.count("number"))
             emiter->setNumber(tools::strToNum<int>(rel.attr["number"]));
@@ -606,9 +606,9 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
             throw tbe::Exception("SceneParser::ParseNode; Unknown light type (%s)", rel.attr["type"].c_str());
         }
 
-        light->setAmbient(tools::strToVec4<float>(rel.attr["ambient"], true));
-        light->setDiffuse(tools::strToVec4<float>(rel.attr["diffuse"], true));
-        light->setSpecular(tools::strToVec4<float>(rel.attr["specular"], true));
+        light->setAmbient(Vector4f().fromStr(rel.attr["ambient"]));
+        light->setDiffuse(Vector4f().fromStr(rel.attr["diffuse"]));
+        light->setSpecular(Vector4f().fromStr(rel.attr["specular"]));
 
         current = light;
     }

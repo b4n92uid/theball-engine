@@ -212,7 +212,7 @@ void Texture::load(std::string filename, bool genMipMap, bool upperLeftOrigin)
     m_size.x = ilGetInteger(IL_IMAGE_WIDTH);
     m_size.y = ilGetInteger(IL_IMAGE_HEIGHT);
 
-    if(!tools::isPow2(m_size.x) || !tools::isPow2(m_size.y))
+    if(!math::isPow2(m_size.x) || !math::isPow2(m_size.y))
         cout << "***WARNING*** Texture::Load; Texture is not pow2 dim (" << filename << ")" << endl;
 
     m_genMipMap = genMipMap;
@@ -270,7 +270,7 @@ void Texture::fill(Vector4i color)
 
 void Texture::build(Vector2i size, Vector4i color, GLint internalFormat, GLenum format)
 {
-    if(!tools::isPow2(size.x) || !tools::isPow2(size.y))
+    if(!math::isPow2(size.x) || !math::isPow2(size.y))
         cout << "***WARNING*** Texture::Build; Texture is not pow2 dim " << size << endl;
 
     m_size = size;

@@ -869,10 +869,10 @@ Node::CtorMap Mesh::constructionMap(std::string root)
         }
     }
 
-    ctormap["color"] = tools::vec4ToStr(m_color);
+    ctormap["color"] = m_color.toStr();
     ctormap["opacity"] = tools::numToStr(m_opacity);
-    ctormap["vertexScale"] = tools::vec3ToStr(m_vertexScale);
-    ctormap["billBoarding"] = tools::vec2ToStr(m_billBoard);
+    ctormap["vertexScale"] = m_vertexScale.toStr();
+    ctormap["billBoarding"] = m_billBoard.toStr();
 
     return ctormap;
 }
@@ -889,10 +889,10 @@ bool Mesh::isOutputMaterial() const
 
 void Mesh::setVertexScale(Vector3f vertexScale)
 {
-    if(tools::isAnyZero(vertexScale))
+    if(math::isAnyZero(vertexScale))
         return;
 
-    if(tools::isEqual(vertexScale, m_vertexScale, 0.001))
+    if(math::isEqual(vertexScale, m_vertexScale, 0.001))
         return;
 
     Vector3f setscale = vertexScale / m_vertexScale;

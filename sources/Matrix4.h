@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Matrix4.h
  * Author: b4n92uid
  *
@@ -122,6 +122,40 @@ public:
         stream << mat[15];
 
         return stream;
+    }
+
+    /**
+     * Conversion d'une matrice 4x4 en chaine de caracteres
+     *  au format "0.1, 0.2, 0.3[...]"
+     */
+    std::string toStr(char sep = ',') const
+    {
+        std::stringstream stream;
+        for(unsigned i = 0; i < 15; i++)
+            stream << m_matrix[i] << sep;
+
+        stream << m_matrix[15];
+
+        return stream.str();
+    }
+
+    /**
+     * Conversion d'une matrice 4x4 en chaine de caracteres
+     *  au format "0.1, 0.2, 0.3[...]"
+     */
+    void fromStr(const std::string& str, bool withsep = false)
+    {
+        char sep;
+        std::stringstream stream(str);
+
+        if(withsep)
+            for(unsigned i = 0; i < 15; i++)
+                stream >> m_matrix[i] >> sep;
+        else
+            for(unsigned i = 0; i < 15; i++)
+                stream >> m_matrix[i];
+
+        stream >> m_matrix[15];
     }
 
 private:

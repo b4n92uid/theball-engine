@@ -365,17 +365,17 @@ void ParticlesEmiter::setupBullet(Particle& p)
 {
     p.life = 1;
     p.color = 1;
-    p.diriction = tools::rand(Vector3f(-m_freeMove), Vector3f(m_freeMove));
+    p.diriction = math::rand(Vector3f(-m_freeMove), Vector3f(m_freeMove));
     p.diriction.normalize() *= m_freeMove;
     p.gravity = m_gravity;
 
     if(!!m_boxSize)
-        p.pos = tools::rand(Vector3f(0), m_boxSize);
+        p.pos = math::rand(Vector3f(0), m_boxSize);
     else
         p.pos = m_emitPos;
 
     if(m_continousMode)
-        p.life = tools::rand(0.0f, m_lifeInit);
+        p.life = math::rand(0.0f, m_lifeInit);
     else
         p.life = m_lifeInit;
 }

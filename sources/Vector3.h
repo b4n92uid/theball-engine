@@ -398,6 +398,40 @@ public:
         return stream << vec.x << ", " << vec.y << ", " << vec.z;
     }
 
+    /**
+     * Interprétation d'une chaine de caracteres en vecteur a 3 composant
+     *  depuis le format "x, y, z"
+     */
+    std::string toStr(char sep = ',') const
+    {
+        std::stringstream stream;
+        stream << x << sep << y << sep << z;
+
+        return stream.str();
+    }
+
+    /**
+     * Conversion d'un vecteur a 3 composant en chaine de caracteres
+     *  au format "x, y, z"
+     */
+    Vector3& fromStr(std::string str, bool withsep = true)
+    {
+        Vector3<T> vec;
+        std::stringstream ss(str);
+
+        if(withsep)
+        {
+            char sep;
+            ss >> x >> sep >> y >> sep >> z;
+        }
+        else
+        {
+            ss >> x >> y >> z;
+        }
+
+        return *this;
+    }
+
     typedef std::vector< Vector3<T> > Array;
 
     T x, y, z;

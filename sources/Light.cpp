@@ -232,9 +232,9 @@ Node::CtorMap Light::constructionMap(std::string root)
     else
         ctormap["type"] = tools::numToStr(m_type);
 
-    ctormap["ambient"] = tools::vec4ToStr(m_ambient);
-    ctormap["diffuse"] = tools::vec4ToStr(m_diffuse);
-    ctormap["specular"] = tools::vec4ToStr(m_specular);
+    ctormap["ambient"] = m_ambient.toStr();
+    ctormap["diffuse"] = m_diffuse.toStr();
+    ctormap["specular"] = m_specular.toStr();
     ctormap["radius"] = tools::numToStr(m_radius);
 
     return ctormap;
