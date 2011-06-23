@@ -28,6 +28,7 @@ class SceneManager;
 class SceneParser
 {
 public:
+    SceneParser();
     SceneParser(SceneManager* sceneManager);
     virtual ~SceneParser();
 
@@ -65,9 +66,6 @@ public:
 
     template<typename T> T getAdditional(std::string key)
     {
-        if(!m_additional.count(key))
-            return NULL;
-
         T value;
 
         std::stringstream ss(m_additional[key]);

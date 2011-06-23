@@ -163,3 +163,10 @@ AABB AABB::operator+(const AABB& aabb)
 {
     return AABB(*this) += aabb;
 }
+
+Vector3f AABB::randPos() const
+{
+    return Vector3f(math::rand(min.x, max.x),
+                    math::rand(min.z, max.y),
+                    math::rand(min.y, max.z));
+}

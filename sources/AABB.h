@@ -120,6 +120,9 @@ public:
     /// Renvois le centre de la boite englobant
     Vector3f getCenter() const;
 
+    /// Renvois une position aléatoire a l'interieur de la boite englobant
+    Vector3f randPos() const;
+
     Vector3f min;
     Vector3f max;
 };

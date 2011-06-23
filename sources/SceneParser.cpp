@@ -21,12 +21,16 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
+SceneParser::SceneParser() :
+m_sceneManager(NULL), m_rootNode(NULL),
+m_lightScene(NULL), m_meshScene(NULL), m_particlesScene(NULL),
+m_waterScene(NULL)
+{
+}
+
 SceneParser::SceneParser(SceneManager* sceneManager) :
-m_sceneManager(sceneManager),
-m_rootNode(sceneManager->getRootNode()),
-m_lightScene(NULL),
-m_meshScene(NULL),
-m_particlesScene(NULL),
+m_sceneManager(sceneManager), m_rootNode(sceneManager->getRootNode()),
+m_lightScene(NULL), m_meshScene(NULL), m_particlesScene(NULL),
 m_waterScene(NULL)
 {
 }
@@ -310,30 +314,6 @@ void SceneParser::parseGeneral(AttribMap& att)
     m_mapDescriptor.sceneName = att["name"];
     m_mapDescriptor.authorName = att["author"];
     m_mapDescriptor.ambiante.fromStr(att["ambient"]);
-
-    if(!m_lightScene)
-    {
-        m_lightScene = new LightParallelScene;
-        m_sceneManager->addParallelScene(m_lightScene);
-    }
-
-    if(!m_meshScene)
-    {
-        m_meshScene = new MeshParallelScene;
-        m_sceneManager->addParallelScene(m_meshScene);
-    }
-
-    if(!m_particlesScene)
-    {
-        m_particlesScene = new ParticlesParallelScene;
-        m_sceneManager->addParallelScene(m_particlesScene);
-    }
-
-    if(!m_markScene)
-    {
-        m_markScene = new MapMarkParalleScene;
-        m_sceneManager->addParallelScene(m_markScene);
-    }
 }
 
 void SceneParser::parseFog(AttribMap& att)
@@ -376,6 +356,30 @@ inline void toogleMaterial(Material* material, int mod, string stat)
 
 void SceneParser::buildScene()
 {
+    if(!m_lightScene)
+    {
+        m_lightScene = new LightParallelScene;
+        m_sceneManager->addParallelScene(m_lightScene);
+    }
+
+    if(!m_meshScene)
+    {
+        m_meshScene = new MeshParallelScene;
+        m_sceneManager->addParallelScene(m_meshScene);
+    }
+
+    if(!m_particlesScene)
+    {
+        m_particlesScene = new ParticlesParallelScene;
+        m_sceneManager->addParallelScene(m_particlesScene);
+    }
+
+    if(!m_markScene)
+    {
+        m_markScene = new MapMarkParalleScene;
+        m_sceneManager->addParallelScene(m_markScene);
+    }
+
     scene::Fog* fog = m_sceneManager->getFog();
     fog->setColor(m_mapDescriptor.fog.color);
     fog->setStart(m_mapDescriptor.fog.start);
