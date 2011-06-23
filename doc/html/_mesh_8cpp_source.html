@@ -13,7 +13,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
    <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
@@ -162,7 +162,7 @@
 <a name="l00119"></a>00119 
 <a name="l00120"></a>00120     <a class="code" href="classtbe_1_1_a_a_b_b.html" title="Axis Aligned Bounding Box.">AABB</a> aabb;
 <a name="l00121"></a>00121 
-<a name="l00122"></a>00122     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> mat = <a class="code" href="classtbe_1_1scene_1_1_node.html#ab3f5fb35fe3bae47526c656c1cc34bdd">getAbsoluteMatrix</a>();
+<a name="l00122"></a>00122     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> mat = <a class="code" href="classtbe_1_1scene_1_1_node.html#ad24b8ddb472f83bcf9122c3106bce53a">getAbsoluteMatrix</a>();
 <a name="l00123"></a>00123     <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>* vertex = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a2fe840145da3bffad4f1f67e91f99e79" title="Véroulleu le buffer pour d&#39;éventuelle modification.">lock</a>();
 <a name="l00124"></a>00124 
 <a name="l00125"></a>00125     <span class="keywordflow">for</span>(<span class="keywordtype">unsigned</span> i = 0; i &lt; vertexCount; i++)
@@ -475,7 +475,7 @@
 <a name="l00432"></a>00432 
 <a name="l00433"></a>00433     <span class="keywordflow">if</span>(!!m_billBoard)
 <a name="l00434"></a>00434     {
-<a name="l00435"></a>00435         <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a> = <a class="code" href="classtbe_1_1scene_1_1_node.html#ab3f5fb35fe3bae47526c656c1cc34bdd">getAbsoluteMatrix</a>().<a class="code" href="classtbe_1_1_matrix4.html#a7eddb444149c5a52b6c6dcb7884306fc" title="Renvoi la position de la matrice.">getPos</a>();
+<a name="l00435"></a>00435         <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a> = <a class="code" href="classtbe_1_1scene_1_1_node.html#ad24b8ddb472f83bcf9122c3106bce53a">getAbsoluteMatrix</a>().<a class="code" href="classtbe_1_1_matrix4.html#a7eddb444149c5a52b6c6dcb7884306fc" title="Renvoi la position de la matrice.">getPos</a>();
 <a name="l00436"></a>00436 
 <a name="l00437"></a>00437         <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> rotation = <a class="code" href="classtbe_1_1scene_1_1_node.html#ac729e342e44a4314bb5e51bf0b4c968b">m_sceneManager</a>-&gt;<a class="code" href="classtbe_1_1scene_1_1_scene_manager.html#a130530127d17c97784f8760fb4d978b3" title="Calcule de la matrice de rotation d&#39;un billboard (face a la caméra)">computeBillboard</a>(pos, <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a>(), 0, m_billBoard);
 <a name="l00438"></a>00438 
@@ -580,7 +580,7 @@
 <a name="l00537"></a>00537     glPushMatrix();
 <a name="l00538"></a>00538 
 <a name="l00539"></a>00539     <span class="keywordflow">if</span>(<a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">m_parent</a>)
-<a name="l00540"></a>00540         glMultMatrixf(<a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">m_parent</a>-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ab3f5fb35fe3bae47526c656c1cc34bdd">getAbsoluteMatrix</a>());
+<a name="l00540"></a>00540         glMultMatrixf(<a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">m_parent</a>-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ad24b8ddb472f83bcf9122c3106bce53a">getAbsoluteMatrix</a>());
 <a name="l00541"></a>00541 
 <a name="l00542"></a>00542     glMultMatrixf(<a class="code" href="classtbe_1_1scene_1_1_node.html#af01bcf301012ae16ac5a11110838c0c0">m_matrix</a>);
 <a name="l00543"></a>00543 
@@ -658,7 +658,7 @@
 <a name="l00615"></a>00615 {
 <a name="l00616"></a>00616     <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>* vertex = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#a2fe840145da3bffad4f1f67e91f99e79" title="Véroulleu le buffer pour d&#39;éventuelle modification.">lock</a>();
 <a name="l00617"></a>00617 
-<a name="l00618"></a>00618     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> absmat = <a class="code" href="classtbe_1_1scene_1_1_node.html#ab3f5fb35fe3bae47526c656c1cc34bdd">getAbsoluteMatrix</a>();
+<a name="l00618"></a>00618     <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> absmat = <a class="code" href="classtbe_1_1scene_1_1_node.html#ad24b8ddb472f83bcf9122c3106bce53a">getAbsoluteMatrix</a>();
 <a name="l00619"></a>00619 
 <a name="l00620"></a>00620     <span class="keyword">const</span> <span class="keywordtype">unsigned</span> vertexCount = <a class="code" href="classtbe_1_1scene_1_1_mesh.html#ac54226e0fc7ad230f872378abe1051a5">m_hardwareBuffer</a>.<a class="code" href="classtbe_1_1_hardware_buffer.html#ac04b3e4971a3fb2c8819184b565ec789" title="Renvois la nombre de vertexs contenue dans le buffer.">getVertexCount</a>();
 <a name="l00621"></a>00621 
@@ -710,7 +710,7 @@
 <a name="l00667"></a>00667 
 <a name="l00668"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#adaaf5e95a84fd7513efe406f38428583">00668</a> <span class="keywordtype">bool</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#adaaf5e95a84fd7513efe406f38428583" title="Renvois la position y des coordonnés x z dans le repere local du mesh.">Mesh::findFloor</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a>&amp; pos, <span class="keywordtype">bool</span> global)
 <a name="l00669"></a>00669 {
-<a name="l00670"></a>00670     <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> = global ? (<a class="code" href="classtbe_1_1scene_1_1_node.html#ab3f5fb35fe3bae47526c656c1cc34bdd">getAbsoluteMatrix</a>() * <a class="code" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">m_aabb</a>.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>).y + 1 : <a class="code" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">m_aabb</a>.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> + 1;
+<a name="l00670"></a>00670     <span class="keywordtype">float</span> <a class="code" href="_g_lee_8h.html#af21ddfd4e51a5f5a4d8e60f8b9177b98">y</a> = global ? (<a class="code" href="classtbe_1_1scene_1_1_node.html#ad24b8ddb472f83bcf9122c3106bce53a">getAbsoluteMatrix</a>() * <a class="code" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">m_aabb</a>.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>).y + 1 : <a class="code" href="classtbe_1_1scene_1_1_node.html#a15b4a9820ce3f4ca847d59f1733569ed">m_aabb</a>.<a class="code" href="classtbe_1_1_a_a_b_b.html#a92523972f16dcbff8e1ccbe4d2fc2c69">max</a>.<a class="code" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a> + 1;
 <a name="l00671"></a>00671 
 <a name="l00672"></a>00672     <span class="keywordflow">return</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a62396735a71f3d252ac94f379b714b9c">rayCast</a>(<a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>(pos.<a class="code" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a>, y, pos.<a class="code" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a>),
 <a name="l00673"></a>00673                    <a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>(0, -1, 0), <a class="code" href="_switch_8cpp.html#a5c0731cea32cee8ab290b22abb3a8896">pos</a>, global);
@@ -912,10 +912,10 @@
 <a name="l00869"></a>00869         }
 <a name="l00870"></a>00870     }
 <a name="l00871"></a>00871 
-<a name="l00872"></a>00872     ctormap[<span class="stringliteral">&quot;color&quot;</span>] = tools::vec4ToStr(m_color);
+<a name="l00872"></a>00872     ctormap[<span class="stringliteral">&quot;color&quot;</span>] = m_color.<a class="code" href="classtbe_1_1_vector4.html#ac0c194b76c64464a7ce34b0bfd64d214">toStr</a>();
 <a name="l00873"></a>00873     ctormap[<span class="stringliteral">&quot;opacity&quot;</span>] = <a class="code" href="namespacetbe_1_1tools.html#a9924c47ffb3744b5a4f5766e44fd5af9">tools::numToStr</a>(m_opacity);
-<a name="l00874"></a>00874     ctormap[<span class="stringliteral">&quot;vertexScale&quot;</span>] = tools::vec3ToStr(m_vertexScale);
-<a name="l00875"></a>00875     ctormap[<span class="stringliteral">&quot;billBoarding&quot;</span>] = tools::vec2ToStr(m_billBoard);
+<a name="l00874"></a>00874     ctormap[<span class="stringliteral">&quot;vertexScale&quot;</span>] = m_vertexScale.<a class="code" href="classtbe_1_1_vector3.html#ab215a403626e1cadf30e0f737dfe099b">toStr</a>();
+<a name="l00875"></a>00875     ctormap[<span class="stringliteral">&quot;billBoarding&quot;</span>] = m_billBoard.<a class="code" href="classtbe_1_1_vector2.html#a9d24a785ab9aa049c20fa0eb50c9d5c4">toStr</a>();
 <a name="l00876"></a>00876 
 <a name="l00877"></a>00877     <span class="keywordflow">return</span> ctormap;
 <a name="l00878"></a>00878 }
@@ -932,10 +932,10 @@
 <a name="l00889"></a>00889 
 <a name="l00890"></a><a class="code" href="classtbe_1_1scene_1_1_mesh.html#a423fe6055b1e656a890fcd5d491c5190">00890</a> <span class="keywordtype">void</span> <a class="code" href="classtbe_1_1scene_1_1_mesh.html#a423fe6055b1e656a890fcd5d491c5190">Mesh::setVertexScale</a>(<a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> vertexScale)
 <a name="l00891"></a>00891 {
-<a name="l00892"></a>00892     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe.html#a9a79d6427b3ebeaea8470d09c43ae120">tools::isAnyZero</a>(vertexScale))
+<a name="l00892"></a>00892     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe_1_1math.html#ac09f5cc47f8bca0d8219bc17840283a9">math::isAnyZero</a>(vertexScale))
 <a name="l00893"></a>00893         <span class="keywordflow">return</span>;
 <a name="l00894"></a>00894 
-<a name="l00895"></a>00895     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe.html#af69de3bb24bc14a2fbdf0f0c3612bfec">tools::isEqual</a>(vertexScale, m_vertexScale, 0.001))
+<a name="l00895"></a>00895     <span class="keywordflow">if</span>(<a class="code" href="namespacetbe_1_1math.html#ab77382f2974c679658d84f5752a266f8">math::isEqual</a>(vertexScale, m_vertexScale, 0.001))
 <a name="l00896"></a>00896         <span class="keywordflow">return</span>;
 <a name="l00897"></a>00897 
 <a name="l00898"></a>00898     <a class="code" href="classtbe_1_1_vector3.html">Vector3f</a> setscale = vertexScale / m_vertexScale;
@@ -977,7 +977,7 @@
 <a name="l00934"></a>00934 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Thu Jun 23 2011 20:29:24 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

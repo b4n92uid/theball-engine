@@ -13,7 +13,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
    <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
@@ -53,6 +53,7 @@ Liste complète des membres de <a class="el" href="classtbe_1_1_vector3.html">tb
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a0e1674e5336e53361b312931e9193bc7">Array</a> typedef</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a54c0dd2aedaf99bef09f3c9de241cc58">cross</a>(const Vector3 &amp;a, const Vector3 &amp;b)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline, static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#af0170cb25e46e1ad54d9f98a641e7db5">dot</a>(const Vector3 &amp;a, const Vector3 &amp;b)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline, static]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a68c439675c3d640cc17a480c3810495f">fromStr</a>(std::string str, bool withsep=true)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#ad11f03fae91ded1fd4411f5a5eb1de5a">getAverage</a>() const </td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a2d086e2c678de533426add2db0c1a9e0">getMagnitude</a>() const </td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#ae6a782307c0fd944430f5f2201680332">isInside</a>(const Vector3 &amp;min, const Vector3 &amp;max) const </td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
@@ -100,22 +101,23 @@ Liste complète des membres de <a class="el" href="classtbe_1_1_vector3.html">tb
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#adcc82176d934fcd5e54100a67f050763">reSet</a>(const Vector3&lt; T &gt; &amp;diri)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a24105444a727610b1e1de0ce4a2d2f72">rotate</a>(const T &amp;xrel, const T &amp;yrel)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#aac573ed91bb32f57d6559604dbccbe49">rotate</a>(const Vector3 &amp;vec, const T &amp;xrel, const T &amp;yrel)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline, static]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#ab215a403626e1cadf30e0f737dfe099b">toStr</a>(char sep= ',') const </td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a446d6edcddeb200056793689b5f0db40">Vector3</a>()</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#ae66ff3f4eeafae7a87e1b35ed0b2f11b">Vector3</a>(const Vector3&lt; T2 &gt; &amp;vec)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a8f21023eccc642933b79684d9c7b0ac4">Vector3</a>(const Vector3 &amp;vec)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a7ce8520ff6454f720adcedb68671545e">Vector3</a>(const T &amp;value)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a031a6469bb6f2c561a82eae3066f6000">Vector3</a>(const T &amp;fx, const T &amp;fy, const T &amp;fz)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a></td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#af21f11261bf9af36970d05b9f53b0719">X</a>()</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#ab168b2b613cfcb308467ba505d61b1d3">X</a>(float value=1)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline, static]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a467671b287ea6b13a07add7332bf38a0">x</a></td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a52396e7d780b2a4160633f16aa4b108e">Y</a>()</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a1983f1a4752d916a6ddbde7c7673f5ba">Y</a>(float value=1)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline, static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#aa634e2742c4df094c51d8c2bf87c0b21">y</a></td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a></td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a11038979c2aa1fbf17a176d9e860dd16">Z</a>()</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#ac6771590783b5ad849c27b7c344cce65">Z</a>(float value=1)</td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td><code> [inline, static]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector3.html#a3773ecb6b407e6b1b0e9518966ab83f9">z</a></td><td><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3&lt; T &gt;</a></td><td></td></tr>
 </table></div>
-<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:55 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Thu Jun 23 2011 20:29:29 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

@@ -13,7 +13,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
    <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
@@ -212,13 +212,13 @@
 <a name="l00169"></a>00169     <span class="keywordflow">if</span>(m_usePointSprite)
 <a name="l00170"></a>00170     {
 <a name="l00171"></a>00171         glPushMatrix();
-<a name="l00172"></a>00172         glMultMatrixf(<a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">m_parent</a>-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ab3f5fb35fe3bae47526c656c1cc34bdd">getAbsoluteMatrix</a>());
+<a name="l00172"></a>00172         glMultMatrixf(<a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">m_parent</a>-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ad24b8ddb472f83bcf9122c3106bce53a">getAbsoluteMatrix</a>());
 <a name="l00173"></a>00173         glMultMatrixf(<a class="code" href="classtbe_1_1scene_1_1_node.html#af01bcf301012ae16ac5a11110838c0c0">m_matrix</a>);
 <a name="l00174"></a>00174     }
 <a name="l00175"></a>00175 
 <a name="l00176"></a>00176     <span class="keywordflow">else</span>
 <a name="l00177"></a>00177     {
-<a name="l00178"></a>00178         <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> absolute = <a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">m_parent</a>-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ab3f5fb35fe3bae47526c656c1cc34bdd">getAbsoluteMatrix</a>();
+<a name="l00178"></a>00178         <a class="code" href="classtbe_1_1_matrix4.html">Matrix4</a> absolute = <a class="code" href="classtbe_1_1scene_1_1_node.html#a25c6975814e4ae4df8446c219e4753a4">m_parent</a>-&gt;<a class="code" href="classtbe_1_1scene_1_1_node.html#ad24b8ddb472f83bcf9122c3106bce53a">getAbsoluteMatrix</a>();
 <a name="l00179"></a>00179 
 <a name="l00180"></a>00180         <a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>* auxParticles = <span class="keyword">static_cast&lt;</span><a class="code" href="classtbe_1_1_vertex.html" title="Représentation d&#39;un vertex.">Vertex</a>*<span class="keyword">&gt;</span>(<a class="code" href="_g_lee_8h.html#a982b3da3c2f72a7e29a78a3ed87fe655">glMapBufferARB</a>(<a class="code" href="_g_lee_8h.html#acb1c5ea3239de87d09959457ffa42f6f">GL_ARRAY_BUFFER_ARB</a>, <a class="code" href="_g_lee_8h.html#a18ea1a5fccedc8a14d87c0849b5f47db">GL_WRITE_ONLY_ARB</a>));
 <a name="l00181"></a>00181 
@@ -408,17 +408,17 @@
 <a name="l00365"></a>00365 {
 <a name="l00366"></a>00366     p.<a class="code" href="structtbe_1_1scene_1_1_particle.html#a5a74a7c65e26058cd2d81dbf59b7b675">life</a> = 1;
 <a name="l00367"></a>00367     p.<a class="code" href="structtbe_1_1scene_1_1_particle.html#a23c82096b5b6670d430d870c23ade234">color</a> = 1;
-<a name="l00368"></a>00368     p.<a class="code" href="structtbe_1_1scene_1_1_particle.html#a1f388b1212aa7e5bcb51f5b60ffd44df">diriction</a> = <a class="code" href="namespacetbe.html#ab9c2f62345ab8a147815085a65ecdf1e">tools::rand</a>(<a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>(-<a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a92f8d21245d1318e13e464951039f19a">m_freeMove</a>), <a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>(<a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a92f8d21245d1318e13e464951039f19a">m_freeMove</a>));
+<a name="l00368"></a>00368     p.<a class="code" href="structtbe_1_1scene_1_1_particle.html#a1f388b1212aa7e5bcb51f5b60ffd44df">diriction</a> = <a class="code" href="namespacetbe_1_1math.html#af7183c2dd1af2efba6ed44f62ecdca79">math::rand</a>(<a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>(-<a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a92f8d21245d1318e13e464951039f19a">m_freeMove</a>), <a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>(<a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a92f8d21245d1318e13e464951039f19a">m_freeMove</a>));
 <a name="l00369"></a>00369     p.<a class="code" href="structtbe_1_1scene_1_1_particle.html#a1f388b1212aa7e5bcb51f5b60ffd44df">diriction</a>.<a class="code" href="classtbe_1_1_vector3.html#a4969ef337439f3848353db1f512d4b6e">normalize</a>() *= <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a92f8d21245d1318e13e464951039f19a">m_freeMove</a>;
 <a name="l00370"></a>00370     p.<a class="code" href="structtbe_1_1scene_1_1_particle.html#a706793fadd538c939c9166c5116eee3b">gravity</a> = <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a2b50f7f052d29fc7fbe28808e849c2fe">m_gravity</a>;
 <a name="l00371"></a>00371 
 <a name="l00372"></a>00372     <span class="keywordflow">if</span>(!!<a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a25a6d5c91ee14fb0b0380f5368f57b3c">m_boxSize</a>)
-<a name="l00373"></a>00373         p.<a class="code" href="structtbe_1_1scene_1_1_particle.html#a872556cccdc82db853adfb51e2890230">pos</a> = <a class="code" href="namespacetbe.html#ab9c2f62345ab8a147815085a65ecdf1e">tools::rand</a>(<a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>(0), <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a25a6d5c91ee14fb0b0380f5368f57b3c">m_boxSize</a>);
+<a name="l00373"></a>00373         p.<a class="code" href="structtbe_1_1scene_1_1_particle.html#a872556cccdc82db853adfb51e2890230">pos</a> = <a class="code" href="namespacetbe_1_1math.html#af7183c2dd1af2efba6ed44f62ecdca79">math::rand</a>(<a class="code" href="namespacetbe.html#ab79e199b106d57202f3ae48ce66918fb">Vector3f</a>(0), <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a25a6d5c91ee14fb0b0380f5368f57b3c">m_boxSize</a>);
 <a name="l00374"></a>00374     <span class="keywordflow">else</span>
 <a name="l00375"></a>00375         p.<a class="code" href="structtbe_1_1scene_1_1_particle.html#a872556cccdc82db853adfb51e2890230">pos</a> = <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a7755593d999f068501f11c659a6d295b">m_emitPos</a>;
 <a name="l00376"></a>00376 
 <a name="l00377"></a>00377     <span class="keywordflow">if</span>(<a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a422e97dc95fe6debf3d2fb562a054b71">m_continousMode</a>)
-<a name="l00378"></a>00378         p.<a class="code" href="structtbe_1_1scene_1_1_particle.html#a5a74a7c65e26058cd2d81dbf59b7b675">life</a> = <a class="code" href="namespacetbe.html#ab9c2f62345ab8a147815085a65ecdf1e">tools::rand</a>(0.0<a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a>, <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a40664f6e865edad9250f6ccfe70459f4">m_lifeInit</a>);
+<a name="l00378"></a>00378         p.<a class="code" href="structtbe_1_1scene_1_1_particle.html#a5a74a7c65e26058cd2d81dbf59b7b675">life</a> = <a class="code" href="namespacetbe_1_1math.html#af7183c2dd1af2efba6ed44f62ecdca79">math::rand</a>(0.0<a class="code" href="_g_lee_8h.html#a691492ec0bd6383f91200e49f6ae40ed">f</a>, <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a40664f6e865edad9250f6ccfe70459f4">m_lifeInit</a>);
 <a name="l00379"></a>00379     <span class="keywordflow">else</span>
 <a name="l00380"></a>00380         p.<a class="code" href="structtbe_1_1scene_1_1_particle.html#a5a74a7c65e26058cd2d81dbf59b7b675">life</a> = <a class="code" href="classtbe_1_1scene_1_1_particles_emiter.html#a40664f6e865edad9250f6ccfe70459f4">m_lifeInit</a>;
 <a name="l00381"></a>00381 }
@@ -573,7 +573,7 @@
 <a name="l00530"></a>00530 }
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Thu Jun 23 2011 20:29:24 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

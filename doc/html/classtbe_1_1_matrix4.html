@@ -13,7 +13,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
    <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
@@ -108,6 +108,8 @@ Fonctions membres publiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_matrix4.html#a58cd7d9d93bb7d52c828e276745ec7c6">rotate</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> euler)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_matrix4.html#a4af02c361fb281ee2065edc2699a5677">rotate</a> (<a class="el" href="classtbe_1_1_quaternion.html">Quaternion</a> rotation)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_matrix4.html#a37325e9a2025bb984aab3a9bcd0e5ed4">scale</a> (<a class="el" href="classtbe_1_1_vector3.html">Vector3f</a> <a class="el" href="_g_lee_8h.html#a281421b881aa7a1266842b73a3bc7655">scale</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_matrix4.html#af5794475cc23f3d47ae7e8e5adb0457b">toStr</a> (char sep= ',') const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_matrix4.html#a8e4356058c1187b58e15fd5c4c32f522">fromStr</a> (const <a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> &amp;str, bool withsep=false)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Fonctions membres publiques statiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classtbe_1_1_matrix4.html">Matrix4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_matrix4.html#ab5d723ceeb463e76295d35f2d4ce14ce">transpose</a> (<a class="el" href="classtbe_1_1_matrix4.html">Matrix4</a> mat)</td></tr>
@@ -219,6 +221,36 @@ Amis</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Documentation des fonctions membres</h2>
+<a class="anchor" id="a8e4356058c1187b58e15fd5c4c32f522"></a><!-- doxytag: member="tbe::Matrix4::fromStr" ref="a8e4356058c1187b58e15fd5c4c32f522" args="(const std::string &amp;str, bool withsep=false)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tbe::Matrix4::fromStr </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> &amp;&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>withsep</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Conversion d'une matrice 4x4 en chaine de caracteres au format "0.1, 0.2, 0.3[...]" </p>
+
+<p>Définition à la ligne <a class="el" href="_matrix4_8h_source.html#l00146">146</a> du fichier <a class="el" href="_matrix4_8h_source.html">Matrix4.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a7eddb444149c5a52b6c6dcb7884306fc"></a><!-- doxytag: member="tbe::Matrix4::getPos" ref="a7eddb444149c5a52b6c6dcb7884306fc" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -677,25 +709,6 @@ Amis</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a37325e9a2025bb984aab3a9bcd0e5ed4"></a><!-- doxytag: member="tbe::Matrix4::scale" ref="a37325e9a2025bb984aab3a9bcd0e5ed4" args="(Vector3f scale)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Matrix4::scale </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
-          <td class="paramname"><em>scale</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_matrix4_8cpp_source.html#l00321">321</a> du fichier <a class="el" href="_matrix4_8cpp_source.html">Matrix4.cpp</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a24181bfdaa5cabdd1993c6c13e365e4b"></a><!-- doxytag: member="tbe::Matrix4::scale" ref="a24181bfdaa5cabdd1993c6c13e365e4b" args="(Matrix4 mat, Vector3f pos)" -->
 <div class="memitem">
 <div class="memproto">
@@ -725,6 +738,25 @@ Amis</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a37325e9a2025bb984aab3a9bcd0e5ed4"></a><!-- doxytag: member="tbe::Matrix4::scale" ref="a37325e9a2025bb984aab3a9bcd0e5ed4" args="(Vector3f scale)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Matrix4::scale </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>scale</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_matrix4_8cpp_source.html#l00321">321</a> du fichier <a class="el" href="_matrix4_8cpp_source.html">Matrix4.cpp</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aeaf1716eff32770b7fb7676ca00fd857"></a><!-- doxytag: member="tbe::Matrix4::setPos" ref="aeaf1716eff32770b7fb7676ca00fd857" args="(Vector3f value)" -->
 <div class="memitem">
 <div class="memproto">
@@ -743,48 +775,6 @@ Amis</h2></td></tr>
 <p>Mets une position a la matrice. </p>
 
 <p>Définition à la ligne <a class="el" href="_matrix4_8cpp_source.html#l00098">98</a> du fichier <a class="el" href="_matrix4_8cpp_source.html">Matrix4.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a909627b452780fb634c4728e822c1398"></a><!-- doxytag: member="tbe::Matrix4::setRotate" ref="a909627b452780fb634c4728e822c1398" args="(Quaternion rotation)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Matrix4::setRotate </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classtbe_1_1_quaternion.html">Quaternion</a>&#160;</td>
-          <td class="paramname"><em>rotation</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Mets une rotation a la matrice <a class="el" href="classtbe_1_1_quaternion.html">Quaternion</a>. </p>
-
-<p>Définition à la ligne <a class="el" href="_matrix4_8cpp_source.html#l00122">122</a> du fichier <a class="el" href="_matrix4_8cpp_source.html">Matrix4.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa43301b3dce047578e64526043d4043e"></a><!-- doxytag: member="tbe::Matrix4::setRotate" ref="aa43301b3dce047578e64526043d4043e" args="(Vector3f v)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Matrix4::setRotate </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
-          <td class="paramname"><em>v</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Mets une rotation a la matrice Euler. </p>
-
-<p>Définition à la ligne <a class="el" href="_matrix4_8cpp_source.html#l00203">203</a> du fichier <a class="el" href="_matrix4_8cpp_source.html">Matrix4.cpp</a>.</p>
 
 </div>
 </div>
@@ -816,6 +806,48 @@ Amis</h2></td></tr>
 <p>Mets une rotation a la matrice AxisAngle. </p>
 
 <p>Définition à la ligne <a class="el" href="_matrix4_8cpp_source.html#l00139">139</a> du fichier <a class="el" href="_matrix4_8cpp_source.html">Matrix4.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa43301b3dce047578e64526043d4043e"></a><!-- doxytag: member="tbe::Matrix4::setRotate" ref="aa43301b3dce047578e64526043d4043e" args="(Vector3f v)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Matrix4::setRotate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_vector3.html">Vector3f</a>&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Mets une rotation a la matrice Euler. </p>
+
+<p>Définition à la ligne <a class="el" href="_matrix4_8cpp_source.html#l00203">203</a> du fichier <a class="el" href="_matrix4_8cpp_source.html">Matrix4.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a909627b452780fb634c4728e822c1398"></a><!-- doxytag: member="tbe::Matrix4::setRotate" ref="a909627b452780fb634c4728e822c1398" args="(Quaternion rotation)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Matrix4::setRotate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classtbe_1_1_quaternion.html">Quaternion</a>&#160;</td>
+          <td class="paramname"><em>rotation</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Mets une rotation a la matrice <a class="el" href="classtbe_1_1_quaternion.html">Quaternion</a>. </p>
+
+<p>Définition à la ligne <a class="el" href="_matrix4_8cpp_source.html#l00122">122</a> du fichier <a class="el" href="_matrix4_8cpp_source.html">Matrix4.cpp</a>.</p>
 
 </div>
 </div>
@@ -900,6 +932,26 @@ Amis</h2></td></tr>
 <p>Mets une taille a la matrice. </p>
 
 <p>Définition à la ligne <a class="el" href="_matrix4_8cpp_source.html#l00110">110</a> du fichier <a class="el" href="_matrix4_8cpp_source.html">Matrix4.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af5794475cc23f3d47ae7e8e5adb0457b"></a><!-- doxytag: member="tbe::Matrix4::toStr" ref="af5794475cc23f3d47ae7e8e5adb0457b" args="(char sep= ',') const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> tbe::Matrix4::toStr </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>sep</em> = <code>','</code></td><td>)</td>
+          <td> const<code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Conversion d'une matrice 4x4 en chaine de caracteres au format "0.1, 0.2, 0.3[...]" </p>
+
+<p>Définition à la ligne <a class="el" href="_matrix4_8h_source.html#l00131">131</a> du fichier <a class="el" href="_matrix4_8h_source.html">Matrix4.h</a>.</p>
 
 </div>
 </div>
@@ -1052,7 +1104,7 @@ Amis</h2></td></tr>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_matrix4_8cpp_source.html">Matrix4.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:55 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Thu Jun 23 2011 20:29:29 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

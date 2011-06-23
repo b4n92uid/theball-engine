@@ -13,7 +13,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
    <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
@@ -52,6 +52,7 @@
 Liste complète des membres de <a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a>, y compris les membres hérités :<table>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Array</a> typedef</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#a242fbb71b6d6320760d50fb4a7ce6748">Dot</a>(const Vector2 &amp;a, const Vector2 &amp;b)</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline, static]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#ab43dd9c7b1bfaa61729fb93414886cf7">fromStr</a>(std::string str, bool withsep=true)</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#a4f4421fbf4c3342fea4bbfc5063ebc1d">getAverage</a>() const </td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#af62a0541f1fa31f96359a3c62e66fe1a">getMagnitude</a>() const </td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#aa9e697f0a766f855d26c2721adb0c198">getNormalize</a>(const Vector2 &amp;vec)</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline, static]</code></td></tr>
@@ -98,6 +99,7 @@ Liste complète des membres de <a class="el" href="classtbe_1_1_vector2.html">tb
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#a18c51bafb6d8a326fe723253047020ed">operator[]</a>(unsigned i) const </td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#a15f7ab4a5d32626dcab4e2f5fb54cf76">rotate</a>(T xrel, T yrel)</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#a62a88cb44197ab7954383e321cee4d1f">rotate</a>(const Vector2 &amp;vec, T xrel, T yrel)</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline, static]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#a9d24a785ab9aa049c20fa0eb50c9d5c4">toStr</a>(char sep= ',') const </td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#adede97c9161af525be4c52b8bd61c591">Vector2</a>()</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#aab7fd10fc9c6446aeb27159d23d5e1ab">Vector2</a>(const Vector2&lt; T2 &gt; &amp;vec)</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#a530d4f7b4111d2216ecf688a91bd19cf">Vector2</a>(const Vector2 &amp;vec)</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
@@ -106,11 +108,11 @@ Liste complète des membres de <a class="el" href="classtbe_1_1_vector2.html">tb
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a></td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#ade9020922ead0b2b379ab58888c51301">X</a>(float value=1)</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline, static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#aab5f0ff74431f69e9a04cf805451d16f">X</a>()</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a></td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#a30ea0b9b28f7e291bff5889b8f18afde">Y</a>(float value=1)</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline, static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#af3f4af3fa774a7b8ff5f4bb7a1d1338a">Y</a>()</td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td><code> [inline]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a></td><td><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2&lt; T &gt;</a></td><td></td></tr>
 </table></div>
-<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:55 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Thu Jun 23 2011 20:29:29 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

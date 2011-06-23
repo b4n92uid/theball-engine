@@ -13,7 +13,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
    <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
@@ -390,21 +390,47 @@
 <a name="l00348"></a>00348         <span class="keywordflow">return</span> stream &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a> &gt;&gt; sep &gt;&gt; vec.<a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
 <a name="l00349"></a>00349     }
 <a name="l00350"></a>00350 
-<a name="l00351"></a><a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">00351</a>     T <a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, <a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
-<a name="l00352"></a>00352 
-<a name="l00353"></a><a class="code" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">00353</a>     <span class="keyword">typedef</span> std::vector&lt; Vector2&lt;T&gt; &gt; <a class="code" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Array</a>;
-<a name="l00354"></a>00354 };
-<a name="l00355"></a>00355 
-<a name="l00356"></a><a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">00356</a> <span class="keyword">typedef</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2&lt;float&gt;</a> <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>;
-<a name="l00357"></a><a class="code" href="namespacetbe.html#a469fc38bcbc1f75e33818d1ea41acd95">00357</a> <span class="keyword">typedef</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2&lt;int&gt;</a> <a class="code" href="namespacetbe.html#a469fc38bcbc1f75e33818d1ea41acd95">Vector2i</a>;
-<a name="l00358"></a><a class="code" href="namespacetbe.html#a17f280100e0454f0a00783fb10388556">00358</a> <span class="keyword">typedef</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2&lt;bool &gt;</a> <a class="code" href="namespacetbe.html#a17f280100e0454f0a00783fb10388556">Vector2b</a>;
+<a name="l00355"></a><a class="code" href="classtbe_1_1_vector2.html#a9d24a785ab9aa049c20fa0eb50c9d5c4">00355</a>     <a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="code" href="classtbe_1_1_vector2.html#a9d24a785ab9aa049c20fa0eb50c9d5c4">toStr</a>(<span class="keywordtype">char</span> sep = <span class="charliteral">&#39;,&#39;</span>)<span class="keyword"> const</span>
+<a name="l00356"></a>00356 <span class="keyword">    </span>{
+<a name="l00357"></a>00357         std::stringstream stream;
+<a name="l00358"></a>00358         stream &lt;&lt; <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &lt;&lt; sep &lt;&lt; <a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
 <a name="l00359"></a>00359 
-<a name="l00360"></a>00360 }
-<a name="l00361"></a>00361 
-<a name="l00362"></a>00362 <span class="preprocessor">#endif</span>
+<a name="l00360"></a>00360         <span class="keywordflow">return</span> stream.str();
+<a name="l00361"></a>00361     }
+<a name="l00362"></a>00362 
+<a name="l00367"></a><a class="code" href="classtbe_1_1_vector2.html#ab43dd9c7b1bfaa61729fb93414886cf7">00367</a>     <a class="code" href="classtbe_1_1_vector2.html" title="Template 2D Vector.">Vector2</a> <a class="code" href="classtbe_1_1_vector2.html#ab43dd9c7b1bfaa61729fb93414886cf7">fromStr</a>(<a class="code" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str, <span class="keywordtype">bool</span> withsep = <span class="keyword">true</span>)
+<a name="l00368"></a>00368     {
+<a name="l00369"></a>00369         <a class="code" href="classtbe_1_1_vector2.html" title="Template 2D Vector.">Vector2&lt;T&gt;</a> vec;
+<a name="l00370"></a>00370         std::stringstream ss(str);
+<a name="l00371"></a>00371 
+<a name="l00372"></a>00372         <span class="keywordflow">if</span>(withsep)
+<a name="l00373"></a>00373         {
+<a name="l00374"></a>00374             <span class="keywordtype">char</span> sep;
+<a name="l00375"></a>00375             ss &gt;&gt; <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &gt;&gt; sep &gt;&gt; <a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
+<a name="l00376"></a>00376         }
+<a name="l00377"></a>00377         <span class="keywordflow">else</span>
+<a name="l00378"></a>00378         {
+<a name="l00379"></a>00379             ss &gt;&gt; <a class="code" href="_g_lee_8h.html#a09b61c9254503800358fe9680a997626">x</a> &gt;&gt; <a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
+<a name="l00380"></a>00380         }
+<a name="l00381"></a>00381 
+<a name="l00382"></a>00382         <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00383"></a>00383     }
+<a name="l00384"></a>00384 
+<a name="l00385"></a><a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">00385</a>     T <a class="code" href="classtbe_1_1_vector2.html#a65cc75a7d4a878f9213b8deeae94b9ea">x</a>, <a class="code" href="classtbe_1_1_vector2.html#a04f9fd288d1c817db998345664945f83">y</a>;
+<a name="l00386"></a>00386 
+<a name="l00387"></a><a class="code" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">00387</a>     <span class="keyword">typedef</span> std::vector&lt; Vector2&lt;T&gt; &gt; <a class="code" href="classtbe_1_1_vector2.html#a7882cbdb45c9917e2c905bc71e449362">Array</a>;
+<a name="l00388"></a>00388 };
+<a name="l00389"></a>00389 
+<a name="l00390"></a><a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">00390</a> <span class="keyword">typedef</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2&lt;float&gt;</a> <a class="code" href="namespacetbe.html#af8d7caeff0c9e1ebfb6b1a6a4acd4473">Vector2f</a>;
+<a name="l00391"></a><a class="code" href="namespacetbe.html#a469fc38bcbc1f75e33818d1ea41acd95">00391</a> <span class="keyword">typedef</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2&lt;int&gt;</a> <a class="code" href="namespacetbe.html#a469fc38bcbc1f75e33818d1ea41acd95">Vector2i</a>;
+<a name="l00392"></a><a class="code" href="namespacetbe.html#a17f280100e0454f0a00783fb10388556">00392</a> <span class="keyword">typedef</span> <a class="code" href="classtbe_1_1_vector2.html">Vector2&lt;bool &gt;</a> <a class="code" href="namespacetbe.html#a17f280100e0454f0a00783fb10388556">Vector2b</a>;
+<a name="l00393"></a>00393 
+<a name="l00394"></a>00394 }
+<a name="l00395"></a>00395 
+<a name="l00396"></a>00396 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:51 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Thu Jun 23 2011 20:29:24 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

@@ -13,7 +13,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
    <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
@@ -46,64 +46,67 @@
 <div class="title">Référence du fichier D:/projets/cpp/tbengine/sources/Mathematics.h</div>  </div>
 </div>
 <div class="contents">
-<div class="textblock"><code>#include &lt;cmath&gt;</code><br/>
+<div class="textblock"><code>#include &lt;iostream&gt;</code><br/>
+<code>#include &lt;cmath&gt;</code><br/>
 <code>#include &quot;<a class="el" href="_vector2_8h_source.html">Vector2.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="_vector3_8h_source.html">Vector3.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="_vector4_8h_source.html">Vector4.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="_matrix4_8h_source.html">Matrix4.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="_quaternion_8h_source.html">Quaternion.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="_a_a_b_b_8h_source.html">AABB.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="_tools_8h_source.html">Tools.h</a>&quot;</code><br/>
 </div>
 <p><a href="_mathematics_8h_source.html">Aller au code source de ce fichier.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Espaces de nommage</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html">tbe</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html">tbe::math</a></td></tr>
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_mathematics_8h.html#ab43691440a763f18514ee11edab28dbc">FLOAT_TEST_FACTOR</a>&#160;&#160;&#160;0.001</td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Fonctions</h2></td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#a7100345218193581c4999dc81169de95">tbe::vec32</a> (<a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3</a>&lt; T &gt; vec3)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#a0cbd7c72fcd1dc57b33a3ad6840ba426">tbe::math::vec32</a> (<a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3</a>&lt; T &gt; vec3)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#ada8fb7d8f3ce00b9052d954e7eb1105d">tbe::vec23</a> (<a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2</a>&lt; T &gt; vec2)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#aecda35a7abf999b18609f2f35e04484e">tbe::math::vec23</a> (<a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2</a>&lt; T &gt; vec2)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#af1a8041fbbff4ec60885212e44b20a87">tbe::vec42</a> (<a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt; vec4)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#ac65350a3c5cf7d276f7f0941d826c298">tbe::math::vec42</a> (<a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt; vec4)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#a1d2f4a799379ac3afe6cb0ecff6529a2">tbe::vec24</a> (<a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2</a>&lt; T &gt; vec2)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#a1fbd358c0844759175b82060f15671f0">tbe::math::vec24</a> (<a class="el" href="classtbe_1_1_vector2.html">tbe::Vector2</a>&lt; T &gt; vec2)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#ac7c9e19458f67f830e8ba6e982e769c5">tbe::vec43</a> (<a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt; vec4)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#a9438b3bf5549fef99487dbca5650f005">tbe::math::vec43</a> (<a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt; vec4)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#a063f0b9b3c5aea235a66141844aa6988">tbe::vec34</a> (<a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3</a>&lt; T &gt; vec3)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#a59a73db8f4b59116190cafd27fe8b506">tbe::radianClamp</a> (float &amp;<a class="el" href="_g_lee_8h.html#a9e06c1f76a20fed54ca742cd25cb02c4">angle</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#aca486a482e906ada07f3961c9d726ff6">tbe::radianClamp</a> (Vector3f &amp;euler)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#af69de3bb24bc14a2fbdf0f0c3612bfec">tbe::isEqual</a> (float <a class="el" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, float <a class="el" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>, float factor=FLOAT_TEST_FACTOR)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#a6e552b2dc0e8339f6558144864747749">tbe::isEqual</a> (Vector3f <a class="el" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, float <a class="el" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>, float factor=FLOAT_TEST_FACTOR)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#af7e719da23898e78ee9cc8ac6a86d26d">tbe::isEqual</a> (Vector3f <a class="el" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, Vector3f <a class="el" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>, float factor=FLOAT_TEST_FACTOR)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#add6c03aef504297bc97cd0538edc7bd8">tbe::isZero</a> (float <a class="el" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, float factor=FLOAT_TEST_FACTOR)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#a9a79d6427b3ebeaea8470d09c43ae120">tbe::isAnyZero</a> (Vector3f <a class="el" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, float factor=FLOAT_TEST_FACTOR)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#a2cf8a9e939226b463a71cbee84447528">tbe::isZero</a> (Vector3f <a class="el" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, float factor=FLOAT_TEST_FACTOR)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#a2b25d09dce178ae24571388116467450">tbe::math::vec34</a> (<a class="el" href="classtbe_1_1_vector3.html">tbe::Vector3</a>&lt; T &gt; vec3)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#ad14b0e7d65272d6bf2d7cbdcd449e49f">tbe::math::radianClamp</a> (float &amp;<a class="el" href="_g_lee_8h.html#a9e06c1f76a20fed54ca742cd25cb02c4">angle</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#ad495b65000c726ae5c22bc64902d8f69">tbe::math::radianClamp</a> (Vector3f &amp;euler)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#ab77382f2974c679658d84f5752a266f8">tbe::math::isEqual</a> (float <a class="el" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, float <a class="el" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>, float factor=FLOAT_TEST_FACTOR)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#aedc77159eadf18e498155aba6ff1b2b3">tbe::math::isEqual</a> (Vector3f <a class="el" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, float <a class="el" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>, float factor=FLOAT_TEST_FACTOR)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#ae7ad2de254a60b25b118fd34dfef3f72">tbe::math::isEqual</a> (Vector3f <a class="el" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, Vector3f <a class="el" href="_g_lee_8h.html#a08f98740667f706cd68d5e873088ffa6">b</a>, float factor=FLOAT_TEST_FACTOR)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#abc891c24b6d7a4710f29cf2db942a7ae">tbe::math::isZero</a> (float <a class="el" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, float factor=FLOAT_TEST_FACTOR)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#ac09f5cc47f8bca0d8219bc17840283a9">tbe::math::isAnyZero</a> (Vector3f <a class="el" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, float factor=FLOAT_TEST_FACTOR)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#aa110f879a9a4b1f2f01a911be75a30a6">tbe::math::isZero</a> (Vector3f <a class="el" href="_g_lee_8h.html#ac8729153468b5dcf13f971b21d84d4e5">a</a>, float factor=FLOAT_TEST_FACTOR)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#ac44cd886c69d884efeafec08ca967980">tbe::isPow2</a> (T <a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#ae9d6af851d1eda789359d740c00d209c">tbe::math::isPow2</a> (T <a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#a153a9e4b1acccd2611771e23bc33b28c">tbe::nextPow2</a> (T <a class="el" href="_g_lee_8h.html#a14cfbe2fc2234f5504618905b69d1e06">v</a>)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#a3a6a3491b4e4ea51b4a910483f3d146b">tbe::math::nextPow2</a> (T <a class="el" href="_g_lee_8h.html#a14cfbe2fc2234f5504618905b69d1e06">v</a>)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#ab288e23f00beaadd6f752db93230a5cd">tbe::clamp</a> (const T &amp;<a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, const T &amp;min, const T &amp;<a class="el" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#a577ac3b7473ab9500a1d2654b86e79e9">tbe::math::clamp</a> (const T &amp;<a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, const T &amp;min, const T &amp;<a class="el" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">Vector2&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#add618bb7460b08c3f54d52121bbeef36">tbe::nextPow2</a> (Vector2&lt; T &gt; <a class="el" href="_g_lee_8h.html#a14cfbe2fc2234f5504618905b69d1e06">v</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#ab9c2f62345ab8a147815085a65ecdf1e">tbe::rand</a> (int min, int <a class="el" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#acbe2d8f4f08f87320472a94f93415c51">tbe::rand</a> (float min, float <a class="el" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Vector3f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#aaf91176ef99801c7a769404ae7e8ce2f">tbe::rand</a> (Vector3f min, Vector3f <a class="el" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Vector3f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#a7d695adc4c1a7fc484da1b6e53d32984">tbe::rand</a> (AABB aabb)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe.html#a0725fa333eb6347df7c6c92aacb9829b">tbe::floatModulo</a> (float lvalue, float rvalue)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">Vector2&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#ae1739c43a1445df216230a5eaf99bed0">tbe::math::nextPow2</a> (Vector2&lt; T &gt; <a class="el" href="_g_lee_8h.html#a14cfbe2fc2234f5504618905b69d1e06">v</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#af7183c2dd1af2efba6ed44f62ecdca79">tbe::math::rand</a> (int min, int <a class="el" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#a6d78246dfa7ff9ff6570aa61364890c0">tbe::math::rand</a> (float min, float <a class="el" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Vector3f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#aa49505c69c26451b950e067c480ac6bb">tbe::math::rand</a> (Vector3f min, Vector3f <a class="el" href="_g_lee_8h.html#a8fa4ae5e2b2ef3e57a2bde9530581904">max</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#a1e784b7ab1cb12039957696241bb8070">tbe::math::floatModulo</a> (float lvalue, float rvalue)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#aaa465d869e08e9091cb7733bb21edeb8">tbe::round</a> (T &amp;<a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, const T &amp;unit)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#a0885cfb651e6c505a629027a8b72740a">tbe::math::round</a> (T &amp;<a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, const T &amp;unit)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#ada0ed26861a420ba3e5f0be32b5da825">tbe::round&lt; float &gt;</a> (float &amp;<a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, const float &amp;unit)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#af1d1bf2a3277c6564c9ea8323e146fc6">tbe::math::round&lt; float &gt;</a> (float &amp;<a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, const float &amp;unit)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#a804d3e253155966db1c03378a252089f">tbe::round</a> (Vector2&lt; T &gt; &amp;<a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, const Vector2&lt; T &gt; &amp;unit)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#adf55a680238514aca4d08a6670ca3aba">tbe::math::round</a> (Vector2&lt; T &gt; &amp;<a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, const Vector2&lt; T &gt; &amp;unit)</td></tr>
 <tr><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe.html#aea377abbcb414e66e423505f216b1925">tbe::round</a> (Vector3&lt; T &gt; &amp;<a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, const Vector3&lt; T &gt; &amp;unit)</td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetbe_1_1math.html#a4463165fa3f5715f96f69ece8a90a50e">tbe::math::round</a> (Vector3&lt; T &gt; &amp;<a class="el" href="_g_lee_8h.html#aed27f17ebdc1fd207871bc2ed5da0d0f">value</a>, const Vector3&lt; T &gt; &amp;unit)</td></tr>
 </table>
 <hr/><h2>Documentation des macros</h2>
 <a class="anchor" id="ab43691440a763f18514ee11edab28dbc"></a><!-- doxytag: member="Mathematics.h::FLOAT_TEST_FACTOR" ref="ab43691440a763f18514ee11edab28dbc" args="" -->
@@ -117,12 +120,12 @@ Fonctions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_mathematics_8h_source.html#l00083">83</a> du fichier <a class="el" href="_mathematics_8h_source.html">Mathematics.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_mathematics_8h_source.html#l00088">88</a> du fichier <a class="el" href="_mathematics_8h_source.html">Mathematics.h</a>.</p>
 
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:54 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Thu Jun 23 2011 20:29:28 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

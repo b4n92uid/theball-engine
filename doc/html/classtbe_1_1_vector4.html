@@ -13,7 +13,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo-small.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">theBall Engine&#160;<span id="projectnumber">1.5</span></div>
    <div id="projectbrief">Moteur de rendue 3D basé sur OpenGL</div>
@@ -119,6 +119,8 @@ Fonctions membres publiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_vector4.html#ae70430c3a63eaf2a91eeac1f7cf93e42">Y</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_vector4.html#aa34829ae10b15a201abc229ed49ceb9e">Z</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_vector4.html#a419638277669461fec8ae78c4730c611">W</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_vector4.html#ac0c194b76c64464a7ce34b0bfd64d214">toStr</a> (char sep= ',') const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtbe_1_1_vector4.html">Vector4</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_vector4.html#a75bab27c9dafccfde67672c88dd46360">fromStr</a> (<a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> str, bool withsep=true)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Fonctions membres publiques statiques</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classtbe_1_1_vector4.html">Vector4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtbe_1_1_vector4.html#a5d0447e9cd06be0db32a5b588f437759">rotate</a> (const <a class="el" href="classtbe_1_1_vector4.html">Vector4</a> &amp;vec, T xrel, T yrel)</td></tr>
@@ -165,7 +167,7 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00452">452</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00486">486</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
 
 </div>
 </div>
@@ -358,6 +360,38 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 
 <p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00424">424</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a75bab27c9dafccfde67672c88dd46360"></a><!-- doxytag: member="tbe::Vector4::fromStr" ref="a75bab27c9dafccfde67672c88dd46360" args="(std::string str, bool withsep=true)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4</a>&amp; <a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt;::fromStr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a>&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>withsep</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Interprétation d'une chaine de caracteres en vecteur a 4 composant depuis le format "x, y, z, w" </p>
+
+<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00468">468</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
 
 </div>
 </div>
@@ -1058,27 +1092,6 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a61de1d002c744df29261001d308827ee"></a><!-- doxytag: member="tbe::Vector4::operator=" ref="a61de1d002c744df29261001d308827ee" args="(const Vector4 &amp;vec)" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4</a>&amp; <a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt;::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classtbe_1_1_vector4.html">Vector4</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>vec</em></td><td>)</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00067">67</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="ac0c3cdad62f2088ca4c9c20697efc07e"></a><!-- doxytag: member="tbe::Vector4::operator=" ref="ac0c3cdad62f2088ca4c9c20697efc07e" args="(const Vector4&lt; T2 &gt; &amp;vec)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1099,6 +1112,27 @@ template&lt;typename T2 &gt; </div>
 <div class="memdoc">
 
 <p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00057">57</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a61de1d002c744df29261001d308827ee"></a><!-- doxytag: member="tbe::Vector4::operator=" ref="a61de1d002c744df29261001d308827ee" args="(const Vector4 &amp;vec)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4</a>&amp; <a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtbe_1_1_vector4.html">Vector4</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00067">67</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
 
 </div>
 </div>
@@ -1296,24 +1330,25 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ab7f77062f3ebc6d31564f6be52b5fd76"></a><!-- doxytag: member="tbe::Vector4::W" ref="ab7f77062f3ebc6d31564f6be52b5fd76" args="(float value=1)" -->
+<a class="anchor" id="ac0c194b76c64464a7ce34b0bfd64d214"></a><!-- doxytag: member="tbe::Vector4::toStr" ref="ac0c194b76c64464a7ce34b0bfd64d214" args="(char sep= ',') const " -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="classtbe_1_1_vector4.html">Vector4</a> <a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt;::W </td>
+          <td class="memname"><a class="el" href="_g_lee_8h.html#aa81bcd27b2208041814b4beacb88c2d9">std::string</a> <a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt;::toStr </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>value</em> = <code>1</code></td><td>)</td>
-          <td><code> [inline, static]</code></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>sep</em> = <code>','</code></td><td>)</td>
+          <td> const<code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Conversion d'un vecteur a 4 composant en chaine de caracteres au format "x, y, z, w" </p>
 
-<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00399">399</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00456">456</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
 
 </div>
 </div>
@@ -1334,6 +1369,27 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 
 <p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00419">419</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab7f77062f3ebc6d31564f6be52b5fd76"></a><!-- doxytag: member="tbe::Vector4::W" ref="ab7f77062f3ebc6d31564f6be52b5fd76" args="(float value=1)" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classtbe_1_1_vector4.html">Vector4</a> <a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt;::W </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>value</em> = <code>1</code></td><td>)</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00399">399</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
 
 </div>
 </div>
@@ -1378,26 +1434,6 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ae70430c3a63eaf2a91eeac1f7cf93e42"></a><!-- doxytag: member="tbe::Vector4::Y" ref="ae70430c3a63eaf2a91eeac1f7cf93e42" args="()" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4</a> <a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt;::Y </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00409">409</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="ae8e91413918ec158d5fda46f8df6430d"></a><!-- doxytag: member="tbe::Vector4::Y" ref="ae8e91413918ec158d5fda46f8df6430d" args="(float value=1)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1416,6 +1452,26 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 
 <p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00389">389</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae70430c3a63eaf2a91eeac1f7cf93e42"></a><!-- doxytag: member="tbe::Vector4::Y" ref="ae70430c3a63eaf2a91eeac1f7cf93e42" args="()" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtbe_1_1_vector4.html">Vector4</a> <a class="el" href="classtbe_1_1_vector4.html">tbe::Vector4</a>&lt; T &gt;::Y </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00409">409</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
 
 </div>
 </div>
@@ -1661,7 +1717,7 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00454">454</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00488">488</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
 
 </div>
 </div>
@@ -1678,7 +1734,7 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00454">454</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00488">488</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
 
 </div>
 </div>
@@ -1695,7 +1751,7 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00454">454</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00488">488</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
 
 </div>
 </div>
@@ -1712,7 +1768,7 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00454">454</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
+<p>Définition à la ligne <a class="el" href="_vector4_8h_source.html#l00488">488</a> du fichier <a class="el" href="_vector4_8h_source.html">Vector4.h</a>.</p>
 
 </div>
 </div>
@@ -1720,7 +1776,7 @@ template&lt;typename T&gt; </div>
 <li>D:/projets/cpp/tbengine/sources/<a class="el" href="_vector4_8h_source.html">Vector4.h</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Généré le Wed Jun 22 2011 22:41:55 pour theBall Engine par&#160;
+<hr class="footer"/><address class="footer"><small>Généré le Thu Jun 23 2011 20:29:29 pour theBall Engine par&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>
