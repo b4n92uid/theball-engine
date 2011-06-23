@@ -81,13 +81,13 @@ void Ball3DMesh::readMaterial(std::ifstream& file, Material* mat)
             mat->setAlphaThershold(tools::strToNum<float>(value));
 
         else if(opcode == "ambient")
-            mat->setAmbient(Vector4f().fromStr(value));
+            mat->setAmbient(Vector4f().fromStr(value, false));
 
         else if(opcode == "diffuse")
-            mat->setDiffuse(Vector4f().fromStr(value));
+            mat->setDiffuse(Vector4f().fromStr(value, false));
 
         else if(opcode == "specular")
-            mat->setSpecular(Vector4f().fromStr(value));
+            mat->setSpecular(Vector4f().fromStr(value, false));
 
         else if(opcode == "shininess")
             mat->setShininess(tools::strToNum<float>(value));

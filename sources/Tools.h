@@ -70,10 +70,14 @@ inline std::string basename(std::string filename, bool withExt = true)
     if(pos == std::string::npos)
         pos = filename.find_last_of('/');
 
+    unsigned ext = filename.find_last_of('.');
+
+    pos++;
+
     if(withExt)
-        return filename.substr(pos + 1);
+        return filename.substr(pos);
     else
-        return filename.substr(pos + 1, filename.find_last_of('.'));
+        return filename.substr(pos, ext - pos);
 }
 
 /**

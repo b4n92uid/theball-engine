@@ -61,7 +61,7 @@ public:
 
     void mulMatrix(const Matrix4& matrix);
 
-    Matrix4 getAbsoluteMatrix() const;
+    Matrix4 getAbsoluteMatrix(bool includeThis = true) const;
 
     /// Spécifier la scene parallel parent
     void setParallelScene(ParallelScene* parallelScene);

@@ -101,9 +101,12 @@ void Node::setMatrix(const Matrix4& matrix)
     this->m_matrix = matrix;
 }
 
-Matrix4 Node::getAbsoluteMatrix() const
+Matrix4 Node::getAbsoluteMatrix(bool includeThis) const
 {
-    return m_parent ? m_matrix * m_parent->getAbsoluteMatrix() : m_matrix;
+    if(includeThis)
+        return m_parent ? m_matrix * m_parent->getAbsoluteMatrix() : m_matrix;
+    else
+        return m_parent ? m_parent->getAbsoluteMatrix() : Matrix4();
 }
 
 Matrix4& Node::getMatrix()

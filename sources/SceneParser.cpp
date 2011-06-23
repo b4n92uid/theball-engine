@@ -99,6 +99,8 @@ void SceneParser::prepareScene()
     m_mapDescriptor.skybox.left = tools::pathScope(m_mapDescriptor.fileName, skytex[4].getFilename(), false);
     m_mapDescriptor.skybox.right = tools::pathScope(m_mapDescriptor.fileName, skytex[5].getFilename(), false);
 
+    m_mapDescriptor.ambiante = m_sceneManager->getAmbientLight();
+
     m_mapDescriptor.nodes.clear();
 
     for(Iterator<Node*> it = m_rootNode->getChildIterator(); it; it++)

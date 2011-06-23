@@ -101,13 +101,13 @@ void OBJMesh::open(const std::string& path)
         else if(opcode == "s");
 
         else if(opcode == "v")
-            vPos.push_back(Vector3f().fromStr(value));
+            vPos.push_back(Vector3f().fromStr(value, false));
 
         else if(opcode == "vn")
-            vNormal.push_back(Vector3f().fromStr(value));
+            vNormal.push_back(Vector3f().fromStr(value, false));
 
         else if(opcode == "vt")
-            vTexCoord.push_back(Vector2f().fromStr(value));
+            vTexCoord.push_back(Vector2f().fromStr(value, false));
 
         else if(opcode == "usemtl")
         {
