@@ -11,3 +11,4 @@ syntax: glob
 **.lnk
 *.bash
 *.mk
+.dep.inc
