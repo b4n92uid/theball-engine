@@ -58,7 +58,7 @@
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
 #include "WaterParallelScene.h"
-#include "MapMarkParalleScene.h"
+#include "MapMarkParallelScene.h"
 #include "Skybox.h"
 #include "Fog.h"
 #include "Frustum.h"

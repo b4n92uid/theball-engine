@@ -15,7 +15,7 @@
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
 #include "WaterParallelScene.h"
-#include "MapMarkParalleScene.h"
+#include "MapMarkParallelScene.h"
 #include "MapMark.h"
 
 namespace tbe
@@ -59,8 +59,8 @@ public:
     void setLightScene(LightParallelScene* lightScene);
     WaterParallelScene* getWaterScene() const;
 
-    void setMarkScene(MapMarkParalleScene* markScene);
-    MapMarkParalleScene* getMarkScene() const;
+    void setMarkScene(MapMarkParallelScene* markScene);
+    MapMarkParallelScene* getMarkScene() const;
 
     SceneParser& exclude(Node* node);
 
@@ -162,7 +162,7 @@ private:
     MeshParallelScene* m_meshScene;
     ParticlesParallelScene* m_particlesScene;
     WaterParallelScene* m_waterScene;
-    MapMarkParalleScene* m_markScene;
+    MapMarkParallelScene* m_markScene;
 };
 
 }

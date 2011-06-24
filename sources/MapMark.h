@@ -15,12 +15,12 @@ namespace tbe
 namespace scene
 {
 
-class MapMarkParalleScene;
+class MapMarkParallelScene;
 
 class MapMark : public Node
 {
 public:
-    MapMark(MapMarkParalleScene* parallelScene);
+    MapMark(MapMarkParallelScene* parallelScene);
     MapMark(const MapMark& orig);
     virtual ~MapMark();
 
@@ -36,7 +36,7 @@ public:
     typedef std::vector<MapMark*> Array;
 
 protected:
-    MapMarkParalleScene* m_parallelScene;
+    MapMarkParallelScene* m_parallelScene;
 private:
     MapMark& copy(const MapMark& orig);
 };

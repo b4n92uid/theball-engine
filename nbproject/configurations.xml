@@ -96,8 +96,8 @@
         <logicalFolder name="f3" displayName="General" projectFiles="true">
           <itemPath>sources/MapMark.cpp</itemPath>
           <itemPath>sources/MapMark.h</itemPath>
-          <itemPath>sources/MapMarkParalleScene.cpp</itemPath>
-          <itemPath>sources/MapMarkParalleScene.h</itemPath>
+          <itemPath>sources/MapMarkParallelScene.cpp</itemPath>
+          <itemPath>sources/MapMarkParallelScene.h</itemPath>
           <itemPath>sources/Node.cpp</itemPath>
           <itemPath>sources/Node.h</itemPath>
           <itemPath>sources/ParallelScene.cpp</itemPath>

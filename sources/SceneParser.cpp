@@ -24,14 +24,14 @@ using namespace tbe::scene;
 SceneParser::SceneParser() :
 m_sceneManager(NULL), m_rootNode(NULL),
 m_lightScene(NULL), m_meshScene(NULL), m_particlesScene(NULL),
-m_waterScene(NULL)
+m_waterScene(NULL), m_markScene(NULL)
 {
 }
 
 SceneParser::SceneParser(SceneManager* sceneManager) :
 m_sceneManager(sceneManager), m_rootNode(sceneManager->getRootNode()),
 m_lightScene(NULL), m_meshScene(NULL), m_particlesScene(NULL),
-m_waterScene(NULL)
+m_waterScene(NULL), m_markScene(NULL)
 {
 }
 
@@ -376,7 +376,7 @@ void SceneParser::buildScene()
 
     if(!m_markScene)
     {
-        m_markScene = new MapMarkParalleScene;
+        m_markScene = new MapMarkParallelScene;
         m_sceneManager->addParallelScene(m_markScene);
     }
 
@@ -666,12 +666,12 @@ SceneParser::MapDescriptor& SceneParser::getMapDescriptor()
     return m_mapDescriptor;
 }
 
-void SceneParser::setMarkScene(MapMarkParalleScene* markScene)
+void SceneParser::setMarkScene(MapMarkParallelScene* markScene)
 {
     this->m_markScene = markScene;
 }
 
-MapMarkParalleScene* SceneParser::getMarkScene() const
+MapMarkParallelScene* SceneParser::getMarkScene() const
 {
     return m_markScene;
 }

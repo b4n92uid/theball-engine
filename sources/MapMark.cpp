@@ -7,13 +7,13 @@
 
 #include "MapMark.h"
 #include "Exception.h"
-#include "MapMarkParalleScene.h"
+#include "MapMarkParallelScene.h"
 #include "Tools.h"
 
 using namespace tbe;
 using namespace scene;
 
-MapMark::MapMark(MapMarkParalleScene* parallelScene)
+MapMark::MapMark(MapMarkParallelScene* parallelScene)
 {
     Node::m_parallelScene = m_parallelScene = parallelScene;
 

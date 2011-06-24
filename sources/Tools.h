@@ -345,11 +345,11 @@ inline void trimstr(std::string& buffer)
 {
     using namespace std;
 
-    for(string::iterator it = buffer.begin(); isspace(*it); it = buffer.begin())
+    for(string::iterator it = buffer.begin(); isspace(*it) && it != buffer.end(); it = buffer.begin())
         buffer.erase(it);
 
-    for(string::iterator it = --buffer.end(); isspace(*it); it--)
-        buffer.erase(it);
+    for(string::reverse_iterator it = buffer.rbegin(); isspace(*it) && it != buffer.rend(); it = buffer.rbegin())
+        buffer.erase(it.base());
 }
 
 /**

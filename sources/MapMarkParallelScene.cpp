@@ -1,29 +1,29 @@
 /*
- * File:   MapMarkParalleScene.cpp
+ * File:   MapMarkParallelScene.cpp
  * Author: b4n92uid
  *
  * Created on 14 juin 2011, 23:31
  */
 
-#include "MapMarkParalleScene.h"
+#include "MapMarkParallelScene.h"
 #include "MapMark.h"
 
 using namespace tbe;
 using namespace scene;
 
-MapMarkParalleScene::MapMarkParalleScene()
+MapMarkParallelScene::MapMarkParallelScene()
 {
 }
 
-MapMarkParalleScene::~MapMarkParalleScene()
+MapMarkParallelScene::~MapMarkParallelScene()
 {
 }
 
-void MapMarkParalleScene::render()
+void MapMarkParallelScene::render()
 {
 }
 
-MapMark* MapMarkParalleScene::findMark(std::string name)
+MapMark* MapMarkParallelScene::findMark(std::string name)
 {
     for(unsigned i = 0; i < m_nodes.size(); i++)
         if(m_nodes[i]->getName() == name)

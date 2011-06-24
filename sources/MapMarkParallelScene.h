@@ -1,5 +1,5 @@
 /*
- * File:   MapMarkParalleScene.h
+ * File:   MapMarkParallelScene.h
  * Author: b4n92uid
  *
  * Created on 14 juin 2011, 23:31
@@ -17,11 +17,11 @@ namespace scene
 
 class MapMark;
 
-class MapMarkParalleScene : public ParallelSceneRegister<MapMark>
+class MapMarkParallelScene : public ParallelSceneRegister<MapMark>
 {
 public:
-    MapMarkParalleScene();
-    virtual ~MapMarkParalleScene();
+    MapMarkParallelScene();
+    virtual ~MapMarkParallelScene();
 
     MapMark* findMark(std::string name);
 
