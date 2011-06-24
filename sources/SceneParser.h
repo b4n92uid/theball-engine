@@ -64,9 +64,15 @@ public:
 
     SceneParser& exclude(Node* node);
 
-    template<typename T> T getAdditional(std::string key)
+    void setAdditionalString(std::string key, std::string value);
+    std::string getAdditionalString(std::string key);
+
+    template<typename T> T getAdditionalValue(std::string key)
     {
         T value;
+
+        if(!m_additional.count(key))
+            return value;
 
         std::stringstream ss(m_additional[key]);
         ss >> value;
@@ -74,7 +80,7 @@ public:
         return value;
     }
 
-    template<typename T> void setAdditional(std::string key, T value)
+    template<typename T> void setAdditionalValue(std::string key, T value)
     {
         std::stringstream ss;
         ss << value;

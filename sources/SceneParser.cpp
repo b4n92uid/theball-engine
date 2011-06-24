@@ -747,6 +747,19 @@ void SceneParser::setLightScene(LightParallelScene* lightScene)
     this->m_lightScene = lightScene;
 }
 
+std::string SceneParser::getAdditionalString(std::string key)
+{
+    if(m_additional.count(key))
+        return m_additional[key];
+    else
+        return std::string();
+}
+
+void SceneParser::setAdditionalString(std::string key, std::string value)
+{
+    m_additional[key] = value;
+}
+
 SceneParser::MapDescriptor::MapDescriptor()
 {
     fog.start = 32;
