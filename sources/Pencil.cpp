@@ -403,7 +403,9 @@ std::string Pencil::wrapeLine(std::string str, float width, bool takeEnd) const
 
 std::vector<std::string> Pencil::getWrapedLines(std::string str, float width) const
 {
-    std::vector<std::string> widthOverflow;
+    using namespace std;
+
+    vector<string> widthOverflow;
 
     float curWidth = 0;
     unsigned offset = 0;
@@ -416,9 +418,17 @@ std::vector<std::string> Pencil::getWrapedLines(std::string str, float width) co
 
         if(curWidth >= width)
         {
-            widthOverflow.push_back(str.substr(offset, i - offset));
+            unsigned cut = str.rfind(' ', i);
 
-            offset = i;
+            if(cut == string::npos)
+                cut = i;
+
+            string line = str.substr(offset, cut - offset);
+            tools::trimstr(line);
+
+            widthOverflow.push_back(line);
+
+            offset = cut;
             curWidth = 0;
         }
     }
