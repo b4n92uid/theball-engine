@@ -22,7 +22,7 @@ MapMark::MapMark(MapMarkParallelScene* parallelScene)
     m_parallelScene->registerNode(this);
 }
 
-MapMark::MapMark(const MapMark& orig)
+MapMark::MapMark(const MapMark& orig) : Node(orig)
 {
     copy(orig);
 
