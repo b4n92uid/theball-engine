@@ -25,7 +25,6 @@ NewtonNode::NewtonNode(NewtonParallelScene* newtonScene)
 
     m_masse = 0;
 
-    m_freeze = false;
     m_applyGravity = true;
 
     m_parallelScene->registerNode(this);
@@ -41,7 +40,6 @@ NewtonNode::NewtonNode(NewtonParallelScene* newtonScene, Node* node)
 
     m_masse = 0;
 
-    m_freeze = false;
     m_applyGravity = true;
 
     m_parallelScene->registerNode(this);
@@ -57,7 +55,6 @@ NewtonNode::NewtonNode(NewtonParallelScene* newtonScene, Matrix4* matrix)
 
     m_masse = 0;
 
-    m_freeze = false;
     m_applyGravity = true;
 
     m_parallelScene->registerNode(this);
@@ -85,7 +82,6 @@ bool NewtonNode::operator=(const NewtonNode& copy)
     m_newtonWorld = copy.m_newtonWorld;
 
     m_masse = copy.m_masse;
-    m_freeze = copy.m_freeze;
     m_applyGravity = copy.m_applyGravity;
 
     return true;
@@ -411,19 +407,6 @@ bool NewtonNode::isApplyGravity() const
     return m_applyGravity;
 }
 
-void NewtonNode::setFreeze(bool freeze)
-{
-    this->m_freeze = freeze;
-
-    NewtonBodySetForceAndTorqueCallback(m_body, freeze ? NULL : NewtonNode::applyForceAndTorqueCallback);
-    NewtonBodySetVelocity(m_body, Vector3f(0));
-}
-
-bool NewtonNode::isFreeze() const
-{
-    return m_freeze;
-}
-
 NewtonParallelScene* NewtonNode::getParallelScene() const
 {
     return m_parallelScene;
@@ -438,6 +421,7 @@ void NewtonNode::applyForceAndTorque()
     NewtonBodySetTorque(m_body, m_applyTorque);
 
     m_applyForce = 0;
+    m_applyTorque = 0;
 }
 
 void NewtonNode::applyForceAndTorqueCallback(const NewtonBody* body, float, int)

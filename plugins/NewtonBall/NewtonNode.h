@@ -81,9 +81,6 @@ public:
     void setApplyGravity(bool applyGravity);
     bool isApplyGravity() const;
 
-    void setFreeze(bool freeze);
-    bool isFreeze() const;
-
     void applyForceAndTorque();
 
     NewtonParallelScene* getParallelScene() const;
@@ -102,7 +99,6 @@ protected:
     NewtonBody* m_body;
     Matrix4* m_updatedMatrix;
     float m_masse;
-    bool m_freeze;
     bool m_applyGravity;
 };
 
