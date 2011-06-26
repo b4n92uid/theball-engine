@@ -62,7 +62,7 @@ void PostProcessManager::setup(Vector2i screenSize)
 Effect* PostProcessManager::getPostEffect(std::string name)
 {
     if(m_postEffects.find(name) == m_postEffects.end())
-        throw Exception("PostProcessManager::GetPostEffect; PostEffect not found (%s)", name.c_str());
+        throw Exception("PostProcessManager::getPostEffect; PostEffect not found (%s)", name.c_str());
 
     return m_postEffects[name];
 }
@@ -81,6 +81,41 @@ void PostProcessManager::addPostEffect(std::string name, Effect* effect)
         throw Exception("PostProcessManager::AddPostEffect; PostEffect already exits (%s)", name.c_str());
 
     m_postEffects[name] = effect;
+}
+
+Effect* PostProcessManager::releasePostEffect(std::string name)
+{
+    if(!m_postEffects.count(name))
+        throw Exception("PostProcessManager::releasePostEffect; PostEffect not found (%s)", name.c_str());
+
+    Effect* e = m_postEffects[name];
+
+    m_postEffects.erase(name);
+
+    return e;
+}
+
+void PostProcessManager::deletePostEffect(std::string name)
+{
+    if(!m_postEffects.count(name))
+        throw Exception("PostProcessManager::releasePostEffect; PostEffect not found (%s)", name.c_str());
+
+    delete m_postEffects[name];
+
+    m_postEffects.erase(name);
+}
+
+void PostProcessManager::deletePostEffect(Effect* effect)
+{
+    for(Effect::Map::iterator it = m_postEffects.begin(); it != m_postEffects.end(); it++)
+    {
+        if(it->second == effect)
+        {
+            m_postEffects.erase(it);
+            delete effect;
+            return;
+        }
+    }
 }
 
 void PostProcessManager::beginPostProcess()
@@ -192,7 +227,7 @@ Layer::Layer()
 
     glGenBuffers(1, &m_renderId);
     glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
-    glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(float), vertexs, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 8 * sizeof (float), vertexs, GL_STATIC_DRAW);
 }
 
 Layer::~Layer()

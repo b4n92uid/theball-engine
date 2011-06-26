@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   PostProcessManager.h
  * Author: b4n92uid
  *
@@ -87,7 +87,13 @@ public:
     void clearAll();
 
     void addPostEffect(std::string name, Effect* effect);
+
     Effect* getPostEffect(std::string name);
+
+    Effect* releasePostEffect(std::string name);
+
+    void deletePostEffect(std::string name);
+    void deletePostEffect(Effect* effect);
 
     static void beginPostProcess();
     static void endPostProcess();
