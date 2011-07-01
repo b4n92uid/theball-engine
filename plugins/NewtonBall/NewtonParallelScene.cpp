@@ -80,6 +80,13 @@ static dFloat RayFilterAnyBody(const NewtonBody* body, const dFloat* hitNormal, 
     return intersectParam;
 }
 
+Vector3f NewtonParallelScene::findAnyBody(Vector3f start, Vector3f end)
+{
+    float intersectParam = 1.0f;
+    NewtonWorldRayCast(m_newtonWorld, start, end, RayFilterAnyBody, &intersectParam, 0);
+    return start + (end - start) * intersectParam;
+}
+
 static dFloat RayFilterZeroMassBody(const NewtonBody* body, const dFloat* hitNormal, int collisionID, void* userData, dFloat intersectParam)
 {
     float inertia[3], masse;
@@ -87,27 +94,17 @@ static dFloat RayFilterZeroMassBody(const NewtonBody* body, const dFloat* hitNor
 
     float& userDataIntersectParam = *static_cast<float*>(userData);
 
-    if(!(masse > 0.0f) && intersectParam < userDataIntersectParam)
-    {
+    if(math::isZero(masse) && intersectParam < userDataIntersectParam)
         userDataIntersectParam = intersectParam;
-        return 0.0;
-    }
 
     return intersectParam;
 }
 
 Vector3f NewtonParallelScene::findZeroMassBody(Vector3f start, Vector3f end)
 {
-    float intersectParam = 1.2f;
+    float intersectParam = 1.0f;
     NewtonWorldRayCast(m_newtonWorld, start, end, RayFilterZeroMassBody, &intersectParam, 0);
-    return start - (start - end) * intersectParam;
-}
-
-Vector3f NewtonParallelScene::findAnyBody(Vector3f start, Vector3f end)
-{
-    float intersectParam = 1.2f;
-    NewtonWorldRayCast(m_newtonWorld, start, end, RayFilterAnyBody, &intersectParam, 0);
-    return start - (start - end) * intersectParam;
+    return start + (end - start) * intersectParam;
 }
 
 Vector3f NewtonParallelScene::findFloor(Vector3f pos)
@@ -117,7 +114,7 @@ Vector3f NewtonParallelScene::findFloor(Vector3f pos)
     p0.y = m_worldSize.max.y;
     p1.y = m_worldSize.min.y;
 
-    float intersect = 1.2f;
+    float intersect = 1.0f;
 
     NewtonWorldRayCast(m_newtonWorld, &p0.x, &p1.x, RayFilterZeroMassBody, &intersect, 0);
 
