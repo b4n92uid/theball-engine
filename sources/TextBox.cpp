@@ -52,47 +52,61 @@ void TextBox::objectRender()
 
     if(m_definedSize)
     {
-        string backupfornt = m_textDisplay.front(),
-                backupback = m_textDisplay.back();
-
         if(m_arrowTexture)
         {
-            m_arrowTexture.use(true);
-
-            Vector2f size = m_arrowTexture.getSize() / Vector2f(1, 2);
-            Vector2f arrdn = m_pos + m_backgroundPadding;
-            Vector2f arrup = m_pos + Vector2f(m_backgroundPadding.x, m_size.y - m_backgroundPadding.y - size.y);
-
-            if(m_offsetLine > 0)
+            if(!m_textDisplay.empty())
             {
-                m_textDisplay.back().clear();
-                drawSurface(arrup, size, 0, Vector2f(1, 0.5));
+                m_arrowTexture.use(true);
+
+                Vector2f size = m_arrowTexture.getSize() / Vector2f(1, 2);
+                Vector2f arrdn = m_pos + m_backgroundPadding;
+                Vector2f arrup = m_pos + Vector2f(m_backgroundPadding.x, m_size.y - m_backgroundPadding.y - size.y);
+
+                if(m_offsetLine > 0)
+                {
+                    m_textDisplay.back().clear();
+                    drawSurface(arrup, size, 0, Vector2f(1, 0.5));
+                }
+
+                if(m_offsetLine < m_offsetMax)
+                {
+                    m_textDisplay.front().clear();
+                    drawSurface(arrdn, size, Vector2f(0, 0.5), Vector2f(1, 1));
+                }
+
+                m_arrowTexture.use(false);
             }
 
-            if(m_offsetLine < m_offsetMax)
-            {
-                m_textDisplay.front().clear();
-                drawSurface(arrdn, size, Vector2f(0, 0.5), Vector2f(1, 1));
-            }
-
-            m_arrowTexture.use(false);
+            m_pencil.display(pos, m_textDisplay);
         }
         else
         {
-            if(m_offsetLine > 0)
-                m_textDisplay.front() = "<<<";
+            string backupfornt, backupback;
 
-            if(m_offsetLine < m_offsetMax)
-                m_textDisplay.front() = ">>>";
+            if(!m_textDisplay.empty())
+            {
+                backupfornt = m_textDisplay.front();
+                backupback = m_textDisplay.back();
+
+                if(m_offsetLine < m_offsetMax)
+                    m_textDisplay.front() = ">>>";
+
+                if(m_offsetLine > 0)
+                    m_textDisplay.back() = "<<<";
+            }
+
+            m_pencil.display(pos, m_textDisplay);
+
+            if(!m_textDisplay.empty())
+            {
+                if(m_offsetLine > 0)
+                    m_textDisplay.back() = backupback;
+
+                if(m_offsetLine < m_offsetMax)
+                    m_textDisplay.front() = backupfornt;
+            }
         }
 
-        m_pencil.display(pos, m_textDisplay);
-
-        if(m_offsetLine > 0)
-            m_textDisplay.back() = backupback;
-
-        if(m_offsetLine < m_offsetMax)
-            m_textDisplay.front() = backupfornt;
     }
 
     else

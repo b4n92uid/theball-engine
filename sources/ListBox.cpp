@@ -176,13 +176,15 @@ bool ListBox::onEvent(const EventManager& event)
     switch(event.lastActiveMouse.first)
     {
         case EventManager::MOUSE_BUTTON_LEFT:
+            cancelSelection();
+
             for(unsigned i = 0; i < m_displayItems.size(); i++)
                 if(m_displayItems[i]->onEvent(event))
                 {
-                    m_currentItem = m_displayItems[i];
+                    if(m_displayItems[i]->isNotAnItem())
+                        continue;
 
-                    for(unsigned j = 0; j < m_displayItems.size(); j++)
-                        m_totalItems[j]->setSelected(false);
+                    m_currentItem = m_displayItems[i];
 
                     m_currentItem->setSelected(true);
 
@@ -242,10 +244,16 @@ void ListBox::update()
             m_offsetMax = max(m_totalItems.size() - displayLines, (unsigned)0);
 
         if(m_offset > 0)
+        {
             m_displayItems.front()->setLabel("<<<");
+            m_displayItems.front()->setNotAnItem(true);
+        }
 
         if(m_offset < m_offsetMax)
+        {
             m_displayItems.back()->setLabel(">>>");
+            m_displayItems.back()->setNotAnItem(true);
+        }
     }
 
     else
@@ -324,4 +332,14 @@ bool ListBox::Item::onEvent(const EventManager& event)
 void ListBox::Item::objectRender()
 {
     m_pencil.display(m_pos, m_label);
+}
+
+void ListBox::Item::setNotAnItem(bool notAnItem)
+{
+    this->m_notAnItem = notAnItem;
+}
+
+bool ListBox::Item::isNotAnItem() const
+{
+    return m_notAnItem;
 }

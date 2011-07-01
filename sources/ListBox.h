@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   ListBox.h
  * Author: b4n92uid
  *
@@ -80,6 +80,9 @@ protected:
         void setSelected(bool selected);
         bool isSelected() const;
 
+        void setNotAnItem(bool notAnItem);
+        bool isNotAnItem() const;
+
         typedef std::vector<Item*> Array;
 
     protected:
@@ -88,6 +91,7 @@ protected:
     protected:
         Any m_data;
         bool m_selected;
+        bool m_notAnItem;
     };
 
     Item::Array m_displayItems;
