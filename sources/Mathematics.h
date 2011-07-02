@@ -287,6 +287,48 @@ void round(T& value, const T& unit)
 }
 
 /**
+ * Spécialisation de round() pour Vector2f
+ *
+ * @param value
+ * @param unit
+ * @return
+ */
+inline void round(Vector2f& value)
+{
+    value.x = roundf(value.x);
+    value.y = roundf(value.y);
+}
+
+/**
+ * Spécialisation de round() pour Vector3f
+ *
+ * @param value
+ * @param unit
+ * @return
+ */
+inline void round(Vector3f& value)
+{
+    value.x = roundf(value.x);
+    value.y = roundf(value.z);
+    value.z = roundf(value.y);
+}
+
+/**
+ * Spécialisation de round() pour Vector4f
+ *
+ * @param value
+ * @param unit
+ * @return
+ */
+inline void round(Vector4f& value)
+{
+    value.x = roundf(value.x);
+    value.y = roundf(value.z);
+    value.z = roundf(value.y);
+    value.w = roundf(value.w);
+}
+
+/**
  * Spécialisation de round() pour float
  *
  * @param value
