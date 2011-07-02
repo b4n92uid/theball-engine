@@ -65,13 +65,12 @@ bool Switch::onEvent(const EventManager& event)
         else if(event.notify == EventManager::EVENT_MOUSE_DOWN)
         {
             m_state = PUSH_LEFT;
-            m_activate = true;
+            m_activate = false;
             return true;
         }
 
         else if(event.notify == EventManager::EVENT_MOUSE_UP
-                && event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_LEFT
-                && m_activate)
+                && event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_LEFT)
         {
             m_state = OVER_LEFT;
             decrement();
@@ -94,13 +93,12 @@ bool Switch::onEvent(const EventManager& event)
         else if(event.notify == EventManager::EVENT_MOUSE_DOWN)
         {
             m_state = PUSH_RIGHT;
-            m_activate = true;
+            m_activate = false;
             return true;
         }
 
         else if(event.notify == EventManager::EVENT_MOUSE_UP
-                && event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_LEFT
-                && m_activate)
+                && event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_LEFT)
         {
             m_state = OVER_RIGHT;
             increment();

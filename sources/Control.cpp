@@ -70,20 +70,24 @@ void Control::drawBackground()
 
             glVertexPointer(2, GL_FLOAT, 0, &vPos[0]);
 
+            // Texture 0 : VAO
             glClientActiveTexture(GL_TEXTURE0);
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
             glTexCoordPointer(2, GL_FLOAT, 0, &vUvR[0]);
 
+            // Texture 0
             glActiveTexture(GL_TEXTURE0);
             glEnable(GL_TEXTURE_2D);
 
             m_background.use(true);
             glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
+            // Texture 1 : VAO
             glClientActiveTexture(GL_TEXTURE1);
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
             glTexCoordPointer(2, GL_FLOAT, 0, &vUv1[0]);
 
+            // Texture 1
             glActiveTexture(GL_TEXTURE1);
             glEnable(GL_TEXTURE_2D);
 
@@ -92,16 +96,24 @@ void Control::drawBackground()
 
             glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
+            // Disable Texture 1 : VAO
             glClientActiveTexture(GL_TEXTURE1);
+            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+            // Disable Texture 1
             glActiveTexture(GL_TEXTURE1);
             glDisable(GL_TEXTURE_2D);
 
+            // Disable Texture 0 : VAO
             glClientActiveTexture(GL_TEXTURE0);
+            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+            // Disable Texture 0
             glActiveTexture(GL_TEXTURE0);
 
-            glDisableClientState(GL_VERTEX_ARRAY);
-            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
             m_background.use(false);
+
+            glDisableClientState(GL_VERTEX_ARRAY);
         }
 
         else

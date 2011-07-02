@@ -30,13 +30,15 @@ void Image::objectRender()
 
     switch(m_drawDiriction)
     {
-    case DRAW_UPPER_LEFT:
-        drawSurface(m_pos, m_size, 0, 1);
-        break;
-    case DRAW_UPPER_RIGHT:
-        drawSurface(Vector2f(m_pos.x, m_pos.y + m_size.y), Vector2f(m_size.x, -m_size.y), 0, 1);
-        break;
+        case DRAW_UPPER_LEFT:
+            drawSurface(m_pos, m_size, 0, 1);
+            break;
+        case DRAW_UPPER_RIGHT:
+            drawSurface(Vector2f(m_pos.x, m_pos.y + m_size.y), Vector2f(m_size.x, -m_size.y), 0, 1);
+            break;
     }
+
+    m_background.use(false);
 }
 
 void Image::setSkin(const GuiSkin& skin)
