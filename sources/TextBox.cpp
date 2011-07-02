@@ -43,7 +43,7 @@ void TextBox::objectRender()
     switch(m_textAlign)
     {
         case LEFT:
-            pos.x = m_pos.x + m_backgroundPadding.x;
+            pos.x = m_pos.x + m_padding.x;
             break;
 
         case CENTER:
@@ -59,8 +59,8 @@ void TextBox::objectRender()
                 m_arrowTexture.use(true);
 
                 Vector2f size = m_arrowTexture.getSize() / Vector2f(1, 2);
-                Vector2f arrdn = m_pos + m_backgroundPadding;
-                Vector2f arrup = m_pos + Vector2f(m_backgroundPadding.x, m_size.y - m_backgroundPadding.y - size.y);
+                Vector2f arrdn = m_pos + m_padding;
+                Vector2f arrup = m_pos + Vector2f(m_padding.x, m_size.y - m_padding.y - size.y);
 
                 if(m_offsetLine > 0)
                 {
@@ -124,7 +124,7 @@ void TextBox::prepareDisplay()
 {
     if(m_definedSize)
     {
-        unsigned displayLines = unsigned((m_size.y - m_backgroundPadding.y * 2.0) / (m_pencil.getFontSize() + m_pencil.getLineSpace()));
+        unsigned displayLines = unsigned((m_size.y - m_padding.y * 2.0) / (m_pencil.getFontSize() + m_pencil.getLineSpace()));
 
         vector<string> buffer;
 
@@ -132,7 +132,7 @@ void TextBox::prepareDisplay()
         {
             const string& curline = m_text[i];
 
-            vector<string> widthOverflow = m_pencil.getWrapedLines(curline, m_size.x - m_backgroundPadding.x * 2.0f);
+            vector<string> widthOverflow = m_pencil.getWrapedLines(curline, m_size.x - m_padding.x * 2.0f);
             buffer.insert(buffer.end(), widthOverflow.begin(), widthOverflow.end());
         }
 
@@ -149,7 +149,7 @@ void TextBox::prepareDisplay()
 
     else
     {
-        m_size = m_pencil.sizeOf(m_text) + m_backgroundPadding;
+        m_size = m_pencil.sizeOf(m_text) + m_padding;
         m_textDisplay.assign(m_text.begin(), m_text.end());
     }
 
@@ -213,7 +213,7 @@ bool TextBox::onEvent(const EventManager& event)
 
 void TextBox::setSkin(const GuiSkin& skin)
 {
-    setPencil(skin.pencile);
+    setPencil(skin.pencil);
 }
 
 void TextBox::setOffsetLine(unsigned offsetLine)
@@ -224,14 +224,4 @@ void TextBox::setOffsetLine(unsigned offsetLine)
 unsigned TextBox::getOffsetLine() const
 {
     return m_offsetLine;
-}
-
-void TextBox::setBackgroundPadding(Vector2f backgroundPadding)
-{
-    this->m_backgroundPadding = backgroundPadding;
-}
-
-Vector2f TextBox::getBackgroundPadding() const
-{
-    return m_backgroundPadding;
 }

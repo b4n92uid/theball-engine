@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   StateShow.cpp
  * Author: Administrateur
- * 
+ *
  * Created on 11 septembre 2009, 21:40
  */
 
@@ -12,7 +12,6 @@ using namespace tbe::gui;
 
 StateShow::StateShow()
 {
-    m_stateCount = 1;
     m_curState = 0;
 }
 
@@ -27,9 +26,9 @@ bool StateShow::onEvent(const EventManager& event)
     if(Vector2f(event.mousePos).isInsinde(m_pos, m_size))
     {
         if(event.notify == EventManager::EVENT_MOUSE_DOWN
-                && event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_LEFT)
+           && event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_LEFT)
         {
-            if(m_curState++ >= m_stateCount)
+            if(m_curState++ >= m_metaCount)
                 m_curState = 0;
 
             m_activate = true;
@@ -37,10 +36,10 @@ bool StateShow::onEvent(const EventManager& event)
         }
 
         if(event.notify == EventManager::EVENT_MOUSE_DOWN
-                && event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_RIGHT)
+           && event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_RIGHT)
         {
             if(m_curState-- <= 0)
-                m_curState = m_stateCount - 1;
+                m_curState = m_metaCount - 1;
 
             m_activate = true;
             return true;
@@ -53,25 +52,15 @@ bool StateShow::onEvent(const EventManager& event)
 void StateShow::objectRender()
 {
     m_background.use();
-    drawSurface(m_pos, m_size, Vector2f(0, 1.0f / m_stateCount * m_curState), Vector2f(1, 1.0f / m_stateCount * (m_curState + 1)));
+    drawSurface(m_pos, m_size, Vector2f(0, 1.0f / m_metaCount * m_curState), Vector2f(1, 1.0f / m_metaCount * (m_curState + 1)));
 }
 
-void StateShow::setCurState(unsigned curState)
+void StateShow::setCurState(int curState)
 {
     this->m_curState = curState;
 }
 
-void StateShow::setStateCount(unsigned stateCount)
-{
-    this->m_stateCount = stateCount;
-}
-
-unsigned StateShow::getStateCount() const
-{
-    return m_stateCount;
-}
-
-unsigned StateShow::getCurState() const
+int StateShow::getCurState() const
 {
     return m_curState;
 }

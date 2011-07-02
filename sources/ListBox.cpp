@@ -145,7 +145,7 @@ void ListBox::clear()
 
 void ListBox::setSkin(const GuiSkin& gui)
 {
-    setPencil(gui.pencile);
+    setPencil(gui.pencil);
 
     for(unsigned i = 0; i < m_totalItems.size(); i++)
         m_totalItems[i]->setPencil(m_pencil);

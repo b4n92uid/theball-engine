@@ -1,9 +1,6 @@
 #include "Gauge.h"
 #include "Skin.h"
 
-#define META_COUNT (2)
-#define META_UNIT (1.0f/META_COUNT)
-
 using namespace tbe;
 using namespace tbe::gui;
 using namespace std;
@@ -16,6 +13,8 @@ Gauge::Gauge()
     m_smoothSpeed = 0;
 
     m_valueTarget = 0;
+
+    m_metaCount = 2;
 }
 
 Gauge::Gauge(std::string label, Pencil font, Texture background)
@@ -30,6 +29,8 @@ Gauge::Gauge(std::string label, Pencil font, Texture background)
     m_smoothSpeed = 0;
 
     m_valueTarget = 0;
+
+    m_metaCount = 2;
 }
 
 Gauge::~Gauge()
@@ -44,9 +45,11 @@ bool Gauge::onEvent(const EventManager& event)
 
 void Gauge::objectRender()
 {
+    const float metaUnit = 1.0 / m_metaCount;
+
     glBindTexture(GL_TEXTURE_2D, m_background);
 
-    drawSurface(m_pos, m_size, 0, Vector2f(1, META_UNIT));
+    drawSurface(m_pos, m_size, 0, Vector2f(1, metaUnit));
 
     if(m_smooth)
     {
@@ -57,12 +60,10 @@ void Gauge::objectRender()
             m_value = max(m_value - m_smoothSpeed, m_valueTarget);
     }
 
-    drawSurface(
-                m_pos,
+    drawSurface(m_pos,
                 Vector2f(m_value * m_size.x / 100.0f, m_size.y),
-                Vector2f(0, META_UNIT),
-                Vector2f(m_value / 100.0f, META_UNIT * 2)
-                );
+                Vector2f(0, metaUnit),
+                Vector2f(m_value / 100.0f, metaUnit * 2));
 
     if(m_pencil)
     {
@@ -111,7 +112,8 @@ int Gauge::getValue()
 
 void Gauge::setSkin(const GuiSkin& skin)
 {
-    setPencil(skin.pencile);
+    setMetaCount(skin.gaugeMetaCount);
+    setPencil(skin.pencil);
     setBackground(skin.gauge);
     setSize(skin.gaugeSize);
 }

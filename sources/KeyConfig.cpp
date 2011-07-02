@@ -1,15 +1,12 @@
-/* 
+/*
  * File:   KeyConfig.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 5 février 2010, 11:50
  */
 
 #include "KeyConfig.h"
 #include "Skin.h"
-
-#define META_COUNT (3)
-#define META_UNIT (1.0f/META_COUNT)
 
 using namespace tbe;
 using namespace tbe::gui;
@@ -37,15 +34,17 @@ KeyConfig::~KeyConfig()
 
 void KeyConfig::objectRender()
 {
+    const float metaUnit = 1.0 / m_metaCount;
+
     m_background.use();
 
     switch(m_state)
     {
-        case NO_EVENT: drawSurface(m_pos, m_size, Vector2f(0, 0), Vector2f(1, META_UNIT));
+        case NO_EVENT: drawSurface(m_pos, m_size, Vector2f(0, 0), Vector2f(1, metaUnit));
             break;
-        case OVER: drawSurface(m_pos, m_size, Vector2f(0, META_UNIT), Vector2f(1, META_UNIT * 2));
+        case OVER: drawSurface(m_pos, m_size, Vector2f(0, metaUnit), Vector2f(1, metaUnit * 2));
             break;
-        case EDIT: drawSurface(m_pos, m_size, Vector2f(0, META_UNIT * 2), Vector2f(1, META_UNIT * 3));
+        case EDIT: drawSurface(m_pos, m_size, Vector2f(0, metaUnit * 2), Vector2f(1, metaUnit * 3));
             break;
     }
 
@@ -57,7 +56,8 @@ void KeyConfig::objectRender()
 
 void KeyConfig::setSkin(const GuiSkin& skin)
 {
-    setPencil(skin.pencile);
+    setMetaCount(skin.editBoxMetaCount);
+    setPencil(skin.pencil);
     setBackground(skin.editBox);
     setSize(skin.editBoxSize);
 }

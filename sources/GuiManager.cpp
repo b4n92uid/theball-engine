@@ -234,12 +234,12 @@ Image* GuiManager::addImage(std::string name, Texture path)
     return p;
 }
 
-StateShow* GuiManager::addStateShow(std::string name, Texture path, int stateCount)
+StateShow* GuiManager::addStateShow(std::string name, Texture path, int metaCount)
 {
 
     StateShow* p = new StateShow;
     p->setBackground(path);
-    p->setStateCount(stateCount);
+    p->setMetaCount(metaCount);
 
     addControl(name, p);
 

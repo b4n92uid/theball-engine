@@ -18,22 +18,27 @@ struct GuiSkin
 {
     Texture button;
     Vector2f buttonSize;
+    int buttonMetaCount;
 
     Texture gauge;
     Vector2f gaugeSize;
+    int gaugeMetaCount;
 
     Texture editBox;
     Vector2f editBoxSize;
+    int editBoxMetaCount;
 
     Texture switchBox;
     Vector2f switchBoxSize;
+    int switchBoxMetaCount;
 
     Texture vectorBox;
     Vector2f vectorBoxSize;
+    int vectorBoxMetaCount;
 
     Vector2f stateShowSize;
 
-    Pencil pencile;
+    Pencil pencil;
 };
 
 }

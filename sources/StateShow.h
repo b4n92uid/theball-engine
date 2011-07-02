@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   StateShow.h
  * Author: Administrateur
  *
@@ -29,17 +29,13 @@ public:
 
     bool onEvent(const EventManager& event);
 
-    void setCurState(unsigned curState);
-    unsigned getCurState() const;
-
-    void setStateCount(unsigned stateCount);
-    unsigned getStateCount() const;
+    void setCurState(int curState);
+    int getCurState() const;
 
 protected:
     void objectRender();
 
-    unsigned m_curState;
-    unsigned m_stateCount;
+    int m_curState;
 };
 
 }

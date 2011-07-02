@@ -16,9 +16,6 @@ static struct
 
 } switchVertex;
 
-#define META_COUNT 3.0f
-#define META_UNIT (1.0f/META_COUNT)
-
 Switch::Switch(Pencil font, Texture background)
 {
     m_state = DEAD;
@@ -123,13 +120,17 @@ bool Switch::onEvent(const EventManager& event)
 
 void Switch::setSkin(const GuiSkin& skin)
 {
+    setMetaCount(skin.switchBoxMetaCount);
     setBackground(skin.switchBox);
     setSize(skin.switchBoxSize);
-    setPencil(skin.pencile);
+    setPencil(skin.pencil);
+    setupRender();
 }
 
 void Switch::setupRender()
 {
+    const float metaUnit = 1.0 / m_metaCount;
+
     Vector2f pos[8] = {
         Vector2f(0, 0),
         Vector2f(0, 1),
@@ -142,53 +143,53 @@ void Switch::setupRender()
     };
     Vector2f stOut[8] = {
         Vector2f(0, 0),
-        Vector2f(0, META_UNIT),
+        Vector2f(0, metaUnit),
         Vector2f(0.5, 0),
-        Vector2f(0.5, META_UNIT),
+        Vector2f(0.5, metaUnit),
         Vector2f(0.5, 0),
-        Vector2f(0.5, META_UNIT),
+        Vector2f(0.5, metaUnit),
         Vector2f(1, 0),
-        Vector2f(1, META_UNIT)
+        Vector2f(1, metaUnit)
     };
     Vector2f stOverLeft[8] = {
-        Vector2f(0, META_UNIT),
-        Vector2f(0, META_UNIT * 2),
-        Vector2f(0.5, META_UNIT),
-        Vector2f(0.5, META_UNIT * 2),
+        Vector2f(0, metaUnit),
+        Vector2f(0, metaUnit * 2),
+        Vector2f(0.5, metaUnit),
+        Vector2f(0.5, metaUnit * 2),
         Vector2f(0.5, 0),
-        Vector2f(0.5, META_UNIT),
+        Vector2f(0.5, metaUnit),
         Vector2f(1, 0),
-        Vector2f(1, META_UNIT)
+        Vector2f(1, metaUnit)
     };
     Vector2f stOverRight[8] = {
         Vector2f(0, 0),
-        Vector2f(0, META_UNIT),
+        Vector2f(0, metaUnit),
         Vector2f(0.5, 0),
-        Vector2f(0.5, META_UNIT),
-        Vector2f(0.5, META_UNIT),
-        Vector2f(0.5, META_UNIT * 2),
-        Vector2f(1, META_UNIT),
-        Vector2f(1, META_UNIT * 2)
+        Vector2f(0.5, metaUnit),
+        Vector2f(0.5, metaUnit),
+        Vector2f(0.5, metaUnit * 2),
+        Vector2f(1, metaUnit),
+        Vector2f(1, metaUnit * 2)
     };
     Vector2f stPushLeft[8] = {
-        Vector2f(0, META_UNIT * 2),
-        Vector2f(0, META_UNIT * 3),
-        Vector2f(0.5, META_UNIT * 2),
-        Vector2f(0.5, META_UNIT * 3),
+        Vector2f(0, metaUnit * 2),
+        Vector2f(0, metaUnit * 3),
+        Vector2f(0.5, metaUnit * 2),
+        Vector2f(0.5, metaUnit * 3),
         Vector2f(0.5, 0),
-        Vector2f(0.5, META_UNIT),
+        Vector2f(0.5, metaUnit),
         Vector2f(1, 0),
-        Vector2f(1, META_UNIT)
+        Vector2f(1, metaUnit)
     };
     Vector2f stPushRight[8] = {
         Vector2f(0, 0),
-        Vector2f(0, META_UNIT),
+        Vector2f(0, metaUnit),
         Vector2f(0.5, 0),
-        Vector2f(0.5, META_UNIT),
-        Vector2f(0.5, META_UNIT * 2),
-        Vector2f(0.5, META_UNIT * 3),
-        Vector2f(1, META_UNIT * 2),
-        Vector2f(1, META_UNIT * 3)
+        Vector2f(0.5, metaUnit),
+        Vector2f(0.5, metaUnit * 2),
+        Vector2f(0.5, metaUnit * 3),
+        Vector2f(1, metaUnit * 2),
+        Vector2f(1, metaUnit * 3)
     };
 
     for(unsigned i = 0; i < 8; i++)

@@ -14,6 +14,18 @@ Control::Control()
     m_stretch = false;
     m_opacity = 1.0;
     m_output = NULL;
+    m_metaCount = 3;
+    m_padding = 1;
+}
+
+void Control::setPadding(Vector2f padding)
+{
+    this->m_padding = padding;
+}
+
+Vector2f Control::getPadding() const
+{
+    return m_padding;
 }
 
 Control::~Control()
@@ -333,4 +345,14 @@ void Control::setOutput(Rtt* output)
 Rtt* Control::getOutput() const
 {
     return m_output;
+}
+
+void Control::setMetaCount(int metaCount)
+{
+    this->m_metaCount = metaCount;
+}
+
+int Control::getMetaCount() const
+{
+    return m_metaCount;
 }

@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   VectorBox.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 18 juin 2010, 15:46
  */
 
@@ -44,15 +44,15 @@ void VectorBox::setSkin(const GuiSkin& gui)
 
     m_xValue.setBackground(gui.vectorBox);
     m_xValue.setSize(switchSize);
-    m_xValue.setPencil(gui.pencile);
+    m_xValue.setPencil(gui.pencil);
 
     m_yValue.setBackground(gui.vectorBox);
     m_yValue.setSize(switchSize);
-    m_yValue.setPencil(gui.pencile);
+    m_yValue.setPencil(gui.pencil);
 
     m_zValue.setBackground(gui.vectorBox);
     m_zValue.setSize(switchSize);
-    m_zValue.setPencil(gui.pencile);
+    m_zValue.setPencil(gui.pencil);
 }
 
 void VectorBox::objectRender()

@@ -26,9 +26,6 @@ public:
     TextBox(std::string path, int size);
     ~TextBox();
 
-    void setBackgroundPadding(Vector2f backgroundPadding);
-    Vector2f getBackgroundPadding() const;
-
     void setOffsetLine(unsigned offsetLine);
     unsigned getOffsetLine() const;
 
@@ -58,7 +55,6 @@ protected:
     void objectRender();
 
 protected:
-    Vector2f m_backgroundPadding;
     TextAlign m_textAlign;
     bool m_definedSize;
     Texture m_arrowTexture;

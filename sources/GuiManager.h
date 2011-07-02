@@ -116,7 +116,7 @@ public:
     Image* addImage(std::string name, Texture path = Texture());
 
     // Ajout le controle StateShow
-    StateShow* addStateShow(std::string name, Texture path, int stateCount);
+    StateShow* addStateShow(std::string name, Texture path, int metaCount);
 
     /// Ajout un control
     void addControl(std::string name, Control* ctrl);

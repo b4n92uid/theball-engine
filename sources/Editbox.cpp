@@ -5,9 +5,6 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::gui;
 
-#define META_COUNT (3)
-#define META_UNIT (1.0f/META_COUNT)
-
 EditBox::EditBox()
 {
     m_state = NO_EVENT;
@@ -28,21 +25,23 @@ EditBox::~EditBox()
 
 void EditBox::objectRender()
 {
+    const float metaUnit = 1.0 / m_metaCount;
+
     m_background.use();
 
     switch(m_state)
     {
-        case NO_EVENT: drawSurface(m_pos, m_size, Vector2f(0, 0), Vector2f(1, META_UNIT));
+        case NO_EVENT: drawSurface(m_pos, m_size, Vector2f(0, 0), Vector2f(1, metaUnit));
             break;
-        case OVER: drawSurface(m_pos, m_size, Vector2f(0, META_UNIT), Vector2f(1, META_UNIT * 2));
+        case OVER: drawSurface(m_pos, m_size, Vector2f(0, metaUnit), Vector2f(1, metaUnit * 2));
             break;
-        case EDIT: drawSurface(m_pos, m_size, Vector2f(0, META_UNIT * 2), Vector2f(1, META_UNIT * 3));
+        case EDIT: drawSurface(m_pos, m_size, Vector2f(0, metaUnit * 2), Vector2f(1, metaUnit * 3));
             break;
     }
 
     if(m_pencil && !m_label.empty())
     {
-        std::string showStr = m_pencil.wrapeLine(m_label, m_size.x - (8 * m_size.x / 100));
+        std::string showStr = m_pencil.wrapeLine(m_label, m_size.x - (m_padding.x * 2));
 
         if(m_activate)
             showStr += ']';
@@ -104,7 +103,8 @@ bool EditBox::onEvent(const EventManager& event)
 
 void EditBox::setSkin(const GuiSkin& skin)
 {
-    setPencil(skin.pencile);
+    setMetaCount(skin.editBoxMetaCount);
+    setPencil(skin.pencil);
     setBackground(skin.editBox);
     setSize(skin.editBoxSize);
 }

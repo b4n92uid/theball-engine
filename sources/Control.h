@@ -103,6 +103,12 @@ public:
     void setOutput(Rtt* output);
     Rtt* getOutput() const;
 
+    void setMetaCount(int metaCount);
+    int getMetaCount() const;
+
+    void setPadding(Vector2f padding);
+    Vector2f getPadding() const;
+
 protected:
     virtual void objectRender() = 0;
 
@@ -125,7 +131,11 @@ protected:
     Vector2f m_pos;
     Vector2f m_size;
 
+    Vector2f m_padding;
+
     float m_opacity;
+
+    int m_metaCount;
 
     Texture m_background;
     Texture m_backgroundMask;

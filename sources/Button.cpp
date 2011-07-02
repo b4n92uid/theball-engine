@@ -1,9 +1,6 @@
 #include "Button.h"
 #include "Skin.h"
 
-#define META_COUNT 3.0f
-#define META_UNIT (1.0f/META_COUNT)
-
 using namespace tbe;
 using namespace tbe::gui;
 
@@ -28,25 +25,28 @@ Button::~Button()
 
 void Button::setSkin(const GuiSkin& skin)
 {
-    setPencil(skin.pencile);
+    setMetaCount(skin.buttonMetaCount);
+    setPencil(skin.pencil);
     setBackground(skin.button);
     setSize(skin.buttonSize);
 }
 
 void Button::objectRender()
 {
+    const float metaUnit = 1.0 / m_metaCount;
+
     if(m_background)
     {
         m_background.use();
 
         switch(m_state)
         {
-        case NO_EVENT: drawSurface(m_pos, m_size, Vector2f(0, 0), Vector2f(1, META_UNIT));
-            break;
-        case OVER: drawSurface(m_pos, m_size, Vector2f(0, META_UNIT), Vector2f(1, META_UNIT * 2));
-            break;
-        case PUSH: drawSurface(m_pos, m_size, Vector2f(0, META_UNIT * 2), Vector2f(1, META_UNIT * 3));
-            break;
+            case NO_EVENT: drawSurface(m_pos, m_size, Vector2f(0, 0), Vector2f(1, metaUnit));
+                break;
+            case OVER: drawSurface(m_pos, m_size, Vector2f(0, metaUnit), Vector2f(1, metaUnit * 2));
+                break;
+            case PUSH: drawSurface(m_pos, m_size, Vector2f(0, metaUnit * 2), Vector2f(1, metaUnit * 3));
+                break;
         }
     }
 
