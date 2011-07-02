@@ -91,6 +91,8 @@ void Pencil::remove()
 
 void Pencil::display(Vector2f pos, GuiString text)
 {
+    math::round(pos);
+
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glColor4fv(m_color);
@@ -232,8 +234,8 @@ void Pencil::load(std::string path, int size, int charsp)
 
         // Now We Just Setup Some Texture Parameters.
         glBindTexture(GL_TEXTURE_2D, textures[i]);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
         // Here We Actually Create The Texture Itself, Notice
         // That We Are Using GL_LUMINANCE_ALPHA To Indicate That
@@ -296,6 +298,8 @@ void Pencil::load(std::string path, int size, int charsp)
 
         // Finish The Display List
         glEndList();
+
+        FT_Done_Glyph(glyph);
     }
 
     // We Don't Need The Face Information Now That The Display
