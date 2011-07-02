@@ -34,26 +34,30 @@ Control::~Control()
 
 tbe::Vector2f::Array Control::vertexPos(tbe::Vector2f pos, tbe::Vector2f size)
 {
-    Vector2f vPos[4] = {
+    Vector2f vPos[6] = {
         pos,
         Vector2f(pos.x + size.x, pos.y),
-        Vector2f(pos.x, pos.y + size.y),
         pos + size,
+        pos,
+        pos + size,
+        Vector2f(pos.x, pos.y + size.y),
     };
 
-    return Vector2f::Array(vPos, vPos + 4);
+    return Vector2f::Array(vPos, vPos + 6);
 }
 
 tbe::Vector2f::Array Control::vertexUv(tbe::Vector2f offset, tbe::Vector2f length)
 {
-    Vector2f vUv[4] = {
-        Vector2f(offset.x, length.y),
-        Vector2f(length.x, length.y),
-        Vector2f(offset.x, offset.y),
-        Vector2f(length.x, offset.y),
+    Vector2f vUv[6] = {
+        Vector2f(offset.x, length.y), // 0,1
+        Vector2f(length.x, length.y), // 1,1
+        Vector2f(length.x, offset.y), // 1,0
+        Vector2f(offset.x, length.y), // 0,1
+        Vector2f(length.x, offset.y), // 1,0
+        Vector2f(offset.x, offset.y), // 0,0
     };
 
-    return Vector2f::Array(vUv, vUv + 4);
+    return Vector2f::Array(vUv, vUv + 6);
 }
 
 void Control::drawBackground()
@@ -94,7 +98,7 @@ void Control::drawBackground()
             m_backgroundMask.use(true);
             glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
 
             // Disable Texture 1 : VAO
             glClientActiveTexture(GL_TEXTURE1);
@@ -136,7 +140,7 @@ void Control::drawSurface(Vector2f pos, Vector2f size, Vector2f tcOffset, Vector
     glVertexPointer(2, GL_FLOAT, 0, &vPos[0]);
     glTexCoordPointer(2, GL_FLOAT, 0, &vUv[0]);
 
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);

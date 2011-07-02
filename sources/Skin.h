@@ -16,6 +16,16 @@ namespace gui
 
 struct GuiSkin
 {
+
+    GuiSkin()
+    {
+        buttonMetaCount = 3;
+        gaugeMetaCount = 2;
+        editBoxMetaCount = 3;
+        switchBoxMetaCount = 3;
+        vectorBoxMetaCount = 3;
+    }
+
     Texture button;
     Vector2f buttonSize;
     int buttonMetaCount;
