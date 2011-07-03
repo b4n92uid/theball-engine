@@ -47,10 +47,16 @@ bool Switch::onEvent(const EventManager& event)
         if(event.notify == EventManager::EVENT_MOUSE_DOWN)
         {
             if(event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_WHEEL_UP)
+            {
                 increment();
+                return m_activate = true;
+            }
 
             else if(event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_WHEEL_DOWN)
+            {
                 decrement();
+                return m_activate = true;
+            }
         }
     }
 
