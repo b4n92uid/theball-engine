@@ -59,8 +59,8 @@ void TextBox::objectRender()
                 m_arrowTexture.use(true);
 
                 Vector2f size = m_arrowTexture.getSize() / Vector2f(1, 2);
-                Vector2f arrdn = m_pos + m_padding;
-                Vector2f arrup = m_pos + Vector2f(m_padding.x, m_size.y - m_padding.y - size.y);
+                Vector2f arrup = m_pos + Vector2f(m_size.x - m_padding.x - size.x, m_size.y - m_padding.y - size.y);
+                Vector2f arrdn = m_pos + Vector2f(m_size.x - m_padding.x - size.x, m_padding.y);
 
                 if(m_offsetLine > 0)
                 {
