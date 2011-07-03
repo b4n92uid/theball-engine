@@ -188,27 +188,44 @@ Texture TextBox::getArrowTexture() const
 
 bool TextBox::onEvent(const EventManager& event)
 {
+    m_activate = false;
+
+    if(!m_definedSize)
+        return false;
+
     Vector2f mousePos = event.mousePos;
 
-    if(m_definedSize && mousePos.isInsinde(m_pos, m_size))
+    if(event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_WHEEL_DOWN && m_offsetLine < m_offsetMax)
     {
-        if(event.notify == EventManager::EVENT_MOUSE_DOWN)
-        {
-            if((event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_LEFT ||
-               event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_WHEEL_DOWN)
-               && m_offsetLine < m_offsetMax)
-                m_offsetLine++;
-
-            if((event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_RIGHT ||
-               event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_WHEEL_UP)
-               && m_offsetLine > 0)
-                m_offsetLine--;
-        }
-
-        prepareDisplay();
+        m_offsetLine++;
+        m_activate = true;
     }
 
-    return false;
+    if(event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_WHEEL_UP && m_offsetLine > 0)
+    {
+        m_offsetLine--;
+        m_activate = true;
+    }
+
+    if(event.notify == EventManager::EVENT_MOUSE_DOWN && event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_LEFT)
+    {
+        if(mousePos.isInsinde(m_pos, Vector2f(m_size.x, m_size.y / 2)) && m_offsetLine < m_offsetMax)
+        {
+            m_offsetLine++;
+            m_activate = true;
+        }
+
+        if(mousePos.isInsinde(m_pos + Vector2f(0, m_size.y / 2), Vector2f(m_size.x, m_size.y / 2)) && m_offsetLine > 0)
+        {
+            m_offsetLine--;
+            m_activate = true;
+        }
+    }
+
+    if(m_activate)
+        prepareDisplay();
+
+    return m_activate;
 }
 
 void TextBox::setSkin(const GuiSkin& skin)
