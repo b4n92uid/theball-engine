@@ -65,7 +65,7 @@ public:
     void setSkin(GuiSkin* skin);
 
     /// Génére/Sélection une session
-    void setSession(unsigned sessID);
+    void setSession(unsigned sessID, GuiSkin* skin = NULL);
 
     /// Séléctione la session suivante
     void pageUp();
@@ -151,12 +151,12 @@ public:
 
     template<typename T> T* releaseControl(std::string name)
     {
-        return(T*)releaseControl(name);
+        return (T*)releaseControl(name);
     }
 
     template<typename T> T* getControl(std::string name, int sess = -1)
     {
-        return(T*)getControl(name, sess);
+        return (T*)getControl(name, sess);
     }
 
 protected:
@@ -166,10 +166,11 @@ protected:
         Session();
         ~Session();
 
-        Layout::Array m_headLayouts;
-        Layout::Array m_layouts;
-        Control::Map m_ctrls;
-        Layout* m_activeLayout;
+        Layout::Array headLayouts;
+        Layout::Array layouts;
+        Control::Map ctrls;
+        Layout* activeLayout;
+        GuiSkin* guiSkin;
 
         typedef std::map<unsigned, Session*> Map;
     };
