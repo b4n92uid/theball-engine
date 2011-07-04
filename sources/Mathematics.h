@@ -142,6 +142,24 @@ inline bool isZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
 }
 
 /**
+ * Test si une des valeurs du vecteur est à zéro
+ *  le parametre factor définie le degres de précision de l'operation
+ */
+inline bool isAnyZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
+{
+    return (isZero(a.x, factor) || isZero(a.y, factor));
+}
+
+/**
+ * Test si toute les valeurs du vecteur sont à zéro
+ *  le parametre factor définie le degres de précision de l'operation
+ */
+inline bool isZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
+{
+    return (isZero(a.x, factor) && isZero(a.y, factor));
+}
+
+/**
  * Indique si la valeur 'value' est de puissance 2
  *
  * @param value

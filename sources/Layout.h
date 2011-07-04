@@ -23,7 +23,7 @@ public:
     };
 
     /// Ctor
-    Layout(Vector2f scrsize = Vector2f(800, 600), Vector2f border = 0, float space = 0, Orientation type = Vertical);
+    Layout(Vector2f scrsize = Vector2f(800, 600), float space = 0, Vector2f border = 0, Orientation type = Vertical);
 
     /// Dtor
     virtual ~Layout();
@@ -74,7 +74,7 @@ public:
     Vector2f getSize() const;
 
     /// Positione du Layout
-    void setPos(Vector2f pos);
+    void setPos(Vector2f pos, Vector2f border = 0);
     Vector2f getPos() const;
 
     /// Mise a jour du Layout
@@ -103,7 +103,7 @@ protected:
         virtual ~Item();
 
         Vector2f GetPos();
-        void SetPos(Vector2f pos);
+        void SetPos(Vector2f pos, Vector2f border = 0);
 
         Vector2f GetSize();
         void SetSize(Vector2f size);
@@ -114,9 +114,9 @@ protected:
 
         typedef std::vector<Item*> Array;
 
-        static inline bool FindByControl(const Item* item,const Control* ctrl)
+        static inline bool FindByControl(const Item* item, const Control* ctrl)
         {
-            return(item->m_ctrl == ctrl);
+            return (item->m_ctrl == ctrl);
         }
 
     private:

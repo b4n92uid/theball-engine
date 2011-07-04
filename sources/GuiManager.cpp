@@ -351,7 +351,7 @@ GridLayout* GuiManager::addGridLayout(Layout::Orientation type, int rows, int co
 
 Layout* GuiManager::addLayout(Layout::Orientation type, float space, Vector2f border)
 {
-    Layout* lay = new Layout(m_screenSize, border, space, type);
+    Layout* lay = new Layout(m_screenSize, space, border, type);
 
     // Parent
     m_currentSession->second->layouts.push_back(lay);

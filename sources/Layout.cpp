@@ -22,7 +22,7 @@ public:
     }
 };
 
-Layout::Layout(Vector2f scrsize, Vector2f border, float space, Orientation type)
+Layout::Layout(Vector2f scrsize, float space, Vector2f border, Orientation type)
 {
     m_screenSize = scrsize;
     m_border = border;
@@ -77,8 +77,8 @@ void Layout::addSpace(Vector2f size)
 
 void Layout::addLayout(Layout* object)
 {
-    object->m_screenSize -= m_border * 2.0f;
     object->m_parent = this;
+    object->m_screenSize = m_screenSize;
 
     m_childLayout.push_back(object);
     m_childControls.push_back(new Item(object));
@@ -110,7 +110,6 @@ void Layout::addControl(Control* object)
 
 void Layout::update()
 {
-
     for(unsigned i = 0; i < m_childLayout.size(); i++)
         m_childLayout[i]->update();
 
@@ -163,11 +162,11 @@ void Layout::update()
 
             if(!i)
             {
-                Vector2f pos(m_pos.x + m_border.x, m_pos.y + m_border.y);
+                Vector2f pos(m_pos);
 
                 math::round(pos);
 
-                m_childControls[i]->SetPos(pos);
+                m_childControls[i]->SetPos(pos, m_border);
             }
 
             else
@@ -258,11 +257,11 @@ void Layout::update()
 
             if(!i)
             {
-                Vector2f newSize(m_pos.x + m_border.x, m_pos.y + m_border.y);
+                Vector2f newSize(m_pos);
 
                 math::round(newSize);
 
-                m_childControls[i]->SetPos(newSize);
+                m_childControls[i]->SetPos(newSize, m_border);
             }
 
             else
@@ -369,12 +368,12 @@ Vector2f Layout::getSize() const
     return m_size;
 }
 
-void Layout::setPos(Vector2f pos)
+void Layout::setPos(Vector2f pos, Vector2f border)
 {
-    this->m_pos = pos;
+    this->m_pos = pos + border;
 
     for(unsigned i = 0; i < m_childLayout.size(); i++)
-        m_childLayout[i]->setPos(m_pos + m_childLayout[i]->getPos());
+        m_childLayout[i]->setPos(pos + m_childLayout[i]->getPos());
 }
 
 Vector2f Layout::getPos() const
@@ -416,9 +415,9 @@ Vector2f Layout::Item::GetPos()
     return m_ctrl ? m_ctrl->getPos() : m_lay->getPos();
 }
 
-void Layout::Item::SetPos(Vector2f pos)
+void Layout::Item::SetPos(Vector2f pos, Vector2f border)
 {
-    m_ctrl ? m_ctrl->setPos(pos) : m_lay->setPos(pos);
+    m_ctrl ? m_ctrl->setPos(pos) : m_lay->setPos(pos, border);
 }
 
 Vector2f Layout::Item::GetSize()
