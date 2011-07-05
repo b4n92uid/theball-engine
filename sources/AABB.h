@@ -52,6 +52,10 @@ public:
     AABB & operator()(const Vector3f& min, const Vector3f& max);
 
     /**
+     */
+    AABB & add(float pos);
+
+    /**
      * Etire la valeur min et max du AABB par pos
      * AABB(-2,2).add(3) == AABB(-5,5)
      */
@@ -74,6 +78,9 @@ public:
      * @see sub(const Vector3f& pos)
      */
     AABB & sub(const AABB& aabb);
+
+    /// @see add(float pos)
+    AABB & operator+=(float pos);
 
     /// @see add(const Vector3f& pos)
     AABB & operator+=(const Vector3f& pos);
@@ -122,6 +129,9 @@ public:
 
     /// Renvois une position aléatoire a l'interieur de la boite englobant
     Vector3f randPos() const;
+
+    /// Déplace la boite englobant
+    AABB& translate(Vector3f pos);
 
     Vector3f min;
     Vector3f max;

@@ -104,6 +104,11 @@ AABB& AABB::operator()(const Vector3f& min, const Vector3f& max)
     return *this;
 }
 
+AABB & AABB::add(float pos)
+{
+    return *this += pos;
+}
+
 AABB & AABB::add(const Vector3f& pos)
 {
     return *this += pos;
@@ -122,6 +127,11 @@ AABB & AABB::sub(const Vector3f& pos)
 AABB & AABB::sub(const AABB& aabb)
 {
     return *this -= aabb;
+}
+
+AABB& AABB::operator+=(float pos)
+{
+    return (*this)(min - pos, max + pos);
 }
 
 AABB& AABB::operator+=(const Vector3f& pos)
@@ -169,4 +179,12 @@ Vector3f AABB::randPos() const
     return Vector3f(math::rand(min.x, max.x),
                     math::rand(min.z, max.y),
                     math::rand(min.y, max.z));
+}
+
+AABB& AABB::translate(Vector3f pos)
+{
+    min += pos;
+    max += pos;
+
+    return *this;
 }
