@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Rtt.h
  * Author: b4n92uid
  *
@@ -64,6 +64,9 @@ public:
     /// du tempons de profondeur
     Texture getDepht();
 
+    void setGuiRendring(bool guiRendring);
+    bool isGuiRendring() const;
+
     // FBO Methode Functions ---------------------------------------------------
 
     void FBO_SetMultisamplesCount(unsigned multisamples);
@@ -80,6 +83,7 @@ protected:
     Vector2i m_frameSize;
     bool m_captureColor;
     bool m_captureDepth;
+    bool m_guiRendring;
 
 private:
 

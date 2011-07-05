@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Rtt.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 12 avril 2010, 20:18
  */
 
@@ -18,6 +18,8 @@ Rtt::Rtt()
 
     m_captureColor = false;
     m_captureDepth = false;
+
+    m_guiRendring = false;
 
     m_supportFbo = FrameBufferObject::checkHardware();
 
@@ -43,6 +45,8 @@ Rtt::Rtt(Vector2i frameSize)
 
     m_captureColor = false;
     m_captureDepth = false;
+
+    m_guiRendring = false;
 
     m_supportFbo = FrameBufferObject::checkHardware();
 
@@ -132,7 +136,16 @@ void Rtt::use(bool state)
         if(state)
         {
             glPushAttrib(GL_VIEWPORT_BIT);
-            glViewport(0, 0, m_frameSize.x, m_frameSize.y);
+
+            if(m_guiRendring)
+            {
+                gluOrtho2D(0, m_frameSize.x, 0, m_frameSize.y);
+
+                glPushMatrix();
+                glLoadIdentity();
+            }
+            else
+                glViewport(0, 0, m_frameSize.x, m_frameSize.y);
         }
 
         else
@@ -152,6 +165,9 @@ void Rtt::use(bool state)
             }
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            if(m_guiRendring)
+                glPopMatrix();
 
             glPopAttrib();
         }
@@ -288,4 +304,20 @@ bool Rtt::FBO_IsUseRenderBuffer()
 void Rtt::FBO_BlitToTexutre()
 {
     m_fboMethod.render->blit(m_fboMethod.display);
+}
+
+void Rtt::setGuiRendring(bool guiRendring)
+{
+    if(m_supportFbo)
+    {
+        m_fboMethod.display->setOrthoCatch(guiRendring);
+        m_fboMethod.render->setOrthoCatch(guiRendring);
+    }
+
+    this->m_guiRendring = guiRendring;
+}
+
+bool Rtt::isGuiRendring() const
+{
+    return m_guiRendring;
 }

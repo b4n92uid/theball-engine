@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   FrameBufferObject.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 22 novembre 2009, 15:53
  */
 
@@ -52,6 +52,8 @@ FrameBufferObject::FrameBufferObject()
     m_colorRenderBuffer = 0;
     m_depthRenderBuffer = 0;
     m_multiSamplesCount = 0;
+
+    m_orthoCatch = false;
 }
 
 FrameBufferObject::FrameBufferObject(Vector2i frameSize)
@@ -65,6 +67,8 @@ FrameBufferObject::FrameBufferObject(Vector2i frameSize)
     m_multiSamplesCount = 0;
 
     m_frameSize = frameSize;
+
+    m_orthoCatch = false;
 }
 
 FrameBufferObject::FrameBufferObject(const FrameBufferObject& orig)
@@ -96,6 +100,7 @@ FrameBufferObject& FrameBufferObject::operator=(const FrameBufferObject& orig)
     m_attachedCompenent = orig.m_attachedCompenent;
     m_frameSize = orig.m_frameSize;
     m_multiSamplesCount = orig.m_multiSamplesCount;
+    m_orthoCatch = orig.m_orthoCatch;
 
     if(m_attachedCompenent)
         attach(m_attachedCompenent);
@@ -206,7 +211,16 @@ void FrameBufferObject::use(bool state)
     if(state)
     {
         glPushAttrib(GL_VIEWPORT_BIT);
-        glViewport(0, 0, m_frameSize.x, m_frameSize.y);
+
+        if(m_orthoCatch)
+        {
+            gluOrtho2D(0, m_frameSize.x, 0, m_frameSize.y);
+
+            glPushMatrix();
+            glLoadIdentity();
+        }
+        else
+            glViewport(0, 0, m_frameSize.x, m_frameSize.y);
 
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, m_fboId);
     }
@@ -214,6 +228,9 @@ void FrameBufferObject::use(bool state)
     else
     {
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+
+        if(m_orthoCatch)
+            glPopMatrix();
 
         glPopAttrib();
     }
@@ -310,5 +327,15 @@ unsigned FrameBufferObject::getMultiSamplesCount() const
 bool FrameBufferObject::checkHardware()
 {
     static bool supported = GLEE_EXT_framebuffer_object && GLEE_EXT_framebuffer_blit && GLEE_EXT_framebuffer_multisample;
-    return supported;
+    return true;
+}
+
+void FrameBufferObject::setOrthoCatch(bool orthoCatch)
+{
+    this->m_orthoCatch = orthoCatch;
+}
+
+bool FrameBufferObject::isOrthoCatch() const
+{
+    return m_orthoCatch;
 }

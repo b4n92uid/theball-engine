@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   FrameBufferObject.h
  * Author: b4n92uid
  *
@@ -89,6 +89,9 @@ public:
      */
     static bool checkHardware();
 
+    void setOrthoCatch(bool orthoCatch);
+    bool isOrthoCatch() const;
+
 protected:
     unsigned m_attachedCompenent;
     Vector2i m_frameSize;
@@ -97,6 +100,8 @@ protected:
     GLuint m_depthRenderBuffer;
     GLuint m_colorRenderBuffer;
     unsigned m_multiSamplesCount;
+
+    bool m_orthoCatch;
 
     Texture m_colorTextureId;
     Texture m_depthTextureId;
