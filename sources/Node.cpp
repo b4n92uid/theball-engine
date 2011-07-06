@@ -53,6 +53,8 @@ Node& Node::copy(const Node& copy)
     m_aabb = copy.m_aabb;
     m_sceneManager = copy.m_sceneManager;
 
+    m_userDatas = copy.m_userDatas;
+
     clearAllChild();
 
     m_childs.reserve(copy.m_childs.size());
