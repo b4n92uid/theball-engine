@@ -31,6 +31,9 @@ public:
     void setSmooth(bool b, int speed = 1);
     bool isSmooth();
 
+    void setReverse(bool reverse);
+    bool isReverse() const;
+
 protected:
     void objectRender();
 
@@ -38,6 +41,7 @@ protected:
     int m_valueTarget;
     int m_smoothSpeed;
     bool m_smooth;
+    bool m_reverse;
 };
 
 }
