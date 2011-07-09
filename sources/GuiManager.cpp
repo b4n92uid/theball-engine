@@ -309,6 +309,16 @@ void GuiManager::deleteControl(std::string name)
     m_currentSession->second->ctrls.erase(name);
 }
 
+void GuiManager::deleteControls(Control* ctrl)
+{
+    for(Session::Map::iterator it = m_sessions.begin(); it != m_sessions.end(); it++)
+    {
+        for(Control::Map::iterator it2 = it->second->ctrls.begin(); it2 != it->second->ctrls.end(); it2++)
+            if(it2->second == ctrl)
+                it->second->ctrls.erase(it2->first);
+    }
+}
+
 Control* GuiManager::getControl(std::string name, int sess)
 {
     if(sess != -1)

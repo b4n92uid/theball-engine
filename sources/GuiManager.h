@@ -127,6 +127,9 @@ public:
     /// Détrute un controle de la session courante
     void deleteControl(std::string name);
 
+    /// Détrute un controle de tout les session
+    void deleteControls(Control* ctrl);
+
     // Détache un controle de la session courante
     Control* releaseControl(std::string name);
 
