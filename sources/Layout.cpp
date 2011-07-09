@@ -78,7 +78,7 @@ void Layout::addSpace(Vector2f size)
 void Layout::addLayout(Layout* object)
 {
     object->m_parent = this;
-    object->m_screenSize = m_screenSize;
+    object->m_screenSize -= m_border * 2.0f;
 
     m_childLayout.push_back(object);
     m_childControls.push_back(new Item(object));

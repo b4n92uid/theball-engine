@@ -18,7 +18,6 @@ ListBox::ListBox()
 
     m_offset = 0;
     m_offsetMax = 0;
-    m_backgroundPadding = 0;
     m_definedSize = false;
 
     m_currentItem = NULL;
@@ -151,18 +150,6 @@ void ListBox::setSkin(const GuiSkin& gui)
         m_totalItems[i]->setPencil(m_pencil);
 }
 
-void ListBox::setBackgroundPadding(Vector2f backgroundPadding)
-{
-    this->m_backgroundPadding = backgroundPadding;
-
-    m_lay.setBorder(m_backgroundPadding);
-}
-
-Vector2f ListBox::getBackgroundPadding() const
-{
-    return m_backgroundPadding;
-}
-
 bool ListBox::onEvent(const EventManager& event)
 {
     m_activate = false;
@@ -221,7 +208,7 @@ void ListBox::update()
     if(m_definedSize)
     {
         unsigned displayLines = unsigned(
-                (m_size.y - m_backgroundPadding.y * 2.0f)
+                (m_size.y - m_padding.y * 2.0f)
                 / (m_pencil.getFontSize() + m_lay.getSpace())
                 );
 
@@ -234,7 +221,7 @@ void ListBox::update()
             m_lay.addControl(m_displayItems.back());
 
             string label = m_displayItems.back()->getLabel();
-            label = m_pencil.wrapeLine(label, m_size.x - m_backgroundPadding.x * 2.0f, true);
+            label = m_pencil.wrapeLine(label, m_size.x - m_padding.x * 2.0f, true);
             m_displayItems.back()->setLabel(label);
         }
 
@@ -267,7 +254,7 @@ void ListBox::update()
         m_lay.update();
 
         m_size = m_lay.getSize()
-                + m_backgroundPadding * 2.0f
+                + m_padding * 2.0f
                 + m_lay.getBorder() * Vector2f(0, 1);
     }
 

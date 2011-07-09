@@ -51,9 +51,6 @@ public:
 
     void setSkin(const GuiSkin& gui);
 
-    void setBackgroundPadding(Vector2f backgroundPadding);
-    Vector2f getBackgroundPadding() const;
-
     void cancelSelection();
     bool isSelection();
 
@@ -104,8 +101,6 @@ protected:
     bool m_definedSize;
 
     unsigned m_offsetMax;
-
-    Vector2f m_backgroundPadding;
 };
 
 }
