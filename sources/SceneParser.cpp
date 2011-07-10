@@ -440,58 +440,51 @@ void SceneParser::buildMaterial(AttribMap& att, Mesh* mesh)
             string matname = token[0];
             string attributs = token[1];
 
-            try
+            Material* material = mesh->getMaterial(matname);
+
+            if(attributs == "texture")
             {
-                Material* material = mesh->getMaterial(matname);
+                vector<string> valtoken = tools::tokenize(it->second, ';');
 
-                if(attributs == "texture")
-                {
-                    vector<string> valtoken = tools::tokenize(it->second, ';');
+                Texture tex;
+                tex.load(tools::pathScope(m_mapDescriptor.fileName, valtoken[0], true), true);
 
-                    Texture tex;
-                    tex.load(tools::pathScope(m_mapDescriptor.fileName, valtoken[0], true), true);
+                if(valtoken[1] == "additive")
+                    tex.setMulTexBlend(Texture::ADDITIVE);
+                if(valtoken[1] == "modulate")
+                    tex.setMulTexBlend(Texture::MODULATE);
+                if(valtoken[1] == "replace")
+                    tex.setMulTexBlend(Texture::REPLACE);
 
-                    if(valtoken[1] == "additive")
-                        tex.setMulTexBlend(Texture::ADDITIVE);
-                    if(valtoken[1] == "modulate")
-                        tex.setMulTexBlend(Texture::MODULATE);
-                    if(valtoken[1] == "replace")
-                        tex.setMulTexBlend(Texture::REPLACE);
-
-                    material->setTexture(tex, tools::strToNum<int>(token[2]));
-                }
-
-                else
-                {
-                    if(attributs == "cullTrick")
-                        toogleMaterial(material, Material::VERTEX_SORT_CULL_TRICK, it->second);
-                    if(attributs == "alphaThershold")
-                        material->setAlphaThershold(tools::strToNum<float>(it->second));
-                    if(attributs == "blendMod")
-                        toogleMaterial(material, Material::BLEND_MOD, it->second);
-                    if(attributs == "blendMul")
-                        toogleMaterial(material, Material::BLEND_MUL, it->second);
-                    if(attributs == "blendAdd")
-                        toogleMaterial(material, Material::BLEND_ADD, it->second);
-                    if(attributs == "alpha")
-                        toogleMaterial(material, Material::ALPHA, it->second);
-                    if(attributs == "frontFaceCull")
-                        toogleMaterial(material, Material::FRONTFACE_CULL, it->second);
-                    if(attributs == "backFaceCull")
-                        toogleMaterial(material, Material::BACKFACE_CULL, it->second);
-                    if(attributs == "lighted")
-                        toogleMaterial(material, Material::LIGHTED, it->second);
-                    if(attributs == "textured")
-                        toogleMaterial(material, Material::TEXTURED, it->second);
-                    if(attributs == "colored")
-                        toogleMaterial(material, Material::COLORED, it->second);
-                    if(attributs == "foged")
-                        toogleMaterial(material, Material::FOGED, it->second);
-                }
+                material->setTexture(tex, tools::strToNum<int>(token[2]));
             }
-            catch(std::exception& e)
+
+            else
             {
-                cout << e.what() << endl;
+                if(attributs == "cullTrick")
+                    toogleMaterial(material, Material::VERTEX_SORT_CULL_TRICK, it->second);
+                if(attributs == "alphaThershold")
+                    material->setAlphaThershold(tools::strToNum<float>(it->second));
+                if(attributs == "blendMod")
+                    toogleMaterial(material, Material::BLEND_MOD, it->second);
+                if(attributs == "blendMul")
+                    toogleMaterial(material, Material::BLEND_MUL, it->second);
+                if(attributs == "blendAdd")
+                    toogleMaterial(material, Material::BLEND_ADD, it->second);
+                if(attributs == "alpha")
+                    toogleMaterial(material, Material::ALPHA, it->second);
+                if(attributs == "frontFaceCull")
+                    toogleMaterial(material, Material::FRONTFACE_CULL, it->second);
+                if(attributs == "backFaceCull")
+                    toogleMaterial(material, Material::BACKFACE_CULL, it->second);
+                if(attributs == "lighted")
+                    toogleMaterial(material, Material::LIGHTED, it->second);
+                if(attributs == "textured")
+                    toogleMaterial(material, Material::TEXTURED, it->second);
+                if(attributs == "colored")
+                    toogleMaterial(material, Material::COLORED, it->second);
+                if(attributs == "foged")
+                    toogleMaterial(material, Material::FOGED, it->second);
             }
         }
     }
@@ -514,28 +507,20 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
         else
             modelFilepath = tools::pathScope(m_mapDescriptor.fileName, rel.attr["filename"], true);
 
-        try
-        {
-            node->open(modelFilepath);
+        node->open(modelFilepath);
 
-            if(rel.attr.count("vertexScale"))
-                node->setVertexScale(Vector3f().fromStr(rel.attr["vertexScale"]));
-            if(rel.attr.count("color"))
-                node->setColor(Vector4f().fromStr(rel.attr["color"]));
-            if(rel.attr.count("opacity"))
-                node->setOpacity(tools::strToNum<float>(rel.attr["opacity"]));
-            if(rel.attr.count("billBoarding"))
-                node->setBillBoard(Vector2b().fromStr(rel.attr["billBoarding"]));
+        if(rel.attr.count("vertexScale"))
+            node->setVertexScale(Vector3f().fromStr(rel.attr["vertexScale"]));
+        if(rel.attr.count("color"))
+            node->setColor(Vector4f().fromStr(rel.attr["color"]));
+        if(rel.attr.count("opacity"))
+            node->setOpacity(tools::strToNum<float>(rel.attr["opacity"]));
+        if(rel.attr.count("billBoarding"))
+            node->setBillBoard(Vector2b().fromStr(rel.attr["billBoarding"]));
 
-            buildMaterial(rel.attr, node);
+        buildMaterial(rel.attr, node);
 
-            current = node;
-        }
-        catch(std::exception& e)
-        {
-            cout << e.what() << endl;
-            delete node;
-        }
+        current = node;
     }
 
     else if(iclass == "ParticlesEmiter")
@@ -551,14 +536,7 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
             else
                 modelFilepath = tools::pathScope(m_mapDescriptor.fileName, rel.attr["texture"], true);
 
-            try
-            {
-                emiter->setTexture(modelFilepath);
-            }
-            catch(std::exception& e)
-            {
-                cout << e.what() << endl;
-            }
+            emiter->setTexture(modelFilepath);
         }
 
         if(rel.attr.count("lifeInit"))
