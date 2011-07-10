@@ -15,8 +15,6 @@
 #include "StateShow.h"
 #include "Layout.h"
 #include "Skin.h"
-#include "VectorBox.h"
-#include "ListBox.h"
 
 using namespace tbe;
 using namespace tbe::gui;
@@ -242,25 +240,6 @@ StateShow* GuiManager::addStateShow(std::string name, Texture path, int metaCoun
     StateShow* p = new StateShow;
     p->setBackground(path);
     p->setMetaCount(metaCount);
-
-    addControl(name, p);
-
-    return p;
-}
-
-ListBox* GuiManager::addListBox(std::string name)
-{
-    ListBox* p = new ListBox;
-
-    addControl(name, p);
-
-    return p;
-}
-
-VectorBox* GuiManager::addVectorBox(std::string name, Vector3f value)
-{
-    VectorBox* p = new VectorBox;
-    p->setValue(value);
 
     addControl(name, p);
 

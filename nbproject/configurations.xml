@@ -46,16 +46,12 @@
           <itemPath>sources/Image.h</itemPath>
           <itemPath>sources/KeyConfig.cpp</itemPath>
           <itemPath>sources/KeyConfig.h</itemPath>
-          <itemPath>sources/ListBox.cpp</itemPath>
-          <itemPath>sources/ListBox.h</itemPath>
           <itemPath>sources/StateShow.cpp</itemPath>
           <itemPath>sources/StateShow.h</itemPath>
           <itemPath>sources/Switch.cpp</itemPath>
           <itemPath>sources/Switch.h</itemPath>
           <itemPath>sources/TextBox.cpp</itemPath>
           <itemPath>sources/TextBox.h</itemPath>
-          <itemPath>sources/VectorBox.cpp</itemPath>
-          <itemPath>sources/VectorBox.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="General" projectFiles="true">
           <itemPath>sources/GuiManager.cpp</itemPath>

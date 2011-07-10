@@ -69,7 +69,7 @@ void Gauge::objectRender()
     if(m_reverse)
         drawSurface(Vector2f(m_pos.x + m_size.x - length, m_pos.y),
                     Vector2f(length, m_size.y),
-                    Vector2f(m_value / 100.0f, metaUnit),
+                    Vector2f(1 - m_value / 100.0f, metaUnit),
                     Vector2f(1, metaUnit * 2));
     else
         drawSurface(m_pos,

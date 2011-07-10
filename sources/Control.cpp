@@ -15,17 +15,7 @@ Control::Control()
     m_opacity = 1.0;
     m_output = NULL;
     m_metaCount = 3;
-    m_padding = 1;
-}
-
-void Control::setPadding(Vector2f padding)
-{
-    this->m_padding = padding;
-}
-
-Vector2f Control::getPadding() const
-{
-    return m_padding;
+    m_textAlign = HCENTER | VCENTER;
 }
 
 Control::~Control()
@@ -371,4 +361,24 @@ void Control::setMetaCount(int metaCount)
 int Control::getMetaCount() const
 {
     return m_metaCount;
+}
+
+void Control::setTextAlign(unsigned textAlign)
+{
+    this->m_textAlign = textAlign;
+}
+
+unsigned Control::getTextAlign() const
+{
+    return m_textAlign;
+}
+
+void Control::setTextPadding(Dimension textPadding)
+{
+    this->m_textPadding = textPadding;
+}
+
+Dimension Control::getTextPadding() const
+{
+    return m_textPadding;
 }

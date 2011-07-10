@@ -417,7 +417,7 @@ Vector2f Layout::Item::GetPos()
 
 void Layout::Item::SetPos(Vector2f pos, Vector2f border)
 {
-    m_ctrl ? m_ctrl->setPos(pos) : m_lay->setPos(pos, border);
+    m_ctrl ? m_ctrl->setPos(pos + border) : m_lay->setPos(pos, border);
 }
 
 Vector2f Layout::Item::GetSize()

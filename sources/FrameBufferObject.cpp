@@ -327,7 +327,7 @@ unsigned FrameBufferObject::getMultiSamplesCount() const
 bool FrameBufferObject::checkHardware()
 {
     static bool supported = GLEE_EXT_framebuffer_object && GLEE_EXT_framebuffer_blit && GLEE_EXT_framebuffer_multisample;
-    return true;
+    return supported;
 }
 
 void FrameBufferObject::setOrthoCatch(bool orthoCatch)

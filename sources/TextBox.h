@@ -38,15 +38,6 @@ public:
     void setDefinedSize(bool definedSize);
     bool isDefinedSize() const;
 
-    enum TextAlign
-    {
-        LEFT,
-        CENTER,
-    };
-
-    void setTextAlign(TextAlign textAlign);
-    TextAlign getTextAlign() const;
-
     void setArrowTexture(Texture arrowTexture);
     Texture getArrowTexture() const;
 
@@ -55,7 +46,6 @@ protected:
     void objectRender();
 
 protected:
-    TextAlign m_textAlign;
     bool m_definedSize;
     Texture m_arrowTexture;
 

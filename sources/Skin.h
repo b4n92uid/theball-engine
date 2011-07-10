@@ -23,7 +23,6 @@ struct GuiSkin
         gaugeMetaCount = 2;
         editBoxMetaCount = 3;
         switchBoxMetaCount = 3;
-        vectorBoxMetaCount = 3;
     }
 
     Texture button;
@@ -41,10 +40,6 @@ struct GuiSkin
     Texture switchBox;
     Vector2f switchBoxSize;
     int switchBoxMetaCount;
-
-    Texture vectorBox;
-    Vector2f vectorBoxSize;
-    int vectorBoxMetaCount;
 
     Vector2f stateShowSize;
 

@@ -18,7 +18,6 @@ TextBox::TextBox()
     m_offsetMax = 0;
     m_offsetLine = 0;
     m_definedSize = false;
-    m_textAlign = CENTER;
 }
 
 TextBox::TextBox(std::string path, int size)
@@ -38,17 +37,21 @@ void TextBox::objectRender()
 {
     drawBackground();
 
-    Vector2f pos = m_pencil.centerOf(m_textDisplay, m_pos, m_size);
+    Vector2f pos = m_pos;
 
-    switch(m_textAlign)
-    {
-        case LEFT:
-            pos.x = m_pos.x + m_padding.x;
-            break;
+    if(m_textAlign & HCENTER)
+        pos.x = m_pencil.centerOf(m_textDisplay, m_pos, m_size).x;
+    else if(m_textAlign & LEFT)
+        pos.x = m_pos.x + m_textPadding.x;
+    else if(m_textAlign & RIGHT)
+        pos.x = m_pos.x + m_size.x - m_pencil.sizeOf(m_textDisplay).x - m_textPadding.w;
 
-        case CENTER:
-            break;
-    }
+    if(m_textAlign & VCENTER)
+        pos.y = m_pencil.centerOf(m_textDisplay, m_pos, m_size).y;
+    else if(m_textAlign & TOP)
+        pos.y = m_pos.y + m_size.y - m_pencil.sizeOf(m_textDisplay).y - m_textPadding.h;
+    else if(m_textAlign & BOTTOM)
+        pos.y = m_pos.y + m_textPadding.y;
 
     if(m_definedSize)
     {
@@ -59,8 +62,8 @@ void TextBox::objectRender()
                 m_arrowTexture.use(true);
 
                 Vector2f size = m_arrowTexture.getSize() / Vector2f(1, 2);
-                Vector2f arrup = m_pos + Vector2f(m_size.x - m_padding.x - size.x, m_size.y - m_padding.y - size.y);
-                Vector2f arrdn = m_pos + Vector2f(m_size.x - m_padding.x - size.x, m_padding.y);
+                Vector2f arrup = m_pos + Vector2f(m_size.x - m_textPadding.h - size.x, m_size.y - m_textPadding.h - size.y);
+                Vector2f arrdn = m_pos + Vector2f(m_size.x - m_textPadding.y - size.x, m_textPadding.h);
 
                 if(m_offsetLine > 0)
                 {
@@ -89,10 +92,10 @@ void TextBox::objectRender()
                 backupback = m_textDisplay.back();
 
                 if(m_offsetLine < m_offsetMax)
-                    m_textDisplay.front() = ">>>";
+                    m_textDisplay.front() = ">";
 
                 if(m_offsetLine > 0)
-                    m_textDisplay.back() = "<<<";
+                    m_textDisplay.back() = "<";
             }
 
             m_pencil.display(pos, m_textDisplay);
@@ -124,7 +127,8 @@ void TextBox::prepareDisplay()
 {
     if(m_definedSize)
     {
-        unsigned displayLines = unsigned((m_size.y - m_padding.y * 2.0) / (m_pencil.getFontSize() + m_pencil.getLineSpace()));
+        unsigned displayLines = unsigned((m_size.y - m_textPadding.y - m_textPadding.h)
+                / (m_pencil.getFontSize() + m_pencil.getLineSpace()));
 
         vector<string> buffer;
 
@@ -132,7 +136,7 @@ void TextBox::prepareDisplay()
         {
             const string& curline = m_text[i];
 
-            vector<string> widthOverflow = m_pencil.getWrapedLines(curline, m_size.x - m_padding.x * 2.0f);
+            vector<string> widthOverflow = m_pencil.getWrapedLines(curline, m_size.x - m_textPadding.x - m_textPadding.w);
             buffer.insert(buffer.end(), widthOverflow.begin(), widthOverflow.end());
         }
 
@@ -149,7 +153,9 @@ void TextBox::prepareDisplay()
 
     else
     {
-        m_size = m_pencil.sizeOf(m_text) + m_padding;
+        m_size = m_pencil.sizeOf(m_text)
+                + Vector2f(m_textPadding.x, m_textPadding.y)
+                + Vector2f(m_textPadding.w, m_textPadding.h);
         m_textDisplay.assign(m_text.begin(), m_text.end());
     }
 
@@ -164,16 +170,6 @@ void TextBox::setDefinedSize(bool definedSize)
 bool TextBox::isDefinedSize() const
 {
     return m_definedSize;
-}
-
-void TextBox::setTextAlign(TextAlign textAlign)
-{
-    this->m_textAlign = textAlign;
-}
-
-TextBox::TextAlign TextBox::getTextAlign() const
-{
-    return m_textAlign;
 }
 
 void TextBox::setArrowTexture(Texture arrowTexture)
@@ -195,16 +191,19 @@ bool TextBox::onEvent(const EventManager& event)
 
     Vector2f mousePos = event.mousePos;
 
-    if(event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_WHEEL_DOWN && m_offsetLine < m_offsetMax)
+    if(mousePos.isInsinde(m_pos, m_size))
     {
-        m_offsetLine++;
-        m_activate = true;
-    }
+        if(event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_WHEEL_DOWN && m_offsetLine < m_offsetMax)
+        {
+            m_offsetLine++;
+            m_activate = true;
+        }
 
-    if(event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_WHEEL_UP && m_offsetLine > 0)
-    {
-        m_offsetLine--;
-        m_activate = true;
+        if(event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_WHEEL_UP && m_offsetLine > 0)
+        {
+            m_offsetLine--;
+            m_activate = true;
+        }
     }
 
     if(event.notify == EventManager::EVENT_MOUSE_DOWN && event.lastActiveMouse.first == EventManager::MOUSE_BUTTON_LEFT)

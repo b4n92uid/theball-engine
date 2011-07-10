@@ -32,6 +32,60 @@ struct GuiSkin;
 
 /// \brief Class de bass pour tout les elements de l'interface graphique
 
+class Dimension
+{
+public:
+
+    Dimension()
+    {
+        this->x = 0;
+        this->y = 0;
+        this->w = 0;
+        this->h = 0;
+    }
+
+    Dimension(float v)
+    {
+        this->x = v;
+        this->y = v;
+        this->w = v;
+        this->h = v;
+    }
+
+    Dimension(float x, float y)
+    {
+        this->x = x;
+        this->y = y;
+        this->w = x;
+        this->h = y;
+    }
+
+    Dimension(float x, float y, float w, float h)
+    {
+        this->x = x;
+        this->y = y;
+        this->w = w;
+        this->h = h;
+    }
+
+    operator Vector2f()
+    {
+        return Vector2f(x, y);
+    }
+
+    float x, y, w, h;
+};
+
+enum Alignement
+{
+    VCENTER = 2, HCENTER = 4, LEFT = 8, RIGHT = 16, TOP = 32, BOTTOM = 64
+};
+
+enum Direction
+{
+    HORIZENTAL = 2, VERTICAL = 4
+};
+
 class Control
 {
 public:
@@ -97,6 +151,12 @@ public:
     void setOpacity(float opacity);
     float getOpacity() const;
 
+    void setTextAlign(unsigned textAlign);
+    unsigned getTextAlign() const;
+
+    void setTextPadding(Dimension textPadding);
+    Dimension getTextPadding() const;
+
     void setName(std::string name);
     std::string getName() const;
 
@@ -106,9 +166,6 @@ public:
     void setMetaCount(int metaCount);
     int getMetaCount() const;
 
-    void setPadding(Vector2f padding);
-    Vector2f getPadding() const;
-
 protected:
     virtual void objectRender() = 0;
 
@@ -117,7 +174,7 @@ protected:
 
     void drawBackground();
     void drawSurface(Vector2f pos[], Vector2f st[], unsigned draw);
-    void drawSurface(Vector2f pos, Vector2f size, Vector2f tcOffset, Vector2f tcLength);
+    void drawSurface(Vector2f pos, Vector2f size, Vector2f tcOffset = 0, Vector2f tcLength = 1);
 
     std::string m_name;
     std::string m_label;
@@ -131,7 +188,8 @@ protected:
     Vector2f m_pos;
     Vector2f m_size;
 
-    Vector2f m_padding;
+    unsigned m_textAlign;
+    Dimension m_textPadding;
 
     float m_opacity;
 

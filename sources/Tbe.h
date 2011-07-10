@@ -90,9 +90,6 @@
 #include "Switch.h"
 #include "TextBox.h"
 #include "KeyConfig.h"
-#include "VectorBox.h"
-#include "ListBox.h"
-
 
 #endif	/* _TBE_H */
 

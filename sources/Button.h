@@ -26,11 +26,11 @@ public:
 protected:
     void objectRender();
 
+protected:
+
     enum State
     {
-        NO_EVENT,
-        OVER,
-        PUSH
+        NO_EVENT, OVER, PUSH
     } m_state;
 };
 

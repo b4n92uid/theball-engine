@@ -34,8 +34,6 @@ class Image;
 class GuiSkin;
 class Gauge;
 class KeyConfig;
-class VectorBox;
-class ListBox;
 
 /// \brief Gestionnaire de l'interface graphique
 
@@ -78,12 +76,6 @@ public:
 
     /// Détruite la session sees
     void destroySession(unsigned name);
-
-    /// Ajout le control ListBox
-    ListBox* addListBox(std::string name);
-
-    /// Ajout le control VectorBox
-    VectorBox* addVectorBox(std::string name, Vector3f value);
 
     /// Ajout le control TextFont
     TextBox* addTextBox(std::string name);

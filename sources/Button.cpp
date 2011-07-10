@@ -52,7 +52,23 @@ void Button::objectRender()
 
     if(m_pencil)
     {
-        m_pencil.display(m_pencil.centerOf(m_label, m_pos, m_size), m_label);
+        Vector2f pos;
+
+        if(m_textAlign & HCENTER)
+            pos.x = m_pencil.centerOf(m_label, m_pos, m_size).x;
+        else if(m_textAlign & LEFT)
+            pos.x = m_pos.x + m_textPadding.x;
+        else if(m_textAlign & RIGHT)
+            pos.x = m_pos.x + m_size.x - m_pencil.sizeOf(m_label).x - m_textPadding.w;
+
+        if(m_textAlign & VCENTER)
+            pos.y = m_pencil.centerOf(m_label, m_pos, m_size).y;
+        else if(m_textAlign & TOP)
+            pos.y = m_pos.y + m_size.y - m_pencil.sizeOf(m_label).y - m_textPadding.h;
+        else if(m_textAlign & BOTTOM)
+            pos.y = m_pos.y + m_textPadding.y;
+
+        m_pencil.display(pos, m_label);
     }
 }
 
