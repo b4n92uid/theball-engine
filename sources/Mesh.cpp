@@ -394,7 +394,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     if(material->m_renderFlags & Material::BLEND_ADD)
     {
         glEnable(GL_BLEND);
-        glBlendFunc(GL_ONE, GL_ONE);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
         glDepthMask(false);
     }
