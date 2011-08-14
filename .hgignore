@@ -1,14 +1,22 @@
-build
+# Output directories
+CMakeFiles
+Release
+Debug
+
+# Ignored directories
 demos
-dist
 ignore
 sourcesold
-private
 
+# IDE project files
+nbproject
+qproject
+
+# User config files
+Makefile
+CMakeCache.txt
+
+# ...
 syntax: glob
-**.exe
-**.dll
-**.lnk
-*.bash
-*.mk
-.dep.inc
+*.lnk
+*.bat
