@@ -19,3 +19,4 @@ CMakeCache.txt
 syntax: glob
 *.lnk
 *.bat
+*.cmake
