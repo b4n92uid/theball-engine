@@ -31,15 +31,19 @@ public:
 
     void setThreshold(float threshold);
     float getThreshold() const;
-    
+
     void setBlurPass(unsigned blurPass);
     unsigned getBlurPass() const;
+
+    void setAverage(bool average);
+    bool isAverage() const;
 
 private:
     Shader m_blurShader;
     float m_threshold;
     float m_intensity;
     unsigned m_blurPass;
+    bool average;
 };
 
 }

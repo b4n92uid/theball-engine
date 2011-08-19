@@ -23,17 +23,28 @@ static const char brightFragShader[] =
         "uniform sampler2D texture;"
         "uniform float threshold;"
         "uniform float intensity;"
+        "uniform bool average;"
 
         "void main(void)"
         "{"
 
         "vec4 final = texture2D(texture, gl_TexCoord[0].st);"
 
-        "if(final.x > threshold || final.y > threshold || final.z > threshold)"
-        "   gl_FragColor = final * intensity;"
+        "if(average)"
+        "{"
+        "   if((final.x + final.y + final.z) / 3.0 > threshold)"
+        "      gl_FragColor = final * intensity;"
+        "   else "
+        "      gl_FragColor = vec4(0, 0, 0, 0);"
+        "}"
 
         "else"
-        "   gl_FragColor = vec4(0, 0, 0, 0);"
+        "{"
+        "   if(final.x > threshold || final.y > threshold || final.z > threshold)"
+        "      gl_FragColor = final * intensity;"
+        "   else "
+        "      gl_FragColor = vec4(0, 0, 0, 0);"
+        "}"
 
         "}";
 
@@ -178,4 +189,18 @@ void BloomEffect::setBlurPass(unsigned blurPass)
 unsigned BloomEffect::getBlurPass() const
 {
     return m_blurPass;
+}
+
+void BloomEffect::setAverage(bool average)
+{
+    this->average = average;
+
+    m_processShader.use(true);
+    m_processShader.uniform("average", average);
+    m_processShader.use(false);
+}
+
+bool BloomEffect::isAverage() const
+{
+    return average;
 }
