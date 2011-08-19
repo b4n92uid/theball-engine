@@ -384,7 +384,7 @@ void SceneParser::buildScene()
     fog->setColor(m_mapDescriptor.fog.color);
     fog->setStart(m_mapDescriptor.fog.start);
     fog->setEnd(m_mapDescriptor.fog.end);
-    fog->setEnable(true);
+    fog->setEnable(m_mapDescriptor.fog.enable);
 
     Texture skytex[6];
 
@@ -408,7 +408,7 @@ void SceneParser::buildScene()
 
     scene::SkyBox * sky = m_sceneManager->getSkybox();
     sky->setTextures(skytex);
-    sky->setEnable(true);
+    sky->setEnable(m_mapDescriptor.skybox.enable);
 
     m_sceneManager->setAmbientLight(m_mapDescriptor.ambiante);
 
