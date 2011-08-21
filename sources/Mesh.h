@@ -146,6 +146,8 @@ public:
     void setVertexScale(Vector3f vertexScale);
     Vector3f getVertexScale() const;
 
+    void generateMulTexCoord();
+    
     typedef std::map<std::string, Mesh*> Map;
     typedef std::vector<Mesh*> Array;
 

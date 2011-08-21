@@ -346,7 +346,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             unsigned textureIndex = GL_TEXTURE0 + itt->first;
 
             glClientActiveTexture(textureIndex);
-            m_hardwareBuffer.bindTexture();
+            m_hardwareBuffer.bindTexture(true, itt->first);
 
             glActiveTexture(textureIndex);
             glEnable(GL_TEXTURE_2D);
@@ -931,4 +931,14 @@ std::vector<std::string> Mesh::getUsedRessources()
     }
 
     return ressPath;
+}
+
+void Mesh::generateMulTexCoord()
+{
+    unsigned txcount = m_materials.begin()->second->getTexturesCount() - 1;
+
+    for(unsigned i=0; i<txcount; i++)
+        m_hardwareBuffer.newMultiTexCoord(i);
+        
+    m_hardwareBuffer.compile();
 }

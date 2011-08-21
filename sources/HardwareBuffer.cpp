@@ -113,15 +113,30 @@ void HardwareBuffer::clear()
 
 void HardwareBuffer::compile(GLenum usage)
 {
+    typedef std::map<unsigned, Vector2f::Array> vu2map;
+
     m_usage = usage;
     m_vertexCount = m_vertex.size();
     m_bufferSize = m_vertex.size() * sizeof (Vertex);
+    m_bufferSize += m_vertex.size() * sizeof (Vector2f);
+
+    m_multiTexCoordOffset = m_vertex.size() * sizeof (Vertex);
 
     if(m_vertex.size() % 3 > 0)
         cout << "HardwareBuffer::Compile; Mesh faces are not triangulated" << endl;
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
     glBufferDataARB(GL_ARRAY_BUFFER_ARB, m_bufferSize, &m_vertex[0], usage);
+
+    unsigned mtoffset = m_multiTexCoordOffset;
+
+    for(vu2map::iterator it = m_multiTexCoord.begin(); it != m_multiTexCoord.end(); it++)
+    {
+        int size = it->second.size() * sizeof (Vector2f);
+        glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, mtoffset, size, &it->second[0]);
+
+        mtoffset += size;
+    }
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
@@ -168,12 +183,23 @@ void HardwareBuffer::bindColor(bool state)
         glDisableClientState(GL_COLOR_ARRAY);
 }
 
-void HardwareBuffer::bindTexture(bool state)
+void HardwareBuffer::bindTexture(bool state, unsigned layer)
 {
     if(state)
     {
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-        glTexCoordPointer(2, GL_FLOAT, vertexStrid, texUvOffset);
+
+        if(!layer)
+            glTexCoordPointer(2, GL_FLOAT, vertexStrid, texUvOffset);
+        else
+        {
+            if(!m_multiTexCoord.count(layer))
+                glTexCoordPointer(2, GL_FLOAT, vertexStrid, texUvOffset);
+
+            else
+                glTexCoordPointer(2, GL_FLOAT, 0, (void*)(m_multiTexCoordOffset
+                                  + (layer-1) * m_vertexCount * sizeof (Vector2f)));
+        }
     }
 
     else
@@ -262,6 +288,19 @@ Vertex::Array HardwareBuffer::getAllVertex(bool makeUnique)
     }
 
     return allVertexs;
+}
+
+void HardwareBuffer::newMultiTexCoord(unsigned index)
+{
+    m_multiTexCoord[index].clear();
+
+    for(unsigned i = 0; i < m_vertex.size(); i++)
+        m_multiTexCoord[index].push_back(m_vertex[i].texCoord);
+}
+
+void HardwareBuffer::setMultiTexCoord(unsigned index, Vector2f::Array uv)
+{
+    m_multiTexCoord[index] = uv;
 }
 
 bool HardwareBuffer::checkHardware()

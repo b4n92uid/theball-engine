@@ -8,6 +8,7 @@
 #ifndef _HARDWAREBUFFER_H
 #define	_HARDWAREBUFFER_H
 
+#include <map>
 #include <vector>
 
 #include "GLee.h"
@@ -105,7 +106,7 @@ public:
     void bindBuffer(bool state = true);
 
     /// Activer le rendue des coordonnées de texture
-    void bindTexture(bool state = true);
+    void bindTexture(bool state = true, unsigned layer = 0);
 
     /// Activer le rendue des couleur associer aux vertexs
     void bindColor(bool state = true);
@@ -143,6 +144,9 @@ public:
      */
     Vertex::Array getAllVertex(bool makeUnique = false);
 
+    void setMultiTexCoord(unsigned index, Vector2f::Array uv);
+    void newMultiTexCoord(unsigned index);
+
     /**
      * Vérifier le support des extention requis par la carte graphique pour le rendue
      *
@@ -159,6 +163,9 @@ protected:
 
     unsigned m_vertexCount;
     unsigned m_bufferSize;
+
+    unsigned m_multiTexCoordOffset;
+    std::map<unsigned, Vector2f::Array> m_multiTexCoord;
 };
 
 }
