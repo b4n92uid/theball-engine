@@ -336,6 +336,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     if(material->m_renderFlags & Material::TEXTURED)
     {
         Texture::Map& textures = material->m_textures;
+        Material::TexApplyMap& texApply = material->m_texApply;
 
         for(Texture::Map::iterator itt = textures.begin();
             itt != textures.end(); itt++)
@@ -346,6 +347,50 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             unsigned textureIndex = GL_TEXTURE0 + itt->first;
 
             glClientActiveTexture(textureIndex);
+
+            /*
+             * Animation de la texture par modification des coordonés UV
+             */
+            if(texApply[itt->first].animation > 0)
+            {
+                const Vertex::Array& initvert = m_hardwareBuffer.getInitialVertex();
+
+                Vector2i& curpart = texApply[itt->first].part;
+
+                if(texApply[itt->first].clock.isEsplanedTime(texApply[itt->first].animation))
+                {
+                    unsigned count = m_hardwareBuffer.getVertexCount();
+                    Vector2f* uvs = m_hardwareBuffer.lockMultiTexCoord(itt->first);
+
+                    for(unsigned i = 0; i < count; i++)
+                    {
+                        Vector2f frame((float)texApply[itt->first].frameSize.x / (float)itt->second.getSize().x,
+                                       (float)texApply[itt->first].frameSize.y / (float)itt->second.getSize().y);
+
+                        Vector2f scaled(initvert[i].texCoord.x * frame.x,
+                                        initvert[i].texCoord.y * frame.y);
+
+                        uvs[i].x = scaled.x + frame.x * curpart.x;
+                        uvs[i].y = scaled.y + frame.y * curpart.y;
+                    }
+
+
+                    m_hardwareBuffer.unlock(false);
+
+                    curpart.x++;
+
+                    if(curpart.x >= itt->second.getSize().x / texApply[itt->first].frameSize.x)
+                    {
+                        curpart.x = 0;
+                        curpart.y++;
+
+                        if(curpart.y >= itt->second.getSize().y / texApply[itt->first].frameSize.y)
+                            curpart.y = 0;
+                    }
+                }
+            }
+
+
             m_hardwareBuffer.bindTexture(true, itt->first);
 
             glActiveTexture(textureIndex);
@@ -353,15 +398,15 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
             itt->second.use(true);
 
-            unsigned multexb = itt->second.getMulTexBlend();
+            unsigned multexb = texApply[itt->first].blend;
 
-            if(multexb == Texture::REPLACE)
+            if(multexb == Material::REPLACE)
                 glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
-            else if(multexb == Texture::ADDITIVE)
+            else if(multexb == Material::ADDITIVE)
                 glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
 
-            else if(multexb == Texture::MODULATE)
+            else if(multexb == Material::MODULATE)
                 glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
         }
     }
@@ -859,11 +904,13 @@ Node::CtorMap Mesh::constructionMap(std::string root)
                 ctormap[key] = tools::pathScope(root, tex.getFilename(), false);
                 ctormap[key] += ";";
 
-                if(tex.getMulTexBlend() == Texture::MODULATE)
+                unsigned blend = it->second->m_texApply[i].blend;
+
+                if(blend == Material::MODULATE)
                     ctormap[key] += "modulate";
-                if(tex.getMulTexBlend() == Texture::ADDITIVE)
+                if(blend == Material::ADDITIVE)
                     ctormap[key] += "additive";
-                if(tex.getMulTexBlend() == Texture::REPLACE)
+                if(blend == Material::REPLACE)
                     ctormap[key] += "replace";
             }
         }
@@ -935,10 +982,28 @@ std::vector<std::string> Mesh::getUsedRessources()
 
 void Mesh::generateMulTexCoord()
 {
-    unsigned txcount = m_materials.begin()->second->getTexturesCount() - 1;
+    Material* mat = m_materials.begin()->second;
 
-    for(unsigned i=0; i<txcount; i++)
-        m_hardwareBuffer.newMultiTexCoord(i);
-        
+    for(Texture::Map::iterator itt = mat->m_textures.begin(); itt != mat->m_textures.end(); itt++)
+        m_hardwareBuffer.newMultiTexCoord(itt->first);
+
     m_hardwareBuffer.compile();
+
+    for(Texture::Map::iterator itt = mat->m_textures.begin(); itt != mat->m_textures.end(); itt++)
+    {
+        if(itt->first == 0)
+            continue;
+
+        Vector2f* uvs = m_hardwareBuffer.lockMultiTexCoord(itt->first);
+
+        unsigned count = m_hardwareBuffer.getVertexCount();
+
+        for(unsigned j = 0; j < count; j++)
+        {
+            uvs[j].x *= (float)mat->m_texApply[itt->first].frameSize.x / (float)itt->second.getSize().x;
+            uvs[j].y *= (float)mat->m_texApply[itt->first].frameSize.y / (float)itt->second.getSize().y;
+        }
+
+        m_hardwareBuffer.unlock();
+    }
 }
