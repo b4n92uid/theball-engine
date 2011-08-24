@@ -70,10 +70,25 @@ Vertex* HardwareBuffer::lock(GLenum usage)
     return offset;
 }
 
-void HardwareBuffer::unlock()
+Vector2f* HardwareBuffer::lockMultiTexCoord(unsigned index, GLenum usage)
+{
+    if(index < 1)
+        return NULL;
+
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
+
+    long base = (long)glMapBufferARB(GL_ARRAY_BUFFER_ARB, usage);
+    long offset = m_multiTexCoordOffset + (index - 1) * m_vertexCount * sizeof (Vector2f);
+
+    return reinterpret_cast<Vector2f*>(base + offset);
+}
+
+void HardwareBuffer::unlock(bool unbind)
 {
     glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+
+    if(unbind)
+        glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
 bool HardwareBuffer::isEmpty()
@@ -193,12 +208,12 @@ void HardwareBuffer::bindTexture(bool state, unsigned layer)
             glTexCoordPointer(2, GL_FLOAT, vertexStrid, texUvOffset);
         else
         {
-            if(!m_multiTexCoord.count(layer))
+            if(!m_multiTexCoord.count(layer - 1))
                 glTexCoordPointer(2, GL_FLOAT, vertexStrid, texUvOffset);
 
             else
                 glTexCoordPointer(2, GL_FLOAT, 0, (void*)(m_multiTexCoordOffset
-                                  + (layer-1) * m_vertexCount * sizeof (Vector2f)));
+                                  + (layer - 1) * m_vertexCount * sizeof (Vector2f)));
         }
     }
 
@@ -288,6 +303,11 @@ Vertex::Array HardwareBuffer::getAllVertex(bool makeUnique)
     }
 
     return allVertexs;
+}
+
+const Vertex::Array& HardwareBuffer::getInitialVertex()
+{
+    return m_vertex;
 }
 
 void HardwareBuffer::newMultiTexCoord(unsigned index)

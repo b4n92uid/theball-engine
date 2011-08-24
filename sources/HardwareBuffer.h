@@ -73,8 +73,11 @@ public:
     /// Véroulleu le buffer pour d'éventuelle modification
     Vertex* lock(GLenum usage = GL_READ_WRITE);
 
+    /// Véroulleu le buffer pour d'éventuelle modification
+    Vector2f* lockMultiTexCoord(unsigned index, GLenum usage = GL_READ_WRITE);
+
     /// Dévéroulleu le buffer pour signaler la fin des modification
-    void unlock();
+    void unlock(bool unbind = true);
 
     /// Ajoute une face au buffer
     void addFace(const Face& face);
@@ -143,6 +146,8 @@ public:
      *                  seront supprimer
      */
     Vertex::Array getAllVertex(bool makeUnique = false);
+    
+    const Vertex::Array& getInitialVertex();
 
     void setMultiTexCoord(unsigned index, Vector2f::Array uv);
     void newMultiTexCoord(unsigned index);
