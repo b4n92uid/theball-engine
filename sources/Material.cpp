@@ -161,6 +161,12 @@ std::string Material::getName() const
 void Material::setTexture(Texture texture, unsigned index)
 {
     m_textures[index] = texture;
+
+    if(!m_texApply.count(index))
+    {
+        TextureApply apply = {MODULATE, 1.0f, 0, 0};
+        m_texApply[index] = apply;
+    }
 }
 
 Texture Material::getTexture(unsigned index) const
@@ -271,4 +277,44 @@ void Material::setDrawPass(unsigned drawPass)
 unsigned Material::getDrawPass() const
 {
     return m_drawPass;
+}
+
+void Material::setTextureBlend(MulTexBlend type, unsigned index)
+{
+    m_texApply[index].blend = type;
+}
+
+Material::MulTexBlend Material::getTextureBlend(unsigned index)
+{
+    return m_texApply[index].blend;
+}
+
+void Material::setTextureFrameSize(Vector2i size, unsigned index)
+{
+    m_texApply[index].frameSize = size;
+}
+
+Vector2i Material::getTextureFrameSize(unsigned index)
+{
+    return m_texApply[index].frameSize;
+}
+
+void Material::setTexturePart(Vector2i part, unsigned index)
+{
+    m_texApply[index].part = part;
+}
+
+Vector2i Material::getTexturePart(unsigned index)
+{
+    return m_texApply[index].part;
+}
+
+void Material::setTextureAnimation(unsigned msec, unsigned index)
+{
+    m_texApply[index].animation = msec;
+}
+
+unsigned Material::getTextureAnimation(unsigned index)
+{
+    return m_texApply[index].animation;
 }

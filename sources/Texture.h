@@ -117,23 +117,6 @@ public:
     /// Renvois le chemin d'accée a la texture par un fichier
     std::string getFilename() const;
 
-    enum MulTexBlend
-    {
-        MODULATE,
-        REPLACE,
-        ADDITIVE,
-    };
-
-    /**
-     * Spécifier la méthode de mélange utiliser lors du multi-texturing
-     */
-    void setMulTexBlend(MulTexBlend flags);
-
-    /**
-     * Renvois la méthode de mélange utiliser lors du multi-texturing
-     */
-    MulTexBlend getMulTexBlend();
-
     /**
      * Supprime toute les texture partager
      * attention : tout les texture déja charger devienderont invalide
@@ -154,7 +137,6 @@ protected:
     bool m_upperLeftOrigin;
 
     unsigned m_filtring;
-    MulTexBlend m_mulTexBlend;
 };
 
 }

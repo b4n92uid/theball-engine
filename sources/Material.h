@@ -11,6 +11,8 @@
 #include <map>
 #include <string>
 
+#include "Clock.h"
+
 #include "Mathematics.h"
 #include "Texture.h"
 #include "Shader.h"
@@ -33,6 +35,43 @@ public:
     ~Material();
 
     Material & operator=(const Material& copy);
+
+    enum MulTexBlend
+    {
+        MODULATE,
+        REPLACE,
+        ADDITIVE,
+    };
+
+    enum
+    {
+        LIGHTED = 0x1,
+        TEXTURED = 0x2,
+        COLORED = 0x4,
+        FOGED = 0x8,
+
+        SHADER = 0x10,
+
+        TANGENT = 0x20,
+        AOCC = 0x40,
+
+        VERTEX_SORT = 0x80,
+        VERTEX_SORT_CULL_TRICK = 0x100,
+
+        BLEND_ADD = 0x200,
+        BLEND_MUL = 0x400,
+        BLEND_MOD = 0x800,
+
+        ALPHA = 0x1000,
+
+        FRONTFACE_CULL = 0x2000,
+        BACKFACE_CULL = 0x4000,
+    };
+
+    typedef std::vector<Material*> Array;
+    typedef std::map<std::string, Material*> Map;
+
+    friend class Mesh;
 
     void setRenderFlags(unsigned renderFlags);
     unsigned getRenderFlags() const;
@@ -111,35 +150,24 @@ public:
     void setDrawPass(unsigned drawPass);
     unsigned getDrawPass() const;
 
-    enum
-    {
-        LIGHTED = 0x1,
-        TEXTURED = 0x2,
-        COLORED = 0x4,
-        FOGED = 0x8,
+    /**
+     * Spécifier la méthode de mélange utiliser lors du multi-texturing
+     */
+    void setTextureBlend(MulTexBlend type, unsigned index = 0);
 
-        SHADER = 0x10,
+    /**
+     * Renvois la méthode de mélange utiliser lors du multi-texturing
+     */
+    MulTexBlend getTextureBlend(unsigned index = 0);
 
-        TANGENT = 0x20,
-        AOCC = 0x40,
+    void setTextureFrameSize(Vector2i size, unsigned index = 0);
+    Vector2i getTextureFrameSize(unsigned index = 0);
 
-        VERTEX_SORT = 0x80,
-        VERTEX_SORT_CULL_TRICK = 0x100,
+    void setTexturePart(Vector2i part, unsigned index = 0);
+    Vector2i getTexturePart(unsigned index = 0);
 
-        BLEND_ADD = 0x200,
-        BLEND_MUL = 0x400,
-        BLEND_MOD = 0x800,
-
-        ALPHA = 0x1000,
-
-        FRONTFACE_CULL = 0x2000,
-        BACKFACE_CULL = 0x4000,
-    };
-
-    typedef std::vector<Material*> Array;
-    typedef std::map<std::string, Material*> Map;
-
-    friend class Mesh;
+    void setTextureAnimation(unsigned msec, unsigned index = 0);
+    unsigned getTextureAnimation(unsigned index = 0);
 
 protected:
     std::string m_name;
@@ -165,6 +193,19 @@ protected:
 
     bool m_depthTest;
     bool m_depthWrite;
+
+    struct TextureApply
+    {
+        MulTexBlend blend;
+        Vector2i frameSize;
+        Vector2i part;
+        int animation;
+        ticks::Clock clock;
+    };
+
+    typedef std::map<unsigned, TextureApply> TexApplyMap;
+
+    TexApplyMap m_texApply;
 };
 
 }

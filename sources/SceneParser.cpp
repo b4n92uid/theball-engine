@@ -449,14 +449,17 @@ void SceneParser::buildMaterial(AttribMap& att, Mesh* mesh)
                 Texture tex;
                 tex.load(tools::pathScope(m_mapDescriptor.fileName, valtoken[0], true), true);
 
+                int layer = tools::strToNum<int>(token[2]);
+                
+                material->setTexture(tex, layer);
+                
                 if(valtoken[1] == "additive")
-                    tex.setMulTexBlend(Texture::ADDITIVE);
+                    material->setTextureBlend(Material::ADDITIVE, layer);
                 if(valtoken[1] == "modulate")
-                    tex.setMulTexBlend(Texture::MODULATE);
+                    material->setTextureBlend(Material::MODULATE, layer);
                 if(valtoken[1] == "replace")
-                    tex.setMulTexBlend(Texture::REPLACE);
+                    material->setTextureBlend(Material::REPLACE, layer);
 
-                material->setTexture(tex, tools::strToNum<int>(token[2]));
             }
 
             else

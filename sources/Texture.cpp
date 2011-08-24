@@ -58,7 +58,6 @@ Texture::Texture()
     m_genMipMap = false;
     m_upperLeftOrigin = false;
     m_filtring = 0;
-    m_mulTexBlend = MODULATE;
 }
 
 Texture::Texture(const Texture& copy)
@@ -72,7 +71,6 @@ Texture::Texture(std::string filename, bool genMipMap, bool upperLeftOrigin)
     m_genMipMap = false;
     m_upperLeftOrigin = false;
     m_filtring = 0;
-    m_mulTexBlend = MODULATE;
 
     load(filename, genMipMap, upperLeftOrigin);
 }
@@ -83,7 +81,6 @@ Texture::Texture(const char* filename, bool genMipMap, bool upperLeftOrigin)
     m_genMipMap = false;
     m_upperLeftOrigin = false;
     m_filtring = 0;
-    m_mulTexBlend = MODULATE;
 
     load(filename, genMipMap, upperLeftOrigin);
 }
@@ -103,7 +100,6 @@ Texture& Texture::operator =(const Texture& copy)
     m_size = copy.m_size;
     m_textureName = copy.m_textureName;
     m_upperLeftOrigin = copy.m_upperLeftOrigin;
-    m_mulTexBlend = copy.m_mulTexBlend;
 
     return *this;
 }
@@ -150,7 +146,6 @@ void Texture::remove()
         m_upperLeftOrigin = false;
 
         m_filtring = 0;
-        m_mulTexBlend = MODULATE;
     }
 }
 
@@ -375,14 +370,4 @@ bool Texture::isGenMipMap() const
 std::string Texture::getFilename() const
 {
     return m_filename;
-}
-
-void Texture::setMulTexBlend(MulTexBlend flags)
-{
-    m_mulTexBlend = flags;
-}
-
-Texture::MulTexBlend Texture::getMulTexBlend()
-{
-    return m_mulTexBlend;
 }
