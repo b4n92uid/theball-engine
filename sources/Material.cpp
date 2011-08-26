@@ -164,7 +164,7 @@ void Material::setTexture(Texture texture, unsigned index)
 
     if(!m_texApply.count(index))
     {
-        TextureApply apply = {MODULATE, 1.0f, 0, 0};
+        TextureApply apply = {MODULATE, false, 1.0f, 0, 0};
         m_texApply[index] = apply;
     }
 }
@@ -317,4 +317,14 @@ void Material::setTextureAnimation(unsigned msec, unsigned index)
 unsigned Material::getTextureAnimation(unsigned index)
 {
     return m_texApply[index].animation;
+}
+
+void Material::setTextureClipped(bool stat, unsigned index)
+{
+    m_texApply[index].clipped = stat;
+}
+
+bool Material::isTextureClipped(unsigned index)
+{
+    return m_texApply[index].clipped;
 }

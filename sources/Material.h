@@ -169,6 +169,9 @@ public:
     void setTextureAnimation(unsigned msec, unsigned index = 0);
     unsigned getTextureAnimation(unsigned index = 0);
 
+    void setTextureClipped(bool stat, unsigned index = 0);
+    bool isTextureClipped(unsigned index = 0);
+
 protected:
     std::string m_name;
 
@@ -197,8 +200,11 @@ protected:
     struct TextureApply
     {
         MulTexBlend blend;
+        
+        bool clipped;
         Vector2i frameSize;
         Vector2i part;
+        
         int animation;
         ticks::Clock clock;
     };

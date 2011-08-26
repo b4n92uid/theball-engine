@@ -351,43 +351,45 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             /*
              * Animation de la texture par modification des coordonés UV
              */
-            if(texApply[itt->first].animation > 0)
+            if(texApply[itt->first].clipped)
             {
                 const Vertex::Array& initvert = m_hardwareBuffer.getInitialVertex();
 
                 Vector2i& curpart = texApply[itt->first].part;
 
-                if(texApply[itt->first].clock.isEsplanedTime(texApply[itt->first].animation))
+                unsigned count = m_hardwareBuffer.getVertexCount();
+                Vector2f* uvs = m_hardwareBuffer.lockMultiTexCoord(itt->first);
+
+                const Vector2f& texSize = itt->second.getSize();
+
+                for(unsigned i = 0; i < count; i++)
                 {
-                    unsigned count = m_hardwareBuffer.getVertexCount();
-                    Vector2f* uvs = m_hardwareBuffer.lockMultiTexCoord(itt->first);
+                    Vector2f frame((float)texApply[itt->first].frameSize.x / (float)texSize.x,
+                                   (float)texApply[itt->first].frameSize.y / (float)texSize.y);
 
-                    for(unsigned i = 0; i < count; i++)
-                    {
-                        Vector2f frame((float)texApply[itt->first].frameSize.x / (float)itt->second.getSize().x,
-                                       (float)texApply[itt->first].frameSize.y / (float)itt->second.getSize().y);
+                    Vector2f scaled(initvert[i].texCoord.x * frame.x,
+                                    initvert[i].texCoord.y * frame.y);
 
-                        Vector2f scaled(initvert[i].texCoord.x * frame.x,
-                                        initvert[i].texCoord.y * frame.y);
-
-                        uvs[i].x = scaled.x + frame.x * curpart.x;
-                        uvs[i].y = scaled.y + frame.y * curpart.y;
-                    }
-
-
-                    m_hardwareBuffer.unlock(false);
-
-                    curpart.x++;
-
-                    if(curpart.x >= itt->second.getSize().x / texApply[itt->first].frameSize.x)
-                    {
-                        curpart.x = 0;
-                        curpart.y++;
-
-                        if(curpart.y >= itt->second.getSize().y / texApply[itt->first].frameSize.y)
-                            curpart.y = 0;
-                    }
+                    uvs[i].x = scaled.x + frame.x * curpart.x;
+                    uvs[i].y = scaled.y + frame.y * curpart.y;
                 }
+
+                m_hardwareBuffer.unlock(false);
+
+                if(texApply[itt->first].animation > 0)
+                    if(texApply[itt->first].clock.isEsplanedTime(texApply[itt->first].animation))
+                    {
+                        curpart.x++;
+
+                        if(curpart.x >= texSize.x / texApply[itt->first].frameSize.x)
+                        {
+                            curpart.x = 0;
+                            curpart.y++;
+
+                            if(curpart.y >= texSize.y / texApply[itt->first].frameSize.y)
+                                curpart.y = 0;
+                        }
+                    }
             }
 
 
@@ -989,21 +991,23 @@ void Mesh::generateMulTexCoord()
 
     m_hardwareBuffer.compile();
 
-    for(Texture::Map::iterator itt = mat->m_textures.begin(); itt != mat->m_textures.end(); itt++)
-    {
-        if(itt->first == 0)
-            continue;
-
-        Vector2f* uvs = m_hardwareBuffer.lockMultiTexCoord(itt->first);
-
-        unsigned count = m_hardwareBuffer.getVertexCount();
-
-        for(unsigned j = 0; j < count; j++)
+    /*
+        for(Texture::Map::iterator itt = mat->m_textures.begin(); itt != mat->m_textures.end(); itt++)
         {
-            uvs[j].x *= (float)mat->m_texApply[itt->first].frameSize.x / (float)itt->second.getSize().x;
-            uvs[j].y *= (float)mat->m_texApply[itt->first].frameSize.y / (float)itt->second.getSize().y;
-        }
+            if(itt->first == 0)
+                continue;
 
-        m_hardwareBuffer.unlock();
-    }
+            Vector2f* uvs = m_hardwareBuffer.lockMultiTexCoord(itt->first);
+
+            unsigned count = m_hardwareBuffer.getVertexCount();
+
+            for(unsigned j = 0; j < count; j++)
+            {
+                uvs[j].x *= (float)mat->m_texApply[itt->first].frameSize.x / (float)itt->second.getSize().x;
+                uvs[j].y *= (float)mat->m_texApply[itt->first].frameSize.y / (float)itt->second.getSize().y;
+            }
+
+            m_hardwareBuffer.unlock();
+        }
+     //*/
 }
