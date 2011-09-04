@@ -145,7 +145,7 @@ AABB Mesh::getAbsolutAabb()
     AABB aabb;
 
     Matrix4 mat = getAbsoluteMatrix();
-    Vertex* vertex = m_hardwareBuffer->lock();
+    Vertex* vertex = m_hardwareBuffer->lock(GL_READ_ONLY);
 
     for(unsigned i = 0; i < vertexCount; i++)
         aabb.count(mat * vertex[i].pos);
@@ -164,7 +164,7 @@ void Mesh::computeAabb()
 
     unsigned vertexCount = m_hardwareBuffer->getVertexCount();
 
-    Vertex* vertex = m_hardwareBuffer->lock();
+    Vertex* vertex = m_hardwareBuffer->lock(GL_READ_ONLY);
 
     for(unsigned i = 0; i < vertexCount; i++)
         m_aabb.count(vertex[i].pos);
@@ -272,7 +272,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     GLint tangentAttribIndex = -1, aoccAttribIndex = -1;
 
     unsigned vertexCount = m_hardwareBuffer->getVertexCount();
-    
+
     m_hardwareBuffer->restore();
 
     m_hardwareBuffer->bindBuffer();
@@ -525,7 +525,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     Vertex* vertex = m_hardwareBuffer->lock();
 
     m_aabb.clear();
-    
+
     for(unsigned i = 0; i < vertexCount; i++)
     {
         vertex[i].pos *= m_vertexScale;
@@ -709,7 +709,7 @@ Vector3f RayCastTriangle(Vector3f p, Vector3f d, Vector3f v0, Vector3f v1, Vecto
 
 bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, bool global)
 {
-    Vertex* vertex = m_hardwareBuffer->lock();
+    Vertex* vertex = m_hardwareBuffer->lock(GL_READ_ONLY);
 
     Matrix4 absmat = getAbsoluteMatrix();
 
@@ -864,7 +864,7 @@ void Mesh::applyMaterial(Material* material, unsigned offset, unsigned size)
     throw tbe::Exception("Mesh::ApplyMaterial; Material ptr not found");
 }
 
-HardwareBuffer* Mesh::getHardwareBuffer()
+HardwareBuffer* Mesh::getHardwareBuffer() const
 {
     return m_hardwareBuffer;
 }
@@ -1006,9 +1006,4 @@ void Mesh::generateMulTexCoord()
         m_hardwareBuffer->newMultiTexCoord(itt->first);
 
     m_hardwareBuffer->compile();
-}
-
-void Mesh::ownHardwareBuffer()
-{
-    m_hardwareBuffer = new HardwareBuffer(*m_hardwareBuffer);
 }

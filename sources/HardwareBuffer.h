@@ -131,7 +131,7 @@ public:
     void render(GLenum mode = GL_TRIANGLES, unsigned first = 0, unsigned count = 0);
 
     /// Renvois true si le buffer est compiler et pret au rendue
-    bool isEmpty();
+    bool isEmpty() const;
 
     /// Renvois la taille du buffer en octet
     unsigned getBufferSize() const;
@@ -150,7 +150,7 @@ public:
      */
     Vertex::Array getAllVertex(bool makeUnique = false);
 
-    const Vertex::Array& getInitialVertex();
+    const Vertex::Array& getInitialVertex() const;
 
     void setMultiTexCoord(unsigned index, Vector2f::Array uv);
     void newMultiTexCoord(unsigned index);

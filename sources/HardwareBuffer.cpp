@@ -91,7 +91,7 @@ void HardwareBuffer::unlock(bool unbind)
         glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
-bool HardwareBuffer::isEmpty()
+bool HardwareBuffer::isEmpty() const
 {
     return !m_vertexCount && !m_bufferSize;
 }
@@ -305,7 +305,7 @@ Vertex::Array HardwareBuffer::getAllVertex(bool makeUnique)
     return allVertexs;
 }
 
-const Vertex::Array& HardwareBuffer::getInitialVertex()
+const Vertex::Array& HardwareBuffer::getInitialVertex() const
 {
     return m_vertex;
 }

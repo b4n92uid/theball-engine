@@ -136,7 +136,7 @@ public:
     bool isVisible() const;
 
     /// Renvois le buffer graphique de rendue
-    HardwareBuffer* getHardwareBuffer();
+    HardwareBuffer* getHardwareBuffer() const;
 
     CtorMap constructionMap(std::string root);
 
@@ -172,8 +172,6 @@ protected:
 
     void fetch(const Mesh& copy);
     
-    virtual void ownHardwareBuffer();
-
 private:
     void render(Material* material, unsigned offset, unsigned size);
 
