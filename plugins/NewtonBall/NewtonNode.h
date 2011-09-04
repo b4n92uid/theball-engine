@@ -35,7 +35,9 @@ public:
     void buildSphereNode(Vector3f size, float masse);
     void buildCylinderNode(Vector3f size, float masse);
     void buildConvexNode(const Vertex::Array& vertexes, float masse);
+    void buildConvexNode(const tbe::scene::Mesh* mesh, float masse);
     void buildTreeNode(const Face::Array& faces);
+    void buildTreeNode(const tbe::scene::Mesh* mesh);
 
     /// Destruction de l'objet physique
     void destroyBody();

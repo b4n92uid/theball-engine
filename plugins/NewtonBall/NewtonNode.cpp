@@ -202,6 +202,16 @@ inline Vector3f::Array ExtractPos(const Vertex::Array& vertexes)
     return onlyPos;
 }
 
+void NewtonNode::buildConvexNode(const tbe::scene::Mesh* mesh, float masse)
+{
+    Vertex::Array vertexes = mesh->getHardwareBuffer()->getAllVertex(true);
+
+    for(unsigned i = 0; i < vertexes.size(); i++)
+        vertexes[i].pos *= mesh->getVertexScale();
+
+    buildConvexNode(vertexes, masse);
+}
+
 void NewtonNode::buildConvexNode(const Vertex::Array& vertexes, float masse)
 {
     if(!m_newtonWorld)
@@ -234,6 +244,17 @@ void NewtonNode::buildConvexNode(const Vertex::Array& vertexes, float masse)
     NewtonBodySetMatrix(m_body, *m_updatedMatrix);
 
     NewtonReleaseCollision(m_newtonWorld, collision);
+}
+
+void NewtonNode::buildTreeNode(const tbe::scene::Mesh* mesh)
+{
+    Face::Array faces = mesh->getHardwareBuffer()->getAllFace();
+
+    for(unsigned i = 0; i < faces.size(); i++)
+        for(unsigned j = 0; j < faces[i].size(); j++)
+            faces[i][j].pos *= mesh->getVertexScale();
+
+    buildTreeNode(faces);
 }
 
 void NewtonNode::buildTreeNode(const Face::Array& faces)
