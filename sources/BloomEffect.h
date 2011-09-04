@@ -39,7 +39,9 @@ public:
     bool isAverage() const;
 
 private:
-    Shader m_blurShader;
+    Shader m_horzBlurShader;
+    Shader m_vertBlurShader;
+    
     float m_threshold;
     float m_intensity;
     unsigned m_blurPass;

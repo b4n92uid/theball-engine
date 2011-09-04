@@ -13,6 +13,7 @@ using namespace tbe;
 using namespace tbe::ppe;
 
 static const char textureVertexShader[] =
+        "#version 110\n"
         "void main(void)"
         "{"
         "gl_TexCoord[0] = gl_MultiTexCoord0;"
@@ -20,6 +21,7 @@ static const char textureVertexShader[] =
         "}";
 
 static const char brightFragShader[] =
+        "#version 110\n"
         "uniform sampler2D texture;"
         "uniform float threshold;"
         "uniform float intensity;"
@@ -48,28 +50,60 @@ static const char brightFragShader[] =
 
         "}";
 
-static const char blurFragShader[] =
+static const char horzBlurFragShader[] =
+        "#version 110\n"
         "uniform sampler2D texture;"
 
         "void main(void)"
         "{"
 
-        "vec4 final = texture2D(texture, gl_TexCoord[0].st);"
+        "vec4 final;"
 
         "float offset = 0.0078125;"
 
+        "final += texture2D(texture, gl_TexCoord[0].st - vec2(offset * 4.0,0));"
+        "final += texture2D(texture, gl_TexCoord[0].st - vec2(offset * 3.0,0));"
+        "final += texture2D(texture, gl_TexCoord[0].st - vec2(offset * 2.0,0));"
+        "final += texture2D(texture, gl_TexCoord[0].st - vec2(offset,0));"
+        "final += texture2D(texture, gl_TexCoord[0].st);"
         "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset,0));"
-        "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,0));"
-        "final += texture2D(texture, gl_TexCoord[0].st + vec2(0,offset));"
-        "final += texture2D(texture, gl_TexCoord[0].st + vec2(0,-offset));"
-        "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset,offset));"
-        "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset,-offset));"
-        "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,-offset));"
-        "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset * 2.0,0));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset * 3.0,0));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset * 4.0,0));"
 
-        "final /= vec4(9);"
+        "final /= vec4(9.0);"
 
-        "if(final == vec4(0))"
+        "if(final == vec4(0.0))"
+        "   discard;"
+
+        "gl_FragColor = final;"
+
+        "}";
+
+static const char vertBlurFragShader[] =
+        "#version 110\n"
+        "uniform sampler2D texture;"
+
+        "void main(void)"
+        "{"
+
+        "vec4 final;"
+
+        "float offset = 0.0078125;"
+
+        "final += texture2D(texture, gl_TexCoord[0].st - vec2(0, offset * 4.0));"
+        "final += texture2D(texture, gl_TexCoord[0].st - vec2(0, offset * 3.0));"
+        "final += texture2D(texture, gl_TexCoord[0].st - vec2(0, offset * 2.0));"
+        "final += texture2D(texture, gl_TexCoord[0].st - vec2(0, offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st);"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(0, offset));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(0, offset * 2.0));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(0, offset * 3.0));"
+        "final += texture2D(texture, gl_TexCoord[0].st + vec2(0, offset * 4.0));"
+
+        "final /= vec4(9.0);"
+
+        "if(final == vec4(0.0))"
         "   discard;"
 
         "gl_FragColor = final;"
@@ -82,14 +116,19 @@ BloomEffect::BloomEffect()
     m_processShader.parseFragmentShader(brightFragShader);
     m_processShader.loadProgram();
 
-    m_blurShader.parseVertexShader(textureVertexShader);
-    m_blurShader.parseFragmentShader(blurFragShader);
-    m_blurShader.loadProgram();
+    m_horzBlurShader.parseVertexShader(textureVertexShader);
+    m_horzBlurShader.parseFragmentShader(horzBlurFragShader);
+    m_horzBlurShader.loadProgram();
+
+    m_vertBlurShader.parseVertexShader(textureVertexShader);
+    m_vertBlurShader.parseFragmentShader(vertBlurFragShader);
+    m_vertBlurShader.loadProgram();
 
     m_blurPass = 1;
 
     setThreshold(0.5);
     setIntensity(1.0);
+    setAverage(false);
 }
 
 BloomEffect::~BloomEffect()
@@ -119,14 +158,25 @@ void BloomEffect::process(Rtt* rtt)
 
     // Step 2 ------------------------------------------------------------------
 
-    m_blurShader.use(true);
+    m_horzBlurShader.use(true);
 
     m_workRtt->getColor().use(true);
 
     for(unsigned i = 0; i < m_blurPass; i++)
         m_layer.draw();
 
-    m_blurShader.use(false);
+    m_horzBlurShader.use(false);
+
+    // --
+
+    m_vertBlurShader.use(true);
+
+    m_workRtt->getColor().use(true);
+
+    for(unsigned i = 0; i < m_blurPass; i++)
+        m_layer.draw();
+
+    m_vertBlurShader.use(false);
 
     m_workRtt->use(false);
 
