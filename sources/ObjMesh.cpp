@@ -68,14 +68,6 @@ OBJMesh::~OBJMesh()
         m_hardwareBuffer = NULL;
 }
 
-void OBJMesh::ownHardwareBuffer()
-{
-    if(manager.used(m_hardwareBuffer))
-    {
-        Mesh::ownHardwareBuffer();
-    }
-}
-
 void OBJMesh::open(const std::string& path)
 {
     OBJMesh* shared = manager.shared(path);
