@@ -18,6 +18,8 @@ Box::Box(MeshParallelScene* scene, Vector3f size) : Mesh(scene)
 
 void Box::setup(Vector3f size)
 {
+    m_hardwareBuffer = new HardwareBuffer;
+
     /*
     Vertex vertexs[24];
 
@@ -62,10 +64,10 @@ void Box::setup(Vector3f size)
             face.push_back(vertexs[i * 4 + j]);
         }
 
-        m_hardwareBuffer.addFace(face);
+        m_hardwareBuffer->addFace(face);
     }
 
-    m_hardwareBuffer.compile();
+    m_hardwareBuffer->compile();
 
     computeAabb();
 
@@ -128,10 +130,10 @@ void Box::setup(Vector3f size)
         for(unsigned j = 0; j < 3; j++)
             face.push_back(vertexs[i * 3 + j]);
 
-        m_hardwareBuffer.addFace(face);
+        m_hardwareBuffer->addFace(face);
     }
 
-    m_hardwareBuffer.compile();
+    m_hardwareBuffer->compile();
 
     setSize(size);
 
@@ -148,7 +150,7 @@ void Box::setSize(Vector3f size)
 
     m_aabb.clear();
 
-    Vertex* verts = m_hardwareBuffer.lock();
+    Vertex* verts = m_hardwareBuffer->lock();
 
     for(unsigned i = 0; i < 36; i++)
     {
@@ -156,7 +158,7 @@ void Box::setSize(Vector3f size)
         m_aabb.count(verts[i].pos);
     }
 
-    m_hardwareBuffer.unlock();
+    m_hardwareBuffer->unlock();
 }
 
 Vector3f Box::getSize() const
@@ -178,6 +180,8 @@ Sphere::Sphere(MeshParallelScene* scene, float radius, unsigned slices, unsigned
 
 void Sphere::setup(float radius, unsigned slices, unsigned stackes)
 {
+    m_hardwareBuffer = new HardwareBuffer;
+
     m_radius = radius;
 
     float fHorizontal = M_PI / slices;
@@ -224,10 +228,10 @@ void Sphere::setup(float radius, unsigned slices, unsigned stackes)
 
         }
 
-        m_hardwareBuffer.addFace(face);
+        m_hardwareBuffer->addFace(face);
     }
 
-    m_hardwareBuffer.compile();
+    m_hardwareBuffer->compile();
 
     computeAabb();
 
@@ -235,7 +239,7 @@ void Sphere::setup(float radius, unsigned slices, unsigned stackes)
     mainMaterial->setFaceType(Material::TRIANGLE_STRIP);
 
     addMaterial("main", mainMaterial);
-    applyMaterial(mainMaterial, 0, m_hardwareBuffer.getVertexCount());
+    applyMaterial(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
 }
 
 float Sphere::getRadius() const
@@ -258,6 +262,8 @@ Axes::Axes(MeshParallelScene* scene, float lineWidth, float lineLength) : Mesh(s
 
 void Axes::setup(float lineWidth, float lineLength)
 {
+    m_hardwareBuffer = new HardwareBuffer;
+
     m_lineWidth = lineWidth;
     m_lineLength = lineLength;
 
@@ -272,10 +278,10 @@ void Axes::setup(float lineWidth, float lineLength)
     faceZ.push_back(Vertex(Vector3f(0, 0, 0), 0.0, Vector4f(0, 0, 1, 1), 0.0));
     faceZ.push_back(Vertex(Vector3f(0, 0, m_lineLength), 0.0, Vector4f(0, 0, 1, 1), 0.0));
 
-    m_hardwareBuffer.addFace(faceX);
-    m_hardwareBuffer.addFace(faceY);
-    m_hardwareBuffer.addFace(faceZ);
-    m_hardwareBuffer.compile();
+    m_hardwareBuffer->addFace(faceX);
+    m_hardwareBuffer->addFace(faceY);
+    m_hardwareBuffer->addFace(faceZ);
+    m_hardwareBuffer->compile();
 
     computeAabb();
 
@@ -312,6 +318,8 @@ Plane::Plane(MeshParallelScene* scene, Vector2f size, Vector2i cut) : Mesh(scene
 
 void Plane::setup(Vector2f size, Vector2i cut)
 {
+    m_hardwareBuffer = new HardwareBuffer;
+
     Vector2f quadSize = size / Vector2f(cut);
 
     for(int x = 0; x < cut.x; x++)
@@ -363,11 +371,11 @@ void Plane::setup(Vector2f size, Vector2i cut)
                 face2.push_back(vertextes[i + 3]);
             }
 
-            m_hardwareBuffer.addFace(face);
-            m_hardwareBuffer.addFace(face2);
+            m_hardwareBuffer->addFace(face);
+            m_hardwareBuffer->addFace(face2);
         }
 
-    m_hardwareBuffer.compile();
+    m_hardwareBuffer->compile();
 
     computeAabb();
 
@@ -376,7 +384,7 @@ void Plane::setup(Vector2f size, Vector2i cut)
 
     addMaterial("main", mainMaterial);
 
-    applyMaterial(mainMaterial, 0, m_hardwareBuffer.getVertexCount());
+    applyMaterial(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
 }
 
 Vector2i Plane::getCut() const
@@ -403,6 +411,8 @@ Grid::Grid(MeshParallelScene* scene, Vector2f size, Vector2i cut) : Mesh(scene)
 
 void Grid::setup(Vector2f size, Vector2i cut)
 {
+    m_hardwareBuffer = new HardwareBuffer;
+
     Vector2f quadSize = size / Vector2f(cut);
 
     for(int x = -cut.x; x <= cut.x; x++)
@@ -417,7 +427,7 @@ void Grid::setup(Vector2f size, Vector2i cut)
         vertexs[0] = Vertex(Vector3f(quadSize.x * x, 0, size.y),
                             Vector3f(0, 1, 0), 1, 0);
 
-        m_hardwareBuffer.addVertex(vertexs, 2);
+        m_hardwareBuffer->addVertex(vertexs, 2);
     }
 
     for(int y = -cut.y; y <= cut.y; y++)
@@ -432,21 +442,21 @@ void Grid::setup(Vector2f size, Vector2i cut)
         vertexs[0] = Vertex(Vector3f(size.x, 0, quadSize.y * y),
                             Vector3f(0, 1, 0), 1, 0);
 
-        m_hardwareBuffer.addVertex(vertexs, 2);
+        m_hardwareBuffer->addVertex(vertexs, 2);
     }
 
-    m_hardwareBuffer.compile();
+    m_hardwareBuffer->compile();
 
     computeAabb();
 
     Material* mainMaterial = new Material;
     mainMaterial->disable(Material::TEXTURED | Material::LIGHTED);
     mainMaterial->setFaceType(Material::LINES);
-    mainMaterial->setDrawPass(m_hardwareBuffer.getVertexCount() / 2);
+    mainMaterial->setDrawPass(m_hardwareBuffer->getVertexCount() / 2);
 
     addMaterial("main", mainMaterial);
 
-    applyMaterial(mainMaterial, 0, m_hardwareBuffer.getVertexCount());
+    applyMaterial(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
 }
 
 Vector2i Grid::getCut() const

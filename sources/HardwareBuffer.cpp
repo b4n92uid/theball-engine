@@ -310,6 +310,13 @@ const Vertex::Array& HardwareBuffer::getInitialVertex()
     return m_vertex;
 }
 
+void HardwareBuffer::restore()
+{
+    Vertex* vs = lock(GL_WRITE_ONLY);
+    std::copy(m_vertex.begin(), m_vertex.end(), vs);
+    unlock();
+}
+
 void HardwareBuffer::newMultiTexCoord(unsigned index)
 {
     m_multiTexCoord[index].clear();

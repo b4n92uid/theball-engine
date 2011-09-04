@@ -61,6 +61,9 @@ public:
     std::vector<std::string> getUsedRessources();
 
 protected:
+    void ownHardwareBuffer();
+    
+protected:
     std::string m_filename;
     MTLFile m_mtlfile;
 };

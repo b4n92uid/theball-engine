@@ -136,7 +136,7 @@ public:
     bool isVisible() const;
 
     /// Renvois le buffer graphique de rendue
-    HardwareBuffer& getHardwareBuffer();
+    HardwareBuffer* getHardwareBuffer();
 
     CtorMap constructionMap(std::string root);
 
@@ -147,7 +147,7 @@ public:
     Vector3f getVertexScale() const;
 
     void generateMulTexCoord();
-    
+
     typedef std::map<std::string, Mesh*> Map;
     typedef std::vector<Mesh*> Array;
 
@@ -166,9 +166,13 @@ protected:
     bool m_visible;
     bool m_outputMaterial;
 
-    HardwareBuffer m_hardwareBuffer;
+    HardwareBuffer* m_hardwareBuffer;
 
     MeshParallelScene* m_parallelScene;
+
+    void fetch(const Mesh& copy);
+    
+    virtual void ownHardwareBuffer();
 
 private:
     void render(Material* material, unsigned offset, unsigned size);
@@ -192,8 +196,6 @@ private:
     Material::Map m_materials;
 
     Mesh& copy(const Mesh& copy);
-
-    float m_opacity;
 
     Vector2b m_billBoard;
     Vector4f m_color;

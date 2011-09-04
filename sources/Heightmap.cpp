@@ -46,6 +46,8 @@ float Heightmap::GetY(unsigned x, unsigned z)
 
 void Heightmap::open(const std::string& path)
 {
+    m_hardwareBuffer = new HardwareBuffer;
+
     if(m_pixels);
     delete[] m_pixels;
 
@@ -92,10 +94,10 @@ void Heightmap::open(const std::string& path)
             vertexsCount += 2;
         }
 
-        m_hardwareBuffer.addFace(face);
+        m_hardwareBuffer->addFace(face);
     }
 
-    m_hardwareBuffer.compile();
+    m_hardwareBuffer->compile();
 
     computeAabb();
 

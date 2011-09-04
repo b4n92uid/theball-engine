@@ -67,6 +67,8 @@ Material& Material::operator=(const Material& copy)
 
     m_drawPass = copy.m_drawPass;
 
+    m_texApply = copy.m_texApply;
+
     return *this;
 }
 

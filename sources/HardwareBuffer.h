@@ -79,6 +79,9 @@ public:
     /// Dévéroulleu le buffer pour signaler la fin des modification
     void unlock(bool unbind = true);
 
+    /// *
+    void restore();
+
     /// Ajoute une face au buffer
     void addFace(const Face& face);
 
@@ -146,7 +149,7 @@ public:
      *                  seront supprimer
      */
     Vertex::Array getAllVertex(bool makeUnique = false);
-    
+
     const Vertex::Array& getInitialVertex();
 
     void setMultiTexCoord(unsigned index, Vector2f::Array uv);

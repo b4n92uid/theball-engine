@@ -59,7 +59,7 @@ void Ball3DMesh::readVertexs(std::ifstream& file)
                 >> v.color.x >> v.color.y >> v.color.z >> v.color.w
                 >> v.texCoord.x >> v.texCoord.y;
 
-        m_hardwareBuffer.addVertex(v);
+        m_hardwareBuffer->addVertex(v);
     }
 }
 
@@ -145,15 +145,15 @@ void Ball3DMesh::open(std::string filepath)
 
         else if(opcode == "build")
         {
-            unsigned offset = m_hardwareBuffer.getVertexCount();
+            unsigned offset = m_hardwareBuffer->getVertexCount();
             readVertexs(file);
-            unsigned size = m_hardwareBuffer.getVertexCount() - offset;
+            unsigned size = m_hardwareBuffer->getVertexCount() - offset;
 
             applyMaterial(value, offset, size);
         }
     }
 
-    m_hardwareBuffer.compile();
+    m_hardwareBuffer->compile();
 
     computeAabb();
 

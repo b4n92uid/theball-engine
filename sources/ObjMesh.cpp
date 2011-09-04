@@ -11,14 +11,24 @@ static class SharedlObjMeshManager : public map<OBJMesh*, string>
 {
 public:
 
-    OBJMesh* IsExist(string path)
+    OBJMesh* shared(string path)
     {
-        for(iterator itt = begin(); itt != end(); itt++)
-            if(itt->second == path)
-                return itt->first;
+        for(iterator it = begin(); it != end(); it++)
+            if(it->second == path)
+                return it->first;
 
         return NULL;
     }
+
+    bool used(HardwareBuffer* hb)
+    {
+        for(iterator it = begin(); it != end(); it++)
+            if(it->first->getHardwareBuffer() == hb)
+                return true;
+
+        return false;
+    }
+
 } manager;
 
 OBJMesh::OBJMesh(MeshParallelScene* scene) : Mesh(scene), m_mtlfile(this)
@@ -52,10 +62,40 @@ OBJMesh* OBJMesh::clone()
 
 OBJMesh::~OBJMesh()
 {
+    manager.erase(this);
+
+    if(manager.used(m_hardwareBuffer))
+        m_hardwareBuffer = NULL;
+}
+
+void OBJMesh::ownHardwareBuffer()
+{
+    if(manager.used(m_hardwareBuffer))
+    {
+        Mesh::ownHardwareBuffer();
+    }
 }
 
 void OBJMesh::open(const std::string& path)
 {
+    OBJMesh* shared = manager.shared(path);
+
+    if(shared)
+    {
+        cout << "Load shared obj mesh file : " << path << endl;
+
+        fetch(*shared);
+
+        computeAabb();
+
+        m_filename = path;
+        m_name = tools::basename(path, false);
+
+        manager[this] = path;
+
+        return;
+    }
+
     cout << "Load obj mesh file : " << path << endl;
 
     ifstream file(path.c_str());
@@ -63,9 +103,12 @@ void OBJMesh::open(const std::string& path)
     if(!file)
         throw tbe::Exception("OBJMesh::Open; Open OBJ File Error; (%s)", path.c_str());
 
-    manager[this] = m_filename = path;
+    m_hardwareBuffer = new HardwareBuffer;
 
+    m_filename = path;
     m_name = tools::basename(path, false);
+
+    manager[this] = path;
 
     Material* curMaterial = NULL;
 
@@ -195,7 +238,7 @@ void OBJMesh::open(const std::string& path)
                 newFace.push_back(vert);
             }
 
-            m_hardwareBuffer.addFace(newFace);
+            m_hardwareBuffer->addFace(newFace);
 
             applySize += newFace.size();
         }
@@ -217,7 +260,7 @@ void OBJMesh::open(const std::string& path)
         applyMaterial(curMaterial, applyOffset, applySize);
     }
 
-    m_hardwareBuffer.compile();
+    m_hardwareBuffer->compile();
 
     file.close();
 

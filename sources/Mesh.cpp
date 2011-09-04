@@ -29,9 +29,10 @@ Mesh::Mesh(MeshParallelScene* scene)
 
     m_parallelScene->registerNode(this);
 
+    m_hardwareBuffer = NULL;
+
     m_vertexScale = 1;
     m_color = 1;
-    m_opacity = 1;
 }
 
 Mesh::Mesh(const Mesh& copy) : Node(copy)
@@ -64,9 +65,32 @@ void Mesh::clear()
 
     m_materials.clear();
 
-    m_hardwareBuffer.clear();
+    if(m_hardwareBuffer)
+        delete m_hardwareBuffer;
 
     m_aabb.clear();
+}
+
+void Mesh::fetch(const Mesh& copy)
+{
+    m_triangulate = copy.m_triangulate;
+    m_withNormal = copy.m_withNormal;
+    m_withTexCoord = copy.m_withTexCoord;
+
+    m_hardwareBuffer = copy.m_hardwareBuffer;
+
+    for(Material::Map::const_iterator it = m_materials.begin(); it != m_materials.end(); ++it)
+        delete it->second;
+
+    m_materials.clear();
+
+    for(Material::Map::const_iterator it = copy.m_materials.begin(); it != copy.m_materials.end(); ++it)
+        m_materials[it->first] = new Material(*it->second);
+
+    m_renderProess = copy.m_renderProess;
+
+    for(unsigned i = 0; i < m_renderProess.size(); i++)
+        m_renderProess[i].parent = this;
 }
 
 Mesh& Mesh::copy(const Mesh& copy)
@@ -82,7 +106,7 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_outputMaterial = copy.m_outputMaterial;
     m_billBoard = copy.m_billBoard;
 
-    m_hardwareBuffer = copy.m_hardwareBuffer;
+    m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
 
     for(Material::Map::const_iterator it = m_materials.begin(); it != m_materials.end(); ++it)
         delete it->second;
@@ -99,10 +123,8 @@ Mesh& Mesh::copy(const Mesh& copy)
 
     m_vertexScale = 1;
     m_color = 1;
-    m_opacity = 1;
 
     setColor(copy.m_color);
-    setOpacity(copy.m_opacity);
     setVertexScale(copy.m_vertexScale);
 
     return *this;
@@ -115,40 +137,49 @@ Mesh* Mesh::clone()
 
 AABB Mesh::getAbsolutAabb()
 {
-    unsigned vertexCount = m_hardwareBuffer.getVertexCount();
+    if(!m_hardwareBuffer)
+        return 0;
+
+    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
 
     AABB aabb;
 
     Matrix4 mat = getAbsoluteMatrix();
-    Vertex* vertex = m_hardwareBuffer.lock();
+    Vertex* vertex = m_hardwareBuffer->lock();
 
     for(unsigned i = 0; i < vertexCount; i++)
         aabb.count(mat * vertex[i].pos);
 
-    m_hardwareBuffer.unlock();
+    m_hardwareBuffer->unlock();
 
     return aabb;
 }
 
 void Mesh::computeAabb()
 {
+    if(!m_hardwareBuffer)
+        return;
+
     m_aabb.clear();
 
-    unsigned vertexCount = m_hardwareBuffer.getVertexCount();
+    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
 
-    Vertex* vertex = m_hardwareBuffer.lock();
+    Vertex* vertex = m_hardwareBuffer->lock();
 
     for(unsigned i = 0; i < vertexCount; i++)
         m_aabb.count(vertex[i].pos);
 
-    m_hardwareBuffer.unlock();
+    m_hardwareBuffer->unlock();
 }
 
 void Mesh::computeTangent()
 {
-    Vertex* vertex = m_hardwareBuffer.lock();
+    if(!m_hardwareBuffer)
+        return;
 
-    unsigned vertexCount = m_hardwareBuffer.getVertexCount();
+    Vertex* vertex = m_hardwareBuffer->lock();
+
+    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
 
     Vector3f::Array tan1(vertexCount);
     Vector3f::Array tan2(vertexCount);
@@ -206,7 +237,7 @@ void Mesh::computeTangent()
         vertex[i].tangent.normalize();
     }
 
-    m_hardwareBuffer.unlock();
+    m_hardwareBuffer->unlock();
 }
 
 void Mesh::computeAocc()
@@ -240,7 +271,11 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 {
     GLint tangentAttribIndex = -1, aoccAttribIndex = -1;
 
-    m_hardwareBuffer.bindBuffer();
+    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
+    
+    m_hardwareBuffer->restore();
+
+    m_hardwareBuffer->bindBuffer();
 
     glPushAttrib(GL_ENABLE_BIT);
 
@@ -313,7 +348,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             if(tangentAttribIndex == -1)
                 throw Exception("Mesh::render; Invalid tangent location (%s)", material->m_tangentLocation.c_str());
 
-            m_hardwareBuffer.bindTangent(true, tangentAttribIndex);
+            m_hardwareBuffer->bindTangent(true, tangentAttribIndex);
         }
 
         // Amobient occlusion
@@ -325,7 +360,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             if(aoccAttribIndex == -1)
                 throw Exception("Mesh::render; Invalid tangent location (%s)", material->m_aoccLocation.c_str());
 
-            m_hardwareBuffer.bindAocc(true, aoccAttribIndex);
+            m_hardwareBuffer->bindAocc(true, aoccAttribIndex);
         }
 
         material->m_shader.use(true);
@@ -353,16 +388,15 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
              */
             if(texApply[itt->first].clipped)
             {
-                const Vertex::Array& initvert = m_hardwareBuffer.getInitialVertex();
+                const Vertex::Array& initvert = m_hardwareBuffer->getInitialVertex();
 
                 Vector2i& curpart = texApply[itt->first].part;
 
-                unsigned count = m_hardwareBuffer.getVertexCount();
-                Vector2f* uvs = m_hardwareBuffer.lockMultiTexCoord(itt->first);
+                Vector2f* uvs = m_hardwareBuffer->lockMultiTexCoord(itt->first);
 
                 const Vector2f& texSize = itt->second.getSize();
 
-                for(unsigned i = 0; i < count; i++)
+                for(unsigned i = 0; i < vertexCount; i++)
                 {
                     Vector2f frame((float)texApply[itt->first].frameSize.x / (float)texSize.x,
                                    (float)texApply[itt->first].frameSize.y / (float)texSize.y);
@@ -374,7 +408,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
                     uvs[i].y = scaled.y + frame.y * curpart.y;
                 }
 
-                m_hardwareBuffer.unlock(false);
+                m_hardwareBuffer->unlock(false);
 
                 if(texApply[itt->first].animation > 0)
                     if(texApply[itt->first].clock.isEsplanedTime(texApply[itt->first].animation))
@@ -393,7 +427,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             }
 
 
-            m_hardwareBuffer.bindTexture(true, itt->first);
+            m_hardwareBuffer->bindTexture(true, itt->first);
 
             glActiveTexture(textureIndex);
             glEnable(GL_TEXTURE_2D);
@@ -417,7 +451,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     if(material->m_renderFlags & Material::LIGHTED)
     {
-        m_hardwareBuffer.bindNormal();
+        m_hardwareBuffer->bindNormal();
 
         glEnable(GL_LIGHTING);
 
@@ -431,7 +465,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     if(material->m_renderFlags & Material::COLORED)
     {
-        m_hardwareBuffer.bindColor();
+        m_hardwareBuffer->bindColor();
 
         glEnable(GL_COLOR_MATERIAL);
     }
@@ -486,6 +520,21 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         m_matrix.setRotate(rotation.getRotate());
     }
 
+    // Vertex scaling & coloring -----------------------------------------------
+
+    Vertex* vertex = m_hardwareBuffer->lock();
+
+    m_aabb.clear();
+    
+    for(unsigned i = 0; i < vertexCount; i++)
+    {
+        vertex[i].pos *= m_vertexScale;
+        vertex[i].color = m_color;
+        m_aabb.count(vertex[i].pos);
+    }
+
+    m_hardwareBuffer->unlock();
+
     // Rendue ------------------------------------------------------------------
 
     if(material->m_drawPass > 1)
@@ -496,19 +545,19 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         {
             int _offset = offset + (i * _count);
 
-            m_hardwareBuffer.render(material->m_faceType, _offset, _count);
+            m_hardwareBuffer->render(material->m_faceType, _offset, _count);
         }
 
         int rest = count % material->m_drawPass;
 
         if(rest > 0)
-            m_hardwareBuffer.render(material->m_faceType, offset + count - rest, rest);
+            m_hardwareBuffer->render(material->m_faceType, offset + count - rest, rest);
         else
-            m_hardwareBuffer.render(material->m_faceType, offset + count - _count, _count);
+            m_hardwareBuffer->render(material->m_faceType, offset + count - _count, _count);
     }
     else
     {
-        m_hardwareBuffer.render(material->m_faceType, offset, count);
+        m_hardwareBuffer->render(material->m_faceType, offset, count);
     }
 
     // Réstorations ------------------------------------------------------------
@@ -529,10 +578,10 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     if(material->m_renderFlags & Material::SHADER)
     {
         if(material->m_renderFlags & Material::TANGENT)
-            m_hardwareBuffer.bindTangent(false, tangentAttribIndex);
+            m_hardwareBuffer->bindTangent(false, tangentAttribIndex);
 
         if(material->m_renderFlags & Material::AOCC)
-            m_hardwareBuffer.bindAocc(false, aoccAttribIndex);
+            m_hardwareBuffer->bindAocc(false, aoccAttribIndex);
 
 
         material->m_shader.use(false);
@@ -551,7 +600,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             unsigned textureIndex = GL_TEXTURE0 + itt->first;
 
             glClientActiveTexture(textureIndex);
-            m_hardwareBuffer.bindTexture(false);
+            m_hardwareBuffer->bindTexture(false);
 
             glActiveTexture(textureIndex);
             glDisable(GL_TEXTURE_2D);
@@ -560,15 +609,15 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     if(material->m_renderFlags & Material::LIGHTED)
     {
-        m_hardwareBuffer.bindNormal(false);
+        m_hardwareBuffer->bindNormal(false);
     }
 
     if(material->m_renderFlags & Material::COLORED)
     {
-        m_hardwareBuffer.bindColor(false);
+        m_hardwareBuffer->bindColor(false);
     }
 
-    m_hardwareBuffer.bindBuffer(false);
+    m_hardwareBuffer->bindBuffer(false);
 
     // NOTE OpenGL 1.4
     glColor4f(1, 1, 1, 1);
@@ -578,7 +627,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
 void Mesh::render()
 {
-    if(!m_enable || m_hardwareBuffer.isEmpty() || !m_visible)
+    if(!m_hardwareBuffer || m_hardwareBuffer->isEmpty() || !m_enable || !m_visible)
         return;
 
     glPushMatrix();
@@ -591,7 +640,7 @@ void Mesh::render()
     if(m_renderProess.empty())
     {
         Material defaultMateral;
-        render(&defaultMateral, 0, m_hardwareBuffer.getVertexCount());
+        render(&defaultMateral, 0, m_hardwareBuffer->getVertexCount());
     }
 
     else
@@ -660,11 +709,11 @@ Vector3f RayCastTriangle(Vector3f p, Vector3f d, Vector3f v0, Vector3f v1, Vecto
 
 bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, bool global)
 {
-    Vertex* vertex = m_hardwareBuffer.lock();
+    Vertex* vertex = m_hardwareBuffer->lock();
 
     Matrix4 absmat = getAbsoluteMatrix();
 
-    const unsigned vertexCount = m_hardwareBuffer.getVertexCount();
+    const unsigned vertexCount = m_hardwareBuffer->getVertexCount();
 
     Vector3f::Array hits;
 
@@ -687,7 +736,7 @@ bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, boo
             hits.push_back(intr);
     }
 
-    m_hardwareBuffer.unlock();
+    m_hardwareBuffer->unlock();
 
     if(hits.empty())
     {
@@ -700,16 +749,6 @@ bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, boo
 
         return true;
     }
-}
-
-void Mesh::setBillBoard(Vector2b billBoard)
-{
-    this->m_billBoard = billBoard;
-}
-
-Vector2b Mesh::getBillBoard() const
-{
-    return m_billBoard;
 }
 
 bool Mesh::findFloor(Vector3f& pos, bool global)
@@ -744,40 +783,6 @@ void Mesh::deleteMaterial(std::string name)
 unsigned Mesh::getMaterialCount()
 {
     return m_materials.size();
-}
-
-void Mesh::setOpacity(float opacity)
-{
-    this->m_opacity = opacity;
-
-    Vertex* vertex = m_hardwareBuffer.lock();
-
-    unsigned count = m_hardwareBuffer.getVertexCount();
-    for(unsigned i = 0; i < count; i++)
-        vertex[i].color.w = m_opacity;
-
-    m_hardwareBuffer.unlock();
-}
-
-float Mesh::getOpacity() const
-{
-    return m_opacity;
-}
-
-void Mesh::setColor(Vector4f color)
-{
-    Vertex* vertex = m_hardwareBuffer.lock();
-
-    unsigned count = m_hardwareBuffer.getVertexCount();
-    for(unsigned i = 0; i < count; i++)
-        vertex[i].color = color;
-
-    m_hardwareBuffer.unlock();
-}
-
-Vector4f Mesh::getColor()
-{
-    return m_color;
 }
 
 void Mesh::applyShader(std::string materialName, Shader shader)
@@ -859,7 +864,7 @@ void Mesh::applyMaterial(Material* material, unsigned offset, unsigned size)
     throw tbe::Exception("Mesh::ApplyMaterial; Material ptr not found");
 }
 
-HardwareBuffer& Mesh::getHardwareBuffer()
+HardwareBuffer* Mesh::getHardwareBuffer()
 {
     return m_hardwareBuffer;
 }
@@ -919,7 +924,6 @@ Node::CtorMap Mesh::constructionMap(std::string root)
     }
 
     ctormap["color"] = m_color.toStr();
-    ctormap["opacity"] = tools::numToStr(m_opacity);
     ctormap["vertexScale"] = m_vertexScale.toStr();
     ctormap["billBoarding"] = m_billBoard.toStr();
 
@@ -936,30 +940,42 @@ bool Mesh::isOutputMaterial() const
     return m_outputMaterial;
 }
 
+void Mesh::setBillBoard(Vector2b billBoard)
+{
+    this->m_billBoard = billBoard;
+}
+
+Vector2b Mesh::getBillBoard() const
+{
+    return m_billBoard;
+}
+
+void Mesh::setOpacity(float opacity)
+{
+    this->m_color.w = opacity;
+}
+
+float Mesh::getOpacity() const
+{
+    return m_color.w;
+}
+
+void Mesh::setColor(Vector4f color)
+{
+    m_color = color;
+}
+
+Vector4f Mesh::getColor()
+{
+    return m_color;
+}
+
 void Mesh::setVertexScale(Vector3f vertexScale)
 {
     if(math::isAnyZero(vertexScale))
         return;
 
-    if(math::isEqual(vertexScale, m_vertexScale, 0.001))
-        return;
-
-    Vector3f setscale = vertexScale / m_vertexScale;
-
     m_vertexScale = vertexScale;
-
-    Vertex* vertex = m_hardwareBuffer.lock();
-
-    m_aabb.clear();
-
-    unsigned count = m_hardwareBuffer.getVertexCount();
-    for(unsigned i = 0; i < count; i++)
-    {
-        vertex[i].pos *= setscale;
-        m_aabb.count(vertex[i].pos);
-    }
-
-    m_hardwareBuffer.unlock();
 }
 
 Vector3f Mesh::getVertexScale() const
@@ -987,27 +1003,12 @@ void Mesh::generateMulTexCoord()
     Material* mat = m_materials.begin()->second;
 
     for(Texture::Map::iterator itt = mat->m_textures.begin(); itt != mat->m_textures.end(); itt++)
-        m_hardwareBuffer.newMultiTexCoord(itt->first);
+        m_hardwareBuffer->newMultiTexCoord(itt->first);
 
-    m_hardwareBuffer.compile();
+    m_hardwareBuffer->compile();
+}
 
-    /*
-        for(Texture::Map::iterator itt = mat->m_textures.begin(); itt != mat->m_textures.end(); itt++)
-        {
-            if(itt->first == 0)
-                continue;
-
-            Vector2f* uvs = m_hardwareBuffer.lockMultiTexCoord(itt->first);
-
-            unsigned count = m_hardwareBuffer.getVertexCount();
-
-            for(unsigned j = 0; j < count; j++)
-            {
-                uvs[j].x *= (float)mat->m_texApply[itt->first].frameSize.x / (float)itt->second.getSize().x;
-                uvs[j].y *= (float)mat->m_texApply[itt->first].frameSize.y / (float)itt->second.getSize().y;
-            }
-
-            m_hardwareBuffer.unlock();
-        }
-     //*/
+void Mesh::ownHardwareBuffer()
+{
+    m_hardwareBuffer = new HardwareBuffer(*m_hardwareBuffer);
 }

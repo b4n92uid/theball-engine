@@ -115,6 +115,24 @@ inline bool isEqual(Vector3f a, Vector3f b, float factor = FLOAT_TEST_FACTOR)
 }
 
 /**
+ * Test d'égaliter sur Vecteur a 4 dimension avec un float
+ *  le parametre factor définie le degres de précision de l'operation
+ */
+inline bool isEqual(Vector4f a, float b, float factor = FLOAT_TEST_FACTOR)
+{
+    return (isEqual(a.x, b, factor) && isEqual(a.y, b, factor) && isEqual(a.z, b, factor) && isEqual(a.w, b, factor));
+}
+
+/**
+ * Test d'égaliter sur Vecteur a 4 dimension avec autre vecteur
+ *  le parametre factor définie le degres de précision de l'operation
+ */
+inline bool isEqual(Vector4f a, Vector4f b, float factor = FLOAT_TEST_FACTOR)
+{
+    return (isEqual(a.x, b.x, factor) && isEqual(a.y, b.y, factor) && isEqual(a.z, b.z, factor) && isEqual(a.w, b.w, factor));
+}
+
+/**
  * Test si le valeur flotante de est à zéro
  *  le parametre factor définie le degres de précision de l'operation
  */
