@@ -13,7 +13,7 @@ using namespace tbe;
 using namespace tbe::ppe;
 
 static const char vertexShader[] =
-        "#version 110\n"
+        "#version 120\n"
         "void main(void)"
         "{"
         "gl_TexCoord[0] = gl_MultiTexCoord0;"
@@ -21,7 +21,7 @@ static const char vertexShader[] =
         "}";
 
 static const char fragmentShader[] =
-        "#version 110\n"
+        "#version 120\n"
         "uniform sampler2D tColor;"
         "uniform sampler2D tBlur;"
         "uniform sampler2D tDepth;"

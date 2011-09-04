@@ -13,7 +13,7 @@ using namespace tbe;
 using namespace tbe::ppe;
 
 static const char vertexShader[] =
-        "#version 110\n"
+        "#version 120\n"
         "void main(void)"
         "{"
         "gl_TexCoord[0] = gl_MultiTexCoord0;"
@@ -21,7 +21,7 @@ static const char vertexShader[] =
         "}";
 
 static const char fragmentShader[] =
-        "#version 110\n"
+        "#version 120\n"
         "uniform sampler2D texture;"
         "uniform vec4 color;"
         "uniform int fusionMode;"
@@ -44,12 +44,12 @@ static const char fragmentShader[] =
         "final /= color;"
 
         "else if(fusionMode == 4)"
-        "final = (color + final) / 2;"
+        "final = (color + final) / vec4(2.0);"
 
         "else if(fusionMode == 5)"
         "{"
         "vec4 set = final * color;"
-        "final = (set.r + set.g + set.b) / 3.0f;"
+        "final = (set.r + set.g + set.b) / vec4(3.0);"
         "}"
 
         "else if(fusionMode == 6)"

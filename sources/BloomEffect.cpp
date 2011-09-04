@@ -13,7 +13,7 @@ using namespace tbe;
 using namespace tbe::ppe;
 
 static const char textureVertexShader[] =
-        "#version 110\n"
+        "#version 120\n"
         "void main(void)"
         "{"
         "gl_TexCoord[0] = gl_MultiTexCoord0;"
@@ -21,7 +21,7 @@ static const char textureVertexShader[] =
         "}";
 
 static const char brightFragShader[] =
-        "#version 110\n"
+        "#version 120\n"
         "uniform sampler2D texture;"
         "uniform float threshold;"
         "uniform float intensity;"
@@ -51,7 +51,7 @@ static const char brightFragShader[] =
         "}";
 
 static const char horzBlurFragShader[] =
-        "#version 110\n"
+        "#version 120\n"
         "uniform sampler2D texture;"
 
         "void main(void)"
@@ -81,7 +81,7 @@ static const char horzBlurFragShader[] =
         "}";
 
 static const char vertBlurFragShader[] =
-        "#version 110\n"
+        "#version 120\n"
         "uniform sampler2D texture;"
 
         "void main(void)"
