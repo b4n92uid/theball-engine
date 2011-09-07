@@ -159,6 +159,7 @@ void Box::setSize(Vector3f size)
     }
 
     m_hardwareBuffer->unlock();
+    m_hardwareBuffer->snapshot();
 }
 
 Vector3f Box::getSize() const

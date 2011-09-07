@@ -310,6 +310,13 @@ const Vertex::Array& HardwareBuffer::getInitialVertex() const
     return m_vertex;
 }
 
+void HardwareBuffer::snapshot()
+{
+    Vertex* vs = lock(GL_READ_ONLY);
+    std::copy(vs, vs + m_vertexCount, m_vertex.begin());
+    unlock();
+}
+
 void HardwareBuffer::restore()
 {
     Vertex* vs = lock(GL_WRITE_ONLY);

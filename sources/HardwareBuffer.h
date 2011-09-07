@@ -81,6 +81,9 @@ public:
 
     /// *
     void restore();
+    
+    /// *
+    void snapshot();
 
     /// Ajoute une face au buffer
     void addFace(const Face& face);

@@ -437,6 +437,7 @@ void Water::setSize(Vector2f size)
     }
 
     m_buffer.unlock();
+    m_buffer.snapshot();
 
     m_shader.use(true);
     m_shader.uniform("endborder", max(m_size.x, m_size.y));

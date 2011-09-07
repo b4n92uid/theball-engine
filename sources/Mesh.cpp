@@ -238,6 +238,7 @@ void Mesh::computeTangent()
     }
 
     m_hardwareBuffer->unlock();
+    m_hardwareBuffer->snapshot();
 }
 
 void Mesh::computeAocc()
