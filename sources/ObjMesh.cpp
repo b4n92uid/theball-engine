@@ -90,12 +90,15 @@ void OBJMesh::open(const std::string& path)
 
     cout << "Load obj mesh file : " << path << endl;
 
-    ifstream file(path.c_str());
+    ifstream file(path.c_str(), ios::in);
 
     if(!file)
-        throw tbe::Exception("OBJMesh::Open; Open OBJ File Error; (%s)", path.c_str());
+        throw tbe::Exception("OBJMesh::open; Open OBJ File Error; (%s)", path.c_str());
 
-    m_hardwareBuffer = new HardwareBuffer;
+    if(!m_hardwareBuffer)
+        m_hardwareBuffer = new HardwareBuffer;
+    else
+        m_hardwareBuffer->clear();
 
     m_filename = path;
     m_name = tools::basename(path, false);
@@ -114,6 +117,10 @@ void OBJMesh::open(const std::string& path)
     string buffer;
     for(unsigned lineCount = 1; tools::getline(file, buffer); lineCount++)
     {
+        for(unsigned i = 0; i < buffer.size(); i++)
+            if(buffer[i] <= 0)
+                throw tbe::Exception("OBJMesh::open; File is binary; (%s)", path.c_str());
+
         if(buffer[0] == '#' || buffer.empty())
             continue;
 
@@ -238,6 +245,9 @@ void OBJMesh::open(const std::string& path)
         else
             cout << "OBJMesh::Open; Warning : line (" << lineCount << ") ignored" << endl;
     }
+
+    if(m_hardwareBuffer->isEmpty())
+        throw tbe::Exception("OBJMesh::open; File is invalid; Buffer is empty; (%s)", path.c_str());
 
     if(curMaterial)
     {
