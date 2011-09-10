@@ -6,7 +6,6 @@
  */
 
 #include "SceneParser.h"
-#include "ObjMesh.h"
 
 #include <fstream>
 
@@ -16,22 +15,117 @@
 #include "Particles.h"
 #include "Water.h"
 #include "MapMark.h"
+#include "ObjMesh.h"
+#include "Ball3DMesh.h"
 
 using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
+ParserClassFactory::ParserClassFactory()
+{
+}
+
+ParserClassFactory::~ParserClassFactory()
+{
+}
+
+ParserHandle::ParserHandle()
+{
+    m_sceneManager = NULL;
+    m_classFactory = NULL;
+    m_lightScene = NULL;
+    m_meshScene = NULL;
+    m_particlesScene = NULL;
+    m_waterScene = NULL;
+    m_markScene = NULL;
+    m_version = 0.1;
+}
+
+ParserHandle::ParserHandle(SceneManager* sceneManager)
+{
+    m_sceneManager = sceneManager;
+    m_classFactory = NULL;
+    m_lightScene = NULL;
+    m_meshScene = NULL;
+    m_particlesScene = NULL;
+    m_waterScene = NULL;
+    m_markScene = NULL;
+    m_version = 0.1;
+}
+
+ParserHandle::~ParserHandle()
+{
+    delete m_classFactory;
+}
+
+ParticlesParallelScene* ParserHandle::getParticlesScene() const
+{
+    return m_particlesScene;
+}
+
+MeshParallelScene* ParserHandle::getMeshScene() const
+{
+    return m_meshScene;
+}
+
+WaterParallelScene* ParserHandle::getWaterScene() const
+{
+    return m_waterScene;
+}
+
+LightParallelScene* ParserHandle::getLightScene() const
+{
+    return m_lightScene;
+}
+
+MapMarkParallelScene* ParserHandle::getMarkScene() const
+{
+    return m_markScene;
+}
+
+void ParserHandle::setClassFactory(ParserClassFactory* classFactory)
+{
+    this->m_classFactory = classFactory;
+}
+
+ParserClassFactory* ParserHandle::getClassFactory() const
+{
+    return m_classFactory;
+}
+
+void ParserHandle::setWaterScene(WaterParallelScene* waterScene)
+{
+    this->m_waterScene = waterScene;
+}
+
+void ParserHandle::setParticlesScene(ParticlesParallelScene* particlesScene)
+{
+    this->m_particlesScene = particlesScene;
+}
+
+void ParserHandle::setMeshScene(MeshParallelScene* meshScene)
+{
+    this->m_meshScene = meshScene;
+}
+
+void ParserHandle::setLightScene(LightParallelScene* lightScene)
+{
+    this->m_lightScene = lightScene;
+}
+
+void ParserHandle::setMarkScene(MapMarkParallelScene* markScene)
+{
+    this->m_markScene = markScene;
+}
+
 SceneParser::SceneParser() :
-m_sceneManager(NULL), m_rootNode(NULL),
-m_lightScene(NULL), m_meshScene(NULL), m_particlesScene(NULL),
-m_waterScene(NULL), m_markScene(NULL)
+m_rootNode(NULL)
 {
 }
 
 SceneParser::SceneParser(SceneManager* sceneManager) :
-m_sceneManager(sceneManager), m_rootNode(sceneManager->getRootNode()),
-m_lightScene(NULL), m_meshScene(NULL), m_particlesScene(NULL),
-m_waterScene(NULL), m_markScene(NULL)
+ParserHandle(sceneManager), m_rootNode(sceneManager->getRootNode())
 {
 }
 
@@ -135,11 +229,13 @@ void SceneParser::saveScene(const std::string& filepath)
 
     m_mapDescriptor.fileName = filepath;
 
+    file << "v0.1 scene" << endl;
+    file << endl;
+
     file << "*general" << endl;
     file << "name=" << m_mapDescriptor.sceneName << endl;
     file << "author=" << m_mapDescriptor.authorName << endl;
     file << "ambient=" << m_mapDescriptor.ambiante << endl;
-    file << endl;
 
     if(m_additional.size())
     {
@@ -252,6 +348,23 @@ void SceneParser::loadScene(const std::string& filepath)
     m_mapDescriptor.nodes.clear();
 
     string buffer;
+
+    tools::getline(file, buffer);
+
+    if(buffer[0] == 'v')
+    {
+        m_version = tools::strToNum<float>(&buffer[1]);
+
+        /*
+        int pos = buffer.find(' ');
+
+        if(pos != string::npos)
+            buffer[pos + 1];
+         */
+    }
+    else
+        file.seekg(0);
+
     for(unsigned line = 0; tools::getline(file, buffer); line++)
     {
         if(buffer.empty() || buffer[0] == '#')
@@ -450,9 +563,9 @@ void SceneParser::buildMaterial(AttribMap& att, Mesh* mesh)
                 tex.load(tools::pathScope(m_mapDescriptor.fileName, valtoken[0], true), true);
 
                 int layer = tools::strToNum<int>(token[2]);
-                
+
                 material->setTexture(tex, layer);
-                
+
                 if(valtoken[1] == "additive")
                     material->setTextureBlend(Material::ADDITIVE, layer);
                 if(valtoken[1] == "modulate")
@@ -493,6 +606,26 @@ void SceneParser::buildMaterial(AttribMap& att, Mesh* mesh)
     }
 }
 
+inline void buildInherited(SceneParser::Relation& rel, Node* parent, Node* current)
+{
+    parent->addChild(current);
+
+    if(rel.attr.count("name"))
+        current->setName(rel.attr["name"]);
+
+    if(rel.attr.count("matrix"))
+        current->setMatrix(rel.attr["matrix"]);
+
+    for(SceneParser::AttribMap::iterator it = rel.attr.begin(); it != rel.attr.end(); it++)
+    {
+        if(it->first[0] == '.')
+        {
+            string key(it->first, 1);
+            current->setUserData(key, it->second);
+        }
+    }
+}
+
 void SceneParser::buildNode(Relation& rel, Node* parent)
 {
     const string& iclass = rel.attr["class"];
@@ -501,7 +634,7 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
     if(iclass == "OBJMesh")
     {
-        OBJMesh* node = new OBJMesh(m_meshScene);
+        OBJMesh objfile(m_meshScene);
 
         string modelFilepath;
 
@@ -510,25 +643,34 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
         else
             modelFilepath = tools::pathScope(m_mapDescriptor.fileName, rel.attr["filename"], true);
 
-        node->open(modelFilepath);
+        objfile.open(modelFilepath);
+
+        Mesh* mesh = m_classFactory ? m_classFactory->newMesh(m_meshScene) : new Mesh(m_meshScene);
+
+        *mesh = objfile;
 
         if(rel.attr.count("vertexScale"))
-            node->setVertexScale(Vector3f().fromStr(rel.attr["vertexScale"]));
+            mesh->setVertexScale(Vector3f().fromStr(rel.attr["vertexScale"]));
         if(rel.attr.count("color"))
-            node->setColor(Vector4f().fromStr(rel.attr["color"]));
+            mesh->setColor(Vector4f().fromStr(rel.attr["color"]));
         if(rel.attr.count("opacity"))
-            node->setOpacity(tools::strToNum<float>(rel.attr["opacity"]));
+            mesh->setOpacity(tools::strToNum<float>(rel.attr["opacity"]));
         if(rel.attr.count("billBoarding"))
-            node->setBillBoard(Vector2b().fromStr(rel.attr["billBoarding"]));
+            mesh->setBillBoard(Vector2b().fromStr(rel.attr["billBoarding"]));
 
-        buildMaterial(rel.attr, node);
+        buildMaterial(rel.attr, mesh);
 
-        current = node;
+        buildInherited(rel, parent ? parent : m_rootNode, mesh);
+
+        if(m_classFactory)
+            m_classFactory->setupMesh(mesh);
+
+        current = mesh;
     }
 
     else if(iclass == "ParticlesEmiter")
     {
-        ParticlesEmiter* emiter = new ParticlesEmiter(m_particlesScene);
+        ParticlesEmiter* emiter = m_classFactory ? m_classFactory->newParticles(m_particlesScene) : new ParticlesEmiter(m_particlesScene);
 
         string modelFilepath;
 
@@ -567,12 +709,17 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
         emiter->build();
 
+        buildInherited(rel, parent ? parent : m_rootNode, emiter);
+
+        if(m_classFactory)
+            m_classFactory->setupParticles(emiter);
+
         current = emiter;
     }
 
     else if(iclass == "Light")
     {
-        Light* light = new Light(m_lightScene);
+        Light* light = m_classFactory ? m_classFactory->newLight(m_lightScene) : new Light(m_lightScene);
 
         if(rel.attr["type"] == "Diri")
         {
@@ -597,12 +744,22 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
         light->setDiffuse(Vector4f().fromStr(rel.attr["diffuse"]));
         light->setSpecular(Vector4f().fromStr(rel.attr["specular"]));
 
+        buildInherited(rel, parent ? parent : m_rootNode, light);
+
+        if(m_classFactory)
+            m_classFactory->setupLight(light);
+
         current = light;
     }
 
     else if(iclass == "MapMark")
     {
-        MapMark* mark = new MapMark(m_markScene);
+        MapMark* mark = m_classFactory ? m_classFactory->newMapMark(m_markScene) : new MapMark(m_markScene);
+
+        buildInherited(rel, parent ? parent : m_rootNode, mark);
+
+        if(m_classFactory)
+            m_classFactory->setupMapMark(mark);
 
         current = mark;
     }
@@ -610,31 +767,8 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
     else
         throw Exception("SceneParser::parseNode; Unknown class (%s)", iclass.c_str());
 
-    if(current)
-    {
-        if(parent)
-            parent->addChild(current);
-        else
-            m_rootNode->addChild(current);
-
-        if(rel.attr.count("name"))
-            current->setName(rel.attr["name"]);
-
-        if(rel.attr.count("matrix"))
-            current->setMatrix(rel.attr["matrix"]);
-
-        for(AttribMap::iterator it = rel.attr.begin(); it != rel.attr.end(); it++)
-        {
-            if(it->first[0] == '.')
-            {
-                string key(it->first, 1);
-                current->setUserData(key, it->second);
-            }
-        }
-
-        for(unsigned i = 0; i < rel.child.size(); i++)
-            buildNode(rel.child[i], current);
-    }
+    for(unsigned i = 0; i < rel.child.size(); i++)
+        buildNode(rel.child[i], current);
 }
 
 const SceneParser::AttribMap SceneParser::additionalFields() const
@@ -645,16 +779,6 @@ const SceneParser::AttribMap SceneParser::additionalFields() const
 SceneParser::MapDescriptor& SceneParser::getMapDescriptor()
 {
     return m_mapDescriptor;
-}
-
-void SceneParser::setMarkScene(MapMarkParallelScene* markScene)
-{
-    this->m_markScene = markScene;
-}
-
-MapMarkParallelScene* SceneParser::getMarkScene() const
-{
-    return m_markScene;
 }
 
 void SceneParser::clearAdditional()
@@ -688,46 +812,6 @@ std::string SceneParser::getAuthorName() const
     return m_mapDescriptor.authorName;
 }
 
-ParticlesParallelScene* SceneParser::getParticlesScene() const
-{
-    return m_particlesScene;
-}
-
-MeshParallelScene* SceneParser::getMeshScene() const
-{
-    return m_meshScene;
-}
-
-WaterParallelScene* SceneParser::getWaterScene() const
-{
-    return m_waterScene;
-}
-
-LightParallelScene* SceneParser::getLightScene() const
-{
-    return m_lightScene;
-}
-
-void SceneParser::setWaterScene(WaterParallelScene* waterScene)
-{
-    this->m_waterScene = waterScene;
-}
-
-void SceneParser::setParticlesScene(ParticlesParallelScene* particlesScene)
-{
-    this->m_particlesScene = particlesScene;
-}
-
-void SceneParser::setMeshScene(MeshParallelScene* meshScene)
-{
-    this->m_meshScene = meshScene;
-}
-
-void SceneParser::setLightScene(LightParallelScene* lightScene)
-{
-    this->m_lightScene = lightScene;
-}
-
 std::string SceneParser::getAdditionalString(std::string key)
 {
     if(m_additional.count(key))
@@ -748,4 +832,48 @@ SceneParser::MapDescriptor::MapDescriptor()
     fog.enable = false;
 
     skybox.enable = false;
+}
+
+ClassParser::ClassParser()
+{
+    m_buildedNod = NULL;
+}
+
+ClassParser::ClassParser(SceneManager* sceneManager) : ParserHandle(sceneManager)
+{
+    m_buildedNod = NULL;
+}
+
+ClassParser::~ClassParser()
+{
+}
+
+void ClassParser::loadClass(const std::string& path)
+{
+}
+
+void ClassParser::buildClass()
+{
+}
+
+void ClassParser::prepareClass()
+{
+}
+
+void ClassParser::saveClass()
+{
+}
+
+void ClassParser::saveClass(const std::string& path)
+{
+}
+
+void ClassParser::setBuildedNod(Node* buildedNod)
+{
+    this->m_buildedNod = buildedNod;
+}
+
+Node* ClassParser::getBuildedNod() const
+{
+    return m_buildedNod;
 }

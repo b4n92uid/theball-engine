@@ -23,9 +23,70 @@ namespace tbe
 namespace scene
 {
 
+class OBJMesh;
+class Ball3DMesh;
+
 class SceneManager;
 
-class SceneParser
+class ParserClassFactory
+{
+public:
+    ParserClassFactory();
+    virtual ~ParserClassFactory();
+
+    virtual Mesh* newMesh(MeshParallelScene* scene) = 0;
+    virtual Light* newLight(LightParallelScene* scene) = 0;
+    virtual ParticlesEmiter* newParticles(ParticlesParallelScene* scene) = 0;
+    virtual MapMark* newMapMark(MapMarkParallelScene* scene) = 0;
+    virtual Water* newWater(WaterParallelScene* scene) = 0;
+
+    virtual void setupMesh(Mesh* node) = 0;
+    virtual void setupLight(Light* node) = 0;
+    virtual void  setupParticles(ParticlesEmiter* node) = 0;
+    virtual void setupMapMark(MapMark* node) = 0;
+    virtual void setupWater(Water* node) = 0;
+};
+
+class ParserHandle
+{
+public:
+    ParserHandle();
+    ParserHandle(SceneManager* sceneManager);
+    virtual ~ParserHandle();
+
+    void setWaterScene(WaterParallelScene* waterScene);
+    MeshParallelScene* getMeshScene() const;
+
+    void setParticlesScene(ParticlesParallelScene* particlesScene);
+    ParticlesParallelScene* getParticlesScene() const;
+
+    void setMeshScene(MeshParallelScene* meshScene);
+    LightParallelScene* getLightScene() const;
+
+    void setLightScene(LightParallelScene* lightScene);
+    WaterParallelScene* getWaterScene() const;
+
+    void setMarkScene(MapMarkParallelScene* markScene);
+    MapMarkParallelScene* getMarkScene() const;
+
+    void setClassFactory(ParserClassFactory* classFactory);
+    ParserClassFactory* getClassFactory() const;
+
+protected:
+    LightParallelScene* m_lightScene;
+    MeshParallelScene* m_meshScene;
+    ParticlesParallelScene* m_particlesScene;
+    WaterParallelScene* m_waterScene;
+    MapMarkParallelScene* m_markScene;
+
+    SceneManager* m_sceneManager;
+
+    ParserClassFactory* m_classFactory;
+
+    float m_version;
+};
+
+class SceneParser : public ParserHandle
 {
 public:
     SceneParser();
@@ -47,25 +108,17 @@ public:
     void saveScene();
     void saveScene(const std::string& filepath);
 
-    void setWaterScene(WaterParallelScene* waterScene);
-    MeshParallelScene* getMeshScene() const;
-
-    void setParticlesScene(ParticlesParallelScene* particlesScene);
-    ParticlesParallelScene* getParticlesScene() const;
-
-    void setMeshScene(MeshParallelScene* meshScene);
-    LightParallelScene* getLightScene() const;
-
-    void setLightScene(LightParallelScene* lightScene);
-    WaterParallelScene* getWaterScene() const;
-
-    void setMarkScene(MapMarkParallelScene* markScene);
-    MapMarkParallelScene* getMarkScene() const;
-
     SceneParser& exclude(Node* node);
 
     void setAdditionalString(std::string key, std::string value);
+
     std::string getAdditionalString(std::string key);
+
+    void removeAdditional(std::string key);
+
+    void clearAdditional();
+
+    const AttribMap additionalFields() const;
 
     template<typename T> T getAdditionalValue(std::string key)
     {
@@ -87,12 +140,6 @@ public:
 
         m_additional[key] = ss.str();
     }
-
-    void removeAdditional(std::string key);
-
-    void clearAdditional();
-
-    const AttribMap additionalFields() const;
 
     struct Relation
     {
@@ -144,7 +191,6 @@ protected:
 
     AttribMap m_additional;
 
-    SceneManager* m_sceneManager;
     Node* m_rootNode;
 
 private:
@@ -163,12 +209,28 @@ private:
 
     std::vector<Node*> m_archivedNodes;
     std::vector<Node*> m_excludedNodes;
+};
 
-    LightParallelScene* m_lightScene;
-    MeshParallelScene* m_meshScene;
-    ParticlesParallelScene* m_particlesScene;
-    WaterParallelScene* m_waterScene;
-    MapMarkParallelScene* m_markScene;
+class ClassParser : public ParserHandle
+{
+public:
+    ClassParser();
+    ClassParser(SceneManager* sceneManager);
+    virtual ~ClassParser();
+
+    void loadClass(const std::string& path);
+    void buildClass();
+
+    void prepareClass();
+    void saveClass();
+    void saveClass(const std::string& path);
+
+    void setBuildedNod(Node* buildedNod);
+    Node* getBuildedNod() const;
+
+private:
+    Node* m_buildedNod;
+    std::string m_filename;
 };
 
 }
