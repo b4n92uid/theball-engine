@@ -93,7 +93,7 @@ void HardwareBuffer::unlock(bool unbind)
 
 bool HardwareBuffer::isEmpty() const
 {
-    return !m_vertexCount && !m_bufferSize;
+    return !m_vertex.size();
 }
 
 void HardwareBuffer::addFace(const Face& face)
