@@ -40,11 +40,25 @@ public:
     virtual MapMark* newMapMark(MapMarkParallelScene* scene) = 0;
     virtual Water* newWater(WaterParallelScene* scene) = 0;
 
-    virtual void setupMesh(Mesh* node) = 0;
-    virtual void setupLight(Light* node) = 0;
-    virtual void  setupParticles(ParticlesEmiter* node) = 0;
-    virtual void setupMapMark(MapMark* node) = 0;
-    virtual void setupWater(Water* node) = 0;
+    virtual void setupMesh(Mesh* node)
+    {
+    }
+
+    virtual void setupLight(Light* node)
+    {
+    }
+
+    virtual void setupParticles(ParticlesEmiter* node)
+    {
+    }
+
+    virtual void setupMapMark(MapMark* node)
+    {
+    }
+
+    virtual void setupWater(Water* node)
+    {
+    }
 };
 
 class ParserHandle

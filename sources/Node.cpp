@@ -75,6 +75,12 @@ bool Node::operator==(Node* node) const
     return m_name == node->m_name;
 }
 
+void Node::setup()
+{
+    for(unsigned i = 0; i < m_childs.size(); i++)
+        m_childs[i]->setup();
+}
+
 void Node::setPos(Vector3f pos)
 {
     m_matrix.setPos(pos);

@@ -44,13 +44,13 @@ class OBJMesh : public Mesh
 public:
     OBJMesh(MeshParallelScene* scene);
     OBJMesh(MeshParallelScene* scene, const std::string& path);
-    OBJMesh(const OBJMesh& copy);
+    OBJMesh(const OBJMesh& org);
 
     ~OBJMesh();
 
     OBJMesh* clone();
 
-    OBJMesh & operator=(const OBJMesh& copy);
+    OBJMesh & operator=(const OBJMesh& org);
 
     void open(const std::string& path);
 
@@ -59,6 +59,9 @@ public:
     Node::CtorMap constructionMap(std::string root);
 
     std::vector<std::string> getUsedRessources();
+
+protected:
+    OBJMesh& copy(const OBJMesh& copy);
 
 protected:
     std::string m_filename;

@@ -7,30 +7,6 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
-static class SharedlObjMeshManager : public map<OBJMesh*, string>
-{
-public:
-
-    OBJMesh* shared(string path)
-    {
-        for(iterator it = begin(); it != end(); it++)
-            if(it->second == path)
-                return it->first;
-
-        return NULL;
-    }
-
-    bool used(HardwareBuffer* hb)
-    {
-        for(iterator it = begin(); it != end(); it++)
-            if(it->first->getHardwareBuffer() == hb)
-                return true;
-
-        return false;
-    }
-
-} manager;
-
 OBJMesh::OBJMesh(MeshParallelScene* scene) : Mesh(scene), m_mtlfile(this)
 {
 }
@@ -42,15 +18,20 @@ OBJMesh::OBJMesh(MeshParallelScene* scene, const std::string& path) : Mesh(scene
 
 OBJMesh::OBJMesh(const OBJMesh& copy) : Mesh(copy), m_mtlfile(this)
 {
-    *this = copy;
+    this->copy(copy);
 }
 
-OBJMesh& OBJMesh::operator=(const OBJMesh& copy)
+OBJMesh& OBJMesh::operator=(const OBJMesh& org)
 {
-    Mesh::operator=(copy);
+    Mesh::operator=(org);
 
-    m_filename = copy.m_filename;
-    m_mtlfile = copy.m_mtlfile;
+    return this->copy(org);
+}
+
+OBJMesh& OBJMesh::copy(const OBJMesh& org)
+{
+    m_filename = org.m_filename;
+    m_mtlfile = org.m_mtlfile;
 
     return *this;
 }
@@ -62,15 +43,11 @@ OBJMesh* OBJMesh::clone()
 
 OBJMesh::~OBJMesh()
 {
-    manager.erase(this);
-
-    if(manager.used(m_hardwareBuffer))
-        m_hardwareBuffer = NULL;
 }
 
 void OBJMesh::open(const std::string& path)
 {
-    OBJMesh* shared = manager.shared(path);
+    Mesh* shared = Mesh::isSharedBuffer(path);
 
     if(shared)
     {
@@ -83,7 +60,7 @@ void OBJMesh::open(const std::string& path)
         m_filename = path;
         m_name = tools::basename(path, false);
 
-        manager[this] = path;
+        Mesh::registerBuffer(this, path);
 
         return;
     }
@@ -103,7 +80,7 @@ void OBJMesh::open(const std::string& path)
     m_filename = path;
     m_name = tools::basename(path, false);
 
-    manager[this] = path;
+    Mesh::registerBuffer(this, path);
 
     Material* curMaterial = NULL;
 

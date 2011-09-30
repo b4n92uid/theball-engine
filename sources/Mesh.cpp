@@ -15,6 +15,50 @@ using namespace tbe;
 using namespace tbe::scene;
 using namespace std;
 
+static class SharedlObjMeshManager : public map<Mesh*, string>
+{
+public:
+
+    Mesh* shared(string source)
+    {
+        for(iterator it = begin(); it != end(); it++)
+            if(it->second == source)
+                return it->first;
+
+        return NULL;
+    }
+
+    bool used(HardwareBuffer* hb)
+    {
+        for(iterator it = begin(); it != end(); it++)
+            if(it->first->getHardwareBuffer() == hb)
+                return true;
+
+        return false;
+    }
+
+} manager;
+
+void Mesh::registerBuffer(Mesh* mesh, const std::string& source)
+{
+    manager[mesh] = source;
+}
+
+void Mesh::unregisterBuffer(Mesh* mesh)
+{
+    manager.erase(mesh);
+}
+
+Mesh* Mesh::isSharedBuffer(const std::string& source)
+{
+    return manager.shared(source);
+}
+
+bool Mesh::isUsedBuffer(HardwareBuffer* hb)
+{
+    return manager.used(hb);
+}
+
 Mesh::Mesh(MeshParallelScene* scene)
 {
     m_triangulate = true;
@@ -65,7 +109,9 @@ void Mesh::clear()
 
     m_materials.clear();
 
-    if(m_hardwareBuffer)
+    Mesh::unregisterBuffer(this);
+
+    if(!Mesh::isUsedBuffer(m_hardwareBuffer))
         delete m_hardwareBuffer;
 
     m_aabb.clear();
@@ -76,6 +122,9 @@ void Mesh::fetch(const Mesh& copy)
     m_triangulate = copy.m_triangulate;
     m_withNormal = copy.m_withNormal;
     m_withTexCoord = copy.m_withTexCoord;
+    m_visible = copy.m_visible;
+    m_outputMaterial = copy.m_outputMaterial;
+    m_billBoard = copy.m_billBoard;
 
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
@@ -91,6 +140,12 @@ void Mesh::fetch(const Mesh& copy)
 
     for(unsigned i = 0; i < m_renderProess.size(); i++)
         m_renderProess[i].parent = this;
+
+    m_vertexScale = 1;
+    m_color = 1;
+
+    setColor(copy.m_color);
+    setVertexScale(copy.m_vertexScale);
 }
 
 Mesh& Mesh::copy(const Mesh& copy)

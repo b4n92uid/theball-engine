@@ -34,6 +34,7 @@ HardwareBuffer::HardwareBuffer()
 
     m_vertexCount = 0;
     m_bufferSize = 0;
+    m_multiTexCoordOffset = 0;
 }
 
 HardwareBuffer::HardwareBuffer(const HardwareBuffer& hb)
@@ -44,6 +45,10 @@ HardwareBuffer::HardwareBuffer(const HardwareBuffer& hb)
 
     if(!m_bufferId)
         throw Exception("HardwareBuffer::HardwareBuffer; Buffer generation failed");
+
+    m_vertexCount = 0;
+    m_bufferSize = 0;
+    m_multiTexCoordOffset = 0;
 
     *this = hb;
 }
@@ -56,6 +61,7 @@ HardwareBuffer::~HardwareBuffer()
 HardwareBuffer& HardwareBuffer::operator=(const HardwareBuffer& hb)
 {
     m_vertex = hb.m_vertex;
+    m_multiTexCoord = hb.m_multiTexCoord;
 
     compile(hb.m_usage);
 
@@ -133,9 +139,13 @@ void HardwareBuffer::compile(GLenum usage)
     m_usage = usage;
     m_vertexCount = m_vertex.size();
     m_bufferSize = m_vertex.size() * sizeof (Vertex);
-    m_bufferSize += m_vertex.size() * sizeof (Vector2f);
 
-    m_multiTexCoordOffset = m_vertex.size() * sizeof (Vertex);
+    if(!m_multiTexCoord.empty())
+    {
+        m_bufferSize += m_vertex.size() * sizeof (Vector2f) * m_multiTexCoord.size();
+
+        m_multiTexCoordOffset = m_vertex.size() * sizeof (Vertex);
+    }
 
     if(m_vertex.size() % 3 > 0)
         cout << "HardwareBuffer::Compile; Mesh faces are not triangulated" << endl;

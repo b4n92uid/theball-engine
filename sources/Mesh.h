@@ -157,7 +157,14 @@ public:
     bool rayCast(Vector3f rayStart, Vector3f rayDiri,
                  Vector3f& intersect, bool global);
 
+    void fetch(const Mesh& copy);
+
     virtual std::vector<std::string> getUsedRessources();
+    
+    static void registerBuffer(Mesh* mesh, const std::string& source);
+    static void unregisterBuffer(Mesh* mesh);
+    static Mesh* isSharedBuffer(const std::string& source);
+    static bool isUsedBuffer(HardwareBuffer* hb);
 
 protected:
     bool m_triangulate;
@@ -170,8 +177,6 @@ protected:
 
     MeshParallelScene* m_parallelScene;
 
-    void fetch(const Mesh& copy);
-    
 private:
     void render(Material* material, unsigned offset, unsigned size);
 

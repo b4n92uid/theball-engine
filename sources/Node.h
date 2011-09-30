@@ -103,6 +103,8 @@ public:
     void deleteChild(Node* child);
     void deleteChild(unsigned index);
 
+    virtual void setup();
+    
     virtual Node* clone() = 0;
 
     virtual void process() = 0;
