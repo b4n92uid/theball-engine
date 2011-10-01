@@ -54,6 +54,7 @@ Node& Node::copy(const Node& copy)
     m_sceneManager = copy.m_sceneManager;
 
     m_userDatas = copy.m_userDatas;
+    m_addtionalCtorMap = copy.m_addtionalCtorMap;
 
     clearAllChild();
 
@@ -370,9 +371,14 @@ void Node::clearAllChild()
     m_childs.clear();
 }
 
+void Node::addToConstructionMap(std::string name, std::string value)
+{
+    m_addtionalCtorMap[name] = value;
+}
+
 Node::CtorMap Node::constructionMap(std::string root)
 {
-    Node::CtorMap ctormap;
+    Node::CtorMap ctormap = m_addtionalCtorMap;
 
     ctormap["name"] = m_name;
     ctormap["matrix"] = m_matrix.toStr();

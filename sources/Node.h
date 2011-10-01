@@ -104,7 +104,7 @@ public:
     void deleteChild(unsigned index);
 
     virtual void setup();
-    
+
     virtual Node* clone() = 0;
 
     virtual void process() = 0;
@@ -124,6 +124,8 @@ public:
 
     typedef std::map<std::string, std::string> CtorMap;
 
+    void addToConstructionMap(std::string name, std::string value);
+
     virtual CtorMap constructionMap(std::string root);
 
     typedef std::map<std::string, Node*> Map;
@@ -141,6 +143,8 @@ protected:
     Node::Array m_childs;
 
     Any::Map m_userDatas;
+
+    CtorMap m_addtionalCtorMap;
 
 private:
     Node& copy(const Node& copy);

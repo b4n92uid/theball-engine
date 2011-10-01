@@ -236,6 +236,7 @@ void SceneParser::saveScene(const std::string& filepath)
     file << "name=" << m_mapDescriptor.sceneName << endl;
     file << "author=" << m_mapDescriptor.authorName << endl;
     file << "ambient=" << m_mapDescriptor.ambiante << endl;
+    file << endl;
 
     if(m_additional.size())
     {
@@ -640,7 +641,7 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
         string modelFilepath;
 
-        if(rel.attr["filename"].find(':') != string::npos)
+        if(tools::isAbsoloutPath(rel.attr["filename"]))
             modelFilepath = rel.attr["filename"];
         else
             modelFilepath = tools::pathScope(m_mapDescriptor.fileName, rel.attr["filename"], true);
@@ -650,6 +651,8 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
         if(shared)
         {
             mesh->fetch(*shared);
+
+            Mesh::registerBuffer(mesh, modelFilepath);
         }
         else
         {
@@ -657,9 +660,10 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
             objfile.open(modelFilepath);
 
             *mesh = objfile;
-            
+
             Mesh::registerBuffer(mesh, modelFilepath);
         }
+
 
         if(rel.attr.count("vertexScale"))
             mesh->setVertexScale(Vector3f().fromStr(rel.attr["vertexScale"]));
@@ -676,6 +680,9 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
         if(m_classFactory)
             m_classFactory->setupMesh(mesh);
+
+        mesh->addToConstructionMap("class", "OBJMesh");
+        mesh->addToConstructionMap("filename", rel.attr["filename"]);
 
         current = mesh;
     }

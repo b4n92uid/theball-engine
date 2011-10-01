@@ -122,9 +122,6 @@ void Mesh::fetch(const Mesh& copy)
     m_triangulate = copy.m_triangulate;
     m_withNormal = copy.m_withNormal;
     m_withTexCoord = copy.m_withTexCoord;
-    m_visible = copy.m_visible;
-    m_outputMaterial = copy.m_outputMaterial;
-    m_billBoard = copy.m_billBoard;
 
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
@@ -140,12 +137,6 @@ void Mesh::fetch(const Mesh& copy)
 
     for(unsigned i = 0; i < m_renderProess.size(); i++)
         m_renderProess[i].parent = this;
-
-    m_vertexScale = 1;
-    m_color = 1;
-
-    setColor(copy.m_color);
-    setVertexScale(copy.m_vertexScale);
 }
 
 Mesh& Mesh::copy(const Mesh& copy)

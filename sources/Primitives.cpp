@@ -13,12 +13,15 @@ Box::Box(MeshParallelScene* scene) : Mesh(scene)
 
 Box::Box(MeshParallelScene* scene, Vector3f size) : Mesh(scene)
 {
-    setup(size);
+    build(size);
 }
 
-void Box::setup(Vector3f size)
+void Box::build(Vector3f size)
 {
-    m_hardwareBuffer = new HardwareBuffer;
+    if(m_hardwareBuffer)
+        m_hardwareBuffer->clear();
+    else
+        m_hardwareBuffer = new HardwareBuffer;
 
     /*
     Vertex vertexs[24];
@@ -176,12 +179,15 @@ Sphere::Sphere(MeshParallelScene* scene) : Mesh(scene)
 
 Sphere::Sphere(MeshParallelScene* scene, float radius, unsigned slices, unsigned stackes) : Mesh(scene)
 {
-    setup(radius, slices, stackes);
+    build(radius, slices, stackes);
 }
 
-void Sphere::setup(float radius, unsigned slices, unsigned stackes)
+void Sphere::build(float radius, unsigned slices, unsigned stackes)
 {
-    m_hardwareBuffer = new HardwareBuffer;
+    if(m_hardwareBuffer)
+        m_hardwareBuffer->clear();
+    else
+        m_hardwareBuffer = new HardwareBuffer;
 
     m_radius = radius;
 
@@ -258,12 +264,15 @@ Axes::Axes(MeshParallelScene* scene) : Mesh(scene)
 
 Axes::Axes(MeshParallelScene* scene, float lineWidth, float lineLength) : Mesh(scene)
 {
-    setup(lineWidth, lineLength);
+    build(lineWidth, lineLength);
 }
 
-void Axes::setup(float lineWidth, float lineLength)
+void Axes::build(float lineWidth, float lineLength)
 {
-    m_hardwareBuffer = new HardwareBuffer;
+    if(m_hardwareBuffer)
+        m_hardwareBuffer->clear();
+    else
+        m_hardwareBuffer = new HardwareBuffer;
 
     m_lineWidth = lineWidth;
     m_lineLength = lineLength;
@@ -314,12 +323,15 @@ Plane::Plane(MeshParallelScene* scene) : Mesh(scene)
 
 Plane::Plane(MeshParallelScene* scene, Vector2f size, Vector2i cut) : Mesh(scene)
 {
-    setup(size, cut);
+    build(size, cut);
 }
 
-void Plane::setup(Vector2f size, Vector2i cut)
+void Plane::build(Vector2f size, Vector2i cut)
 {
-    m_hardwareBuffer = new HardwareBuffer;
+    if(m_hardwareBuffer)
+        m_hardwareBuffer->clear();
+    else
+        m_hardwareBuffer = new HardwareBuffer;
 
     Vector2f quadSize = size / Vector2f(cut);
 
@@ -407,12 +419,15 @@ Grid::Grid(MeshParallelScene* scene) : Mesh(scene)
 
 Grid::Grid(MeshParallelScene* scene, Vector2f size, Vector2i cut) : Mesh(scene)
 {
-    setup(size, cut);
+    build(size, cut);
 }
 
-void Grid::setup(Vector2f size, Vector2i cut)
+void Grid::build(Vector2f size, Vector2i cut)
 {
-    m_hardwareBuffer = new HardwareBuffer;
+    if(m_hardwareBuffer)
+        m_hardwareBuffer->clear();
+    else
+        m_hardwareBuffer = new HardwareBuffer;
 
     Vector2f quadSize = size / Vector2f(cut);
 
