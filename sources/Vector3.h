@@ -341,6 +341,30 @@ public:
         z = !z ? 0 : (z > 0 ? diri.z : -diri.z);
     }
 
+    Vector3& pinpoint()
+    {
+        if(x >= 0.5)
+            return X(1).Y(0).Z(0);
+
+        else if(x <= -0.5)
+            return X(-1).Y(0).Z(0);
+
+        else if(y >= 0.5)
+            return X(0).Y(1).Z(0);
+
+        else if(y <= -0.5)
+            return X(0).Y(-1).Z(0);
+
+        else if(z >= 0.5)
+            return X(0).Y(0).Z(1);
+
+        else if(z <= -0.5)
+            return X(0).Y(0).Z(-1);
+
+        else
+            return *this;
+    }
+
     Vector3 X()
     {
         return Vector3(x, 0, 0);
@@ -356,19 +380,22 @@ public:
         return Vector3(0, 0, z);
     }
 
-    static Vector3 X(float value = 1)
+    Vector3& X(float value)
     {
-        return Vector3(value, 0, 0);
+        x = value;
+        return *this;
     }
 
-    static Vector3 Y(float value = 1)
+    Vector3& Y(float value)
     {
-        return Vector3(0, value, 0);
+        y = value;
+        return *this;
     }
 
-    static Vector3 Z(float value = 1)
+    Vector3& Z(float value)
     {
-        return Vector3(0, 0, value);
+        z = value;
+        return *this;
     }
 
     static float dot(const Vector3& a, const Vector3& b)

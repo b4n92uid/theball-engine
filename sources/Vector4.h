@@ -381,24 +381,34 @@ public:
         return (x >= min.x && y >= min.y && z >= min.z && x <= max.x && y <= max.y && z <= max.z);
     }
 
-    static Vector4 X(float value = 1)
+    Vector4& pinpoint()
     {
-        return Vector4(value, 0, 0, 0);
-    }
+        if(x >= 0.5)
+            return X(1).Y(0).Z(0);
 
-    static Vector4 Y(float value = 1)
-    {
-        return Vector4(0, value, 0, 0);
-    }
+        else if(x <= -0.5)
+            return X(-1).Y(0).Z(0);
 
-    static Vector4 Z(float value = 1)
-    {
-        return Vector4(0, 0, value, 0);
-    }
+        else if(y >= 0.5)
+            return X(0).Y(1).Z(0);
 
-    static Vector4 W(float value = 1)
-    {
-        return Vector4(0, 0, 0, value);
+        else if(y <= -0.5)
+            return X(0).Y(-1).Z(0);
+
+        else if(z >= 0.5)
+            return X(0).Y(0).Z(1);
+
+        else if(z <= -0.5)
+            return X(0).Y(0).Z(-1);
+
+        else if(w >= 0.5)
+            return X(0).Y(0).Z(0).W(1);
+
+        else if(z <= -0.5)
+            return X(0).Y(0).Z(0).W(-1);
+
+        else
+            return *this;
     }
 
     Vector4 X()
@@ -418,7 +428,31 @@ public:
 
     Vector4 W()
     {
-        return Vector4(0, 0, 0, x);
+        return Vector4(0, 0, 0, w);
+    }
+
+    Vector4& X(float value)
+    {
+        x = value;
+        return *this;
+    }
+
+    Vector4& Y(float value)
+    {
+        y = value;
+        return *this;
+    }
+
+    Vector4& Z(float value)
+    {
+        z = value;
+        return *this;
+    }
+
+    Vector4& W(float value)
+    {
+        w = value;
+        return *this;
     }
 
     static float dot(const Vector4& a, const Vector4& b)

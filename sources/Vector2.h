@@ -317,24 +317,44 @@ public:
         return (a.x * b.x + a.y * b.y);
     }
 
-    static Vector2 X(float value = 1)
+     Vector2& pinpoint()
     {
-        return Vector2(value, 0);
-    }
+        if(x >= 0.5)
+            return X(1).Y(0).Z(0);
 
-    static Vector2 Y(float value = 1)
-    {
-        return Vector2(0, value);
+        else if(x <= -0.5)
+            return X(-1).Y(0).Z(0);
+
+        else if(y >= 0.5 || y <= -0.5)
+            return X(0).Y(1).Z(0);
+
+        else if(y <= -0.5)
+            return X(0).Y(-1).Z(0);
+
+        else
+            return *this;
     }
 
     Vector2 X()
     {
-        return Vector2(x, 0);
+        return Vector2(x, 0, 0);
     }
 
     Vector2 Y()
     {
-        return Vector2(0, y);
+        return Vector2(0, y, 0);
+    }
+
+    Vector2& X(float value)
+    {
+        x = value;
+        return *this;
+    }
+
+    Vector2& Y(float value)
+    {
+        y = value;
+        return *this;
     }
 
     friend std::ostream & operator <<(std::ostream& stream, tbe::Vector2<T> vec)
