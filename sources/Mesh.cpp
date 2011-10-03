@@ -112,7 +112,7 @@ void Mesh::clear()
     Mesh::unregisterBuffer(this);
 
     if(!Mesh::isUsedBuffer(m_hardwareBuffer))
-        delete m_hardwareBuffer;
+        delete m_hardwareBuffer, m_hardwareBuffer = NULL;
 
     m_aabb.clear();
 }
