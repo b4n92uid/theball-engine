@@ -98,8 +98,8 @@ float AABB::getLength() const
 
 AABB& AABB::operator()(const Vector3f& min, const Vector3f& max)
 {
-    this->min = min;
-    this->max = max;
+    this->min = min>this->max? max : min;
+    this->max = max<this->min? min : max;
 
     return *this;
 }
