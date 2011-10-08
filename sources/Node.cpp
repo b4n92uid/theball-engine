@@ -207,7 +207,14 @@ bool Node::isRoot() const
 
 bool Node::isAttached() const
 {
-    return m_parent;
+    if(isRoot())
+        return true;
+
+    else if(m_parent)
+        return m_parent->isAttached();
+
+    else
+        return false;
 }
 
 void Node::releaseFromParent()

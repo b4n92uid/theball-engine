@@ -383,28 +383,28 @@ public:
 
     Vector4& pinpoint()
     {
-        if(x >= 0.5)
+        if(x > 0.6666)
             return X(1).Y(0).Z(0);
 
-        else if(x <= -0.5)
+        else if(x < -0.6666)
             return X(-1).Y(0).Z(0);
 
-        else if(y >= 0.5)
+        else if(y > 0.6666)
             return X(0).Y(1).Z(0);
 
-        else if(y <= -0.5)
+        else if(y < -0.6666)
             return X(0).Y(-1).Z(0);
 
-        else if(z >= 0.5)
+        else if(z > 0.6666)
             return X(0).Y(0).Z(1);
 
-        else if(z <= -0.5)
+        else if(z < -0.6666)
             return X(0).Y(0).Z(-1);
 
-        else if(w >= 0.5)
+        else if(w > 0.6666)
             return X(0).Y(0).Z(0).W(1);
 
-        else if(z <= -0.5)
+        else if(z < -0.6666)
             return X(0).Y(0).Z(0).W(-1);
 
         else

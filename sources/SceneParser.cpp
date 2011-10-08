@@ -198,6 +198,8 @@ void SceneParser::prepareScene()
     m_mapDescriptor.skybox.right = tools::pathScope(m_mapDescriptor.fileName, skytex[5].getFilename(), false);
 
     m_mapDescriptor.ambiante = m_sceneManager->getAmbientLight();
+    m_mapDescriptor.znear = m_sceneManager->getZNear();
+    m_mapDescriptor.zfar = m_sceneManager->getZFar();
 
     m_mapDescriptor.nodes.clear();
 
@@ -236,6 +238,8 @@ void SceneParser::saveScene(const std::string& filepath)
     file << "name=" << m_mapDescriptor.sceneName << endl;
     file << "author=" << m_mapDescriptor.authorName << endl;
     file << "ambient=" << m_mapDescriptor.ambiante << endl;
+    file << "znear=" << m_mapDescriptor.znear << endl;
+    file << "zfar=" << m_mapDescriptor.zfar << endl;
     file << endl;
 
     if(m_additional.size())
@@ -334,6 +338,8 @@ void SceneParser::loadScene(const std::string& filepath)
     m_mapDescriptor.sceneName.clear();
     m_mapDescriptor.authorName.clear();
     m_mapDescriptor.ambiante = 0.2;
+    m_mapDescriptor.znear = 0.1;
+    m_mapDescriptor.zfar = 512;
     m_mapDescriptor.fog.color = 0;
     m_mapDescriptor.fog.start = 32;
     m_mapDescriptor.fog.end = 64;
@@ -428,6 +434,12 @@ void SceneParser::parseGeneral(AttribMap& att)
     m_mapDescriptor.sceneName = att["name"];
     m_mapDescriptor.authorName = att["author"];
     m_mapDescriptor.ambiante.fromStr(att["ambient"]);
+
+    if(att.count("znear"))
+        m_mapDescriptor.znear = tools::strToNum<float>(att["znear"]);
+
+    if(att.count("zfar"))
+        m_mapDescriptor.zfar = tools::strToNum<float>(att["zfar"]);
 }
 
 void SceneParser::parseFog(AttribMap& att)
@@ -530,6 +542,10 @@ void SceneParser::buildScene()
     {
         buildNode(m_mapDescriptor.nodes[i]);
     }
+
+    m_sceneManager->setZNear(m_mapDescriptor.znear);
+    m_sceneManager->setZFar(m_mapDescriptor.zfar);
+    m_sceneManager->updateViewParameter();
 }
 
 void SceneParser::buildMaterial(AttribMap& att, Mesh* mesh)

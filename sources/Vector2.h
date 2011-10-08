@@ -319,16 +319,16 @@ public:
 
      Vector2& pinpoint()
     {
-        if(x >= 0.5)
+        if(x > 0.6666)
             return X(1).Y(0).Z(0);
 
-        else if(x <= -0.5)
+        else if(x < -0.6666)
             return X(-1).Y(0).Z(0);
 
-        else if(y >= 0.5 || y <= -0.5)
+        else if(y > 0.6666)
             return X(0).Y(1).Z(0);
 
-        else if(y <= -0.5)
+        else if(y < -0.6666)
             return X(0).Y(-1).Z(0);
 
         else

@@ -176,6 +176,8 @@ public:
         std::string sceneName;
         std::string authorName;
         Vector4f ambiante;
+        
+        float znear, zfar;
 
         struct
         {
