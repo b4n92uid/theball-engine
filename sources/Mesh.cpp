@@ -1042,6 +1042,8 @@ std::vector<std::string> Mesh::getUsedRessources()
             ressPath.push_back(it->second->getTexture(i).getFilename());
     }
 
+    ressPath.push_back(manager[this]);
+
     return ressPath;
 }
 
