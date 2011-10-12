@@ -78,7 +78,7 @@ protected:
 
     float m_radius;
 
-    GLint m_lightId;
+    int m_lightId;
 
     Type m_type;
 

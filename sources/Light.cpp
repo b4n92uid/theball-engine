@@ -18,10 +18,6 @@ using namespace tbe::scene;
 
 Light::Light(LightParallelScene* scene, Type type)
 {
-    initid();
-
-    glEnable(m_lightId);
-
     m_ambient = 0;
     m_diffuse = 1;
     m_specular = 0;
@@ -44,10 +40,6 @@ Light::Light(LightParallelScene* scene, Type type)
 
 Light::Light(const Light& orig) : Node(orig)
 {
-    initid();
-
-    glEnable(m_lightId);
-
     copy(orig);
 
     m_parallelScene->registerNode(this);
@@ -73,6 +65,9 @@ void Light::initid()
 {
     GLint maxLight;
     glGetIntegerv(GL_MAX_LIGHTS, & maxLight);
+
+    if(m_lightId != -1)
+        glDisable(m_lightId);
 
     m_lightId = -1;
 
@@ -130,6 +125,8 @@ void Light::process()
 
 void Light::render()
 {
+    initid();
+
     m_enable ? glEnable(m_lightId) : glDisable(m_lightId);
 
     if(!m_enable)

@@ -155,7 +155,7 @@ void Layout::update()
                 if(newSize.x <= 0) newSize.x = 1;
                 if(newSize.y <= 0) newSize.y = 1;
 
-                math::round(newSize);
+                newSize = math::round(newSize);
 
                 m_childControls[i]->SetSize(newSize);
             }
@@ -164,7 +164,7 @@ void Layout::update()
             {
                 Vector2f pos(m_pos);
 
-                math::round(pos);
+                pos = math::round(pos);
 
                 m_childControls[i]->SetPos(pos, m_border);
             }
@@ -177,8 +177,8 @@ void Layout::update()
                 if(!m_childControls[i - 1]->IsStretch())
                     size.y += m_space;
 
-                math::round(size);
-                math::round(pos);
+                size = math::round(size);
+                pos = math::round(pos);
 
                 m_childControls[i]->SetPos(Vector2f(pos.x, pos.y + size.y));
 
@@ -207,7 +207,7 @@ void Layout::update()
                 else if(m_align == MIDDLE)
                     pos.x = pos.x + (m_size.x / 2 - size.x / 2);
 
-                math::round(pos);
+                pos = math::round(pos);
 
                 m_childControls[i]->SetPos(pos);
             }
@@ -250,7 +250,7 @@ void Layout::update()
                 if(newSize.x <= 0) newSize.x = 1;
                 if(newSize.y <= 0) newSize.y = 1;
 
-                math::round(newSize);
+                newSize = math::round(newSize);
 
                 m_childControls[i]->SetSize(newSize);
             }
@@ -259,7 +259,7 @@ void Layout::update()
             {
                 Vector2f newSize(m_pos);
 
-                math::round(newSize);
+                newSize = math::round(newSize);
 
                 m_childControls[i]->SetPos(newSize, m_border);
             }
@@ -272,8 +272,8 @@ void Layout::update()
                 if(!m_childControls[i - 1]->IsStretch())
                     size.x += m_space;
 
-                math::round(pos);
-                math::round(size);
+                pos = math::round(pos);
+                size = math::round(size);
 
                 m_childControls[i]->SetPos(Vector2f(pos.x + size.x, pos.y));
 
@@ -301,7 +301,7 @@ void Layout::update()
                 else if(m_align == MIDDLE)
                     pos.y = pos.y + (m_size.y / 2 - size.y / 2);
 
-                math::round(pos);
+                pos = math::round(pos);
 
                 m_childControls[i]->SetPos(pos);
             }

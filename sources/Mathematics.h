@@ -72,17 +72,23 @@ template<typename T> inline tbe::Vector4<T> vec34(tbe::Vector3<T> vec3)
     return tbe::Vector4<T > (vec3.x, vec3.y, vec3.z, 1);
 }
 
-inline void radianClamp(float& angle)
+inline float radianClamp(float angle)
 {
     if(angle > M_PI)
         angle = -(M_PI - fmod(angle, M_PI));
+
+    return angle;
 }
 
-inline void radianClamp(Vector3f& euler)
+inline Vector3f radianClamp(const Vector3f& euler)
 {
-    radianClamp(euler.x);
-    radianClamp(euler.y);
-    radianClamp(euler.z);
+    Vector3f v;
+
+    v.x = radianClamp(euler.x);
+    v.y = radianClamp(euler.y);
+    v.z = radianClamp(euler.z);
+
+    return v;
 }
 
 #define FLOAT_TEST_FACTOR 0.001
@@ -306,62 +312,24 @@ inline float floatModulo(float lvalue, float rvalue)
  * @return
  */
 template<typename T>
-void round(T& value, const T& unit)
+inline T round(const T& value, const T& unit)
 {
+    T v;
+
     T sign = value >= 0 ? 1 : -1;
 
-    value = std::abs(value);
+    v = std::abs(value);
 
-    T diff = value % unit;
+    T diff = v % unit;
 
     if(diff >= unit / T(2))
-        value += unit - diff;
+        v += unit - diff;
     else
-        value -= diff;
+        v -= diff;
 
-    value *= sign;
-}
+    v *= sign;
 
-/**
- * Spécialisation de round() pour Vector2f
- *
- * @param value
- * @param unit
- * @return
- */
-inline void round(Vector2f& value)
-{
-    value.x = roundf(value.x);
-    value.y = roundf(value.y);
-}
-
-/**
- * Spécialisation de round() pour Vector3f
- *
- * @param value
- * @param unit
- * @return
- */
-inline void round(Vector3f& value)
-{
-    value.x = roundf(value.x);
-    value.y = roundf(value.z);
-    value.z = roundf(value.y);
-}
-
-/**
- * Spécialisation de round() pour Vector4f
- *
- * @param value
- * @param unit
- * @return
- */
-inline void round(Vector4f& value)
-{
-    value.x = roundf(value.x);
-    value.y = roundf(value.z);
-    value.z = roundf(value.y);
-    value.w = roundf(value.w);
+    return v;
 }
 
 /**
@@ -372,20 +340,24 @@ inline void round(Vector4f& value)
  * @return
  */
 template<>
-inline void round<float>(float& value, const float& unit)
+inline float round<float>(const float& value, const float& unit)
 {
+    float v;
+    
     float sign = value >= 0 ? 1 : -1;
 
-    value = std::abs(value);
+    v = std::abs(value);
 
-    float diff = floatModulo(value, unit);
+    float diff = floatModulo(v, unit);
 
     if(diff >= unit / 2.0f)
-        value += unit - diff;
+        v += unit - diff;
     else
-        value -= diff;
+        v -= diff;
 
-    value *= sign;
+    v *= sign;
+
+    return v;
 }
 
 /**
@@ -396,10 +368,14 @@ inline void round<float>(float& value, const float& unit)
  * @return
  */
 template<typename T>
-void round(Vector2<T>& value, const Vector2<T>& unit)
+inline Vector2<T> round(const Vector2<T>& value, const Vector2<T>& unit)
 {
-    round(value.x, unit.x);
-    round(value.y, unit.y);
+    Vector2<T> v;
+
+    v.x = round(value.x, unit.x);
+    v.y = round(value.y, unit.y);
+
+    return v;
 }
 
 /**
@@ -410,11 +386,83 @@ void round(Vector2<T>& value, const Vector2<T>& unit)
  * @return
  */
 template<typename T>
-void round(Vector3<T>& value, const Vector3<T>& unit)
+inline Vector3<T> round(const Vector3<T>& value, const Vector3<T>& unit)
 {
-    round(value.x, unit.x);
-    round(value.y, unit.y);
-    round(value.z, unit.z);
+    Vector3<T> v;
+
+    v.x = round(value.x, unit.x);
+    v.y = round(value.y, unit.y);
+    v.z = round(value.z, unit.z);
+
+    return v;
+}
+
+/**
+ * round() sur Vector4
+ *
+ * @param value
+ * @param unit
+ * @return
+ */
+template<typename T>
+inline Vector4<T> round(const Vector4<T>& value, const Vector4<T>& unit)
+{
+    Vector4<T> v;
+
+    v.x = round(value.x, unit.x);
+    v.y = round(value.y, unit.y);
+    v.z = round(value.z, unit.z);
+    v.w = round(value.w, unit.w);
+
+    return v;
+}
+
+/**
+ * Spécialisation de round() pour Vector2f
+ *
+ * @param value
+ * @param unit
+ * @return
+ */
+inline Vector2f round(Vector2f value)
+{
+    value.x = roundf(value.x);
+    value.y = roundf(value.y);
+    
+    return value;
+}
+
+/**
+ * Spécialisation de round() pour Vector3f
+ *
+ * @param value
+ * @param unit
+ * @return
+ */
+inline Vector3f round(Vector3f value)
+{
+    value.x = roundf(value.x);
+    value.y = roundf(value.y);
+    value.z = roundf(value.z);
+    
+    return value;
+}
+
+/**
+ * Spécialisation de round() pour Vector4f
+ *
+ * @param value
+ * @param unit
+ * @return
+ */
+inline Vector4f round(Vector4f value)
+{
+    value.x = roundf(value.x);
+    value.y = roundf(value.y);
+    value.z = roundf(value.z);
+    value.w = roundf(value.w);
+    
+    return value;
 }
 
 }
