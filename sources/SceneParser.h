@@ -38,27 +38,6 @@ public:
     virtual Light* newLight(LightParallelScene* scene) = 0;
     virtual ParticlesEmiter* newParticles(ParticlesParallelScene* scene) = 0;
     virtual MapMark* newMapMark(MapMarkParallelScene* scene) = 0;
-    virtual Water* newWater(WaterParallelScene* scene) = 0;
-
-    virtual void setupMesh(Mesh* node)
-    {
-    }
-
-    virtual void setupLight(Light* node)
-    {
-    }
-
-    virtual void setupParticles(ParticlesEmiter* node)
-    {
-    }
-
-    virtual void setupMapMark(MapMark* node)
-    {
-    }
-
-    virtual void setupWater(Water* node)
-    {
-    }
 };
 
 class ParserHandle
@@ -176,7 +155,7 @@ public:
         std::string sceneName;
         std::string authorName;
         Vector4f ambiante;
-        
+
         float znear, zfar;
 
         struct

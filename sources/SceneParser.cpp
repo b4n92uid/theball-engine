@@ -641,6 +641,8 @@ inline void buildInherited(SceneParser::Relation& rel, Node* parent, Node* curre
             current->setUserData(key, it->second);
         }
     }
+    
+    current->setup();
 }
 
 void SceneParser::buildNode(Relation& rel, Node* parent)
@@ -694,9 +696,6 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
         buildInherited(rel, parent ? parent : m_rootNode, mesh);
 
-        if(m_classFactory)
-            m_classFactory->setupMesh(mesh);
-
         mesh->addToConstructionMap("class", "OBJMesh");
         mesh->addToConstructionMap("filename", rel.attr["filename"]);
 
@@ -748,9 +747,6 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
         buildInherited(rel, parent ? parent : m_rootNode, emiter);
 
-        if(m_classFactory)
-            m_classFactory->setupParticles(emiter);
-
         current = emiter;
     }
 
@@ -785,9 +781,6 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
         buildInherited(rel, parent ? parent : m_rootNode, light);
 
-        if(m_classFactory)
-            m_classFactory->setupLight(light);
-
         current = light;
     }
 
@@ -798,9 +791,6 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
         MapMark* mark = m_classFactory ? m_classFactory->newMapMark(m_markScene) : new MapMark(m_markScene);
 
         buildInherited(rel, parent ? parent : m_rootNode, mark);
-
-        if(m_classFactory)
-            m_classFactory->setupMapMark(mark);
 
         current = mark;
     }
