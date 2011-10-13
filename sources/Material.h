@@ -150,6 +150,13 @@ public:
     void setDrawPass(unsigned drawPass);
     unsigned getDrawPass() const;
 
+    /// Applique une couleur a tout les vertecies du mesh
+    void setColor(Vector4f color);
+    Vector4f getColor();
+
+    void setOpacity(float opacity);
+    float getOpacity() const;
+
     /**
      * Spécifier la méthode de mélange utiliser lors du multi-texturing
      */
@@ -189,6 +196,8 @@ protected:
 
     unsigned m_renderFlags;
 
+    Vector4f m_color;
+
     unsigned m_frameSortWait;
     unsigned m_drawPass;
     float m_lineWidth;
@@ -200,11 +209,11 @@ protected:
     struct TextureApply
     {
         MulTexBlend blend;
-        
+
         bool clipped;
         Vector2i frameSize;
         Vector2i part;
-        
+
         int animation;
         ticks::Clock clock;
     };

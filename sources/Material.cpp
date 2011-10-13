@@ -26,6 +26,7 @@ Material::Material()
     m_depthTest = true;
     m_depthWrite = true;
     m_drawPass = 1;
+    m_color = 1;
 }
 
 Material::Material(const Material& copy)
@@ -68,6 +69,8 @@ Material& Material::operator=(const Material& copy)
     m_drawPass = copy.m_drawPass;
 
     m_texApply = copy.m_texApply;
+
+    m_color = copy.m_color;
 
     return *this;
 }
@@ -329,4 +332,24 @@ void Material::setTextureClipped(bool stat, unsigned index)
 bool Material::isTextureClipped(unsigned index)
 {
     return m_texApply[index].clipped;
+}
+
+void Material::setOpacity(float opacity)
+{
+    this->m_color.w = opacity;
+}
+
+float Material::getOpacity() const
+{
+    return m_color.w;
+}
+
+void Material::setColor(Vector4f color)
+{
+    m_color = color;
+}
+
+Vector4f Material::getColor()
+{
+    return m_color;
 }

@@ -598,6 +598,8 @@ void SceneParser::buildMaterial(AttribMap& att, Mesh* mesh)
                     toogleMaterial(material, Material::VERTEX_SORT_CULL_TRICK, it->second);
                 if(attributs == "alphaThershold")
                     material->setAlphaThershold(tools::strToNum<float>(it->second));
+                if(attributs == "color")
+                    material->setColor(Vector4f().fromStr(it->second));
                 if(attributs == "blendMod")
                     toogleMaterial(material, Material::BLEND_MOD, it->second);
                 if(attributs == "blendMul")
@@ -641,7 +643,7 @@ inline void buildInherited(SceneParser::Relation& rel, Node* parent, Node* curre
             current->setUserData(key, it->second);
         }
     }
-    
+
     current->setup();
 }
 
@@ -682,13 +684,8 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
             Mesh::registerBuffer(mesh, modelFilepath);
         }
 
-
         if(rel.attr.count("vertexScale"))
             mesh->setVertexScale(Vector3f().fromStr(rel.attr["vertexScale"]));
-        if(rel.attr.count("color"))
-            mesh->setColor(Vector4f().fromStr(rel.attr["color"]));
-        if(rel.attr.count("opacity"))
-            mesh->setOpacity(tools::strToNum<float>(rel.attr["opacity"]));
         if(rel.attr.count("billBoarding"))
             mesh->setBillBoard(Vector2b().fromStr(rel.attr["billBoarding"]));
 

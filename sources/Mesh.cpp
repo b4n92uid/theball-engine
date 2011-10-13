@@ -76,7 +76,6 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_hardwareBuffer = NULL;
 
     m_vertexScale = 1;
-    m_color = 1;
 }
 
 Mesh::Mesh(const Mesh& copy) : Node(copy)
@@ -168,9 +167,7 @@ Mesh& Mesh::copy(const Mesh& copy)
         m_renderProess[i].parent = this;
 
     m_vertexScale = 1;
-    m_color = 1;
 
-    setColor(copy.m_color);
     setVertexScale(copy.m_vertexScale);
 
     return *this;
@@ -556,17 +553,6 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     if(material->m_lineWidth)
         glLineWidth(material->m_lineWidth);
 
-    // Billboarding ------------------------------------------------------------
-
-    if(!!m_billBoard)
-    {
-        Vector3f pos = getAbsoluteMatrix().getPos();
-
-        Matrix4 rotation = m_sceneManager->computeBillboard(pos, Matrix4(), 0, m_billBoard);
-
-        m_matrix.setRotate(rotation.getRotate());
-    }
-
     // Vertex scaling & coloring -----------------------------------------------
 
     Vertex* vertex = m_hardwareBuffer->lock();
@@ -576,7 +562,10 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     for(unsigned i = 0; i < vertexCount; i++)
     {
         vertex[i].pos *= m_vertexScale;
-        vertex[i].color = m_color;
+
+        if(i > offset && i < offset + count)
+            vertex[i].color = material->m_color;
+
         m_aabb.count(vertex[i].pos);
     }
 
@@ -682,7 +671,21 @@ void Mesh::render()
     if(m_parent)
         glMultMatrixf(m_parent->getAbsoluteMatrix());
 
-    glMultMatrixf(m_matrix);
+
+    // Billboarding ------------------------------------------------------------
+
+    Matrix4 setmat = m_matrix;
+
+    if(!!m_billBoard)
+    {
+        Vector3f pos = getAbsoluteMatrix().getPos();
+
+        Matrix4 rotation = m_sceneManager->computeBillboard(pos, Matrix4(), 0, m_billBoard);
+
+        setmat.setRotate(rotation.getRotate());
+    }
+
+    glMultMatrixf(setmat);
 
     if(m_renderProess.empty())
     {
@@ -766,9 +769,9 @@ bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, boo
 
     for(unsigned i = 0; i < vertexCount; i += 3)
     {
-        Vector3f pos0 = vertex[i].pos,
-                pos1 = vertex[i + 1].pos,
-                pos2 = vertex[i + 2].pos;
+        Vector3f pos0 = vertex[i].pos * m_vertexScale,
+                pos1 = vertex[i + 1].pos * m_vertexScale,
+                pos2 = vertex[i + 2].pos * m_vertexScale;
 
         if(global)
         {
@@ -936,6 +939,7 @@ Node::CtorMap Mesh::constructionMap(std::string root)
         {
             ctormap["!" + it->first + ":alphaThershold"] = tools::numToStr(it->second->m_alphaThershold);
             ctormap["!" + it->first + ":blendMod"] = tools::numToStr(it->second->isEnable(Material::BLEND_MOD));
+            ctormap["!" + it->first + ":color"] = tools::numToStr(it->second->m_color);
             ctormap["!" + it->first + ":cullTrick"] = tools::numToStr(it->second->isEnable(Material::VERTEX_SORT_CULL_TRICK));
             ctormap["!" + it->first + ":blendMul"] = tools::numToStr(it->second->isEnable(Material::BLEND_MUL));
             ctormap["!" + it->first + ":blendAdd"] = tools::numToStr(it->second->isEnable(Material::BLEND_ADD));
@@ -970,7 +974,6 @@ Node::CtorMap Mesh::constructionMap(std::string root)
         }
     }
 
-    ctormap["color"] = m_color.toStr();
     ctormap["vertexScale"] = m_vertexScale.toStr();
     ctormap["billBoarding"] = m_billBoard.toStr();
 
@@ -995,26 +998,6 @@ void Mesh::setBillBoard(Vector2b billBoard)
 Vector2b Mesh::getBillBoard() const
 {
     return m_billBoard;
-}
-
-void Mesh::setOpacity(float opacity)
-{
-    this->m_color.w = opacity;
-}
-
-float Mesh::getOpacity() const
-{
-    return m_color.w;
-}
-
-void Mesh::setColor(Vector4f color)
-{
-    m_color = color;
-}
-
-Vector4f Mesh::getColor()
-{
-    return m_color;
 }
 
 void Mesh::setVertexScale(Vector3f vertexScale)

@@ -85,13 +85,6 @@ public:
     void applyShader(std::string materialName, Shader shader);
     void applyShader(Shader shader);
 
-    /// Applique une couleur a tout les vertecies du mesh
-    void setColor(Vector4f color);
-    Vector4f getColor();
-
-    void setOpacity(float opacity);
-    float getOpacity() const;
-
     /// Supprime le materieux name
     void deleteMaterial(std::string name);
 
@@ -201,7 +194,6 @@ private:
     Mesh& copy(const Mesh& copy);
 
     Vector2b m_billBoard;
-    Vector4f m_color;
     Vector3f m_vertexScale;
 };
 
