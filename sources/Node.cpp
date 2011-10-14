@@ -242,6 +242,12 @@ unsigned Node::deepPosition() const
     return deep;
 }
 
+void Node::dettach()
+{
+    if(m_parent)
+        m_parent->releaseChild(this);
+}
+
 void Node::setParent(Node* parent)
 {
     parent->addChild(this);
@@ -394,6 +400,11 @@ Node::CtorMap Node::constructionMap(std::string root)
         ctormap["." + it->first] = it->second.getValue<string > ();
 
     return ctormap;
+}
+
+std::vector<std::string> Node::getUsedRessources()
+{
+    return std::vector<std::string > ();
 }
 
 void Node::setSceneManager(SceneManager* sceneManager)

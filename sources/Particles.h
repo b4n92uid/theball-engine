@@ -112,6 +112,8 @@ public:
 
     CtorMap constructionMap(std::string root);
 
+    std::vector<std::string> getUsedRessources();
+    
     Particle* beginParticlesPosProcess();
     void endParticlesPosProcess();
 

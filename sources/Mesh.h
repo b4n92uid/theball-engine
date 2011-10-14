@@ -152,7 +152,7 @@ public:
 
     void fetch(const Mesh& copy);
 
-    virtual std::vector<std::string> getUsedRessources();
+    std::vector<std::string> getUsedRessources();
     
     static void registerBuffer(Mesh* mesh, const std::string& source);
     static void unregisterBuffer(Mesh* mesh);

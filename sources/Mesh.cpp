@@ -183,17 +183,14 @@ AABB Mesh::getAbsolutAabb()
     if(!m_hardwareBuffer)
         return 0;
 
-    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
+    Matrix4 mat = getAbsoluteMatrix();
+
+    const Vertex::Array& vertex = m_hardwareBuffer->getInitialVertex();
 
     AABB aabb;
 
-    Matrix4 mat = getAbsoluteMatrix();
-    Vertex* vertex = m_hardwareBuffer->lock(GL_READ_ONLY);
-
-    for(unsigned i = 0; i < vertexCount; i++)
-        aabb.count(mat * vertex[i].pos);
-
-    m_hardwareBuffer->unlock();
+    for(unsigned i = 0; i < vertex.size(); i++)
+        aabb.count(mat * (vertex[i].pos * m_vertexScale));
 
     return aabb;
 }
@@ -203,16 +200,12 @@ void Mesh::computeAabb()
     if(!m_hardwareBuffer)
         return;
 
+    const Vertex::Array& vertex = m_hardwareBuffer->getInitialVertex();
+
     m_aabb.clear();
 
-    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
-
-    Vertex* vertex = m_hardwareBuffer->lock(GL_READ_ONLY);
-
-    for(unsigned i = 0; i < vertexCount; i++)
+    for(unsigned i = 0; i < vertex.size(); i++)
         m_aabb.count(vertex[i].pos);
-
-    m_hardwareBuffer->unlock();
 }
 
 void Mesh::computeTangent()
@@ -316,8 +309,6 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     GLint tangentAttribIndex = -1, aoccAttribIndex = -1;
 
     unsigned vertexCount = m_hardwareBuffer->getVertexCount();
-
-    m_hardwareBuffer->restore();
 
     m_hardwareBuffer->bindBuffer();
 
@@ -553,20 +544,13 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     if(material->m_lineWidth)
         glLineWidth(material->m_lineWidth);
 
-    // Vertex scaling & coloring -----------------------------------------------
+    // Coloring ----------------------------------------------------------------
 
     Vertex* vertex = m_hardwareBuffer->lock();
 
-    m_aabb.clear();
-
-    for(unsigned i = 0; i < vertexCount; i++)
+    for(unsigned i = offset; i < offset + count && i < vertexCount; i++)
     {
-        vertex[i].pos *= m_vertexScale;
-
-        if(i > offset && i < offset + count)
-            vertex[i].color = material->m_color;
-
-        m_aabb.count(vertex[i].pos);
+        vertex[i].color = material->m_color;
     }
 
     m_hardwareBuffer->unlock();
@@ -666,26 +650,48 @@ void Mesh::render()
     if(!m_hardwareBuffer || m_hardwareBuffer->isEmpty() || !m_enable || !m_visible)
         return;
 
+    m_hardwareBuffer->restore();
+
     glPushMatrix();
 
     if(m_parent)
         glMultMatrixf(m_parent->getAbsoluteMatrix());
 
-
     // Billboarding ------------------------------------------------------------
-
-    Matrix4 setmat = m_matrix;
 
     if(!!m_billBoard)
     {
+        Matrix4 setmat = m_matrix;
+
         Vector3f pos = getAbsoluteMatrix().getPos();
 
         Matrix4 rotation = m_sceneManager->computeBillboard(pos, Matrix4(), 0, m_billBoard);
 
         setmat.setRotate(rotation.getRotate());
+
+        glMultMatrixf(setmat);
+    }
+    else
+        glMultMatrixf(m_matrix);
+
+    // Vertex Scaling ----------------------------------------------------------
+
+    m_aabb.clear();
+
+    Vertex* vertex = m_hardwareBuffer->lock();
+
+    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
+
+    for(unsigned i = 0; i < vertexCount; i++)
+    {
+        vertex[i].pos *= m_vertexScale;
+
+        m_aabb.count(vertex[i].pos);
     }
 
-    glMultMatrixf(setmat);
+    m_hardwareBuffer->unlock();
+
+    // Render ------------------------------------------------------------------
 
     if(m_renderProess.empty())
     {
@@ -759,15 +765,13 @@ Vector3f RayCastTriangle(Vector3f p, Vector3f d, Vector3f v0, Vector3f v1, Vecto
 
 bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, bool global)
 {
-    Vertex* vertex = m_hardwareBuffer->lock(GL_READ_ONLY);
+    const Vertex::Array& vertex = m_hardwareBuffer->getInitialVertex();
 
     Matrix4 absmat = getAbsoluteMatrix();
 
-    const unsigned vertexCount = m_hardwareBuffer->getVertexCount();
-
     Vector3f::Array hits;
 
-    for(unsigned i = 0; i < vertexCount; i += 3)
+    for(unsigned i = 0; i < vertex.size(); i += 3)
     {
         Vector3f pos0 = vertex[i].pos * m_vertexScale,
                 pos1 = vertex[i + 1].pos * m_vertexScale,
@@ -785,8 +789,6 @@ bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, boo
         if(intr != rayStart)
             hits.push_back(intr);
     }
-
-    m_hardwareBuffer->unlock();
 
     if(hits.empty())
     {

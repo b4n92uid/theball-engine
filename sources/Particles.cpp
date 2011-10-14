@@ -528,3 +528,11 @@ Node::CtorMap ParticlesEmiter::constructionMap(std::string root)
 
     return ctormap;
 }
+
+std::vector<std::string> ParticlesEmiter::getUsedRessources()
+{
+    std::vector<std::string> paths;
+    paths.push_back(m_texture.getFilename());
+
+    return paths;
+}

@@ -86,6 +86,8 @@ public:
 
     unsigned deepPosition() const;
 
+    void dettach();
+    
     void setParent(Node* parent);
     Node* getParent() const;
 
@@ -127,6 +129,8 @@ public:
     void addToConstructionMap(std::string name, std::string value);
 
     virtual CtorMap constructionMap(std::string root);
+    
+    virtual std::vector<std::string> getUsedRessources();
 
     typedef std::map<std::string, Node*> Map;
     typedef std::vector<Node*> Array;
