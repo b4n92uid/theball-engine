@@ -797,7 +797,7 @@ bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, boo
 
     else
     {
-        intersect = *std::max_element(hits.begin(), hits.end());
+        intersect = *std::min_element(hits.begin(), hits.end());
 
         return true;
     }
