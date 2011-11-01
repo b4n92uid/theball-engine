@@ -205,7 +205,7 @@ void Mesh::computeAabb()
     m_aabb.clear();
 
     for(unsigned i = 0; i < vertex.size(); i++)
-        m_aabb.count(vertex[i].pos);
+        m_aabb.count(vertex[i].pos * m_vertexScale);
 }
 
 void Mesh::computeTangent()

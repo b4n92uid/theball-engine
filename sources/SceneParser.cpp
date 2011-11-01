@@ -696,6 +696,8 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
         mesh->addToConstructionMap("class", "OBJMesh");
         mesh->addToConstructionMap("filename", rel.attr["filename"]);
 
+        mesh->computeAabb();
+
         current = mesh;
     }
 

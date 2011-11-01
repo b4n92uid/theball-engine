@@ -14,6 +14,7 @@
 #include <sstream>
 #include <map>
 #include <vector>
+#include <typeinfo>
 
 #include "Mathematics.h"
 #include "AABB.h"
@@ -181,6 +182,15 @@ inline std::string joinstr(std::vector<std::string> vec, char glue)
 
 #define var_dump(v) tbe::tools::var_dump_print(v, #v, __LINE__, __FILE__)
 
+template<typename T1> void var_dump_print(const T1& var, const char* name, int line, const char* file)
+{
+    using namespace std;
+
+    cout << typeid (var).name() << "(" << name << ")@" << strrchr(file, '/') << ":" << line << endl;
+
+    cout << var << endl;
+}
+
 template<typename T1, typename T2> void var_dump_print(const std::map<T1, T2>& stdmap, const char* name, int line, const char* file)
 {
     using namespace std;
@@ -189,9 +199,6 @@ template<typename T1, typename T2> void var_dump_print(const std::map<T1, T2>& s
 
     for(typename map<T1, T2>::const_iterator it = stdmap.begin(); it != stdmap.end(); it++)
         cout << "  [" << it->first << "] = " << it->second << endl;
-
-    cout << endl;
-    cout << endl;
 }
 
 /**

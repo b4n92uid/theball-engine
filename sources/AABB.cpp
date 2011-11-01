@@ -68,7 +68,7 @@ AABB& AABB::count(const Vector3f& pos)
 
 bool AABB::isInner(scene::Node* node) const
 {
-    return isInner(node->getPos());
+    return isInner(node->getAbsolutAabb());
 }
 
 bool AABB::isInner(const AABB& aabb) const
@@ -98,8 +98,8 @@ float AABB::getLength() const
 
 AABB& AABB::operator()(const Vector3f& min, const Vector3f& max)
 {
-    this->min = min>this->max? max : min;
-    this->max = max<this->min? min : max;
+    this->min = min;
+    this->max = max;
 
     return *this;
 }
