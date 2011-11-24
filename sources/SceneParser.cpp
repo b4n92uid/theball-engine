@@ -583,13 +583,27 @@ void SceneParser::buildMaterial(AttribMap& att, Mesh* mesh)
 
                 material->setTexture(tex, layer);
 
-                if(valtoken[1] == "additive")
-                    material->setTextureBlend(Material::ADDITIVE, layer);
-                if(valtoken[1] == "modulate")
-                    material->setTextureBlend(Material::MODULATE, layer);
-                if(valtoken[1] == "replace")
-                    material->setTextureBlend(Material::REPLACE, layer);
+                if(valtoken.size() > 1)
+                {
+                    if(valtoken[1] == "additive")
+                        material->setTextureBlend(Material::ADDITIVE, layer);
+                    else if(valtoken[1] == "modulate")
+                        material->setTextureBlend(Material::MODULATE, layer);
+                    else if(valtoken[1] == "replace")
+                        material->setTextureBlend(Material::REPLACE, layer);
+                }
 
+                if(valtoken.size() > 2)
+                    material->setTextureClipped(tools::strToNum<bool>(valtoken[2]), layer);
+
+                if(valtoken.size() > 3)
+                    material->setTextureAnimation(tools::strToNum<unsigned >(valtoken[3]), layer);
+
+                if(valtoken.size() > 4)
+                    material->setTextureFrameSize(Vector2i().fromStr(valtoken[4]), layer);
+
+                if(valtoken.size() > 5)
+                    material->setTexturePart(Vector2i().fromStr(valtoken[5]), layer);
             }
 
             else

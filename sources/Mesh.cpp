@@ -296,7 +296,7 @@ struct DepthSortVertexFunc
 
     bool operator()(const TriangleFace& face1, const TriangleFace & face2)
     {
-        return (meshPos + (face1.v1.pos + face1.v2.pos + face1.v3.pos) / 3.0f - camPos) >
+        return(meshPos + (face1.v1.pos + face1.v2.pos + face1.v3.pos) / 3.0f - camPos) >
                 (meshPos + (face2.v1.pos + face2.v2.pos + face2.v3.pos) / 3.0f - camPos);
     }
 
@@ -423,24 +423,40 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
              */
             if(texApply[itt->first].clipped)
             {
-                const Vertex::Array& initvert = m_hardwareBuffer->getInitialVertex();
-
-                Vector2i& curpart = texApply[itt->first].part;
-
-                Vector2f* uvs = m_hardwareBuffer->lockMultiTexCoord(itt->first);
-
                 const Vector2f& texSize = itt->second.getSize();
 
-                for(unsigned i = 0; i < vertexCount; i++)
+                const Vertex::Array& initvert = m_hardwareBuffer->getInitialVertex();
+
+                Vector2i& frame_offset = texApply[itt->first].part;
+                Vector2i& frame_size = texApply[itt->first].frameSize;
+
+                if(itt->first > 0)
                 {
-                    Vector2f frame((float)texApply[itt->first].frameSize.x / (float)texSize.x,
-                                   (float)texApply[itt->first].frameSize.y / (float)texSize.y);
+                    Vector2f* uvs = m_hardwareBuffer->lockMultiTexCoord(itt->first);
 
-                    Vector2f scaled(initvert[i].texCoord.x * frame.x,
-                                    initvert[i].texCoord.y * frame.y);
+                    for(unsigned i = 0; i < vertexCount; i++)
+                    {
+                        Vector2f frame(frame_size.x / texSize.x, frame_size.y / texSize.y);
 
-                    uvs[i].x = scaled.x + frame.x * curpart.x;
-                    uvs[i].y = scaled.y + frame.y * curpart.y;
+                        Vector2f scaled(initvert[i].texCoord.x * frame.x, initvert[i].texCoord.y * frame.y);
+
+                        uvs[i].x = scaled.x + frame.x * frame_offset.x;
+                        uvs[i].y = scaled.y + frame.y * frame_offset.y;
+                    }
+                }
+                else
+                {
+                    Vertex* vs = m_hardwareBuffer->lock();
+
+                    for(unsigned i = 0; i < vertexCount; i++)
+                    {
+                        Vector2f frame(frame_size.x / texSize.x, frame_size.y / texSize.y);
+
+                        Vector2f scaled(initvert[i].texCoord.x * frame.x, initvert[i].texCoord.y * frame.y);
+
+                        vs[i].texCoord.x = scaled.x + frame.x * frame_offset.x;
+                        vs[i].texCoord.y = scaled.y + frame.y * frame_offset.y;
+                    }
                 }
 
                 m_hardwareBuffer->unlock(false);
@@ -448,15 +464,15 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
                 if(texApply[itt->first].animation > 0)
                     if(texApply[itt->first].clock.isEsplanedTime(texApply[itt->first].animation))
                     {
-                        curpart.x++;
+                        frame_offset.x++;
 
-                        if(curpart.x >= texSize.x / texApply[itt->first].frameSize.x)
+                        if(frame_offset.x >= texSize.x / texApply[itt->first].frameSize.x)
                         {
-                            curpart.x = 0;
-                            curpart.y++;
+                            frame_offset.x = 0;
+                            frame_offset.y++;
 
-                            if(curpart.y >= texSize.y / texApply[itt->first].frameSize.y)
-                                curpart.y = 0;
+                            if(frame_offset.y >= texSize.y / texApply[itt->first].frameSize.y)
+                                frame_offset.y = 0;
                         }
                     }
             }
@@ -951,7 +967,6 @@ Node::CtorMap Mesh::constructionMap(std::string root)
             ctormap["!" + it->first + ":lighted"] = tools::numToStr(it->second->isEnable(Material::LIGHTED));
             ctormap["!" + it->first + ":textured"] = tools::numToStr(it->second->isEnable(Material::TEXTURED));
             ctormap["!" + it->first + ":colored"] = tools::numToStr(it->second->isEnable(Material::COLORED));
-            ctormap["!" + it->first + ":foged"] = tools::numToStr(it->second->isEnable(Material::FOGED));
 
             unsigned txcount = it->second->getTexturesCount();
 
@@ -972,6 +987,11 @@ Node::CtorMap Mesh::constructionMap(std::string root)
                     ctormap[key] += "additive";
                 if(blend == Material::REPLACE)
                     ctormap[key] += "replace";
+
+                ctormap[key] += ";" + tools::numToStr(it->second->m_texApply[i].clipped);
+                ctormap[key] += ";" + tools::numToStr(it->second->m_texApply[i].animation);
+                ctormap[key] += ";" + it->second->m_texApply[i].frameSize.toStr();
+                ctormap[key] += ";" + it->second->m_texApply[i].part.toStr();
             }
         }
     }

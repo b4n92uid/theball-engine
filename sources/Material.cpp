@@ -107,7 +107,7 @@ std::string Material::getTangentLocation() const
 
 bool Material::isTransparent()
 {
-    return (m_renderFlags & BLEND_ADD)
+    return(m_renderFlags & BLEND_ADD)
             || (m_renderFlags & BLEND_MUL)
             || (m_renderFlags & BLEND_MOD)
             || (m_renderFlags & ALPHA);
@@ -169,7 +169,7 @@ void Material::setTexture(Texture texture, unsigned index)
 
     if(!m_texApply.count(index))
     {
-        TextureApply apply = {MODULATE, false, 1.0f, 0, 0};
+        TextureApply apply = {MODULATE, false, 128, 0, 0};
         m_texApply[index] = apply;
     }
 }
@@ -231,7 +231,7 @@ Vector4f Material::getAmbient() const
 
 bool Material::isEnable(unsigned flag)
 {
-    return (m_renderFlags & flag);
+    return(m_renderFlags & flag);
 }
 
 void Material::enable(unsigned flag)
