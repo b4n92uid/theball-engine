@@ -669,8 +669,6 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
     if(iclass == "OBJMesh")
     {
-        cout << "Building " << iclass << "..." << endl;
-
         Mesh* mesh = m_classFactory ? m_classFactory->newMesh(m_meshScene) : new Mesh(m_meshScene);
 
         string modelFilepath;
@@ -717,8 +715,6 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
     else if(iclass == "ParticlesEmiter")
     {
-        cout << "Building " << iclass << "..." << endl;
-
         ParticlesEmiter* emiter = m_classFactory ? m_classFactory->newParticles(m_particlesScene) : new ParticlesEmiter(m_particlesScene);
 
         string modelFilepath;
@@ -765,8 +761,6 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
     else if(iclass == "Light")
     {
-        cout << "Building " << iclass << "..." << endl;
-
         Light* light = m_classFactory ? m_classFactory->newLight(m_lightScene) : new Light(m_lightScene);
 
         if(rel.attr["type"] == "Diri")
@@ -799,8 +793,6 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
     else if(iclass == "MapMark")
     {
-        cout << "Building " << iclass << "..." << endl;
-
         MapMark* mark = m_classFactory ? m_classFactory->newMapMark(m_markScene) : new MapMark(m_markScene);
 
         buildInherited(rel, parent ? parent : m_rootNode, mark);

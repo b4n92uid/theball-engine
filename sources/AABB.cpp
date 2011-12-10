@@ -15,12 +15,14 @@ using namespace tbe::scene;
 
 AABB::AABB()
 {
+    this->min = 0;
+    this->max = 0;
 }
 
 AABB::AABB(float minmax)
 {
-    this->max = minmax;
     this->min = -minmax;
+    this->max = minmax;
 }
 
 AABB::AABB(Vector3f min, Vector3f max)
@@ -73,7 +75,7 @@ bool AABB::isInner(scene::Node* node) const
 
 bool AABB::isInner(const AABB& aabb) const
 {
-    return (aabb.min.isInside(min, max) || aabb.max.isInside(min, max));
+    return(aabb.min.isInside(min, max) || aabb.max.isInside(min, max));
 }
 
 bool AABB::isInner(const Vector3f& point) const
@@ -83,17 +85,17 @@ bool AABB::isInner(const Vector3f& point) const
 
 Vector3f AABB::getCenter() const
 {
-    return (max - min) / 2.0f + min;
+    return(max - min) / 2.0f + min;
 }
 
 Vector3f AABB::getSize() const
 {
-    return (max - min);
+    return(max - min);
 }
 
 float AABB::getLength() const
 {
-    return (max - min).getMagnitude();
+    return(max - min).getMagnitude();
 }
 
 AABB& AABB::operator()(const Vector3f& min, const Vector3f& max)
@@ -131,27 +133,27 @@ AABB & AABB::sub(const AABB& aabb)
 
 AABB& AABB::operator+=(float pos)
 {
-    return (*this)(min - pos, max + pos);
+    return(*this)(min - pos, max + pos);
 }
 
 AABB& AABB::operator+=(const Vector3f& pos)
 {
-    return (*this)(min - pos, max + pos);
+    return(*this)(min - pos, max + pos);
 }
 
 AABB& AABB::operator+=(const AABB& aabb)
 {
-    return (*this)(min + aabb.min, max + aabb.max);
+    return(*this)(min + aabb.min, max + aabb.max);
 }
 
 AABB& AABB::operator-=(const Vector3f& pos)
 {
-    return (*this)(min + pos, max - pos);
+    return(*this)(min + pos, max - pos);
 }
 
 AABB& AABB::operator-=(const AABB& aabb)
 {
-    return (*this)(min + aabb.min, max - aabb.max);
+    return(*this)(min + aabb.min, max - aabb.max);
 }
 
 AABB AABB::operator-(const Vector3f& value)

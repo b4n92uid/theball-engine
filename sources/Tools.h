@@ -186,7 +186,7 @@ template<typename T1> void var_dump_print(const T1& var, const char* name, int l
 {
     using namespace std;
 
-    cout << typeid (var).name() << "(" << name << ")@" << strrchr(file, '/') << ":" << line << endl;
+    cout << typeid(var).name() << "(" << name << ")@" << strrchr(file, '/') << ":" << line << endl;
 
     cout << var << endl;
 }
@@ -195,10 +195,20 @@ template<typename T1, typename T2> void var_dump_print(const std::map<T1, T2>& s
 {
     using namespace std;
 
-    cout << "map(" << name << ")@" << strrchr(file, '/') << ":" << line << endl;
+    cout << "std::map(" << name << ")@" << strrchr(file, '/') << ":" << line << endl;
 
     for(typename map<T1, T2>::const_iterator it = stdmap.begin(); it != stdmap.end(); it++)
         cout << "  [" << it->first << "] = " << it->second << endl;
+}
+
+template<typename T1> void var_dump_print(const std::vector<T1>& stdvec, const char* name, int line, const char* file)
+{
+    using namespace std;
+
+    cout << "std::vector(" << name << ")@" << strrchr(file, '/') << ":" << line << endl;
+
+    for(unsigned i = 0; i < stdvec.size(); i++)
+        cout << stdvec[i] << endl;
 }
 
 /**
@@ -209,7 +219,7 @@ template<typename T1, typename T2> void var_dump_print(const std::map<T1, T2>& s
 inline bool isAbsoloutPath(std::string path)
 {
     #ifdef __WIN32__
-    return (path.size() >= 1) ? path[1] == ':' : false;
+    return(path.size() >= 1) ? path[1] == ':' : false;
     #else
     return path[0] == '/';
     #endif
@@ -357,7 +367,7 @@ template<typename T> void erase(std::vector<T>& vec, T val)
 template<typename T, typename T2> T find(const std::vector<T>& vec, T2 val)
 {
     typename std::vector<T>::const_iterator it = std::find(vec.begin(), vec.end(), val);
-    return (it != vec.end()) ? *it : NULL;
+    return(it != vec.end()) ? *it : NULL;
 }
 
 /**

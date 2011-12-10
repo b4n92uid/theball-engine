@@ -35,7 +35,7 @@ struct DepthSortMeshFunc
     bool operator()(Mesh* node1, Mesh * node2)
     {
         if(node1->isTransparent() && node2->isTransparent())
-            return (node1->getAbsoluteMatrix().getPos() - camPos) > (node2->getAbsoluteMatrix().getPos() - camPos);
+            return(node1->getAbsoluteMatrix().getPos() - camPos) > (node2->getAbsoluteMatrix().getPos() - camPos);
 
         else if(node1->isTransparent() && !node2->isTransparent())
             return false;
@@ -44,7 +44,7 @@ struct DepthSortMeshFunc
             return true;
 
         else
-            return (node1->getAbsoluteMatrix().getPos() - camPos) < (node2->getAbsoluteMatrix().getPos() - camPos);
+            return(node1->getAbsoluteMatrix().getPos() - camPos) < (node2->getAbsoluteMatrix().getPos() - camPos);
     }
 
     Vector3f camPos;
@@ -85,7 +85,7 @@ Mesh::Array MeshParallelScene::findMeshs(Vector3f start, Vector3f diri)
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
     {
-        Vector3f intersect;
+        float intersect;
 
         if(m_nodes[i]->isEnable())
             if(m_nodes[i]->rayCast(start, diri, intersect, true))
@@ -95,20 +95,26 @@ Mesh::Array MeshParallelScene::findMeshs(Vector3f start, Vector3f diri)
     return matches;
 }
 
-bool MeshParallelScene::findFloor(Vector3f& pos)
+bool MeshParallelScene::findFloor(float x, float& y, float z)
 {
     bool atleastone = false;
 
-    pos.y = getSceneAabb().min.y - 1;
+    float yfloor = getSceneAabb().min.y - 1;
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
     {
-        float lastY = pos.y;
+        if(!m_nodes[i]->isEnable())
+            continue;
 
-        if(m_nodes[i]->findFloor(pos, true))
+        float lastY = yfloor;
+
+        if(m_nodes[i]->findFloor(x, yfloor, z, true))
         {
-            atleastone = true;
-            pos.y = std::max(pos.y, lastY);
+            if(yfloor < lastY)
+            {
+                atleastone = true;
+                yfloor = lastY;
+            }
         }
     }
 
@@ -119,6 +125,8 @@ void MeshParallelScene::setInFloor(Node* node)
 {
     Vector3f pos = node->getPos();
 
+    bool atleastone = false;
+
     pos.y = getSceneAabb().min.y - 1;
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
@@ -126,13 +134,20 @@ void MeshParallelScene::setInFloor(Node* node)
         if(m_nodes[i] == node || !m_nodes[i]->isEnable())
             continue;
 
-        float lastY = pos.y;
+        float yfloor;
 
-        if(m_nodes[i]->findFloor(pos, true))
-            pos.y = std::max(pos.y, lastY);
+        if(m_nodes[i]->findFloor(pos.x, yfloor, pos.z, true))
+        {
+            if(pos.y < yfloor)
+            {
+                atleastone = true;
+                pos.y = yfloor;
+            }
+        }
     }
 
-    node->setPos(pos);
+    if(atleastone)
+        node->setPos(pos);
 }
 
 AABB MeshParallelScene::getSceneAabb()

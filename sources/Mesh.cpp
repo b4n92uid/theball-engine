@@ -736,7 +736,7 @@ void Mesh::process()
     for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::process));
 }
 
-Vector3f RayCastTriangle(Vector3f p, Vector3f d, Vector3f v0, Vector3f v1, Vector3f v2)
+bool RayCastTriangle(Vector3f p, Vector3f d, float& i, Vector3f v0, Vector3f v1, Vector3f v2)
 {
     Vector3f e1, e2, h, s, q;
 
@@ -750,46 +750,49 @@ Vector3f RayCastTriangle(Vector3f p, Vector3f d, Vector3f v0, Vector3f v1, Vecto
     a = Vector3f::dot(e1, h);
 
     if(a > -0.00001 && a < 0.00001)
-        return p;
+        return false;
 
     f = 1.0f / a;
     s = p - v0;
     u = f * (Vector3f::dot(s, h));
 
     if(u < 0.0 || u > 1.0)
-        return p;
+        return false;
 
     q = Vector3f::cross(s, e1);
 
     v = f * Vector3f::dot(d, q);
 
     if(v < 0.0 || u + v > 1.0)
-        return p;
+        return false;
 
     // at this stage we can compute t to find out where
     // the intersection point is on the line
     float t = f * Vector3f::dot(e2, q);
 
     if(t > 0.00001) // ray intersection
-        return p + Vector3f::normalize(d) * t;
+    {
+        i = t;
+        return true;
+    }
 
         // this means that there is a line intersection
         // but not a ray intersection
     else
-        return p;
+        return false;
 }
 
-bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, bool global)
+bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, float& intersect, bool global)
 {
     const Vertex::Array& vertex = m_hardwareBuffer->getInitialVertex();
 
     Matrix4 absmat = getAbsoluteMatrix();
 
-    Vector3f::Array hits;
+    vector<float> hits;
 
     for(unsigned i = 0; i < vertex.size(); i += 3)
     {
-        Vector3f pos0 = vertex[i].pos * m_vertexScale,
+        Vector3f pos0 = vertex[i + 0].pos * m_vertexScale,
                 pos1 = vertex[i + 1].pos * m_vertexScale,
                 pos2 = vertex[i + 2].pos * m_vertexScale;
 
@@ -800,31 +803,51 @@ bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, Vector3f& intersect, boo
             pos2 = absmat * pos2;
         }
 
-        Vector3f intr = RayCastTriangle(rayStart, rayDiri, pos0, pos1, pos2);
+        float intr;
 
-        if(intr != rayStart)
+        if(RayCastTriangle(rayStart, rayDiri, intr, pos0, pos1, pos2))
             hits.push_back(intr);
     }
 
-    if(hits.empty())
+    if(!hits.empty())
     {
+        intersect = *std::min_element(hits.begin(), hits.end());
+        return true;
+    }
+
+    else
         return false;
+}
+
+bool Mesh::findFloor(float getx, float& sety, float getz, bool global)
+{
+    if(global)
+    {
+        float gety = (getAbsoluteMatrix() * m_aabb.max).y + 1;
+
+        float intersect;
+
+        if(rayCast(Vector3f(getx, gety, getz), Vector3f(0, -1, 0), intersect, global))
+        {
+            sety = gety + -1 * intersect;
+            return true;
+        }
+        else
+            return false;
     }
 
     else
     {
-        intersect = *std::min_element(hits.begin(), hits.end());
+        float intersect;
 
-        return true;
+        if(rayCast(Vector3f(getx, m_aabb.max.y, getz), Vector3f(0, -1, 0), intersect, global))
+        {
+            sety = m_aabb.max.y + -1 * intersect;
+            return true;
+        }
+        else
+            return false;
     }
-}
-
-bool Mesh::findFloor(Vector3f& pos, bool global)
-{
-    float y = global ? (getAbsoluteMatrix() * m_aabb.max).y + 1 : m_aabb.max.y + 1;
-
-    return rayCast(Vector3f(pos.x, y, pos.z),
-                   Vector3f(0, -1, 0), pos, global);
 }
 
 bool Mesh::isTransparent()

@@ -58,7 +58,7 @@ public:
     void computeAocc();
 
     /// Renvois la position y des coordonnés x z dans le repere local du mesh
-    bool findFloor(Vector3f& pos, bool global);
+    bool findFloor(float getx, float& sety, float getz, bool global);
 
     /// Ajout un materieux au noeud
     void addMaterial(std::string name, Material* material);
@@ -147,13 +147,12 @@ public:
     void setBillBoard(Vector2b billBoard);
     Vector2b getBillBoard() const;
 
-    bool rayCast(Vector3f rayStart, Vector3f rayDiri,
-                 Vector3f& intersect, bool global);
+    bool rayCast(Vector3f rayStart, Vector3f rayDiri, float& intersect, bool global);
 
     void fetch(const Mesh& copy);
 
     std::vector<std::string> getUsedRessources();
-    
+
     static void registerBuffer(Mesh* mesh, const std::string& source);
     static void unregisterBuffer(Mesh* mesh);
     static Mesh* isSharedBuffer(const std::string& source);
