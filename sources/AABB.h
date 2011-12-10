@@ -130,6 +130,9 @@ public:
     /// Renvois une position aléatoire a l'interieur de la boite englobant
     Vector3f randPos() const;
 
+    // Renvois les 8 points qui compose la boite englobant
+    Vector3f::Array getPoints() const;
+
     /// Déplace la boite englobant
     AABB& translate(Vector3f pos);
 

@@ -183,6 +183,22 @@ Vector3f AABB::randPos() const
                     math::rand(min.y, max.z));
 }
 
+Vector3f::Array AABB::getPoints() const
+{
+    Vector3f points[8] = {
+        min,
+        min + Vector3f(max.x, 0, 0),
+        min + Vector3f(0, max.y, 0),
+        min + Vector3f(max.x, max.y, 0),
+        min + Vector3f(0, 0, max.z),
+        min + Vector3f(max.x, 0, max.z),
+        min + Vector3f(0, max.y, max.z),
+        min + max,
+    };
+
+    return Vector3f::Array(points, points + 8);
+}
+
 AABB& AABB::translate(Vector3f pos)
 {
     min += pos;
