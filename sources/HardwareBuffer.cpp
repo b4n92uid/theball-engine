@@ -147,9 +147,6 @@ void HardwareBuffer::compile(GLenum usage)
         m_multiTexCoordOffset = m_vertex.size() * sizeof (Vertex);
     }
 
-    if(m_vertex.size() % 3 > 0)
-        cout << "HardwareBuffer::Compile; Mesh faces are not triangulated" << endl;
-
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
     glBufferDataARB(GL_ARRAY_BUFFER_ARB, m_bufferSize, &m_vertex[0], usage);
 
