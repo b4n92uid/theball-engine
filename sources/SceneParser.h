@@ -98,12 +98,13 @@ public:
 
     SceneParser& exclude(Node* node);
 
+    void reloadMaterialsFile();
+    void reloadMaterialsFile(Mesh* mesh);
+    
     void setAdditionalString(std::string key, std::string value);
-
     std::string getAdditionalString(std::string key);
 
     void removeAdditional(std::string key);
-
     void clearAdditional();
 
     const AttribMap additionalFields() const;

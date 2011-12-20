@@ -134,6 +134,9 @@ public:
     CtorMap constructionMap(std::string root);
     CtorMap outputMaterial(std::string root);
 
+    void setMaterialFile(std::string materialFile);
+    std::string getMaterialFile() const;
+
     void setVertexScale(Vector3f vertexScale);
     Vector3f getVertexScale() const;
 
@@ -191,6 +194,8 @@ private:
 
     Vector2b m_billBoard;
     Vector3f m_vertexScale;
+
+    std::string m_materialFile;
 };
 
 }

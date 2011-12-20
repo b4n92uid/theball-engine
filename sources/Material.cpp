@@ -189,6 +189,11 @@ void Material::dropTexture(unsigned index)
     m_textures.erase(index);
 }
 
+void Material::dropAllTexture()
+{
+    m_textures.clear();
+}
+
 void Material::setShininess(float shininess)
 {
     m_shininess = shininess;

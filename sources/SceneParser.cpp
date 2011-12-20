@@ -535,6 +535,21 @@ void SceneParser::buildScene()
     m_sceneManager->updateViewParameter();
 }
 
+void SceneParser::reloadMaterialsFile(Mesh* mesh)
+{
+    if(!mesh->getMaterialFile().empty())
+        buildMaterialFromFile(mesh->getMaterialFile(), mesh);
+}
+
+void SceneParser::reloadMaterialsFile()
+{
+    for(Iterator<Mesh*> it = m_meshScene->iterator(); it; it++)
+    {
+        if(!it->getMaterialFile().empty())
+            buildMaterialFromFile(it->getMaterialFile(), *it);
+    }
+}
+
 void SceneParser::buildMaterialFromMap(AttribMap& att, Mesh* mesh)
 {
     for(AttribMap::iterator it = att.begin(); it != att.end(); it++)
@@ -707,6 +722,7 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
         if(rel.attr.count("vertexScale"))
             mesh->setVertexScale(Vector3f().fromStr(rel.attr["vertexScale"]));
+
         if(rel.attr.count("billBoarding"))
             mesh->setBillBoard(Vector2b().fromStr(rel.attr["billBoarding"]));
 
