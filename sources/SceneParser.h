@@ -14,7 +14,6 @@
 #include "LightParallelScene.h"
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
-#include "WaterParallelScene.h"
 #include "MapMarkParallelScene.h"
 #include "MapMark.h"
 
@@ -47,17 +46,14 @@ public:
     ParserHandle(SceneManager* sceneManager);
     virtual ~ParserHandle();
 
-    void setWaterScene(WaterParallelScene* waterScene);
+    void setMeshScene(MeshParallelScene* meshScene);
     MeshParallelScene* getMeshScene() const;
 
     void setParticlesScene(ParticlesParallelScene* particlesScene);
     ParticlesParallelScene* getParticlesScene() const;
 
-    void setMeshScene(MeshParallelScene* meshScene);
-    LightParallelScene* getLightScene() const;
-
     void setLightScene(LightParallelScene* lightScene);
-    WaterParallelScene* getWaterScene() const;
+    LightParallelScene* getLightScene() const;
 
     void setMarkScene(MapMarkParallelScene* markScene);
     MapMarkParallelScene* getMarkScene() const;
@@ -69,7 +65,6 @@ protected:
     LightParallelScene* m_lightScene;
     MeshParallelScene* m_meshScene;
     ParticlesParallelScene* m_particlesScene;
-    WaterParallelScene* m_waterScene;
     MapMarkParallelScene* m_markScene;
 
     SceneManager* m_sceneManager;

@@ -13,7 +13,6 @@
 #include "Skybox.h"
 #include "Tools.h"
 #include "Particles.h"
-#include "Water.h"
 #include "MapMark.h"
 #include "ObjMesh.h"
 #include "Ball3DMesh.h"
@@ -37,7 +36,6 @@ ParserHandle::ParserHandle()
     m_lightScene = NULL;
     m_meshScene = NULL;
     m_particlesScene = NULL;
-    m_waterScene = NULL;
     m_markScene = NULL;
     m_version = 0.1;
 }
@@ -49,7 +47,6 @@ ParserHandle::ParserHandle(SceneManager* sceneManager)
     m_lightScene = NULL;
     m_meshScene = NULL;
     m_particlesScene = NULL;
-    m_waterScene = NULL;
     m_markScene = NULL;
     m_version = 0.1;
 }
@@ -67,11 +64,6 @@ ParticlesParallelScene* ParserHandle::getParticlesScene() const
 MeshParallelScene* ParserHandle::getMeshScene() const
 {
     return m_meshScene;
-}
-
-WaterParallelScene* ParserHandle::getWaterScene() const
-{
-    return m_waterScene;
 }
 
 LightParallelScene* ParserHandle::getLightScene() const
@@ -92,11 +84,6 @@ void ParserHandle::setClassFactory(ParserClassFactory* classFactory)
 ParserClassFactory* ParserHandle::getClassFactory() const
 {
     return m_classFactory;
-}
-
-void ParserHandle::setWaterScene(WaterParallelScene* waterScene)
-{
-    this->m_waterScene = waterScene;
 }
 
 void ParserHandle::setParticlesScene(ParticlesParallelScene* particlesScene)
