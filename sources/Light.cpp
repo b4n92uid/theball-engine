@@ -80,9 +80,6 @@ void Light::initid()
         }
 
     }
-
-    if(m_lightId == -1)
-        throw Exception("Light::initid; Add light error; Max light allowed %d", maxLight);
 }
 
 void Light::copy(const Light& orig)
@@ -125,12 +122,14 @@ void Light::process()
 
 void Light::render()
 {
+    glDisable(m_lightId);
+
     initid();
 
-    m_enable ? glEnable(m_lightId) : glDisable(m_lightId);
-
-    if(!m_enable)
+    if(m_lightId == -1 || !m_enable)
         return;
+    else
+        glEnable(m_lightId);
 
     // set ambient color
     glLightfv(m_lightId, GL_AMBIENT, m_ambient);
