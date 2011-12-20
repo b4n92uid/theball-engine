@@ -65,7 +65,6 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_withNormal = false;
     m_withTexCoord = false;
     m_visible = true;
-    m_outputMaterial = false;
 
     Node::m_parallelScene = m_parallelScene = scene;
 
@@ -148,7 +147,6 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_withNormal = copy.m_withNormal;
     m_withTexCoord = copy.m_withTexCoord;
     m_visible = copy.m_visible;
-    m_outputMaterial = copy.m_outputMaterial;
     m_billBoard = copy.m_billBoard;
 
     m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
@@ -970,69 +968,61 @@ bool Mesh::isVisible() const
     return m_visible;
 }
 
+Mesh::CtorMap Mesh::outputMaterial(std::string root)
+{
+    CtorMap ctormap;
+
+    for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); it++)
+    {
+        ctormap[it->first + ":alphaThershold"] = tools::numToStr(it->second->m_alphaThershold);
+        ctormap[it->first + ":blendMod"] = tools::numToStr(it->second->isEnable(Material::BLEND_MOD));
+        ctormap[it->first + ":color"] = tools::numToStr(it->second->m_color);
+        ctormap[it->first + ":cullTrick"] = tools::numToStr(it->second->isEnable(Material::VERTEX_SORT_CULL_TRICK));
+        ctormap[it->first + ":blendMul"] = tools::numToStr(it->second->isEnable(Material::BLEND_MUL));
+        ctormap[it->first + ":blendAdd"] = tools::numToStr(it->second->isEnable(Material::BLEND_ADD));
+        ctormap[it->first + ":alpha"] = tools::numToStr(it->second->isEnable(Material::ALPHA));
+        ctormap[it->first + ":frontFaceCull"] = tools::numToStr(it->second->isEnable(Material::FRONTFACE_CULL));
+        ctormap[it->first + ":backFaceCull"] = tools::numToStr(it->second->isEnable(Material::BACKFACE_CULL));
+        ctormap[it->first + ":lighted"] = tools::numToStr(it->second->isEnable(Material::LIGHTED));
+        ctormap[it->first + ":textured"] = tools::numToStr(it->second->isEnable(Material::TEXTURED));
+        ctormap[it->first + ":colored"] = tools::numToStr(it->second->isEnable(Material::COLORED));
+
+        unsigned txcount = it->second->getTexturesCount();
+
+        for(unsigned i = 0; i < txcount; i++)
+        {
+            string key = it->first + ":texture:" + tools::numToStr(i);
+
+            Texture tex = it->second->getTexture(i);
+
+            ctormap[key] = tools::pathScope(root, tex.getFilename(), false);
+            ctormap[key] += ";";
+
+            unsigned blend = it->second->m_texApply[i].blend;
+
+            if(blend == Material::MODULATE)
+                ctormap[key] += "modulate";
+            if(blend == Material::ADDITIVE)
+                ctormap[key] += "additive";
+            if(blend == Material::REPLACE)
+                ctormap[key] += "replace";
+
+            ctormap[key] += ";" + tools::numToStr(it->second->m_texApply[i].clipped);
+            ctormap[key] += ";" + tools::numToStr(it->second->m_texApply[i].animation);
+            ctormap[key] += ";" + it->second->m_texApply[i].frameSize.toStr();
+            ctormap[key] += ";" + it->second->m_texApply[i].part.toStr();
+        }
+    }
+}
+
 Node::CtorMap Mesh::constructionMap(std::string root)
 {
     Node::CtorMap ctormap = Node::constructionMap(root);
-
-    if(m_outputMaterial)
-    {
-        for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); it++)
-        {
-            ctormap["!" + it->first + ":alphaThershold"] = tools::numToStr(it->second->m_alphaThershold);
-            ctormap["!" + it->first + ":blendMod"] = tools::numToStr(it->second->isEnable(Material::BLEND_MOD));
-            ctormap["!" + it->first + ":color"] = tools::numToStr(it->second->m_color);
-            ctormap["!" + it->first + ":cullTrick"] = tools::numToStr(it->second->isEnable(Material::VERTEX_SORT_CULL_TRICK));
-            ctormap["!" + it->first + ":blendMul"] = tools::numToStr(it->second->isEnable(Material::BLEND_MUL));
-            ctormap["!" + it->first + ":blendAdd"] = tools::numToStr(it->second->isEnable(Material::BLEND_ADD));
-            ctormap["!" + it->first + ":alpha"] = tools::numToStr(it->second->isEnable(Material::ALPHA));
-            ctormap["!" + it->first + ":frontFaceCull"] = tools::numToStr(it->second->isEnable(Material::FRONTFACE_CULL));
-            ctormap["!" + it->first + ":backFaceCull"] = tools::numToStr(it->second->isEnable(Material::BACKFACE_CULL));
-            ctormap["!" + it->first + ":lighted"] = tools::numToStr(it->second->isEnable(Material::LIGHTED));
-            ctormap["!" + it->first + ":textured"] = tools::numToStr(it->second->isEnable(Material::TEXTURED));
-            ctormap["!" + it->first + ":colored"] = tools::numToStr(it->second->isEnable(Material::COLORED));
-
-            unsigned txcount = it->second->getTexturesCount();
-
-            for(unsigned i = 0; i < txcount; i++)
-            {
-                string key = "!" + it->first + ":texture:" + tools::numToStr(i);
-
-                Texture tex = it->second->getTexture(i);
-
-                ctormap[key] = tools::pathScope(root, tex.getFilename(), false);
-                ctormap[key] += ";";
-
-                unsigned blend = it->second->m_texApply[i].blend;
-
-                if(blend == Material::MODULATE)
-                    ctormap[key] += "modulate";
-                if(blend == Material::ADDITIVE)
-                    ctormap[key] += "additive";
-                if(blend == Material::REPLACE)
-                    ctormap[key] += "replace";
-
-                ctormap[key] += ";" + tools::numToStr(it->second->m_texApply[i].clipped);
-                ctormap[key] += ";" + tools::numToStr(it->second->m_texApply[i].animation);
-                ctormap[key] += ";" + it->second->m_texApply[i].frameSize.toStr();
-                ctormap[key] += ";" + it->second->m_texApply[i].part.toStr();
-            }
-        }
-    }
 
     ctormap["vertexScale"] = m_vertexScale.toStr();
     ctormap["billBoarding"] = m_billBoard.toStr();
 
     return ctormap;
-}
-
-void Mesh::setOutputMaterial(bool outputMaterial)
-{
-    this->m_outputMaterial = outputMaterial;
-}
-
-bool Mesh::isOutputMaterial() const
-{
-    return m_outputMaterial;
 }
 
 void Mesh::setBillBoard(Vector2b billBoard)

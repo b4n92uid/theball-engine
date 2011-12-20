@@ -197,7 +197,9 @@ private:
     void parseSkyBox(AttribMap& att);
 
     void buildNode(Relation& att, Node* parent = NULL);
-    void buildMaterial(AttribMap& att, Mesh* mesh);
+    void buildMaterial(std::string key, std::string value, Mesh* mesh);
+    void buildMaterialFromMap(AttribMap& att, Mesh* mesh);
+    void buildMaterialFromFile(std::string filepath, Mesh* mesh);
 
     void prepareNodeConstruction(Node* node, Relation& rel);
     void outpuNodeConstruction(Relation& rel, std::ofstream& file);

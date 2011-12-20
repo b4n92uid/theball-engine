@@ -548,94 +548,116 @@ void SceneParser::buildScene()
     m_sceneManager->updateViewParameter();
 }
 
-void SceneParser::buildMaterial(AttribMap& att, Mesh* mesh)
+void SceneParser::buildMaterialFromMap(AttribMap& att, Mesh* mesh)
 {
-    mesh->setOutputMaterial(false);
-
     for(AttribMap::iterator it = att.begin(); it != att.end(); it++)
     {
         string key = it->first;
 
         if(key[0] == '!')
         {
-            mesh->setOutputMaterial(true);
-
             key.erase(0, 1);
 
-            vector<string> token = tools::tokenize(key, ':');
-
-            if(token.empty() || token.size() < 2)
-                continue;
-
-            string matname = token[0];
-            string attributs = token[1];
-
-            Material* material = mesh->getMaterial(matname);
-
-            if(attributs == "texture")
-            {
-                vector<string> valtoken = tools::tokenize(it->second, ';');
-
-                Texture tex;
-                tex.load(tools::pathScope(m_mapDescriptor.fileName, valtoken[0], true), true);
-
-                int layer = tools::strToNum<int>(token[2]);
-
-                material->setTexture(tex, layer);
-
-                if(valtoken.size() > 1)
-                {
-                    if(valtoken[1] == "additive")
-                        material->setTextureBlend(Material::ADDITIVE, layer);
-                    else if(valtoken[1] == "modulate")
-                        material->setTextureBlend(Material::MODULATE, layer);
-                    else if(valtoken[1] == "replace")
-                        material->setTextureBlend(Material::REPLACE, layer);
-                }
-
-                if(valtoken.size() > 2)
-                    material->setTextureClipped(tools::strToNum<bool>(valtoken[2]), layer);
-
-                if(valtoken.size() > 3)
-                    material->setTextureAnimation(tools::strToNum<unsigned >(valtoken[3]), layer);
-
-                if(valtoken.size() > 4)
-                    material->setTextureFrameSize(Vector2i().fromStr(valtoken[4]), layer);
-
-                if(valtoken.size() > 5)
-                    material->setTexturePart(Vector2i().fromStr(valtoken[5]), layer);
-            }
-
-            else
-            {
-                if(attributs == "cullTrick")
-                    toogleMaterial(material, Material::VERTEX_SORT_CULL_TRICK, it->second);
-                if(attributs == "alphaThershold")
-                    material->setAlphaThershold(tools::strToNum<float>(it->second));
-                if(attributs == "color")
-                    material->setColor(Vector4f().fromStr(it->second));
-                if(attributs == "blendMod")
-                    toogleMaterial(material, Material::BLEND_MOD, it->second);
-                if(attributs == "blendMul")
-                    toogleMaterial(material, Material::BLEND_MUL, it->second);
-                if(attributs == "blendAdd")
-                    toogleMaterial(material, Material::BLEND_ADD, it->second);
-                if(attributs == "alpha")
-                    toogleMaterial(material, Material::ALPHA, it->second);
-                if(attributs == "frontFaceCull")
-                    toogleMaterial(material, Material::FRONTFACE_CULL, it->second);
-                if(attributs == "backFaceCull")
-                    toogleMaterial(material, Material::BACKFACE_CULL, it->second);
-                if(attributs == "lighted")
-                    toogleMaterial(material, Material::LIGHTED, it->second);
-                if(attributs == "textured")
-                    toogleMaterial(material, Material::TEXTURED, it->second);
-                if(attributs == "colored")
-                    toogleMaterial(material, Material::COLORED, it->second);
-                if(attributs == "foged")
-                    toogleMaterial(material, Material::FOGED, it->second);
-            }
+            buildMaterial(key, it->second, mesh);
         }
+    }
+}
+
+void SceneParser::buildMaterialFromFile(std::string filepath, Mesh* mesh)
+{
+    filepath = tools::pathScope(m_mapDescriptor.fileName, filepath, true);
+
+    string buffer;
+    ifstream stream(filepath.c_str());
+
+    for(unsigned line = 0; std::getline(stream, buffer); line++)
+    {
+        if(buffer.empty() || buffer[0] == '#')
+            continue;
+
+        vector<string> token = tools::tokenize(buffer, '=');
+
+        if(token.size() == 2)
+            buildMaterial(token[0], token[1], mesh);
+        else
+            cout << "SceneParser::buildMaterialFromFile; invalid assignation line " << line << endl;
+    }
+}
+
+void SceneParser::buildMaterial(std::string key, std::string value, Mesh* mesh)
+{
+    vector<string> token = tools::tokenize(key, ':');
+
+    if(token.empty() || token.size() < 2)
+        return;
+
+    string matname = token[0];
+    string matattr = token[1];
+
+    Material* material = mesh->getMaterial(matname);
+
+    if(matattr == "texture")
+    {
+        int layer = token.size() >= 3 ? tools::strToNum<int>(token[2]) : 0;
+
+        vector<string> valtoken = tools::tokenize(value, ';');
+
+        Texture tex;
+        tex.load(tools::pathScope(m_mapDescriptor.fileName, valtoken[0], true), true);
+
+        material->setTexture(tex, layer);
+
+        if(valtoken.size() > 1)
+        {
+            if(valtoken[1] == "additive")
+                material->setTextureBlend(Material::ADDITIVE, layer);
+            else if(valtoken[1] == "modulate")
+                material->setTextureBlend(Material::MODULATE, layer);
+            else if(valtoken[1] == "replace")
+                material->setTextureBlend(Material::REPLACE, layer);
+        }
+
+        if(valtoken.size() > 2)
+            material->setTextureClipped(tools::strToNum<bool>(valtoken[2]), layer);
+
+        if(valtoken.size() > 3)
+            material->setTextureAnimation(tools::strToNum<unsigned >(valtoken[3]), layer);
+
+        if(valtoken.size() > 4)
+            material->setTextureFrameSize(Vector2i().fromStr(valtoken[4]), layer);
+
+        if(valtoken.size() > 5)
+            material->setTexturePart(Vector2i().fromStr(valtoken[5]), layer);
+    }
+
+    else
+    {
+        if(matattr == "cullTrick")
+            toogleMaterial(material, Material::VERTEX_SORT_CULL_TRICK, value);
+        if(matattr == "alphaThershold")
+            material->setAlphaThershold(tools::strToNum<float>(value));
+        if(matattr == "color")
+            material->setColor(Vector4f().fromStr(value));
+        if(matattr == "blendMod")
+            toogleMaterial(material, Material::BLEND_MOD, value);
+        if(matattr == "blendMul")
+            toogleMaterial(material, Material::BLEND_MUL, value);
+        if(matattr == "blendAdd")
+            toogleMaterial(material, Material::BLEND_ADD, value);
+        if(matattr == "alpha")
+            toogleMaterial(material, Material::ALPHA, value);
+        if(matattr == "frontFaceCull")
+            toogleMaterial(material, Material::FRONTFACE_CULL, value);
+        if(matattr == "backFaceCull")
+            toogleMaterial(material, Material::BACKFACE_CULL, value);
+        if(matattr == "lighted")
+            toogleMaterial(material, Material::LIGHTED, value);
+        if(matattr == "textured")
+            toogleMaterial(material, Material::TEXTURED, value);
+        if(matattr == "colored")
+            toogleMaterial(material, Material::COLORED, value);
+        if(matattr == "foged")
+            toogleMaterial(material, Material::FOGED, value);
     }
 }
 
@@ -701,7 +723,10 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
         if(rel.attr.count("billBoarding"))
             mesh->setBillBoard(Vector2b().fromStr(rel.attr["billBoarding"]));
 
-        buildMaterial(rel.attr, mesh);
+        if(rel.attr.count("materials"))
+            buildMaterialFromFile(rel.attr["materials"], mesh);
+        else
+            buildMaterialFromMap(rel.attr, mesh);
 
         buildInherited(rel, parent ? parent : m_rootNode, mesh);
 

@@ -132,9 +132,7 @@ public:
     HardwareBuffer* getHardwareBuffer() const;
 
     CtorMap constructionMap(std::string root);
-
-    void setOutputMaterial(bool outputMaterial);
-    bool isOutputMaterial() const;
+    CtorMap outputMaterial(std::string root);
 
     void setVertexScale(Vector3f vertexScale);
     Vector3f getVertexScale() const;
@@ -163,7 +161,6 @@ protected:
     bool m_withNormal;
     bool m_withTexCoord;
     bool m_visible;
-    bool m_outputMaterial;
 
     HardwareBuffer* m_hardwareBuffer;
 
