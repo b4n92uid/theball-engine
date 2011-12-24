@@ -560,9 +560,9 @@ void SceneParser::saveMaterialFile(Mesh* mesh)
 
 void SceneParser::saveMaterialFile(Mesh* mesh, std::string path)
 {
-    ofstream stream(m_materialsFile[mesh].c_str());
+    ofstream stream(path.c_str());
 
-    Node::CtorMap ctor = mesh->outputMaterial(m_materialsFile[mesh]);
+    Node::CtorMap ctor = mesh->outputMaterial(path);
 
     for(Node::CtorMap::iterator it = ctor.begin(); it != ctor.end(); it++)
         stream << it->first << "=" << it->second << endl;
@@ -572,8 +572,7 @@ void SceneParser::saveMaterialFile(Mesh* mesh, std::string path)
 
 void SceneParser::setMaterialFile(Mesh* mesh, std::string path)
 {
-    if(m_materialsFile.count(mesh))
-        m_materialsFile[mesh] = path;
+    m_materialsFile[mesh] = path;
 
     reloadMaterialFiles(mesh);
 }
