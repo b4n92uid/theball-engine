@@ -98,9 +98,17 @@ public:
 
     SceneParser& exclude(Node* node);
 
-    void reloadMaterialsFile();
-    void reloadMaterialsFile(Mesh* mesh);
-    
+    void reloadMaterialFiles();
+    void reloadMaterialFiles(Mesh* mesh);
+
+    void saveMaterialFile(Mesh* mesh);
+    void saveMaterialFile(Mesh* mesh, std::string path);
+
+    void setMaterialFile(Mesh* mesh, std::string path);
+    std::string getMaterialFile(Mesh* mesh);
+
+    void deleteMaterialFile(Mesh* mesh);
+
     void setAdditionalString(std::string key, std::string value);
     std::string getAdditionalString(std::string key);
 
@@ -194,14 +202,15 @@ private:
 
     void buildNode(Relation& att, Node* parent = NULL);
     void buildMaterial(std::string key, std::string value, Mesh* mesh);
-    void buildMaterialFromMap(AttribMap& att, Mesh* mesh);
-    void buildMaterialFromFile(std::string filepath, Mesh* mesh);
+    void buildMaterial(std::string filepath, Mesh* mesh);
 
     void prepareNodeConstruction(Node* node, Relation& rel);
     void outpuNodeConstruction(Relation& rel, std::ofstream& file);
 
     std::vector<Node*> m_archivedNodes;
     std::vector<Node*> m_excludedNodes;
+
+    std::map<Mesh*, std::string> m_materialsFile;
 };
 
 class ClassParser : public ParserHandle

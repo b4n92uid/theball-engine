@@ -190,6 +190,10 @@ void SceneParser::prepareScene()
 
     m_mapDescriptor.nodes.clear();
 
+    for(Iterator<Mesh*> it = m_meshScene->iterator(); it; it++)
+        if(m_materialsFile.count(*it))
+            it->addToConstructionMap("materials", m_materialsFile[*it]);
+
     for(Iterator<Node*> it = m_rootNode->getChildIterator(); it; it++)
     {
         if(tools::find(m_excludedNodes, *it))
@@ -535,37 +539,60 @@ void SceneParser::buildScene()
     m_sceneManager->updateViewParameter();
 }
 
-void SceneParser::reloadMaterialsFile(Mesh* mesh)
+void SceneParser::reloadMaterialFiles(Mesh* mesh)
 {
-    if(!mesh->getMaterialFile().empty())
-        buildMaterialFromFile(mesh->getMaterialFile(), mesh);
+    if(m_materialsFile.count(mesh))
+        buildMaterial(m_materialsFile[mesh], mesh);
 }
 
-void SceneParser::reloadMaterialsFile()
+void SceneParser::reloadMaterialFiles()
 {
-    for(Iterator<Mesh*> it = m_meshScene->iterator(); it; it++)
-    {
-        if(!it->getMaterialFile().empty())
-            buildMaterialFromFile(it->getMaterialFile(), *it);
-    }
+    for(std::map<Mesh*, std::string>::iterator it = m_materialsFile.begin();
+        it != m_materialsFile.end(); it++)
+        buildMaterial(it->second, it->first);
 }
 
-void SceneParser::buildMaterialFromMap(AttribMap& att, Mesh* mesh)
+void SceneParser::saveMaterialFile(Mesh* mesh)
 {
-    for(AttribMap::iterator it = att.begin(); it != att.end(); it++)
-    {
-        string key = it->first;
-
-        if(key[0] == '!')
-        {
-            key.erase(0, 1);
-
-            buildMaterial(key, it->second, mesh);
-        }
-    }
+    if(m_materialsFile.count(mesh))
+        saveMaterialFile(mesh, m_materialsFile[mesh]);
 }
 
-void SceneParser::buildMaterialFromFile(std::string filepath, Mesh* mesh)
+void SceneParser::saveMaterialFile(Mesh* mesh, std::string path)
+{
+    ofstream stream(m_materialsFile[mesh].c_str());
+
+    Node::CtorMap ctor = mesh->outputMaterial(m_materialsFile[mesh]);
+
+    for(Node::CtorMap::iterator it = ctor.begin(); it != ctor.end(); it++)
+        stream << it->first << "=" << it->second << endl;
+
+    stream.close();
+}
+
+void SceneParser::setMaterialFile(Mesh* mesh, std::string path)
+{
+    if(m_materialsFile.count(mesh))
+        m_materialsFile[mesh] = path;
+
+    reloadMaterialFiles(mesh);
+}
+
+std::string SceneParser::getMaterialFile(Mesh* mesh)
+{
+    if(m_materialsFile.count(mesh))
+        return m_materialsFile[mesh];
+    else
+        return std::string();
+}
+
+void SceneParser::deleteMaterialFile(Mesh* mesh)
+{
+    if(m_materialsFile.count(mesh))
+        m_materialsFile.erase(mesh);
+}
+
+void SceneParser::buildMaterial(std::string filepath, Mesh* mesh)
 {
     filepath = tools::pathScope(m_mapDescriptor.fileName, filepath, true);
 
@@ -727,9 +754,10 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
             mesh->setBillBoard(Vector2b().fromStr(rel.attr["billBoarding"]));
 
         if(rel.attr.count("materials"))
-            buildMaterialFromFile(rel.attr["materials"], mesh);
-        else
-            buildMaterialFromMap(rel.attr, mesh);
+        {
+            m_materialsFile[mesh] = tools::pathScope(m_mapDescriptor.fileName, rel.attr["materials"], true);
+            buildMaterial(rel.attr["materials"], mesh);
+        }
 
         buildInherited(rel, parent ? parent : m_rootNode, mesh);
 

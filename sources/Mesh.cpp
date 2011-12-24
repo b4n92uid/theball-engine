@@ -59,16 +59,6 @@ bool Mesh::isUsedBuffer(HardwareBuffer* hb)
     return manager.used(hb);
 }
 
-void Mesh::setMaterialFile(std::string materialFile)
-{
-    this->m_materialFile = materialFile;
-}
-
-std::string Mesh::getMaterialFile() const
-{
-    return m_materialFile;
-}
-
 Mesh::Mesh(MeshParallelScene* scene)
 {
     m_triangulate = true;
@@ -1023,6 +1013,8 @@ Mesh::CtorMap Mesh::outputMaterial(std::string root)
             ctormap[key] += ";" + it->second->m_texApply[i].part.toStr();
         }
     }
+
+    return ctormap;
 }
 
 Node::CtorMap Mesh::constructionMap(std::string root)
@@ -1031,9 +1023,6 @@ Node::CtorMap Mesh::constructionMap(std::string root)
 
     ctormap["vertexScale"] = m_vertexScale.toStr();
     ctormap["billBoarding"] = m_billBoard.toStr();
-
-    if(!m_materialFile.empty())
-        ctormap["materials"] = m_materialFile;
 
     return ctormap;
 }
