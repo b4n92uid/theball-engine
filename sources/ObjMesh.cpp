@@ -51,8 +51,6 @@ void OBJMesh::open(const std::string& path)
 
     if(shared)
     {
-        cout << "Load shared obj mesh file : " << path << endl;
-
         fetch(*shared);
 
         computeAabb();
@@ -65,7 +63,7 @@ void OBJMesh::open(const std::string& path)
         return;
     }
 
-    cout << "Load obj mesh file : " << path << endl;
+    cout << "[OBJ Mesh] " << path << endl;
 
     ifstream file(path.c_str(), ios::in);
 
@@ -311,7 +309,7 @@ void MTLFile::open(const std::string& path)
     if(!file)
         throw tbe::Exception("MTLFile::Open; Open MTL File Error; (%s)", path.c_str());
 
-    cout << "Load mtl file : " << path << endl;
+    cout << "[MTL File] " << path << endl;
 
     m_filename = path;
 

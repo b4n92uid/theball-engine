@@ -166,14 +166,13 @@ void Texture::load(std::string filename, bool genMipMap, bool upperLeftOrigin)
 
     if(sharedTexture)
     {
-        cout << "Load shared texture : " << sharedTexture->m_filename << endl;
         *this = *sharedTexture;
         return;
     }
 
     // DevIL -------------------------------------------------------------------
 
-    cout << "Load texture file : " << filename << endl;
+    cout << "[Texture] " << filename << endl;
 
     if(upperLeftOrigin)
     {

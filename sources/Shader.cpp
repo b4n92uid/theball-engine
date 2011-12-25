@@ -101,7 +101,7 @@ void Shader::parseFragmentShader(std::string content)
 
 void Shader::loadVertexShader(std::string filepath)
 {
-    cout << "Load vertex shader file : " << filepath << endl;
+    cout << "[Vertex shader] " << filepath << endl;
 
     ifstream file(filepath.c_str());
 
@@ -118,7 +118,7 @@ void Shader::loadVertexShader(std::string filepath)
 
 void Shader::loadFragmentShader(std::string filepath)
 {
-    cout << "Load fragment shader file : " << filepath << endl;
+    cout << "[Fragment shader] " << filepath << endl;
 
     ifstream file(filepath.c_str());
 
@@ -140,7 +140,7 @@ void Shader::use(bool use)
 
 void Shader::loadProgram()
 {
-    cout << "Load shader program" << endl;
+    cout << "[Setup shader program]" << endl;
 
     // Creation du program
     m_program = glCreateProgram();

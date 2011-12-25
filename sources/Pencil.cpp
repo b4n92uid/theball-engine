@@ -162,7 +162,7 @@ void Pencil::load(std::string path, int size, int charsp)
     if(FT_New_Face(manager.library, path.c_str(), 0, &face))
         throw Exception("Pencil::Load; Open font file error (%s)", path.c_str());
 
-    cout << "Load font file : " << path << endl;
+    cout << "[Font] " << path << endl;
 
     m_fontSize = size;
     m_charSpace = charsp;
