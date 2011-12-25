@@ -95,8 +95,15 @@ public:
     void prepareScene();
     void saveScene();
     void saveScene(const std::string& filepath);
+    
+    void clear();
 
     SceneParser& exclude(Node* node);
+
+    void setMaterialFile(Mesh* mesh, std::string path);
+    std::string getMaterialFile(Mesh* mesh);
+
+    void deleteMaterialFile(Mesh* mesh);
 
     void reloadMaterialFiles();
     void reloadMaterialFiles(Mesh* mesh);
@@ -104,10 +111,8 @@ public:
     void saveMaterialFile(Mesh* mesh);
     void saveMaterialFile(Mesh* mesh, std::string path);
 
-    void setMaterialFile(Mesh* mesh, std::string path);
-    std::string getMaterialFile(Mesh* mesh);
-
-    void deleteMaterialFile(Mesh* mesh);
+    void setIncludedMaterialFile(Mesh* mesh, bool state);
+    bool isIncludedMaterialFile(Mesh* mesh);
 
     void setAdditionalString(std::string key, std::string value);
     std::string getAdditionalString(std::string key);
@@ -186,11 +191,9 @@ public:
     MapDescriptor& getMapDescriptor();
 
 protected:
-    MapDescriptor m_mapDescriptor;
-
-    AttribMap m_additional;
-
     Node* m_rootNode;
+    AttribMap m_additional;
+    MapDescriptor m_mapDescriptor;
 
 private:
 
@@ -203,6 +206,7 @@ private:
     void buildNode(Relation& att, Node* parent = NULL);
     void buildMaterial(std::string key, std::string value, Mesh* mesh);
     void buildMaterial(std::string filepath, Mesh* mesh);
+    void buildMaterial(AttribMap attr, Mesh* mesh);
 
     void prepareNodeConstruction(Node* node, Relation& rel);
     void outpuNodeConstruction(Relation& rel, std::ofstream& file);
@@ -211,6 +215,7 @@ private:
     std::vector<Node*> m_excludedNodes;
 
     std::map<Mesh*, std::string> m_materialsFile;
+    std::map<Mesh*, bool > m_includedMaterialsFile;
 };
 
 class ClassParser : public ParserHandle

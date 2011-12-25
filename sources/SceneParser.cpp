@@ -191,8 +191,18 @@ void SceneParser::prepareScene()
     m_mapDescriptor.nodes.clear();
 
     for(Iterator<Mesh*> it = m_meshScene->iterator(); it; it++)
+    {
         if(m_materialsFile.count(*it))
             it->addToConstructionMap("materials", m_materialsFile[*it]);
+
+        else if(m_includedMaterialsFile.count(*it))
+        {
+            Node::CtorMap ctor = it->outputMaterial(m_mapDescriptor.fileName);
+
+            for(Node::CtorMap::iterator itm = ctor.begin(); itm != ctor.end(); itm++)
+                it->addToConstructionMap("!" + itm->first, itm->second);
+        }
+    }
 
     for(Iterator<Node*> it = m_rootNode->getChildIterator(); it; it++)
     {
@@ -324,6 +334,14 @@ void SceneParser::loadScene(const std::string& filepath)
 
     if(!file)
         throw tbe::Exception("SceneParser::loadScene; Open file error (%s)", filepath.c_str());
+
+    m_archivedNodes.clear();
+    m_excludedNodes.clear();
+
+    m_additional.clear();
+
+    m_includedMaterialsFile.clear();
+    m_materialsFile.clear();
 
     m_mapDescriptor.fileName = filepath;
     m_mapDescriptor.sceneName.clear();
@@ -570,6 +588,16 @@ void SceneParser::saveMaterialFile(Mesh* mesh, std::string path)
     stream.close();
 }
 
+void SceneParser::setIncludedMaterialFile(Mesh* mesh, bool state)
+{
+    m_includedMaterialsFile[mesh] = true;
+}
+
+bool SceneParser::isIncludedMaterialFile(Mesh* mesh)
+{
+    return m_includedMaterialsFile.count(mesh) && m_includedMaterialsFile[mesh];
+}
+
 void SceneParser::setMaterialFile(Mesh* mesh, std::string path)
 {
     m_materialsFile[mesh] = path;
@@ -609,6 +637,22 @@ void SceneParser::buildMaterial(std::string filepath, Mesh* mesh)
             buildMaterial(token[0], token[1], mesh);
         else
             cout << "SceneParser::buildMaterialFromFile; invalid assignation line " << line << endl;
+    }
+}
+
+void SceneParser::buildMaterial(AttribMap attr, Mesh* mesh)
+{
+    for(AttribMap::iterator it = attr.begin(); it != attr.end(); it++)
+    {
+        if(it->first[0] != '!')
+            continue;
+
+        m_includedMaterialsFile[mesh] = true;
+
+        string key = it->first;
+        key.erase(0, 1);
+
+        buildMaterial(key, it->second, mesh);
     }
 }
 
@@ -756,6 +800,10 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
         {
             m_materialsFile[mesh] = tools::pathScope(m_mapDescriptor.fileName, rel.attr["materials"], true);
             buildMaterial(rel.attr["materials"], mesh);
+        }
+        else
+        {
+            buildMaterial(rel.attr, mesh);
         }
 
         buildInherited(rel, parent ? parent : m_rootNode, mesh);

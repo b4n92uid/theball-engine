@@ -78,15 +78,12 @@ protected:
 
     float m_radius;
 
-    int m_lightId;
-
     Type m_type;
 
     LightParallelScene* m_parallelScene;
 
-private :
+private:
     void copy(const Light& orig);
-    void initid();
 };
 
 /// \brief Lumiere dirictionelle

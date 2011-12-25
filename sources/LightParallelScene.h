@@ -24,6 +24,11 @@ public:
     virtual ~LightParallelScene();
 
     void render();
+    
+    int getNextLightID();
+    
+private :
+    int m_maxlight;
 };
 
 }

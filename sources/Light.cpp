@@ -47,8 +47,6 @@ Light::Light(const Light& orig) : Node(orig)
 
 Light::~Light()
 {
-    glDisable(m_lightId);
-
     m_parallelScene->unregisterNode(this);
 }
 
@@ -59,27 +57,6 @@ Light& Light::operator =(const Light& orig)
     copy(orig);
 
     return *this;
-}
-
-void Light::initid()
-{
-    GLint maxLight;
-    glGetIntegerv(GL_MAX_LIGHTS, & maxLight);
-
-    if(m_lightId != -1)
-        glDisable(m_lightId);
-
-    m_lightId = -1;
-
-    for(int id = 0; id < maxLight; id++)
-    {
-        if(!glIsEnabled(GL_LIGHT0 + id))
-        {
-            m_lightId = GL_LIGHT0 + id;
-            break;
-        }
-
-    }
 }
 
 void Light::copy(const Light& orig)
@@ -122,23 +99,21 @@ void Light::process()
 
 void Light::render()
 {
-    glDisable(m_lightId);
+    int lid = m_parallelScene->getNextLightID();
 
-    initid();
-
-    if(m_lightId == -1 || !m_enable)
+    if(lid == -1 || !m_enable)
         return;
     else
-        glEnable(m_lightId);
+        glEnable(lid);
 
     // set ambient color
-    glLightfv(m_lightId, GL_AMBIENT, m_ambient);
+    glLightfv(lid, GL_AMBIENT, m_ambient);
 
     // set diffuse color
-    glLightfv(m_lightId, GL_DIFFUSE, m_diffuse);
+    glLightfv(lid, GL_DIFFUSE, m_diffuse);
 
     // set specular color
-    glLightfv(m_lightId, GL_SPECULAR, m_specular);
+    glLightfv(lid, GL_SPECULAR, m_specular);
 
     Vector3f position = getAbsoluteMatrix().getPos();
 
@@ -147,17 +122,17 @@ void Light::render()
         case POINT:
             // set attenuation
             // 1.0f / (constant + linear * d + quadratic*(d*d);
-            glLightf(m_lightId, GL_CONSTANT_ATTENUATION, m_constantAttenuation);
-            glLightf(m_lightId, GL_LINEAR_ATTENUATION, m_linearAttenuation);
-            glLightf(m_lightId, GL_QUADRATIC_ATTENUATION, m_quadraticAttenuation);
+            glLightf(lid, GL_CONSTANT_ATTENUATION, m_constantAttenuation);
+            glLightf(lid, GL_LINEAR_ATTENUATION, m_linearAttenuation);
+            glLightf(lid, GL_QUADRATIC_ATTENUATION, m_quadraticAttenuation);
 
             // set position
-            glLightfv(m_lightId, GL_POSITION, Vector4f(position.x, position.y, position.z, 1.0f));
+            glLightfv(lid, GL_POSITION, Vector4f(position.x, position.y, position.z, 1.0f));
             break;
 
         case DIRI:
             // set position
-            glLightfv(m_lightId, GL_POSITION, Vector4f(position.x, position.y, position.z, 0));
+            glLightfv(lid, GL_POSITION, Vector4f(position.x, position.y, position.z, 0));
             break;
     }
 }
