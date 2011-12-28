@@ -367,6 +367,9 @@ void SceneParser::loadScene(const std::string& filepath)
 
     tools::getline(file, buffer);
 
+    for(unsigned i = 0; i < buffer.size(); i++)
+        if(buffer[i] <= 0) throw tbe::Exception("SceneParser::loadScene; File is binary; (%s)", filepath.c_str());
+
     if(buffer[0] == 'v')
     {
         m_version = tools::strToNum<float>(&buffer[1]);
