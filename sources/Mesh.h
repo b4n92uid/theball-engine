@@ -134,9 +134,6 @@ public:
     CtorMap constructionMap(std::string root);
     CtorMap outputMaterial(std::string root);
 
-    void setVertexScale(Vector3f vertexScale);
-    Vector3f getVertexScale() const;
-
     void generateMulTexCoord();
 
     typedef std::map<std::string, Mesh*> Map;
@@ -190,7 +187,6 @@ private:
     Mesh& copy(const Mesh& copy);
 
     Vector2b m_billBoard;
-    Vector3f m_vertexScale;
 };
 
 }

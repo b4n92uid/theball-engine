@@ -793,9 +793,6 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
             Mesh::registerBuffer(mesh, modelFilepath);
         }
 
-        if(rel.attr.count("vertexScale"))
-            mesh->setVertexScale(Vector3f().fromStr(rel.attr["vertexScale"]));
-
         if(rel.attr.count("billBoarding"))
             mesh->setBillBoard(Vector2b().fromStr(rel.attr["billBoarding"]));
 

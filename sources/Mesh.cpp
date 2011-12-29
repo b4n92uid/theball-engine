@@ -73,8 +73,6 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_parallelScene->registerNode(this);
 
     m_hardwareBuffer = NULL;
-
-    m_vertexScale = 1;
 }
 
 Mesh::Mesh(const Mesh& copy) : Node(copy)
@@ -164,10 +162,6 @@ Mesh& Mesh::copy(const Mesh& copy)
     for(unsigned i = 0; i < m_renderProess.size(); i++)
         m_renderProess[i].parent = this;
 
-    m_vertexScale = 1;
-
-    setVertexScale(copy.m_vertexScale);
-
     return *this;
 }
 
@@ -188,7 +182,7 @@ AABB Mesh::getAbsolutAabb()
     AABB aabb;
 
     for(unsigned i = 0; i < vertex.size(); i++)
-        aabb.count(mat * (vertex[i].pos * m_vertexScale));
+        aabb.count(mat * vertex[i].pos);
 
     return aabb;
 }
@@ -203,7 +197,7 @@ void Mesh::computeAabb()
     m_aabb.clear();
 
     for(unsigned i = 0; i < vertex.size(); i++)
-        m_aabb.count(vertex[i].pos * m_vertexScale);
+        m_aabb.count(vertex[i].pos);
 }
 
 void Mesh::computeTangent()
@@ -684,23 +678,6 @@ void Mesh::render()
     else
         glMultMatrixf(m_matrix);
 
-    // Vertex Scaling ----------------------------------------------------------
-
-    m_aabb.clear();
-
-    Vertex* vertex = m_hardwareBuffer->lock();
-
-    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
-
-    for(unsigned i = 0; i < vertexCount; i++)
-    {
-        vertex[i].pos *= m_vertexScale;
-
-        m_aabb.count(vertex[i].pos);
-    }
-
-    m_hardwareBuffer->unlock();
-
     // Render ------------------------------------------------------------------
 
     if(m_renderProess.empty())
@@ -786,9 +763,9 @@ bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, float& intersect, bool g
 
     for(unsigned i = 0; i < vertex.size(); i += 3)
     {
-        Vector3f pos0 = vertex[i + 0].pos * m_vertexScale,
-                pos1 = vertex[i + 1].pos * m_vertexScale,
-                pos2 = vertex[i + 2].pos * m_vertexScale;
+        Vector3f pos0 = vertex[i + 0].pos,
+                pos1 = vertex[i + 1].pos,
+                pos2 = vertex[i + 2].pos;
 
         if(global)
         {
@@ -1017,7 +994,6 @@ Node::CtorMap Mesh::constructionMap(std::string root)
 {
     Node::CtorMap ctormap = Node::constructionMap(root);
 
-    ctormap["vertexScale"] = m_vertexScale.toStr();
     ctormap["billBoarding"] = m_billBoard.toStr();
 
     return ctormap;
@@ -1031,19 +1007,6 @@ void Mesh::setBillBoard(Vector2b billBoard)
 Vector2b Mesh::getBillBoard() const
 {
     return m_billBoard;
-}
-
-void Mesh::setVertexScale(Vector3f vertexScale)
-{
-    if(math::isAnyZero(vertexScale))
-        return;
-
-    m_vertexScale = vertexScale;
-}
-
-Vector3f Mesh::getVertexScale() const
-{
-    return m_vertexScale;
 }
 
 std::vector<std::string> Mesh::getUsedRessources()
