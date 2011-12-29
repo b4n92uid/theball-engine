@@ -147,19 +147,15 @@ Matrix4& Matrix4::rotate(const Quaternion& rotation)
 
 Matrix4& Matrix4::scale(const Vector3f& scale)
 {
-    Matrix4 scaleMat;
-
-    scaleMat[ 0] = scale.x;
-    scaleMat[ 1] = scale.x;
-    scaleMat[ 2] = scale.x;
-    scaleMat[ 4] = scale.y;
-    scaleMat[ 5] = scale.y;
-    scaleMat[ 6] = scale.y;
-    scaleMat[ 8] = scale.z;
-    scaleMat[ 9] = scale.z;
-    scaleMat[10] = scale.z;
-
-    *this *= scaleMat;
+    values[ 0] *= scale.x;
+    values[ 1] *= scale.x;
+    values[ 2] *= scale.x;
+    values[ 4] *= scale.y;
+    values[ 5] *= scale.y;
+    values[ 6] *= scale.y;
+    values[ 8] *= scale.z;
+    values[ 9] *= scale.z;
+    values[10] *= scale.z;
 
     return *this;
 }
@@ -179,8 +175,8 @@ void Matrix4::transform(Vector3f position, Quaternion rotation, Vector3f scale)
     transform_mat[10] *= scale.z;
 
     transform_mat[12] = position.x;
-    transform_mat[13] = position.x;
-    transform_mat[14] = position.x;
+    transform_mat[13] = position.y;
+    transform_mat[14] = position.z;
 
     *this *= transform_mat;
 }
