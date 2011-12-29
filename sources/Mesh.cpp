@@ -675,15 +675,11 @@ void Mesh::render()
 
     if(!!m_billBoard)
     {
-        Matrix4 setmat = m_matrix;
-
         Vector3f pos = getAbsoluteMatrix().getPos();
 
         Matrix4 rotation = m_sceneManager->computeBillboard(pos, Matrix4(), 0, m_billBoard);
 
-        setmat.setRotate(rotation.getRotate());
-
-        glMultMatrixf(setmat);
+        glMultMatrixf(m_matrix * rotation);
     }
     else
         glMultMatrixf(m_matrix);

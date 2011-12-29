@@ -3,10 +3,6 @@
  * Author: b4n92uid
  *
  * Created on 19 avril 2011, 15:25
- *
- * http://gpwiki.org/index.php/OpenGL:Tutorials:Using_Quaternions_to_represent_rotation
- * http://www.gamedev.net/page/resources/_/reference/programming/math-and-physics/quaternions/quaternion-powers-r1095
- * http://www.euclideanspace.com/maths/geometry/rotations/conversions/index.htm
  */
 
 #ifndef QUATERNION_H
@@ -35,29 +31,60 @@ public:
     Quaternion(const Vector3f& euler);
     Quaternion(float angle, const Vector3f& axe);
 
+    /**
+     * Spécifier la rotation â l'aide d'un angle (exprimer en radian) 
+     *  et d'un axe autour du quelle la rotation decera être éffectuer
+     */
     void setAxisAngle(float angle, const Vector3f& axe);
     Vector4f getAxisAngle() const;
 
+    /**
+     * Spécifier la rotatino â l'aide d'un vecteur d'Euler
+     */
     void setEuler(const Vector3f& euler);
     Vector3f getEuler() const;
 
+    /**
+     * Spécfier la rotation â l'aide d'un matrice de rotation,
+     *  la matrice ne devera cotenir que la rotation
+     */
     void setMatrix(const Matrix4& matrix);
     Matrix4 getMatrix() const;
 
+    /**
+     * Réinitialise la Quaternion â l'identité
+     */
     Quaternion& identity();
 
+    /**
+     * Normalise la Quaternion [-1;1]
+     */
     Quaternion& normalize();
+
+    /**
+     * Conjuge la Quaternion
+     */
     Quaternion& conjugate();
 
+    /**
+     * Renvois la longeur de la Quaternion
+     */
     float getMagnitude() const;
 
+    /**
+     * Renvois une copie de la Quaternion normaliser
+     */
     Quaternion getNormalize() const;
+
+    /**
+     * Renvois une copie de la Quaternion conjuger
+     */
     Quaternion getConjugate() const;
 
     Quaternion operator*(const Quaternion& rv) const;
-    Vector3f operator*(const Vector3f& vec) const;
+    Quaternion& operator*=(const Quaternion& quat);
 
-    Quaternion & operator*=(const Quaternion& quat);
+    Vector3f operator*(const Vector3f& vec) const;
 
     friend std::ostream & operator<<(std::ostream& out, Quaternion& quat)
     {

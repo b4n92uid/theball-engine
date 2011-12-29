@@ -5,10 +5,9 @@
  * Created on 19 avril 2011, 15:18
  */
 
-#include <GL/gl.h>
-
 #include "Matrix4.h"
 
+#include "Mathematics.h"
 #include "Quaternion.h"
 #include "Vector3.h"
 
@@ -22,7 +21,7 @@ Matrix4::Matrix4()
 Matrix4::Matrix4(const float fmatrix[16])
 {
     for(unsigned i = 0; i < 16; i++)
-        m_matrix[i] = fmatrix[i];
+        values[i] = fmatrix[i];
 }
 
 Matrix4::Matrix4(const Vector3f& pos)
@@ -40,9 +39,9 @@ Matrix4::Matrix4(std::string exp)
     std::stringstream ss(exp);
 
     for(unsigned i = 0; i < 15; i++)
-        ss >> m_matrix[i] >> sep;
+        ss >> values[i] >> sep;
 
-    ss >> m_matrix[15];
+    ss >> values[15];
 }
 
 Matrix4::Matrix4(const Matrix4& copy)
@@ -50,221 +49,335 @@ Matrix4::Matrix4(const Matrix4& copy)
     *this = copy;
 }
 
+Matrix4::Matrix4(float r1, float r5, float r9, float r13,
+                 float r2, float r6, float r10, float r14,
+                 float r3, float r7, float r11, float r15,
+                 float r4, float r8, float r12, float r16)
+{
+    values[ 0] = r1;
+    values[ 1] = r2;
+    values[ 2] = r3;
+    values[ 3] = r4;
+    values[ 4] = r5;
+    values[ 5] = r6;
+    values[ 6] = r7;
+    values[ 7] = r8;
+    values[ 8] = r9;
+    values[ 9] = r10;
+    values[10] = r11;
+    values[11] = r12;
+    values[12] = r13;
+    values[13] = r14;
+    values[14] = r15;
+    values[15] = r16;
+}
+
 void Matrix4::identity()
 {
     for(unsigned i = 0; i < 16; i++)
-        m_matrix[i] = 0.0f;
+        values[i] = 0.0f;
 
-    m_matrix[0] = m_matrix[5] = m_matrix[10] = m_matrix[15] = 1.0f;
+    values[0] = values[5] = values[10] = values[15] = 1.0f;
 }
 
 void Matrix4::transpose()
 {
     float t;
 
-    t = m_matrix[ 1];
-    m_matrix[ 1] = m_matrix[ 4];
-    m_matrix[ 4] = t;
+    t = values[ 1];
+    values[ 1] = values[ 4];
+    values[ 4] = t;
 
-    t = m_matrix[ 2];
-    m_matrix[ 2] = m_matrix[ 8];
-    m_matrix[ 8] = t;
+    t = values[ 2];
+    values[ 2] = values[ 8];
+    values[ 8] = t;
 
-    t = m_matrix[ 3];
-    m_matrix[ 3] = m_matrix[12];
-    m_matrix[12] = t;
+    t = values[ 3];
+    values[ 3] = values[12];
+    values[12] = t;
 
-    t = m_matrix[ 6];
-    m_matrix[ 6] = m_matrix[ 9];
-    m_matrix[ 9] = t;
+    t = values[ 6];
+    values[ 6] = values[ 9];
+    values[ 9] = t;
 
-    t = m_matrix[ 7];
-    m_matrix[ 7] = m_matrix[13];
-    m_matrix[13] = t;
+    t = values[ 7];
+    values[ 7] = values[13];
+    values[13] = t;
 
-    t = m_matrix[11];
-    m_matrix[11] = m_matrix[14];
-    m_matrix[14] = t;
+    t = values[11];
+    values[11] = values[14];
+    values[14] = t;
 }
 
 bool Matrix4::operator=(const Matrix4& copy)
 {
     for(unsigned i = 0; i < 16; i++)
-        m_matrix[i] = copy.m_matrix[i];
+        values[i] = copy.values[i];
 
     return true;
 }
 
 void Matrix4::setPos(Vector3f value)
 {
-    m_matrix[12] = value.x;
-    m_matrix[13] = value.y;
-    m_matrix[14] = value.z;
+    values[12] = value.x;
+    values[13] = value.y;
+    values[14] = value.z;
 }
 
 Vector3f Matrix4::getPos() const
 {
-    return Vector3<float > (m_matrix[12], m_matrix[13], m_matrix[14]);
+    return Vector3f(values[12], values[13], values[14]);
 }
 
-void Matrix4::setScale(Vector3f value)
+Matrix4& Matrix4::translate(const Vector3f& pos)
 {
-    m_matrix[0] = value.x;
-    m_matrix[5] = value.y;
-    m_matrix[10] = value.z;
+    values[12] += pos.x;
+    values[13] += pos.y;
+    values[14] += pos.z;
+
+    return *this;
 }
 
-Vector3f Matrix4::getScale() const
+Matrix4& Matrix4::rotate(const Quaternion& rotation)
 {
-    return Vector3<float > (m_matrix[0], m_matrix[5], m_matrix[10]);
+    *this *= rotation.getMatrix();
+
+    return *this;
 }
 
-void Matrix4::setRotate(Quaternion rotation)
+Matrix4& Matrix4::scale(const Vector3f& scale)
 {
-    const Matrix4& apply = rotation.getMatrix();
+    Matrix4 scaleMat;
 
-    m_matrix[ 0] = apply[ 0];
-    m_matrix[ 1] = apply[ 1];
-    m_matrix[ 2] = apply[ 2];
+    scaleMat[ 0] = scale.x;
+    scaleMat[ 1] = scale.x;
+    scaleMat[ 2] = scale.x;
+    scaleMat[ 4] = scale.y;
+    scaleMat[ 5] = scale.y;
+    scaleMat[ 6] = scale.y;
+    scaleMat[ 8] = scale.z;
+    scaleMat[ 9] = scale.z;
+    scaleMat[10] = scale.z;
 
-    m_matrix[ 4] = apply[ 4];
-    m_matrix[ 5] = apply[ 5];
-    m_matrix[ 6] = apply[ 6];
+    *this *= scaleMat;
 
-    m_matrix[ 8] = apply[ 8];
-    m_matrix[ 9] = apply[ 9];
-    m_matrix[10] = apply[10];
+    return *this;
 }
 
-void Matrix4::setRotate(float angle, Vector3f axe)
+void Matrix4::transform(Vector3f position, Quaternion rotation, Vector3f scale)
 {
-    float c = cos(angle);
-    float s = sin(angle);
+    Matrix4 transform_mat = rotation.getMatrix();
 
-    float &x = axe.x, &y = axe.y, &z = axe.z;
+    transform_mat[ 0] *= scale.x;
+    transform_mat[ 1] *= scale.x;
+    transform_mat[ 2] *= scale.x;
+    transform_mat[ 4] *= scale.y;
+    transform_mat[ 5] *= scale.y;
+    transform_mat[ 6] *= scale.y;
+    transform_mat[ 8] *= scale.z;
+    transform_mat[ 9] *= scale.z;
+    transform_mat[10] *= scale.z;
 
-    m_matrix[ 0] = x * x * (1 - c) + c;
-    m_matrix[ 1] = y * x * (1 - c) + z * s;
-    m_matrix[ 2] = x * z * (1 - c) - y * s;
+    transform_mat[12] = position.x;
+    transform_mat[13] = position.x;
+    transform_mat[14] = position.x;
 
-    m_matrix[ 4] = x * y * (1 - c) - z * s;
-    m_matrix[ 5] = y * y * (1 - c) + c;
-    m_matrix[ 6] = y * z * (1 - c) + x * s;
-
-    m_matrix[ 8] = x * z * (1 - c) + y * s;
-    m_matrix[ 9] = y * z * (1 - c) - x * s;
-    m_matrix[10] = z * z * (1 - c) + c;
+    *this *= transform_mat;
 }
 
-Quaternion Matrix4::getRotate() const
+void qduDecomposition(float m[3][3], float kQ[3][3], Vector3f& kD, Vector3f& kU)
 {
-    Quaternion quat;
-    quat.setMatrix(*this);
+    /*
+     * QR decomposition :
+     * Implemented from Ogre SDK Matrix3::QDUDecomposition
+     * 
+     * This algorithm uses Gram-Schmidt orthogonalization (the QR algorithm).
+     * 
+     * <https://bitbucket.org/sinbad/ogre/src/4aa2ca2384f4/OgreMain/src/OgreMatrix3.cpp>
+     */
 
-    return quat;
+    float fInvLength = math::reverseSqrt(m[0][0] * m[0][0] + m[1][0] * m[1][0] + m[2][0] * m[2][0]);
+    kQ[0][0] = m[0][0] * fInvLength;
+    kQ[1][0] = m[1][0] * fInvLength;
+    kQ[2][0] = m[2][0] * fInvLength;
+
+    float fDot = kQ[0][0] * m[0][1] + kQ[1][0] * m[1][1] + kQ[2][0] * m[2][1];
+    kQ[0][1] = m[0][1] - fDot * kQ[0][0];
+    kQ[1][1] = m[1][1] - fDot * kQ[1][0];
+    kQ[2][1] = m[2][1] - fDot * kQ[2][0];
+
+    fInvLength = math::reverseSqrt(kQ[0][1] * kQ[0][1] + kQ[1][1] * kQ[1][1] + kQ[2][1] * kQ[2][1]);
+    kQ[0][1] *= fInvLength;
+    kQ[1][1] *= fInvLength;
+    kQ[2][1] *= fInvLength;
+
+    fDot = kQ[0][0] * m[0][2] + kQ[1][0] * m[1][2] + kQ[2][0] * m[2][2];
+    kQ[0][2] = m[0][2] - fDot * kQ[0][0];
+    kQ[1][2] = m[1][2] - fDot * kQ[1][0];
+    kQ[2][2] = m[2][2] - fDot * kQ[2][0];
+
+    fDot = kQ[0][1] * m[0][2] + kQ[1][1] * m[1][2] + kQ[2][1] * m[2][2];
+    kQ[0][2] -= fDot * kQ[0][1];
+    kQ[1][2] -= fDot * kQ[1][1];
+    kQ[2][2] -= fDot * kQ[2][1];
+
+    fInvLength = math::reverseSqrt(kQ[0][2] * kQ[0][2] + kQ[1][2] * kQ[1][2] + kQ[2][2] * kQ[2][2]);
+    kQ[0][2] *= fInvLength;
+    kQ[1][2] *= fInvLength;
+    kQ[2][2] *= fInvLength;
+
+    // guarantee that orthogonal matrix has determinant 1 (no reflections)
+    float fDet =
+            kQ[0][0] * kQ[1][1] * kQ[2][2] + kQ[0][1] * kQ[1][2] * kQ[2][0] +
+            kQ[0][2] * kQ[1][0] * kQ[2][1] - kQ[0][2] * kQ[1][1] * kQ[2][0] -
+            kQ[0][1] * kQ[1][0] * kQ[2][2] - kQ[0][0] * kQ[1][2] * kQ[2][1];
+
+    if(fDet < 0.0)
+    {
+        for(size_t iRow = 0; iRow < 3; iRow++)
+            for(size_t iCol = 0; iCol < 3; iCol++)
+                kQ[iRow][iCol] = -kQ[iRow][iCol];
+    }
+
+    // build "right" matrix R
+    float kR[3][3];
+    kR[0][0] = kQ[0][0] * m[0][0] + kQ[1][0] * m[1][0] + kQ[2][0] * m[2][0];
+    kR[0][1] = kQ[0][0] * m[0][1] + kQ[1][0] * m[1][1] + kQ[2][0] * m[2][1];
+    kR[1][1] = kQ[0][1] * m[0][1] + kQ[1][1] * m[1][1] + kQ[2][1] * m[2][1];
+    kR[0][2] = kQ[0][0] * m[0][2] + kQ[1][0] * m[1][2] + kQ[2][0] * m[2][2];
+    kR[1][2] = kQ[0][1] * m[0][2] + kQ[1][1] * m[1][2] + kQ[2][1] * m[2][2];
+    kR[2][2] = kQ[0][2] * m[0][2] + kQ[1][2] * m[1][2] + kQ[2][2] * m[2][2];
+
+    // the scaling component
+    kD.x = kR[0][0];
+    kD.y = kR[1][1];
+    kD.z = kR[2][2];
+
+    // the shear component
+    float fInvD0 = 1.0f / kD.x;
+    kU.x = kR[0][1] * fInvD0;
+    kU.y = kR[0][2] * fInvD0;
+    kU.z = kR[1][2] / kD.y;
 }
 
-void Matrix4::setRotateX(float v)
+void Matrix4::decompose(Vector3f& position, Quaternion& rotation, Vector3f& scale)
 {
-    float cosinus = cos(v);
-    float sinus = sin(v);
+    /*
+     * Matrix decomposition code 
+     *  from Ogre SDK : Matrix4::makeTransform
+     * 
+     * <https://bitbucket.org/sinbad/ogre/src/4aa2ca2384f4/OgreMain/src/OgreMatrix4.cpp>
+     */
 
-    Matrix4& mat = *this;
-    mat[ 5] = cosinus;
-    mat[ 6] = -sinus;
-    mat[ 9] = sinus;
-    mat[10] = cosinus;
+    float m3x3[3][3] = {
+        1, 0, 0,
+        0, 1, 0,
+        0, 0, 1
+    };
+
+    extractMat3((float*)&m3x3[0]);
+
+    float matQ[3][3] = {
+        1, 0, 0,
+        0, 1, 0,
+        0, 0, 1
+    };
+
+    Vector3f vecU;
+
+    qduDecomposition(m3x3, matQ, scale, vecU);
+
+    Matrix4 rotmat;
+    rotmat.importMat3((float*)&matQ[0]);
+
+    rotation.setMatrix(rotmat);
+
+    position = getPos();
 }
 
-void Matrix4::setRotateY(float v)
+void Matrix4::extractMat3(float* m3x3)
 {
-    float cosinus = cos(v);
-    float sinus = sin(v);
+    m3x3[0] = values[0];
+    m3x3[1] = values[1];
+    m3x3[2] = values[2];
 
-    Matrix4& mat = *this;
-    mat[ 0] = cosinus;
-    mat[ 2] = -sinus;
-    mat[ 8] = sinus;
-    mat[10] = cosinus;
+    m3x3[3] = values[4];
+    m3x3[4] = values[5];
+    m3x3[5] = values[6];
+
+    m3x3[6] = values[8];
+    m3x3[7] = values[9];
+    m3x3[8] = values[10];
 }
 
-void Matrix4::setRotateZ(float v)
+void Matrix4::importMat3(float* m3x3)
 {
-    float cosinus = cos(v);
-    float sinus = sin(v);
+    values[ 0] = m3x3[0];
+    values[ 1] = m3x3[1];
+    values[ 2] = m3x3[2];
 
-    Matrix4& mat = *this;
-    mat[0] = cosinus;
-    mat[1] = -sinus;
-    mat[4] = sinus;
-    mat[5] = cosinus;
-}
+    values[ 4] = m3x3[3];
+    values[ 5] = m3x3[4];
+    values[ 6] = m3x3[5];
 
-void Matrix4::setRotate(Vector3f v)
-{
-    setRotateX(v.x);
-    setRotateY(v.y);
-    setRotateZ(v.z);
-}
-
-Matrix4::operator Vector3f()
-{
-    return getPos();
+    values[ 8] = m3x3[6];
+    values[ 9] = m3x3[7];
+    values[10] = m3x3[8];
 }
 
 Matrix4::operator const float*() const
 {
-    return m_matrix;
+    return values;
 }
 
 Matrix4::operator float*()
 {
-    return m_matrix;
+    return values;
 }
 
 float Matrix4::operator()(int i, int j)const
 {
-    return m_matrix[i * 4 + j];
+    return values[i * 4 + j];
 }
 
 float Matrix4::operator[](int i)const
 {
-    return m_matrix[i];
+    return values[i];
 }
 
 float & Matrix4::operator()(int i, int j)
 {
-    return m_matrix[i * 4 + j];
+    return values[i * 4 + j];
 }
 
 float & Matrix4::operator[](int i)
 {
-    return m_matrix[i];
+    return values[i];
 }
 
 Matrix4 Matrix4::operator*(const Matrix4& mat) const
 {
     Matrix4 ret;
 
-    ret.m_matrix[ 0] = (m_matrix[ 0] * mat.m_matrix[ 0]) + (m_matrix[ 1] * mat.m_matrix[ 4]) + (m_matrix[ 2] * mat.m_matrix[ 8]) + (m_matrix[ 3] * mat.m_matrix[12]);
-    ret.m_matrix[ 1] = (m_matrix[ 0] * mat.m_matrix[ 1]) + (m_matrix[ 1] * mat.m_matrix[ 5]) + (m_matrix[ 2] * mat.m_matrix[ 9]) + (m_matrix[ 3] * mat.m_matrix[13]);
-    ret.m_matrix[ 2] = (m_matrix[ 0] * mat.m_matrix[ 2]) + (m_matrix[ 1] * mat.m_matrix[ 6]) + (m_matrix[ 2] * mat.m_matrix[10]) + (m_matrix[ 3] * mat.m_matrix[14]);
-    ret.m_matrix[ 3] = (m_matrix[ 0] * mat.m_matrix[ 3]) + (m_matrix[ 1] * mat.m_matrix[ 7]) + (m_matrix[ 2] * mat.m_matrix[11]) + (m_matrix[ 3] * mat.m_matrix[15]);
+    ret.values[ 0] = (values[ 0] * mat.values[ 0]) + (values[ 1] * mat.values[ 4]) + (values[ 2] * mat.values[ 8]) + (values[ 3] * mat.values[12]);
+    ret.values[ 1] = (values[ 0] * mat.values[ 1]) + (values[ 1] * mat.values[ 5]) + (values[ 2] * mat.values[ 9]) + (values[ 3] * mat.values[13]);
+    ret.values[ 2] = (values[ 0] * mat.values[ 2]) + (values[ 1] * mat.values[ 6]) + (values[ 2] * mat.values[10]) + (values[ 3] * mat.values[14]);
+    ret.values[ 3] = (values[ 0] * mat.values[ 3]) + (values[ 1] * mat.values[ 7]) + (values[ 2] * mat.values[11]) + (values[ 3] * mat.values[15]);
 
-    ret.m_matrix[ 4] = (m_matrix[ 4] * mat.m_matrix[ 0]) + (m_matrix[ 5] * mat.m_matrix[ 4]) + (m_matrix[ 6] * mat.m_matrix[ 8]) + (m_matrix[ 7] * mat.m_matrix[12]);
-    ret.m_matrix[ 5] = (m_matrix[ 4] * mat.m_matrix[ 1]) + (m_matrix[ 5] * mat.m_matrix[ 5]) + (m_matrix[ 6] * mat.m_matrix[ 9]) + (m_matrix[ 7] * mat.m_matrix[13]);
-    ret.m_matrix[ 6] = (m_matrix[ 4] * mat.m_matrix[ 2]) + (m_matrix[ 5] * mat.m_matrix[ 6]) + (m_matrix[ 6] * mat.m_matrix[10]) + (m_matrix[ 7] * mat.m_matrix[14]);
-    ret.m_matrix[ 7] = (m_matrix[ 4] * mat.m_matrix[ 3]) + (m_matrix[ 5] * mat.m_matrix[ 7]) + (m_matrix[ 6] * mat.m_matrix[11]) + (m_matrix[ 7] * mat.m_matrix[15]);
+    ret.values[ 4] = (values[ 4] * mat.values[ 0]) + (values[ 5] * mat.values[ 4]) + (values[ 6] * mat.values[ 8]) + (values[ 7] * mat.values[12]);
+    ret.values[ 5] = (values[ 4] * mat.values[ 1]) + (values[ 5] * mat.values[ 5]) + (values[ 6] * mat.values[ 9]) + (values[ 7] * mat.values[13]);
+    ret.values[ 6] = (values[ 4] * mat.values[ 2]) + (values[ 5] * mat.values[ 6]) + (values[ 6] * mat.values[10]) + (values[ 7] * mat.values[14]);
+    ret.values[ 7] = (values[ 4] * mat.values[ 3]) + (values[ 5] * mat.values[ 7]) + (values[ 6] * mat.values[11]) + (values[ 7] * mat.values[15]);
 
-    ret.m_matrix[ 8] = (m_matrix[ 8] * mat.m_matrix[ 0]) + (m_matrix[ 9] * mat.m_matrix[ 4]) + (m_matrix[10] * mat.m_matrix[ 8]) + (m_matrix[11] * mat.m_matrix[12]);
-    ret.m_matrix[ 9] = (m_matrix[ 8] * mat.m_matrix[ 1]) + (m_matrix[ 9] * mat.m_matrix[ 5]) + (m_matrix[10] * mat.m_matrix[ 9]) + (m_matrix[11] * mat.m_matrix[13]);
-    ret.m_matrix[10] = (m_matrix[ 8] * mat.m_matrix[ 2]) + (m_matrix[ 9] * mat.m_matrix[ 6]) + (m_matrix[10] * mat.m_matrix[10]) + (m_matrix[11] * mat.m_matrix[14]);
-    ret.m_matrix[11] = (m_matrix[ 8] * mat.m_matrix[ 3]) + (m_matrix[ 9] * mat.m_matrix[ 7]) + (m_matrix[10] * mat.m_matrix[11]) + (m_matrix[11] * mat.m_matrix[15]);
+    ret.values[ 8] = (values[ 8] * mat.values[ 0]) + (values[ 9] * mat.values[ 4]) + (values[10] * mat.values[ 8]) + (values[11] * mat.values[12]);
+    ret.values[ 9] = (values[ 8] * mat.values[ 1]) + (values[ 9] * mat.values[ 5]) + (values[10] * mat.values[ 9]) + (values[11] * mat.values[13]);
+    ret.values[10] = (values[ 8] * mat.values[ 2]) + (values[ 9] * mat.values[ 6]) + (values[10] * mat.values[10]) + (values[11] * mat.values[14]);
+    ret.values[11] = (values[ 8] * mat.values[ 3]) + (values[ 9] * mat.values[ 7]) + (values[10] * mat.values[11]) + (values[11] * mat.values[15]);
 
-    ret.m_matrix[12] = (m_matrix[12] * mat.m_matrix[ 0]) + (m_matrix[13] * mat.m_matrix[ 4]) + (m_matrix[14] * mat.m_matrix[ 8]) + (m_matrix[15] * mat.m_matrix[12]);
-    ret.m_matrix[13] = (m_matrix[12] * mat.m_matrix[ 1]) + (m_matrix[13] * mat.m_matrix[ 5]) + (m_matrix[14] * mat.m_matrix[ 9]) + (m_matrix[15] * mat.m_matrix[13]);
-    ret.m_matrix[14] = (m_matrix[12] * mat.m_matrix[ 2]) + (m_matrix[13] * mat.m_matrix[ 6]) + (m_matrix[14] * mat.m_matrix[10]) + (m_matrix[15] * mat.m_matrix[14]);
-    ret.m_matrix[15] = (m_matrix[12] * mat.m_matrix[ 3]) + (m_matrix[13] * mat.m_matrix[ 7]) + (m_matrix[14] * mat.m_matrix[11]) + (m_matrix[15] * mat.m_matrix[15]);
+    ret.values[12] = (values[12] * mat.values[ 0]) + (values[13] * mat.values[ 4]) + (values[14] * mat.values[ 8]) + (values[15] * mat.values[12]);
+    ret.values[13] = (values[12] * mat.values[ 1]) + (values[13] * mat.values[ 5]) + (values[14] * mat.values[ 9]) + (values[15] * mat.values[13]);
+    ret.values[14] = (values[12] * mat.values[ 2]) + (values[13] * mat.values[ 6]) + (values[14] * mat.values[10]) + (values[15] * mat.values[14]);
+    ret.values[15] = (values[12] * mat.values[ 3]) + (values[13] * mat.values[ 7]) + (values[14] * mat.values[11]) + (values[15] * mat.values[15]);
 
     return ret;
 }
@@ -277,66 +390,14 @@ Matrix4 & Matrix4::operator*=(const Matrix4& mat)
 
 Vector3f Matrix4::operator*(const Vector3f& vec) const
 {
-    return Vector3<float > (
-            m_matrix[0] * vec[0] + m_matrix[4] * vec[1] + m_matrix[8] * vec[2] + m_matrix[12],
-            m_matrix[1] * vec[0] + m_matrix[5] * vec[1] + m_matrix[9] * vec[2] + m_matrix[13],
-            m_matrix[2] * vec[0] + m_matrix[6] * vec[1] + m_matrix[10] * vec[2] + m_matrix[14]
-            );
-}
-
-Vector3f Matrix4::operator*=(const Vector3f& vec)
-{
-    *this = *this * vec;
-    return *this;
-}
-
-void Matrix4::translate(Vector3f pos)
-{
-    m_matrix[12] += pos.x;
-    m_matrix[13] += pos.y;
-    m_matrix[14] += pos.z;
-}
-
-void Matrix4::rotate(Vector3f euler)
-{
-    Matrix4 mat;
-    mat.setRotate(euler);
-
-    *this *= mat;
-}
-
-void Matrix4::rotate(float angle, Vector3f axe)
-{
-    Matrix4 mat;
-    mat.setRotate(angle, axe);
-
-    *this *= mat;
-}
-
-void Matrix4::rotate(Quaternion rotation)
-{
-    *this *= rotation.getMatrix();
-}
-
-void Matrix4::scale(Vector3f scale)
-{
-    //    Matrix4 scaleMat(0, scale);
-    //     *this *= scaleMat;
-
-    m_matrix[ 0] += scale.x;
-    m_matrix[ 5] += scale.y;
-    m_matrix[10] += scale.z;
+    return Vector3f(values[0] * vec[0] + values[4] * vec[1] + values[8] * vec[2] + values[12],
+                    values[1] * vec[0] + values[5] * vec[1] + values[9] * vec[2] + values[13],
+                    values[2] * vec[0] + values[6] * vec[1] + values[10] * vec[2] + values[14]);
 }
 
 Matrix4 Matrix4::translate(Matrix4 mat, Vector3f pos)
 {
     mat.translate(pos);
-    return mat;
-}
-
-Matrix4 Matrix4::rotate(Matrix4 mat, float angle, Vector3f axe)
-{
-    mat.rotate(angle, axe);
     return mat;
 }
 

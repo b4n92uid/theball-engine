@@ -369,13 +369,13 @@ Matrix4 SceneManager::computeBillboard(Vector3f obj, Matrix4 init, Vector3f cam,
     if(diri.y)
     {
         if(campos.y < obj.y)
-            rotation.rotate(acos(rotateV), Vector3f(1, 0, 0));
+            rotation.rotate(Quaternion(acos(rotateV), Vector3f(1, 0, 0)));
         else
-            rotation.rotate(acos(rotateV), Vector3f(-1, 0, 0));
+            rotation.rotate(Quaternion(acos(rotateV), Vector3f(-1, 0, 0)));
     }
 
     if(diri.x)
-        rotation.rotate(acos(rotateH), up);
+        rotation.rotate(Quaternion(acos(rotateH), up));
 
     return rotation;
 }

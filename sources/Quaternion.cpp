@@ -12,6 +12,13 @@
 #include "Vector4.h"
 #include "Mathematics.h"
 
+/*
+ * Quaternion implementation from :
+ * <http://gpwiki.org/index.php/OpenGL:Tutorials:Using_Quaternions_to_represent_rotation>
+ * <http://www.gamedev.net/page/resources/_/reference/programming/math-and-physics/quaternions/quaternion-powers-r1095>
+ * <http://www.euclideanspace.com/maths/geometry/rotations/conversions/index.htm>
+ */
+
 using namespace tbe;
 
 Quaternion::Quaternion()
@@ -270,7 +277,7 @@ Quaternion Quaternion::operator *(const Quaternion& rv) const
 
 Quaternion & Quaternion::operator*=(const Quaternion& q)
 {
-    return (*this = *this * q);
+    return(*this = *this * q);
 }
 
 Vector3f Quaternion::operator*(const Vector3f& vec) const

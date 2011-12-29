@@ -99,7 +99,7 @@ inline Vector3f radianClamp(const Vector3f& euler)
  */
 inline bool isEqual(float a, float b, float factor = FLOAT_TEST_FACTOR)
 {
-    return (fabs(a - b) < factor);
+    return(fabs(a - b) < factor);
 }
 
 /**
@@ -108,7 +108,7 @@ inline bool isEqual(float a, float b, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isEqual(Vector3f a, float b, float factor = FLOAT_TEST_FACTOR)
 {
-    return (isEqual(a.x, b, factor) && isEqual(a.y, b, factor) && isEqual(a.z, b, factor));
+    return(isEqual(a.x, b, factor) && isEqual(a.y, b, factor) && isEqual(a.z, b, factor));
 }
 
 /**
@@ -117,7 +117,7 @@ inline bool isEqual(Vector3f a, float b, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isEqual(Vector3f a, Vector3f b, float factor = FLOAT_TEST_FACTOR)
 {
-    return (isEqual(a.x, b.x, factor) && isEqual(a.y, b.y, factor) && isEqual(a.z, b.z, factor));
+    return(isEqual(a.x, b.x, factor) && isEqual(a.y, b.y, factor) && isEqual(a.z, b.z, factor));
 }
 
 /**
@@ -126,7 +126,7 @@ inline bool isEqual(Vector3f a, Vector3f b, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isEqual(Vector4f a, float b, float factor = FLOAT_TEST_FACTOR)
 {
-    return (isEqual(a.x, b, factor) && isEqual(a.y, b, factor) && isEqual(a.z, b, factor) && isEqual(a.w, b, factor));
+    return(isEqual(a.x, b, factor) && isEqual(a.y, b, factor) && isEqual(a.z, b, factor) && isEqual(a.w, b, factor));
 }
 
 /**
@@ -135,7 +135,7 @@ inline bool isEqual(Vector4f a, float b, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isEqual(Vector4f a, Vector4f b, float factor = FLOAT_TEST_FACTOR)
 {
-    return (isEqual(a.x, b.x, factor) && isEqual(a.y, b.y, factor) && isEqual(a.z, b.z, factor) && isEqual(a.w, b.w, factor));
+    return(isEqual(a.x, b.x, factor) && isEqual(a.y, b.y, factor) && isEqual(a.z, b.z, factor) && isEqual(a.w, b.w, factor));
 }
 
 /**
@@ -144,7 +144,7 @@ inline bool isEqual(Vector4f a, Vector4f b, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isZero(float a, float factor = FLOAT_TEST_FACTOR)
 {
-    return (a > -factor && a < factor);
+    return(a > -factor && a < factor);
 }
 
 /**
@@ -153,7 +153,7 @@ inline bool isZero(float a, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isAnyZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
 {
-    return (isZero(a.x, factor) || isZero(a.y, factor) || isZero(a.z, factor));
+    return(isZero(a.x, factor) || isZero(a.y, factor) || isZero(a.z, factor));
 }
 
 /**
@@ -162,7 +162,7 @@ inline bool isAnyZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
 {
-    return (isZero(a.x, factor) && isZero(a.y, factor) && isZero(a.z, factor));
+    return(isZero(a.x, factor) && isZero(a.y, factor) && isZero(a.z, factor));
 }
 
 /**
@@ -171,7 +171,7 @@ inline bool isZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isAnyZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
 {
-    return (isZero(a.x, factor) || isZero(a.y, factor));
+    return(isZero(a.x, factor) || isZero(a.y, factor));
 }
 
 /**
@@ -180,7 +180,7 @@ inline bool isAnyZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
 {
-    return (isZero(a.x, factor) && isZero(a.y, factor));
+    return(isZero(a.x, factor) && isZero(a.y, factor));
 }
 
 /**
@@ -191,11 +191,14 @@ inline bool isZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
  */
 template<typename T> inline bool isPow2(T value)
 {
-    return (value != 0) && !(value & (value - 1));
+    return(value != 0) && !(value & (value - 1));
 }
 
 /**
  * Renvois la premiere valeur de puissance-deux apres 'v'
+ * 
+ * Implementer depuis le tutoriel de NeHe sur Freetype:
+ * <http://nehe.gamedev.net/tutorial/freetype_fonts_in_opengl/24001/>
  *
  * @param a
  * @return
@@ -232,6 +235,7 @@ template<typename T> T clamp(const T& value, const T& min, const T& max)
 template<typename T> inline Vector2<T> nextPow2(Vector2<T> v)
 {
     Vector2<T> rval = 2;
+
     // rval<<=1 Is A Prettier Way Of Writing rval*=2;
     while(rval.x < v.x) rval.x <<= 1;
     while(rval.y < v.y) rval.y <<= 1;
@@ -249,7 +253,6 @@ template<typename T> inline Vector2<T> nextPow2(Vector2<T> v)
 inline int rand(int min, int max)
 {
     if(!min && !max)
-
         return 0;
 
     return std::rand() % max + min;
@@ -265,11 +268,9 @@ inline int rand(int min, int max)
 inline float rand(float min, float max)
 {
     if(!min && !max)
-
         return 0;
 
-    //return (min + ((float) std::rand() / RAND_MAX * (max - min + 1.0)));
-    return (min + ((float)std::rand() / RAND_MAX * (max - min)));
+    return(min + ((float)std::rand() / RAND_MAX * (max - min)));
 }
 
 /**
@@ -281,12 +282,9 @@ inline float rand(float min, float max)
  */
 inline Vector3f rand(Vector3f min, Vector3f max)
 {
-
-    return Vector3f(
-                    rand(min.x, max.x),
+    return Vector3f(rand(min.x, max.x),
                     rand(min.y, max.y),
-                    rand(min.z, max.z)
-                    );
+                    rand(min.z, max.z));
 }
 
 /**
@@ -343,7 +341,7 @@ template<>
 inline float round<float>(const float& value, const float& unit)
 {
     float v;
-    
+
     float sign = value >= 0 ? 1 : -1;
 
     v = std::abs(value);
@@ -428,7 +426,7 @@ inline Vector2f round(Vector2f value)
 {
     value.x = roundf(value.x);
     value.y = roundf(value.y);
-    
+
     return value;
 }
 
@@ -444,7 +442,7 @@ inline Vector3f round(Vector3f value)
     value.x = roundf(value.x);
     value.y = roundf(value.y);
     value.z = roundf(value.z);
-    
+
     return value;
 }
 
@@ -461,8 +459,31 @@ inline Vector4f round(Vector4f value)
     value.y = roundf(value.y);
     value.z = roundf(value.z);
     value.w = roundf(value.w);
-    
+
     return value;
+}
+
+/**
+ * Fast inverse square root:
+ * Implemented from Quake 3 source
+ * 
+ * <http://en.wikipedia.org/wiki/Fast_inverse_square_root>
+ */
+inline float reverseSqrt(float number)
+{
+    long i;
+    float x2, y;
+    const float threehalfs = 1.5F;
+
+    x2 = number * 0.5F;
+    y = number;
+    i = *(long*)&y; // evil floating point bit level hacking
+    i = 0x5f3759df - (i >> 1); // what the fuck?
+    y = *(float*)&i;
+    y = y * (threehalfs - (x2 * y * y)); // 1st iteration
+    y = y * (threehalfs - (x2 * y * y)); // 2nd iteration, this can be removed
+
+    return y;
 }
 
 }

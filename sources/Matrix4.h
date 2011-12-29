@@ -29,8 +29,15 @@ public:
     Matrix4(std::string exp);
     Matrix4(const Matrix4& copy);
 
-    /// Mets la matrice d'identitÃ©
+    Matrix4(float, float, float, float,
+            float, float, float, float,
+            float, float, float, float,
+            float, float, float, float);
+
+    /// Mets à la matrice d'identité
     void identity();
+    
+    // Transpose la matrice
     void transpose();
 
     /// Operateur d'assignement
@@ -42,34 +49,35 @@ public:
     /// Renvoi la position de la matrice
     Vector3f getPos() const;
 
-    /// Mets une taille a la matrice
-    void setScale(Vector3f value);
+    /// Efféctue une translation sur la matrice
+    Matrix4& translate(const Vector3f& pos);
 
-    /// Renvoi la taille de la matrice
-    Vector3f getScale() const;
+    /// Efféctue une rotation sur la matrice
+    Matrix4& rotate(const Quaternion& rotation);
 
-    /// Mets une rotation a la matrice AxisAngle
-    void setRotate(float angle, Vector3f axe);
+    /// Efféctue une mise a l'échelle sur la matrice
+    Matrix4& scale(const Vector3f& scale);
 
-    /// Mets une rotation X a la matrice Euler
-    void setRotateX(float v);
+    /**
+     * Applique une transformation sur la matrice dans l'ordre:
+     * 
+     *  1. Scale
+     *  2. Rotation
+     *  3. Translation
+     */
+    void transform(Vector3f position, Quaternion rotation, Vector3f scale);
 
-    /// Mets une rotation Y a la matrice Euler
-    void setRotateY(float v);
+    /**
+     * Décomposition de la matrice avec l'algorithme 
+     *  de Gram-Schmidt (l'algorithm QR).
+     */
+    void decompose(Vector3f& position, Quaternion& rotation, Vector3f& scale);
 
-    /// Mets une rotation Z a la matrice Euler
-    void setRotateZ(float v);
+    /// Exporte les 3 premierer linge et colone en matrice 3x3 (float[3][3])
+    void extractMat3(float* m3x3);
 
-    /// Mets une rotation a la matrice Euler
-    void setRotate(Vector3f v);
-
-    /// Mets une rotation a la matrice Quaternion
-    void setRotate(Quaternion rotation);
-
-    /// Renvoi la rotation de la matrice
-    Quaternion getRotate() const;
-
-    operator Vector3f();
+    /// Importe les valeur depuis une matrice 3x3 (float[3][3])
+    void importMat3(float* m3x3);
 
     operator const float*() const;
     operator float*();
@@ -77,32 +85,23 @@ public:
     float operator()(int i, int j)const;
     float operator[](int i)const;
 
-    float & operator()(int i, int j);
-    float & operator[](int i);
+    float& operator()(int i, int j);
+    float& operator[](int i);
 
-    Matrix4 & operator*=(const Matrix4& mat);
+    Matrix4& operator*=(const Matrix4& mat);
     Matrix4 operator*(const Matrix4& mat) const;
 
-    Vector3f operator*=(const Vector3f& vec);
     Vector3f operator*(const Vector3f& vec) const;
-
-    void translate(Vector3f pos);
-
-    void rotate(float angle, Vector3f axe);
-    void rotate(Vector3f euler);
-    void rotate(Quaternion rotation);
-
-    void scale(Vector3f scale);
 
     static Matrix4 transpose(Matrix4 mat);
 
     static Matrix4 translate(Matrix4 mat, Vector3f pos);
-
-    static Matrix4 rotate(Matrix4 mat, float angle, Vector3f axe);
     static Matrix4 rotate(Matrix4 mat, Quaternion quat);
-
     static Matrix4 scale(Matrix4 mat, Vector3f pos);
 
+    /**
+     * Gestion du flux d'entrer sur la matrice
+     */
     friend std::istream & operator >>(std::istream& stream, Matrix4& mat)
     {
         char sep;
@@ -114,6 +113,9 @@ public:
         return stream;
     }
 
+    /**
+     * Gestion du flux de sortie sur la matrice
+     */
     friend std::ostream & operator <<(std::ostream& stream, Matrix4 mat)
     {
         for(unsigned i = 0; i < 15; i++)
@@ -132,9 +134,9 @@ public:
     {
         std::stringstream stream;
         for(unsigned i = 0; i < 15; i++)
-            stream << m_matrix[i] << sep;
+            stream << values[i] << sep;
 
-        stream << m_matrix[15];
+        stream << values[15];
 
         return stream.str();
     }
@@ -150,16 +152,16 @@ public:
 
         if(withsep)
             for(unsigned i = 0; i < 15; i++)
-                stream >> m_matrix[i] >> sep;
+                stream >> values[i] >> sep;
         else
             for(unsigned i = 0; i < 15; i++)
-                stream >> m_matrix[i];
+                stream >> values[i];
 
-        stream >> m_matrix[15];
+        stream >> values[15];
     }
 
 private:
-    float m_matrix[16];
+    float values[16];
 };
 
 }

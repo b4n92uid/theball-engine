@@ -17,6 +17,7 @@
 #include <list>
 #include <map>
 #include <algorithm>
+#include <cmath>
 #include <exception>
 
 // Core ------------------------------------------------------------------------
