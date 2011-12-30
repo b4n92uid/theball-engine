@@ -423,7 +423,7 @@ void Water::setSize(Vector2f size)
 {
     this->m_size = size;
 
-    Vertex* vertex = m_buffer.lock();
+    Vertex* vertex = m_buffer.bindBuffer().lock();
 
     for(unsigned i = 0; i < 6; i++)
     {
@@ -436,8 +436,9 @@ void Water::setSize(Vector2f size)
         m_aabb.count(vertex[i].pos);
     }
 
-    m_buffer.unlock();
     m_buffer.snapshot();
+
+    m_buffer.unlock().unbindBuffer();
 
     m_shader.use(true);
     m_shader.uniform("endborder", max(m_size.x, m_size.y));

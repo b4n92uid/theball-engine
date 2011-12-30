@@ -205,7 +205,7 @@ void Mesh::computeTangent()
     if(!m_hardwareBuffer)
         return;
 
-    Vertex* vertex = m_hardwareBuffer->lock();
+    Vertex* vertex = m_hardwareBuffer->bindBuffer().lock();
 
     unsigned vertexCount = m_hardwareBuffer->getVertexCount();
 
@@ -265,8 +265,9 @@ void Mesh::computeTangent()
         vertex[i].tangent.normalize();
     }
 
-    m_hardwareBuffer->unlock();
     m_hardwareBuffer->snapshot();
+
+    m_hardwareBuffer->unlock().unbindBuffer();
 }
 
 void Mesh::computeAocc()
@@ -302,8 +303,6 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     unsigned vertexCount = m_hardwareBuffer->getVertexCount();
 
-    m_hardwareBuffer->bindBuffer();
-
     glPushAttrib(GL_ENABLE_BIT);
 
     if(material->m_depthTest)
@@ -330,7 +329,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         // NOTE OpenGL 1.4
         glDisable(GL_CULL_FACE);
 
-    // Sort polygones ----------------------------------------------------------
+    // Tri des polygones -------------------------------------------------------
 
     if(material->m_renderFlags & Material::VERTEX_SORT)
     {
@@ -340,13 +339,13 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             cmp.camPos = m_parallelScene->getSceneManager()->getCurCamera()->getPos();
             cmp.meshPos = m_matrix.getPos();
 
-            TriangleFace* vertexes = static_cast<TriangleFace*>(glMapBuffer(GL_ARRAY_BUFFER, GL_READ_WRITE));
+            TriangleFace* vertexes = reinterpret_cast<TriangleFace*>(m_hardwareBuffer->lock(GL_READ_WRITE));
             TriangleFace* start = vertexes + offset / 3;
             TriangleFace* end = start + count / 3;
 
             std::sort(start, end, cmp);
 
-            glUnmapBuffer(GL_ARRAY_BUFFER);
+            m_hardwareBuffer->unlock();
 
             material->m_frameSortWait = 16;
         }
@@ -367,7 +366,6 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     if(material->m_renderFlags & Material::SHADER)
     {
         // Tangent
-
         if(material->m_renderFlags & Material::TANGENT)
         {
             tangentAttribIndex = glGetAttribLocation(material->m_shader, material->m_tangentLocation.c_str());
@@ -379,7 +377,6 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         }
 
         // Amobient occlusion
-
         if(material->m_renderFlags & Material::AOCC)
         {
             aoccAttribIndex = glGetAttribLocation(material->m_shader, material->m_aoccLocation.c_str());
@@ -410,9 +407,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
             glClientActiveTexture(textureIndex);
 
-            /*
-             * Animation de la texture par modification des coordonés UV
-             */
+            // Animation de la texture par modification des coordonés UV
             if(texApply[itt->first].clipped)
             {
                 const Vector2f& texSize = itt->second.getSize();
@@ -424,7 +419,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
                 if(itt->first > 0)
                 {
-                    Vector2f* uvs = m_hardwareBuffer->lockMultiTexCoord(itt->first);
+                    Vector2f* uvs = m_hardwareBuffer->lockMultiTexCoord(itt->first, GL_WRITE_ONLY);
 
                     for(unsigned i = 0; i < vertexCount; i++)
                     {
@@ -438,7 +433,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
                 }
                 else
                 {
-                    Vertex* vs = m_hardwareBuffer->lock();
+                    Vertex* vs = m_hardwareBuffer->lock(GL_WRITE_ONLY);
 
                     for(unsigned i = 0; i < vertexCount; i++)
                     {
@@ -451,7 +446,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
                     }
                 }
 
-                m_hardwareBuffer->unlock(false);
+                m_hardwareBuffer->unlock();
 
                 if(texApply[itt->first].animation > 0)
                     if(texApply[itt->first].clock.isEsplanedTime(texApply[itt->first].animation))
@@ -502,6 +497,23 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         glMaterialfv(GL_FRONT, GL_DIFFUSE, material->m_diffuse);
         glMaterialfv(GL_FRONT, GL_SPECULAR, material->m_specular);
         glMaterialf(GL_FRONT, GL_SHININESS, material->m_shininess);
+
+        /* Normal scaling ------------------------------------------------------
+         * 
+         * Ici on dévise les normale des vertex par le scale de la matrice du noeud
+         * pour les rendre unitaire (normaliser), afini d'éviter un calcule
+         * incorrect de la lumiere lors d'une mise a l'échelle sur la matrice
+         */
+
+        tbe::Vector3f position, scale;
+        tbe::Quaternion rotation;
+
+        m_matrix.decompose(position, rotation, scale);
+
+        if(!math::isEqual(scale, 1))
+            glEnable(GL_RESCALE_NORMAL);
+        else
+            glDisable(GL_RESCALE_NORMAL);
     }
 
     // Color -------------------------------------------------------------------
@@ -511,6 +523,16 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         m_hardwareBuffer->bindColor();
 
         glEnable(GL_COLOR_MATERIAL);
+
+        if(!math::isEqual(material->m_color, 1))
+        {
+            Vertex* vertex = m_hardwareBuffer->lock(GL_READ_WRITE);
+
+            for(unsigned i = offset; i < offset + count && i < vertexCount; i++)
+                vertex[i].color *= material->m_color;
+
+            m_hardwareBuffer->unlock();
+        }
     }
 
     // Blend -------------------------------------------------------------------
@@ -542,26 +564,15 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         glAlphaFunc(GL_GREATER, material->m_alphaThershold);
     }
 
-    // Fog ---------------------------------------------------------------------
+    // Brouillard (Fog) --------------------------------------------------------
 
     if(glIsEnabled(GL_FOG) && !(material->m_renderFlags & Material::FOGED))
         glDisable(GL_FOG);
 
-    // Line width --------------------------------------------------------------
+    // Largeur de la ligne  ----------------------------------------------------
 
     if(material->m_lineWidth)
         glLineWidth(material->m_lineWidth);
-
-    // Coloring ----------------------------------------------------------------
-
-    Vertex* vertex = m_hardwareBuffer->lock();
-
-    for(unsigned i = offset; i < offset + count && i < vertexCount; i++)
-    {
-        vertex[i].color = material->m_color;
-    }
-
-    m_hardwareBuffer->unlock();
 
     // Rendue ------------------------------------------------------------------
 
@@ -645,8 +656,6 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         m_hardwareBuffer->bindColor(false);
     }
 
-    m_hardwareBuffer->bindBuffer(false);
-
     // NOTE OpenGL 1.4
     glColor4f(1, 1, 1, 1);
 
@@ -658,6 +667,7 @@ void Mesh::render()
     if(!m_hardwareBuffer || m_hardwareBuffer->isEmpty() || !m_enable || !m_visible)
         return;
 
+    m_hardwareBuffer->bindBuffer();
     m_hardwareBuffer->restore();
 
     glPushMatrix();
@@ -669,11 +679,16 @@ void Mesh::render()
 
     if(!!m_billBoard)
     {
+        tbe::Vector3f position, scale;
+        tbe::Quaternion rotation;
+
+        m_matrix.decompose(position, rotation, scale);
+
         Vector3f pos = getAbsoluteMatrix().getPos();
 
-        Matrix4 rotation = m_sceneManager->computeBillboard(pos, Matrix4(), 0, m_billBoard);
+        Matrix4 rotmat = m_sceneManager->computeBillboard(pos, rotation.getMatrix(), 0, m_billBoard);
 
-        glMultMatrixf(m_matrix * rotation);
+        glMultMatrixf(m_matrix * rotmat);
     }
     else
         glMultMatrixf(m_matrix);
@@ -697,6 +712,8 @@ void Mesh::render()
     }
 
     glPopMatrix();
+
+    m_hardwareBuffer->bindBuffer(false);
 }
 
 void Mesh::process()

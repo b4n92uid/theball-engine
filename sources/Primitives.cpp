@@ -152,7 +152,7 @@ void Box::setSize(Vector3f size)
 
     m_aabb.clear();
 
-    Vertex* verts = m_hardwareBuffer->lock();
+    Vertex* verts = m_hardwareBuffer->bindBuffer().lock();
 
     for(unsigned i = 0; i < 36; i++)
     {
@@ -160,8 +160,9 @@ void Box::setSize(Vector3f size)
         m_aabb.count(verts[i].pos);
     }
 
-    m_hardwareBuffer->unlock();
     m_hardwareBuffer->snapshot();
+
+    m_hardwareBuffer->unlock().unbindBuffer();
 }
 
 Vector3f Box::getSize() const

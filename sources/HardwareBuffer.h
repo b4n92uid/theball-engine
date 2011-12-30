@@ -77,11 +77,11 @@ public:
     Vector2f* lockMultiTexCoord(unsigned index, GLenum usage = GL_READ_WRITE);
 
     /// Dévéroulleu le buffer pour signaler la fin des modification
-    void unlock(bool unbind = true);
+    HardwareBuffer& unlock();
 
     /// *
     void restore();
-    
+
     /// *
     void snapshot();
 
@@ -112,7 +112,8 @@ public:
     void clear();
 
     /// Activer le rendue des position vertex (activation minimum)
-    void bindBuffer(bool state = true);
+    HardwareBuffer& bindBuffer(bool state = true);
+    HardwareBuffer& unbindBuffer();
 
     /// Activer le rendue des coordonnées de texture
     void bindTexture(bool state = true, unsigned layer = 0);
@@ -177,6 +178,8 @@ protected:
 
     unsigned m_multiTexCoordOffset;
     std::map<unsigned, Vector2f::Array> m_multiTexCoord;
+    
+    Vertex* m_cache;
 };
 
 }

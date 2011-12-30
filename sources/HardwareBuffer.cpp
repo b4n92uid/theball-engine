@@ -35,6 +35,8 @@ HardwareBuffer::HardwareBuffer()
     m_vertexCount = 0;
     m_bufferSize = 0;
     m_multiTexCoordOffset = 0;
+
+    m_cache = NULL;
 }
 
 HardwareBuffer::HardwareBuffer(const HardwareBuffer& hb)
@@ -51,6 +53,8 @@ HardwareBuffer::HardwareBuffer(const HardwareBuffer& hb)
     m_multiTexCoordOffset = 0;
 
     *this = hb;
+
+    m_cache = NULL;
 }
 
 HardwareBuffer::~HardwareBuffer()
@@ -70,10 +74,10 @@ HardwareBuffer& HardwareBuffer::operator=(const HardwareBuffer& hb)
 
 Vertex* HardwareBuffer::lock(GLenum usage)
 {
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
-    Vertex* offset = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, usage));
-
-    return offset;
+    if(m_cache)
+        return m_cache;
+    else
+        return m_cache = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, usage));
 }
 
 Vector2f* HardwareBuffer::lockMultiTexCoord(unsigned index, GLenum usage)
@@ -81,20 +85,17 @@ Vector2f* HardwareBuffer::lockMultiTexCoord(unsigned index, GLenum usage)
     if(index < 1)
         return NULL;
 
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
-
-    long base = (long)glMapBufferARB(GL_ARRAY_BUFFER_ARB, usage);
-    long offset = m_multiTexCoordOffset + (index - 1) * m_vertexCount * sizeof (Vector2f);
+    long base = m_cache ? (long)m_cache : (long)glMapBufferARB(GL_ARRAY_BUFFER_ARB, usage);
+    long offset = m_multiTexCoordOffset + (index - 1) * m_vertexCount * sizeof(Vector2f);
 
     return reinterpret_cast<Vector2f*>(base + offset);
 }
 
-void HardwareBuffer::unlock(bool unbind)
+HardwareBuffer& HardwareBuffer::unlock()
 {
+    m_cache = NULL;
     glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
-
-    if(unbind)
-        glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+    return *this;
 }
 
 bool HardwareBuffer::isEmpty() const
@@ -138,13 +139,13 @@ void HardwareBuffer::compile(GLenum usage)
 
     m_usage = usage;
     m_vertexCount = m_vertex.size();
-    m_bufferSize = m_vertex.size() * sizeof (Vertex);
+    m_bufferSize = m_vertex.size() * sizeof(Vertex);
 
     if(!m_multiTexCoord.empty())
     {
-        m_bufferSize += m_vertex.size() * sizeof (Vector2f) * m_multiTexCoord.size();
+        m_bufferSize += m_vertex.size() * sizeof(Vector2f) * m_multiTexCoord.size();
 
-        m_multiTexCoordOffset = m_vertex.size() * sizeof (Vertex);
+        m_multiTexCoordOffset = m_vertex.size() * sizeof(Vertex);
     }
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
@@ -154,7 +155,7 @@ void HardwareBuffer::compile(GLenum usage)
 
     for(vu2map::iterator it = m_multiTexCoord.begin(); it != m_multiTexCoord.end(); it++)
     {
-        int size = it->second.size() * sizeof (Vector2f);
+        int size = it->second.size() * sizeof(Vector2f);
         glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, mtoffset, size, &it->second[0]);
 
         mtoffset += size;
@@ -163,7 +164,7 @@ void HardwareBuffer::compile(GLenum usage)
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
-void HardwareBuffer::bindBuffer(bool state)
+HardwareBuffer& HardwareBuffer::bindBuffer(bool state)
 {
     if(state)
     {
@@ -179,6 +180,16 @@ void HardwareBuffer::bindBuffer(bool state)
 
         glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
     }
+
+    return *this;
+}
+
+HardwareBuffer& HardwareBuffer::unbindBuffer()
+{
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+
+    return *this;
 }
 
 void HardwareBuffer::bindNormal(bool state)
@@ -220,7 +231,7 @@ void HardwareBuffer::bindTexture(bool state, unsigned layer)
 
             else
                 glTexCoordPointer(2, GL_FLOAT, 0, (void*)(m_multiTexCoordOffset
-                                  + (layer - 1) * m_vertexCount * sizeof (Vector2f)));
+                                  + (layer - 1) * m_vertexCount * sizeof(Vector2f)));
         }
     }
 
@@ -270,7 +281,7 @@ unsigned HardwareBuffer::getVertexCount() const
 
 inline bool VertexComparePredicat(Vertex& v1, Vertex& v2)
 {
-    return (v1.pos == v2.pos);
+    return(v1.pos == v2.pos);
 }
 
 Face::Array HardwareBuffer::getAllFace()
