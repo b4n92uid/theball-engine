@@ -668,7 +668,6 @@ void Mesh::render()
         return;
 
     m_hardwareBuffer->bindBuffer();
-    m_hardwareBuffer->restore();
 
     glPushMatrix();
 
@@ -713,6 +712,7 @@ void Mesh::render()
 
     glPopMatrix();
 
+    m_hardwareBuffer->restore();
     m_hardwareBuffer->bindBuffer(false);
 }
 
