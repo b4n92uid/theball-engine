@@ -187,13 +187,13 @@ Vector3f::Array AABB::getPoints() const
 {
     Vector3f points[8] = {
         min,
-        min + Vector3f(max.x, 0, 0),
-        min + Vector3f(0, max.y, 0),
-        min + Vector3f(max.x, max.y, 0),
-        min + Vector3f(0, 0, max.z),
-        min + Vector3f(max.x, 0, max.z),
-        min + Vector3f(0, max.y, max.z),
-        min + max,
+        min + Vector3f(max.x, 0, 0)*2,
+        min + Vector3f(0, max.y, 0)*2,
+        min + Vector3f(0, 0, max.z)*2,
+        min + Vector3f(max.x, max.y, 0)*2,
+        min + Vector3f(max.x, 0, max.z)*2,
+        min + Vector3f(0, max.y, max.z)*2,
+        min + max * 2,
     };
 
     return Vector3f::Array(points, points + 8);
