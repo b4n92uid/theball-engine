@@ -24,7 +24,16 @@ Frustum::~Frustum()
 
 bool Frustum::isInside(Node* node) const
 {
-    const AABB& box = node->getAbsolutAabb();
+    Vector3f pos, scale;
+    Quaternion rot;
+    node->getMatrix().decompose(pos, rot, scale);
+
+    AABB box = node->getAabb();
+    box.max *= scale;
+    box.min *= scale;
+    box.max += pos;
+    box.min += pos;
+
     return isInside(box);
 }
 
