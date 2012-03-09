@@ -84,7 +84,7 @@ const char* fragmentShader =
         "    vec2 projCoord = projectionCoordinates.xy / projectionCoordinates.w;\n"
         "    projCoord = (projCoord + 1.0) * 0.5;\n"
         "    projCoord = clamp(projCoord, 0.0, 1.0);\n"
-        "    projCoord += N * deform;"
+        "    projCoord += N.xy * deform;"
 
         "    // -- Intensité spéculaire\n"
         "    vec3 L = normalize(light);\n"
