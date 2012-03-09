@@ -310,9 +310,9 @@ Vertex::Array HardwareBuffer::getAllVertex(bool makeUnique)
 {
     Vertex::Array allVertexs;
 
-    Vertex* vertex = lock(GL_READ_ONLY_ARB);
+    Vertex* vertex = bindBuffer(true).lock(GL_READ_ONLY_ARB);
     allVertexs.assign(vertex, vertex + m_vertexCount);
-    unlock();
+    unlock().bindBuffer(false);
 
     if(makeUnique)
     {
