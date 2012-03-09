@@ -113,7 +113,14 @@ void Shader::loadVertexShader(std::string filepath)
 
     file.close();
 
-    m_vert_shader = ParseShader(sourceCode.str().c_str(), GL_VERTEX_SHADER);
+    try
+    {
+        m_vert_shader = ParseShader(sourceCode.str().c_str(), GL_VERTEX_SHADER);
+    }
+    catch(Exception& e)
+    {
+        throw Exception("[Vertex Shader] " + filepath + "\n" + e.what());
+    }
 }
 
 void Shader::loadFragmentShader(std::string filepath)
@@ -130,7 +137,14 @@ void Shader::loadFragmentShader(std::string filepath)
 
     file.close();
 
-    m_frag_shader = ParseShader(sourceCode.str().c_str(), GL_FRAGMENT_SHADER);
+    try
+    {
+        m_frag_shader = ParseShader(sourceCode.str().c_str(), GL_FRAGMENT_SHADER);
+    }
+    catch(Exception& e)
+    {
+        throw Exception("[Fragment Shader] " + filepath + "\n" + e.what());
+    }
 }
 
 void Shader::use(bool use)
