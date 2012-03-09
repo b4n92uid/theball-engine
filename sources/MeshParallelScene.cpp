@@ -118,6 +118,7 @@ bool MeshParallelScene::findFloor(float x, float& y, float z)
         }
     }
 
+    y = yfloor;
     return atleastone;
 }
 
@@ -131,7 +132,7 @@ void MeshParallelScene::setInFloor(Node* node)
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
     {
-        if(m_nodes[i] == node || !m_nodes[i]->isEnable())
+        if(m_nodes[i] == node || !m_nodes[i]->isEnable() || !m_nodes[i]->isAttached())
             continue;
 
         float yfloor;
