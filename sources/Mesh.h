@@ -77,6 +77,7 @@ public:
 
     /// Renvois le materieux identifier par son nom
     Material* getMaterial(std::string name);
+    Material* getMaterial(unsigned index);
 
     /// Renvois tout les materials du mesh
     Material::Array getAllMaterial();

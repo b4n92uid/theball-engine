@@ -702,11 +702,17 @@ void Mesh::render()
 
     else
     {
-        std::sort(m_renderProess.begin(), m_renderProess.end(), renderProcessSortFunc);
+        if(m_renderProess.size() > 1)
+        {
+            std::sort(m_renderProess.begin(), m_renderProess.end(), renderProcessSortFunc);
 
-        for(unsigned i = 0; i < m_renderProess.size(); i++)
-            render(m_materials[m_renderProess[i].applyMaterial],
-                   m_renderProess[i].offset, m_renderProess[i].size);
+            for(unsigned i = 0; i < m_renderProess.size(); i++)
+                render(m_materials[m_renderProess[i].applyMaterial], m_renderProess[i].offset, m_renderProess[i].size);
+        }
+        else
+        {
+            render(m_materials[m_renderProess.front().applyMaterial], m_renderProess.front().offset, m_renderProess.front().size);
+        }
 
     }
 
@@ -903,6 +909,16 @@ Vector2i::Array Mesh::getMaterialApply(std::string name)
     }
 
     return offset;
+}
+
+Material* Mesh::getMaterial(unsigned index)
+{
+    if(index > m_materials.size() - 1)
+        throw tbe::Exception("Mesh::GetMaterial; Index out of bounds (%d)", index);
+
+    unsigned i = 0;
+    for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it, i++)
+        if(i == index) return it->second;
 }
 
 Material* Mesh::getMaterial(std::string name)

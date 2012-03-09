@@ -22,7 +22,7 @@ MeshParallelScene::MeshParallelScene()
 {
     m_frustumCullingCount = 0;
     m_enableFrustumTest = true;
-    m_transparencySort = true;
+    m_transparencySort = false;
 }
 
 MeshParallelScene::~MeshParallelScene()
