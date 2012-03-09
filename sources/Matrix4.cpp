@@ -256,7 +256,20 @@ void qduDecomposition(float m[3][3], float kQ[3][3], Vector3f& kD, Vector3f& kU)
     kU.z = kR[1][2] / kD.y;
 }
 
-void Matrix4::decompose(Vector3f& position, Quaternion& rotation, Vector3f& scale)
+MatDecompose Matrix4::decompose() const
+{
+    Vector3f position;
+    Vector3f scale;
+    Quaternion rotation;
+
+    decompose(position, rotation, scale);
+
+    MatDecompose md = {position, rotation, scale};
+
+    return md;
+}
+
+void Matrix4::decompose(Vector3f& position, Quaternion& rotation, Vector3f& scale) const
 {
     /*
      * Matrix decomposition code 
@@ -291,7 +304,7 @@ void Matrix4::decompose(Vector3f& position, Quaternion& rotation, Vector3f& scal
     position = getPos();
 }
 
-void Matrix4::extractMat3(float* m3x3)
+void Matrix4::extractMat3(float* m3x3) const
 {
     m3x3[0] = values[0];
     m3x3[1] = values[1];

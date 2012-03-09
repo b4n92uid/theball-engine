@@ -19,6 +19,13 @@ typedef Vector3<float> Vector3f;
 
 class Quaternion;
 
+struct MatDecompose
+{
+    const Vector3f& position;
+    const Quaternion& rotation;
+    const Vector3f& scale;
+};
+
 class Matrix4
 {
 public:
@@ -36,7 +43,7 @@ public:
 
     /// Mets à la matrice d'identité
     void identity();
-    
+
     // Transpose la matrice
     void transpose();
 
@@ -71,10 +78,16 @@ public:
      * Décomposition de la matrice avec l'algorithme 
      *  de Gram-Schmidt (l'algorithm QR).
      */
-    void decompose(Vector3f& position, Quaternion& rotation, Vector3f& scale);
+    void decompose(Vector3f& position, Quaternion& rotation, Vector3f& scale) const;
+
+    /**
+     * Methode racoucie de decompostion
+     * @return MatDecompose
+     */
+    MatDecompose decompose() const;
 
     /// Exporte les 3 premierer linge et colone en matrice 3x3 (float[3][3])
-    void extractMat3(float* m3x3);
+    void extractMat3(float* m3x3) const;
 
     /// Importe les valeur depuis une matrice 3x3 (float[3][3])
     void importMat3(float* m3x3);

@@ -118,6 +118,11 @@ Matrix4 Node::getAbsoluteMatrix(bool includeThis) const
         return m_parent ? m_parent->getAbsoluteMatrix() : Matrix4();
 }
 
+Matrix4 Node::getMatrix() const
+{
+    return m_matrix;
+}
+
 Matrix4& Node::getMatrix()
 {
     return m_matrix;
@@ -196,10 +201,10 @@ bool Node::isChild(Node* searche, bool recursiv) const
 bool Node::isRoot() const
 {
     if(m_sceneManager)
-        return (this == m_sceneManager->getRootNode());
+        return(this == m_sceneManager->getRootNode());
 
     else if(m_parallelScene)
-        return (this == m_parallelScene->getSceneManager()->getRootNode());
+        return(this == m_parallelScene->getSceneManager()->getRootNode());
 
     else
         return false;

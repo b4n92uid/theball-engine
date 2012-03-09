@@ -206,8 +206,10 @@ void NewtonNode::buildConvexNode(const tbe::scene::Mesh* mesh, float masse)
 {
     Vertex::Array vertexes = mesh->getHardwareBuffer()->getAllVertex(true);
 
+    const Vector3f scale = mesh->getMatrix().decompose().scale;
+
     for(unsigned i = 0; i < vertexes.size(); i++)
-        vertexes[i].pos *= mesh->getVertexScale();
+        vertexes[i].pos *= scale;
 
     buildConvexNode(vertexes, masse);
 }
@@ -222,7 +224,7 @@ void NewtonNode::buildConvexNode(const Vertex::Array& vertexes, float masse)
     Vector3f::Array onlyPos = ExtractPos(vertexes);
 
     // Corp de collision
-    NewtonCollision* collision = NewtonCreateConvexHull(m_newtonWorld, vertexes.size(), &onlyPos[0].x, sizeof (Vector3f), 0, 0, NULL);
+    NewtonCollision* collision = NewtonCreateConvexHull(m_newtonWorld, vertexes.size(), &onlyPos[0].x, sizeof(Vector3f), 0, 0, NULL);
     m_body = NewtonCreateBody(m_newtonWorld, collision, *m_updatedMatrix);
 
     // Masse & Inertia
@@ -250,9 +252,11 @@ void NewtonNode::buildTreeNode(const tbe::scene::Mesh* mesh)
 {
     Face::Array faces = mesh->getHardwareBuffer()->getAllFace();
 
+    Vector3f scale = mesh->getMatrix().decompose().scale;
+
     for(unsigned i = 0; i < faces.size(); i++)
         for(unsigned j = 0; j < faces[i].size(); j++)
-            faces[i][j].pos *= mesh->getVertexScale();
+            faces[i][j].pos *= scale;
 
     buildTreeNode(faces);
 }
@@ -276,7 +280,7 @@ void NewtonNode::buildTreeNode(const Face::Array& faces)
         for(unsigned j = 0; j < faces[j].size(); j++)
             vertexesPos.push_back(faces[i][j].pos);
 
-        NewtonTreeCollisionAddFace(nCollision, vertexesPos.size(), &vertexesPos[0].x, sizeof (Vector3f), 0);
+        NewtonTreeCollisionAddFace(nCollision, vertexesPos.size(), &vertexesPos[0].x, sizeof(Vector3f), 0);
     }
 
     // 1 = optimisation
