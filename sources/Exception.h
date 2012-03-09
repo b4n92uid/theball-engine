@@ -19,6 +19,7 @@ class Exception : public std::exception, public std::stringstream
 {
 public:
     Exception();
+    Exception(std::string content, ...);
     Exception(const char* content, ...);
     Exception(const Exception& copy);
     ~Exception() throw();
