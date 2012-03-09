@@ -345,9 +345,9 @@ Vector3f SceneManager::screenToWorld(Vector2i target)
     return Vector3f(float(pick.x), float(pick.y), float(pick.z));
 }
 
-Matrix4 SceneManager::computeBillboard(Vector3f obj, Matrix4 init, Vector3f cam, Vector2b diri)
+Quaternion SceneManager::computeBillboard(Vector3f obj, Vector3f cam, Vector2b diri)
 {
-    Matrix4 rotation = init;
+    Quaternion rotation;
 
     Vector3f look(0, 0, 1);
     Vector3f campos = !cam ? (*m_currentCamera)->getPos() : cam;
@@ -369,13 +369,13 @@ Matrix4 SceneManager::computeBillboard(Vector3f obj, Matrix4 init, Vector3f cam,
     if(diri.y)
     {
         if(campos.y < obj.y)
-            rotation.rotate(Quaternion(acos(rotateV), Vector3f(1, 0, 0)));
+            rotation *= Quaternion(acos(rotateV), Vector3f(1, 0, 0));
         else
-            rotation.rotate(Quaternion(acos(rotateV), Vector3f(-1, 0, 0)));
+            rotation *= Quaternion(acos(rotateV), Vector3f(-1, 0, 0));
     }
 
     if(diri.x)
-        rotation.rotate(Quaternion(acos(rotateH), up));
+        rotation *= Quaternion(acos(rotateH), up);
 
     return rotation;
 }

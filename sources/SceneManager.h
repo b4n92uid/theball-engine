@@ -140,7 +140,7 @@ public:
     Vector3f screenToWorld(Vector2i target, Rtt* rtt);
 
     /// Calcule de la matrice de rotation d'un billboard (face a la caméra)
-    Matrix4 computeBillboard(Vector3f obj, Matrix4 init = Matrix4(), Vector3f cam = 0, Vector2b diri = true);
+    Quaternion computeBillboard(Vector3f obj, Vector3f cam = 0, Vector2b diri = true);
 
 protected:
 

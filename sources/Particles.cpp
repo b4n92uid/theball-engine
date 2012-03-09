@@ -183,7 +183,7 @@ void ParticlesEmiter::render()
         {
             Vector3f abspos = absolute * (m_matrix * m_particles[i / 4].pos);
 
-            Matrix4 rot = m_sceneManager->computeBillboard(abspos);
+            Quaternion rot = m_sceneManager->computeBillboard(abspos);
 
             auxParticles[i + 0].pos = abspos + rot * Vector3f(m_bulletSize.x, -m_bulletSize.y, 0);
             auxParticles[i + 1].pos = abspos + rot * Vector3f(-m_bulletSize.x, -m_bulletSize.y, 0);

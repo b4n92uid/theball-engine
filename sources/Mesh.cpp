@@ -671,23 +671,26 @@ void Mesh::render()
 
     glPushMatrix();
 
-    if(m_parent)
+    if(m_parent && !m_parent->isRoot())
         glMultMatrixf(m_parent->getAbsoluteMatrix());
 
     // Billboarding ------------------------------------------------------------
 
     if(!!m_billBoard)
     {
-        tbe::Vector3f position, scale;
-        tbe::Quaternion rotation;
-
+        Vector3f position, scale;
+        Quaternion rotation;
         m_matrix.decompose(position, rotation, scale);
 
-        Vector3f pos = getAbsoluteMatrix().getPos();
+        Quaternion new_rotation = m_sceneManager
+                ->computeBillboard(getAbsoluteMatrix().getPos(), 0, m_billBoard);
 
-        Matrix4 rotmat = m_sceneManager->computeBillboard(pos, rotation.getMatrix(), 0, m_billBoard);
+        Matrix4 newmat;
+        newmat.rotate(new_rotation.conjugate());
+        newmat.scale(scale);
+        newmat.translate(position);
 
-        glMultMatrixf(m_matrix * rotmat);
+        glMultMatrixf(newmat);
     }
     else
         glMultMatrixf(m_matrix);
