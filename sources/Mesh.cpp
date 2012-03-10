@@ -113,14 +113,8 @@ void Mesh::clear()
     m_aabb.clear();
 }
 
-void Mesh::fetch(const Mesh& copy)
+void Mesh::fetchMaterials(const Mesh& copy)
 {
-    m_triangulate = copy.m_triangulate;
-    m_withNormal = copy.m_withNormal;
-    m_withTexCoord = copy.m_withTexCoord;
-
-    m_hardwareBuffer = copy.m_hardwareBuffer;
-
     for(Material::Map::const_iterator it = m_materials.begin(); it != m_materials.end(); ++it)
         delete it->second;
 
@@ -133,6 +127,17 @@ void Mesh::fetch(const Mesh& copy)
 
     for(unsigned i = 0; i < m_renderProess.size(); i++)
         m_renderProess[i].parent = this;
+}
+
+void Mesh::fetch(const Mesh& copy)
+{
+    m_triangulate = copy.m_triangulate;
+    m_withNormal = copy.m_withNormal;
+    m_withTexCoord = copy.m_withTexCoord;
+
+    m_hardwareBuffer = copy.m_hardwareBuffer;
+
+    fetchMaterials(copy);
 }
 
 Mesh& Mesh::copy(const Mesh& copy)
