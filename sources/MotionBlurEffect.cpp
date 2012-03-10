@@ -6,6 +6,7 @@
  */
 
 #include "MotionBlurEffect.h"
+#include "Clock.h"
 
 using namespace tbe;
 using namespace tbe::ppe;
@@ -86,17 +87,20 @@ void MotionBlurEffect::process(Rtt* rtt)
 
     rtt->use(false);
 
-    // Etape 2 -----------------------------------------------------------------
+    if(m_clock.isEsplanedTime(33))
+    {
+        // Etape 2 -------------------------------------------------------------
 
-    m_workRtt->use(true);
+        m_workRtt->use(true);
 
-    screenColor.use(true);
+        screenColor.use(true);
 
-    m_layer.draw();
+        m_layer.draw();
 
-    screenColor.use(false);
+        screenColor.use(false);
 
-    m_workRtt->use(false);
+        m_workRtt->use(false);
+    }
 }
 
 void MotionBlurEffect::setIntensity(float intensity)

@@ -10,6 +10,7 @@
 
 #include "PostProcessManager.h"
 #include "BlurEffect.h"
+#include "Clock.h"
 
 namespace tbe
 {
@@ -30,6 +31,7 @@ public:
     
 private:
     float m_intensity;
+    ticks::Clock m_clock;
 };
 
 }
