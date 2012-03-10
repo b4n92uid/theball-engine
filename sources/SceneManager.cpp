@@ -67,8 +67,6 @@ void SceneManager::setup(Vector2i viewport, float ratio, float fovy, float zNear
     m_zFar = zFar;
 
     updateViewParameter();
-
-    setAmbientLight(0.2);
 }
 
 void SceneManager::clearCameras()

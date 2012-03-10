@@ -119,6 +119,8 @@ void Device::init()
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
+    m_sceneManager->setAmbientLight(0.2);
+
     cout << endl;
 }
 
