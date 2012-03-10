@@ -34,15 +34,14 @@ static const char fragmentShader[] =
 
         "float focus = texture2D(tDepth, vec2(0.5)).r;"
 
-        "float n = 3.0;"
-        "float f = 256.0;"
+        "float n = 0.1;"
+        "float f = 128.0;"
 
         "float depthFactor = (2.0 * n) / (f + n - depth * (f - n));"
         "float focusFactor = (2.0 * n) / (f + n - focus * (f - n));"
 
         "gl_FragColor = mix(vColor, vBlur, abs(depthFactor - focusFactor) + 0.5);"
-
-        // "gl_FragColor = vec4(abs(depthFactor - focusFactor));"
+        //        "gl_FragColor = vec4(abs(depthFactor - focusFactor));"
         "}";
 
 DofEffect::DofEffect()

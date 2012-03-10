@@ -136,7 +136,8 @@ void FrameBufferObject::attach(unsigned compenent)
         // Génération buffer de rendue
         glGenRenderbuffersEXT(1, &m_depthRenderBuffer);
         glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, m_depthRenderBuffer);
-        glRenderbufferStorageMultisampleEXT(GL_RENDERBUFFER_EXT, m_multiSamplesCount, GL_DEPTH_COMPONENT, m_frameSize.x, m_frameSize.y);
+        // NOTE GL_DEPTH_COMPONENT16 fix for ati cards (def: GL_DEPTH_COMPONENT)
+        glRenderbufferStorageMultisampleEXT(GL_RENDERBUFFER_EXT, m_multiSamplesCount, GL_DEPTH_COMPONENT16, m_frameSize.x, m_frameSize.y);
 
         // Attacher en tant que Depth buffer
         glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, m_depthRenderBuffer);
