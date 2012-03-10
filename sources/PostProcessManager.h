@@ -64,12 +64,13 @@ public:
     typedef std::map<std::string, Effect*> Map;
     typedef std::vector<Effect*> Array;
 
+    static Vector2i defaultSize;
+
 protected:
     Shader m_processShader;
     Layer m_layer;
     Rtt* m_workRtt;
     bool m_enable;
-
 };
 
 /**

@@ -185,9 +185,11 @@ void PostProcessManager::render()
 
 // Effect ----------------------------------------------------------------------
 
+Vector2i Effect::defaultSize = 128;
+
 Effect::Effect()
 {
-    m_workRtt = new Rtt(128);
+    m_workRtt = new Rtt(Effect::defaultSize);
     m_workRtt->setCaptureColor(true);
     m_workRtt->setCaptureDepth(true);
 
@@ -227,7 +229,7 @@ Layer::Layer()
 
     glGenBuffers(1, &m_renderId);
     glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
-    glBufferData(GL_ARRAY_BUFFER, 8 * sizeof (float), vertexs, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(float), vertexs, GL_STATIC_DRAW);
 }
 
 Layer::~Layer()
