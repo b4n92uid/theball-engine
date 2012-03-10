@@ -1,15 +1,4 @@
-# Output directories
 build
-Release
 Debug
-
-# Ignored directories
 ignore
-
-# IDE project files
-nbproject
-
-# Misc
-syntax: glob
-*.lnk
-*.bat
+Release
