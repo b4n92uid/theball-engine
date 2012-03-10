@@ -26,7 +26,7 @@ bool Frustum::isInside(Node* node) const
 {
     Vector3f pos, scale;
     Quaternion rot;
-    node->getMatrix().decompose(pos, rot, scale);
+    node->getAbsoluteMatrix().decompose(pos, rot, scale);
 
     AABB box = node->getAabb();
     box.max *= scale;
