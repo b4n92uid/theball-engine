@@ -87,7 +87,7 @@ Mesh::Array MeshParallelScene::findMeshs(Vector3f start, Vector3f diri)
     {
         float intersect;
 
-        if(m_nodes[i]->isEnable())
+        if(m_nodes[i]->isEnable() && m_nodes[i]->isAttached())
             if(m_nodes[i]->rayCast(start, diri, intersect, true))
                 matches.push_back(m_nodes[i]);
     }
@@ -103,7 +103,7 @@ bool MeshParallelScene::findFloor(float x, float& y, float z)
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
     {
-        if(!m_nodes[i]->isEnable())
+        if(!m_nodes[i]->isEnable() || !m_nodes[i]->isAttached())
             continue;
 
         float lastY = yfloor;
@@ -156,7 +156,8 @@ AABB MeshParallelScene::getSceneAabb()
     AABB sceneAabb;
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
-        sceneAabb.count(m_nodes[i]);
+        if(m_nodes[i]->isAttached())
+            sceneAabb.count(m_nodes[i]);
 
     return sceneAabb;
 }
