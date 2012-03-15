@@ -180,3 +180,14 @@ std::string Device::getVersion()
 {
     return __DATE__;
 }
+
+void Device::setClearColor(Vector4f clearColor)
+{
+    this->m_clearColor = clearColor;
+    glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.w);
+}
+
+Vector4f Device::getClearColor() const
+{
+    return m_clearColor;
+}

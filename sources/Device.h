@@ -87,6 +87,9 @@ public:
     /// Renvois la taille du viewport
     Vector2i getViewportSize() const;
 
+    void setClearColor(Vector4f clearColor);
+    Vector4f getClearColor() const;
+
     /// Renvoi la version du moteur (Build Date)
     static std::string getVersion();
 
@@ -96,10 +99,11 @@ protected:
     ticks::FpsManager* m_fpsManager;
     gui::GuiManager* m_guiManager;
     EventManager* m_eventManager;
-    
+
     ticks::Clock m_timestamp;
 
     Vector2i m_viewportSize;
+    Vector4f m_clearColor;
 };
 
 
