@@ -95,21 +95,10 @@ public:
     void prepareScene();
     void saveScene();
     void saveScene(const std::string& filepath);
-    
+
     void clear();
 
     SceneParser& exclude(Node* node);
-
-    void setMaterialFile(Mesh* mesh, std::string path);
-    std::string getMaterialFile(Mesh* mesh);
-
-    void deleteMaterialFile(Mesh* mesh);
-
-    void reloadMaterialFiles();
-    void reloadMaterialFiles(Mesh* mesh);
-
-    void saveMaterialFile(Mesh* mesh);
-    void saveMaterialFile(Mesh* mesh, std::string path);
 
     void setIncludedMaterialFile(Mesh* mesh, bool state);
     bool isIncludedMaterialFile(Mesh* mesh);
@@ -214,7 +203,6 @@ private:
     std::vector<Node*> m_archivedNodes;
     std::vector<Node*> m_excludedNodes;
 
-    std::map<Mesh*, std::string> m_materialsFile;
     std::map<Mesh*, bool > m_includedMaterialsFile;
 };
 
