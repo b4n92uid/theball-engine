@@ -556,6 +556,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     if(material->m_renderFlags & Material::ALPHA)
     {
         glEnable(GL_ALPHA_TEST);
+        glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
         glAlphaFunc(GL_GREATER, material->m_alphaThershold);
     }
 
