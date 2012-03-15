@@ -101,6 +101,9 @@ public:
     /// Renvois le filtring utliser par la texture
     unsigned getFiltring() const;
 
+    void setAnistropy(unsigned anistropy);
+    unsigned getAnistropy() const;
+
     /**
      * Renvois true si la texture a été position de facon
      * a ce que les coordonnés 0,0 font référence au coin
@@ -137,6 +140,7 @@ protected:
     bool m_upperLeftOrigin;
 
     unsigned m_filtring;
+    unsigned m_anistropy;
 };
 
 }

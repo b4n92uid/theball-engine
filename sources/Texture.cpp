@@ -356,6 +356,20 @@ unsigned Texture::getFiltring() const
     return m_filtring;
 }
 
+void Texture::setAnistropy(unsigned anistropy)
+{
+    this->m_anistropy = std::max(std::min(anistropy, 8u), 1u);
+
+    use(true);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, m_anistropy);
+    use(false);
+}
+
+unsigned Texture::getAnistropy() const
+{
+    return m_anistropy;
+}
+
 bool Texture::isUpperLeftOrigin() const
 {
     return m_upperLeftOrigin;
