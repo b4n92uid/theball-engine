@@ -51,7 +51,7 @@ void OBJMesh::open(const std::string& path)
 
     if(shared)
     {
-        fetch(*shared);
+        sahreFrom(*shared);
 
         computeAabb();
 

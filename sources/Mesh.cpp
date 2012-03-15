@@ -129,7 +129,7 @@ void Mesh::fetchMaterials(const Mesh& copy)
         m_renderProess[i].parent = this;
 }
 
-void Mesh::fetch(const Mesh& copy)
+void Mesh::sahreFrom(const Mesh& copy)
 {
     m_triangulate = copy.m_triangulate;
     m_withNormal = copy.m_withNormal;
@@ -152,20 +152,10 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_visible = copy.m_visible;
     m_billBoard = copy.m_billBoard;
 
-    m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
+    if(copy.m_hardwareBuffer)
+        m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
 
-    for(Material::Map::const_iterator it = m_materials.begin(); it != m_materials.end(); ++it)
-        delete it->second;
-
-    m_materials.clear();
-
-    for(Material::Map::const_iterator it = copy.m_materials.begin(); it != copy.m_materials.end(); ++it)
-        m_materials[it->first] = new Material(*it->second);
-
-    m_renderProess = copy.m_renderProess;
-
-    for(unsigned i = 0; i < m_renderProess.size(); i++)
-        m_renderProess[i].parent = this;
+    fetchMaterials(copy);
 
     return *this;
 }

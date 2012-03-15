@@ -723,7 +723,7 @@ void SceneParser::buildNode(Relation& rel, Node* parent)
 
         if(shared)
         {
-            mesh->fetch(*shared);
+            mesh->sahreFrom(*shared);
 
             Mesh::registerBuffer(mesh, modelFilepath);
         }

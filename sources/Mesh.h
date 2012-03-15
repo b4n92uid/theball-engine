@@ -145,7 +145,7 @@ public:
 
     bool rayCast(Vector3f rayStart, Vector3f rayDiri, float& intersect, bool global);
 
-    void fetch(const Mesh& copy);
+    void sahreFrom(const Mesh& copy);
     void fetchMaterials(const Mesh& copy);
 
     std::vector<std::string> getUsedRessources();
