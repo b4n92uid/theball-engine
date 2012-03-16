@@ -682,7 +682,7 @@ void Mesh::render()
                 ->computeBillboard(getAbsoluteMatrix().getPos(), 0, m_billBoard);
 
         Matrix4 newmat;
-        newmat.rotate(new_rotation.conjugate());
+        newmat.rotate(new_rotation);
         newmat.scale(scale);
         newmat.translate(position);
 

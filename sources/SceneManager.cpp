@@ -373,7 +373,7 @@ Quaternion SceneManager::computeBillboard(Vector3f obj, Vector3f cam, Vector2b d
     }
 
     if(diri.x)
-        rotation *= Quaternion(acos(rotateH), up);
+        rotation *= Quaternion(acos(-rotateH), up);
 
     return rotation;
 }
