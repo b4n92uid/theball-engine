@@ -59,6 +59,16 @@ bool Mesh::isUsedBuffer(HardwareBuffer* hb)
     return manager.used(hb);
 }
 
+void Mesh::setOutputMaterial(bool outputMaterial)
+{
+    this->m_outputMaterial = outputMaterial;
+}
+
+bool Mesh::isOutputMaterial() const
+{
+    return m_outputMaterial;
+}
+
 Mesh::Mesh(MeshParallelScene* scene)
 {
     m_triangulate = true;
@@ -115,6 +125,8 @@ void Mesh::clear()
 
 void Mesh::fetchMaterials(const Mesh& copy)
 {
+    m_outputMaterial = copy.m_outputMaterial;
+
     for(Material::Map::const_iterator it = m_materials.begin(); it != m_materials.end(); ++it)
         delete it->second;
 
@@ -1027,6 +1039,14 @@ Node::CtorMap Mesh::constructionMap(std::string root)
     Node::CtorMap ctormap = Node::constructionMap(root);
 
     ctormap["billBoarding"] = m_billBoard.toStr();
+
+    if(m_outputMaterial)
+    {
+        Node::CtorMap matctor = outputMaterial(root);
+
+        for(Node::CtorMap::iterator itm = matctor.begin(); itm != matctor.end(); itm++)
+            ctormap["!" + itm->first] = itm->second;
+    }
 
     return ctormap;
 }

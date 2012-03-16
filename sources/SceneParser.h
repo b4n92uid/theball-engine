@@ -100,9 +100,6 @@ public:
 
     SceneParser& exclude(Node* node);
 
-    void setIncludedMaterialFile(Mesh* mesh, bool state);
-    bool isIncludedMaterialFile(Mesh* mesh);
-
     void setAdditionalString(std::string key, std::string value);
     std::string getAdditionalString(std::string key);
 
@@ -202,8 +199,6 @@ private:
 
     std::vector<Node*> m_archivedNodes;
     std::vector<Node*> m_excludedNodes;
-
-    std::map<Mesh*, bool > m_includedMaterialsFile;
 };
 
 class ClassParser : public ParserHandle

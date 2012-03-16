@@ -190,17 +190,6 @@ void SceneParser::prepareScene()
 
     m_mapDescriptor.nodes.clear();
 
-    for(Iterator<Mesh*> it = m_meshScene->iterator(); it; it++)
-    {
-        if(m_includedMaterialsFile.count(*it))
-        {
-            Node::CtorMap ctor = it->outputMaterial(m_mapDescriptor.fileName);
-
-            for(Node::CtorMap::iterator itm = ctor.begin(); itm != ctor.end(); itm++)
-                it->addToConstructionMap("!" + itm->first, itm->second);
-        }
-    }
-
     for(Iterator<Node*> it = m_rootNode->getChildIterator(); it; it++)
     {
         if(tools::find(m_excludedNodes, *it))
@@ -336,8 +325,6 @@ void SceneParser::loadScene(const std::string& filepath)
     m_excludedNodes.clear();
 
     m_additional.clear();
-
-    m_includedMaterialsFile.clear();
 
     m_mapDescriptor.fileName = filepath;
     m_mapDescriptor.sceneName.clear();
@@ -556,16 +543,6 @@ void SceneParser::buildScene()
     m_sceneManager->updateViewParameter();
 }
 
-void SceneParser::setIncludedMaterialFile(Mesh* mesh, bool state)
-{
-    m_includedMaterialsFile[mesh] = true;
-}
-
-bool SceneParser::isIncludedMaterialFile(Mesh* mesh)
-{
-    return m_includedMaterialsFile.count(mesh) && m_includedMaterialsFile[mesh];
-}
-
 void SceneParser::buildMaterial(std::string filepath, Mesh* mesh)
 {
     filepath = tools::pathScope(m_mapDescriptor.fileName, filepath, true);
@@ -594,7 +571,7 @@ void SceneParser::buildMaterial(AttribMap attr, Mesh* mesh)
         if(it->first[0] != '!')
             continue;
 
-        m_includedMaterialsFile[mesh] = true;
+        mesh->setOutputMaterial(true);
 
         string key = it->first;
         key.erase(0, 1);

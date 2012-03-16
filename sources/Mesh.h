@@ -133,7 +133,6 @@ public:
     HardwareBuffer* getHardwareBuffer() const;
 
     CtorMap constructionMap(std::string root);
-    CtorMap outputMaterial(std::string root);
 
     void generateMulTexCoord();
 
@@ -155,11 +154,18 @@ public:
     static Mesh* isSharedBuffer(const std::string& source);
     static bool isUsedBuffer(HardwareBuffer* hb);
 
+    void setOutputMaterial(bool outputMaterial);
+    bool isOutputMaterial() const;
+
+protected:
+    CtorMap outputMaterial(std::string root);
+
 protected:
     bool m_triangulate;
     bool m_withNormal;
     bool m_withTexCoord;
     bool m_visible;
+    bool m_outputMaterial;
 
     HardwareBuffer* m_hardwareBuffer;
 
