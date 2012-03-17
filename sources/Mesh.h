@@ -166,6 +166,8 @@ protected:
     bool m_withTexCoord;
     bool m_visible;
     bool m_outputMaterial;
+	
+	Vector2b m_billBoard;
 
     HardwareBuffer* m_hardwareBuffer;
 
@@ -193,8 +195,6 @@ private:
     Material::Map m_materials;
 
     Mesh& copy(const Mesh& copy);
-
-    Vector2b m_billBoard;
 };
 
 }

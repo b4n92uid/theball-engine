@@ -75,6 +75,8 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_withNormal = false;
     m_withTexCoord = false;
     m_visible = true;
+	m_outputMaterial = false;
+	m_billBoard = false;
 
     Node::m_parallelScene = m_parallelScene = scene;
 
@@ -114,6 +116,8 @@ void Mesh::clear()
         delete it->second;
 
     m_materials.clear();
+	
+	m_outputMaterial = false;
 
     Mesh::unregisterBuffer(this);
 
