@@ -97,6 +97,8 @@ void Device::init()
     else
         m_sceneManager = new scene::SceneManager;
 
+    m_sceneManager->setup(Vector2i(800, 600), 4 / 3, 70, 0.1, 512);
+
     cout << "Init gui manager" << endl;
 
     if(m_guiManager)
@@ -104,12 +106,16 @@ void Device::init()
     else
         m_guiManager = new gui::GuiManager;
 
+    m_guiManager->setup(m_viewportSize);
+
     cout << "Init post process effets manager" << endl;
 
     if(m_postProcessManager)
         new(m_postProcessManager)ppe::PostProcessManager;
     else
         m_postProcessManager = new ppe::PostProcessManager;
+
+    m_postProcessManager->setup(m_viewportSize);
 
     cout << "Init OpenGL state" << endl;
 
@@ -128,9 +134,9 @@ void Device::setViewportSize(Vector2i viewportSize)
 {
     m_viewportSize = viewportSize;
 
-    m_guiManager->setup(m_viewportSize);
-    m_sceneManager->setup(m_viewportSize, 0, 70, 0.1, 512);
-    m_postProcessManager->setup(m_viewportSize);
+    m_sceneManager->setViewport(m_viewportSize);
+    m_guiManager->setViewport(m_viewportSize);
+    m_postProcessManager->setViewport(m_viewportSize);
 }
 
 Vector2i Device::getViewportSize() const

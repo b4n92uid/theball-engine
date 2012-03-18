@@ -47,20 +47,9 @@ void GuiManager::clearAll()
     m_currentSession = m_sessions.end();
 }
 
-void GuiManager::setup(Vector2i scrsize)
+void GuiManager::setup(Vector2i viewport)
 {
-    m_screenSize = scrsize;
-
-    for(Session::Map::iterator i = m_sessions.begin(); i != m_sessions.end(); i++)
-    {
-        Layout::Array& lay = i->second->layouts;
-
-        if(!lay.empty())
-        {
-            lay.front()->setScreenSize(m_screenSize);
-            lay.front()->update();
-        }
-    }
+    setViewport(viewport);
 }
 
 void GuiManager::updateLayout()
@@ -77,7 +66,7 @@ void GuiManager::render()
     glPushMatrix();
 
     glLoadIdentity();
-    gluOrtho2D(0, m_screenSize.x, 0, m_screenSize.y);
+    gluOrtho2D(0, m_viewport.x, 0, m_viewport.y);
 
     // --
     glMatrixMode(GL_MODELVIEW);
@@ -340,7 +329,7 @@ GridLayout* GuiManager::addGridLayout(Layout::Orientation type, int rows, int co
 
 Layout* GuiManager::addLayout(Layout::Orientation type, float space, Vector2f border)
 {
-    Layout* lay = new Layout(m_screenSize, space, border, type);
+    Layout* lay = new Layout(m_viewport, space, border, type);
 
     // Parent
     m_currentSession->second->layouts.push_back(lay);
@@ -385,11 +374,26 @@ Layout* GuiManager::endLayout()
     return m_currentSession->second->activeLayout;
 }
 
-Vector2f GuiManager::getScreenSize() const
+void GuiManager::setViewport(Vector2i viewport)
 {
-    return m_screenSize;
+    m_viewport = viewport;
+
+    for(Session::Map::iterator i = m_sessions.begin(); i != m_sessions.end(); i++)
+    {
+        Layout::Array& lay = i->second->layouts;
+
+        if(!lay.empty())
+        {
+            lay.front()->setScreenSize(m_viewport);
+            lay.front()->update();
+        }
+    }
 }
 
+Vector2i GuiManager::getViewport() const
+{
+    return m_viewport;
+}
 // Session ---------------------------------------------------------
 
 GuiManager::Session::Session()

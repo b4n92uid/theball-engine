@@ -314,19 +314,14 @@ bool SceneParser::parseBlock(std::ifstream& file, Relation& rel, unsigned& line)
     return true;
 }
 
-void SceneParser::loadScene(const std::string& filepath)
+void SceneParser::clear()
 {
-    ifstream file(filepath.c_str());
-
-    if(!file)
-        throw tbe::Exception("SceneParser::loadScene; Open file error (%s)", filepath.c_str());
-
     m_archivedNodes.clear();
     m_excludedNodes.clear();
 
     m_additional.clear();
 
-    m_mapDescriptor.fileName = filepath;
+    m_mapDescriptor.fileName.clear();
     m_mapDescriptor.sceneName.clear();
     m_mapDescriptor.authorName.clear();
     m_mapDescriptor.ambiante = 0.2;
@@ -345,6 +340,18 @@ void SceneParser::loadScene(const std::string& filepath)
     m_mapDescriptor.skybox.right.clear();
     m_mapDescriptor.skybox.enable = false;
     m_mapDescriptor.nodes.clear();
+}
+
+void SceneParser::loadScene(const std::string& filepath)
+{
+    ifstream file(filepath.c_str());
+
+    if(!file)
+        throw tbe::Exception("SceneParser::loadScene; Open file error (%s)", filepath.c_str());
+
+    clear();
+
+    m_mapDescriptor.fileName = filepath;
 
     string buffer;
 

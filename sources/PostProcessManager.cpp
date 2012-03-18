@@ -44,19 +44,9 @@ void PostProcessManager::clearAll()
     m_postEffects.clear();
 }
 
-void PostProcessManager::setup(Vector2i screenSize)
+void PostProcessManager::setup(Vector2i viewport)
 {
-    m_screenSize = math::nextPow2(screenSize) / 2;
-
-    if(!m_rttRender)
-    {
-        m_rttRender = new Rtt(m_screenSize);
-        m_rttRender->setCaptureColor(true);
-        m_rttRender->setCaptureDepth(true);
-    }
-
-    else
-        m_rttRender->setFrameSize(m_screenSize);
+    setViewport(viewport);
 }
 
 Effect* PostProcessManager::getPostEffect(std::string name)
@@ -70,6 +60,28 @@ Effect* PostProcessManager::getPostEffect(std::string name)
 Rtt* PostProcessManager::getRtt() const
 {
     return m_rttRender;
+}
+
+void PostProcessManager::setViewport(Vector2i viewport)
+{
+    this->m_viewport = viewport;
+
+    m_viewport = math::nextPow2(m_viewport) / 2;
+
+    if(!m_rttRender)
+    {
+        m_rttRender = new Rtt(m_viewport);
+        m_rttRender->setCaptureColor(true);
+        m_rttRender->setCaptureDepth(true);
+    }
+
+    else
+        m_rttRender->setFrameSize(m_viewport);
+}
+
+Vector2i PostProcessManager::getViewport() const
+{
+    return m_viewport;
 }
 
 void PostProcessManager::addPostEffect(std::string name, Effect* effect)

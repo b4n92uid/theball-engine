@@ -55,6 +55,7 @@ void MeshParallelScene::render()
     Frustum* frustum = m_sceneManager->getFrustum();
 
     m_frustumCullingCount = 0;
+    m_renderedMeshCount = 0;
 
     static DepthSortMeshFunc sortFunc;
     sortFunc.camPos = m_sceneManager->getCurCamera()->getPos();
@@ -76,6 +77,7 @@ void MeshParallelScene::render()
         }
 
         node->render();
+        m_renderedMeshCount++;
     }
 }
 
@@ -182,12 +184,12 @@ bool MeshParallelScene::isEnableFrustumTest() const
     return m_enableFrustumTest;
 }
 
-void MeshParallelScene::setFrustumCullingCount(unsigned frustumCullingCount)
-{
-    this->m_frustumCullingCount = frustumCullingCount;
-}
-
 unsigned MeshParallelScene::getFrustumCullingCount() const
 {
     return m_frustumCullingCount;
+}
+
+unsigned MeshParallelScene::getRenderedMeshCount() const
+{
+    return m_renderedMeshCount;
 }

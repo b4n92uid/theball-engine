@@ -77,9 +77,9 @@ void SceneManager::clearCameras()
     m_cameras.clear();
 }
 
-void SceneManager::clearParallelScenes(bool deleteHim)
+void SceneManager::clearParallelScenes(bool deleteThem)
 {
-    if(deleteHim)
+    if(deleteThem)
     {
         for(unsigned i = 0; i < m_parallelScenes.size(); i++)
             delete m_parallelScenes[i];
@@ -237,6 +237,9 @@ Fog* SceneManager::getFog() const
 void SceneManager::setViewport(Vector2i viewport)
 {
     m_viewport = viewport;
+    m_ratio = (float)viewport.x / (float)viewport.y;
+
+    updateViewParameter();
 }
 
 Vector2i SceneManager::getViewport() const

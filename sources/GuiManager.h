@@ -140,18 +140,19 @@ public:
     /// Ajoute un espace fixe aux layout déja créer
     void addLayoutSpace(Vector2f space);
 
-    Vector2f getScreenSize() const;
+    void setViewport(Vector2i viewport);
+    Vector2i getViewport() const;
 
     void updateLayout();
 
     template<typename T> T* releaseControl(std::string name)
     {
-        return (T*)releaseControl(name);
+        return(T*)releaseControl(name);
     }
 
     template<typename T> T* getControl(std::string name, int sess = -1)
     {
-        return (T*)getControl(name, sess);
+        return(T*)getControl(name, sess);
     }
 
 protected:
@@ -176,7 +177,7 @@ protected:
 
     GuiSkin* m_guiSkin;
 
-    Vector2f m_screenSize;
+    Vector2i m_viewport;
 
     float m_sizeFactor;
 };

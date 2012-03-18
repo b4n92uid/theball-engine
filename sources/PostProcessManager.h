@@ -83,9 +83,12 @@ public:
     PostProcessManager(const PostProcessManager& orig);
     virtual ~PostProcessManager();
 
-    void setup(Vector2i screenSize);
+    void setup(Vector2i viewport);
     void render();
     void clearAll();
+
+    void setViewport(Vector2i viewport);
+    Vector2i getViewport() const;
 
     void addPostEffect(std::string name, Effect* effect);
 
@@ -103,7 +106,7 @@ public:
 
 private:
     Effect::Map m_postEffects;
-    Vector2i m_screenSize;
+    Vector2i m_viewport;
     Rtt* m_rttRender;
     Layer m_layer;
 };

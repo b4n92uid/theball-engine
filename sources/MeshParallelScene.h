@@ -37,8 +37,8 @@ public:
     void setEnableFrustumTest(bool enableFrustumTest);
     bool isEnableFrustumTest() const;
 
-    void setFrustumCullingCount(unsigned frustumCullingCount);
     unsigned getFrustumCullingCount() const;
+    unsigned getRenderedMeshCount() const;
 
     void setTransparencySort(bool transparencySort);
     bool isTransparencySort() const;
@@ -46,6 +46,7 @@ public:
     AABB getSceneAabb();
 
 private:
+    unsigned m_renderedMeshCount;
     unsigned m_frustumCullingCount;
     bool m_enableFrustumTest;
     bool m_transparencySort;
