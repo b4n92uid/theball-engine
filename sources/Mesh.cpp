@@ -75,8 +75,8 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_withNormal = false;
     m_withTexCoord = false;
     m_visible = true;
-	m_outputMaterial = false;
-	m_billBoard = false;
+    m_outputMaterial = false;
+    m_billBoard = false;
 
     Node::m_parallelScene = m_parallelScene = scene;
 
@@ -116,8 +116,8 @@ void Mesh::clear()
         delete it->second;
 
     m_materials.clear();
-	
-	m_outputMaterial = false;
+
+    m_outputMaterial = false;
 
     Mesh::unregisterBuffer(this);
 
@@ -382,7 +382,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             tangentAttribIndex = glGetAttribLocation(material->m_shader, material->m_tangentLocation.c_str());
 
             if(tangentAttribIndex == -1)
-                throw Exception("Mesh::render; Invalid tangent location (%s)", material->m_tangentLocation.c_str());
+                throw Exception("Mesh::render; [%s] Invalid tangent location (%s)", m_name.c_str(), material->m_tangentLocation.c_str());
 
             m_hardwareBuffer->bindTangent(true, tangentAttribIndex);
         }
@@ -393,7 +393,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             aoccAttribIndex = glGetAttribLocation(material->m_shader, material->m_aoccLocation.c_str());
 
             if(aoccAttribIndex == -1)
-                throw Exception("Mesh::render; Invalid tangent location (%s)", material->m_aoccLocation.c_str());
+                throw Exception("Mesh::render; [%s] Invalid tangent location (%s)", m_name.c_str(), material->m_aoccLocation.c_str());
 
             m_hardwareBuffer->bindAocc(true, aoccAttribIndex);
         }
@@ -698,6 +698,8 @@ void Mesh::render()
                 ->computeBillboard(getAbsoluteMatrix().getPos(), 0, m_billBoard);
 
         Matrix4 newmat;
+        rotation.w = -rotation.w;
+        newmat.rotate(rotation.conjugate());
         newmat.rotate(new_rotation);
         newmat.scale(scale);
         newmat.translate(position);
@@ -929,7 +931,7 @@ Vector2i::Array Mesh::getMaterialApply(std::string name)
 Material* Mesh::getMaterial(unsigned index)
 {
     if(index > m_materials.size() - 1)
-        throw tbe::Exception("Mesh::GetMaterial; Index out of bounds (%d)", index);
+        throw tbe::Exception("Mesh::GetMaterial; [%s] Index out of bounds (%d)", m_name.c_str(), index);
 
     unsigned i = 0;
     for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it, i++)
@@ -939,7 +941,7 @@ Material* Mesh::getMaterial(unsigned index)
 Material* Mesh::getMaterial(std::string name)
 {
     if(m_materials.find(name) == m_materials.end())
-        throw tbe::Exception("Mesh::GetMaterial; Material not found (%s)", name.c_str());
+        throw tbe::Exception("Mesh::GetMaterial; [%s] Material not found (%s)", m_name.c_str(), name.c_str());
 
     return m_materials[name];
 }
@@ -947,7 +949,7 @@ Material* Mesh::getMaterial(std::string name)
 Material* Mesh::releaseMaterial(std::string name)
 {
     if(m_materials.find(name) == m_materials.end())
-        throw tbe::Exception("Mesh::ReleaseMaterial; Material not found (%s)", name.c_str());
+        throw tbe::Exception("Mesh::ReleaseMaterial; [%s] Material not found (%s)", m_name.c_str(), name.c_str());
 
     Material* toRet = m_materials[name];
     m_materials.erase(name);
@@ -971,7 +973,7 @@ void Mesh::applyMaterial(Material* material, unsigned offset, unsigned size)
             return;
         }
 
-    throw tbe::Exception("Mesh::ApplyMaterial; Material ptr not found");
+    throw tbe::Exception("Mesh::ApplyMaterial; [%s] Material ptr not found", m_name.c_str());
 }
 
 HardwareBuffer* Mesh::getHardwareBuffer() const
