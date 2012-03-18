@@ -367,9 +367,9 @@ Quaternion SceneManager::computeBillboard(Vector3f obj, Vector3f cam, Vector2b d
     if(diri.y)
     {
         if(campos.y < obj.y)
-            rotation *= Quaternion(acos(rotateV), Vector3f(1, 0, 0));
+            rotation *= Quaternion(acos(rotateV), Vector3f(diri.x ? 1 : -1, 0, 0));
         else
-            rotation *= Quaternion(acos(rotateV), Vector3f(-1, 0, 0));
+            rotation *= Quaternion(acos(rotateV), Vector3f(diri.x ? -1 : 1, 0, 0));
     }
 
     if(diri.x)
