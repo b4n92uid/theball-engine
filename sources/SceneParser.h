@@ -15,7 +15,8 @@
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
 #include "MapMarkParallelScene.h"
-#include "MapMark.h"
+
+#include "AbstractParser.h"
 
 namespace tbe
 {
@@ -27,61 +28,21 @@ class Ball3DMesh;
 
 class SceneManager;
 
-class ParserClassFactory
-{
-public:
-    ParserClassFactory();
-    virtual ~ParserClassFactory();
-
-    virtual Mesh* newMesh(MeshParallelScene* scene) = 0;
-    virtual Light* newLight(LightParallelScene* scene) = 0;
-    virtual ParticlesEmiter* newParticles(ParticlesParallelScene* scene) = 0;
-    virtual MapMark* newMapMark(MapMarkParallelScene* scene) = 0;
-};
-
-class ParserHandle
-{
-public:
-    ParserHandle();
-    ParserHandle(SceneManager* sceneManager);
-    virtual ~ParserHandle();
-
-    void setMeshScene(MeshParallelScene* meshScene);
-    MeshParallelScene* getMeshScene() const;
-
-    void setParticlesScene(ParticlesParallelScene* particlesScene);
-    ParticlesParallelScene* getParticlesScene() const;
-
-    void setLightScene(LightParallelScene* lightScene);
-    LightParallelScene* getLightScene() const;
-
-    void setMarkScene(MapMarkParallelScene* markScene);
-    MapMarkParallelScene* getMarkScene() const;
-
-    void setClassFactory(ParserClassFactory* classFactory);
-    ParserClassFactory* getClassFactory() const;
-
-protected:
-    LightParallelScene* m_lightScene;
-    MeshParallelScene* m_meshScene;
-    ParticlesParallelScene* m_particlesScene;
-    MapMarkParallelScene* m_markScene;
-
-    SceneManager* m_sceneManager;
-
-    ParserClassFactory* m_classFactory;
-
-    float m_version;
-};
-
-class SceneParser : public ParserHandle
+class SceneParser : public AbstractParser
 {
 public:
     SceneParser();
     SceneParser(SceneManager* sceneManager);
     virtual ~SceneParser();
 
-    typedef std::map<std::string, std::string> AttribMap;
+    void prepare();
+    void build();
+
+    void load(const std::string& filepath);
+    void save(const std::string& filepath);
+    void save();
+
+    void clear();
 
     void setSceneName(std::string sceneName);
     std::string getSceneName() const;
@@ -89,64 +50,12 @@ public:
     void setAuthorName(std::string authorName);
     std::string getAuthorName() const;
 
-    void loadScene(const std::string& filepath);
-    void buildScene();
-
-    void prepareScene();
-    void saveScene();
-    void saveScene(const std::string& filepath);
-
-    void clear();
-
     SceneParser& exclude(Node* node);
-
-    void setAdditionalString(std::string key, std::string value);
-    std::string getAdditionalString(std::string key);
-
-    void removeAdditional(std::string key);
-    void clearAdditional();
-
-    const AttribMap additionalFields() const;
-
-    template<typename T> T getAdditionalValue(std::string key)
-    {
-        T value;
-
-        if(!m_additional.count(key))
-            return value;
-
-        std::stringstream ss(m_additional[key]);
-        ss >> value;
-
-        return value;
-    }
-
-    template<typename T> void setAdditionalValue(std::string key, T value)
-    {
-        std::stringstream ss;
-        ss << value;
-
-        m_additional[key] = ss.str();
-    }
-
-    struct Relation
-    {
-
-        Relation(unsigned deep = 0)
-        {
-            this->deep = deep;
-        }
-
-        AttribMap attr;
-        std::vector<Relation> child;
-        int deep;
-    };
 
     struct MapDescriptor
     {
         MapDescriptor();
 
-        std::string fileName;
         std::string sceneName;
         std::string authorName;
         Vector4f ambiante;
@@ -177,50 +86,20 @@ public:
     MapDescriptor& getMapDescriptor();
 
 protected:
-    Node* m_rootNode;
-    AttribMap m_additional;
-    MapDescriptor m_mapDescriptor;
+    Node* buildNode(Relation& att, Node* parent = NULL);
 
-private:
-
-    bool parseBlock(std::ifstream& file, Relation& rel, unsigned& line);
+    void prepareNodeConstruction(Node* node, Relation& rel);
 
     void parseGeneral(AttribMap& att);
     void parseFog(AttribMap& att);
     void parseSkyBox(AttribMap& att);
 
-    void buildNode(Relation& att, Node* parent = NULL);
-    void buildMaterial(std::string key, std::string value, Mesh* mesh);
-    void buildMaterial(std::string filepath, Mesh* mesh);
-    void buildMaterial(AttribMap attr, Mesh* mesh);
-
-    void prepareNodeConstruction(Node* node, Relation& rel);
-    void outpuNodeConstruction(Relation& rel, std::ofstream& file);
-
-    std::vector<Node*> m_archivedNodes;
-    std::vector<Node*> m_excludedNodes;
-};
-
-class ClassParser : public ParserHandle
-{
-public:
-    ClassParser();
-    ClassParser(SceneManager* sceneManager);
-    virtual ~ClassParser();
-
-    void loadClass(const std::string& path);
-    void buildClass();
-
-    void prepareClass();
-    void saveClass();
-    void saveClass(const std::string& path);
-
-    void setBuildedNod(Node* buildedNod);
-    Node* getBuildedNod() const;
+protected:
+    MapDescriptor m_mapDescriptor;
 
 private:
-    Node* m_buildedNod;
-    std::string m_filename;
+    std::vector<Node*> m_archivedNodes;
+    std::vector<Node*> m_excludedNodes;
 };
 
 }

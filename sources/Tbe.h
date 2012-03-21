@@ -66,6 +66,7 @@
 #include "Water.h"
 #include "MapMark.h"
 #include "SceneParser.h"
+#include "ClassParser.h"
 
 // Post process effect ---------------------------------------------------------
 
