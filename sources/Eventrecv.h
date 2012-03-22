@@ -103,6 +103,8 @@ public:
 
     NotifyType notify;
 
+    long lastScanCode;
+    
     std::pair<int, std::string> lastActiveMouse;
     std::pair<int, std::string> lastActiveKey;
 

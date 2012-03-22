@@ -202,6 +202,8 @@ void SDLDevice::pollEvent()
 
         m_eventManager->keyState[(EventManager::KeyCode)sdlEvent.key.keysym.sym] = true;
 
+        m_eventManager->lastScanCode = sdlEvent.key.keysym.scancode;
+
         m_eventManager->lastActiveKey.first = sdlEvent.key.keysym.sym;
         m_eventManager->lastActiveKey.second = getKeyName(sdlEvent.key.keysym.sym);
     }
@@ -214,6 +216,8 @@ void SDLDevice::pollEvent()
             m_eventManager->keyState[(EventManager::KeyCode)m_keyStateTmp[sdlEvent.key.keysym.sym]] = false;
         else
             m_eventManager->keyState[(EventManager::KeyCode)sdlEvent.key.keysym.sym] = false;
+
+        m_eventManager->lastScanCode = sdlEvent.key.keysym.scancode;
 
         m_eventManager->lastActiveKey.first = sdlEvent.key.keysym.sym;
         m_eventManager->lastActiveKey.second = getKeyName(sdlEvent.key.keysym.sym);
@@ -232,10 +236,10 @@ void SDLDevice::pollEvent()
     else
         eventOccur = false;
 
+    m_eventManager->lastPollTimestamp = m_timestamp.getEsplanedTime();
+
     if(eventOccur)
         m_guiManager->trasmitEvent(*m_eventManager);
-
-    m_eventManager->lastPollTimestamp = m_timestamp.getEsplanedTime();
 }
 
 int SDLDevice::getWinBits() const
