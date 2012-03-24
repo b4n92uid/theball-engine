@@ -26,6 +26,9 @@ public:
     /// Construit une texture avec la valuer et la taille spécifier
     void build(Vector2i size, Vector4i color = 0, GLint internalFormat = 4, GLenum format = GL_RGBA);
 
+    /// Construit une texture avec la valuer et la taille spécifier
+    void buildMem(Vector2i size, unsigned char* byte, GLint internalFormat = 4, GLenum format = GL_RGBA);
+
     /**
      * Chargement la texture depuis un fichier
      *
@@ -120,11 +123,16 @@ public:
     /// Renvois le chemin d'accée a la texture par un fichier
     std::string getFilename() const;
 
+    void setPersistent(bool persistent);
+    bool isPersistent() const;
+
     /**
      * Supprime toute les texture partager
      * attention : tout les texture déja charger devienderont invalide
      */
     static void resetCache();
+    
+    static Texture* fetch(GLuint id);
 
     typedef std::map<unsigned, Texture> Map;
 
@@ -136,6 +144,7 @@ protected:
 
     Vector2i m_size;
 
+    bool m_persistent;
     bool m_genMipMap;
     bool m_upperLeftOrigin;
 

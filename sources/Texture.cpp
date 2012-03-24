@@ -35,6 +35,15 @@ public:
         clear();
     }
 
+    Texture* IsExist(GLuint id)
+    {
+        for(iterator itt = begin(); itt != end(); itt++)
+            if(itt->first->getTextureName() == id)
+                return itt->first;
+
+        return NULL;
+    }
+
     Texture* IsExist(string path)
     {
         for(iterator itt = begin(); itt != end(); itt++)
@@ -47,21 +56,23 @@ public:
 
 static SharedTextureManager manager;
 
-void Texture::resetCache()
-{
-    manager.Free();
-}
-
 Texture::Texture()
 {
     m_textureName = 0;
     m_genMipMap = false;
     m_upperLeftOrigin = false;
+    m_persistent = false;
     m_filtring = 0;
 }
 
 Texture::Texture(const Texture& copy)
 {
+    m_textureName = 0;
+    m_genMipMap = false;
+    m_upperLeftOrigin = false;
+    m_persistent = false;
+    m_filtring = 0;
+
     *this = copy;
 }
 
@@ -70,6 +81,7 @@ Texture::Texture(std::string filename, bool genMipMap, bool upperLeftOrigin)
     m_textureName = 0;
     m_genMipMap = false;
     m_upperLeftOrigin = false;
+    m_persistent = false;
     m_filtring = 0;
 
     load(filename, genMipMap, upperLeftOrigin);
@@ -80,6 +92,7 @@ Texture::Texture(const char* filename, bool genMipMap, bool upperLeftOrigin)
     m_textureName = 0;
     m_genMipMap = false;
     m_upperLeftOrigin = false;
+    m_persistent = false;
     m_filtring = 0;
 
     load(filename, genMipMap, upperLeftOrigin);
@@ -155,7 +168,7 @@ void Texture::release()
     {
         manager.erase(this);
 
-        if(!manager.IsExist(m_filename))
+        if(!m_persistent && !manager.IsExist(m_filename))
             remove();
     }
 }
@@ -289,8 +302,30 @@ void Texture::build(Vector2i size, Vector4i color, GLint internalFormat, GLenum 
     delete[] pixels;
 
     glBindTexture(GL_TEXTURE_2D, 0);
+}
 
-    setFiltring(Texture::LINEAR);
+void Texture::buildMem(Vector2i size, unsigned char* byte, GLint internalFormat, GLenum format)
+{
+    if(!math::isPow2(size.x) || !math::isPow2(size.y))
+        cout << "***WARNING*** Texture::Build; Texture is not pow2 dim " << size << endl;
+
+    m_size = size;
+
+    glGenTextures(1, &m_textureName);
+    glBindTexture(GL_TEXTURE_2D, m_textureName);
+
+    unsigned byteSize = m_size.x * m_size.y * 4;
+
+    GLubyte* pixels = new GLubyte[byteSize];
+
+    for(unsigned i = 0; i < byteSize; i += 4)
+        pixels[i] = byte[i];
+
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_size.x, m_size.y, 0, format, GL_UNSIGNED_BYTE, pixels);
+
+    delete[] pixels;
+
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Texture::use(bool state)
@@ -383,4 +418,24 @@ bool Texture::isGenMipMap() const
 std::string Texture::getFilename() const
 {
     return m_filename;
+}
+
+void Texture::setPersistent(bool persistent)
+{
+    this->m_persistent = persistent;
+}
+
+bool Texture::isPersistent() const
+{
+    return m_persistent;
+}
+
+void Texture::resetCache()
+{
+    manager.Free();
+}
+
+Texture* Texture::fetch(GLuint id)
+{
+    return manager.IsExist(id);
 }
