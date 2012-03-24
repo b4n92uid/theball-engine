@@ -8,6 +8,11 @@
 #ifndef _TBE_TOOLS_H
 #define	_TBE_TOOLS_H
 
+#include <cstdlib>
+#include <cctype>
+#include <cstring>
+#include <cassert>
+
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -16,17 +21,26 @@
 #include <vector>
 #include <typeinfo>
 
-#include "Mathematics.h"
-#include "AABB.h"
-#include "Exception.h"
-
 namespace tbe
 {
 namespace tools
 {
 
+inline std::string toupper(std::string str)
+{
+    std::transform(str.begin(), str.end(), str.begin(), (int(*)(int))std::toupper);
+    return str;
+}
+
+inline std::string tolower(std::string str)
+{
+    std::transform(str.begin(), str.end(), str.begin(), (int(*)(int))std::tolower);
+    return str;
+}
+
 /**
- * Renvois le chemin avec les separateur en slash
+ * Renvois le chemin avec les separateur en slash,
+ *  sans le separateur de fin
  *
  * @param path
  * @return
@@ -36,6 +50,8 @@ inline std::string toSlashSeprator(std::string path)
     unsigned reppos;
     while((reppos = path.find('\\')) != std::string::npos)
         path.replace(reppos, 1, 1, '/');
+
+    if(*(--path.end()) == '/') path.erase(--path.end());
 
     return path;
 }
@@ -178,6 +194,31 @@ inline std::string joinstr(std::vector<std::string> vec, char glue)
     out += vec.back();
 
     return out;
+}
+
+inline bool matchext(std::string filename, std::string exts)
+{
+    using namespace std;
+
+    vector<string> tokens = tools::tokenize(exts, ' ');
+
+    unsigned pos = filename.find_last_of('.');
+
+    if(pos == std::string::npos)
+        return false;
+
+    else if(pos > filename.size() - 2)
+        return false;
+
+    else
+    {
+        string ext = tolower(filename.substr(pos + 1));
+
+        for(unsigned i = 0; i < tokens.size(); i++)
+            if(tokens[i] == ext) return true;
+    }
+
+    return false;
 }
 
 #define var_dump(v) tbe::tools::var_dump_print(v, #v, __LINE__, __FILE__)
@@ -333,8 +374,7 @@ template<typename T, typename T2> void erase(std::vector<T>& vec, T2 val)
 {
     typename std::vector<T>::iterator it = std::find(vec.begin(), vec.end(), dynamic_cast<T2>(val));
 
-    if(it == vec.end())
-        throw Exception("tools::erase<T, T2>; value not found %p", val);
+    assert(it != vec.end());
 
     vec.erase(it);
 }
@@ -350,8 +390,7 @@ template<typename T> void erase(std::vector<T>& vec, T val)
 {
     typename std::vector<T>::iterator it = std::find(vec.begin(), vec.end(), val);
 
-    if(it == vec.end())
-        throw Exception("tools::erase<T>; value not found %p", val);
+    assert(it != vec.end());
 
     vec.erase(it);
 }
@@ -387,15 +426,32 @@ template<typename T> bool find(const std::vector<T>& vec, T val)
  *
  * @param buffer
  */
-inline void trimstr(std::string& buffer)
+inline std::string trim(std::string str)
 {
     using namespace std;
 
-    for(string::iterator it = buffer.begin(); isspace(*it) && it != buffer.end(); it = buffer.begin())
-        buffer.erase(it);
+    for(string::iterator it = str.begin(); isspace(*it) && it != str.end(); it++)
+        str.erase(it);
 
-    for(string::reverse_iterator it = buffer.rbegin(); isspace(*it) && it != buffer.rend(); it = buffer.rbegin())
-        buffer.erase(it.base());
+    for(string::reverse_iterator it = str.rbegin(); isspace(*it) && it != str.rend(); it++)
+        str.erase(it.base());
+
+    return str;
+}
+
+inline std::string rtrim(std::string str, std::string chars)
+{
+    using namespace std;
+
+    if(chars.empty())
+        for(string::reverse_iterator it = str.rbegin(); isspace(*it) && it != str.rend(); it++)
+            str.erase(it.base());
+    else
+        for(unsigned i = 0; i < chars.size(); i++)
+            for(string::reverse_iterator it = str.rbegin(); chars[i] == *it && it != str.rend(); it++)
+                str.erase(it.base());
+
+    return str;
 }
 
 /**
@@ -445,8 +501,7 @@ inline std::string unixName(std::string name)
 {
     typedef std::map<char, char> repMap;
 
-    for(unsigned i = 0; i < name.size(); i++)
-        name[i] = tolower(name[i]);
+    name = tools::tolower(name);
 
     repMap replacement;
     replacement[' '] = '-';
