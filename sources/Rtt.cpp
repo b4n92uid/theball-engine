@@ -6,6 +6,7 @@
  */
 
 #include "Rtt.h"
+#include <GL/glu.h>
 
 using namespace tbe;
 using namespace std;

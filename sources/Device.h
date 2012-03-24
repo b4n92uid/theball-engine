@@ -24,11 +24,6 @@ namespace scene
 class SceneManager;
 }
 
-namespace gui
-{
-class GuiManager;
-}
-
 namespace ticks
 {
 class FpsManager;
@@ -38,7 +33,6 @@ class FpsManager;
  * \brief Class d'interface générale du moteur
  *
  * Inclus:
- *  un gestionnaire de GUI
  *  un gestionnaire de Scene
  *  un gestionnaire de FPS
  *  un Recepteur d'evenement de la fenetre (EventRecv)
@@ -72,9 +66,6 @@ public:
     /// Accès aux gestionnaire de Scene
     scene::SceneManager* getSceneManager();
 
-    /// Accès aux gestionnaire de Gui
-    gui::GuiManager* getGuiManager();
-
     /// Accès aux gestionnaire du Fps
     ticks::FpsManager* getFpsManager();
 
@@ -97,7 +88,6 @@ protected:
     scene::SceneManager* m_sceneManager;
     ppe::PostProcessManager* m_postProcessManager;
     ticks::FpsManager* m_fpsManager;
-    gui::GuiManager* m_guiManager;
     EventManager* m_eventManager;
 
     ticks::Clock m_timestamp;

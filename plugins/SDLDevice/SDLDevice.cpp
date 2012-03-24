@@ -237,9 +237,6 @@ void SDLDevice::pollEvent()
         eventOccur = false;
 
     m_eventManager->lastPollTimestamp = m_timestamp.getEsplanedTime();
-
-    if(eventOccur)
-        m_guiManager->trasmitEvent(*m_eventManager);
 }
 
 int SDLDevice::getWinBits() const

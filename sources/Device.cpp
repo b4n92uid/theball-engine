@@ -7,7 +7,6 @@
 #include "PostProcessManager.h"
 #include "FPSManager.h"
 #include "Eventrecv.h"
-#include "GuiManager.h"
 #include "Particles.h"
 #include "Mesh.h"
 
@@ -20,7 +19,6 @@ Device::Device()
     m_fpsManager = NULL;
 
     m_sceneManager = NULL;
-    m_guiManager = NULL;
     m_postProcessManager = NULL;
 
     srand(time(0));
@@ -34,7 +32,6 @@ Device::~Device()
     if(m_eventManager) delete m_eventManager;
     if(m_fpsManager) delete m_fpsManager;
     if(m_sceneManager) delete m_sceneManager;
-    if(m_guiManager) delete m_guiManager;
     if(m_postProcessManager) delete m_postProcessManager;
 
     Texture::resetCache();
@@ -99,15 +96,6 @@ void Device::init()
 
     m_sceneManager->setup(Vector2i(800, 600), 4 / 3, 70, 0.1, 512);
 
-    cout << "Init gui manager" << endl;
-
-    if(m_guiManager)
-        new(m_guiManager)gui::GuiManager;
-    else
-        m_guiManager = new gui::GuiManager;
-
-    m_guiManager->setup(m_viewportSize);
-
     cout << "Init post process effets manager" << endl;
 
     if(m_postProcessManager)
@@ -135,7 +123,6 @@ void Device::setViewportSize(Vector2i viewportSize)
     m_viewportSize = viewportSize;
 
     m_sceneManager->setViewport(m_viewportSize);
-    m_guiManager->setViewport(m_viewportSize);
     m_postProcessManager->setViewport(m_viewportSize);
 }
 
@@ -165,11 +152,6 @@ scene::SceneManager* Device::getSceneManager()
 EventManager* Device::getEventManager()
 {
     return m_eventManager;
-}
-
-gui::GuiManager* Device::getGuiManager()
-{
-    return m_guiManager;
 }
 
 ticks::FpsManager* Device::getFpsManager()

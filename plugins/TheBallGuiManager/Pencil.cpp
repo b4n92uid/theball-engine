@@ -428,7 +428,7 @@ std::vector<std::string> Pencil::getWrapedLines(std::string str, float width) co
                 cut = i;
 
             string line = str.substr(offset, cut - offset);
-            tools::trimstr(line);
+            tools::trim(line);
 
             widthOverflow.push_back(line);
 

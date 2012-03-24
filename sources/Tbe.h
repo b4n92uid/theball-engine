@@ -77,20 +77,5 @@
 #include "ColorEffect.h"
 #include "MotionBlurEffect.h"
 
-// GUI -------------------------------------------------------------------------
-
-#include "Button.h"
-#include "Control.h"
-#include "Editbox.h"
-#include "Gauge.h"
-#include "GuiManager.h"
-#include "Image.h"
-#include "Layout.h"
-#include "Skin.h"
-#include "StateShow.h"
-#include "Switch.h"
-#include "TextBox.h"
-#include "KeyConfig.h"
-
 #endif	/* _TBE_H */
 

@@ -148,7 +148,7 @@ bool AbstractParser::parseBlock(std::ifstream& file, AbstractParser::Relation& r
 
         else
         {
-            tools::trimstr(buffer);
+            tools::trim(buffer);
 
             unsigned sep = buffer.find_first_of('=');
 
