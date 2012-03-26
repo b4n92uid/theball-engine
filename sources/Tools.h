@@ -423,6 +423,7 @@ template<typename T> bool find(const std::vector<T>& vec, T val)
 
 /**
  * Enleve les espace blanc des extrémité de la chaine
+ * http://www.codeproject.com/Articles/10880/A-trim-implementation-for-std-string
  *
  * @param buffer
  */
@@ -430,13 +431,10 @@ inline std::string trim(std::string str)
 {
     using namespace std;
 
-    for(string::iterator it = str.begin(); isspace(*it) && it != str.end(); it++)
-        str.erase(it);
+    string::size_type pos1 = str.find_first_not_of(' ');
+    string::size_type pos2 = str.find_last_not_of(' ');
 
-    for(string::reverse_iterator it = str.rbegin(); isspace(*it) && it != str.rend(); it++)
-        str.erase(it.base());
-
-    return str;
+    return str.substr(pos1 == string::npos ? 0 : pos1, pos2 == string::npos ? string::npos : pos2 - pos1 + 1);
 }
 
 inline std::string rtrim(std::string str, std::string chars)
@@ -444,12 +442,13 @@ inline std::string rtrim(std::string str, std::string chars)
     using namespace std;
 
     if(chars.empty())
-        for(string::reverse_iterator it = str.rbegin(); isspace(*it) && it != str.rend(); it++)
-            str.erase(it.base());
-    else
-        for(unsigned i = 0; i < chars.size(); i++)
-            for(string::reverse_iterator it = str.rbegin(); chars[i] == *it && it != str.rend(); it++)
-                str.erase(it.base());
+        chars.push_back(' ');
+
+    for(unsigned i = 0; i < chars.size(); i++)
+    {
+        string::size_type pos2 = str.find_last_not_of(chars[i]);
+        str = str.substr(0, pos2 == string::npos ? string::npos : pos2 + 1);
+    }
 
     return str;
 }
