@@ -59,6 +59,7 @@ std::string AbstractParser::getFilename() const
 
 void AbstractParser::clear()
 {
+    m_version = 0.0;
     m_parseLine = 0;
     m_additional.clear();
     m_filename.clear();
@@ -148,12 +149,12 @@ bool AbstractParser::parseBlock(std::ifstream& file, AbstractParser::Relation& r
 
         else
         {
-            tools::trim(buffer);
+            buffer = tools::trim(buffer);
 
             unsigned sep = buffer.find_first_of('=');
 
             if(sep == string::npos)
-                throw tbe::Exception("SceneParser::parseRelation; invalid assignement %d (%s)", m_parseLine, buffer.c_str());
+                throw tbe::Exception("SceneParser::parseRelation; invalid assignement (%s:%d)", m_filename.c_str(), m_parseLine);
 
             string key(buffer, 0, sep), value(buffer, sep + 1);
 
@@ -320,6 +321,9 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
 
     Node* current = NULL;
 
+    if(iclass.empty())
+        var_dump(rel.attr);
+
     if(iclass == "OBJMesh")
     {
         Mesh* mesh = m_classFactory ? m_classFactory->newMesh(m_meshScene) : new Mesh(m_meshScene);
@@ -426,7 +430,7 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
         else
         {
             delete light;
-            throw tbe::Exception("SceneParser::ParseNode; Unknown light type (%s)", rel.attr["type"].c_str());
+            throw tbe::Exception("SceneParser::ParseNode; Unknown light type (%s:%d)", m_filename.c_str(), m_parseLine);
         }
 
         light->setAmbient(Vector4f().fromStr(rel.attr["ambient"]));
@@ -444,7 +448,7 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
     }
 
     else
-        throw Exception("SceneParser::parseNode; Unknown class (%s)", iclass.c_str());
+        throw Exception("SceneParser::parseNode; Unknown class (%s:%d)", m_filename.c_str(), m_parseLine);
 
     for(unsigned i = 0; i < rel.child.size(); i++)
         buildNode(rel.child[i], current);

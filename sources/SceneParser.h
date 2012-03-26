@@ -93,6 +93,8 @@ protected:
     void parseGeneral(AttribMap& att);
     void parseFog(AttribMap& att);
     void parseSkyBox(AttribMap& att);
+    
+    void checkCorrectNode(Relation& rel);
 
 protected:
     MapDescriptor m_mapDescriptor;

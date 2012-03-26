@@ -166,6 +166,18 @@ void SceneParser::clear()
     m_mapDescriptor.nodes.clear();
 }
 
+void SceneParser::checkCorrectNode(Relation& rel)
+{
+    if(!rel.attr.count("class"))
+        throw tbe::Exception("SceneParser::checkCorrectNode; Class undefined (%s:%d)", m_filename.c_str(), m_parseLine);
+
+    if(rel.attr["class"].empty())
+        throw tbe::Exception("SceneParser::checkCorrectNode; Class empty (%s:%d)", m_filename.c_str(), m_parseLine);
+
+    if(!rel.attr.count("name"))
+        throw tbe::Exception("SceneParser::checkCorrectNode; Name undefined (%s:%d)", m_filename.c_str(), m_parseLine);
+}
+
 void SceneParser::load(const std::string& filepath)
 {
     ifstream file(filepath.c_str());
@@ -198,7 +210,7 @@ void SceneParser::load(const std::string& filepath)
     else
         file.seekg(0);
 
-    while(tools::getline(file, buffer))
+    for(m_parseLine = 0; tools::getline(file, buffer); m_parseLine++)
     {
         if(buffer.empty() || buffer[0] == '#')
             continue;
@@ -235,6 +247,7 @@ void SceneParser::load(const std::string& filepath)
         {
             Relation rel;
             parseBlock(file, rel);
+            checkCorrectNode(rel);
             m_mapDescriptor.nodes.push_back(rel);
         }
 
@@ -249,7 +262,7 @@ void SceneParser::load(const std::string& filepath)
         }
 
         else
-            throw tbe::Exception("SceneParser::LoadScene; Parse error %d (%s)", m_parseLine, buffer.c_str());
+            throw tbe::Exception("SceneParser::LoadScene; Parse error (%s:%d)", buffer.c_str(), m_parseLine);
     }
 
     file.close();

@@ -38,7 +38,7 @@ ClassParser::~ClassParser()
 void ClassParser::clear()
 {
     AbstractParser::clear();
-    
+
     delete m_buildedNode, m_buildedNode = NULL;
 
     m_scheme.attr.clear();
@@ -128,7 +128,7 @@ void ClassParser::load(const std::string& filepath)
         }
 
         else
-            throw tbe::Exception("ClassParser::loadClass; Parse error %d (%s)", m_parseLine, buffer.c_str());
+            throw tbe::Exception("ClassParser::loadClass; Parse error (%s:%d)", buffer.c_str(), m_parseLine);
     }
 
     file.close();
