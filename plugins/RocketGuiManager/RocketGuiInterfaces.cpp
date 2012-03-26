@@ -137,8 +137,14 @@ Vector2i ShellRenderInterfaceOpenGL::GetViewport() const
 
 Rocket::Core::FileHandle ShellFileInterface::Open(const Rocket::Core::String& path)
 {
-    // Attempt to open the file relative to the current working directory.
-    FILE* fp = fp = fopen(path.CString(), "rb");
+    FILE* fp = fopen(path.CString(), "rb");
+
+    for(int i = 0; i < includes.size() && !fp; i++)
+    {
+        Rocket::Core::String base = tools::toSlashSeprator(includes[i]).c_str();
+        fp = fopen((base + "/" + path).CString(), "rb");
+    }
+
     return(Rocket::Core::FileHandle) fp;
 }
 

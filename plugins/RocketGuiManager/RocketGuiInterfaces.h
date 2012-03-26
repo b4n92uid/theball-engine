@@ -84,6 +84,8 @@ public:
 
     // Returns the current position of the file pointer.
     size_t Tell(Rocket::Core::FileHandle file);
+    
+    std::vector<std::string> includes;
 };
 
 }

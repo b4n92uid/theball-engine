@@ -47,6 +47,8 @@ public:
     Vector2i getViewport() const;
 
     void loadFonts(std::string dirpath);
+    
+    void addPath(std::string dirpath);
 
     Rocket::Core::Context* getContext() const;
 

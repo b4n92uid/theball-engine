@@ -19,13 +19,23 @@ using namespace tbe::gui;
 RocketGuiManager::RocketGuiManager()
 {
     m_context = NULL;
+    m_renderInterface = NULL;
+    m_systemInterface = NULL;
+    m_fileInterface = NULL;
+
 }
 
 RocketGuiManager::~RocketGuiManager()
 {
     clearAll();
 
+    m_context->RemoveReference();
+
     Rocket::Core::Shutdown();
+
+    delete m_renderInterface;
+    delete m_systemInterface;
+    delete m_fileInterface;
 }
 
 void RocketGuiManager::setup(Vector2i viewport)
@@ -33,7 +43,8 @@ void RocketGuiManager::setup(Vector2i viewport)
     m_renderInterface = new ShellRenderInterfaceOpenGL(viewport);
     Rocket::Core::SetRenderInterface(m_renderInterface);
 
-    m_systemInterface = new ShellSystemInterface;
+    if(!m_systemInterface)
+        m_systemInterface = new ShellSystemInterface;
     Rocket::Core::SetSystemInterface(m_systemInterface);
 
     m_fileInterface = new ShellFileInterface;
@@ -134,6 +145,11 @@ void RocketGuiManager::loadFonts(std::string dirpath)
     }
 
     closedir(dir);
+}
+
+void RocketGuiManager::addPath(std::string dirpath)
+{
+    m_fileInterface->includes.push_back(dirpath);
 }
 
 void RocketGuiManager::setViewport(Vector2i viewport)
