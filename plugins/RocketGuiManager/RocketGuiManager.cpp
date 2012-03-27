@@ -155,6 +155,7 @@ void RocketGuiManager::addPath(std::string dirpath)
 void RocketGuiManager::setViewport(Vector2i viewport)
 {
     m_viewport = viewport;
+    m_context->SetDimensions(Rocket::Core::Vector2i(viewport.x, viewport.y));
 }
 
 Vector2i RocketGuiManager::getViewport() const
