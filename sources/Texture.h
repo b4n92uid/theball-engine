@@ -131,7 +131,12 @@ public:
      * attention : tout les texture déja charger devienderont invalide
      */
     static void resetCache();
-    
+
+    /**
+     * Recharge tout les texture a partir de leur fichier d'origine
+     */
+    static void reloadCache();
+
     static Texture* fetch(GLuint id);
 
     typedef std::map<unsigned, Texture> Map;

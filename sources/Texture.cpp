@@ -27,6 +27,19 @@ public:
         Free();
     }
 
+    void Reload()
+    {
+        for(iterator itt = begin(); itt != end(); itt++)
+        {
+            string filename = itt->first->getFilename();
+            bool mipmap = itt->first->isGenMipMap();
+            bool ulorig = itt->first->isUpperLeftOrigin();
+
+            itt->first->remove();
+            itt->first->load(filename, mipmap, ulorig);
+        }
+    }
+
     void Free()
     {
         for(iterator itt = begin(); itt != end(); itt++)
@@ -452,6 +465,11 @@ bool Texture::isPersistent() const
 void Texture::resetCache()
 {
     manager.Free();
+}
+
+void Texture::reloadCache()
+{
+    manager.Reload();
 }
 
 Texture* Texture::fetch(GLuint id)
