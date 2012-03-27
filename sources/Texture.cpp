@@ -59,19 +59,21 @@ static SharedTextureManager manager;
 Texture::Texture()
 {
     m_textureName = 0;
+    m_persistent = false;
     m_genMipMap = false;
     m_upperLeftOrigin = false;
-    m_persistent = false;
     m_filtring = 0;
+    m_anistropy = 0;
 }
 
 Texture::Texture(const Texture& copy)
 {
     m_textureName = 0;
+    m_persistent = false;
     m_genMipMap = false;
     m_upperLeftOrigin = false;
-    m_persistent = false;
     m_filtring = 0;
+    m_anistropy = 0;
 
     *this = copy;
 }
@@ -79,10 +81,11 @@ Texture::Texture(const Texture& copy)
 Texture::Texture(std::string filename, bool genMipMap, bool upperLeftOrigin)
 {
     m_textureName = 0;
+    m_persistent = false;
     m_genMipMap = false;
     m_upperLeftOrigin = false;
-    m_persistent = false;
     m_filtring = 0;
+    m_anistropy = 0;
 
     load(filename, genMipMap, upperLeftOrigin);
 }
@@ -90,10 +93,11 @@ Texture::Texture(std::string filename, bool genMipMap, bool upperLeftOrigin)
 Texture::Texture(const char* filename, bool genMipMap, bool upperLeftOrigin)
 {
     m_textureName = 0;
+    m_persistent = false;
     m_genMipMap = false;
     m_upperLeftOrigin = false;
-    m_persistent = false;
     m_filtring = 0;
+    m_anistropy = 0;
 
     load(filename, genMipMap, upperLeftOrigin);
 }
@@ -108,11 +112,14 @@ Texture& Texture::operator =(const Texture& copy)
     if(!copy.m_filename.empty())
         manager[this] = m_filename = copy.m_filename;
 
-    m_filtring = copy.m_filtring;
-    m_genMipMap = copy.m_genMipMap;
-    m_size = copy.m_size;
     m_textureName = copy.m_textureName;
+    m_persistent = copy.m_persistent;
+    m_genMipMap = copy.m_genMipMap;
     m_upperLeftOrigin = copy.m_upperLeftOrigin;
+    m_filtring = copy.m_filtring;
+    m_anistropy = copy.m_anistropy;
+
+    m_size = copy.m_size;
 
     return *this;
 }
@@ -153,12 +160,14 @@ void Texture::remove()
         glDeleteTextures(1, &m_textureName);
 
         m_textureName = 0;
-        m_filename.clear();
-
+        m_persistent = false;
         m_genMipMap = false;
         m_upperLeftOrigin = false;
-
         m_filtring = 0;
+        m_anistropy = 0;
+
+        m_filename.clear();
+        m_size = 0;
     }
 }
 
@@ -171,6 +180,16 @@ void Texture::release()
         if(!m_persistent && !manager.IsExist(m_filename))
             remove();
     }
+
+    m_textureName = 0;
+    m_persistent = false;
+    m_genMipMap = false;
+    m_upperLeftOrigin = false;
+    m_filtring = 0;
+    m_anistropy = 0;
+
+    m_filename.clear();
+    m_size = 0;
 }
 
 void Texture::load(std::string filename, bool genMipMap, bool upperLeftOrigin)
