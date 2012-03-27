@@ -73,10 +73,10 @@ public:
     ppe::PostProcessManager* getPostProcessManager() const;
 
     /// Spécifier la taille du viewport
-    void setViewportSize(Vector2i viewportSize);
+    void setViewport(Vector2i viewportSize);
 
     /// Renvois la taille du viewport
-    Vector2i getViewportSize() const;
+    Vector2i getViewport() const;
 
     void setClearColor(Vector4f clearColor);
     Vector4f getClearColor() const;
@@ -92,7 +92,7 @@ protected:
 
     ticks::Clock m_timestamp;
 
-    Vector2i m_viewportSize;
+    Vector2i m_viewport;
     Vector4f m_clearColor;
 };
 

@@ -44,12 +44,12 @@ void Device::init()
 {
     const char * shaderver = Shader::checkHardware() ?
             (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION) : "N/A";
-    cout
 
-            #ifdef TBE_COMPILE_DEBUG
-            << "theBall engine (" << getVersion() << ") Debug run" << endl
-            #else
+    cout
+            #ifdef NDEBUG
             << "theBall engine (" << getVersion() << ") Release run" << endl
+            #else
+            << "theBall engine (" << getVersion() << ") Debug run" << endl
             #endif
             << "Vendor: " << glGetString(GL_VENDOR) << endl
             << "Render: " << glGetString(GL_RENDERER) << endl
@@ -103,7 +103,7 @@ void Device::init()
     else
         m_postProcessManager = new ppe::PostProcessManager;
 
-    m_postProcessManager->setup(m_viewportSize);
+    m_postProcessManager->setup(Vector2i(800, 600));
 
     cout << "Init OpenGL state" << endl;
 
@@ -118,17 +118,20 @@ void Device::init()
     cout << endl;
 }
 
-void Device::setViewportSize(Vector2i viewportSize)
+void Device::setViewport(Vector2i viewportSize)
 {
-    m_viewportSize = viewportSize;
+    m_viewport = viewportSize;
 
-    m_sceneManager->setViewport(m_viewportSize);
-    m_postProcessManager->setViewport(m_viewportSize);
+    if(m_sceneManager)
+        m_sceneManager->setViewport(m_viewport);
+
+    if(m_postProcessManager)
+        m_postProcessManager->setViewport(m_viewport);
 }
 
-Vector2i Device::getViewportSize() const
+Vector2i Device::getViewport() const
 {
-    return m_viewportSize;
+    return m_viewport;
 }
 
 void Device::beginScene()

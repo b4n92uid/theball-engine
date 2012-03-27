@@ -29,23 +29,40 @@ void SDLDevice::window(std::string caption, Vector2i winsize, int bits, bool ful
 {
     using namespace std;
 
-    // NOTE Requis pour ré-appliquer le multisampling
+    const SDL_version* sdlv = SDL_Linked_Version();
+
+    cout << "SDL Init" << endl;
+    cout << "Version: " << (int)sdlv->major << "." << (int)sdlv->minor << "." << (int)sdlv->minor << endl;
+    cout << endl << endl;
+
+    m_caption = caption;
+
+    setVideoMode(winsize, bits, fullscreen, multisamples);
+
+    init();
+    setViewport(winsize);
+}
+
+void SDLDevice::setVideoMode(Vector2i winsize, int bits, bool fullscreen, int multisamples)
+{
+    // NOTE Requis pour réappliquer le multisampling
     if(SDL_WasInit(SDL_INIT_VIDEO))
     {
         SDL_QuitSubSystem(SDL_INIT_VIDEO);
         SDL_InitSubSystem(SDL_INIT_VIDEO);
         SDL_EnableUNICODE(true);
     }
-    // --
 
-    const SDL_version* sdlv = SDL_Linked_Version();
+    m_viewport = winsize;
 
-    cout << "SDL Init" << endl;
-    cout << "Version: " << (int)sdlv->major << "." << (int)sdlv->minor << "." << (int)sdlv->minor << endl;
-    cout << endl;
+    const SDL_VideoInfo * videoInfo = SDL_GetVideoInfo();
 
-    m_caption = caption;
-    m_viewportSize = winsize;
+    if(!m_viewport.x)
+        m_viewport.x = videoInfo->current_w;
+
+    if(!m_viewport.y)
+        m_viewport.y = videoInfo->current_h;
+
     m_winBits = bits;
     m_winFullscreen = fullscreen;
     m_winMultiSamples = multisamples;
@@ -55,50 +72,12 @@ void SDLDevice::window(std::string caption, Vector2i winsize, int bits, bool ful
     if(m_winFullscreen)
         flags |= SDL_FULLSCREEN;
 
-    const SDL_VideoInfo * videoInfo = SDL_GetVideoInfo();
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, m_winMultiSamples);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_WM_SetCaption(m_caption.c_str(), 0);
 
-    if(!m_viewportSize.x)
-        m_viewportSize.x = videoInfo->current_w;
-
-    if(!m_viewportSize.y)
-        m_viewportSize.y = videoInfo->current_h;
-
-    int returnState = 0;
-
-    returnState = SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, m_winMultiSamples);
-    if(returnState == -1)
-        cout << "SDLDevice::Window; Multisamples setting failed " << m_winMultiSamples << endl;
-
-    returnState = SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
-    if(returnState == -1)
-        cout << "*** WARNING *** SDLDevice::Window; Double Buffer setting failed" << endl;
-
-    SDL_WM_SetCaption(caption.c_str(), 0);
-
-    if(SDL_SetVideoMode(m_viewportSize.x, m_viewportSize.y, bits, flags) == NULL)
+    if(SDL_SetVideoMode(m_viewport.x, m_viewport.y, m_winBits, flags) == NULL)
         throw Exception("SDLDevice::Window; Couldn't set specified video mode : %s", SDL_GetError());
-
-    SDL_GL_GetAttribute(SDL_GL_MULTISAMPLESAMPLES, &returnState);
-
-    if(returnState != m_winMultiSamples)
-        cout << "*** WARNING *** SDLDevice::Window; Multisamples incorrect value " << returnState << endl;
-
-    SDL_GL_GetAttribute(SDL_GL_DOUBLEBUFFER, &returnState);
-
-    if(returnState != 1)
-        cout << "*** WARNING *** SDLDevice::Window; Double Buffer incorrect value " << returnState << endl;
-
-    char* error = SDL_GetError();
-
-    if(strlen(error))
-        cout << "*** WARNING *** SDLDevice::Window; " << error << endl;
-
-    cout << endl;
-
-    init();
-
-    setViewportSize(m_viewportSize);
 }
 
 void SDLDevice::pollEvent()
@@ -113,7 +92,7 @@ void SDLDevice::pollEvent()
     if(sdlEvent.type == SDL_MOUSEMOTION)
     {
         m_eventManager->notify = EventManager::EVENT_MOUSE_MOVE;
-        m_eventManager->mousePos = Vector2i(sdlEvent.motion.x, m_viewportSize.y - sdlEvent.motion.y);
+        m_eventManager->mousePos = Vector2i(sdlEvent.motion.x, m_viewport.y - sdlEvent.motion.y);
         m_eventManager->mousePosRel = Vector2i(sdlEvent.motion.xrel, -sdlEvent.motion.yrel);
     }
 

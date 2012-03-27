@@ -22,10 +22,13 @@ public:
     SDLDevice();
     ~SDLDevice();
 
-    /// Creation de fenetre
+    /// Céeation de fenetre
     void window(std::string caption = "theBall Engine",
                 Vector2i winsize = Vector2i(800, 600), int bits = 32,
                 bool fullscreen = false, int multisamples = 0);
+
+    /// Mode vidéo
+    void setVideoMode(Vector2i winsize, int bits, bool fullscreen, int multisamples);
 
     /// Récuperation des evenements
     void pollEvent();
@@ -33,7 +36,7 @@ public:
     /// bloque l'entrer a l'interieur de la fen?tre
     void setGrabInput(bool stat);
 
-    /// Visibilit? du curseur
+    /// Visibilité du curseur
     void setMouseVisible(bool stat);
 
     /// Efface la scenne
@@ -51,7 +54,7 @@ public:
     /// Renvois la profondeur du pixel
     int getWinBits() const;
 
-    /// Renvois un tableau des résolution supportï¿½
+    /// Renvois un tableau des résolutions supporter
     static std::vector<Vector2i> getAvilableSceeenSize();
 
     /// Renvois le nom de la touche
