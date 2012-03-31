@@ -10,6 +10,7 @@
 #include "Material.h"
 #include "ParticlesParallelScene.h"
 #include "Clock.h"
+#include "FPSManager.h"
 
 namespace tbe
 {
@@ -113,7 +114,7 @@ public:
     CtorMap constructionMap(std::string root);
 
     std::vector<std::string> getUsedRessources();
-    
+
     Particle* beginParticlesPosProcess();
     void endParticlesPosProcess();
 
@@ -122,6 +123,12 @@ public:
 
     void setBulletSize(Vector2f bulletSize);
     Vector2f getBulletSize() const;
+
+    void setInverted(float inverted);
+    float getInverted() const;
+
+    void setDamping(float damping);
+    float getDamping() const;
 
     static bool checkHardware();
 
@@ -141,15 +148,15 @@ protected:
 
     ParticlesParallelScene* m_parallelScene;
 
-    ticks::Clock m_timestamp;
-
 protected:
     float m_lifeInit;
     float m_lifeDown;
     float m_freeMove;
+    float m_damping;
 
     bool m_continousMode;
     bool m_autoRebuild;
+    bool m_inverted;
 
     Vector2f m_bulletSize;
 
@@ -161,6 +168,7 @@ private:
     Particle::Array m_particles;
     GLuint m_renderId;
     bool m_usePointSprite;
+    ticks::FpsManager m_clock;
 
     ParticlesEmiter& copy(const ParticlesEmiter& copy);
 };

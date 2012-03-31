@@ -23,12 +23,14 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
     m_deadEmiter = false;
     m_enable = false;
     m_depthTest = false;
+    m_inverted = false;
 
     m_blendEq = ADDITIVE;
 
     m_lifeInit = 1;
     m_lifeDown = 0.1;
     m_freeMove = 0;
+    m_damping = 0.1;
 
     m_bulletSize = 0.5;
 
@@ -39,6 +41,8 @@ ParticlesEmiter::ParticlesEmiter(ParticlesParallelScene* scene)
     m_sceneManager = m_parallelScene->getSceneManager();
 
     m_parallelScene->registerNode(this);
+
+    m_clock.setRunFps(60);
 }
 
 ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
@@ -50,6 +54,8 @@ ParticlesEmiter::ParticlesEmiter(const ParticlesEmiter& copy) : Node(copy)
     this->copy(copy);
 
     m_parallelScene->registerNode(this);
+
+    m_clock.setRunFps(60);
 }
 
 ParticlesEmiter::~ParticlesEmiter()
@@ -83,11 +89,13 @@ ParticlesEmiter& ParticlesEmiter::copy(const ParticlesEmiter& copy)
     m_lifeDown = copy.m_lifeDown;
     m_freeMove = copy.m_freeMove;
     m_bulletSize = copy.m_bulletSize;
+    m_damping = copy.m_damping;
 
     m_usePointSprite = copy.m_usePointSprite;
 
     m_continousMode = copy.m_continousMode;
     m_autoRebuild = copy.m_autoRebuild;
+    m_inverted = copy.m_inverted;
 
     m_emitPos = copy.m_emitPos;
     m_gravity = copy.m_gravity;
@@ -101,6 +109,41 @@ ParticlesEmiter& ParticlesEmiter::copy(const ParticlesEmiter& copy)
         build();
 
     return *this;
+}
+
+void ParticlesEmiter::setupBullet(Particle& p)
+{
+    p.color = 1;
+    p.gravity = m_gravity;
+
+    if(m_inverted)
+    {
+        p.pos = math::rand(-m_boxSize, m_boxSize);
+    }
+    else
+    {
+        if(!!m_boxSize)
+            p.pos = math::rand(Vector3f(0), m_boxSize);
+        else
+            p.pos = m_emitPos;
+    }
+
+    if(m_inverted)
+        p.diriction = (m_emitPos - p.pos).normalize() * m_freeMove;
+    else
+        p.diriction = math::rand(Vector3f(-m_freeMove), Vector3f(m_freeMove)).normalize() * m_freeMove;
+
+    if(m_inverted)
+    {
+        p.life = 0;
+    }
+    else
+    {
+        if(m_continousMode)
+            p.life = math::rand(0.0f, m_lifeInit);
+        else
+            p.life = m_lifeInit;
+    }
 }
 
 void ParticlesEmiter::build()
@@ -122,7 +165,7 @@ void ParticlesEmiter::build()
 
     if(m_usePointSprite)
     {
-        glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof (Particle) * m_number, &m_particles[0], GL_DYNAMIC_DRAW);
+        glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof(Particle) * m_number, &m_particles[0], GL_DYNAMIC_DRAW);
     }
 
     else
@@ -138,15 +181,87 @@ void ParticlesEmiter::build()
             faces[i + 3].texCoord(1, 0);
         }
 
-        glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof (Vertex) * faces.size(), &faces[0], GL_DYNAMIC_DRAW);
+        glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof(Vertex) * faces.size(), &faces[0], GL_DYNAMIC_DRAW);
     }
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 
     m_enable = true;
     m_deadEmiter = false;
+}
 
-    m_timestamp.snapShoot();
+void ParticlesEmiter::process()
+{
+    if(!m_enable)
+        return;
+
+    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::process));
+
+    if(m_clock.doRender())
+    {
+        if(m_deadEmiter && !m_autoRebuild)
+            return;
+
+        m_deadEmiter = true;
+
+        Particle* particles = beginParticlesPosProcess();
+
+        m_aabb.clear();
+
+        for(unsigned i = 0; i < m_drawNumber; i++)
+        {
+            Particle& p = particles[i];
+
+            p.color(1, 1, 1, p.life);
+
+            if(m_inverted)
+            {
+                if(p.life > m_lifeInit)
+                {
+                    if(m_autoRebuild)
+                        setupBullet(p);
+
+                    else
+                        continue;
+                }
+                else
+                {
+                    p.life += m_lifeDown * m_damping;
+                    p.pos += p.diriction * m_damping;
+
+                    m_deadEmiter = false;
+                }
+
+            }
+            else
+            {
+                p.diriction += p.gravity;
+
+                if(p.life < 0)
+                {
+                    if(m_autoRebuild)
+                        setupBullet(p);
+
+                    else
+                        continue;
+                }
+
+                else
+                {
+                    p.life -= m_lifeDown * m_damping;
+                    p.pos += p.diriction * m_damping;
+
+                    m_deadEmiter = false;
+                }
+            }
+
+            m_aabb.count(p.pos);
+        }
+
+        endParticlesPosProcess();
+    }
+
+    m_clock.update();
 }
 
 void ParticlesEmiter::render()
@@ -210,10 +325,10 @@ void ParticlesEmiter::render()
     if(m_usePointSprite)
     {
         const void* POSITION_OFFSET = (void*)0;
-        const void* COLOR_OFFSET = (void*)(sizeof (Vector3f));
+        const void* COLOR_OFFSET = (void*)(sizeof(Vector3f));
 
-        glVertexPointer(3, GL_FLOAT, sizeof (Particle), POSITION_OFFSET);
-        glColorPointer(4, GL_FLOAT, sizeof (Particle), COLOR_OFFSET);
+        glVertexPointer(3, GL_FLOAT, sizeof(Particle), POSITION_OFFSET);
+        glColorPointer(4, GL_FLOAT, sizeof(Particle), COLOR_OFFSET);
 
         glDrawArrays(GL_POINTS, 0, m_drawNumber);
     }
@@ -222,12 +337,12 @@ void ParticlesEmiter::render()
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
         const void* POSITION_OFFSET = (void*)0;
-        const void* COLOR_OFFSET = (void*)(sizeof (Vector3f) *2);
-        const void* UV_OFFSET = (void*)(sizeof (Vector3f)*2 + sizeof (Vector4f));
+        const void* COLOR_OFFSET = (void*)(sizeof(Vector3f) *2);
+        const void* UV_OFFSET = (void*)(sizeof(Vector3f)*2 + sizeof(Vector4f));
 
-        glVertexPointer(3, GL_FLOAT, sizeof (Vertex), POSITION_OFFSET);
-        glColorPointer(4, GL_FLOAT, sizeof (Vertex), COLOR_OFFSET);
-        glTexCoordPointer(2, GL_FLOAT, sizeof (Vertex), UV_OFFSET);
+        glVertexPointer(3, GL_FLOAT, sizeof(Vertex), POSITION_OFFSET);
+        glColorPointer(4, GL_FLOAT, sizeof(Vertex), COLOR_OFFSET);
+        glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), UV_OFFSET);
 
         glDrawArrays(GL_QUADS, 0, m_drawNumber * 4);
     }
@@ -334,6 +449,26 @@ bool ParticlesEmiter::checkHardware()
     return GLEE_ARB_point_sprite && GLEE_ARB_point_parameters;
 }
 
+void ParticlesEmiter::setDamping(float damping)
+{
+    this->m_damping = damping;
+}
+
+float ParticlesEmiter::getDamping() const
+{
+    return m_damping;
+}
+
+void ParticlesEmiter::setInverted(float inverted)
+{
+    this->m_inverted = inverted;
+}
+
+float ParticlesEmiter::getInverted() const
+{
+    return m_inverted;
+}
+
 void ParticlesEmiter::setBulletSize(Vector2f bulletSize)
 {
     this->m_bulletSize = bulletSize;
@@ -359,74 +494,6 @@ bool ParticlesEmiter::isUsePointSprite() const
 ParticlesEmiter* ParticlesEmiter::clone()
 {
     return new ParticlesEmiter(*this);
-}
-
-void ParticlesEmiter::setupBullet(Particle& p)
-{
-    p.life = 1;
-    p.color = 1;
-    p.diriction = math::rand(Vector3f(-m_freeMove), Vector3f(m_freeMove));
-    p.diriction.normalize() *= m_freeMove;
-    p.gravity = m_gravity;
-
-    if(!!m_boxSize)
-        p.pos = math::rand(Vector3f(0), m_boxSize);
-    else
-        p.pos = m_emitPos;
-
-    if(m_continousMode)
-        p.life = math::rand(0.0f, m_lifeInit);
-    else
-        p.life = m_lifeInit;
-}
-
-void ParticlesEmiter::process()
-{
-    if(!m_enable)
-        return;
-
-    for_each(m_childs.begin(), m_childs.end(), mem_fun(&Node::process));
-
-    if(m_deadEmiter && !m_autoRebuild)
-        return;
-
-    m_deadEmiter = true;
-
-    long timestamp = m_timestamp.getEsplanedTime();
-
-    Particle* particles = beginParticlesPosProcess();
-
-    m_aabb.clear();
-
-    for(unsigned i = 0; i < m_drawNumber; i++)
-    {
-        Particle& p = particles[i];
-
-        p.color(1, 1, 1, p.life);
-
-        p.diriction += p.gravity;
-
-        if(p.life < 0)
-        {
-            if(m_autoRebuild)
-                setupBullet(p);
-
-            else
-                continue;
-        }
-
-        else
-        {
-            p.life -= m_lifeDown * (timestamp * 0.001f);
-            p.pos += p.diriction * (timestamp * 0.001f);
-
-            m_deadEmiter = false;
-        }
-
-        m_aabb.count(p.pos);
-    }
-
-    endParticlesPosProcess();
 }
 
 void ParticlesEmiter::setFreeMove(float freeMove)
