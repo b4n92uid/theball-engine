@@ -43,13 +43,17 @@ public:
     void setColor(Vector4f color);
     Vector4f getColor() const;
 
-    void setInternalPass(bool internalPass);
-    bool isInternalPass() const;
+    void setAlpha(float alpha);
+    float getAlpha() const;
+
+    void setUseShader(bool useShader);
+    bool isUseShader() const;
 
 private:
     Vector4f m_color;
+    Texture m_fallback;
     FusionMode m_fusionMode;
-    bool m_internalPass;
+    bool m_useShader;
 };
 
 }

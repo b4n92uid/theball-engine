@@ -87,8 +87,8 @@ Rtt::~Rtt()
     }
 
     // Texture
-    m_textureMethod.color.release();
-    m_textureMethod.depth.release();
+    m_textureMethod.color.remove();
+    m_textureMethod.depth.remove();
 }
 
 void Rtt::use(bool state)
@@ -203,11 +203,11 @@ void Rtt::setFrameSize(Vector2i frameSize)
         m_fboMethod.render->setFrameSize(frameSize);
     }
 
-    // Teture
-    m_textureMethod.color.release();
+    // Texture
+    m_textureMethod.color.remove();
     m_textureMethod.color.build(frameSize);
 
-    m_textureMethod.depth.release();
+    m_textureMethod.depth.remove();
     m_textureMethod.depth.build(frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
 }
 

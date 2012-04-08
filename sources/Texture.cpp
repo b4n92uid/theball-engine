@@ -225,12 +225,6 @@ void Texture::load(std::string filename, bool genMipMap, bool upperLeftOrigin)
         ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
     }
 
-    else
-    {
-        ilEnable(IL_ORIGIN_SET);
-        ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
-    }
-
     ilEnable(IL_FORMAT_SET);
     ilFormatFunc(IL_RGBA);
 
@@ -287,6 +281,48 @@ void Texture::load(std::string filename, bool genMipMap, bool upperLeftOrigin)
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+void Texture::build(Vector2i size, Vector4i color, GLint internalFormat, GLenum format)
+{
+    if(!math::isPow2(size.x) || !math::isPow2(size.y))
+        cout << "***WARNING*** Texture::Build; Texture is not pow2 dim " << size << endl;
+
+    unsigned byteSize = size.x * size.y * 4;
+    GLubyte* pixels = new GLubyte[byteSize];
+
+    for(unsigned i = 0; i < byteSize; i += 4)
+    {
+        pixels[i + 0] = color.x;
+        pixels[i + 1] = color.y;
+        pixels[i + 2] = color.z;
+        pixels[i + 3] = color.w;
+    }
+
+    buildMem(size, pixels, internalFormat, format);
+    delete[] pixels;
+}
+
+void Texture::buildMem(Vector2i size, unsigned char* byte, GLint internalFormat, GLenum format)
+{
+    if(!math::isPow2(size.x) || !math::isPow2(size.y))
+        cout << "***WARNING*** Texture::Build; Texture is not pow2 dim " << size << endl;
+
+    m_size = size;
+
+    glGenTextures(1, &m_textureName);
+    glBindTexture(GL_TEXTURE_2D, m_textureName);
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_size.x, m_size.y, 0, format, GL_UNSIGNED_BYTE, byte);
+    setFiltring(LINEAR);
+
+    m_persistent = false;
+    m_genMipMap = false;
+    m_upperLeftOrigin = false;
+
+    m_filtring = 0;
+    m_anistropy = 0;
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 void Texture::fill(Vector4i color)
 {
     unsigned byteSize = m_size.x * m_size.y * 4;
@@ -303,59 +339,6 @@ void Texture::fill(Vector4i color)
 
     glBindTexture(GL_TEXTURE_2D, m_textureName);
     glTexImage2D(GL_TEXTURE_2D, 0, 4, m_size.x, m_size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void Texture::build(Vector2i size, Vector4i color, GLint internalFormat, GLenum format)
-{
-    if(!math::isPow2(size.x) || !math::isPow2(size.y))
-        cout << "***WARNING*** Texture::Build; Texture is not pow2 dim " << size << endl;
-
-    m_size = size;
-
-    glGenTextures(1, &m_textureName);
-    glBindTexture(GL_TEXTURE_2D, m_textureName);
-
-    unsigned byteSize = m_size.x * m_size.y * 4;
-
-    GLubyte* pixels = new GLubyte[byteSize];
-
-    for(unsigned i = 0; i < byteSize; i += 4)
-    {
-        pixels[i + 0] = color.x;
-        pixels[i + 1] = color.y;
-        pixels[i + 2] = color.z;
-        pixels[i + 3] = color.w;
-    }
-
-    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_size.x, m_size.y, 0, format, GL_UNSIGNED_BYTE, pixels);
-
-    delete[] pixels;
-
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void Texture::buildMem(Vector2i size, unsigned char* byte, GLint internalFormat, GLenum format)
-{
-    if(!math::isPow2(size.x) || !math::isPow2(size.y))
-        cout << "***WARNING*** Texture::Build; Texture is not pow2 dim " << size << endl;
-
-    m_size = size;
-
-    glGenTextures(1, &m_textureName);
-    glBindTexture(GL_TEXTURE_2D, m_textureName);
-
-    unsigned byteSize = m_size.x * m_size.y * 4;
-
-    GLubyte* pixels = new GLubyte[byteSize];
-
-    for(unsigned i = 0; i < byteSize; i += 4)
-        pixels[i] = byte[i];
-
-    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_size.x, m_size.y, 0, format, GL_UNSIGNED_BYTE, pixels);
-
-    delete[] pixels;
 
     glBindTexture(GL_TEXTURE_2D, 0);
 }

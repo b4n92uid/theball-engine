@@ -62,12 +62,15 @@ static const char fragmentShader[] =
 
 ColorEffect::ColorEffect()
 {
-    m_processShader.parseFragmentShader(fragmentShader);
-    m_processShader.parseVertexShader(vertexShader);
-    m_processShader.loadProgram();
+    if(Shader::checkHardware())
+    {
+        m_processShader.parseFragmentShader(fragmentShader);
+        m_processShader.parseVertexShader(vertexShader);
+        m_processShader.loadProgram();
+    }
 
-    m_fusionMode = BLACK_WHITE;
-    m_internalPass = false;
+    m_fusionMode = ADDITIVE_COLOR;
+    m_useShader = Shader::checkHardware();
 }
 
 ColorEffect::~ColorEffect()
@@ -76,62 +79,85 @@ ColorEffect::~ColorEffect()
 
 void ColorEffect::process(Rtt* rtt)
 {
-    if(m_internalPass)
+    m_layer.begin();
+
+    rtt->use(true);
+
+    glPushAttrib(GL_ENABLE_BIT);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    if(m_useShader)
     {
-        m_workRtt->use(true);
-
-        m_processShader.use(true);
         rtt->getColor().use(true);
-
-        m_layer.draw();
-
-        rtt->getColor().use(false);
-        m_processShader.use(false);
-
-        m_workRtt->use(false);
-
-        rtt->use(true);
-
-        glPushAttrib(GL_ENABLE_BIT);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        m_workRtt->getColor().use(true);
-        m_layer.draw();
-        m_workRtt->getColor().use(false);
-
-        glPopAttrib();
-
-        rtt->use(false);
+        m_processShader.use(true);
     }
-
     else
     {
-        rtt->use(true);
-        m_processShader.use(true);
+        glClientActiveTexture(GL_TEXTURE0);
+        glActiveTexture(GL_TEXTURE0);
+        glEnable(GL_TEXTURE_2D);
         rtt->getColor().use(true);
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-        glPushAttrib(GL_ENABLE_BIT);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glClientActiveTexture(GL_TEXTURE1);
+        glActiveTexture(GL_TEXTURE1);
+        glEnable(GL_TEXTURE_2D);
+        m_fallback.use(true);
 
-        m_layer.draw();
+        switch(m_fusionMode)
+        {
+            case ADDITIVE_COLOR: glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
+                break;
 
-        glPopAttrib();
+            case MULTIPLICATION_COLOR: glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+                break;
 
-        rtt->getColor().use(false);
-        m_processShader.use(false);
-        rtt->use(false);
+            case SUBTRACTION_COLOR: glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_SUBTRACT);
+                break;
+
+            case AVERAGE_COLOR: glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD_SIGNED);
+                break;
+        }
+
     }
+
+    m_layer.draw(false);
+
+    if(m_useShader)
+    {
+        m_processShader.use(false);
+        rtt->getColor().use(false);
+    }
+    else
+    {
+        glActiveTexture(GL_TEXTURE1);
+        glDisable(GL_TEXTURE_2D);
+        m_fallback.use(false);
+
+        glActiveTexture(GL_TEXTURE0);
+        glDisable(GL_TEXTURE_2D);
+        rtt->getColor().use(false);
+    }
+
+    glPopAttrib();
+
+    rtt->use(false);
+
+    m_layer.end();
 }
 
 void ColorEffect::setFusionMode(ColorEffect::FusionMode fusionMode)
 {
     this->m_fusionMode = fusionMode;
 
-    m_processShader.use(true);
-    m_processShader.uniform("fusionMode", m_fusionMode);
-    m_processShader.use(false);
+    if(Shader::checkHardware())
+    {
+        m_processShader.use(true);
+        m_processShader.uniform("fusionMode", m_fusionMode);
+        m_processShader.use(false);
+    }
 }
 
 ColorEffect::FusionMode ColorEffect::getFusionMode() const
@@ -143,20 +169,47 @@ void ColorEffect::setColor(Vector4f color)
 {
     this->m_color = color;
 
-    m_processShader.use(true);
-    m_processShader.uniform("color", m_color);
-    m_processShader.use(false);
+    if(Shader::checkHardware())
+    {
+        m_processShader.use(true);
+        m_processShader.uniform("color", m_color);
+        m_processShader.use(false);
+    }
+
+    m_fallback.remove();
+    m_fallback.build(m_workRtt->getFrameSize(), m_color * 255);
 }
 
 Vector4f ColorEffect::getColor() const
 {
     return m_color;
 }
-void ColorEffect::setInternalPass(bool internalPass)
+
+void ColorEffect::setAlpha(float alpha)
 {
-    this->m_internalPass = internalPass;
+    m_color.w = alpha;
+
+    if(Shader::checkHardware())
+    {
+        m_processShader.use(true);
+        m_processShader.uniform("color", m_color);
+        m_processShader.use(false);
+    }
+
+    m_fallback.fill(m_color * 255);
 }
-bool ColorEffect::isInternalPass() const
+
+float ColorEffect::getAlpha() const
 {
-    return m_internalPass;
+    return m_color.w;
+}
+
+void ColorEffect::setUseShader(bool useShader)
+{
+    this->m_useShader = useShader;
+}
+
+bool ColorEffect::isUseShader() const
+{
+    return m_useShader;
 }
