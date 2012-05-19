@@ -39,36 +39,6 @@ public:
 
 } manager;
 
-void Mesh::registerBuffer(Mesh* mesh, const std::string& source)
-{
-    manager[mesh] = source;
-}
-
-void Mesh::unregisterBuffer(Mesh* mesh)
-{
-    manager.erase(mesh);
-}
-
-Mesh* Mesh::isSharedBuffer(const std::string& source)
-{
-    return manager.shared(source);
-}
-
-bool Mesh::isUsedBuffer(HardwareBuffer* hb)
-{
-    return manager.used(hb);
-}
-
-void Mesh::setOutputMaterial(bool outputMaterial)
-{
-    this->m_outputMaterial = outputMaterial;
-}
-
-bool Mesh::isOutputMaterial() const
-{
-    return m_outputMaterial;
-}
-
 Mesh::Mesh(MeshParallelScene* scene)
 {
     m_triangulate = true;
@@ -77,6 +47,7 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_visible = true;
     m_outputMaterial = false;
     m_billBoard = false;
+    m_requestVertexRestore = false;
 
     Node::m_parallelScene = m_parallelScene = scene;
 
@@ -90,6 +61,7 @@ Mesh::Mesh(MeshParallelScene* scene)
 Mesh::Mesh(const Mesh& copy) : Node(copy)
 {
     this->copy(copy);
+    m_requestVertexRestore = false;
 
     m_parallelScene->registerNode(this);
 }
@@ -308,8 +280,35 @@ struct DepthSortVertexFunc
     Vector3f meshPos;
 };
 
+// #define ENABLE_PROFILER
+
+#ifdef ENABLE_PROFILER
+
+#define INIT_PROFILER() \
+    cout << "Profile " << m_name << endl; \
+    LONGLONG lasttime = 0, profiler = 0; \
+    QueryPerformanceCounter((LARGE_INTEGER*) & lasttime);
+
+#define OUTPUT_PROFILER(label) \
+    QueryPerformanceCounter((LARGE_INTEGER*) & profiler); \
+    cout << label << " " << profiler - lasttime << endl; \
+    lasttime = profiler;
+
+#define CLOSE_PROFILER() \
+    cout << endl;
+
+#else
+
+#define INIT_PROFILER()
+#define OUTPUT_PROFILER(label)
+#define CLOSE_PROFILER()
+
+#endif
+
 void Mesh::render(Material* material, unsigned offset, unsigned count)
 {
+    INIT_PROFILER();
+
     GLint tangentAttribIndex = -1, aoccAttribIndex = -1;
 
     unsigned vertexCount = m_hardwareBuffer->getVertexCount();
@@ -336,9 +335,11 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         glEnable(GL_CULL_FACE);
         glCullFace(GL_FRONT);
     }
-    else
-        // NOTE OpenGL 1.4
-        glDisable(GL_CULL_FACE);
+    // else
+    // NOTE OpenGL 1.4
+    // glDisable(GL_CULL_FACE);
+
+    OUTPUT_PROFILER("Culling");
 
     // Tri des polygones -------------------------------------------------------
 
@@ -372,6 +373,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         glDepthMask(false);
     }
 
+    OUTPUT_PROFILER("Sort");
+
     // Shader ------------------------------------------------------------------
 
     if(material->m_renderFlags & Material::SHADER)
@@ -401,6 +404,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         material->m_shader.use(true);
     }
 
+    OUTPUT_PROFILER("Shader");
+
     // Texture -----------------------------------------------------------------
 
     if(material->m_renderFlags & Material::TEXTURED)
@@ -421,6 +426,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             // Animation de la texture par modification des coordonés UV
             if(texApply[itt->first].clipped)
             {
+                requestVertexRestore();
+
                 const Vector2f& texSize = itt->second.getSize();
 
                 const Vertex::Array& initvert = m_hardwareBuffer->getInitialVertex();
@@ -496,6 +503,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         }
     }
 
+    OUTPUT_PROFILER("Texture");
+
     // Lumiere -----------------------------------------------------------------
 
     if(material->m_renderFlags & Material::LIGHTED)
@@ -527,6 +536,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             glDisable(GL_RESCALE_NORMAL);
     }
 
+    OUTPUT_PROFILER("Lighting");
+
     // Color -------------------------------------------------------------------
 
     if(material->m_renderFlags & Material::COLORED)
@@ -537,6 +548,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
         if(!math::isEqual(material->m_color, 1))
         {
+            requestVertexRestore();
+
             Vertex* vertex = m_hardwareBuffer->lock(GL_READ_WRITE);
 
             for(unsigned i = offset; i < offset + count && i < vertexCount; i++)
@@ -545,6 +558,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             m_hardwareBuffer->unlock();
         }
     }
+
+    OUTPUT_PROFILER("Color");
 
     // Blend -------------------------------------------------------------------
 
@@ -576,6 +591,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         glAlphaFunc(GL_GREATER, material->m_alphaThershold);
     }
 
+    OUTPUT_PROFILER("Blend");
+
     // Brouillard (Fog) --------------------------------------------------------
 
     if(glIsEnabled(GL_FOG) && !(material->m_renderFlags & Material::FOGED))
@@ -585,6 +602,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     if(material->m_lineWidth)
         glLineWidth(material->m_lineWidth);
+
+    OUTPUT_PROFILER("Fog");
 
     // Rendue ------------------------------------------------------------------
 
@@ -610,6 +629,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     {
         m_hardwareBuffer->render(material->m_faceType, offset, count);
     }
+
+    OUTPUT_PROFILER("Rendering");
 
     // Réstorations ------------------------------------------------------------
 
@@ -669,9 +690,13 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     }
 
     // NOTE OpenGL 1.4
-    glColor4f(1, 1, 1, 1);
+    // glColor4f(1, 1, 1, 1);
 
     glPopAttrib();
+
+    OUTPUT_PROFILER("ENDING");
+
+    CLOSE_PROFILER();
 }
 
 void Mesh::render()
@@ -735,7 +760,12 @@ void Mesh::render()
 
     glPopMatrix();
 
-    m_hardwareBuffer->restore();
+    if(m_requestVertexRestore)
+    {
+        m_hardwareBuffer->restore();
+        m_requestVertexRestore = false;
+    }
+
     m_hardwareBuffer->bindBuffer(false);
 }
 
@@ -1067,6 +1097,41 @@ Vector2b Mesh::getBillBoard() const
     return m_billBoard;
 }
 
+void Mesh::registerBuffer(Mesh* mesh, const std::string& source)
+{
+    manager[mesh] = source;
+}
+
+void Mesh::unregisterBuffer(Mesh* mesh)
+{
+    manager.erase(mesh);
+}
+
+Mesh* Mesh::isSharedBuffer(const std::string& source)
+{
+    return manager.shared(source);
+}
+
+bool Mesh::isUsedBuffer(HardwareBuffer* hb)
+{
+    return manager.used(hb);
+}
+
+void Mesh::setOutputMaterial(bool outputMaterial)
+{
+    this->m_outputMaterial = outputMaterial;
+}
+
+bool Mesh::isOutputMaterial() const
+{
+    return m_outputMaterial;
+}
+
+void Mesh::requestVertexRestore(bool requestVertexRestore)
+{
+    this->m_requestVertexRestore = requestVertexRestore;
+}
+
 std::vector<std::string> Mesh::getUsedRessources()
 {
     vector<string> ressPath;
@@ -1093,3 +1158,4 @@ void Mesh::generateMulTexCoord()
 
     m_hardwareBuffer->compile();
 }
+

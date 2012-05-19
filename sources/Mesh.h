@@ -157,6 +157,8 @@ public:
     void setOutputMaterial(bool outputMaterial);
     bool isOutputMaterial() const;
 
+    void requestVertexRestore(bool requestVertexRestore = true);
+
 protected:
     CtorMap outputMaterial(std::string root);
 
@@ -166,8 +168,9 @@ protected:
     bool m_withTexCoord;
     bool m_visible;
     bool m_outputMaterial;
-	
-	Vector2b m_billBoard;
+    bool m_requestVertexRestore;
+
+    Vector2b m_billBoard;
 
     HardwareBuffer* m_hardwareBuffer;
 
