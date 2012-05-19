@@ -76,7 +76,7 @@ Texture::Texture()
     m_genMipMap = false;
     m_upperLeftOrigin = false;
     m_filtring = 0;
-    m_anistropy = 0;
+    m_anistropy = 1;
 }
 
 Texture::Texture(const Texture& copy)
@@ -86,7 +86,7 @@ Texture::Texture(const Texture& copy)
     m_genMipMap = false;
     m_upperLeftOrigin = false;
     m_filtring = 0;
-    m_anistropy = 0;
+    m_anistropy = 1;
 
     *this = copy;
 }
@@ -98,7 +98,7 @@ Texture::Texture(std::string filename, bool genMipMap, bool upperLeftOrigin)
     m_genMipMap = false;
     m_upperLeftOrigin = false;
     m_filtring = 0;
-    m_anistropy = 0;
+    m_anistropy = 1;
 
     load(filename, genMipMap, upperLeftOrigin);
 }
@@ -110,7 +110,7 @@ Texture::Texture(const char* filename, bool genMipMap, bool upperLeftOrigin)
     m_genMipMap = false;
     m_upperLeftOrigin = false;
     m_filtring = 0;
-    m_anistropy = 0;
+    m_anistropy = 1;
 
     load(filename, genMipMap, upperLeftOrigin);
 }
@@ -177,7 +177,7 @@ void Texture::remove()
         m_genMipMap = false;
         m_upperLeftOrigin = false;
         m_filtring = 0;
-        m_anistropy = 0;
+        m_anistropy = 1;
 
         m_filename.clear();
         m_size = 0;
@@ -199,7 +199,7 @@ void Texture::release()
     m_genMipMap = false;
     m_upperLeftOrigin = false;
     m_filtring = 0;
-    m_anistropy = 0;
+    m_anistropy = 1;
 
     m_filename.clear();
     m_size = 0;
@@ -318,7 +318,7 @@ void Texture::buildMem(Vector2i size, unsigned char* byte, GLint internalFormat,
     m_upperLeftOrigin = false;
 
     m_filtring = 0;
-    m_anistropy = 0;
+    m_anistropy = 1;
 
     glBindTexture(GL_TEXTURE_2D, 0);
 }
