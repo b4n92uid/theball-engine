@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   AbstractParser.h
  * Author: b4n92uid
  *
@@ -31,6 +31,11 @@ public:
     virtual Light* newLight(LightParallelScene* scene) = 0;
     virtual ParticlesEmiter* newParticles(ParticlesParallelScene* scene) = 0;
     virtual MapMark* newMapMark(MapMarkParallelScene* scene) = 0;
+
+    virtual void setupMesh(Mesh* mesh){}
+    virtual void setupLight(Light* light){}
+    virtual void setupParticles(ParticlesEmiter* particles){}
+    virtual void setupMapMark(MapMark* mapmark){}
 };
 
 class AbstractParser

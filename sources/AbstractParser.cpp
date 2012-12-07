@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   AbstractParser.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 21 mars 2012, 13:11
  */
 
@@ -321,9 +321,6 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
 
     Node* current = NULL;
 
-    if(iclass.empty())
-        var_dump(rel.attr);
-
     if(iclass == "OBJMesh")
     {
         Mesh* mesh = m_classFactory ? m_classFactory->newMesh(m_meshScene) : new Mesh(m_meshScene);
@@ -362,6 +359,9 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
         mesh->addToConstructionMap("filename", rel.attr["filename"]);
 
         mesh->computeAabb();
+
+        if(m_classFactory)
+            m_classFactory->setupMesh(mesh);
 
         current = mesh;
     }
@@ -407,6 +407,9 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
 
         emiter->build();
 
+        if(m_classFactory)
+            m_classFactory->setupParticles(emiter);
+
         current = emiter;
     }
 
@@ -437,12 +440,18 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
         light->setDiffuse(Vector4f().fromStr(rel.attr["diffuse"]));
         light->setSpecular(Vector4f().fromStr(rel.attr["specular"]));
 
+        if(m_classFactory)
+            m_classFactory->setupLight(light);
+
         current = light;
     }
 
     else if(iclass == "MapMark")
     {
         MapMark* mark = m_classFactory ? m_classFactory->newMapMark(m_markScene) : new MapMark(m_markScene);
+
+        if(m_classFactory)
+            m_classFactory->setupMapMark(mark);
 
         current = mark;
     }
