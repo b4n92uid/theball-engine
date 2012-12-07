@@ -253,16 +253,16 @@ template<typename T1> void var_dump_print(const std::vector<T1>& stdvec, const c
 }
 
 /**
- * 
+ *
  * @param path
- * @return 
+ * @return
  */
 inline bool isAbsoloutPath(std::string path)
 {
     #ifdef __WIN32__
-    return(path.size() >= 1) ? path[1] == ':' : false;
+    return(path.size() > 2 ? path[1] == ':' : false);
     #else
-    return path[0] == '/';
+    return(path.size() > 0 ? path[0] == '/' : false);
     #endif
 }
 
