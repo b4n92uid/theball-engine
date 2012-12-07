@@ -519,7 +519,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         glMaterialf(GL_FRONT, GL_SHININESS, material->m_shininess);
 
         /* Normal scaling ------------------------------------------------------
-         * 
+         *
          * Ici on dévise les normale des vertex par le scale de la matrice du noeud
          * pour les rendre unitaire (normaliser), afini d'éviter un calcule
          * incorrect de la lumiere lors d'une mise a l'échelle sur la matrice
@@ -960,6 +960,9 @@ Vector2i::Array Mesh::getMaterialApply(std::string name)
 
 Material* Mesh::getMaterial(unsigned index)
 {
+    if(index == 0 && !m_materials.empty())
+        return m_materials.begin()->second;
+
     if(index > m_materials.size() - 1)
         throw tbe::Exception("Mesh::GetMaterial; [%s] Index out of bounds (%d)", m_name.c_str(), index);
 
