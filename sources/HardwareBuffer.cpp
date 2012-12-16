@@ -289,7 +289,7 @@ Face::Array HardwareBuffer::getAllFace()
     Face::Array faceArray;
     faceArray.reserve(m_vertexCount / 3);
 
-    Vertex* vertex = lock(GL_READ_ONLY_ARB);
+    Vertex* vertex = bindBuffer().lock(GL_READ_ONLY_ARB);
 
     for(unsigned i = 0; i < m_vertexCount; i += 3)
     {
@@ -301,7 +301,7 @@ Face::Array HardwareBuffer::getAllFace()
         faceArray.push_back(f);
     }
 
-    unlock();
+    unlock().bindBuffer(false);
 
     return faceArray;
 }

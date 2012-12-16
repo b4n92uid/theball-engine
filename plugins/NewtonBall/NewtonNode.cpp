@@ -114,7 +114,7 @@ void NewtonNode::buildBoxNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // Donneés utilisateur
+    // Donneï¿½s utilisateur
     NewtonBodySetUserData(m_body, this);
 
     // Callback
@@ -148,7 +148,7 @@ void NewtonNode::buildSphereNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // Donneés utilisateur
+    // Donneï¿½s utilisateur
     NewtonBodySetUserData(m_body, this);
 
     // Callback
@@ -180,7 +180,7 @@ void NewtonNode::buildCylinderNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // Donneés utilisateur
+    // Donneï¿½s utilisateur
     NewtonBodySetUserData(m_body, this);
 
     // Callback
@@ -224,7 +224,7 @@ void NewtonNode::buildConvexNode(const Vertex::Array& vertexes, float masse)
     Vector3f::Array onlyPos = ExtractPos(vertexes);
 
     // Corp de collision
-    NewtonCollision* collision = NewtonCreateConvexHull(m_newtonWorld, vertexes.size(), &onlyPos[0].x, sizeof(Vector3f), 0, 0, NULL);
+    NewtonCollision* collision = NewtonCreateConvexHull(m_newtonWorld, vertexes.size(), &onlyPos[0].x, sizeof(Vector3f), 1.0, 0, NULL);
     m_body = NewtonCreateBody(m_newtonWorld, collision, *m_updatedMatrix);
 
     // Masse & Inertia
@@ -277,7 +277,7 @@ void NewtonNode::buildTreeNode(const Face::Array& faces)
     {
         vector<Vector3f> vertexesPos;
 
-        for(unsigned j = 0; j < faces[j].size(); j++)
+        for(unsigned j = 0; j < faces[i].size(); j++)
             vertexesPos.push_back(faces[i][j].pos);
 
         NewtonTreeCollisionAddFace(nCollision, vertexesPos.size(), &vertexesPos[0].x, sizeof(Vector3f), 0);

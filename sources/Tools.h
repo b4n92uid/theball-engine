@@ -374,9 +374,8 @@ template<typename T, typename T2> void erase(std::vector<T>& vec, T2 val)
 {
     typename std::vector<T>::iterator it = std::find(vec.begin(), vec.end(), dynamic_cast<T2>(val));
 
-    assert(it != vec.end());
-
-    vec.erase(it);
+    if(it != vec.end())
+        vec.erase(it);
 }
 
 /**
@@ -390,9 +389,8 @@ template<typename T> void erase(std::vector<T>& vec, T val)
 {
     typename std::vector<T>::iterator it = std::find(vec.begin(), vec.end(), val);
 
-    assert(it != vec.end());
-
-    vec.erase(it);
+    if(it != vec.end())
+        vec.erase(it);
 }
 
 /**
