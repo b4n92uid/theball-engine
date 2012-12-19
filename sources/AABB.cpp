@@ -206,3 +206,11 @@ AABB& AABB::translate(Vector3f pos)
 
     return *this;
 }
+
+AABB& AABB::scale(Vector3f factor)
+{
+    min *= factor;
+    max *= factor;
+
+    return *this;
+}

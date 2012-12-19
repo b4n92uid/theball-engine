@@ -135,6 +135,7 @@ public:
 
     /// Déplace la boite englobant
     AABB& translate(Vector3f pos);
+    AABB& scale(Vector3f factor);
 
     Vector3f min;
     Vector3f max;
