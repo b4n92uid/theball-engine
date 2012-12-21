@@ -99,11 +99,15 @@ void NewtonNode::buildBoxNode(Vector3f size, float masse)
 
     m_masse = masse;
 
+    // Corp de collision
+
     size *= 2;
 
-    // Corp de collision
     NewtonCollision* collision = NewtonCreateBox(m_newtonWorld, size.x, size.y, size.z, 0, NULL);
     m_body = NewtonCreateBody(m_newtonWorld, collision, *m_updatedMatrix);
+    NewtonReleaseCollision(m_newtonWorld, collision);
+
+    size /= 2;
 
     // Masse & Inertia & Inertia
     Vector3f origine;
@@ -114,18 +118,15 @@ void NewtonNode::buildBoxNode(Vector3f size, float masse)
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // Donne�s utilisateur
+    // Donneés utilisateur
     NewtonBodySetUserData(m_body, this);
-
-    // Callback
-    NewtonBodySetForceAndTorqueCallback(m_body, NewtonNode::applyForceAndTorqueCallback);
-
-    size /= 2;
 
     // Matrice
     NewtonBodySetMatrix(m_body, *m_updatedMatrix);
 
-    NewtonReleaseCollision(m_newtonWorld, collision);
+    // Callback
+    NewtonBodySetForceAndTorqueCallback(m_body, NewtonNode::applyForceAndTorqueCallback);
+    NewtonBodySetTransformCallback(m_body, NewtonNode::applyTransformCallback);
 }
 
 void NewtonNode::buildSphereNode(Vector3f size, float masse)
@@ -146,18 +147,19 @@ void NewtonNode::buildSphereNode(Vector3f size, float masse)
     NewtonConvexCollisionCalculateInertialMatrix(collision, inertia, origine);
     inertia *= m_masse;
 
+    NewtonReleaseCollision(m_newtonWorld, collision);
+
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // Donne�s utilisateur
+    // Donneés utilisateur
     NewtonBodySetUserData(m_body, this);
-
-    // Callback
-    NewtonBodySetForceAndTorqueCallback(m_body, NewtonNode::applyForceAndTorqueCallback);
 
     // Matrice
     NewtonBodySetMatrix(m_body, *m_updatedMatrix);
 
-    NewtonReleaseCollision(m_newtonWorld, collision);
+    // Callback
+    NewtonBodySetForceAndTorqueCallback(m_body, NewtonNode::applyForceAndTorqueCallback);
+    NewtonBodySetTransformCallback(m_body, NewtonNode::applyTransformCallback);
 }
 
 void NewtonNode::buildCylinderNode(Vector3f size, float masse)
@@ -178,18 +180,19 @@ void NewtonNode::buildCylinderNode(Vector3f size, float masse)
     NewtonConvexCollisionCalculateInertialMatrix(collision, inertia, origine);
     inertia *= m_masse;
 
+    NewtonReleaseCollision(m_newtonWorld, collision);
+
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
-    // Donne�s utilisateur
+    // Donneés utilisateur
     NewtonBodySetUserData(m_body, this);
-
-    // Callback
-    NewtonBodySetForceAndTorqueCallback(m_body, NewtonNode::applyForceAndTorqueCallback);
 
     // Matrice
     NewtonBodySetMatrix(m_body, *m_updatedMatrix);
 
-    NewtonReleaseCollision(m_newtonWorld, collision);
+    // Callback
+    NewtonBodySetForceAndTorqueCallback(m_body, NewtonNode::applyForceAndTorqueCallback);
+    NewtonBodySetTransformCallback(m_body, NewtonNode::applyTransformCallback);
 }
 
 inline Vector3f::Array ExtractPos(const Vertex::Array& vertexes)
@@ -234,18 +237,19 @@ void NewtonNode::buildConvexNode(const Vertex::Array& vertexes, float masse)
     NewtonConvexCollisionCalculateInertialMatrix(collision, inertia, origine);
     inertia *= m_masse;
 
+    NewtonReleaseCollision(m_newtonWorld, collision);
+
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
     // Donne utilisateur
     NewtonBodySetUserData(m_body, this);
 
-    // Callback
-    NewtonBodySetForceAndTorqueCallback(m_body, NewtonNode::applyForceAndTorqueCallback);
-
     // Matrice
     NewtonBodySetMatrix(m_body, *m_updatedMatrix);
 
-    NewtonReleaseCollision(m_newtonWorld, collision);
+    // Callback
+    NewtonBodySetForceAndTorqueCallback(m_body, NewtonNode::applyForceAndTorqueCallback);
+    NewtonBodySetTransformCallback(m_body, NewtonNode::applyTransformCallback);
 }
 
 void NewtonNode::buildTreeNode(const tbe::scene::Mesh* mesh)
@@ -327,9 +331,6 @@ void NewtonNode::process()
 
     for(unsigned i = 0; i < m_childs.size(); i++)
         m_childs[i]->process();
-
-    if(m_body)
-        NewtonBodyGetMatrix(m_body, *m_updatedMatrix);
 }
 
 void NewtonNode::setMatrix(Matrix4 matrix)
@@ -447,6 +448,16 @@ void NewtonNode::applyForceAndTorque()
 
     m_applyForce = 0;
     m_applyTorque = 0;
+}
+
+void NewtonNode::applyTransformCallback(const NewtonBody* body, const float* matrix, int)
+{
+    NewtonNode* parent = (NewtonNode*)NewtonBodyGetUserData(body);
+
+    if(!parent)
+        throw tbe::Exception("NewtonNode::applyForceAndTorqueCallback; core == NULL");
+
+    parent->Node::setMatrix(matrix);
 }
 
 void NewtonNode::applyForceAndTorqueCallback(const NewtonBody* body, float, int)

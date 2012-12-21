@@ -90,6 +90,9 @@ public:
     /// Method static d'application de la force gravitationnele (9.81)
     static void applyForceAndTorqueCallback(const NewtonBody* body, float, int);
 
+    /// Method static d'application de la transformation
+    static void applyTransformCallback(const NewtonBody* body, const float*, int);
+
     typedef std::vector<NewtonNode*> Array;
     typedef std::map<std::string, NewtonNode*> Map;
 

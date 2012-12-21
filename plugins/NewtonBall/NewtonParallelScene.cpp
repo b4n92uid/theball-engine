@@ -77,7 +77,7 @@ NewtonWorld* NewtonParallelScene::getNewtonWorld() const
 static dFloat RayFilterAnyBody(const NewtonBody* body, const dFloat* hitNormal, int collisionID, void* userData, dFloat intersectParam)
 {
     *(float*)(userData) = intersectParam;
-    return intersectParam;
+    return 1;
 }
 
 Vector3f NewtonParallelScene::findAnyBody(Vector3f start, Vector3f end)
