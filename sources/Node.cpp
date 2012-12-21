@@ -21,6 +21,7 @@ Node::Node()
     m_enable = true;
     m_parallelScene = NULL;
     m_parent = NULL;
+    m_scale = 1;
 }
 
 Node::Node(const Node& copy)
@@ -28,6 +29,7 @@ Node::Node(const Node& copy)
     m_enable = true;
     m_parallelScene = NULL;
     m_parent = NULL;
+    m_scale = 1;
 
     this->copy(copy);
 }
@@ -49,6 +51,9 @@ Node& Node::copy(const Node& copy)
 {
     m_name = copy.m_name;
     m_matrix = copy.m_matrix;
+    m_position = copy.m_position;
+    m_rotation = copy.m_rotation;
+    m_scale = copy.m_scale;
     m_enable = copy.m_enable;
     m_aabb = copy.m_aabb;
     m_sceneManager = copy.m_sceneManager;
@@ -82,14 +87,43 @@ void Node::setup()
         m_childs[i]->setup();
 }
 
+void Node::setScale(Vector3f scale)
+{
+    this->m_scale = scale;
+
+    m_matrix.identity();
+    m_matrix.transform(m_position, m_rotation, m_scale);
+}
+
+Vector3f Node::getScale() const
+{
+    return m_scale;
+}
+
+void Node::setRotation(Quaternion rotation)
+{
+    this->m_rotation = rotation;
+
+    m_matrix.identity();
+    m_matrix.transform(m_position, m_rotation, m_scale);
+}
+
+Quaternion Node::getRotation() const
+{
+    return m_rotation;
+}
+
 void Node::setPos(Vector3f pos)
 {
-    m_matrix.setPos(pos);
+    m_position = pos;
+
+    m_matrix.identity();
+    m_matrix.transform(m_position, m_rotation, m_scale);
 }
 
 Vector3f Node::getPos() const
 {
-    return m_matrix.getPos();
+    return m_position;
 }
 
 Vector3f Node::mapToGlobal(Vector3f pos)
@@ -108,6 +142,7 @@ void Node::mulMatrix(const Matrix4& matrix)
 void Node::setMatrix(const Matrix4& matrix)
 {
     this->m_matrix = matrix;
+    matrix.decompose(m_position, m_rotation, m_scale);
 }
 
 Matrix4 Node::getAbsoluteMatrix(bool includeThis) const

@@ -58,7 +58,16 @@ public:
     /// Matrice du noeud
     void setMatrix(const Matrix4& matrix);
     void mulMatrix(const Matrix4& matrix);
-    
+
+    void setScale(Vector3f scale);
+    Vector3f getScale() const;
+
+    void setRotation(Quaternion rotation);
+    Quaternion getRotation() const;
+
+    void setPosition(Vector3f position);
+    Vector3f getPosition() const;
+
     Matrix4& getMatrix();
     Matrix4 getMatrix() const;
 
@@ -88,7 +97,7 @@ public:
     unsigned deepPosition() const;
 
     void dettach();
-    
+
     void setParent(Node* parent);
     Node* getParent() const;
 
@@ -130,7 +139,7 @@ public:
     void addToConstructionMap(std::string name, std::string value);
 
     virtual CtorMap constructionMap(std::string root);
-    
+
     virtual std::vector<std::string> getUsedRessources();
 
     typedef std::map<std::string, Node*> Map;
@@ -140,9 +149,13 @@ protected:
     ParallelScene* m_parallelScene;
     SceneManager* m_sceneManager;
     std::string m_name;
-    Matrix4 m_matrix;
     bool m_enable;
     AABB m_aabb;
+
+    Vector3f m_position;
+    Quaternion m_rotation;
+    Vector3f m_scale;
+    Matrix4 m_matrix;
 
     Node* m_parent;
     Node::Array m_childs;

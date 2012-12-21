@@ -10,6 +10,8 @@
 
 #include <string>
 #include <sstream>
+#include <stack>
+#include <map>
 
 namespace tbe
 {
@@ -41,6 +43,9 @@ public:
             float, float, float, float,
             float, float, float, float);
 
+    void push();
+    void pop();
+
     /// Mets à la matrice d'identité
     void identity();
 
@@ -67,7 +72,7 @@ public:
 
     /**
      * Applique une transformation sur la matrice dans l'ordre:
-     * 
+     *
      *  1. Scale
      *  2. Rotation
      *  3. Translation
@@ -75,7 +80,7 @@ public:
     void transform(Vector3f position, Quaternion rotation, Vector3f scale);
 
     /**
-     * Décomposition de la matrice avec l'algorithme 
+     * Décomposition de la matrice avec l'algorithme
      *  de Gram-Schmidt (l'algorithm QR).
      */
     void decompose(Vector3f& position, Quaternion& rotation, Vector3f& scale) const;
@@ -175,6 +180,9 @@ public:
 
 private:
     float values[16];
+
+    typedef std::map<Matrix4*, std::stack<Matrix4> > MatrixStack;
+    static MatrixStack stack;
 };
 
 }

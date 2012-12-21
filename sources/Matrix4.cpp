@@ -13,6 +13,8 @@
 
 using namespace tbe;
 
+Matrix4::MatrixStack Matrix4::stack;
+
 Matrix4::Matrix4()
 {
     identity();
@@ -20,8 +22,7 @@ Matrix4::Matrix4()
 
 Matrix4::Matrix4(const float fmatrix[16])
 {
-    for(unsigned i = 0; i < 16; i++)
-        values[i] = fmatrix[i];
+    memcpy(values, fmatrix, sizeof(float)*16);
 }
 
 Matrix4::Matrix4(const Vector3f& pos)
@@ -72,6 +73,17 @@ Matrix4::Matrix4(float r1, float r5, float r9, float r13,
     values[15] = r16;
 }
 
+void Matrix4::push()
+{
+    stack[this].push(*this);
+}
+
+void Matrix4::pop()
+{
+    *this = stack[this].top();
+    stack[this].pop();
+}
+
 void Matrix4::identity()
 {
     for(unsigned i = 0; i < 16; i++)
@@ -111,8 +123,7 @@ void Matrix4::transpose()
 
 bool Matrix4::operator=(const Matrix4& copy)
 {
-    for(unsigned i = 0; i < 16; i++)
-        values[i] = copy.values[i];
+    memcpy(values, copy.values, sizeof(float)*16);
 
     return true;
 }
@@ -186,9 +197,9 @@ void qduDecomposition(float m[3][3], float kQ[3][3], Vector3f& kD, Vector3f& kU)
     /*
      * QR decomposition :
      * Implemented from Ogre SDK Matrix3::QDUDecomposition
-     * 
+     *
      * This algorithm uses Gram-Schmidt orthogonalization (the QR algorithm).
-     * 
+     *
      * <https://bitbucket.org/sinbad/ogre/src/4aa2ca2384f4/OgreMain/src/OgreMatrix3.cpp>
      */
 
@@ -272,9 +283,9 @@ MatDecompose Matrix4::decompose() const
 void Matrix4::decompose(Vector3f& position, Quaternion& rotation, Vector3f& scale) const
 {
     /*
-     * Matrix decomposition code 
+     * Matrix decomposition code
      *  from Ogre SDK : Matrix4::makeTransform
-     * 
+     *
      * <https://bitbucket.org/sinbad/ogre/src/4aa2ca2384f4/OgreMain/src/OgreMatrix4.cpp>
      */
 
