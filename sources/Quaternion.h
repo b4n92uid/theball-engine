@@ -26,13 +26,13 @@ class Quaternion
 public:
     Quaternion();
     Quaternion(const Quaternion& quat);
-    Quaternion(float x, float y, float z, float w);
+    Quaternion(float w, float x, float y, float z);
     Quaternion(const Matrix4& matrix);
     Quaternion(const Vector3f& euler);
     Quaternion(float angle, const Vector3f& axe);
 
     /**
-     * Spécifier la rotation â l'aide d'un angle (exprimer en radian) 
+     * Spécifier la rotation â l'aide d'un angle (exprimer en radian)
      *  et d'un axe autour du quelle la rotation decera être éffectuer
      */
     void setAxisAngle(float angle, const Vector3f& axe);

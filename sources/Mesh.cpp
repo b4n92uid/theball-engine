@@ -964,7 +964,7 @@ Material* Mesh::getMaterial(unsigned index)
         return m_materials.begin()->second;
 
     if(index > m_materials.size() - 1)
-        throw tbe::Exception("Mesh::GetMaterial; [%s] Index out of bounds (%d)", m_name.c_str(), index);
+        return NULL;
 
     unsigned i = 0;
     for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it, i++)
@@ -974,7 +974,7 @@ Material* Mesh::getMaterial(unsigned index)
 Material* Mesh::getMaterial(std::string name)
 {
     if(m_materials.find(name) == m_materials.end())
-        throw tbe::Exception("Mesh::GetMaterial; [%s] Material not found (%s)", m_name.c_str(), name.c_str());
+        return NULL;
 
     return m_materials[name];
 }
@@ -982,7 +982,7 @@ Material* Mesh::getMaterial(std::string name)
 Material* Mesh::releaseMaterial(std::string name)
 {
     if(m_materials.find(name) == m_materials.end())
-        throw tbe::Exception("Mesh::ReleaseMaterial; [%s] Material not found (%s)", m_name.c_str(), name.c_str());
+        return NULL;
 
     Material* toRet = m_materials[name];
     m_materials.erase(name);

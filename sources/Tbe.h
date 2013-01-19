@@ -52,6 +52,7 @@
 #include "Heightmap.h"
 #include "ObjMesh.h"
 #include "Ball3DMesh.h"
+#include "LaserBeam.h"
 #include "Primitives.h"
 #include "Particles.h"
 #include "ParallelScene.h"

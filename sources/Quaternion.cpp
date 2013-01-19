@@ -34,7 +34,7 @@ Quaternion::Quaternion(const Quaternion& quat)
     this->w = quat.w;
 }
 
-Quaternion::Quaternion(float x, float y, float z, float w)
+Quaternion::Quaternion(float w, float x, float y, float z)
 {
     this->x = x;
     this->y = y;
