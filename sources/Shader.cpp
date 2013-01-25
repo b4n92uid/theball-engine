@@ -286,10 +286,21 @@ void Shader::uniform(const char* name, Vector2i value)
     glUniform2i(id, value.x, value.y);
 }
 
+bool Shader::m_hardwareSupport = false;
+bool Shader::m_hardwareCheked = false;
+
 bool Shader::checkHardware()
 {
-    static bool supported = GLEE_ARB_shading_language_100 && GLEE_ARB_shader_objects
-            && GLEE_ARB_vertex_shader && GLEE_ARB_fragment_shader;
+    if(!m_hardwareCheked)
+    {
+        m_hardwareSupport = GLEE_ARB_shading_language_100 && GLEE_ARB_shader_objects && GLEE_ARB_vertex_shader && GLEE_ARB_fragment_shader;
+        m_hardwareCheked = true;
+    }
 
-    return supported;
+    return m_hardwareSupport;
+}
+
+void Shader::forceHardware(bool enable)
+{
+    m_hardwareSupport = enable;
 }

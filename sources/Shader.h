@@ -43,7 +43,7 @@ public:
     /**
      * Utilisation du program. Le rendue effectuer apres cette appelle
      * sera traiter par le shader
-     * 
+     *
      * @param use Etat d'utilisation du program shader
      */
     void use(bool use = true);
@@ -98,11 +98,16 @@ public:
      *  GL_ARB_fragment_shader
      */
     static bool checkHardware();
+    static void forceHardware(bool enable);
 
 protected:
     GLuint m_program;
     GLuint m_frag_shader;
     GLuint m_vert_shader;
+
+private :
+    static bool m_hardwareSupport;
+    static bool m_hardwareCheked;
 };
 
 }
