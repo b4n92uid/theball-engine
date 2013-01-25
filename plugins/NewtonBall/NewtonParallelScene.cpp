@@ -74,6 +74,27 @@ NewtonWorld* NewtonParallelScene::getNewtonWorld() const
     return m_newtonWorld;
 }
 
+static dFloat RayFilterAllBody(const NewtonBody* body, const dFloat* hitNormal, int collisionID, void* userData, dFloat intersectParam)
+{
+    vector<float>& intersectArray = *static_cast<vector<float>*>(userData);
+    intersectArray.push_back(intersectParam);
+    return 1;
+}
+
+Vector3f::Array NewtonParallelScene::findAllBody(Vector3f start, Vector3f end)
+{
+    vector<float> intersectArray;
+    NewtonWorldRayCast(m_newtonWorld, start, end, RayFilterAllBody, &intersectArray, 0);
+
+    Vector3f::Array vecarray;
+    vecarray.resize(intersectArray.size());
+
+    for(unsigned i = 0; i < vecarray.size(); i++)
+        vecarray[i] = start + (end - start) * intersectArray[i];
+
+    return vecarray;
+}
+
 static dFloat RayFilterAnyBody(const NewtonBody* body, const dFloat* hitNormal, int collisionID, void* userData, dFloat intersectParam)
 {
     *(float*)(userData) = intersectParam;

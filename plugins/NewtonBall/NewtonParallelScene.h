@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   NewtonParallelScene.h
  * Author: b4n92uid
  *
@@ -28,7 +28,7 @@ public:
     NewtonParallelScene();
     ~NewtonParallelScene();
 
-    /// SpÈcifier la gravit√© appliquer au noeud
+    /// Sp√©cifier la gravit√© appliquer au noeud
     void setGravity(float gravity);
     float getGravity() const;
 
@@ -38,10 +38,10 @@ public:
     /// Specifier le timestep du moteur physique
     void setWorldTimestep(float worldTimestep);
 
-    /// AccÈs au timestep du moteur physique
+    /// Acc√©s au timestep du moteur physique
     float getWorldTimestep() const;
 
-    /// AccÈs au NewtonWorld
+    /// Acc√©s au NewtonWorld
     NewtonWorld* getNewtonWorld() const;
 
     /// Specifier les dimmension du mond physique
@@ -53,6 +53,9 @@ public:
 
     /// Fonction qui recupere la position de collision
     Vector3f findAnyBody(Vector3f start, Vector3f end);
+
+    /// Renvois tout les points d'intersection entre start et end
+    Vector3f::Array findAllBody(Vector3f start, Vector3f end);
 
     /// Fonction qui recupere la position sur le sol
     Vector3f findFloor(Vector3f pos);
