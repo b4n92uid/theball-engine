@@ -74,6 +74,7 @@ void SDLDevice::setVideoMode(Vector2i winsize, int bits, bool fullscreen, int mu
 
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, m_winMultiSamples);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
     SDL_WM_SetCaption(m_caption.c_str(), 0);
 
     if(SDL_SetVideoMode(m_viewport.x, m_viewport.y, m_winBits, flags) == NULL)
