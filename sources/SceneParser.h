@@ -86,8 +86,6 @@ public:
     MapDescriptor& getMapDescriptor();
 
 protected:
-    Node* buildNode(Relation& att, Node* parent = NULL);
-
     void prepareNodeConstruction(Node* node, Relation& rel);
 
     void parseGeneral(AttribMap& att);

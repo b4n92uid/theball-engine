@@ -315,6 +315,28 @@ void AbstractParser::buildMaterial(std::string key, std::string value, Mesh* mes
     }
 }
 
+inline void buildInherited(AbstractParser::Relation& rel, Node* parent, Node* current)
+{
+    parent->addChild(current);
+
+    if(rel.attr.count("name"))
+        current->setName(rel.attr["name"]);
+
+    if(rel.attr.count("matrix"))
+        current->setMatrix(rel.attr["matrix"]);
+
+    for(AbstractParser::AttribMap::iterator it = rel.attr.begin(); it != rel.attr.end(); it++)
+    {
+        if(it->first[0] == '.')
+        {
+            string key(it->first, 1);
+            current->setUserData(key, it->second);
+        }
+    }
+
+    current->setup();
+}
+
 Node* AbstractParser::buildNode(Relation& rel, Node* parent)
 {
     const string& iclass = rel.attr["class"];
@@ -359,6 +381,8 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
         mesh->addToConstructionMap("filename", rel.attr["filename"]);
 
         mesh->computeAabb();
+
+        buildInherited(rel, parent ? parent : m_rootNode, mesh);
 
         if(m_classFactory)
             m_classFactory->setupMesh(mesh);
@@ -407,6 +431,8 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
 
         emiter->build();
 
+        buildInherited(rel, parent ? parent : m_rootNode, emiter);
+
         if(m_classFactory)
             m_classFactory->setupParticles(emiter);
 
@@ -440,6 +466,8 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
         light->setDiffuse(Vector4f().fromStr(rel.attr["diffuse"]));
         light->setSpecular(Vector4f().fromStr(rel.attr["specular"]));
 
+        buildInherited(rel, parent ? parent : m_rootNode, light);
+
         if(m_classFactory)
             m_classFactory->setupLight(light);
 
@@ -449,6 +477,8 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
     else if(iclass == "MapMark")
     {
         MapMark* mark = m_classFactory ? m_classFactory->newMapMark(m_markScene) : new MapMark(m_markScene);
+
+        buildInherited(rel, parent ? parent : m_rootNode, mark);
 
         if(m_classFactory)
             m_classFactory->setupMapMark(mark);

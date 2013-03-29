@@ -329,35 +329,6 @@ void SceneParser::prepareNodeConstruction(Node* node, Relation& rel)
     }
 }
 
-inline void buildInherited(AbstractParser::Relation& rel, Node* parent, Node* current)
-{
-    parent->addChild(current);
-
-    if(rel.attr.count("name"))
-        current->setName(rel.attr["name"]);
-
-    if(rel.attr.count("matrix"))
-        current->setMatrix(rel.attr["matrix"]);
-
-    for(AbstractParser::AttribMap::iterator it = rel.attr.begin(); it != rel.attr.end(); it++)
-    {
-        if(it->first[0] == '.')
-        {
-            string key(it->first, 1);
-            current->setUserData(key, it->second);
-        }
-    }
-
-    current->setup();
-}
-
-Node* SceneParser::buildNode(Relation& rel, Node* parent)
-{
-    Node* current = AbstractParser::buildNode(rel, parent);
-
-    buildInherited(rel, parent ? parent : m_rootNode, current);
-}
-
 void SceneParser::build()
 {
     if(!m_lightScene)
