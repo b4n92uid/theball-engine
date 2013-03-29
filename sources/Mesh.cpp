@@ -337,7 +337,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     }
     // else
     // NOTE OpenGL 1.4
-    // glDisable(GL_CULL_FACE);
+    glDisable(GL_CULL_FACE);
 
     OUTPUT_PROFILER("Culling");
 
@@ -351,7 +351,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             cmp.camPos = m_parallelScene->getSceneManager()->getCurCamera()->getPos();
             cmp.meshPos = m_matrix.getPos();
 
-            TriangleFace* vertexes = reinterpret_cast<TriangleFace*>(m_hardwareBuffer->lock(GL_READ_WRITE));
+            TriangleFace* vertexes = reinterpret_cast<TriangleFace*> (m_hardwareBuffer->lock(GL_READ_WRITE));
             TriangleFace* start = vertexes + offset / 3;
             TriangleFace* end = start + count / 3;
 
@@ -414,7 +414,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         Material::TexApplyMap& texApply = material->m_texApply;
 
         for(Texture::Map::iterator itt = textures.begin();
-            itt != textures.end(); itt++)
+                itt != textures.end(); itt++)
         {
             if(!itt->second)
                 continue;
@@ -535,6 +535,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         else
             glDisable(GL_RESCALE_NORMAL);
     }
+    else
+        glDisable(GL_LIGHTING);
 
     OUTPUT_PROFILER("Lighting");
 
@@ -664,7 +666,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         Texture::Map& textures = material->m_textures;
 
         for(Texture::Map::reverse_iterator itt = textures.rbegin();
-            itt != textures.rend(); itt++)
+                itt != textures.rend(); itt++)
         {
             if(!itt->second)
                 continue;
@@ -690,7 +692,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     }
 
     // NOTE OpenGL 1.4
-    // glColor4f(1, 1, 1, 1);
+    glColor4f(1, 1, 1, 1);
 
     glPopAttrib();
 
@@ -823,9 +825,16 @@ bool RayCastTriangle(Vector3f p, Vector3f d, float& i, Vector3f v0, Vector3f v1,
         return false;
 }
 
-bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, float& intersect, bool global)
+bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDir, float& intersect, bool global)
 {
+    if(!m_hardwareBuffer)
+        return false;
+
     const Vertex::Array& vertex = m_hardwareBuffer->getInitialVertex();
+
+    // Cannot raycast no triangulated mesh !
+    if(vertex.size() % 3 != 0)
+        return false;
 
     Matrix4 absmat = getAbsoluteMatrix();
 
@@ -846,7 +855,7 @@ bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDiri, float& intersect, bool g
 
         float intr;
 
-        if(RayCastTriangle(rayStart, rayDiri, intr, pos0, pos1, pos2))
+        if(RayCastTriangle(rayStart, rayDir, intr, pos0, pos1, pos2))
             hits.push_back(intr);
     }
 
@@ -998,7 +1007,7 @@ void Mesh::applyMaterial(std::string name, unsigned offset, unsigned size)
 void Mesh::applyMaterial(Material* material, unsigned offset, unsigned size)
 {
     for(Material::Map::iterator it = m_materials.begin();
-        it != m_materials.end(); ++it)
+            it != m_materials.end(); ++it)
         if(it->second == material)
         {
             RenderProcess rp = {this, it->first, offset, size};
