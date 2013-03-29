@@ -452,17 +452,17 @@ void NewtonNode::applyForceAndTorque()
 
 void NewtonNode::applyTransformCallback(const NewtonBody* body, const float* matrix, int)
 {
-    NewtonNode* parent = (NewtonNode*)NewtonBodyGetUserData(body);
+    NewtonNode* parent = (NewtonNode*) NewtonBodyGetUserData(body);
 
     if(!parent)
         throw tbe::Exception("NewtonNode::applyForceAndTorqueCallback; core == NULL");
 
-    parent->Node::setMatrix(matrix);
+    parent->setMatrix(matrix);
 }
 
 void NewtonNode::applyForceAndTorqueCallback(const NewtonBody* body, float, int)
 {
-    NewtonNode* parent = (NewtonNode*)NewtonBodyGetUserData(body);
+    NewtonNode* parent = (NewtonNode*) NewtonBodyGetUserData(body);
 
     if(!parent)
         throw tbe::Exception("NewtonNode::applyForceAndTorqueCallback; core == NULL");

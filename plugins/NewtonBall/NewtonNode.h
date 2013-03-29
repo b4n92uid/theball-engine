@@ -64,7 +64,6 @@ public:
     void setOmega(Vector3f vel);
     Vector3f getOmega();
 
-    /// Mise a jour
     void render();
 
     void process();

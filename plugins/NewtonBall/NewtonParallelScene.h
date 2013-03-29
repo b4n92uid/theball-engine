@@ -28,7 +28,7 @@ public:
     NewtonParallelScene();
     ~NewtonParallelScene();
 
-    /// SpÃ©cifier la gravitÃ© appliquer au noeud
+    /// Spécifier la gravité appliquer au noeud
     void setGravity(float gravity);
     float getGravity() const;
 
@@ -38,10 +38,10 @@ public:
     /// Specifier le timestep du moteur physique
     void setWorldTimestep(float worldTimestep);
 
-    /// AccÃ©s au timestep du moteur physique
+    /// Accés au timestep du moteur physique
     float getWorldTimestep() const;
 
-    /// AccÃ©s au NewtonWorld
+    /// Accés au NewtonWorld
     NewtonWorld* getNewtonWorld() const;
 
     /// Specifier les dimmension du mond physique
@@ -55,7 +55,7 @@ public:
     Vector3f findAnyBody(Vector3f start, Vector3f end);
 
     /// Renvois tout les points d'intersection entre start et end
-    Vector3f::Array findAllBody(Vector3f start, Vector3f end);
+    Vector3f::Array rayCast(Vector3f start, Vector3f end);
 
     /// Fonction qui recupere la position sur le sol
     Vector3f findFloor(Vector3f pos);
