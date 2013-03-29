@@ -52,6 +52,9 @@ struct DepthSortMeshFunc
 
 void MeshParallelScene::render()
 {
+    if(!m_enable)
+        return;
+
     Frustum* frustum = m_sceneManager->getFrustum();
 
     m_frustumCullingCount = 0;
@@ -81,7 +84,31 @@ void MeshParallelScene::render()
     }
 }
 
-Mesh::Array MeshParallelScene::findMeshs(Vector3f start, Vector3f diri)
+Vector3f::Array MeshParallelScene::rayCast(Vector3f start, Vector3f dir)
+{
+    std::vector<float> fhits;
+
+    for(unsigned i = 0; i < m_nodes.size(); i++)
+    {
+        float intersect;
+
+        if(m_nodes[i]->isEnable() && m_nodes[i]->isAttached())
+            if(m_nodes[i]->rayCast(start, dir, intersect, true))
+                fhits.push_back(intersect);
+    }
+
+    std::sort(fhits.begin(), fhits.end());
+
+    Vector3f::Array hits;
+    hits.resize(fhits.size());
+
+    for(unsigned i = 0; i < fhits.size(); i++)
+        hits[i] = start + dir * fhits[i];
+
+    return hits;
+}
+
+Mesh::Array MeshParallelScene::findMeshs(Vector3f start, Vector3f dir)
 {
     Mesh::Array matches;
 
@@ -90,7 +117,7 @@ Mesh::Array MeshParallelScene::findMeshs(Vector3f start, Vector3f diri)
         float intersect;
 
         if(m_nodes[i]->isEnable() && m_nodes[i]->isAttached())
-            if(m_nodes[i]->rayCast(start, diri, intersect, true))
+            if(m_nodes[i]->rayCast(start, dir, intersect, true))
                 matches.push_back(m_nodes[i]);
     }
 

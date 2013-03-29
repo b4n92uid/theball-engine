@@ -27,11 +27,11 @@ public:
 
     void render();
 
-    /// Renvois la position y des coordonnés x z dans le repere global
+    Vector3f::Array rayCast(Vector3f start, Vector3f dir);
+
+    Mesh::Array findMeshs(Vector3f start, Vector3f dir);
+
     bool findFloor(float x, float& y, float z);
-
-    Mesh::Array findMeshs(Vector3f start, Vector3f diri);
-
     void setInFloor(Node* node);
 
     void setEnableFrustumTest(bool enableFrustumTest);
