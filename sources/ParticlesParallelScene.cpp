@@ -47,6 +47,9 @@ ParticlesParallelScene::~ParticlesParallelScene()
 
 void ParticlesParallelScene::render()
 {
+    if(!m_enable)
+        return;
+
     glPushAttrib(GL_ENABLE_BIT | GL_DEPTH_BITS | GL_POINT_BIT);
 
     if(m_pointSprite)

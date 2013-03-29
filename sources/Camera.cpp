@@ -251,7 +251,7 @@ FreeFlyCamera::FreeFlyCamera()
 {
     m_pos = 8;
     m_target = -1;
-    m_speed = 1;
+    m_speed = 16;
 }
 
 void FreeFlyCamera::onEvent(EventManager* event)
