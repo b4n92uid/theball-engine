@@ -384,10 +384,10 @@ void Mesh::beginRenderingMaterials(Material* material, unsigned offset, unsigned
                 glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
         }
 
-        rshade.uniform("GL_TEXTURE", 1);
+        if(rshade)rshade.uniform("GL_TEXTURE", 1);
     }
     else
-        rshade.uniform("GL_TEXTURE", 0);
+        if(rshade)rshade.uniform("GL_TEXTURE", 0);
 
     if(material->m_renderFlags & Material::LIGHTED)
     {
@@ -417,10 +417,10 @@ void Mesh::beginRenderingMaterials(Material* material, unsigned offset, unsigned
         else
             glDisable(GL_RESCALE_NORMAL);
 
-        rshade.uniform("GL_LIGHTING", 1);
+        if(rshade)rshade.uniform("GL_LIGHTING", 1);
     }
     else
-        rshade.uniform("GL_LIGHTING", 0);
+        if(rshade)rshade.uniform("GL_LIGHTING", 0);
 
     if(material->m_renderFlags & Material::COLORED)
     {
@@ -442,10 +442,10 @@ void Mesh::beginRenderingMaterials(Material* material, unsigned offset, unsigned
             m_hardwareBuffer->unlock();
         }
 
-        rshade.uniform("GL_COLORED", 1);
+        if(rshade)rshade.uniform("GL_COLORED", 1);
     }
     else
-        rshade.uniform("GL_COLORED", 0);
+        if(rshade)rshade.uniform("GL_COLORED", 0);
 
 
     if(material->m_renderFlags & Material::SHADER)
@@ -503,10 +503,10 @@ void Mesh::setupMaterialsProperty(Material* material, unsigned offset, unsigned 
     if(glIsEnabled(GL_FOG) && !(material->m_renderFlags & Material::FOGED))
     {
         glDisable(GL_FOG);
-        rshade.uniform("GL_FOG", 0);
+        if(rshade) rshade.uniform("GL_FOG", 0);
     }
     else
-        rshade.uniform("GL_FOG", 1);
+        if(rshade) rshade.uniform("GL_FOG", 1);
 
     if(material->m_lineWidth)
         glLineWidth(material->m_lineWidth);
@@ -707,8 +707,11 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     //        m_hardwareBuffer->render(material->m_faceType, offset, count);
     //    }
 
-    rshade.uniform("GL_AMBIENT", 1);
-    rshade.uniform("GL_LIGHT", 0);
+    if(rshade)
+    {
+        rshade.uniform("GL_AMBIENT", 1);
+        rshade.uniform("GL_LIGHT", 0);
+    }
 
     m_hardwareBuffer->render(material->m_faceType, offset, count);
 
@@ -732,8 +735,11 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
         m_sceneManager->setAmbientLight(0);
 
-        rshade.uniform("GL_AMBIENT", 0);
-        rshade.uniform("GL_LIGHT", 1);
+        if(rshade)
+        {
+            rshade.uniform("GL_AMBIENT", 0);
+            rshade.uniform("GL_LIGHT", 1);
+        }
 
         int lightCount = m_parallelScene->beginPrePassLighting(this);
 

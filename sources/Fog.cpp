@@ -13,7 +13,7 @@ using namespace tbe::scene;
 Fog::Fog()
 {
     glFogi(GL_FOG_MODE, GL_LINEAR);
-    glHint(GL_FOG_HINT, GL_DONT_CARE);
+    glHint(GL_FOG_HINT, GL_NICEST);
 
     clear();
 }
