@@ -177,6 +177,14 @@ protected:
     MeshParallelScene* m_parallelScene;
 
 private:
+    void beginRenderingMaterials(Material* material, unsigned, unsigned);
+    void setupMaterialsProperty(Material* material, unsigned, unsigned);
+    void unsetupMaterialsProperty(Material* material, unsigned, unsigned);
+    void endRenderingMaterials(Material* material, unsigned, unsigned);
+    
+    void beginRenderingMatrix();
+    void endRenderingMatrix();
+
     void render(Material* material, unsigned offset, unsigned size);
 
     struct RenderProcess
@@ -198,6 +206,9 @@ private:
     Material::Map m_materials;
 
     Mesh& copy(const Mesh& copy);
+
+    GLint m_tangentAttribIndex;
+    GLint m_aoccAttribIndex;
 };
 
 }

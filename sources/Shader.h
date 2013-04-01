@@ -79,12 +79,23 @@ public:
         return m_program;
     }
 
+    operator bool()
+    {
+        return m_program;
+    }
+
     /// Récuperation d'identifiant OpenGL
 
     operator GLuint()
     {
         return m_program;
     }
+
+    void setVertFilename(std::string vertFilename);
+    std::string getVertFilename() const;
+
+    void setFragFilename(std::string fragFilename);
+    std::string getFragFilename() const;
 
     /**
      * Cette fonction vérifie si le materiel actuelle supporte l'utilisation
@@ -105,7 +116,10 @@ protected:
     GLuint m_frag_shader;
     GLuint m_vert_shader;
 
-private :
+    std::string m_fragFilename;
+    std::string m_vertFilename;
+
+private:
     static bool m_hardwareSupport;
     static bool m_hardwareCheked;
 };

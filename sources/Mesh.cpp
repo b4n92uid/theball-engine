@@ -49,6 +49,9 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_billBoard = false;
     m_requestVertexRestore = false;
 
+    m_tangentAttribIndex = -1;
+    m_aoccAttribIndex = -1;
+
     Node::m_parallelScene = m_parallelScene = scene;
 
     m_sceneManager = m_parallelScene->getSceneManager();
@@ -272,7 +275,7 @@ struct DepthSortVertexFunc
 
     bool operator()(const TriangleFace& face1, const TriangleFace & face2)
     {
-        return(meshPos + (face1.v1.pos + face1.v2.pos + face1.v3.pos) / 3.0f - camPos) >
+        return (meshPos + (face1.v1.pos + face1.v2.pos + face1.v3.pos) / 3.0f - camPos) >
                 (meshPos + (face2.v1.pos + face2.v2.pos + face2.v3.pos) / 3.0f - camPos);
     }
 
@@ -280,133 +283,12 @@ struct DepthSortVertexFunc
     Vector3f meshPos;
 };
 
-// #define ENABLE_PROFILER
-
-#ifdef ENABLE_PROFILER
-
-#define INIT_PROFILER() \
-    cout << "Profile " << m_name << endl; \
-    LONGLONG lasttime = 0, profiler = 0; \
-    QueryPerformanceCounter((LARGE_INTEGER*) & lasttime);
-
-#define OUTPUT_PROFILER(label) \
-    QueryPerformanceCounter((LARGE_INTEGER*) & profiler); \
-    cout << label << " " << profiler - lasttime << endl; \
-    lasttime = profiler;
-
-#define CLOSE_PROFILER() \
-    cout << endl;
-
-#else
-
-#define INIT_PROFILER()
-#define OUTPUT_PROFILER(label)
-#define CLOSE_PROFILER()
-
-#endif
-
-void Mesh::render(Material* material, unsigned offset, unsigned count)
+void Mesh::beginRenderingMaterials(Material* material, unsigned offset, unsigned count)
 {
-    INIT_PROFILER();
-
-    GLint tangentAttribIndex = -1, aoccAttribIndex = -1;
-
-    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
-
     glPushAttrib(GL_ENABLE_BIT);
 
-    if(material->m_depthTest)
-        glEnable(GL_DEPTH_TEST);
-    else
-        glDisable(GL_DEPTH_TEST);
-
-    glDepthMask(material->m_depthWrite);
-
-    // Culling -----------------------------------------------------------------
-
-    if(material->m_renderFlags & Material::BACKFACE_CULL)
-    {
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
-    }
-
-    else if(material->m_renderFlags & Material::FRONTFACE_CULL)
-    {
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
-    }
-    // else
-    // NOTE OpenGL 1.4
-    glDisable(GL_CULL_FACE);
-
-    OUTPUT_PROFILER("Culling");
-
-    // Tri des polygones -------------------------------------------------------
-
-    if(material->m_renderFlags & Material::VERTEX_SORT)
-    {
-        if(material->m_frameSortWait <= 0)
-        {
-            static DepthSortVertexFunc cmp;
-            cmp.camPos = m_parallelScene->getSceneManager()->getCurCamera()->getPos();
-            cmp.meshPos = m_matrix.getPos();
-
-            TriangleFace* vertexes = reinterpret_cast<TriangleFace*> (m_hardwareBuffer->lock(GL_READ_WRITE));
-            TriangleFace* start = vertexes + offset / 3;
-            TriangleFace* end = start + count / 3;
-
-            std::sort(start, end, cmp);
-
-            m_hardwareBuffer->unlock();
-
-            material->m_frameSortWait = 16;
-        }
-
-        material->m_frameSortWait--;
-    }
-
-    else if(material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
-    {
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
-
-        glDepthMask(false);
-    }
-
-    OUTPUT_PROFILER("Sort");
-
-    // Shader ------------------------------------------------------------------
-
-    if(material->m_renderFlags & Material::SHADER)
-    {
-        // Tangent
-        if(material->m_renderFlags & Material::TANGENT)
-        {
-            tangentAttribIndex = glGetAttribLocation(material->m_shader, material->m_tangentLocation.c_str());
-
-            if(tangentAttribIndex == -1)
-                throw Exception("Mesh::render; [%s] Invalid tangent location (%s)", m_name.c_str(), material->m_tangentLocation.c_str());
-
-            m_hardwareBuffer->bindTangent(true, tangentAttribIndex);
-        }
-
-        // Amobient occlusion
-        if(material->m_renderFlags & Material::AOCC)
-        {
-            aoccAttribIndex = glGetAttribLocation(material->m_shader, material->m_aoccLocation.c_str());
-
-            if(aoccAttribIndex == -1)
-                throw Exception("Mesh::render; [%s] Invalid tangent location (%s)", m_name.c_str(), material->m_aoccLocation.c_str());
-
-            m_hardwareBuffer->bindAocc(true, aoccAttribIndex);
-        }
-
-        material->m_shader.use(true);
-    }
-
-    OUTPUT_PROFILER("Shader");
-
-    // Texture -----------------------------------------------------------------
+    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
+    Shader rshade = m_parallelScene->getRenderingShader();
 
     if(material->m_renderFlags & Material::TEXTURED)
     {
@@ -501,11 +383,11 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             else if(multexb == Material::MODULATE)
                 glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
         }
+
+        rshade.uniform("GL_TEXTURE", 1);
     }
-
-    OUTPUT_PROFILER("Texture");
-
-    // Lumiere -----------------------------------------------------------------
+    else
+        rshade.uniform("GL_TEXTURE", 0);
 
     if(material->m_renderFlags & Material::LIGHTED)
     {
@@ -534,16 +416,16 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
             glEnable(GL_RESCALE_NORMAL);
         else
             glDisable(GL_RESCALE_NORMAL);
+
+        rshade.uniform("GL_LIGHTING", 1);
     }
     else
-        glDisable(GL_LIGHTING);
-
-    OUTPUT_PROFILER("Lighting");
-
-    // Color -------------------------------------------------------------------
+        rshade.uniform("GL_LIGHTING", 0);
 
     if(material->m_renderFlags & Material::COLORED)
     {
+        unsigned vertexCount = m_hardwareBuffer->getVertexCount();
+
         m_hardwareBuffer->bindColor();
 
         glEnable(GL_COLOR_MATERIAL);
@@ -559,11 +441,103 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
             m_hardwareBuffer->unlock();
         }
+
+        rshade.uniform("GL_COLORED", 1);
+    }
+    else
+        rshade.uniform("GL_COLORED", 0);
+
+
+    if(material->m_renderFlags & Material::SHADER)
+    {
+        // Tangent
+        if(material->m_renderFlags & Material::TANGENT)
+        {
+            m_tangentAttribIndex = glGetAttribLocation(material->m_shader, material->m_tangentLocation.c_str());
+
+            if(m_tangentAttribIndex == -1)
+                throw Exception("Mesh::render; [%s] Invalid tangent location (%s)", m_name.c_str(), material->m_tangentLocation.c_str());
+
+            m_hardwareBuffer->bindTangent(true, m_tangentAttribIndex);
+        }
+
+        // Amobient occlusion
+        if(material->m_renderFlags & Material::AOCC)
+        {
+            m_aoccAttribIndex = glGetAttribLocation(material->m_shader, material->m_aoccLocation.c_str());
+
+            if(m_aoccAttribIndex == -1)
+                throw Exception("Mesh::render; [%s] Invalid tangent location (%s)", m_name.c_str(), material->m_aoccLocation.c_str());
+
+            m_hardwareBuffer->bindAocc(true, m_aoccAttribIndex);
+        }
+
+        material->m_shader.use(true);
     }
 
-    OUTPUT_PROFILER("Color");
+}
 
-    // Blend -------------------------------------------------------------------
+void Mesh::setupMaterialsProperty(Material* material, unsigned offset, unsigned count)
+{
+    Shader rshade = m_parallelScene->getRenderingShader();
+
+    if(material->m_depthTest)
+        glEnable(GL_DEPTH_TEST);
+    else
+        glDisable(GL_DEPTH_TEST);
+
+    glDepthMask(material->m_depthWrite);
+
+    if(material->m_renderFlags & Material::BACKFACE_CULL)
+    {
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+    }
+
+    else if(material->m_renderFlags & Material::FRONTFACE_CULL)
+    {
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
+    }
+
+    if(glIsEnabled(GL_FOG) && !(material->m_renderFlags & Material::FOGED))
+    {
+        glDisable(GL_FOG);
+        rshade.uniform("GL_FOG", 0);
+    }
+    else
+        rshade.uniform("GL_FOG", 1);
+
+    if(material->m_lineWidth)
+        glLineWidth(material->m_lineWidth);
+
+    if(material->m_renderFlags & Material::VERTEX_SORT)
+    {
+        if(material->m_frameSortWait <= 0)
+        {
+            static DepthSortVertexFunc cmp;
+            cmp.camPos = m_parallelScene->getSceneManager()->getCurCamera()->getPos();
+            cmp.meshPos = m_matrix.getPos();
+
+            TriangleFace* vertexes = reinterpret_cast<TriangleFace*> (m_hardwareBuffer->lock(GL_READ_WRITE));
+            TriangleFace* start = vertexes + offset / 3;
+            TriangleFace* end = start + count / 3;
+
+            std::sort(start, end, cmp);
+
+            m_hardwareBuffer->unlock();
+
+            material->m_frameSortWait = 16;
+        }
+
+        material->m_frameSortWait--;
+    }
+
+    else if(material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
+    {
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
+    }
 
     if(material->m_renderFlags & Material::BLEND_ADD)
     {
@@ -586,6 +560,9 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
+    else
+        glDisable(GL_BLEND);
+
     if(material->m_renderFlags & Material::ALPHA)
     {
         glEnable(GL_ALPHA_TEST);
@@ -593,69 +570,31 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         glAlphaFunc(GL_GREATER, material->m_alphaThershold);
     }
 
-    OUTPUT_PROFILER("Blend");
+}
 
-    // Brouillard (Fog) --------------------------------------------------------
-
-    if(glIsEnabled(GL_FOG) && !(material->m_renderFlags & Material::FOGED))
-        glDisable(GL_FOG);
-
-    // Largeur de la ligne  ----------------------------------------------------
-
-    if(material->m_lineWidth)
-        glLineWidth(material->m_lineWidth);
-
-    OUTPUT_PROFILER("Fog");
-
-    // Rendue ------------------------------------------------------------------
-
-    if(material->m_drawPass > 1)
+void Mesh::unsetupMaterialsProperty(Material* material, unsigned offset, unsigned count)
+{
+    if(material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
     {
-        int _count = count / material->m_drawPass;
-
-        for(unsigned i = 0; i < material->m_drawPass - 1; i++)
-        {
-            int _offset = offset + (i * _count);
-
-            m_hardwareBuffer->render(material->m_faceType, _offset, _count);
-        }
-
-        int rest = count % material->m_drawPass;
-
-        if(rest > 0)
-            m_hardwareBuffer->render(material->m_faceType, offset + count - rest, rest);
-        else
-            m_hardwareBuffer->render(material->m_faceType, offset + count - _count, _count);
-    }
-    else
-    {
+        glCullFace(GL_BACK);
         m_hardwareBuffer->render(material->m_faceType, offset, count);
     }
-
-    OUTPUT_PROFILER("Rendering");
-
-    // Réstorations ------------------------------------------------------------
 
     if(material->m_renderFlags & Material::BLEND_ADD)
     {
         glDepthMask(true);
     }
+}
 
-    if(material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
-    {
-        glCullFace(GL_BACK);
-        glDrawArrays(material->m_faceType, offset, count);
-
-        glDepthMask(true);
-    }
-
+void Mesh::endRenderingMaterials(Material* material, unsigned offset, unsigned count)
+{
     if(material->m_renderFlags & Material::SHADER)
     {
         if(material->m_renderFlags & Material::TANGENT)
-            m_hardwareBuffer->bindTangent(false, tangentAttribIndex);
+            m_hardwareBuffer->bindTangent(false, m_tangentAttribIndex);
 
         if(material->m_renderFlags & Material::AOCC)
-            m_hardwareBuffer->bindAocc(false, aoccAttribIndex);
+            m_hardwareBuffer->bindAocc(false, m_aoccAttribIndex);
 
 
         material->m_shader.use(false);
@@ -691,22 +630,13 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         m_hardwareBuffer->bindColor(false);
     }
 
-    // NOTE OpenGL 1.4
-    glColor4f(1, 1, 1, 1);
-
     glPopAttrib();
 
-    OUTPUT_PROFILER("ENDING");
-
-    CLOSE_PROFILER();
+    glColor4f(1, 1, 1, 1);
 }
 
-void Mesh::render()
+void Mesh::beginRenderingMatrix()
 {
-    if(!m_hardwareBuffer || m_hardwareBuffer->isEmpty() || !m_enable || !m_visible)
-        return;
-
-    m_hardwareBuffer->bindBuffer();
 
     glPushMatrix();
 
@@ -736,6 +666,101 @@ void Mesh::render()
     else
         glMultMatrixf(m_matrix);
 
+}
+
+void Mesh::endRenderingMatrix()
+{
+    glPopMatrix();
+}
+
+void Mesh::render(Material* material, unsigned offset, unsigned count)
+{
+    Shader rshade = m_parallelScene->getRenderingShader();
+
+    beginRenderingMaterials(material, offset, count);
+
+    setupMaterialsProperty(material, offset, count);
+    beginRenderingMatrix();
+
+    // Rendue ------------------------------------------------------------------
+
+    //    if(material->m_drawPass > 1)
+    //    {
+    //        int _count = count / material->m_drawPass;
+    //
+    //        for(unsigned i = 0; i < material->m_drawPass - 1; i++)
+    //        {
+    //            int _offset = offset + (i * _count);
+    //
+    //            m_hardwareBuffer->render(material->m_faceType, _offset, _count);
+    //        }
+    //
+    //        int rest = count % material->m_drawPass;
+    //
+    //        if(rest > 0)
+    //            m_hardwareBuffer->render(material->m_faceType, offset + count - rest, rest);
+    //        else
+    //            m_hardwareBuffer->render(material->m_faceType, offset + count - _count, _count);
+    //    }
+    //    else
+    //    {
+    //        m_hardwareBuffer->render(material->m_faceType, offset, count);
+    //    }
+
+    rshade.uniform("GL_AMBIENT", 1);
+    rshade.uniform("GL_LIGHT", 0);
+
+    m_hardwareBuffer->render(material->m_faceType, offset, count);
+
+    endRenderingMatrix();
+    unsetupMaterialsProperty(material, offset, count);
+
+    // Forward Rendering -------------------------------------------------------
+
+    if(material->m_renderFlags & Material::LIGHTED)
+    {
+        glEnable(GL_BLEND);
+
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+
+        glBlendFunc(GL_ONE, GL_ONE);
+
+        glDepthFunc(GL_LEQUAL);
+
+        Vector4f globalAmbient = m_sceneManager->getAmbientLight();
+
+        m_sceneManager->setAmbientLight(0);
+
+        rshade.uniform("GL_AMBIENT", 0);
+        rshade.uniform("GL_LIGHT", 1);
+
+        int lightCount = m_parallelScene->beginPrePassLighting(this);
+
+        for(int i = 0; i < lightCount; i++)
+        {
+            m_parallelScene->prePassLighting(i);
+
+            beginRenderingMatrix();
+            m_hardwareBuffer->render(material->m_faceType, offset, count);
+            endRenderingMatrix();
+        }
+
+        m_parallelScene->endPrePassLighting();
+
+        m_sceneManager->setAmbientLight(globalAmbient);
+    }
+
+    endRenderingMaterials(material, offset, count);
+}
+
+void Mesh::render()
+{
+    if(!m_hardwareBuffer || m_hardwareBuffer->isEmpty() || !m_enable || !m_visible)
+        return;
+
+    m_hardwareBuffer->bindBuffer();
+
     // Render ------------------------------------------------------------------
 
     if(m_renderProess.empty())
@@ -759,8 +784,6 @@ void Mesh::render()
         }
 
     }
-
-    glPopMatrix();
 
     if(m_requestVertexRestore)
     {

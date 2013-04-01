@@ -65,8 +65,8 @@ public:
     void setRotation(Quaternion rotation);
     Quaternion getRotation() const;
 
-    void setPosition(Vector3f position);
-    Vector3f getPosition() const;
+    void setPos(Vector3f pos);
+    Vector3f getPos() const;
 
     Matrix4& getMatrix();
     Matrix4 getMatrix() const;
@@ -80,9 +80,6 @@ public:
     void setSceneManager(SceneManager* sceneManager);
     SceneManager* getSceneManager() const;
 
-    /// Racourcie pour sépcifier la postion de la matrice du noeud
-    void setPos(Vector3f pos);
-    Vector3f getPos() const;
 
     Vector3f mapToGlobal(Vector3f pos);
 

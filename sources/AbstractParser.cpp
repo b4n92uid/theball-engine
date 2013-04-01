@@ -26,7 +26,6 @@ AbstractParser::AbstractParser()
     m_sceneManager = NULL;
     m_rootNode = NULL;
     m_classFactory = NULL;
-    m_lightScene = NULL;
     m_meshScene = NULL;
     m_particlesScene = NULL;
     m_markScene = NULL;
@@ -39,7 +38,6 @@ AbstractParser::AbstractParser(SceneManager* sceneManager)
     m_sceneManager = sceneManager;
     m_rootNode = sceneManager->getRootNode();
     m_classFactory = NULL;
-    m_lightScene = NULL;
     m_meshScene = NULL;
     m_particlesScene = NULL;
     m_markScene = NULL;
@@ -75,11 +73,6 @@ MeshParallelScene* AbstractParser::getMeshScene() const
     return m_meshScene;
 }
 
-LightParallelScene* AbstractParser::getLightScene() const
-{
-    return m_lightScene;
-}
-
 MapMarkParallelScene* AbstractParser::getMarkScene() const
 {
     return m_markScene;
@@ -103,11 +96,6 @@ void AbstractParser::setParticlesScene(ParticlesParallelScene* particlesScene)
 void AbstractParser::setMeshScene(MeshParallelScene* meshScene)
 {
     this->m_meshScene = meshScene;
-}
-
-void AbstractParser::setLightScene(LightParallelScene* lightScene)
-{
-    this->m_lightScene = lightScene;
 }
 
 void AbstractParser::setMarkScene(MapMarkParallelScene* markScene)
@@ -284,6 +272,22 @@ void AbstractParser::buildMaterial(std::string key, std::string value, Mesh* mes
             material->setTexturePart(Vector2i().fromStr(valtoken[5]), layer);
     }
 
+    else if(matattr == "shader")
+    {
+        vector<string> valtoken = tools::tokenize(value, ';');
+
+        Shader shader;
+
+        if(valtoken.size() > 0)
+            shader.loadVertexShader(tools::pathScope(m_filename, valtoken[0], true));
+        if(valtoken.size() > 1)
+            shader.loadFragmentShader(tools::pathScope(m_filename, valtoken[1], true));
+
+        shader.loadProgram();
+
+        material->setShader(shader);
+    }
+
     else
     {
         if(matattr == "cullTrick")
@@ -441,7 +445,7 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
 
     else if(iclass == "Light")
     {
-        Light* light = m_classFactory ? m_classFactory->newLight(m_lightScene) : new Light(m_lightScene);
+        Light* light = m_classFactory ? m_classFactory->newLight(m_meshScene) : new Light(m_meshScene);
 
         if(rel.attr["type"] == "Diri")
         {
@@ -487,7 +491,7 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
     }
 
     else
-        throw Exception("SceneParser::parseNode; Unknown class (%s:%d)", m_filename.c_str(), m_parseLine);
+        throw Exception("AbstractParser::parseNode; Unknown class (%s:%d)", m_filename.c_str(), m_parseLine);
 
     for(unsigned i = 0; i < rel.child.size(); i++)
         buildNode(rel.child[i], current);

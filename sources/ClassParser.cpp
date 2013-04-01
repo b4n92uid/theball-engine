@@ -136,12 +136,6 @@ void ClassParser::load(const std::string& filepath)
 
 void ClassParser::build()
 {
-    if(!m_lightScene)
-    {
-        m_lightScene = new LightParallelScene;
-        m_sceneManager->addParallelScene(m_lightScene);
-    }
-
     if(!m_meshScene)
     {
         m_meshScene = new MeshParallelScene;

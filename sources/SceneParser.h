@@ -11,7 +11,6 @@
 #include <string>
 #include <map>
 
-#include "LightParallelScene.h"
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
 #include "MapMarkParallelScene.h"
@@ -35,10 +34,10 @@ public:
     SceneParser(SceneManager* sceneManager);
     virtual ~SceneParser();
 
-    void prepare();
+    void load(const std::string& filepath);
     void build();
 
-    void load(const std::string& filepath);
+    void prepare();
     void save(const std::string& filepath);
     void save();
 
@@ -80,6 +79,13 @@ public:
 
         } skybox;
 
+        struct
+        {
+            bool enable;
+            std::string vert;
+            std::string frag;
+        } shader;
+
         std::vector<Relation> nodes;
     };
 
@@ -91,7 +97,8 @@ protected:
     void parseGeneral(AttribMap& att);
     void parseFog(AttribMap& att);
     void parseSkyBox(AttribMap& att);
-    
+    void parseShader(AttribMap& att);
+
     void checkCorrectNode(Relation& rel);
 
 protected:

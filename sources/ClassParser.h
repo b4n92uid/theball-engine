@@ -11,7 +11,6 @@
 #include <string>
 #include <map>
 
-#include "LightParallelScene.h"
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
 #include "MapMarkParallelScene.h"

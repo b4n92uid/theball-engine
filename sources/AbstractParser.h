@@ -11,7 +11,6 @@
 #include <string>
 #include <map>
 
-#include "LightParallelScene.h"
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
 #include "MapMarkParallelScene.h"
@@ -28,14 +27,25 @@ public:
     virtual ~ParserClassFactory();
 
     virtual Mesh* newMesh(MeshParallelScene* scene) = 0;
-    virtual Light* newLight(LightParallelScene* scene) = 0;
+    virtual Light* newLight(MeshParallelScene* scene) = 0;
     virtual ParticlesEmiter* newParticles(ParticlesParallelScene* scene) = 0;
     virtual MapMark* newMapMark(MapMarkParallelScene* scene) = 0;
 
-    virtual void setupMesh(Mesh* mesh){}
-    virtual void setupLight(Light* light){}
-    virtual void setupParticles(ParticlesEmiter* particles){}
-    virtual void setupMapMark(MapMark* mapmark){}
+    virtual void setupMesh(Mesh* mesh)
+    {
+    }
+
+    virtual void setupLight(Light* light)
+    {
+    }
+
+    virtual void setupParticles(ParticlesEmiter* particles)
+    {
+    }
+
+    virtual void setupMapMark(MapMark* mapmark)
+    {
+    }
 };
 
 class AbstractParser
@@ -60,9 +70,6 @@ public:
 
     void setParticlesScene(ParticlesParallelScene* particlesScene);
     ParticlesParallelScene* getParticlesScene() const;
-
-    void setLightScene(LightParallelScene* lightScene);
-    LightParallelScene* getLightScene() const;
 
     void setMarkScene(MapMarkParallelScene* markScene);
     MapMarkParallelScene* getMarkScene() const;
@@ -106,7 +113,6 @@ protected:
     void outpuNodeConstruction(Relation& rel, std::ofstream& file);
 
 protected:
-    LightParallelScene* m_lightScene;
     MeshParallelScene* m_meshScene;
     ParticlesParallelScene* m_particlesScene;
     MapMarkParallelScene* m_markScene;

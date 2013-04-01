@@ -8,14 +8,14 @@
 
 #include "Mathematics.h"
 #include "Node.h"
-#include "LightParallelScene.h"
+#include "MeshParallelScene.h"
 
 namespace tbe
 {
 namespace scene
 {
 
-class LightParallelScene;
+class LightingTechnique;
 
 /**
  * \brief Représentation d'un lumieres
@@ -30,7 +30,7 @@ public:
         DIRI,
     };
 
-    Light(LightParallelScene* scene, Type type = POINT);
+    Light(MeshParallelScene* scene, Type type = POINT);
     Light(const Light& orig);
     ~Light();
 
@@ -80,7 +80,7 @@ protected:
 
     Type m_type;
 
-    LightParallelScene* m_parallelScene;
+    MeshParallelScene* m_parallelScene;
 
 private:
     void copy(const Light& orig);
@@ -91,7 +91,7 @@ private:
 class DiriLight : public Light
 {
 public:
-    DiriLight(LightParallelScene* scene);
+    DiriLight(MeshParallelScene* scene);
 };
 
 /// \brief Lumiere pointctuelle
@@ -99,7 +99,7 @@ public:
 class PointLight : public Light
 {
 public:
-    PointLight(LightParallelScene* scene);
+    PointLight(MeshParallelScene* scene);
 };
 
 }

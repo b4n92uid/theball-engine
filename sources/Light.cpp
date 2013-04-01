@@ -6,8 +6,8 @@
  */
 
 #include "Light.h"
+
 #include "Exception.h"
-#include "LightParallelScene.h"
 #include "Tools.h"
 
 using namespace std;
@@ -16,7 +16,7 @@ using namespace tbe::scene;
 
 // Light -----------------------------------------------------------------------
 
-Light::Light(LightParallelScene* scene, Type type)
+Light::Light(MeshParallelScene* scene, Type type)
 {
     m_ambient = 0;
     m_diffuse = 1;
@@ -35,19 +35,19 @@ Light::Light(LightParallelScene* scene, Type type)
     Node::m_parallelScene = m_parallelScene = scene;
     m_sceneManager = m_parallelScene->getSceneManager();
 
-    m_parallelScene->registerNode(this);
+    m_parallelScene->registerLight(this);
 }
 
 Light::Light(const Light& orig) : Node(orig)
 {
     copy(orig);
 
-    m_parallelScene->registerNode(this);
+    m_parallelScene->registerLight(this);
 }
 
 Light::~Light()
 {
-    m_parallelScene->unregisterNode(this);
+    m_parallelScene->unregisterLight(this);
 }
 
 Light& Light::operator =(const Light& orig)
@@ -99,12 +99,7 @@ void Light::process()
 
 void Light::render()
 {
-    int lid = m_parallelScene->getNextLightID();
-
-    if(lid == -1 || !m_enable)
-        return;
-    else
-        glEnable(lid);
+    int lid = GL_LIGHT0;
 
     // set ambient color
     glLightfv(lid, GL_AMBIENT, m_ambient);
@@ -115,7 +110,7 @@ void Light::render()
     // set specular color
     glLightfv(lid, GL_SPECULAR, m_specular);
 
-    Vector3f position = getAbsoluteMatrix().getPos();
+    Vector3f position = m_matrix.getPos();
 
     switch(m_type)
     {
@@ -211,12 +206,12 @@ Node::CtorMap Light::constructionMap(std::string root)
     return ctormap;
 }
 
-DiriLight::DiriLight(LightParallelScene* scene) : Light(scene, DIRI)
+DiriLight::DiriLight(MeshParallelScene* scene) : Light(scene, DIRI)
 {
 
 }
 
-PointLight::PointLight(LightParallelScene* scene) : Light(scene, POINT)
+PointLight::PointLight(MeshParallelScene* scene) : Light(scene, POINT)
 {
 
 }

@@ -59,6 +59,12 @@ void SceneParser::prepare()
     m_mapDescriptor.skybox.left = tools::pathScope(m_filename, skytex[4].getFilename(), false);
     m_mapDescriptor.skybox.right = tools::pathScope(m_filename, skytex[5].getFilename(), false);
 
+    Shader rshade = m_meshScene->getRenderingShader();
+
+    m_mapDescriptor.shader.enable = (bool)rshade;
+    m_mapDescriptor.shader.vert = tools::pathScope(m_filename, rshade.getVertFilename(), false);
+    m_mapDescriptor.shader.frag = tools::pathScope(m_filename, rshade.getFragFilename(), false);
+
     m_mapDescriptor.ambiante = m_sceneManager->getAmbientLight();
     m_mapDescriptor.znear = m_sceneManager->getZNear();
     m_mapDescriptor.zfar = m_sceneManager->getZFar();
@@ -133,6 +139,14 @@ void SceneParser::save(const std::string& filepath)
         file << endl;
     }
 
+    if(m_mapDescriptor.shader.enable)
+    {
+        file << "*shader" << endl;
+        file << "vertex=" << m_mapDescriptor.shader.vert << endl;
+        file << "fragment=" << m_mapDescriptor.shader.frag << endl;
+        file << endl;
+    }
+
     for(unsigned i = 0; i < m_mapDescriptor.nodes.size(); i++)
         outpuNodeConstruction(m_mapDescriptor.nodes[i], file);
 
@@ -163,6 +177,9 @@ void SceneParser::clear()
     m_mapDescriptor.skybox.left.clear();
     m_mapDescriptor.skybox.right.clear();
     m_mapDescriptor.skybox.enable = false;
+    m_mapDescriptor.shader.vert.clear();
+    m_mapDescriptor.shader.frag.clear();
+    m_mapDescriptor.shader.enable = false;
     m_mapDescriptor.nodes.clear();
 }
 
@@ -243,6 +260,13 @@ void SceneParser::load(const std::string& filepath)
             parseSkyBox(rel.attr);
         }
 
+        else if(buffer == "*shader")
+        {
+            Relation rel;
+            parseBlock(file, rel);
+            parseShader(rel.attr);
+        }
+
         else if(buffer == "+node")
         {
             Relation rel;
@@ -299,6 +323,17 @@ void SceneParser::parseSkyBox(AttribMap& att)
     m_mapDescriptor.skybox.enable = true;
 }
 
+void SceneParser::parseShader(AttribMap& att)
+{
+    if(att.count("vertex"))
+        m_mapDescriptor.shader.vert = att["vertex"];
+
+    if(att.count("fragment"))
+        m_mapDescriptor.shader.frag = att["fragment"];
+
+    m_mapDescriptor.shader.enable = true;
+}
+
 void SceneParser::parseGeneral(AttribMap& att)
 {
     m_mapDescriptor.sceneName = att["name"];
@@ -331,12 +366,6 @@ void SceneParser::prepareNodeConstruction(Node* node, Relation& rel)
 
 void SceneParser::build()
 {
-    if(!m_lightScene)
-    {
-        m_lightScene = new LightParallelScene;
-        m_sceneManager->addParallelScene(m_lightScene);
-    }
-
     if(!m_meshScene)
     {
         m_meshScene = new MeshParallelScene;
@@ -384,6 +413,20 @@ void SceneParser::build()
     scene::SkyBox * sky = m_sceneManager->getSkybox();
     sky->setTextures(skytex);
     sky->setEnable(m_mapDescriptor.skybox.enable);
+
+    if(m_mapDescriptor.shader.enable)
+    {
+        Shader shader;
+
+        if(!m_mapDescriptor.shader.vert.empty())
+            shader.loadVertexShader(tools::pathScope(m_filename, m_mapDescriptor.shader.vert, true));
+        if(!m_mapDescriptor.shader.frag.empty())
+            shader.loadFragmentShader(tools::pathScope(m_filename, m_mapDescriptor.shader.frag, true));
+
+        shader.loadProgram();
+
+        m_meshScene->setRenderingShader(shader);
+    }
 
     m_sceneManager->setAmbientLight(m_mapDescriptor.ambiante);
 

@@ -6,6 +6,7 @@
  */
 
 #include "MeshParallelScene.h"
+#include "Light.h"
 #include "SceneManager.h"
 #include "Frustum.h"
 #include "Mesh.h"
@@ -23,6 +24,8 @@ MeshParallelScene::MeshParallelScene()
     m_frustumCullingCount = 0;
     m_enableFrustumTest = true;
     m_transparencySort = false;
+
+    glGetIntegerv(GL_MAX_LIGHTS, & m_maxlight);
 }
 
 MeshParallelScene::~MeshParallelScene()
@@ -35,7 +38,7 @@ struct DepthSortMeshFunc
     bool operator()(Mesh* node1, Mesh * node2)
     {
         if(node1->isTransparent() && node2->isTransparent())
-            return(node1->getAbsoluteMatrix().getPos() - camPos) > (node2->getAbsoluteMatrix().getPos() - camPos);
+            return (node1->getAbsoluteMatrix().getPos() - camPos) > (node2->getAbsoluteMatrix().getPos() - camPos);
 
         else if(node1->isTransparent() && !node2->isTransparent())
             return false;
@@ -44,7 +47,7 @@ struct DepthSortMeshFunc
             return true;
 
         else
-            return(node1->getAbsoluteMatrix().getPos() - camPos) < (node2->getAbsoluteMatrix().getPos() - camPos);
+            return (node1->getAbsoluteMatrix().getPos() - camPos) < (node2->getAbsoluteMatrix().getPos() - camPos);
     }
 
     Vector3f camPos;
@@ -66,6 +69,8 @@ void MeshParallelScene::render()
     if(m_transparencySort)
         std::sort(m_nodes.begin(), m_nodes.end(), sortFunc);
 
+    if(m_renderingShader) m_renderingShader.use(true);
+
     for(Mesh::Array::iterator it = m_nodes.begin(); it != m_nodes.end(); ++it)
     {
         Mesh* node = *it;
@@ -81,7 +86,9 @@ void MeshParallelScene::render()
 
         node->render();
         m_renderedMeshCount++;
+
     }
+    if(m_renderingShader) m_renderingShader.use(false);
 }
 
 Vector3f::Array MeshParallelScene::rayCast(Vector3f start, Vector3f dir)
@@ -219,4 +226,71 @@ unsigned MeshParallelScene::getFrustumCullingCount() const
 unsigned MeshParallelScene::getRenderedMeshCount() const
 {
     return m_renderedMeshCount;
+}
+
+void MeshParallelScene::registerLight(Light* light)
+{
+    if(std::find(m_lightNodes.begin(), m_lightNodes.end(), light) != m_lightNodes.end())
+        throw Exception("MeshParallelScene::registerLight; child already exist");
+
+    m_lightNodes.push_back(light);
+}
+
+void MeshParallelScene::unregisterLight(Light* light)
+{
+    std::vector<Light*>::iterator it = std::find(m_lightNodes.begin(), m_lightNodes.end(), light);
+
+    if(it == m_lightNodes.end())
+        throw Exception("MeshParallelScene::unregisterLight; cannot found child");
+
+    m_lightNodes.erase(it);
+}
+
+int MeshParallelScene::beginPrePassLighting(Mesh* mesh)
+{
+    glEnable(GL_LIGHT0);
+
+    m_prePassLights.clear();
+
+    for(unsigned i = 0; i < m_lightNodes.size(); i++)
+        if(m_lightNodes[i]->isAttached())
+        {
+            if(m_lightNodes[i]->getType() == Light::DIRI)
+            {
+                m_prePassLights.push_back(m_lightNodes[i]);
+            }
+
+            else if(m_lightNodes[i]->getType() == Light::POINT)
+            {
+                Vector3f dist = m_lightNodes[i]->getAbsoluteMatrix().getPos() - mesh->getAbsoluteMatrix().getPos();
+                float length = dist.getMagnitude() - m_lightNodes[i]->getRadius() - 16 - mesh->getAabb().getLength() / 2.0f;
+
+                // radius+16 = Maximum radius of a light, beyond use a directional light
+
+                if(length <= 0)
+                    m_prePassLights.push_back(m_lightNodes[i]);
+            }
+        }
+
+    return m_prePassLights.size();
+}
+
+void MeshParallelScene::prePassLighting(int i)
+{
+    m_prePassLights[i]->render();
+}
+
+void MeshParallelScene::endPrePassLighting()
+{
+    glDisable(GL_LIGHT0);
+}
+
+void MeshParallelScene::setRenderingShader(Shader renderingShader)
+{
+    this->m_renderingShader = renderingShader;
+}
+
+Shader MeshParallelScene::getRenderingShader() const
+{
+    return m_renderingShader;
 }

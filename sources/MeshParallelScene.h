@@ -16,6 +16,8 @@ namespace tbe
 namespace scene
 {
 
+class Light;
+
 /**
  * \brief Scene parallel de rendue des mailliage
  */
@@ -45,11 +47,27 @@ public:
 
     AABB getSceneAabb();
 
+    void registerLight(Light* light);
+    void unregisterLight(Light* light);
+
+    int beginPrePassLighting(Mesh* mesh);
+    void prePassLighting(int i);
+    void endPrePassLighting();
+    
+    void setRenderingShader(Shader renderingShader);
+    Shader getRenderingShader() const;
+
 private:
     unsigned m_renderedMeshCount;
     unsigned m_frustumCullingCount;
     bool m_enableFrustumTest;
     bool m_transparencySort;
+
+    Shader m_renderingShader;
+
+    std::vector<Light*> m_lightNodes;
+    std::vector<Light*> m_prePassLights;
+    int m_maxlight;
 };
 
 }

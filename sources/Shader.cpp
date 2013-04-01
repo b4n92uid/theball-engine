@@ -33,11 +33,11 @@ Shader::Shader()
 
 Shader::Shader(const Shader& copy)
 {
-    m_vert_shader = 0;
-    m_frag_shader = 0;
-    m_program = 0;
-
-    *this = copy;
+    m_vert_shader = copy.m_vert_shader;
+    m_frag_shader = copy.m_frag_shader;
+    m_program = copy.m_program;
+    m_vertFilename = copy.m_vertFilename;
+    m_fragFilename = copy.m_fragFilename;
 }
 
 Shader::~Shader()
@@ -49,6 +49,8 @@ Shader& Shader::operator=(const Shader& copy)
     m_vert_shader = copy.m_vert_shader;
     m_frag_shader = copy.m_frag_shader;
     m_program = copy.m_program;
+    m_vertFilename = copy.m_vertFilename;
+    m_fragFilename = copy.m_fragFilename;
 
     return *this;
 }
@@ -79,8 +81,8 @@ GLuint ParseShader(const string& content, GLenum type)
 
         switch(type)
         {
-            case GL_VERTEX_SHADER: ex << "Shader::LoadShader; Vertex Shader compile error" << endl << c_log;
-            case GL_FRAGMENT_SHADER: ex << "Shader::LoadShader; Fragment Shader compile error" << endl << c_log;
+        case GL_VERTEX_SHADER: ex << "Shader::LoadShader; Vertex Shader compile error" << endl << c_log;
+        case GL_FRAGMENT_SHADER: ex << "Shader::LoadShader; Fragment Shader compile error" << endl << c_log;
         }
 
         throw ex;
@@ -121,6 +123,8 @@ void Shader::loadVertexShader(std::string filepath)
     {
         throw Exception("[Vertex Shader] " + filepath + "\n" + e.what());
     }
+
+    m_vertFilename = filepath;
 }
 
 void Shader::loadFragmentShader(std::string filepath)
@@ -145,6 +149,28 @@ void Shader::loadFragmentShader(std::string filepath)
     {
         throw Exception("[Fragment Shader] " + filepath + "\n" + e.what());
     }
+
+    m_fragFilename = filepath;
+}
+
+void Shader::setVertFilename(std::string vertFilename)
+{
+    this->m_vertFilename = vertFilename;
+}
+
+std::string Shader::getVertFilename() const
+{
+    return m_vertFilename;
+}
+
+void Shader::setFragFilename(std::string fragFilename)
+{
+    this->m_fragFilename = fragFilename;
+}
+
+std::string Shader::getFragFilename() const
+{
+    return m_fragFilename;
 }
 
 void Shader::use(bool use)
@@ -211,9 +237,9 @@ void Shader::uniform(const char* name, float value)
     GLint id = glGetUniformLocation(m_program, name);
 
     if(id == -1)
-        throw tbe::Exception("Shader::SetUniform : 1f Invalid variable id (%s)", name);
-
-    glUniform1f(id, value);
+        cout << "Shader::SetUniform; Invalid variable 1f id (" << name << ")" << endl;
+    else
+        glUniform1f(id, value);
 }
 
 void Shader::uniform(const char* name, int value)
@@ -221,9 +247,9 @@ void Shader::uniform(const char* name, int value)
     GLint id = glGetUniformLocation(m_program, name);
 
     if(id == -1)
-        throw tbe::Exception("Shader::SetUniform; Invalid variable 1I id (%s)", name);
-
-    glUniform1i(id, value);
+        cout << "Shader::SetUniform; Invalid variable 1i id (" << name << ")" << endl;
+    else
+        glUniform1i(id, value);
 }
 
 void Shader::uniform(const char* name, Vector4f value)
@@ -231,9 +257,9 @@ void Shader::uniform(const char* name, Vector4f value)
     GLint id = glGetUniformLocation(m_program, name);
 
     if(id == -1)
-        throw tbe::Exception("Shader::SetUniform : 4f, Invalid variable id (%s)", name);
-
-    glUniform4f(id, value.x, value.y, value.z, value.w);
+        cout << "Shader::SetUniform; Invalid variable 4f id (" << name << ")" << endl;
+    else
+        glUniform4f(id, value.x, value.y, value.z, value.w);
 }
 
 void Shader::uniform(const char* name, Vector4i value)
@@ -241,9 +267,9 @@ void Shader::uniform(const char* name, Vector4i value)
     GLint id = glGetUniformLocation(m_program, name);
 
     if(id == -1)
-        throw tbe::Exception("Shader::SetUniform : 4i, Invalid variable id (%s)", name);
-
-    glUniform4i(id, value.x, value.y, value.z, value.w);
+        cout << "Shader::SetUniform; Invalid variable 4i id (" << name << ")" << endl;
+    else
+        glUniform4i(id, value.x, value.y, value.z, value.w);
 }
 
 void Shader::uniform(const char* name, Vector3f value)
@@ -251,9 +277,9 @@ void Shader::uniform(const char* name, Vector3f value)
     GLint id = glGetUniformLocation(m_program, name);
 
     if(id == -1)
-        throw tbe::Exception("Shader::SetUniform : 3f, Invalid variable id (%s)", name);
-
-    glUniform3f(id, value.x, value.y, value.z);
+        cout << "Shader::SetUniform; Invalid variable 3f id (" << name << ")" << endl;
+    else
+        glUniform3f(id, value.x, value.y, value.z);
 }
 
 void Shader::uniform(const char* name, Vector3i value)
@@ -261,9 +287,9 @@ void Shader::uniform(const char* name, Vector3i value)
     GLint id = glGetUniformLocation(m_program, name);
 
     if(id == -1)
-        throw tbe::Exception("Shader::SetUniform : 3i, Invalid variable id (%s)", name);
-
-    glUniform3i(id, value.x, value.y, value.z);
+        cout << "Shader::SetUniform; Invalid variable 3i id (" << name << ")" << endl;
+    else
+        glUniform3i(id, value.x, value.y, value.z);
 }
 
 void Shader::uniform(const char* name, Vector2f value)
@@ -271,9 +297,9 @@ void Shader::uniform(const char* name, Vector2f value)
     GLint id = glGetUniformLocation(m_program, name);
 
     if(id == -1)
-        throw tbe::Exception("Shader::SetUniform : 2f, Invalid variable id (%s)", name);
-
-    glUniform2f(id, value.x, value.y);
+        cout << "Shader::SetUniform; Invalid variable 2f id (" << name << ")" << endl;
+    else
+        glUniform2f(id, value.x, value.y);
 }
 
 void Shader::uniform(const char* name, Vector2i value)
@@ -281,9 +307,9 @@ void Shader::uniform(const char* name, Vector2i value)
     GLint id = glGetUniformLocation(m_program, name);
 
     if(id == -1)
-        throw tbe::Exception("Shader::SetUniform : 2i, Invalid variable id (%s)", name);
-
-    glUniform2i(id, value.x, value.y);
+        cout << "Shader::SetUniform; Invalid variable 2i id (" << name << ")" << endl;
+    else
+        glUniform2i(id, value.x, value.y);
 }
 
 bool Shader::m_hardwareSupport = false;
