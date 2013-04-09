@@ -102,12 +102,6 @@ public:
     void setShader(const Shader& shader);
     Shader getShader() const;
 
-    void setRendWithShader(bool rendWithShader);
-    bool isRendWithShader() const;
-
-    void setRendWithTexture(bool rendWithTexture);
-    bool isRendWithTexture() const;
-
     void setLineWidth(float lineWidth);
     float getLineWidth() const;
 

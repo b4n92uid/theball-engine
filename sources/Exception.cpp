@@ -10,7 +10,7 @@ Exception::Exception()
 
 Exception::Exception(std::string content, ...)
 {
-    char buffer[1024];
+    char buffer[4096];
 
     va_list list;
     va_start(list, content);
@@ -22,7 +22,7 @@ Exception::Exception(std::string content, ...)
 
 Exception::Exception(const char* content, ...)
 {
-    char buffer[1024];
+    char buffer[4096];
 
     va_list list;
     va_start(list, content);

@@ -49,6 +49,17 @@ public:
     void setAuthorName(std::string authorName);
     std::string getAuthorName() const;
 
+    void setAdditionalString(std::string key, std::string value);
+    std::string getAdditionalString(std::string key);
+
+    void removeAdditional(std::string key);
+    void clearAdditional();
+
+    template<typename T> T getAdditionalValue(std::string key);
+    template<typename T> void setAdditionalValue(std::string key, T value);
+
+    const AbstractParser::AttribMap additionalFields() const;
+
     SceneParser& exclude(Node* node);
 
     struct MapDescriptor
@@ -103,11 +114,33 @@ protected:
 
 protected:
     MapDescriptor m_mapDescriptor;
+    AttribMap m_additional;
 
 private:
     std::vector<Node*> m_archivedNodes;
     std::vector<Node*> m_excludedNodes;
 };
+
+template<typename T> T SceneParser::getAdditionalValue(std::string key)
+{
+    T value;
+
+    if(!m_additional.count(key))
+        return value;
+
+    std::stringstream ss(m_additional[key]);
+    ss >> value;
+
+    return value;
+}
+
+template<typename T> void SceneParser::setAdditionalValue(std::string key, T value)
+{
+    std::stringstream ss;
+    ss << value;
+
+    m_additional[key] = ss.str();
+}
 
 }
 }

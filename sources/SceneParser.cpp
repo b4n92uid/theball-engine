@@ -21,17 +21,11 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
-SceneParser::SceneParser()
-{
-}
+SceneParser::SceneParser() { }
 
-SceneParser::SceneParser(SceneManager* sceneManager) : AbstractParser(sceneManager)
-{
-}
+SceneParser::SceneParser(SceneManager* sceneManager) : AbstractParser(sceneManager) { }
 
-SceneParser::~SceneParser()
-{
-}
+SceneParser::~SceneParser() { }
 
 SceneParser& SceneParser::exclude(Node *node)
 {
@@ -61,7 +55,7 @@ void SceneParser::prepare()
 
     Shader rshade = m_meshScene->getRenderingShader();
 
-    m_mapDescriptor.shader.enable = (bool)rshade;
+    m_mapDescriptor.shader.enable = rshade.isEnable();
     m_mapDescriptor.shader.vert = tools::pathScope(m_filename, rshade.getVertFilename(), false);
     m_mapDescriptor.shader.frag = tools::pathScope(m_filename, rshade.getFragFilename(), false);
 
@@ -159,6 +153,7 @@ void SceneParser::clear()
 
     m_archivedNodes.clear();
     m_excludedNodes.clear();
+    m_additional.clear();
 
     m_mapDescriptor.sceneName.clear();
     m_mapDescriptor.authorName.clear();
@@ -463,6 +458,35 @@ void SceneParser::setAuthorName(std::string authorName)
 std::string SceneParser::getAuthorName() const
 {
     return m_mapDescriptor.authorName;
+}
+
+const SceneParser::AttribMap SceneParser::additionalFields() const
+{
+    return m_additional;
+}
+
+void SceneParser::clearAdditional()
+{
+    m_additional.clear();
+}
+
+void SceneParser::removeAdditional(std::string key)
+{
+    if(m_additional.count(key))
+        m_additional.erase(key);
+}
+
+std::string SceneParser::getAdditionalString(std::string key)
+{
+    if(m_additional.count(key))
+        return m_additional[key];
+    else
+        return std::string();
+}
+
+void SceneParser::setAdditionalString(std::string key, std::string value)
+{
+    m_additional[key] = value;
 }
 
 SceneParser::MapDescriptor::MapDescriptor()

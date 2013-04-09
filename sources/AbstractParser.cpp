@@ -59,7 +59,6 @@ void AbstractParser::clear()
 {
     m_version = 0.0;
     m_parseLine = 0;
-    m_additional.clear();
     m_filename.clear();
 }
 
@@ -174,35 +173,6 @@ void AbstractParser::outpuNodeConstruction(Relation& rel, std::ofstream& file)
         file << endl;
 }
 
-const AbstractParser::AttribMap AbstractParser::additionalFields() const
-{
-    return m_additional;
-}
-
-void AbstractParser::clearAdditional()
-{
-    m_additional.clear();
-}
-
-void AbstractParser::removeAdditional(std::string key)
-{
-    if(m_additional.count(key))
-        m_additional.erase(key);
-}
-
-std::string AbstractParser::getAdditionalString(std::string key)
-{
-    if(m_additional.count(key))
-        return m_additional[key];
-    else
-        return std::string();
-}
-
-void AbstractParser::setAdditionalString(std::string key, std::string value)
-{
-    m_additional[key] = value;
-}
-
 inline void toogleMaterial(Material* material, int mod, string stat)
 {
     tools::strToNum<bool>(stat)
@@ -286,6 +256,7 @@ void AbstractParser::buildMaterial(std::string key, std::string value, Mesh* mes
         shader.loadProgram();
 
         material->setShader(shader);
+        material->enable(Material::SHADER);
     }
 
     else
@@ -499,10 +470,6 @@ Node* AbstractParser::buildNode(Relation& rel, Node* parent)
     return current;
 }
 
-ParserClassFactory::ParserClassFactory()
-{
-}
+ParserClassFactory::ParserClassFactory() { }
 
-ParserClassFactory::~ParserClassFactory()
-{
-}
+ParserClassFactory::~ParserClassFactory() { }

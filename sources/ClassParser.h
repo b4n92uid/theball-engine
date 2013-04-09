@@ -44,7 +44,7 @@ public:
 
     std::string getAuthorname() const;
     std::string getClassname() const;
-    
+
     void setBuildedNode(Node* buildedNod);
     Node* getBuildedNode() const;
 
@@ -59,7 +59,7 @@ private:
 
 template<typename T> T ClassParser::getBuildedNode()
 {
-    return dynamic_cast<T>(getBuildedNode());
+    return dynamic_cast<T> (getBuildedNode());
 }
 
 }

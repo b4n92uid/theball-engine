@@ -31,21 +31,13 @@ public:
     virtual ParticlesEmiter* newParticles(ParticlesParallelScene* scene) = 0;
     virtual MapMark* newMapMark(MapMarkParallelScene* scene) = 0;
 
-    virtual void setupMesh(Mesh* mesh)
-    {
-    }
+    virtual void setupMesh(Mesh* mesh) { }
 
-    virtual void setupLight(Light* light)
-    {
-    }
+    virtual void setupLight(Light* light) { }
 
-    virtual void setupParticles(ParticlesEmiter* particles)
-    {
-    }
+    virtual void setupParticles(ParticlesEmiter* particles) { }
 
-    virtual void setupMapMark(MapMark* mapmark)
-    {
-    }
+    virtual void setupMapMark(MapMark* mapmark) { }
 };
 
 class AbstractParser
@@ -92,21 +84,10 @@ public:
         int deep;
     };
 
-    void setAdditionalString(std::string key, std::string value);
-    std::string getAdditionalString(std::string key);
-
-    void removeAdditional(std::string key);
-    void clearAdditional();
-
-    const AbstractParser::AttribMap additionalFields() const;
-
-    template<typename T> T getAdditionalValue(std::string key);
-    template<typename T> void setAdditionalValue(std::string key, T value);
-
 protected:
     bool parseBlock(std::ifstream& file, Relation& rel);
 
-    virtual Node* buildNode(Relation& att, Node* parent = NULL);
+    Node* buildNode(Relation& att, Node* parent = NULL);
     void buildMaterial(std::string key, std::string value, Mesh* mesh);
     void buildMaterial(AttribMap attr, Mesh* mesh);
 
@@ -122,34 +103,11 @@ protected:
 
     ParserClassFactory* m_classFactory;
 
-    AttribMap m_additional;
-
     float m_version;
     unsigned m_parseLine;
 
     std::string m_filename;
 };
-
-template<typename T> T AbstractParser::getAdditionalValue(std::string key)
-{
-    T value;
-
-    if(!m_additional.count(key))
-        return value;
-
-    std::stringstream ss(m_additional[key]);
-    ss >> value;
-
-    return value;
-}
-
-template<typename T> void AbstractParser::setAdditionalValue(std::string key, T value)
-{
-    std::stringstream ss;
-    ss << value;
-
-    m_additional[key] = ss.str();
-}
 
 }
 }

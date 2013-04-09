@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   ClassParser.cpp
  * Author: b4n92uid
- * 
+ *
  * Created on 21 mars 2012, 13:15
  */
 
@@ -68,14 +68,6 @@ void ClassParser::save(const std::string& filepath)
     file << "author=" << m_authorname << endl;
     file << endl;
 
-    if(m_additional.size())
-    {
-        file << "*additional" << endl;
-        for(AttribMap::iterator it = m_additional.begin(); it != m_additional.end(); it++)
-            file << it->first << "=" << it->second << endl;
-        file << endl;
-    }
-
     m_scheme.attr = m_buildedNode->constructionMap(filepath);
 
     outpuNodeConstruction(m_scheme, file);
@@ -122,7 +114,7 @@ void ClassParser::load(const std::string& filepath)
             m_authorname = rel.attr["author"];
         }
 
-        else if(buffer == "+node")
+        else if(buffer == "*class")
         {
             parseBlock(file, m_scheme);
         }
