@@ -68,11 +68,7 @@ void MapMark::render()
     // Nothging to do...
 }
 
-Node::CtorMap MapMark::constructionMap(std::string root)
+rtree MapMark::serialize(std::string root)
 {
-    Node::CtorMap ctormap = Node::constructionMap(root);
-
-    ctormap["class"] = "MapMark";
-
-    return ctormap;
+    return Node::serialize(root).put("class", "MapMark");
 }

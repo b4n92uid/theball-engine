@@ -28,9 +28,7 @@ MeshParallelScene::MeshParallelScene()
     glGetIntegerv(GL_MAX_LIGHTS, & m_maxlight);
 }
 
-MeshParallelScene::~MeshParallelScene()
-{
-}
+MeshParallelScene::~MeshParallelScene() { }
 
 struct DepthSortMeshFunc
 {
@@ -69,8 +67,6 @@ void MeshParallelScene::render()
     if(m_transparencySort)
         std::sort(m_nodes.begin(), m_nodes.end(), sortFunc);
 
-    if(m_renderingShader) m_renderingShader.use(true);
-
     for(Mesh::Array::iterator it = m_nodes.begin(); it != m_nodes.end(); ++it)
     {
         Mesh* node = *it;
@@ -88,7 +84,6 @@ void MeshParallelScene::render()
         m_renderedMeshCount++;
 
     }
-    if(m_renderingShader) m_renderingShader.use(false);
 }
 
 Vector3f::Array MeshParallelScene::rayCast(Vector3f start, Vector3f dir)
@@ -253,7 +248,7 @@ int MeshParallelScene::beginPrePassLighting(Mesh* mesh)
     m_prePassLights.clear();
 
     for(unsigned i = 0; i < m_lightNodes.size(); i++)
-        if(m_lightNodes[i]->isAttached())
+        if(m_lightNodes[i]->isAttached() && m_lightNodes[i]->isEnable())
         {
             if(m_lightNodes[i]->getType() == Light::DIRI)
             {

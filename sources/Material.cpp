@@ -20,8 +20,6 @@ Material::Material()
     m_lineWidth = 0;
     m_alphaThershold = 0;
     m_frameSortWait = 0;
-    m_tangentLocation = "tangent";
-    m_aoccLocation = "aocc";
     m_faceType = TRIANGLES;
     m_depthTest = true;
     m_depthWrite = true;
@@ -34,16 +32,11 @@ Material::Material(const Material& copy)
     *this = copy;
 }
 
-Material::~Material()
-{
-}
+Material::~Material() { }
 
 Material& Material::operator=(const Material& copy)
 {
     m_name = copy.m_name;
-
-    m_aoccLocation = copy.m_aoccLocation;
-    m_tangentLocation = copy.m_tangentLocation;
 
     m_ambient = copy.m_ambient;
     m_diffuse = copy.m_diffuse;
@@ -75,16 +68,6 @@ Material& Material::operator=(const Material& copy)
     return *this;
 }
 
-void Material::setAoccLocation(std::string aoccLocation)
-{
-    this->m_aoccLocation = aoccLocation;
-}
-
-std::string Material::getAoccLocation() const
-{
-    return m_aoccLocation;
-}
-
 void Material::setFrameSortWait(unsigned frameSortWait)
 {
     this->m_frameSortWait = frameSortWait;
@@ -95,19 +78,9 @@ unsigned Material::getFrameSortWait() const
     return m_frameSortWait;
 }
 
-void Material::setTangentLocation(std::string tangentLocation)
-{
-    this->m_tangentLocation = tangentLocation;
-}
-
-std::string Material::getTangentLocation() const
-{
-    return m_tangentLocation;
-}
-
 bool Material::isTransparent()
 {
-    return(m_renderFlags & BLEND_ADD)
+    return (m_renderFlags & BLEND_ADD)
             || (m_renderFlags & BLEND_MUL)
             || (m_renderFlags & BLEND_MOD)
             || (m_renderFlags & ALPHA);
@@ -236,7 +209,7 @@ Vector4f Material::getAmbient() const
 
 bool Material::isEnable(unsigned flag)
 {
-    return(m_renderFlags & flag);
+    return (m_renderFlags & flag);
 }
 
 void Material::enable(unsigned flag)

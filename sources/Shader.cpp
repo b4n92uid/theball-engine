@@ -29,6 +29,7 @@ Shader::Shader()
     m_vert_shader = 0;
     m_frag_shader = 0;
     m_program = 0;
+    m_enable = false;
 }
 
 Shader::Shader(const Shader& copy)
@@ -38,11 +39,11 @@ Shader::Shader(const Shader& copy)
     m_program = copy.m_program;
     m_vertFilename = copy.m_vertFilename;
     m_fragFilename = copy.m_fragFilename;
+    m_enable = copy.m_enable;
+    m_requestedUniform = copy.m_requestedUniform;
 }
 
-Shader::~Shader()
-{
-}
+Shader::~Shader() { }
 
 Shader& Shader::operator=(const Shader& copy)
 {
@@ -51,6 +52,8 @@ Shader& Shader::operator=(const Shader& copy)
     m_program = copy.m_program;
     m_vertFilename = copy.m_vertFilename;
     m_fragFilename = copy.m_fragFilename;
+    m_enable = copy.m_enable;
+    m_requestedUniform = copy.m_requestedUniform;
 
     return *this;
 }
@@ -81,8 +84,8 @@ GLuint ParseShader(const string& content, GLenum type)
 
         switch(type)
         {
-        case GL_VERTEX_SHADER: ex << "Shader::LoadShader; Vertex Shader compile error" << endl << c_log;
-        case GL_FRAGMENT_SHADER: ex << "Shader::LoadShader; Fragment Shader compile error" << endl << c_log;
+            case GL_VERTEX_SHADER: ex << "Shader::LoadShader; Vertex Shader compile error" << endl << c_log;
+            case GL_FRAGMENT_SHADER: ex << "Shader::LoadShader; Fragment Shader compile error" << endl << c_log;
         }
 
         throw ex;
@@ -175,7 +178,8 @@ std::string Shader::getFragFilename() const
 
 void Shader::use(bool use)
 {
-    glUseProgram(use ? m_program : 0);
+    if(m_enable)
+        glUseProgram(use ? m_program : 0);
 }
 
 void Shader::loadProgram()
@@ -229,12 +233,24 @@ void Shader::loadProgram()
         throw ex;
     }
 
+    m_enable = true;
+
     manager.push_back(m_program);
 }
 
-void Shader::uniform(const char* name, float value)
+void Shader::uniform(std::string name, bool value)
 {
-    GLint id = glGetUniformLocation(m_program, name);
+    GLint id = glGetUniformLocation(m_program, name.c_str());
+
+    if(id == -1)
+        cout << "Shader::SetUniform; Invalid variable 1b id (" << name << ")" << endl;
+    else
+        glUniform1i(id, value);
+}
+
+void Shader::uniform(std::string name, float value)
+{
+    GLint id = glGetUniformLocation(m_program, name.c_str());
 
     if(id == -1)
         cout << "Shader::SetUniform; Invalid variable 1f id (" << name << ")" << endl;
@@ -242,9 +258,9 @@ void Shader::uniform(const char* name, float value)
         glUniform1f(id, value);
 }
 
-void Shader::uniform(const char* name, int value)
+void Shader::uniform(std::string name, int value)
 {
-    GLint id = glGetUniformLocation(m_program, name);
+    GLint id = glGetUniformLocation(m_program, name.c_str());
 
     if(id == -1)
         cout << "Shader::SetUniform; Invalid variable 1i id (" << name << ")" << endl;
@@ -252,9 +268,9 @@ void Shader::uniform(const char* name, int value)
         glUniform1i(id, value);
 }
 
-void Shader::uniform(const char* name, Vector4f value)
+void Shader::uniform(std::string name, Vector4f value)
 {
-    GLint id = glGetUniformLocation(m_program, name);
+    GLint id = glGetUniformLocation(m_program, name.c_str());
 
     if(id == -1)
         cout << "Shader::SetUniform; Invalid variable 4f id (" << name << ")" << endl;
@@ -262,9 +278,9 @@ void Shader::uniform(const char* name, Vector4f value)
         glUniform4f(id, value.x, value.y, value.z, value.w);
 }
 
-void Shader::uniform(const char* name, Vector4i value)
+void Shader::uniform(std::string name, Vector4i value)
 {
-    GLint id = glGetUniformLocation(m_program, name);
+    GLint id = glGetUniformLocation(m_program, name.c_str());
 
     if(id == -1)
         cout << "Shader::SetUniform; Invalid variable 4i id (" << name << ")" << endl;
@@ -272,9 +288,9 @@ void Shader::uniform(const char* name, Vector4i value)
         glUniform4i(id, value.x, value.y, value.z, value.w);
 }
 
-void Shader::uniform(const char* name, Vector3f value)
+void Shader::uniform(std::string name, Vector3f value)
 {
-    GLint id = glGetUniformLocation(m_program, name);
+    GLint id = glGetUniformLocation(m_program, name.c_str());
 
     if(id == -1)
         cout << "Shader::SetUniform; Invalid variable 3f id (" << name << ")" << endl;
@@ -282,9 +298,9 @@ void Shader::uniform(const char* name, Vector3f value)
         glUniform3f(id, value.x, value.y, value.z);
 }
 
-void Shader::uniform(const char* name, Vector3i value)
+void Shader::uniform(std::string name, Vector3i value)
 {
-    GLint id = glGetUniformLocation(m_program, name);
+    GLint id = glGetUniformLocation(m_program, name.c_str());
 
     if(id == -1)
         cout << "Shader::SetUniform; Invalid variable 3i id (" << name << ")" << endl;
@@ -292,9 +308,9 @@ void Shader::uniform(const char* name, Vector3i value)
         glUniform3i(id, value.x, value.y, value.z);
 }
 
-void Shader::uniform(const char* name, Vector2f value)
+void Shader::uniform(std::string name, Vector2f value)
 {
-    GLint id = glGetUniformLocation(m_program, name);
+    GLint id = glGetUniformLocation(m_program, name.c_str());
 
     if(id == -1)
         cout << "Shader::SetUniform; Invalid variable 2f id (" << name << ")" << endl;
@@ -302,9 +318,9 @@ void Shader::uniform(const char* name, Vector2f value)
         glUniform2f(id, value.x, value.y);
 }
 
-void Shader::uniform(const char* name, Vector2i value)
+void Shader::uniform(std::string name, Vector2i value)
 {
-    GLint id = glGetUniformLocation(m_program, name);
+    GLint id = glGetUniformLocation(m_program, name.c_str());
 
     if(id == -1)
         cout << "Shader::SetUniform; Invalid variable 2i id (" << name << ")" << endl;
@@ -329,4 +345,24 @@ bool Shader::checkHardware()
 void Shader::forceHardware(bool enable)
 {
     m_hardwareSupport = enable;
+}
+
+void Shader::setRequestedUniform(std::string what, std::string var)
+{
+    this->m_requestedUniform[what] = var;
+}
+
+const Shader::UniformMap& Shader::getRequestedUniform()
+{
+    return m_requestedUniform;
+}
+
+void Shader::setEnable(bool enable)
+{
+    this->m_enable = enable;
+}
+
+bool Shader::isEnable() const
+{
+    return m_enable;
 }

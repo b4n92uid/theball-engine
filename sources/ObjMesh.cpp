@@ -7,9 +7,7 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
-OBJMesh::OBJMesh(MeshParallelScene* scene) : Mesh(scene), m_mtlfile(this)
-{
-}
+OBJMesh::OBJMesh(MeshParallelScene* scene) : Mesh(scene), m_mtlfile(this) { }
 
 OBJMesh::OBJMesh(MeshParallelScene* scene, const std::string& path) : Mesh(scene), m_mtlfile(this)
 {
@@ -41,9 +39,7 @@ OBJMesh* OBJMesh::clone()
     return new OBJMesh(*this);
 }
 
-OBJMesh::~OBJMesh()
-{
-}
+OBJMesh::~OBJMesh() { }
 
 void OBJMesh::open(const std::string& path)
 {
@@ -104,7 +100,7 @@ void OBJMesh::open(const std::string& path)
 
         if(opcode == "mtllib")
         {
-            string mtlFilename = tools::pathScope(m_filename, value, true);
+            string mtlFilename = tools::resolvePath(value, m_filename);
             m_mtlfile.open(mtlFilename);
         }
 
@@ -249,15 +245,15 @@ std::string OBJMesh::getFilename() const
     return m_filename;
 }
 
-Node::CtorMap OBJMesh::constructionMap(std::string root)
+rtree OBJMesh::serialize(std::string root)
 {
-    Node::CtorMap ctormap = Mesh::constructionMap(root);
+    using boost::filesystem::absolute;
+    rtree scheme = Mesh::serialize(root);
 
-    ctormap["class"] = "OBJMesh";
+    scheme.put("class.format", "obj");
+    scheme.put("class.path", absolute(m_filename, root));
 
-    ctormap["filename"] = tools::pathScope(root, m_filename, false);
-
-    return ctormap;
+    return scheme;
 }
 
 std::vector<std::string> OBJMesh::getUsedRessources()
@@ -286,9 +282,7 @@ MTLFile::MTLFile(OBJMesh* parent, const std::string & path)
     open(path);
 }
 
-MTLFile::~MTLFile()
-{
-}
+MTLFile::~MTLFile() { }
 
 MTLFile::MTLFile(const MTLFile& copy)
 {
@@ -380,7 +374,7 @@ void MTLFile::open(const std::string& path)
 
         else if(opcode == "map_Kd")
         {
-            string texturepath = tools::pathScope(path, arg, true);
+            string texturepath = tools::resolvePath(arg, path);
 
             try
             {

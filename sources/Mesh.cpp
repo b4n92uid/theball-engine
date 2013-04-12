@@ -11,6 +11,10 @@
 #include "MeshParallelScene.h"
 #include "Tools.h"
 
+#include <boost/function.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
+
 using namespace tbe;
 using namespace tbe::scene;
 using namespace std;
@@ -48,9 +52,6 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_outputMaterial = false;
     m_billBoard = false;
     m_requestVertexRestore = false;
-
-    m_tangentAttribIndex = -1;
-    m_aoccAttribIndex = -1;
 
     Node::m_parallelScene = m_parallelScene = scene;
 
@@ -256,10 +257,7 @@ void Mesh::computeTangent()
     m_hardwareBuffer->unlock().unbindBuffer();
 }
 
-void Mesh::computeAocc()
-{
-
-}
+void Mesh::computeAocc() { }
 
 struct TriangleFace
 {
@@ -283,12 +281,90 @@ struct DepthSortVertexFunc
     Vector3f meshPos;
 };
 
-void Mesh::beginRenderingMaterials(Material* material, unsigned offset, unsigned count)
+struct ShaderBind
 {
+    Material* material;
+
+    ShaderBind(Material* material)
+    {
+        this->material = material;
+    }
+
+    void bindLighted(std::string location)
+    {
+        material->getShader().uniform(location, material->isEnable(Material::LIGHTED));
+    }
+
+    void bindFoged(std::string location)
+    {
+        material->getShader().uniform(location, material->isEnable(Material::FOGED));
+    }
+
+    void bindTextured(std::string location)
+    {
+        material->getShader().uniform(location, material->isEnable(Material::TEXTURED));
+    }
+
+    void bindColored(std::string location)
+    {
+        material->getShader().uniform(location, material->isEnable(Material::COLORED));
+    }
+
+    void assignExp(string location, string exp)
+    {
+        using namespace boost;
+
+        if(isdigit(exp[0]) && iends_with(exp, "i"))
+            material->getShader().uniform(location, lexical_cast<int>(exp.data(), exp.size() - 1));
+        if(isdigit(exp[0]) && iends_with(exp, "f"))
+            material->getShader().uniform(location, lexical_cast<float>(exp.data(), exp.size() - 1));
+        else
+        {
+            map<string, function<void (string) > > callmap;
+            callmap["lighted"] = boost::bind(&ShaderBind::bindLighted, this, _1);
+            callmap["foged"] = boost::bind(&ShaderBind::bindFoged, this, _1);
+            callmap["textured"] = boost::bind(&ShaderBind::bindTextured, this, _1);
+            callmap["colored"] = boost::bind(&ShaderBind::bindColored, this, _1);
+
+            if(callmap.count(exp))
+                callmap[exp](location);
+        }
+
+    }
+};
+
+void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned count)
+{
+    using namespace boost;
+
     glPushAttrib(GL_ENABLE_BIT);
 
     unsigned vertexCount = m_hardwareBuffer->getVertexCount();
-    Shader rshade = m_parallelScene->getRenderingShader();
+
+    if(material->m_renderFlags & Material::SHADER)
+    {
+        ShaderBind callbind(material);
+
+        const Shader::UniformMap& umap = material->m_shader.getRequestedUniform();
+
+        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
+        {
+            if(u.second == "tangent")
+            {
+                GLuint index = glGetAttribLocation(material->m_shader, u.first.c_str());
+                m_hardwareBuffer->bindTangent(true, index);
+            }
+
+            else if(u.second == "aocc")
+            {
+                GLuint index = glGetAttribLocation(material->m_shader, u.first.c_str());
+                m_hardwareBuffer->bindAocc(true, index);
+            }
+
+            else
+                callbind.assignExp(u.first, u.second);
+        }
+    }
 
     if(material->m_renderFlags & Material::TEXTURED)
     {
@@ -375,19 +451,21 @@ void Mesh::beginRenderingMaterials(Material* material, unsigned offset, unsigned
             unsigned multexb = texApply[itt->first].blend;
 
             if(multexb == Material::REPLACE)
+            {
                 glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+            }
 
             else if(multexb == Material::ADDITIVE)
+            {
                 glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
+            }
 
             else if(multexb == Material::MODULATE)
+            {
                 glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+            }
         }
-
-        if(rshade)rshade.uniform("GL_TEXTURE", 1);
     }
-    else
-        if(rshade)rshade.uniform("GL_TEXTURE", 0);
 
     if(material->m_renderFlags & Material::LIGHTED)
     {
@@ -416,11 +494,7 @@ void Mesh::beginRenderingMaterials(Material* material, unsigned offset, unsigned
             glEnable(GL_RESCALE_NORMAL);
         else
             glDisable(GL_RESCALE_NORMAL);
-
-        if(rshade)rshade.uniform("GL_LIGHTING", 1);
     }
-    else
-        if(rshade)rshade.uniform("GL_LIGHTING", 0);
 
     if(material->m_renderFlags & Material::COLORED)
     {
@@ -441,46 +515,11 @@ void Mesh::beginRenderingMaterials(Material* material, unsigned offset, unsigned
 
             m_hardwareBuffer->unlock();
         }
-
-        if(rshade)rshade.uniform("GL_COLORED", 1);
     }
-    else
-        if(rshade)rshade.uniform("GL_COLORED", 0);
-
-
-    if(material->m_renderFlags & Material::SHADER)
-    {
-        // Tangent
-        if(material->m_renderFlags & Material::TANGENT)
-        {
-            m_tangentAttribIndex = glGetAttribLocation(material->m_shader, material->m_tangentLocation.c_str());
-
-            if(m_tangentAttribIndex == -1)
-                throw Exception("Mesh::render; [%s] Invalid tangent location (%s)", m_name.c_str(), material->m_tangentLocation.c_str());
-
-            m_hardwareBuffer->bindTangent(true, m_tangentAttribIndex);
-        }
-
-        // Amobient occlusion
-        if(material->m_renderFlags & Material::AOCC)
-        {
-            m_aoccAttribIndex = glGetAttribLocation(material->m_shader, material->m_aoccLocation.c_str());
-
-            if(m_aoccAttribIndex == -1)
-                throw Exception("Mesh::render; [%s] Invalid tangent location (%s)", m_name.c_str(), material->m_aoccLocation.c_str());
-
-            m_hardwareBuffer->bindAocc(true, m_aoccAttribIndex);
-        }
-
-        material->m_shader.use(true);
-    }
-
 }
 
-void Mesh::setupMaterialsProperty(Material* material, unsigned offset, unsigned count)
+void Mesh::beginRenderingProperty(Material* material, unsigned offset, unsigned count)
 {
-    Shader rshade = m_parallelScene->getRenderingShader();
-
     if(material->m_depthTest)
         glEnable(GL_DEPTH_TEST);
     else
@@ -503,10 +542,7 @@ void Mesh::setupMaterialsProperty(Material* material, unsigned offset, unsigned 
     if(glIsEnabled(GL_FOG) && !(material->m_renderFlags & Material::FOGED))
     {
         glDisable(GL_FOG);
-        if(rshade) rshade.uniform("GL_FOG", 0);
     }
-    else
-        if(rshade) rshade.uniform("GL_FOG", 1);
 
     if(material->m_lineWidth)
         glLineWidth(material->m_lineWidth);
@@ -572,7 +608,7 @@ void Mesh::setupMaterialsProperty(Material* material, unsigned offset, unsigned 
 
 }
 
-void Mesh::unsetupMaterialsProperty(Material* material, unsigned offset, unsigned count)
+void Mesh::endRenderingProperty(Material* material, unsigned offset, unsigned count)
 {
     if(material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
     {
@@ -586,18 +622,12 @@ void Mesh::unsetupMaterialsProperty(Material* material, unsigned offset, unsigne
     }
 }
 
-void Mesh::endRenderingMaterials(Material* material, unsigned offset, unsigned count)
+void Mesh::endRenderingBuffer(Material* material, unsigned offset, unsigned count)
 {
     if(material->m_renderFlags & Material::SHADER)
     {
-        if(material->m_renderFlags & Material::TANGENT)
-            m_hardwareBuffer->bindTangent(false, m_tangentAttribIndex);
-
-        if(material->m_renderFlags & Material::AOCC)
-            m_hardwareBuffer->bindAocc(false, m_aoccAttribIndex);
-
-
-        material->m_shader.use(false);
+        // m_hardwareBuffer->bindTangent(false, m_tangentAttribIndex);
+        // m_hardwareBuffer->bindAocc(false, m_aoccAttribIndex);
     }
 
     if(material->m_renderFlags & Material::TEXTURED)
@@ -675,53 +705,36 @@ void Mesh::endRenderingMatrix()
 
 void Mesh::render(Material* material, unsigned offset, unsigned count)
 {
-    Shader rshade = m_parallelScene->getRenderingShader();
+    beginRenderingBuffer(material, offset, count);
 
-    beginRenderingMaterials(material, offset, count);
-
-    setupMaterialsProperty(material, offset, count);
     beginRenderingMatrix();
+    beginRenderingProperty(material, offset, count);
 
-    // Rendue ------------------------------------------------------------------
-
-    //    if(material->m_drawPass > 1)
-    //    {
-    //        int _count = count / material->m_drawPass;
-    //
-    //        for(unsigned i = 0; i < material->m_drawPass - 1; i++)
-    //        {
-    //            int _offset = offset + (i * _count);
-    //
-    //            m_hardwareBuffer->render(material->m_faceType, _offset, _count);
-    //        }
-    //
-    //        int rest = count % material->m_drawPass;
-    //
-    //        if(rest > 0)
-    //            m_hardwareBuffer->render(material->m_faceType, offset + count - rest, rest);
-    //        else
-    //            m_hardwareBuffer->render(material->m_faceType, offset + count - _count, _count);
-    //    }
-    //    else
-    //    {
-    //        m_hardwareBuffer->render(material->m_faceType, offset, count);
-    //    }
-
-    if(rshade)
+    if(!(material->m_renderFlags & Material::LIGHTED))
     {
-        rshade.uniform("GL_AMBIENT", 1);
-        rshade.uniform("GL_LIGHT", 0);
+        if(material->m_shader.isEnable())
+            material->m_shader.use(true);
+
+        m_hardwareBuffer->render(material->m_faceType, offset, count);
     }
 
-    m_hardwareBuffer->render(material->m_faceType, offset, count);
+    else
+    {
+        // Disable or use default shader for only scene ambient light
 
+        m_hardwareBuffer->render(material->m_faceType, offset, count);
+    }
+
+    endRenderingProperty(material, offset, count);
     endRenderingMatrix();
-    unsetupMaterialsProperty(material, offset, count);
 
     // Forward Rendering -------------------------------------------------------
 
     if(material->m_renderFlags & Material::LIGHTED)
     {
+        if(material->m_shader.isEnable())
+            material->m_shader.use(true);
+
         glEnable(GL_BLEND);
 
         glEnable(GL_CULL_FACE);
@@ -734,12 +747,6 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         Vector4f globalAmbient = m_sceneManager->getAmbientLight();
 
         m_sceneManager->setAmbientLight(0);
-
-        if(rshade)
-        {
-            rshade.uniform("GL_AMBIENT", 0);
-            rshade.uniform("GL_LIGHT", 1);
-        }
 
         int lightCount = m_parallelScene->beginPrePassLighting(this);
 
@@ -755,9 +762,12 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
         m_parallelScene->endPrePassLighting();
 
         m_sceneManager->setAmbientLight(globalAmbient);
+
+        if(material->m_shader.isEnable())
+            material->m_shader.use(false);
     }
 
-    endRenderingMaterials(material, offset, count);
+    endRenderingBuffer(material, offset, count);
 }
 
 void Mesh::render()
@@ -1062,70 +1072,106 @@ bool Mesh::isVisible() const
     return m_visible;
 }
 
-Mesh::CtorMap Mesh::outputMaterial(std::string root)
+rtree Mesh::serializeMaterial(std::string root)
 {
-    CtorMap ctormap;
+    rtree scheme;
 
     for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); it++)
     {
-        ctormap[it->first + ":alphaThershold"] = tools::numToStr(it->second->m_alphaThershold);
-        ctormap[it->first + ":blendMod"] = tools::numToStr(it->second->isEnable(Material::BLEND_MOD));
-        ctormap[it->first + ":color"] = tools::numToStr(it->second->m_color);
-        ctormap[it->first + ":cullTrick"] = tools::numToStr(it->second->isEnable(Material::VERTEX_SORT_CULL_TRICK));
-        ctormap[it->first + ":blendMul"] = tools::numToStr(it->second->isEnable(Material::BLEND_MUL));
-        ctormap[it->first + ":blendAdd"] = tools::numToStr(it->second->isEnable(Material::BLEND_ADD));
-        ctormap[it->first + ":alpha"] = tools::numToStr(it->second->isEnable(Material::ALPHA));
-        ctormap[it->first + ":frontFaceCull"] = tools::numToStr(it->second->isEnable(Material::FRONTFACE_CULL));
-        ctormap[it->first + ":backFaceCull"] = tools::numToStr(it->second->isEnable(Material::BACKFACE_CULL));
-        ctormap[it->first + ":lighted"] = tools::numToStr(it->second->isEnable(Material::LIGHTED));
-        ctormap[it->first + ":textured"] = tools::numToStr(it->second->isEnable(Material::TEXTURED));
-        ctormap[it->first + ":colored"] = tools::numToStr(it->second->isEnable(Material::COLORED));
+        rtree matscheme;
+
+        matscheme.put_value(it->first);
+
+        matscheme.put("alpha", it->second->isEnable(Material::ALPHA));
+        matscheme.put("alphaThershold", it->second->m_alphaThershold);
+
+        if(it->second->isEnable(Material::BLEND_MOD))
+            matscheme.put("blendMod", "modulate");
+        else if(it->second->isEnable(Material::BLEND_ADD))
+            matscheme.put("blendMod", "additive");
+        else if(it->second->isEnable(Material::BLEND_MUL))
+            matscheme.put("blendMod", "multiplty");
+
+        matscheme.put("color", it->second->m_color);
+        matscheme.put("cullTrick", it->second->isEnable(Material::VERTEX_SORT_CULL_TRICK));
+
+        if(it->second->isEnable(Material::FRONTFACE_CULL))
+            matscheme.put("faceCull", "front");
+        if(it->second->isEnable(Material::BACKFACE_CULL))
+            matscheme.put("faceCull", "back");
+
+        matscheme.put("lighted", it->second->isEnable(Material::LIGHTED));
+        matscheme.put("textured", it->second->isEnable(Material::TEXTURED));
+        matscheme.put("colored", it->second->isEnable(Material::COLORED));
+
+        if(it->second->isEnable(Material::SHADER))
+        {
+            Shader shade = it->second->m_shader;
+
+            matscheme.put("shader.vertex", tools::relativizePath(shade.getVertFilename(), root));
+            matscheme.put("shader.fragment", tools::relativizePath(shade.getFragFilename(), root));
+
+            rtree bindtree;
+
+            const Shader::UniformMap& umap = shade.getRequestedUniform();
+
+            BOOST_FOREACH(Shader::UniformMap::value_type v, umap)
+            {
+                bindtree.put(v.first, v.second);
+            }
+
+            matscheme.put_child("shader.bind", bindtree);
+        }
 
         unsigned txcount = it->second->getTexturesCount();
 
         for(unsigned i = 0; i < txcount; i++)
         {
-            string key = it->first + ":texture:" + tools::numToStr(i);
+            rtree texscheme;
 
             Texture tex = it->second->getTexture(i);
 
-            ctormap[key] = tools::pathScope(root, tex.getFilename(), false);
-            ctormap[key] += ";";
+            texscheme.put("path", tools::relativizePath(tex.getFilename(), root));
 
             unsigned blend = it->second->m_texApply[i].blend;
 
             if(blend == Material::MODULATE)
-                ctormap[key] += "modulate";
+                texscheme.put("blend", "modulate");
             if(blend == Material::ADDITIVE)
-                ctormap[key] += "additive";
+                texscheme.put("blend", "additive");
             if(blend == Material::REPLACE)
-                ctormap[key] += "replace";
+                texscheme.put("blend", "replace");
 
-            ctormap[key] += ";" + tools::numToStr(it->second->m_texApply[i].clipped);
-            ctormap[key] += ";" + tools::numToStr(it->second->m_texApply[i].animation);
-            ctormap[key] += ";" + it->second->m_texApply[i].frameSize.toStr();
-            ctormap[key] += ";" + it->second->m_texApply[i].part.toStr();
+            matscheme.put_child("texture", texscheme);
         }
+
+        scheme.add_child("pass", matscheme);
     }
 
-    return ctormap;
+    return scheme;
 }
 
-Node::CtorMap Mesh::constructionMap(std::string root)
+rtree Mesh::serialize(std::string root)
 {
-    Node::CtorMap ctormap = Node::constructionMap(root);
+    rtree scheme = Node::serialize(root);
 
-    ctormap["billBoarding"] = m_billBoard.toStr();
+    scheme.put("class", "Mesh");
+    scheme.put("class.billBoarding", m_billBoard.toStr());
+
+    if(scheme.get_child("class").count("path"))
+    {
+        string path = scheme.get<string>("class.path");
+        path = tools::relativizePath(path, root);
+        scheme.put("class.path", path);
+    }
 
     if(m_outputMaterial)
     {
-        Node::CtorMap matctor = outputMaterial(root);
-
-        for(Node::CtorMap::iterator itm = matctor.begin(); itm != matctor.end(); itm++)
-            ctormap["!" + itm->first] = itm->second;
+        rtree matscheme = serializeMaterial(root);
+        scheme.put_child("material", matscheme);
     }
 
-    return ctormap;
+    return scheme;
 }
 
 void Mesh::setBillBoard(Vector2b billBoard)

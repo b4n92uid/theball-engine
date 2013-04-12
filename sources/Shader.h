@@ -2,7 +2,9 @@
 #define ShaderFile
 
 #include "GLee.h"
+
 #include <map>
+#include <boost/optional.hpp>
 
 #include "Mathematics.h"
 
@@ -48,41 +50,32 @@ public:
      */
     void use(bool use = true);
 
+    /// Transmet une variable au shader de type bool
+    void uniform(std::string name, bool value);
+
     /// Transmet une variable au shader de type int
-    void uniform(const char* name, int value);
+    void uniform(std::string name, int value);
 
     /// Transmet une variable au shader de type float
-    void uniform(const char* name, float value);
+    void uniform(std::string name, float value);
 
     /// Transmet une variable au shader de type Vector3f
-    void uniform(const char* name, Vector3f value);
+    void uniform(std::string name, Vector3f value);
 
     /// Transmet une variable au shader de type Vector3i
-    void uniform(const char* name, Vector3i value);
+    void uniform(std::string name, Vector3i value);
 
     /// Transmet une variable au shader de type Vector4f
-    void uniform(const char* name, Vector4f value);
+    void uniform(std::string name, Vector4f value);
 
     /// Transmet une variable au shader de type Vector4i
-    void uniform(const char* name, Vector4i value);
+    void uniform(std::string name, Vector4i value);
 
     /// Transmet une variable au shader de type Vector2f
-    void uniform(const char* name, Vector2f value);
+    void uniform(std::string name, Vector2f value);
 
     /// Transmet une variable au shader de type Vector2i
-    void uniform(const char* name, Vector2i value);
-
-    /// Verification de statue, renvois true si un program est bien charger
-
-    bool operator!()
-    {
-        return m_program;
-    }
-
-    operator bool()
-    {
-        return m_program;
-    }
+    void uniform(std::string name, Vector2i value);
 
     /// Récuperation d'identifiant OpenGL
 
@@ -96,6 +89,14 @@ public:
 
     void setFragFilename(std::string fragFilename);
     std::string getFragFilename() const;
+
+    void setEnable(bool enable);
+    bool isEnable() const;
+
+    typedef std::map<std::string, std::string> UniformMap;
+
+    void setRequestedUniform(std::string what, std::string var);
+    const UniformMap& getRequestedUniform();
 
     /**
      * Cette fonction vérifie si le materiel actuelle supporte l'utilisation
@@ -115,9 +116,12 @@ protected:
     GLuint m_program;
     GLuint m_frag_shader;
     GLuint m_vert_shader;
+    bool m_enable;
 
     std::string m_fragFilename;
     std::string m_vertFilename;
+
+    UniformMap m_requestedUniform;
 
 private:
     static bool m_hardwareSupport;

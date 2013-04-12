@@ -11,6 +11,7 @@
 #include "Node.h"
 #include "Material.h"
 
+#include <boost/filesystem.hpp>
 
 namespace tbe
 {
@@ -132,7 +133,8 @@ public:
     /// Renvois le buffer graphique de rendue
     HardwareBuffer* getHardwareBuffer() const;
 
-    CtorMap constructionMap(std::string root);
+    rtree serialize(std::string root);
+    rtree serializeMaterial(std::string root);
 
     void generateMulTexCoord();
 
@@ -160,9 +162,6 @@ public:
     void requestVertexRestore(bool requestVertexRestore = true);
 
 protected:
-    CtorMap outputMaterial(std::string root);
-
-protected:
     bool m_triangulate;
     bool m_withNormal;
     bool m_withTexCoord;
@@ -177,10 +176,10 @@ protected:
     MeshParallelScene* m_parallelScene;
 
 private:
-    void beginRenderingMaterials(Material* material, unsigned, unsigned);
-    void setupMaterialsProperty(Material* material, unsigned, unsigned);
-    void unsetupMaterialsProperty(Material* material, unsigned, unsigned);
-    void endRenderingMaterials(Material* material, unsigned, unsigned);
+    void beginRenderingBuffer(Material* material, unsigned, unsigned);
+    void beginRenderingProperty(Material* material, unsigned, unsigned);
+    void endRenderingProperty(Material* material, unsigned, unsigned);
+    void endRenderingBuffer(Material* material, unsigned, unsigned);
     
     void beginRenderingMatrix();
     void endRenderingMatrix();
@@ -206,9 +205,6 @@ private:
     Material::Map m_materials;
 
     Mesh& copy(const Mesh& copy);
-
-    GLint m_tangentAttribIndex;
-    GLint m_aoccAttribIndex;
 };
 
 }

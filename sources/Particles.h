@@ -111,7 +111,7 @@ public:
     void setBrustCount(int brustCount);
     int getBrustCount() const;
 
-    CtorMap constructionMap(std::string root);
+    rtree serialize(std::string root);
 
     std::vector<std::string> getUsedRessources();
 

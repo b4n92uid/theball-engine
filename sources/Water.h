@@ -73,7 +73,7 @@ public:
     void setUvRepeat(Vector2f uvRepeat);
     Vector2f getUvRepeat() const;
 
-    CtorMap constructionMap(std::string root);
+    rtree serialize(std::string root);
 
     typedef std::vector<Water*> Array;
 

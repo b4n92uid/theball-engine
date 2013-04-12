@@ -7,6 +7,10 @@
 #include <vector>
 #include <map>
 
+#include <boost/foreach.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/filesystem.hpp>
+
 #include "Mathematics.h"
 #include "Any.h"
 #include "AABB.h"
@@ -21,6 +25,10 @@ namespace scene
 
 class ParallelScene;
 class SceneManager;
+
+typedef boost::property_tree::ptree rtree;
+typedef boost::filesystem::path fspath;
+typedef std::map<std::string, std::string> strmap;
 
 /**
  * \brief Class de base pour la représentation d'une entité
@@ -123,19 +131,16 @@ public:
     void setUserData(std::string key, Any value);
     Any getUserData(std::string key) const;
 
-    void delUserData(std::string key);
-
-    void clearUserData();
-
     bool hasUserData(std::string key) const;
+
+    void delUserData(std::string key);
+    void clearUserData();
 
     const Any::Map getUserDatas() const;
 
-    typedef std::map<std::string, std::string> CtorMap;
+    void addSerializeValue(std::string key, std::string value);
 
-    void addToConstructionMap(std::string name, std::string value);
-
-    virtual CtorMap constructionMap(std::string root);
+    virtual rtree serialize(std::string root);
 
     virtual std::vector<std::string> getUsedRessources();
 
@@ -157,9 +162,9 @@ protected:
     Node* m_parent;
     Node::Array m_childs;
 
-    Any::Map m_userDatas;
+    strmap m_serializeValue;
 
-    CtorMap m_addtionalCtorMap;
+    Any::Map m_userDatas;
 
 private:
     Node& copy(const Node& copy);
@@ -181,18 +186,13 @@ class BullNode : public Node
         for_each(m_childs.begin(), m_childs.end(), std::mem_fun(&Node::process));
     }
 
-    void render()
-    {
+    void render() {
         // Nothging to do...
     }
 
-    Node::CtorMap constructionMap(std::string root)
+    rtree serialize(std::string root)
     {
-        Node::CtorMap ctormap = Node::constructionMap(root);
-
-        ctormap["class"] = "BullNode";
-
-        return ctormap;
+        return Node::serialize(root).put("class", "BullNode");
     }
 };
 

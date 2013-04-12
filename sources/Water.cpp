@@ -153,9 +153,7 @@ Water::Water(WaterParallelScene* scene)
     m_parallelScene->registerNode(this);
 }
 
-Water::~Water()
-{
-}
+Water::~Water() { }
 
 Water::Water(const Water& copy)
 {
@@ -367,7 +365,7 @@ void Water::render()
     m_buffer.bindTexture();
 
     m_shader.use(true);
-    m_shader.uniform("timer", (float)(clock() * 0.001f));
+    m_shader.uniform("timer", (float) (clock() * 0.001f));
 
     glClientActiveTexture(GL_TEXTURE0);
     glActiveTexture(GL_TEXTURE0);
@@ -450,18 +448,18 @@ Vector2f Water::getSize() const
     return m_size;
 }
 
-Node::CtorMap Water::constructionMap(std::string root)
+rtree Water::serialize(std::string root)
 {
-    Node::CtorMap ctormap = Node::constructionMap(root);
+    rtree scheme = Node::serialize(root);
 
-    ctormap["class"] = "Water";
+    //    ctormap["class"] = "Water";
+    //
+    //    ctormap["normalMap"] = tools::pathScope(root, m_normalMap.getFilename(), false);
+    //    ctormap["size"] = tools::numToStr(m_size);
+    //    ctormap["speed"] = tools::numToStr(m_speed);
+    //    ctormap["deform"] = tools::numToStr(m_deform);
+    //    ctormap["blend"] = tools::numToStr(m_blend);
+    //    ctormap["uvRepeat"] = tools::numToStr(m_uvRepeat);
 
-    ctormap["normalMap"] = tools::pathScope(root, m_normalMap.getFilename(), false);
-    ctormap["size"] = tools::numToStr(m_size);
-    ctormap["speed"] = tools::numToStr(m_speed);
-    ctormap["deform"] = tools::numToStr(m_deform);
-    ctormap["blend"] = tools::numToStr(m_blend);
-    ctormap["uvRepeat"] = tools::numToStr(m_uvRepeat);
-
-    return ctormap;
+    return scheme;
 }

@@ -227,7 +227,7 @@ template<typename T1> void var_dump_print(const T1& var, const char* name, int l
 {
     using namespace std;
 
-    cout << typeid(var).name() << "(" << name << ")@" << strrchr(file, '/') << ":" << line << endl;
+    cout << typeid (var).name() << "(" << name << ")@" << strrchr(file, '/') << ":" << line << endl;
 
     cout << var << endl;
 }
@@ -260,10 +260,66 @@ template<typename T1> void var_dump_print(const std::vector<T1>& stdvec, const c
 inline bool isAbsoloutPath(std::string path)
 {
     #ifdef __WIN32__
-    return(path.size() > 2 ? path[1] == ':' : false);
+    return (path.size() > 2 ? path[1] == ':' : false);
     #else
-    return(path.size() > 0 ? path[0] == '/' : false);
+    return (path.size() > 0 ? path[0] == '/' : false);
     #endif
+}
+
+inline std::vector<std::string> pathCompnenets(std::string path)
+{
+    std::vector<std::string> comp;
+
+    unsigned sc = 0;
+
+    for(unsigned i = 0; i < path.size(); i++)
+    {
+        if(path[i] == '/')
+        {
+            comp.push_back(path.substr(sc, i - sc));
+            sc = i + 1;
+        }
+    }
+
+    comp.push_back(path.substr(sc));
+
+    return comp;
+}
+
+inline std::string relativizePath(std::string path, std::string base)
+{
+    using namespace std;
+
+    if(!isAbsoloutPath(path))
+        return path;
+
+    vector<string> abscomp = pathCompnenets(toSlashSeprator(base));
+    vector<string> relcomp = pathCompnenets(toSlashSeprator(path));
+
+    abscomp.pop_back();
+
+    string out;
+
+    bool done = false;
+
+    for(unsigned i = 0; i < abscomp.size(); i++)
+    {
+        if(abscomp[i] != relcomp[i])
+        {
+            relcomp.erase(relcomp.begin(), relcomp.begin() + i);
+            if(isAbsoloutPath(path))
+                relcomp.insert(relcomp.begin(), abscomp.size() - i, "..");
+            done = true;
+            break;
+        }
+    }
+
+    if(!done)
+        relcomp.erase(relcomp.begin(), relcomp.begin() + abscomp.size());
+
+    out = joinstr(relcomp, '/');
+
+    return out;
 }
 
 /**
@@ -274,90 +330,30 @@ inline bool isAbsoloutPath(std::string path)
  * @param relfile
  * @return
  */
-inline std::string pathScope(std::string absfile, std::string relfile, bool absoluteOut)
+inline std::string resolvePath(std::string path, std::string base)
 {
     using namespace std;
 
-    absfile = toSlashSeprator(absfile);
-    relfile = toSlashSeprator(relfile);
+    if(isAbsoloutPath(path))
+        return path;
 
-    vector<string> abscomp;
-    vector<string> relcomp;
-
-    unsigned sc = 0;
-
-    for(unsigned i = 0; i < absfile.size(); i++)
-    {
-        if(absfile[i] == '/')
-        {
-            abscomp.push_back(absfile.substr(sc, i - sc));
-            sc = i + 1;
-        }
-    }
-
-    abscomp.push_back(absfile.substr(sc));
-
-    sc = 0;
-
-    for(unsigned i = 0; i < relfile.size(); i++)
-    {
-        if(relfile[i] == '/')
-        {
-            relcomp.push_back(relfile.substr(sc, i - sc));
-            sc = i + 1;
-        }
-    }
-
-    relcomp.push_back(relfile.substr(sc));
+    vector<string> abscomp = pathCompnenets(toSlashSeprator(base));
+    vector<string> relcomp = pathCompnenets(toSlashSeprator(path));
 
     abscomp.pop_back();
 
-    bool relisabs =
-            #if __WIN32__
-            relcomp.front()[1] == ':';
-            #elif __linux__
-            relfile[0] == '/';
-    #endif
-
     string out;
 
-    if(absoluteOut)
-    {
-        while(!relcomp.empty())
-            if(relcomp.front() == "..")
-            {
-                abscomp.pop_back();
-                relcomp.erase(relcomp.begin());
-            }
-            else
-                break;
-
-        if(relisabs)
-            out = relfile;
-        else
-            out = joinstr(abscomp, '/') + '/' + joinstr(relcomp, '/');
-    }
-    else
-    {
-        bool done = false;
-
-        for(unsigned i = 0; i < abscomp.size(); i++)
+    while(!relcomp.empty())
+        if(relcomp.front() == "..")
         {
-            if(abscomp[i] != relcomp[i])
-            {
-                relcomp.erase(relcomp.begin(), relcomp.begin() + i);
-                if(relisabs)
-                    relcomp.insert(relcomp.begin(), abscomp.size() - i, "..");
-                done = true;
-                break;
-            }
+            abscomp.pop_back();
+            relcomp.erase(relcomp.begin());
         }
+        else
+            break;
 
-        if(!done)
-            relcomp.erase(relcomp.begin(), relcomp.begin() + abscomp.size());
-
-        out = joinstr(relcomp, '/');
-    }
+    out = joinstr(abscomp, '/') + '/' + joinstr(relcomp, '/');
 
     return out;
 }
@@ -372,7 +368,7 @@ inline std::string pathScope(std::string absfile, std::string relfile, bool abso
  */
 template<typename T, typename T2> void erase(std::vector<T>& vec, T2 val)
 {
-    typename std::vector<T>::iterator it = std::find(vec.begin(), vec.end(), dynamic_cast<T2>(val));
+    typename std::vector<T>::iterator it = std::find(vec.begin(), vec.end(), dynamic_cast<T2> (val));
 
     if(it != vec.end())
         vec.erase(it);
@@ -404,7 +400,7 @@ template<typename T> void erase(std::vector<T>& vec, T val)
 template<typename T, typename T2> T find(const std::vector<T>& vec, T2 val)
 {
     typename std::vector<T>::const_iterator it = std::find(vec.begin(), vec.end(), val);
-    return(it != vec.end()) ? *it : NULL;
+    return (it != vec.end()) ? *it : NULL;
 }
 
 /**

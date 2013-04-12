@@ -165,7 +165,7 @@ void ParticlesEmiter::build()
 
     if(m_usePointSprite)
     {
-        glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof(Particle) * m_number, &m_particles[0], GL_DYNAMIC_DRAW);
+        glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof (Particle) * m_number, &m_particles[0], GL_DYNAMIC_DRAW);
     }
 
     else
@@ -181,7 +181,7 @@ void ParticlesEmiter::build()
             faces[i + 3].texCoord(1, 0);
         }
 
-        glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof(Vertex) * faces.size(), &faces[0], GL_DYNAMIC_DRAW);
+        glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof (Vertex) * faces.size(), &faces[0], GL_DYNAMIC_DRAW);
     }
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
@@ -292,7 +292,7 @@ void ParticlesEmiter::render()
     {
         Matrix4 absolute = m_parent->getAbsoluteMatrix();
 
-        Vertex* auxParticles = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB));
+        Vertex* auxParticles = static_cast<Vertex*> (glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB));
 
         for(unsigned i = 0; i < m_drawNumber * 4; i += 4)
         {
@@ -324,11 +324,11 @@ void ParticlesEmiter::render()
 
     if(m_usePointSprite)
     {
-        const void* POSITION_OFFSET = (void*)0;
-        const void* COLOR_OFFSET = (void*)(sizeof(Vector3f));
+        const void* POSITION_OFFSET = (void*) 0;
+        const void* COLOR_OFFSET = (void*) (sizeof (Vector3f));
 
-        glVertexPointer(3, GL_FLOAT, sizeof(Particle), POSITION_OFFSET);
-        glColorPointer(4, GL_FLOAT, sizeof(Particle), COLOR_OFFSET);
+        glVertexPointer(3, GL_FLOAT, sizeof (Particle), POSITION_OFFSET);
+        glColorPointer(4, GL_FLOAT, sizeof (Particle), COLOR_OFFSET);
 
         glDrawArrays(GL_POINTS, 0, m_drawNumber);
     }
@@ -336,13 +336,13 @@ void ParticlesEmiter::render()
     {
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-        const void* POSITION_OFFSET = (void*)0;
-        const void* COLOR_OFFSET = (void*)(sizeof(Vector3f) *2);
-        const void* UV_OFFSET = (void*)(sizeof(Vector3f)*2 + sizeof(Vector4f));
+        const void* POSITION_OFFSET = (void*) 0;
+        const void* COLOR_OFFSET = (void*) (sizeof (Vector3f) *2);
+        const void* UV_OFFSET = (void*) (sizeof (Vector3f)*2 + sizeof (Vector4f));
 
-        glVertexPointer(3, GL_FLOAT, sizeof(Vertex), POSITION_OFFSET);
-        glColorPointer(4, GL_FLOAT, sizeof(Vertex), COLOR_OFFSET);
-        glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), UV_OFFSET);
+        glVertexPointer(3, GL_FLOAT, sizeof (Vertex), POSITION_OFFSET);
+        glColorPointer(4, GL_FLOAT, sizeof (Vertex), COLOR_OFFSET);
+        glTexCoordPointer(2, GL_FLOAT, sizeof (Vertex), UV_OFFSET);
 
         glDrawArrays(GL_QUADS, 0, m_drawNumber * 4);
     }
@@ -429,7 +429,7 @@ Particle* ParticlesEmiter::beginParticlesPosProcess()
     if(m_usePointSprite)
     {
         glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_renderId);
-        return static_cast<Particle*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_READ_WRITE_ARB));
+        return static_cast<Particle*> (glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_READ_WRITE_ARB));
     }
     else
         return &m_particles[0];
@@ -576,24 +576,26 @@ Vector3f ParticlesEmiter::getBoxSize() const
     return m_boxSize;
 }
 
-Node::CtorMap ParticlesEmiter::constructionMap(std::string root)
+rtree ParticlesEmiter::serialize(std::string root)
 {
-    Node::CtorMap ctormap = Node::constructionMap(root);
+    using boost::filesystem::absolute;
 
-    ctormap["class"] = "ParticlesEmiter";
+    rtree scheme = Node::serialize(root);
 
-    ctormap["texture"] = tools::pathScope(root, m_texture.getFilename(), false);
-    ctormap["number"] = tools::numToStr(m_number);
-    ctormap["lifeInit"] = tools::numToStr(m_lifeInit);
-    ctormap["lifeDown"] = tools::numToStr(m_lifeDown);
-    ctormap["gravity"] = tools::numToStr(m_gravity);
-    ctormap["boxSize"] = tools::numToStr(m_boxSize);
-    ctormap["bulletSize"] = tools::numToStr(m_bulletSize);
-    ctormap["freeMove"] = tools::numToStr(m_freeMove);
-    ctormap["continousMode"] = tools::numToStr(m_continousMode);
-    ctormap["usePointSprite"] = tools::numToStr(m_usePointSprite);
+    scheme.put("class", "ParticlesEmiter");
 
-    return ctormap;
+    scheme.put("class.texture", absolute(m_texture.getFilename(), root));
+    scheme.put("class.number", m_number);
+    scheme.put("class.lifeInit", m_lifeInit);
+    scheme.put("class.lifeDown", m_lifeDown);
+    scheme.put("class.gravity", m_gravity);
+    scheme.put("class.boxSize", m_boxSize);
+    scheme.put("class.bulletSize", m_bulletSize);
+    scheme.put("class.freeMove", m_freeMove);
+    scheme.put("class.continousMode", m_continousMode);
+    scheme.put("class.usePointSprite", m_usePointSprite);
+
+    return scheme;
 }
 
 std::vector<std::string> ParticlesEmiter::getUsedRessources()

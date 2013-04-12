@@ -36,31 +36,18 @@ public:
 
     void clear();
 
-    void save(const std::string& filepath);
     void load(const std::string& filepath);
+    Node* build();
 
     void prepare();
-    void build();
+    void save(const std::string& filepath);
 
-    std::string getAuthorname() const;
     std::string getClassname() const;
 
-    void setBuildedNode(Node* buildedNod);
-    Node* getBuildedNode() const;
-
-    template<typename T> T getBuildedNode();
-
 private:
-    Node* m_buildedNode;
-    std::string m_classname;
-    std::string m_authorname;
-    Relation m_scheme;
+    rtree m_scheme;
 };
 
-template<typename T> T ClassParser::getBuildedNode()
-{
-    return dynamic_cast<T> (getBuildedNode());
-}
 
 }
 }

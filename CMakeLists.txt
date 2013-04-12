@@ -4,6 +4,7 @@ project(theBallEngine)
 
 set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/${CMAKE_BUILD_TYPE})
 
+include_directories(${BOOST_INCLUDE})
 include_directories(${DEVIL_INCLUDE})
 
 file(GLOB_RECURSE SOURCES_FILES sources/*)

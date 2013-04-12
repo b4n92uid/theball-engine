@@ -12,9 +12,7 @@
 using namespace tbe;
 using namespace scene;
 
-Ball3DMesh::Ball3DMesh(MeshParallelScene* scene) : Mesh(scene)
-{
-}
+Ball3DMesh::Ball3DMesh(MeshParallelScene* scene) : Mesh(scene) { }
 
 Ball3DMesh::Ball3DMesh(MeshParallelScene* scene, const std::string& filepath) : Mesh(scene)
 {
@@ -26,9 +24,7 @@ Ball3DMesh::Ball3DMesh(const Ball3DMesh& copy) : Mesh(copy)
     *this = copy;
 }
 
-Ball3DMesh::~Ball3DMesh()
-{
-}
+Ball3DMesh::~Ball3DMesh() { }
 
 Ball3DMesh & Ball3DMesh::operator=(const Ball3DMesh& copy)
 {
@@ -95,7 +91,7 @@ void Ball3DMesh::readMaterial(std::ifstream& file, Material* mat)
         else if(opcode == "tex")
         {
             unsigned index = tools::strToNum<float>(value);
-            string filepath = tools::pathScope(m_filename, value.substr(value.find(' ') + 1), true);
+            string filepath = tools::resolvePath(value.substr(value.find(' ') + 1), m_filename);
 
             mat->setTexture(Texture(filepath, true), index);
             mat->enable(Material::TEXTURED);
@@ -165,15 +161,16 @@ std::string Ball3DMesh::getFilename()
     return m_filename;
 }
 
-Node::CtorMap Ball3DMesh::constructionMap(std::string root)
+rtree Ball3DMesh::serialize(std::string root)
 {
-    Node::CtorMap ctormap = Mesh::constructionMap(root);
+    using boost::filesystem::absolute;
 
-    ctormap["class"] = "Ball3DMesh";
+    rtree scheme = Mesh::serialize(root);
 
-    ctormap["filename"] = tools::pathScope(root, m_filename, false);
+    scheme.put("class.format", "ball3D");
+    scheme.put("class.filename", absolute(m_filename, root));
 
-    return ctormap;
+    return scheme;
 }
 
 std::vector<std::string> Ball3DMesh::getUsedRessources()

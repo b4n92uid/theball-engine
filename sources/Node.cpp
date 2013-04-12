@@ -59,7 +59,6 @@ Node& Node::copy(const Node& copy)
     m_sceneManager = copy.m_sceneManager;
 
     m_userDatas = copy.m_userDatas;
-    m_addtionalCtorMap = copy.m_addtionalCtorMap;
 
     clearAllChild();
 
@@ -236,10 +235,10 @@ bool Node::isChild(Node* searche, bool recursiv) const
 bool Node::isRoot() const
 {
     if(m_sceneManager)
-        return(this == m_sceneManager->getRootNode());
+        return (this == m_sceneManager->getRootNode());
 
     else if(m_parallelScene)
-        return(this == m_parallelScene->getSceneManager()->getRootNode());
+        return (this == m_parallelScene->getSceneManager()->getRootNode());
 
     else
         return false;
@@ -424,22 +423,45 @@ void Node::clearAllChild()
     m_childs.clear();
 }
 
-void Node::addToConstructionMap(std::string name, std::string value)
+void Node::addSerializeValue(std::string key, std::string value)
 {
-    m_addtionalCtorMap[name] = value;
+    m_serializeValue[key] = value;
 }
 
-Node::CtorMap Node::constructionMap(std::string root)
+rtree Node::serialize(std::string root)
 {
-    Node::CtorMap ctormap = m_addtionalCtorMap;
+    rtree scheme;
 
-    ctormap["name"] = m_name;
-    ctormap["matrix"] = m_matrix.toStr();
+    scheme.put("name", m_name);
+    scheme.put("matrix", m_matrix.toStr());
 
-    for(Any::Map::iterator it = m_userDatas.begin(); it != m_userDatas.end(); it++)
-        ctormap["." + it->first] = it->second.getValue<string > ();
+    if(!m_serializeValue.empty())
+    {
 
-    return ctormap;
+        BOOST_FOREACH(strmap::value_type &v, m_serializeValue)
+        {
+            scheme.put(v.first, v.second);
+        }
+
+    }
+
+    if(!m_userDatas.empty())
+    {
+        rtree attributes;
+
+        for(Any::Map::iterator it = m_userDatas.begin(); it != m_userDatas.end(); it++)
+            attributes.put(it->first, it->second.getValue<string>());
+
+        scheme.put_child("attributes", attributes);
+    }
+
+    BOOST_FOREACH(Node* n, m_childs)
+    {
+        rtree subscheme = n->serialize(root);
+        scheme.add_child("childs.node", subscheme);
+    }
+
+    return scheme;
 }
 
 std::vector<std::string> Node::getUsedRessources()

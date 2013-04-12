@@ -185,33 +185,25 @@ Light::Type Light::getType() const
     return m_type;
 }
 
-Node::CtorMap Light::constructionMap(std::string root)
+rtree Light::serialize(std::string root)
 {
-    Node::CtorMap ctormap = Node::constructionMap(root);
+    rtree scheme = Node::serialize(root);
 
-    ctormap["class"] = "Light";
+    scheme.put("class", "Light");
 
     if(m_type == Light::DIRI)
-        ctormap["type"] = "Diri";
+        scheme.put("class.type", "Diri");
     else if(m_type == Light::POINT)
-        ctormap["type"] = "Point";
-    else
-        ctormap["type"] = tools::numToStr(m_type);
+        scheme.put("class.type", "Point");
 
-    ctormap["ambient"] = m_ambient.toStr();
-    ctormap["diffuse"] = m_diffuse.toStr();
-    ctormap["specular"] = m_specular.toStr();
-    ctormap["radius"] = tools::numToStr(m_radius);
+    scheme.put("class.ambient", m_ambient.toStr());
+    scheme.put("class.diffuse", m_diffuse.toStr());
+    scheme.put("class.specular", m_specular.toStr());
+    scheme.put("class.radius", m_radius);
 
-    return ctormap;
+    return scheme;
 }
 
-DiriLight::DiriLight(MeshParallelScene* scene) : Light(scene, DIRI)
-{
+DiriLight::DiriLight(MeshParallelScene* scene) : Light(scene, DIRI) { }
 
-}
-
-PointLight::PointLight(MeshParallelScene* scene) : Light(scene, POINT)
-{
-
-}
+PointLight::PointLight(MeshParallelScene* scene) : Light(scene, POINT) { }

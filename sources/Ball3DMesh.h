@@ -38,7 +38,7 @@ public:
 
     std::string getFilename();
 
-    Node::CtorMap constructionMap(std::string root);
+    rtree serialize(std::string root);
 
     std::vector<std::string> getUsedRessources();
 

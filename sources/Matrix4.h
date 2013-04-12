@@ -100,8 +100,8 @@ public:
     operator const float*() const;
     operator float*();
 
-    float operator()(int i, int j)const;
-    float operator[](int i)const;
+    float operator()(int i, int j) const;
+    float operator[](int i) const;
 
     float& operator()(int i, int j);
     float& operator[](int i);
@@ -163,7 +163,7 @@ public:
      * Conversion d'une matrice 4x4 en chaine de caracteres
      *  au format "0.1, 0.2, 0.3[...]"
      */
-    void fromStr(const std::string& str, bool withsep = false)
+    Matrix4& fromStr(const std::string& str, bool withsep = true)
     {
         char sep;
         std::stringstream stream(str);
@@ -176,6 +176,8 @@ public:
                 stream >> values[i];
 
         stream >> values[15];
+
+        return *this;
     }
 
 private:

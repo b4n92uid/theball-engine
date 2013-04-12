@@ -15,6 +15,12 @@
 #include "ParticlesParallelScene.h"
 #include "MapMarkParallelScene.h"
 
+#include <boost/foreach.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/info_parser.hpp>
+#include <boost/filesystem/path.hpp>
+#include <boost/fusion/iterator/advance.hpp>
+
 namespace tbe
 {
 namespace scene
@@ -47,12 +53,6 @@ public:
     AbstractParser(SceneManager* sceneManager);
     virtual ~AbstractParser();
 
-    virtual void prepare() = 0;
-    virtual void build() = 0;
-
-    virtual void load(const std::string& filepath) = 0;
-    virtual void save(const std::string& filepath) = 0;
-
     virtual void clear();
 
     std::string getFilename() const;
@@ -69,29 +69,13 @@ public:
     void setClassFactory(ParserClassFactory* classFactory);
     ParserClassFactory* getClassFactory() const;
 
-    typedef std::map<std::string, std::string> AttribMap;
-
-    struct Relation
-    {
-
-        Relation(unsigned deep = 0)
-        {
-            this->deep = deep;
-        }
-
-        AttribMap attr;
-        std::vector<Relation> child;
-        int deep;
-    };
-
 protected:
-    bool parseBlock(std::ifstream& file, Relation& rel);
+    Node* buildNode(rtree data, Node* parent = NULL);
+    void buildInherited(rtree data, Node* parent, Node* current);
+    void buildMaterial(rtree data, Mesh* mesh);
 
-    Node* buildNode(Relation& att, Node* parent = NULL);
-    void buildMaterial(std::string key, std::string value, Mesh* mesh);
-    void buildMaterial(AttribMap attr, Mesh* mesh);
-
-    void outpuNodeConstruction(Relation& rel, std::ofstream& file);
+    std::string resolve(std::string relpath);
+    std::string relativize(std::string abspath);
 
 protected:
     MeshParallelScene* m_meshScene;
@@ -103,10 +87,82 @@ protected:
 
     ParserClassFactory* m_classFactory;
 
-    float m_version;
-    unsigned m_parseLine;
-
     std::string m_filename;
+};
+
+struct TextureTranslator
+{
+    typedef std::string internal_type;
+    typedef Texture external_type;
+
+    // Converts a string to bool
+
+    boost::optional<external_type> get_value(const internal_type& str)
+    {
+        if(!str.empty())
+        {
+            return Texture(str, true);
+        }
+        else
+            return boost::optional<external_type>(boost::none);
+    }
+
+    // Converts a bool to string
+
+    boost::optional<internal_type> put_value(const external_type& b)
+    {
+        return boost::optional<internal_type>(b.getFilename());
+    }
+};
+
+struct Matrix4Translator
+{
+    typedef std::string internal_type;
+    typedef Matrix4 external_type;
+
+    // Converts a string to bool
+
+    boost::optional<external_type> get_value(const internal_type& str)
+    {
+        if(!str.empty())
+        {
+            return Matrix4().fromStr(str);
+        }
+        else
+            return boost::optional<external_type>(boost::none);
+    }
+
+    // Converts a bool to string
+
+    boost::optional<internal_type> put_value(const external_type& b)
+    {
+        return boost::optional<internal_type>(b.toStr());
+    }
+};
+
+template<typename T> struct VectorTranslator
+{
+    typedef std::string internal_type;
+    typedef T external_type;
+
+    // Converts a string to bool
+
+    boost::optional<external_type> get_value(const internal_type& str)
+    {
+        if(!str.empty())
+        {
+            return T().fromStr(str);
+        }
+        else
+            return boost::optional<external_type>(boost::none);
+    }
+
+    // Converts a bool to string
+
+    boost::optional<internal_type> put_value(const external_type& b)
+    {
+        return T(b).toStr();
+    }
 };
 
 }

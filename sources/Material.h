@@ -52,9 +52,6 @@ public:
 
         SHADER = 0x10,
 
-        TANGENT = 0x20,
-        AOCC = 0x40,
-
         VERTEX_SORT = 0x80,
         VERTEX_SORT_CULL_TRICK = 0x100,
 
@@ -116,12 +113,6 @@ public:
     void setFrameSortWait(unsigned frameSortWait);
     unsigned getFrameSortWait() const;
 
-    void setTangentLocation(std::string tangentLocation);
-    std::string getTangentLocation() const;
-
-    void setAoccLocation(std::string aoccLocation);
-    std::string getAoccLocation() const;
-
     enum FaceType
     {
         QUADS = GL_QUADS,
@@ -176,9 +167,6 @@ public:
 
 protected:
     std::string m_name;
-
-    std::string m_aoccLocation;
-    std::string m_tangentLocation;
 
     Vector4f m_ambient, m_diffuse, m_specular;
     float m_shininess;

@@ -31,7 +31,7 @@ public:
     void process();
     void render();
 
-    Node::CtorMap constructionMap(std::string root);
+    rtree serialize(std::string root);
 
     typedef std::vector<MapMark*> Array;
 
