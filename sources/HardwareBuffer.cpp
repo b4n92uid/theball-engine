@@ -77,7 +77,7 @@ Vertex* HardwareBuffer::lock(GLenum usage)
     if(m_cache)
         return m_cache;
     else
-        return m_cache = static_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, usage));
+        return m_cache = static_cast<Vertex*> (glMapBufferARB(GL_ARRAY_BUFFER_ARB, usage));
 }
 
 Vector2f* HardwareBuffer::lockMultiTexCoord(unsigned index, GLenum usage)
@@ -85,10 +85,10 @@ Vector2f* HardwareBuffer::lockMultiTexCoord(unsigned index, GLenum usage)
     if(index < 1)
         return NULL;
 
-    long base = m_cache ? (long)m_cache : (long)glMapBufferARB(GL_ARRAY_BUFFER_ARB, usage);
-    long offset = m_multiTexCoordOffset + (index - 1) * m_vertexCount * sizeof(Vector2f);
+    long base = m_cache ? (long) m_cache : (long) glMapBufferARB(GL_ARRAY_BUFFER_ARB, usage);
+    long offset = m_multiTexCoordOffset + (index - 1) * m_vertexCount * sizeof (Vector2f);
 
-    return reinterpret_cast<Vector2f*>(base + offset);
+    return reinterpret_cast<Vector2f*> (base + offset);
 }
 
 HardwareBuffer& HardwareBuffer::unlock()
@@ -139,13 +139,13 @@ void HardwareBuffer::compile(GLenum usage)
 
     m_usage = usage;
     m_vertexCount = m_vertex.size();
-    m_bufferSize = m_vertex.size() * sizeof(Vertex);
+    m_bufferSize = m_vertex.size() * sizeof (Vertex);
 
     if(!m_multiTexCoord.empty())
     {
-        m_bufferSize += m_vertex.size() * sizeof(Vector2f) * m_multiTexCoord.size();
+        m_bufferSize += m_vertex.size() * sizeof (Vector2f) * m_multiTexCoord.size();
 
-        m_multiTexCoordOffset = m_vertex.size() * sizeof(Vertex);
+        m_multiTexCoordOffset = m_vertex.size() * sizeof (Vertex);
     }
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
@@ -155,7 +155,7 @@ void HardwareBuffer::compile(GLenum usage)
 
     for(vu2map::iterator it = m_multiTexCoord.begin(); it != m_multiTexCoord.end(); it++)
     {
-        int size = it->second.size() * sizeof(Vector2f);
+        int size = it->second.size() * sizeof (Vector2f);
         glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, mtoffset, size, &it->second[0]);
 
         mtoffset += size;
@@ -230,8 +230,8 @@ void HardwareBuffer::bindTexture(bool state, unsigned layer)
                 glTexCoordPointer(2, GL_FLOAT, vertexStrid, texUvOffset);
 
             else
-                glTexCoordPointer(2, GL_FLOAT, 0, (void*)(m_multiTexCoordOffset
-                                  + (layer - 1) * m_vertexCount * sizeof(Vector2f)));
+                glTexCoordPointer(2, GL_FLOAT, 0, (void*) (m_multiTexCoordOffset
+                                  + (layer - 1) * m_vertexCount * sizeof (Vector2f)));
         }
     }
 
@@ -244,7 +244,7 @@ void HardwareBuffer::bindTangent(bool state, GLint location)
     if(state)
     {
         glEnableVertexAttribArray(location);
-        glVertexAttribPointer(location, 3, GL_FLOAT, 0, vertexStrid, (void*)tangentOffset);
+        glVertexAttribPointer(location, 3, GL_FLOAT, 0, vertexStrid, (void*) tangentOffset);
     }
 
     else
@@ -256,7 +256,7 @@ void HardwareBuffer::bindAocc(bool state, GLint location)
     if(state)
     {
         glEnableVertexAttribArray(location);
-        glVertexAttribPointer(location, 4, GL_FLOAT, 0, vertexStrid, (void*)aoccOffset);
+        glVertexAttribPointer(location, 4, GL_FLOAT, 0, vertexStrid, (void*) aoccOffset);
     }
 
     else
@@ -281,7 +281,7 @@ unsigned HardwareBuffer::getVertexCount() const
 
 inline bool VertexComparePredicat(Vertex& v1, Vertex& v2)
 {
-    return(v1.pos == v2.pos);
+    return (v1.pos == v2.pos);
 }
 
 Face::Array HardwareBuffer::getAllFace()
@@ -362,10 +362,7 @@ bool HardwareBuffer::checkHardware()
 
 // Vertex ----------------------------------------------------------------------
 
-Vertex::Vertex()
-{
-
-}
+Vertex::Vertex() { }
 
 Vertex::Vertex(Vector3f pos, Vector3f normal, Vector4f color, Vector2f texCoord)
 {

@@ -121,7 +121,18 @@ void Mesh::fetchMaterials(const Mesh& copy)
         m_renderProess[i].parent = this;
 }
 
-void Mesh::sahreFrom(const Mesh& copy)
+void Mesh::fetchVertexes(const Mesh& copy)
+{
+    m_triangulate = copy.m_triangulate;
+    m_withNormal = copy.m_withNormal;
+    m_withTexCoord = copy.m_withTexCoord;
+
+    m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
+
+    fetchMaterials(copy);
+}
+
+void Mesh::shareVertexes(const Mesh& copy)
 {
     m_triangulate = copy.m_triangulate;
     m_withNormal = copy.m_withNormal;

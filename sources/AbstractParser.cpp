@@ -315,14 +315,14 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
 
         if(shared)
         {
-            mesh->sahreFrom(*shared);
+            mesh->shareVertexes(*shared);
         }
         else
         {
             OBJMesh objfile(m_meshScene);
             objfile.open(path);
 
-            *mesh = objfile;
+            mesh->fetchVertexes(objfile);
         }
 
         Mesh::registerBuffer(mesh, path);
