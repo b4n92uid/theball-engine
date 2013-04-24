@@ -73,7 +73,7 @@ Node* ClassParser::build()
         m_sceneManager->addParallelScene(m_markScene);
     }
 
-    return buildNode(m_scheme.get_child("node"));
+    return buildNode(m_scheme.get_child("Class"));
 }
 
 std::string ClassParser::getClassname() const

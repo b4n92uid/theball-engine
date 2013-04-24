@@ -83,10 +83,6 @@ public:
     /// Renvois tout les materials du mesh
     Material::Array getAllMaterial();
 
-    /// Applique un shader a tout les materieux du mesh
-    void applyShader(std::string materialName, Shader shader);
-    void applyShader(Shader shader);
-
     /// Supprime le materieux name
     void deleteMaterial(std::string name);
 

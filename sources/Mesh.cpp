@@ -284,30 +284,32 @@ struct DepthSortVertexFunc
 struct ShaderBind
 {
     Material* material;
+    Shader& shader;
 
-    ShaderBind(Material* material)
+    ShaderBind(Material* material, Shader& shader_) : shader(shader_)
     {
         this->material = material;
     }
 
     void bindLighted(std::string location)
     {
-        material->getShader().uniform(location, material->isEnable(Material::LIGHTED));
+        shader.uniform(location, material->isEnable(Material::LIGHTED));
     }
 
     void bindFoged(std::string location)
     {
-        material->getShader().uniform(location, material->isEnable(Material::FOGED));
+        bool s = material->isEnable(Material::FOGED) & glIsEnabled(GL_FOG);
+        shader.uniform(location, s);
     }
 
     void bindTextured(std::string location)
     {
-        material->getShader().uniform(location, material->isEnable(Material::TEXTURED));
+        shader.uniform(location, material->isEnable(Material::TEXTURED));
     }
 
     void bindColored(std::string location)
     {
-        material->getShader().uniform(location, material->isEnable(Material::COLORED));
+        shader.uniform(location, material->isEnable(Material::COLORED));
     }
 
     void assignExp(string location, string exp)
@@ -315,9 +317,9 @@ struct ShaderBind
         using namespace boost;
 
         if(isdigit(exp[0]) && iends_with(exp, "i"))
-            material->getShader().uniform(location, lexical_cast<int>(exp.data(), exp.size() - 1));
+            shader.uniform(location, lexical_cast<int>(exp.data(), exp.size() - 1));
         if(isdigit(exp[0]) && iends_with(exp, "f"))
-            material->getShader().uniform(location, lexical_cast<float>(exp.data(), exp.size() - 1));
+            shader.uniform(location, lexical_cast<float>(exp.data(), exp.size() - 1));
         else
         {
             map<string, function<void (string) > > callmap;
@@ -341,28 +343,43 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
 
     unsigned vertexCount = m_hardwareBuffer->getVertexCount();
 
-    if(material->m_renderFlags & Material::SHADER)
+    if(!material->isEnable(Material::PIPELINE))
     {
-        ShaderBind callbind(material);
+        Shader usedshader;
 
-        const Shader::UniformMap& umap = material->m_shader.getRequestedUniform();
+        if(material->m_shader.isEnable())
+            usedshader = material->m_shader;
 
-        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
+        else if(m_parallelScene->getRenderingShader().isEnable())
+            usedshader = m_parallelScene->getRenderingShader();
+
+        if(usedshader.isEnable())
         {
-            if(u.second == "tangent")
+            ShaderBind callbind(material, usedshader);
+
+            const Shader::UniformMap& umap = usedshader.getRequestedUniform();
+
+            usedshader.use(true);
+
+            BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
             {
-                GLuint index = glGetAttribLocation(material->m_shader, u.first.c_str());
-                m_hardwareBuffer->bindTangent(true, index);
+                if(u.second == "tangent")
+                {
+                    GLuint index = glGetAttribLocation(usedshader, u.first.c_str());
+                    m_hardwareBuffer->bindTangent(true, index);
+                }
+
+                else if(u.second == "aocc")
+                {
+                    GLuint index = glGetAttribLocation(usedshader, u.first.c_str());
+                    m_hardwareBuffer->bindAocc(true, index);
+                }
+
+                else
+                    callbind.assignExp(u.first, u.second);
             }
 
-            else if(u.second == "aocc")
-            {
-                GLuint index = glGetAttribLocation(material->m_shader, u.first.c_str());
-                m_hardwareBuffer->bindAocc(true, index);
-            }
-
-            else
-                callbind.assignExp(u.first, u.second);
+            usedshader.use(false);
         }
     }
 
@@ -705,6 +722,17 @@ void Mesh::endRenderingMatrix()
 
 void Mesh::render(Material* material, unsigned offset, unsigned count)
 {
+    Shader usedshader;
+
+    if(!material->isEnable(Material::PIPELINE))
+    {
+        if(material->m_shader.isEnable())
+            usedshader = material->m_shader;
+
+        else if(m_parallelScene->getRenderingShader().isEnable())
+            usedshader = m_parallelScene->getRenderingShader();
+    }
+
     beginRenderingBuffer(material, offset, count);
 
     beginRenderingMatrix();
@@ -712,8 +740,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     if(!(material->m_renderFlags & Material::LIGHTED))
     {
-        if(material->m_shader.isEnable())
-            material->m_shader.use(true);
+        if(usedshader.isEnable())
+            usedshader.use(true);
 
         m_hardwareBuffer->render(material->m_faceType, offset, count);
     }
@@ -721,6 +749,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     else
     {
         // Disable or use default shader for only scene ambient light
+        if(usedshader.isEnable())
+            usedshader.use(false);
 
         m_hardwareBuffer->render(material->m_faceType, offset, count);
     }
@@ -732,15 +762,15 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     if(material->m_renderFlags & Material::LIGHTED)
     {
-        if(material->m_shader.isEnable())
-            material->m_shader.use(true);
+        if(usedshader.isEnable())
+            usedshader.use(true);
 
         glEnable(GL_BLEND);
 
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
 
-        glBlendFunc(GL_ONE, GL_ONE);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
         glDepthFunc(GL_LEQUAL);
 
@@ -763,8 +793,8 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
         m_sceneManager->setAmbientLight(globalAmbient);
 
-        if(material->m_shader.isEnable())
-            material->m_shader.use(false);
+        if(usedshader.isEnable())
+            usedshader.use(false);
     }
 
     endRenderingBuffer(material, offset, count);
@@ -965,21 +995,6 @@ unsigned Mesh::getMaterialCount()
     return m_materials.size();
 }
 
-void Mesh::applyShader(std::string materialName, Shader shader)
-{
-    m_materials[materialName]->setShader(shader);
-    m_materials[materialName]->enable(Material::SHADER);
-}
-
-void Mesh::applyShader(Shader shader)
-{
-    for(Material::Map::iterator itt = m_materials.begin(); itt != m_materials.end(); itt++)
-    {
-        itt->second->setShader(shader);
-        itt->second->enable(Material::SHADER);
-    }
-}
-
 Material::Array Mesh::getAllMaterial()
 {
     std::vector<Material*> ret;
@@ -1082,6 +1097,11 @@ rtree Mesh::serializeMaterial(std::string root)
 
         matscheme.put_value(it->first);
 
+        matscheme.put("ambient", it->second->getAmbient());
+        matscheme.put("diffuse", it->second->getDiffuse());
+        matscheme.put("specular", it->second->getSpecular());
+        matscheme.put("shininess", it->second->getShininess());
+
         matscheme.put("alpha", it->second->isEnable(Material::ALPHA));
         matscheme.put("alphaThershold", it->second->m_alphaThershold);
 
@@ -1104,7 +1124,7 @@ rtree Mesh::serializeMaterial(std::string root)
         matscheme.put("textured", it->second->isEnable(Material::TEXTURED));
         matscheme.put("colored", it->second->isEnable(Material::COLORED));
 
-        if(it->second->isEnable(Material::SHADER))
+        if(it->second->m_shader.isEnable())
         {
             Shader shade = it->second->m_shader;
 
@@ -1142,7 +1162,7 @@ rtree Mesh::serializeMaterial(std::string root)
             if(blend == Material::REPLACE)
                 texscheme.put("blend", "replace");
 
-            matscheme.put_child("texture", texscheme);
+            matscheme.add_child("textures.unit", texscheme);
         }
 
         scheme.add_child("pass", matscheme);
@@ -1155,20 +1175,24 @@ rtree Mesh::serialize(std::string root)
 {
     rtree scheme = Node::serialize(root);
 
-    scheme.put("class", "Mesh");
-    scheme.put("class.billBoarding", m_billBoard.toStr());
-
-    if(scheme.get_child("class").count("path"))
+    if(scheme.count("class") && scheme.get_child("class").empty())
     {
-        string path = scheme.get<string>("class.path");
-        path = tools::relativizePath(path, root);
-        scheme.put("class.path", path);
+        // This node is loaded from external file
     }
-
-    if(m_outputMaterial)
+    else
     {
-        rtree matscheme = serializeMaterial(root);
-        scheme.put_child("material", matscheme);
+        scheme.put("class", "Mesh");
+        scheme.put("class.billBoarding", m_billBoard.toStr());
+
+        if(scheme.count("material"))
+        {
+            // Material is already handled by external file
+        }
+
+        else if(m_outputMaterial)
+        {
+            scheme.put_child("material", serializeMaterial(root));
+        }
     }
 
     return scheme;

@@ -51,6 +51,7 @@ public:
         FOGED = 0x8,
 
         SHADER = 0x10,
+        PIPELINE = 0x20,
 
         VERTEX_SORT = 0x80,
         VERTEX_SORT_CULL_TRICK = 0x100,

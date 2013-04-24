@@ -19,6 +19,7 @@ using namespace std;
 Node::Node()
 {
     m_enable = true;
+    m_serialized = true;
     m_parallelScene = NULL;
     m_parent = NULL;
     m_scale = 1;
@@ -27,6 +28,7 @@ Node::Node()
 Node::Node(const Node& copy)
 {
     m_enable = true;
+    m_serialized = true;
     m_parallelScene = NULL;
     m_parent = NULL;
     m_scale = 1;
@@ -55,6 +57,8 @@ Node& Node::copy(const Node& copy)
     m_rotation = copy.m_rotation;
     m_scale = copy.m_scale;
     m_enable = copy.m_enable;
+    m_serialized = copy.m_serialized;
+    m_serializeValue = copy.m_serializeValue;
     m_aabb = copy.m_aabb;
     m_sceneManager = copy.m_sceneManager;
 
@@ -462,6 +466,16 @@ rtree Node::serialize(std::string root)
     }
 
     return scheme;
+}
+
+void Node::setSerialized(bool serialized)
+{
+    this->m_serialized = serialized;
+}
+
+bool Node::isSerialized() const
+{
+    return m_serialized;
 }
 
 std::vector<std::string> Node::getUsedRessources()

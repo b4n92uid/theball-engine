@@ -31,19 +31,20 @@ void SceneParser::prepare()
 {
     m_scheme.clear();
 
-    m_scheme.put("scene", m_sceneName);
-    m_scheme.put("scene.author", m_authorName);
-    
-    m_scheme.put_child("scene.attributes", m_attributes);
+    m_scheme.put("Scene", m_sceneName);
+    m_scheme.put("Scene.author", m_authorName);
+
+    if(!m_attributes.empty())
+        m_scheme.put_child("Scene.attributes", m_attributes);
 
     Fog* fog = m_sceneManager->getFog();
 
     if(fog->isEnable())
     {
-        //    m_scheme.put("scene.fog", fog->isEnable());
-        m_scheme.put("scene.fog.color", fog->getColor());
-        m_scheme.put("scene.fog.start", fog->getStart());
-        m_scheme.put("scene.fog.end", fog->getEnd());
+        //    m_scheme.put("Scene.fog", fog->isEnable());
+        m_scheme.put("Scene.fog.color", fog->getColor());
+        m_scheme.put("Scene.fog.start", fog->getStart());
+        m_scheme.put("Scene.fog.end", fog->getEnd());
     }
 
     SkyBox* sky = m_sceneManager->getSkybox();
@@ -51,21 +52,21 @@ void SceneParser::prepare()
     if(sky->isEnable())
     {
         Texture* skytex = sky->getTextures();
-        //    m_scheme.put("scene.skybox", sky->isEnable());
-        m_scheme.put("scene.skybox.front", relativize(skytex[0].getFilename()));
-        m_scheme.put("scene.skybox.back", relativize(skytex[1].getFilename()));
-        m_scheme.put("scene.skybox.top", relativize(skytex[2].getFilename()));
-        m_scheme.put("scene.skybox.bottom", relativize(skytex[3].getFilename()));
-        m_scheme.put("scene.skybox.left", relativize(skytex[4].getFilename()));
-        m_scheme.put("scene.skybox.right", relativize(skytex[5].getFilename()));
+        //    m_scheme.put("Scene.skybox", sky->isEnable());
+        m_scheme.put("Scene.skybox.front", relativize(skytex[0].getFilename()));
+        m_scheme.put("Scene.skybox.back", relativize(skytex[1].getFilename()));
+        m_scheme.put("Scene.skybox.top", relativize(skytex[2].getFilename()));
+        m_scheme.put("Scene.skybox.bottom", relativize(skytex[3].getFilename()));
+        m_scheme.put("Scene.skybox.left", relativize(skytex[4].getFilename()));
+        m_scheme.put("Scene.skybox.right", relativize(skytex[5].getFilename()));
     }
 
     Shader rshade = m_meshScene->getRenderingShader();
 
     if(rshade.isEnable())
     {
-        m_scheme.put("scene.shader.vertex", relativize(rshade.getVertFilename()));
-        m_scheme.put("scene.shader.fragment", relativize(rshade.getFragFilename()));
+        m_scheme.put("Scene.shader.vertex", relativize(rshade.getVertFilename()));
+        m_scheme.put("Scene.shader.fragment", relativize(rshade.getFragFilename()));
 
         rtree bindtree;
 
@@ -76,18 +77,20 @@ void SceneParser::prepare()
             bindtree.put(v.first, v.second);
         }
 
-        m_scheme.put_child("scene.shader.bind", bindtree);
+        m_scheme.put_child("Scene.shader.bind", bindtree);
     }
 
-    m_scheme.put("scene.ambiante", m_sceneManager->getAmbientLight());
-    m_scheme.put("scene.znear", m_sceneManager->getZNear());
-    m_scheme.put("scene.zfar", m_sceneManager->getZFar());
+    m_scheme.put("Scene.ambient", m_sceneManager->getAmbientLight());
+    m_scheme.put("Scene.znear", m_sceneManager->getZNear());
+    m_scheme.put("Scene.zfar", m_sceneManager->getZFar());
 
     for(Iterator<Node*> it = m_rootNode->getChildIterator(); it; it++)
     {
-        rtree data = it->serialize(m_filename);
-
-        m_scheme.add_child("content.node", data);
+        if(it->isSerialized())
+        {
+            rtree data = it->serialize(m_filename);
+            m_scheme.add_child("Content.node", data);
+        }
     }
 }
 
@@ -115,12 +118,12 @@ void SceneParser::load(const std::string& filepath)
 
     boost::property_tree::read_info(filepath, m_scheme);
 
-    if(!m_scheme.count("scene") || !m_scheme.count("content"))
+    if(!m_scheme.count("Scene") || !m_scheme.count("Content"))
         throw Exception("SceneParser::load; Invalid scene format (%s)", filepath.c_str());
 
-    m_sceneName = m_scheme.get<string>("scene");
-    m_authorName = m_scheme.get<string>("scene.author");
-    m_attributes = m_scheme.get_child("scene.attributes");
+    m_sceneName = m_scheme.get<string>("Scene");
+    m_authorName = m_scheme.get<string>("Scene.author");
+    m_attributes = m_scheme.get_child("Scene.attributes", rtree());
 
     m_filename = filepath;
 }
@@ -147,26 +150,26 @@ void SceneParser::build()
         m_sceneManager->addParallelScene(m_markScene);
     }
 
-    if(m_scheme.get_child("scene").count("fog"))
+    if(m_scheme.get_child("Scene").count("fog"))
     {
         scene::Fog* fog = m_sceneManager->getFog();
-        fog->setEnable(m_scheme.get<bool>("scene.fog", false));
-        fog->setColor(m_scheme.get<Vector4f>("scene.fog.color", v4ftr));
-        fog->setStart(m_scheme.get<float>("scene.fog.start"));
-        fog->setEnd(m_scheme.get<float>("scene.fog.end"));
+        fog->setEnable(m_scheme.get<bool>("Scene.fog", false));
+        fog->setColor(m_scheme.get<Vector4f>("Scene.fog.color", v4ftr));
+        fog->setStart(m_scheme.get<float>("Scene.fog.start"));
+        fog->setEnd(m_scheme.get<float>("Scene.fog.end"));
     }
 
-    if(m_scheme.get_child("scene").count("skybox"))
+    if(m_scheme.get_child("Scene").count("skybox"))
     {
         TextureTranslator textr;
 
         Texture skytex[6] = {
-            resolve(m_scheme.get<string>("scene.skybox.front")),
-            resolve(m_scheme.get<string>("scene.skybox.back")),
-            resolve(m_scheme.get<string>("scene.skybox.top")),
-            resolve(m_scheme.get<string>("scene.skybox.bottom")),
-            resolve(m_scheme.get<string>("scene.skybox.left")),
-            resolve(m_scheme.get<string>("scene.skybox.right")),
+            resolve(m_scheme.get<string>("Scene.skybox.front")),
+            resolve(m_scheme.get<string>("Scene.skybox.back")),
+            resolve(m_scheme.get<string>("Scene.skybox.top")),
+            resolve(m_scheme.get<string>("Scene.skybox.bottom")),
+            resolve(m_scheme.get<string>("Scene.skybox.left")),
+            resolve(m_scheme.get<string>("Scene.skybox.right")),
         };
 
         scene::SkyBox * sky = m_sceneManager->getSkybox();
@@ -174,26 +177,34 @@ void SceneParser::build()
         sky->setEnable(true);
     }
 
-    if(m_scheme.get_child("scene").count("shader"))
+    if(m_scheme.get_child("Scene").count("shader"))
     {
         Shader shader;
 
-        if(m_scheme.get_child("scene.shader").count("vertex"))
+        if(m_scheme.get_child("Scene.shader").count("vertex"))
         {
-            string path = resolve(m_scheme.get<string>("scene.shader.vertex"));
+            string path = m_scheme.get<string>("Scene.shader.vertex");
+
+            if(!tools::isAbsoloutPath(path))
+                path = resolve(path);
+
             shader.loadVertexShader(path);
         }
 
-        if(m_scheme.get_child("scene.shader").count("fragment"))
+        if(m_scheme.get_child("Scene.shader").count("fragment"))
         {
-            string path = resolve(m_scheme.get<string>("scene.shader.fragment"));
+            string path = m_scheme.get<string>("Scene.shader.fragment");
+
+            if(!tools::isAbsoloutPath(path))
+                path = resolve(path);
+
             shader.loadFragmentShader(path);
         }
 
         shader.loadProgram();
 
-        if(m_scheme.get_child("scene.shader").count("bind"))
-            BOOST_FOREACH(rtree::value_type & b, m_scheme.get_child("scene.shader.bind"))
+        if(m_scheme.get_child("Scene.shader").count("bind"))
+            BOOST_FOREACH(rtree::value_type & b, m_scheme.get_child("Scene.shader.bind"))
         {
             shader.setRequestedUniform(b.first, b.second.data());
         }
@@ -202,13 +213,13 @@ void SceneParser::build()
         m_meshScene->setRenderingShader(shader);
     }
 
-    m_sceneManager->setAmbientLight(m_scheme.get<Vector4f>("scene.ambient", v4ftr));
+    m_sceneManager->setAmbientLight(m_scheme.get<Vector4f>("Scene.ambient", v4ftr));
 
-    m_sceneManager->setZNear(m_scheme.get<float>("scene.znear"));
-    m_sceneManager->setZFar(m_scheme.get<float>("scene.zfar"));
+    m_sceneManager->setZNear(m_scheme.get<float>("Scene.znear"));
+    m_sceneManager->setZFar(m_scheme.get<float>("Scene.zfar"));
     m_sceneManager->updateViewParameter();
 
-    BOOST_FOREACH(rtree::value_type &v, m_scheme.get_child("content"))
+    BOOST_FOREACH(rtree::value_type &v, m_scheme.get_child("Content"))
     {
         buildNode(v.second, m_rootNode);
     }

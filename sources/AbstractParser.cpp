@@ -20,6 +20,8 @@
 using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
+using namespace boost::filesystem;
+using namespace boost::property_tree;
 
 AbstractParser::AbstractParser()
 {
@@ -96,13 +98,16 @@ void AbstractParser::setMarkScene(MapMarkParallelScene* markScene)
     this->m_markScene = markScene;
 }
 
-std::string AbstractParser::resolve(std::string path)
+std::string AbstractParser::resolve(std::string relpath, std::string base)
 {
-    fspath base = fspath(m_filename).remove_filename();
+    if(base.empty())
+        base = m_filename;
 
-    base /= path;
+    fspath output = fspath(base).remove_filename();
 
-    return base.normalize().string();
+    output /= relpath;
+
+    return output.normalize().string();
 }
 
 std::string AbstractParser::relativize(std::string parh)
@@ -110,13 +115,55 @@ std::string AbstractParser::relativize(std::string parh)
     return tools::relativizePath(parh, m_filename);
 }
 
+void AbstractParser::buildShader(rtree data, Material* mat)
+{
+    Shader shader;
+
+    if(data.get_optional<string>("shader.vertex"))
+    {
+        string path = data.get<string>("shader.vertex");
+
+        if(!tools::isAbsoloutPath(path))
+            path = resolve(path);
+
+        shader.loadVertexShader(path);
+    }
+
+    if(data.get_optional<string>("shader.fragment"))
+    {
+        string path = data.get<string>("shader.fragment");
+
+        if(!tools::isAbsoloutPath(path))
+            path = resolve(path);
+
+        shader.loadFragmentShader(path);
+    }
+
+    shader.loadProgram();
+
+    if(data.get_child("shader").count("bind"))
+        BOOST_FOREACH(rtree::value_type & b, data.get_child("shader.bind"))
+    {
+        shader.setRequestedUniform(b.first, b.second.data());
+    }
+
+    mat->setShader(shader);
+}
+
 void AbstractParser::buildMaterial(rtree data, Mesh* mesh)
 {
+    VectorTranslator<Vector4f> v4tr;
+
     mesh->setOutputMaterial(true);
 
     BOOST_FOREACH(rtree::value_type &v, data)
     {
         Material* mat = mesh->getMaterial(v.second.get_value<string>());
+
+        mat->setAmbient(v.second.get<Vector4f>("ambient", Vector4f(1), v4tr));
+        mat->setDiffuse(v.second.get<Vector4f>("diffuse", Vector4f(1), v4tr));
+        mat->setSpecular(v.second.get<Vector4f>("specular", Vector4f(0.5), v4tr));
+        mat->setShininess(v.second.get<float>("shininess", 16));
 
         if(v.second.get<bool>("alpha", false))
         {
@@ -157,12 +204,18 @@ void AbstractParser::buildMaterial(rtree data, Mesh* mesh)
 
         if(v.second.get<bool>("lighted", true))
             mat->enable(Material::LIGHTED);
+        else
+            mat->disable(Material::LIGHTED);
 
         if(v.second.get<bool>("foged", true))
             mat->enable(Material::FOGED);
+        else
+            mat->disable(Material::FOGED);
 
         if(v.second.get<bool>("textured", true))
             mat->enable(Material::TEXTURED);
+        else
+            mat->disable(Material::TEXTURED);
 
         if(v.second.count("textures"))
         {
@@ -171,12 +224,12 @@ void AbstractParser::buildMaterial(rtree data, Mesh* mesh)
             rtree::iterator it = textures.begin();
             for(int i = 0; it != textures.end(); i++)
             {
-                fspath path = it->second.get<fspath>("path");
+                string path = it->second.get<string>("path");
 
-                if(!path.is_complete())
-                    path = resolve(path.string());
+                if(!tools::isAbsoloutPath(path))
+                    path = resolve(path);
 
-                mat->setTexture(Texture(path.string(), true), i);
+                mat->setTexture(Texture(path, true), i);
 
                 string blend = it->second.get<string>("blend", "modulate");
 
@@ -195,33 +248,26 @@ void AbstractParser::buildMaterial(rtree data, Mesh* mesh)
 
         if(v.second.count("shader"))
         {
-            mat->enable(Material::SHADER);
+            boost::optional<rtree&> inlineShaderTree = v.second.get_child_optional("shader");
 
-            rtree& r = v.second;
+            rtree shaderTree;
 
-            Shader shader;
-
-            if(r.get_optional<string>("shader.vertex"))
+            if(inlineShaderTree)
             {
-                string path = resolve(r.get<string>("shader.vertex"));
-                shader.loadVertexShader(path);
+                shaderTree = *inlineShaderTree;
+            }
+            else
+            {
+                string path = v.second.get<string>("shader");
+
+                // TODO Reslove relative to material file (if one)
+                if(!tools::isAbsoloutPath(path))
+                    path = resolve(path);
+
+                boost::property_tree::read_info(path, shaderTree);
             }
 
-            if(r.get_optional<string>("shader.fragment"))
-            {
-                string path = resolve(r.get<string>("shader.fragment"));
-                shader.loadFragmentShader(path);
-            }
-
-            shader.loadProgram();
-
-            if(r.get_child("shader").count("bind"))
-                BOOST_FOREACH(rtree::value_type & b, r.get_child("shader.bind"))
-            {
-                shader.setRequestedUniform(b.first, b.second.data());
-            }
-
-            mat->setShader(shader);
+            buildShader(shaderTree, mat);
         }
     }
 }
@@ -257,12 +303,15 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
     {
         Mesh* mesh = m_classFactory ? m_classFactory->newMesh(m_meshScene) : new Mesh(m_meshScene);
 
-        fspath path = data.get<fspath>("class.path");
+        string path = data.get<string>("class.path");
 
-        if(!path.is_complete())
-            path = (fspath(m_filename).remove_filename() / path).normalize();
+        mesh->addSerializeValue("class.path", path);
+        mesh->addSerializeValue("class.format", "obj");
 
-        Mesh* shared = Mesh::isSharedBuffer(path.string());
+        if(!tools::isAbsoloutPath(path))
+            path = resolve(path);
+
+        Mesh* shared = Mesh::isSharedBuffer(path);
 
         if(shared)
         {
@@ -271,38 +320,38 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
         else
         {
             OBJMesh objfile(m_meshScene);
-            objfile.open(path.string());
+            objfile.open(path);
 
             *mesh = objfile;
         }
 
-        Mesh::registerBuffer(mesh, path.string());
-
-        mesh->addSerializeValue("class.path", path.string());
-        mesh->addSerializeValue("class.format", "obj");
+        Mesh::registerBuffer(mesh, path);
 
         mesh->setBillBoard(data.get<Vector2b>("class.billBoarding", Vector2b(false)));
 
         if(data.count("material"))
         {
-            rtree mattree;
+            boost::optional<rtree&> inlineMaTree = data.get_child_optional("material");
 
-            boost::optional<fspath> matpath = data.get_optional<fspath>("material");
+            rtree matTree;
 
-            if(matpath)
+            if(inlineMaTree)
             {
-                if(!matpath->is_complete())
-                    (*matpath) = (fspath(m_filename).remove_filename() / (*matpath)).normalize();
-
-                boost::property_tree::read_info(matpath->string(), mattree);
-
+                matTree = *inlineMaTree;
             }
             else
             {
-                mattree = data.get_child("material");
+                string path = data.get<string>("material");
+
+                mesh->addSerializeValue("material", path);
+
+                if(!tools::isAbsoloutPath(path))
+                    path = resolve(path);
+
+                boost::property_tree::read_info(path, matTree);
             }
 
-            buildMaterial(mattree, mesh);
+            buildMaterial(matTree, mesh);
         }
 
         mesh->computeAabb();
@@ -377,9 +426,11 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
             throw tbe::Exception("SceneParser::ParseNode; Unknown light type (%s)", type.c_str());
         }
 
-        light->setAmbient(data.get<Vector4f>("class.ambient", Vector4f(0), VectorTranslator<Vector4f>()));
-        light->setDiffuse(data.get<Vector4f>("class.diffuse", Vector4f(1), VectorTranslator<Vector4f>()));
-        light->setSpecular(data.get<Vector4f>("class.specular", Vector4f(0), VectorTranslator<Vector4f>()));
+        VectorTranslator<Vector4f> v4tr;
+
+        light->setAmbient(data.get<Vector4f>("class.ambient", Vector4f(0), v4tr));
+        light->setDiffuse(data.get<Vector4f>("class.diffuse", Vector4f(1), v4tr));
+        light->setSpecular(data.get<Vector4f>("class.specular", Vector4f(0), v4tr));
 
         buildInherited(data, parent, light);
 
@@ -402,7 +453,24 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
     }
 
     else
-        throw Exception("AbstractParser::parseNode; Unknown class (%s)", m_filename.c_str());
+    {
+        string classfile = iclass;
+
+        if(!tools::isAbsoloutPath(classfile))
+            classfile = resolve(classfile);
+
+        if(exists(classfile))
+        {
+            rtree nodetree;
+            read_info(classfile, nodetree);
+
+            current = buildNode(nodetree.get_child("Class"), parent);
+            current->addSerializeValue("class", iclass);
+        }
+
+        else
+            throw Exception("AbstractParser::parseNode; Unknown class (%s)", iclass.c_str());
+    }
 
     if(data.count("childs")) BOOST_FOREACH(rtree::value_type & v, data.get_child("childs"))
     {

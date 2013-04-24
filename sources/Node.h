@@ -142,6 +142,9 @@ public:
 
     virtual rtree serialize(std::string root);
 
+    void setSerialized(bool serialized);
+    bool isSerialized() const;
+
     virtual std::vector<std::string> getUsedRessources();
 
     typedef std::map<std::string, Node*> Map;
@@ -163,6 +166,7 @@ protected:
     Node::Array m_childs;
 
     strmap m_serializeValue;
+    bool m_serialized;
 
     Any::Map m_userDatas;
 

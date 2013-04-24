@@ -192,9 +192,9 @@ rtree Light::serialize(std::string root)
     scheme.put("class", "Light");
 
     if(m_type == Light::DIRI)
-        scheme.put("class.type", "Diri");
+        scheme.put("class.type", "diri");
     else if(m_type == Light::POINT)
-        scheme.put("class.type", "Point");
+        scheme.put("class.type", "point");
 
     scheme.put("class.ambient", m_ambient.toStr());
     scheme.put("class.diffuse", m_diffuse.toStr());

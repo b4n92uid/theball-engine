@@ -20,6 +20,7 @@
 #include <boost/property_tree/info_parser.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/fusion/iterator/advance.hpp>
+#include <boost/algorithm/string.hpp>
 
 namespace tbe
 {
@@ -73,8 +74,9 @@ protected:
     Node* buildNode(rtree data, Node* parent = NULL);
     void buildInherited(rtree data, Node* parent, Node* current);
     void buildMaterial(rtree data, Mesh* mesh);
+    void buildShader(rtree data, Material* mat);
 
-    std::string resolve(std::string relpath);
+    std::string resolve(std::string relpath, std::string base = "");
     std::string relativize(std::string abspath);
 
 protected:
