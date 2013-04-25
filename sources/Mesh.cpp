@@ -354,44 +354,44 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
 
     unsigned vertexCount = m_hardwareBuffer->getVertexCount();
 
+    Shader usedshader;
+
     if(!material->isEnable(Material::PIPELINE))
     {
-        Shader usedshader;
-
         if(material->m_shader.isEnable())
             usedshader = material->m_shader;
 
         else if(m_parallelScene->getRenderingShader().isEnable())
             usedshader = m_parallelScene->getRenderingShader();
+    }
 
-        if(usedshader.isEnable())
+    if(usedshader.isEnable())
+    {
+        ShaderBind callbind(material, usedshader);
+
+        const Shader::UniformMap& umap = usedshader.getRequestedUniform();
+
+        usedshader.use(true);
+
+        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
         {
-            ShaderBind callbind(material, usedshader);
-
-            const Shader::UniformMap& umap = usedshader.getRequestedUniform();
-
-            usedshader.use(true);
-
-            BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
+            if(u.second == "tangent")
             {
-                if(u.second == "tangent")
-                {
-                    GLuint index = glGetAttribLocation(usedshader, u.first.c_str());
-                    m_hardwareBuffer->bindTangent(true, index);
-                }
-
-                else if(u.second == "aocc")
-                {
-                    GLuint index = glGetAttribLocation(usedshader, u.first.c_str());
-                    m_hardwareBuffer->bindAocc(true, index);
-                }
-
-                else
-                    callbind.assignExp(u.first, u.second);
+                GLuint index = glGetAttribLocation(usedshader, u.first.c_str());
+                m_hardwareBuffer->bindTangent(true, index);
             }
 
-            usedshader.use(false);
+            else if(u.second == "aocc")
+            {
+                GLuint index = glGetAttribLocation(usedshader, u.first.c_str());
+                m_hardwareBuffer->bindAocc(true, index);
+            }
+
+            else
+                callbind.assignExp(u.first, u.second);
         }
+
+        usedshader.use(false);
     }
 
     if(material->m_renderFlags & Material::TEXTURED)
@@ -506,11 +506,11 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
         glMaterialfv(GL_FRONT, GL_SPECULAR, material->m_specular);
         glMaterialf(GL_FRONT, GL_SHININESS, material->m_shininess);
 
-        /* Normal scaling ------------------------------------------------------
+        /* Normal Scaling ------------------------------------------------------
          *
-         * Ici on dévise les normale des vertex par le scale de la matrice du noeud
-         * pour les rendre unitaire (normaliser), afini d'éviter un calcule
-         * incorrect de la lumiere lors d'une mise a l'échelle sur la matrice
+         * Ici on divise les normale des vertex par le Scale de la matrice du noeud
+         * pour les rendre unitaire (normaliser), afin d'éviter un calcule
+         * incorrect de la lumière lors d'une mise a l'échelle sur la matrice
          */
 
         tbe::Vector3f position, scale;
@@ -530,16 +530,17 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
 
         m_hardwareBuffer->bindColor();
 
-        glEnable(GL_COLOR_MATERIAL);
-
-        if(!math::isEqual(material->m_color, 1))
+        if(!usedshader.isEnable())
         {
-            requestVertexRestore();
+            glEnable(GL_COLOR_MATERIAL);
+
+            // if(!math::isEqual(material->m_color, 1))
+            // requestVertexRestore();
 
             Vertex* vertex = m_hardwareBuffer->lock(GL_READ_WRITE);
 
             for(unsigned i = offset; i < offset + count && i < vertexCount; i++)
-                vertex[i].color *= material->m_color;
+                vertex[i].color = material->m_color;
 
             m_hardwareBuffer->unlock();
         }
@@ -695,7 +696,6 @@ void Mesh::endRenderingBuffer(Material* material, unsigned offset, unsigned coun
 
 void Mesh::beginRenderingMatrix()
 {
-
     glPushMatrix();
 
     if(m_parent && !m_parent->isRoot())
@@ -723,7 +723,6 @@ void Mesh::beginRenderingMatrix()
     }
     else
         glMultMatrixf(m_matrix);
-
 }
 
 void Mesh::endRenderingMatrix()
