@@ -258,9 +258,9 @@ int MeshParallelScene::beginPrePassLighting(Mesh* mesh)
             else if(m_lightNodes[i]->getType() == Light::POINT)
             {
                 Vector3f dist = m_lightNodes[i]->getAbsoluteMatrix().getPos() - mesh->getAbsoluteMatrix().getPos();
-                float length = dist.getMagnitude() - m_lightNodes[i]->getRadius() - 16 - mesh->getAabb().getLength() / 2.0f;
+                float length = dist.getMagnitude() - m_lightNodes[i]->getRadius() - 32 - mesh->getAabb().getLength() / 2.0f;
 
-                // radius+16 = Maximum radius of a light, beyond use a directional light
+                // radius+32 = Maximum radius of a light, beyond use a directional light
 
                 if(length <= 0)
                     m_prePassLights.push_back(m_lightNodes[i]);
