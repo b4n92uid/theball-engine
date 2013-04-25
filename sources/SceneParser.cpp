@@ -39,9 +39,8 @@ void SceneParser::prepare()
 
     Fog* fog = m_sceneManager->getFog();
 
-    if(fog->isEnable())
     {
-        //    m_scheme.put("Scene.fog", fog->isEnable());
+        m_scheme.put("Scene.fog", fog->isEnable());
         m_scheme.put("Scene.fog.color", fog->getColor());
         m_scheme.put("Scene.fog.start", fog->getStart());
         m_scheme.put("Scene.fog.end", fog->getEnd());
@@ -49,10 +48,10 @@ void SceneParser::prepare()
 
     SkyBox* sky = m_sceneManager->getSkybox();
 
-    if(sky->isEnable())
     {
         Texture* skytex = sky->getTextures();
-        //    m_scheme.put("Scene.skybox", sky->isEnable());
+
+        m_scheme.put("Scene.skybox", sky->isEnable());
         m_scheme.put("Scene.skybox.front", relativize(skytex[0].getFilename()));
         m_scheme.put("Scene.skybox.back", relativize(skytex[1].getFilename()));
         m_scheme.put("Scene.skybox.top", relativize(skytex[2].getFilename()));
