@@ -111,6 +111,9 @@ public:
      */
     static bool checkHardware();
     static void forceHardware(bool enable);
+    
+    static void bind(Shader& shader);
+    static void unbind();
 
 protected:
     GLuint m_program;

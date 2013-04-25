@@ -366,3 +366,14 @@ bool Shader::isEnable() const
 {
     return m_enable;
 }
+
+void Shader::bind(Shader& shader)
+{
+    if(shader.m_enable)
+        glUseProgram(shader.m_program);
+}
+
+void Shader::unbind()
+{
+    glUseProgram(0);
+}
