@@ -52,6 +52,7 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_outputMaterial = false;
     m_billBoard = false;
     m_requestVertexRestore = false;
+    m_priorityRender = 0;
 
     Node::m_parallelScene = m_parallelScene = scene;
 
@@ -154,6 +155,7 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_withTexCoord = copy.m_withTexCoord;
     m_visible = copy.m_visible;
     m_billBoard = copy.m_billBoard;
+    m_priorityRender = copy.m_priorityRender;
 
     if(copy.m_hardwareBuffer)
         m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
@@ -371,7 +373,7 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
 
         const Shader::UniformMap& umap = usedshader.getRequestedUniform();
 
-        usedshader.use(true);
+        Shader::bind(usedshader);
 
         BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
         {
@@ -391,7 +393,7 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
                 callbind.assignExp(u.first, u.second);
         }
 
-        usedshader.use(false);
+        Shader::unbind();
     }
 
     if(material->m_renderFlags & Material::TEXTURED)
@@ -607,9 +609,8 @@ void Mesh::beginRenderingProperty(Material* material, unsigned offset, unsigned 
     if(material->m_renderFlags & Material::BLEND_ADD)
     {
         glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-
-        glDepthMask(false);
+        // glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+        glBlendFunc(GL_ONE, GL_ONE);
     }
 
     else if(material->m_renderFlags & Material::BLEND_MUL)
@@ -644,20 +645,17 @@ void Mesh::endRenderingProperty(Material* material, unsigned offset, unsigned co
         glCullFace(GL_BACK);
         m_hardwareBuffer->render(material->m_faceType, offset, count);
     }
-
-    if(material->m_renderFlags & Material::BLEND_ADD)
-    {
-        glDepthMask(true);
-    }
 }
 
 void Mesh::endRenderingBuffer(Material* material, unsigned offset, unsigned count)
 {
+    /*
     if(material->m_renderFlags & Material::SHADER)
     {
-        // m_hardwareBuffer->bindTangent(false, m_tangentAttribIndex);
-        // m_hardwareBuffer->bindAocc(false, m_aoccAttribIndex);
+         m_hardwareBuffer->bindTangent(false, m_tangentAttribIndex);
+         m_hardwareBuffer->bindAocc(false, m_aoccAttribIndex);
     }
+     */
 
     if(material->m_renderFlags & Material::TEXTURED)
     {
@@ -750,8 +748,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     if(!(material->m_renderFlags & Material::LIGHTED))
     {
-        if(usedshader.isEnable())
-            usedshader.use(true);
+        Shader::bind(usedshader);
 
         m_hardwareBuffer->render(material->m_faceType, offset, count);
     }
@@ -759,8 +756,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
     else
     {
         // Disable or use default shader for only scene ambient light
-        if(usedshader.isEnable())
-            usedshader.use(false);
+        Shader::unbind();
 
         m_hardwareBuffer->render(material->m_faceType, offset, count);
     }
@@ -772,8 +768,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
     if(material->m_renderFlags & Material::LIGHTED)
     {
-        if(usedshader.isEnable())
-            usedshader.use(true);
+        Shader::bind(usedshader);
 
         glEnable(GL_BLEND);
 
@@ -803,8 +798,7 @@ void Mesh::render(Material* material, unsigned offset, unsigned count)
 
         m_sceneManager->setAmbientLight(globalAmbient);
 
-        if(usedshader.isEnable())
-            usedshader.use(false);
+        Shader::unbind();
     }
 
     endRenderingBuffer(material, offset, count);
@@ -1280,3 +1274,12 @@ void Mesh::generateMulTexCoord()
     m_hardwareBuffer->compile();
 }
 
+void Mesh::setPriorityRender(int priorityRender)
+{
+    this->m_priorityRender = priorityRender;
+}
+
+int Mesh::getPriorityRender() const
+{
+    return m_priorityRender;
+}

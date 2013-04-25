@@ -35,7 +35,10 @@ struct DepthSortMeshFunc
 
     bool operator()(Mesh* node1, Mesh * node2)
     {
-        if(node1->isTransparent() && node2->isTransparent())
+        if(node1->getPriorityRender() != 0 || node2->getPriorityRender() != 0)
+            return node1->getPriorityRender() > node2->getPriorityRender();
+
+        else if(node1->isTransparent() && node2->isTransparent())
             return (node1->getAbsoluteMatrix().getPos() - camPos) > (node2->getAbsoluteMatrix().getPos() - camPos);
 
         else if(node1->isTransparent() && !node2->isTransparent())

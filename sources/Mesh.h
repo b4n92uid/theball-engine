@@ -126,6 +126,9 @@ public:
     void setVisible(bool visible);
     bool isVisible() const;
 
+    void setPriorityRender(int priorityRender);
+    int getPriorityRender() const;
+
     /// Renvois le buffer graphique de rendue
     HardwareBuffer* getHardwareBuffer() const;
 
@@ -165,6 +168,7 @@ protected:
     bool m_visible;
     bool m_outputMaterial;
     bool m_requestVertexRestore;
+    int m_priorityRender;
 
     Vector2b m_billBoard;
 
@@ -177,7 +181,7 @@ private:
     void beginRenderingProperty(Material* material, unsigned, unsigned);
     void endRenderingProperty(Material* material, unsigned, unsigned);
     void endRenderingBuffer(Material* material, unsigned, unsigned);
-    
+
     void beginRenderingMatrix();
     void endRenderingMatrix();
 
