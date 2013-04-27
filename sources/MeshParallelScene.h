@@ -53,9 +53,13 @@ public:
     int beginPrePassLighting(Mesh* mesh);
     void prePassLighting(int i);
     void endPrePassLighting();
-    
+
     void setRenderingShader(Shader renderingShader);
     Shader getRenderingShader() const;
+
+private:
+    void drawScene();
+    void drawShadow(bool cast);
 
 private:
     unsigned m_renderedMeshCount;
@@ -67,6 +71,7 @@ private:
 
     std::vector<Light*> m_lightNodes;
     std::vector<Light*> m_prePassLights;
+
     int m_maxlight;
 };
 

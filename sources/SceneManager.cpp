@@ -6,7 +6,7 @@
 #include "Exception.h"
 #include "Tools.h"
 #include "Rtt.h"
-
+#include "ShadowMap.h"
 #include "Skybox.h"
 #include "Node.h"
 #include "Primitives.h"
@@ -26,6 +26,7 @@ SceneManager::SceneManager()
 {
     glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);
 
+    m_shadowMap = new ShadowMap(this);
     m_frustum = new Frustum;
     m_skybox = new SkyBox;
     m_fog = new Fog;
@@ -56,13 +57,15 @@ void SceneManager::updateViewParameter()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(m_fovy, m_ratio, m_zNear, m_zFar);
+
+    glGetFloatv(GL_PROJECTION_MATRIX, m_projectionMatrix);
 }
 
 void SceneManager::setup(Vector2i viewport, float ratio, float fovy, float zNear, float zFar)
 {
     m_viewport = viewport;
     m_fovy = fovy;
-    m_ratio = ratio ? ratio : (float)m_viewport.x / m_viewport.y;
+    m_ratio = ratio ? ratio : (float) m_viewport.x / m_viewport.y;
     m_zNear = zNear;
     m_zFar = zFar;
 
@@ -115,7 +118,10 @@ void SceneManager::render(bool setupView)
     if(!m_cameras.empty() && m_currentCamera != m_cameras.end())
     {
         if(setupView)
+        {
             (*m_currentCamera)->look();
+            glGetFloatv(GL_MODELVIEW_MATRIX, m_viewMatrix);
+        }
 
         m_frustum->extractPlane();
 
@@ -219,6 +225,11 @@ Iterator<Camera*> SceneManager::getCameraIterator()
     return Iterator<Camera*>(m_cameras);
 }
 
+ShadowMap* SceneManager::getShadowMap() const
+{
+    return m_shadowMap;
+}
+
 Frustum* SceneManager::getFrustum() const
 {
     return m_frustum;
@@ -237,7 +248,7 @@ Fog* SceneManager::getFog() const
 void SceneManager::setViewport(Vector2i viewport)
 {
     m_viewport = viewport;
-    m_ratio = (float)viewport.x / (float)viewport.y;
+    m_ratio = (float) viewport.x / (float) viewport.y;
 
     updateViewParameter();
 }
@@ -334,8 +345,8 @@ Vector3f SceneManager::screenToWorld(Vector2i target)
     // On récupére le viewport
     glGetIntegerv(GL_VIEWPORT, iViewport);
 
-    fPosX = (float)target.x;
-    fPosY = (float)target.y;
+    fPosX = (float) target.x;
+    fPosY = (float) target.y;
 
     // On lit la profondeur dans le tampon de profondeur
     glReadPixels(int(fPosX), int(fPosY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &fPosZ);
@@ -379,6 +390,16 @@ Quaternion SceneManager::computeBillboard(Vector3f obj, Vector3f cam, Vector2b d
         rotation *= Quaternion(acos(-rotateH), up);
 
     return rotation;
+}
+
+Matrix4 SceneManager::getProjectionMatrix() const
+{
+    return m_projectionMatrix;
+}
+
+Matrix4 SceneManager::getViewMatrix() const
+{
+    return m_viewMatrix;
 }
 
 void SceneManager::setAmbientLight(Vector4f ambient)

@@ -21,10 +21,7 @@ Camera::Camera(CameraType type, Vector3f posistion, Vector3f target, float sensi
     m_cameraType = type;
 }
 
-Camera::~Camera()
-{
-
-}
+Camera::~Camera() { }
 
 void Camera::push()
 {
@@ -189,9 +186,7 @@ UserCamera::UserCamera() : Camera(TARGET_RELATIVE)
     keybind.SPEED = EventManager::KEY_LSHIFT;
 }
 
-UserCamera::~UserCamera()
-{
-}
+UserCamera::~UserCamera() { }
 
 // OrbitalCamera ---------------------------------------------------------------
 

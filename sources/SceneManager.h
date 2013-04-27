@@ -25,6 +25,7 @@ namespace scene
 {
 
 class SkyBox;
+class ShadowMap;
 
 /**
  * \brief Gestionnaire de scene
@@ -112,7 +113,9 @@ public:
 
     Fog* getFog() const;
 
-    // Video mode attributs ----------------------------------------------------
+    ShadowMap* getShadowMap() const;
+
+    // View mode attributs ----------------------------------------------------
 
     void setViewport(Vector2i viewport);
     Vector2i getViewport() const;
@@ -130,6 +133,9 @@ public:
     float getRatio() const;
 
     void updateViewParameter();
+
+    Matrix4 getProjectionMatrix() const;
+    Matrix4 getViewMatrix() const;
 
     // Picking -----------------------------------------------------------------
 
@@ -156,10 +162,14 @@ protected:
     Vector2i m_viewport;
     float m_fovy, m_zNear, m_zFar, m_ratio;
 
+    ShadowMap* m_shadowMap;
     Frustum* m_frustum;
 
     Fog* m_fog;
     SkyBox* m_skybox;
+
+    Matrix4 m_projectionMatrix;
+    Matrix4 m_viewMatrix;
 };
 
 }

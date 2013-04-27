@@ -183,7 +183,7 @@ protected:
     Vector4f m_color;
 
     unsigned m_frameSortWait;
-    unsigned m_drawPass;
+
     float m_lineWidth;
     float m_alphaThershold;
 

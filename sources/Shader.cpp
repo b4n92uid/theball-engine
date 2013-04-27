@@ -88,6 +88,7 @@ GLuint ParseShader(const string& content, GLenum type)
             case GL_FRAGMENT_SHADER: ex << "Shader::LoadShader; Fragment Shader compile error" << endl << c_log;
         }
 
+        cout << ex.what() << endl;
         throw ex;
     }
 
@@ -326,6 +327,16 @@ void Shader::uniform(std::string name, Vector2i value)
         cout << "Shader::SetUniform; Invalid variable 2i id (" << name << ")" << endl;
     else
         glUniform2i(id, value.x, value.y);
+}
+
+void Shader::uniform(std::string name, Matrix4 value)
+{
+    GLint id = glGetUniformLocation(m_program, name.c_str());
+
+    if(id == -1)
+        cout << "Shader::SetUniform; Invalid variable m4 id (" << name << ")" << endl;
+    else
+        glUniformMatrix4fv(id, 1, false, (float*) value);
 }
 
 bool Shader::m_hardwareSupport = false;

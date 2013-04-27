@@ -20,9 +20,15 @@ Matrix4::Matrix4()
     identity();
 }
 
+Matrix4::Matrix4(const float value)
+{
+    for(unsigned i = 0; i < 16; i++)
+        values[i] = value;
+}
+
 Matrix4::Matrix4(const float fmatrix[16])
 {
-    memcpy(values, fmatrix, sizeof(float)*16);
+    memcpy(values, fmatrix, sizeof (float)*16);
 }
 
 Matrix4::Matrix4(const Vector3f& pos)
@@ -123,7 +129,7 @@ void Matrix4::transpose()
 
 bool Matrix4::operator=(const Matrix4& copy)
 {
-    memcpy(values, copy.values, sizeof(float)*16);
+    memcpy(values, copy.values, sizeof (float)*16);
 
     return true;
 }
@@ -295,7 +301,7 @@ void Matrix4::decompose(Vector3f& position, Quaternion& rotation, Vector3f& scal
         0, 0, 1
     };
 
-    extractMat3((float*)&m3x3[0]);
+    extractMat3((float*) &m3x3[0]);
 
     float matQ[3][3] = {
         1, 0, 0,
@@ -308,7 +314,7 @@ void Matrix4::decompose(Vector3f& position, Quaternion& rotation, Vector3f& scal
     qduDecomposition(m3x3, matQ, scale, vecU);
 
     Matrix4 rotmat;
-    rotmat.importMat3((float*)&matQ[0]);
+    rotmat.importMat3((float*) &matQ[0]);
 
     rotation.setMatrix(rotmat);
 
@@ -345,6 +351,12 @@ void Matrix4::importMat3(float* m3x3)
     values[10] = m3x3[8];
 }
 
+Vector3f Matrix4::getRow(unsigned i)
+{
+    assert(i < 4);
+    return Vector3f(values[i], values[i + 1], values[i + 2]);
+}
+
 Matrix4::operator const float*() const
 {
     return values;
@@ -355,12 +367,12 @@ Matrix4::operator float*()
     return values;
 }
 
-float Matrix4::operator()(int i, int j)const
+float Matrix4::operator()(int i, int j) const
 {
     return values[i * 4 + j];
 }
 
-float Matrix4::operator[](int i)const
+float Matrix4::operator[](int i) const
 {
     return values[i];
 }

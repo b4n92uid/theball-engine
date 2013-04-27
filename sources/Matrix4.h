@@ -34,6 +34,7 @@ public:
 
     Matrix4();
     Matrix4(const float fmatrix[16]);
+    Matrix4(const float value);
     Matrix4(const Vector3f& pos);
     Matrix4(std::string exp);
     Matrix4(const Matrix4& copy);
@@ -69,6 +70,8 @@ public:
 
     /// Efféctue une mise a l'échelle sur la matrice
     Matrix4& scale(const Vector3f& scale);
+
+    Vector3f getRow(unsigned i);
 
     /**
      * Applique une transformation sur la matrice dans l'ordre:

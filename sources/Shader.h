@@ -77,6 +77,9 @@ public:
     /// Transmet une variable au shader de type Vector2i
     void uniform(std::string name, Vector2i value);
 
+    /// Transmet une variable au shader de type Matrix4
+    void uniform(std::string name, Matrix4 value);
+
     /// Récuperation d'identifiant OpenGL
 
     operator GLuint()

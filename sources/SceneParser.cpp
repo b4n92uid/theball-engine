@@ -16,6 +16,7 @@
 #include "MapMark.h"
 #include "ObjMesh.h"
 #include "Ball3DMesh.h"
+#include "ShadowMap.h"
 
 using namespace std;
 using namespace tbe;
@@ -36,6 +37,14 @@ void SceneParser::prepare()
 
     if(!m_attributes.empty())
         m_scheme.put_child("Scene.attributes", m_attributes);
+
+    ShadowMap* smap = m_sceneManager->getShadowMap();
+
+    {
+        m_scheme.put("Scene.shadow", smap->isEnabled());
+        m_scheme.put("Scene.shadow.size", smap->getFrameSize().toStr());
+        m_scheme.put("Scene.shadow.blur", smap->getBlurPass());
+    }
 
     Fog* fog = m_sceneManager->getFog();
 
@@ -129,6 +138,7 @@ void SceneParser::load(const std::string& filepath)
 
 void SceneParser::build()
 {
+    VectorTranslator<Vector2i> v2itr;
     VectorTranslator<Vector4f> v4ftr;
 
     if(!m_meshScene)
@@ -149,6 +159,15 @@ void SceneParser::build()
         m_sceneManager->addParallelScene(m_markScene);
     }
 
+
+    if(m_scheme.get_child("Scene").count("shadow"))
+    {
+        ShadowMap* smap = m_sceneManager->getShadowMap();
+        smap->setEnabled(m_scheme.get<bool>("Scene.shadow", false));
+        smap->setFrameSize(m_scheme.get<Vector2i>("Scene.shadow.size", Vector2i(512), v2itr));
+        smap->setBlurPass(m_scheme.get<int>("Scene.shadow.blur", 0));
+    }
+
     if(m_scheme.get_child("Scene").count("fog"))
     {
         scene::Fog* fog = m_sceneManager->getFog();
@@ -160,20 +179,23 @@ void SceneParser::build()
 
     if(m_scheme.get_child("Scene").count("skybox"))
     {
-        TextureTranslator textr;
+        if(m_scheme.get<bool>("Scene.skybox"))
+        {
+            TextureTranslator textr;
 
-        Texture skytex[6] = {
-            resolve(m_scheme.get<string>("Scene.skybox.front")),
-            resolve(m_scheme.get<string>("Scene.skybox.back")),
-            resolve(m_scheme.get<string>("Scene.skybox.top")),
-            resolve(m_scheme.get<string>("Scene.skybox.bottom")),
-            resolve(m_scheme.get<string>("Scene.skybox.left")),
-            resolve(m_scheme.get<string>("Scene.skybox.right")),
-        };
+            Texture skytex[6] = {
+                resolve(m_scheme.get<string>("Scene.skybox.front")),
+                resolve(m_scheme.get<string>("Scene.skybox.back")),
+                resolve(m_scheme.get<string>("Scene.skybox.top")),
+                resolve(m_scheme.get<string>("Scene.skybox.bottom")),
+                resolve(m_scheme.get<string>("Scene.skybox.left")),
+                resolve(m_scheme.get<string>("Scene.skybox.right")),
+            };
 
-        scene::SkyBox * sky = m_sceneManager->getSkybox();
-        sky->setTextures(skytex);
-        sky->setEnable(true);
+            scene::SkyBox * sky = m_sceneManager->getSkybox();
+            sky->setTextures(skytex);
+            sky->setEnable(true);
+        }
     }
 
     if(m_scheme.get_child("Scene").count("shader"))

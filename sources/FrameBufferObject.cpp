@@ -153,6 +153,7 @@ void FrameBufferObject::attach(unsigned compenent)
         m_colorTextureId.build(m_frameSize);
 
         m_colorTextureId.use(true);
+        m_depthTextureId.setFiltring(Texture::LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         m_colorTextureId.use(false);
@@ -170,6 +171,7 @@ void FrameBufferObject::attach(unsigned compenent)
         m_depthTextureId.build(m_frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
 
         m_depthTextureId.use(true);
+        m_depthTextureId.setFiltring(Texture::NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         m_depthTextureId.use(false);
@@ -261,8 +263,10 @@ void FrameBufferObject::setFrameSize(Vector2i frameSize)
 
     this->m_frameSize = frameSize;
 
-    if(unsigned attachedCompenent = m_attachedCompenent)
+    if(m_attachedCompenent > 0)
     {
+        unsigned attachedCompenent = m_attachedCompenent;
+
         detach(attachedCompenent);
         attach(attachedCompenent);
     }

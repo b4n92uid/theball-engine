@@ -14,7 +14,7 @@ Material::Material()
 {
     m_ambient = 1;
     m_diffuse = 1;
-    m_specular = 0;
+    m_specular = 1;
     m_renderFlags = COLORED | TEXTURED | LIGHTED | FOGED;
     m_shininess = 16;
     m_lineWidth = 0;
@@ -23,7 +23,6 @@ Material::Material()
     m_faceType = TRIANGLES;
     m_depthTest = true;
     m_depthWrite = true;
-    m_drawPass = 1;
     m_color = 1;
 }
 
@@ -58,8 +57,6 @@ Material& Material::operator=(const Material& copy)
 
     m_depthTest = copy.m_depthTest;
     m_depthWrite = copy.m_depthWrite;
-
-    m_drawPass = copy.m_drawPass;
 
     m_texApply = copy.m_texApply;
 
@@ -250,16 +247,6 @@ void Material::setDepthTest(bool depthTest)
 bool Material::isDepthTest() const
 {
     return m_depthTest;
-}
-
-void Material::setDrawPass(unsigned drawPass)
-{
-    this->m_drawPass = drawPass;
-}
-
-unsigned Material::getDrawPass() const
-{
-    return m_drawPass;
 }
 
 void Material::setTextureBlend(MulTexBlend type, unsigned index)

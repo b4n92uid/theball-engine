@@ -99,7 +99,7 @@ inline Vector3f radianClamp(const Vector3f& euler)
  */
 inline bool isEqual(float a, float b, float factor = FLOAT_TEST_FACTOR)
 {
-    return(fabs(a - b) < factor);
+    return (fabs(a - b) < factor);
 }
 
 /**
@@ -108,7 +108,7 @@ inline bool isEqual(float a, float b, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isEqual(Vector3f a, float b, float factor = FLOAT_TEST_FACTOR)
 {
-    return(isEqual(a.x, b, factor) && isEqual(a.y, b, factor) && isEqual(a.z, b, factor));
+    return (isEqual(a.x, b, factor) && isEqual(a.y, b, factor) && isEqual(a.z, b, factor));
 }
 
 /**
@@ -117,7 +117,7 @@ inline bool isEqual(Vector3f a, float b, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isEqual(Vector3f a, Vector3f b, float factor = FLOAT_TEST_FACTOR)
 {
-    return(isEqual(a.x, b.x, factor) && isEqual(a.y, b.y, factor) && isEqual(a.z, b.z, factor));
+    return (isEqual(a.x, b.x, factor) && isEqual(a.y, b.y, factor) && isEqual(a.z, b.z, factor));
 }
 
 /**
@@ -126,7 +126,7 @@ inline bool isEqual(Vector3f a, Vector3f b, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isEqual(Vector4f a, float b, float factor = FLOAT_TEST_FACTOR)
 {
-    return(isEqual(a.x, b, factor) && isEqual(a.y, b, factor) && isEqual(a.z, b, factor) && isEqual(a.w, b, factor));
+    return (isEqual(a.x, b, factor) && isEqual(a.y, b, factor) && isEqual(a.z, b, factor) && isEqual(a.w, b, factor));
 }
 
 /**
@@ -135,7 +135,7 @@ inline bool isEqual(Vector4f a, float b, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isEqual(Vector4f a, Vector4f b, float factor = FLOAT_TEST_FACTOR)
 {
-    return(isEqual(a.x, b.x, factor) && isEqual(a.y, b.y, factor) && isEqual(a.z, b.z, factor) && isEqual(a.w, b.w, factor));
+    return (isEqual(a.x, b.x, factor) && isEqual(a.y, b.y, factor) && isEqual(a.z, b.z, factor) && isEqual(a.w, b.w, factor));
 }
 
 /**
@@ -144,7 +144,7 @@ inline bool isEqual(Vector4f a, Vector4f b, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isZero(float a, float factor = FLOAT_TEST_FACTOR)
 {
-    return(a > -factor && a < factor);
+    return (a > -factor && a < factor);
 }
 
 /**
@@ -153,7 +153,7 @@ inline bool isZero(float a, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isAnyZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
 {
-    return(isZero(a.x, factor) || isZero(a.y, factor) || isZero(a.z, factor));
+    return (isZero(a.x, factor) || isZero(a.y, factor) || isZero(a.z, factor));
 }
 
 /**
@@ -162,7 +162,7 @@ inline bool isAnyZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
 {
-    return(isZero(a.x, factor) && isZero(a.y, factor) && isZero(a.z, factor));
+    return (isZero(a.x, factor) && isZero(a.y, factor) && isZero(a.z, factor));
 }
 
 /**
@@ -171,7 +171,7 @@ inline bool isZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isAnyZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
 {
-    return(isZero(a.x, factor) || isZero(a.y, factor));
+    return (isZero(a.x, factor) || isZero(a.y, factor));
 }
 
 /**
@@ -180,7 +180,7 @@ inline bool isAnyZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
  */
 inline bool isZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
 {
-    return(isZero(a.x, factor) && isZero(a.y, factor));
+    return (isZero(a.x, factor) && isZero(a.y, factor));
 }
 
 /**
@@ -191,12 +191,12 @@ inline bool isZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
  */
 template<typename T> inline bool isPow2(T value)
 {
-    return(value != 0) && !(value & (value - 1));
+    return (value != 0) && !(value & (value - 1));
 }
 
 /**
  * Renvois la premiere valeur de puissance-deux apres 'v'
- * 
+ *
  * Implementer depuis le tutoriel de NeHe sur Freetype:
  * <http://nehe.gamedev.net/tutorial/freetype_fonts_in_opengl/24001/>
  *
@@ -270,7 +270,7 @@ inline float rand(float min, float max)
     if(!min && !max)
         return 0;
 
-    return(min + ((float)std::rand() / RAND_MAX * (max - min)));
+    return (min + ((float) std::rand() / RAND_MAX * (max - min)));
 }
 
 /**
@@ -466,7 +466,7 @@ inline Vector4f round(Vector4f value)
 /**
  * Fast inverse square root:
  * Implemented from Quake 3 source
- * 
+ *
  * <http://en.wikipedia.org/wiki/Fast_inverse_square_root>
  */
 inline float reverseSqrt(float number)
@@ -477,17 +477,82 @@ inline float reverseSqrt(float number)
 
     x2 = number * 0.5F;
     y = number;
-    i = *(long*)&y; // evil floating point bit level hacking
+    i = *(long*) &y; // evil floating point bit level hacking
     i = 0x5f3759df - (i >> 1); // what the fuck?
-    y = *(float*)&i;
+    y = *(float*) &i;
     y = y * (threehalfs - (x2 * y * y)); // 1st iteration
     y = y * (threehalfs - (x2 * y * y)); // 2nd iteration, this can be removed
 
     return y;
 }
 
+inline Matrix4 orthographicMatrix(float left, float right, float bottom, float top, float znear, float zfar)
+{
+    Matrix4 result;
+
+    result(0, 0) = 2 / (right - left);
+    result(1, 1) = 2 / (top - bottom);
+    result(2, 2) = -2 / (zfar - znear);
+    result(3, 3) = 1;
+
+    result(3, 0) = -(right + left) / (right - left);
+    result(3, 1) = -(top + bottom) / (top - bottom);
+    result(3, 2) = -(zfar + znear) / (zfar - znear);
+
+    return result;
+}
+
+inline Matrix4 perspectiveMatrix(float fovy, float aspect, float zNear, float zFar)
+{
+    // from GLM
+    // <https://github.com/g-truc/glm/blob/0.9.4/glm/gtc/matrix_transform.inl>
+
+    Matrix4 result;
+
+    float range = tan((fovy / 2) * M_PI / 180) * zNear;
+    float left = -range * aspect;
+    float right = range * aspect;
+    float bottom = -range;
+    float top = range;
+
+    result(0, 0) = (2 * zNear) / (right - left);
+    result(1, 1) = (2 * zNear) / (top - bottom);
+    result(2, 2) = -(zFar + zNear) / (zFar - zNear);
+    result(2, 3) = -1;
+    result(3, 2) = -(2 * zFar * zNear) / (zFar - zNear);
+
+    return result;
+}
+
+inline Matrix4 lookAt(Vector3f eye, Vector3f center, Vector3f up)
+{
+    // from GLM
+    // <https://github.com/g-truc/glm/blob/0.9.4/glm/gtc/matrix_transform.inl>
+
+    Vector3f f = (center - eye).normalize();
+    Vector3f u = Vector3f::normalize(up);
+    Vector3f s = Vector3f::cross(f, u).normalize();
+    u = Vector3f::cross(s, f);
+
+    Matrix4 result;
+
+    result(0, 0) = s.x;
+    result(1, 0) = s.y;
+    result(2, 0) = s.z;
+    result(0, 1) = u.x;
+    result(1, 1) = u.y;
+    result(2, 1) = u.z;
+    result(0, 2) = -f.x;
+    result(1, 2) = -f.y;
+    result(2, 2) = -f.z;
+    result(3, 0) = -Vector3f::dot(s, eye);
+    result(3, 1) = -Vector3f::dot(u, eye);
+    result(3, 2) = Vector3f::dot(f, eye);
+
+    return result;
+}
+
 }
 }
 
 #endif	/* _MATHEMATICS_H */
-

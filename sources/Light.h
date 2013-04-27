@@ -57,6 +57,12 @@ public:
     void setType(Type type);
     Type getType() const;
 
+    Matrix4 getProjectionMatrix() const;
+    Matrix4 getViewMatrix() const;
+
+    void setCastShadow(bool castShadow);
+    bool isCastShadow() const;
+
     rtree serialize(std::string root);
 
     typedef std::vector<scene::Light*> Array;
@@ -67,6 +73,8 @@ protected:
     Vector4f m_specular; // Scli
     Vector3f m_halfVector; // Derived: Hi
     Vector3f m_spotDirection; // Sdli
+
+    bool m_castShadow;
 
     float m_spotExponent; // Srli
     float m_spotCutoff; // Crli

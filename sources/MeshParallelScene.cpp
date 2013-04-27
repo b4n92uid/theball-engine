@@ -13,8 +13,7 @@
 #include "Tools.h"
 #include "Ball3DMesh.h"
 #include "ObjMesh.h"
-
-#include <list>
+#include "ShadowMap.h"
 
 using namespace tbe;
 using namespace tbe::scene;
@@ -54,11 +53,32 @@ struct DepthSortMeshFunc
     Vector3f camPos;
 };
 
-void MeshParallelScene::render()
+void MeshParallelScene::drawShadow(bool cast)
 {
-    if(!m_enable)
-        return;
+    Frustum* frustum = m_sceneManager->getFrustum();
 
+    for(Mesh::Array::iterator it = m_nodes.begin(); it != m_nodes.end(); ++it)
+    {
+        Mesh* node = *it;
+
+        if(!node->isAttached())
+            continue;
+
+        if(cast && !node->isCastShadow())
+            continue;
+
+        if(!cast && !node->isReceiveShadow())
+            continue;
+
+        if(m_enableFrustumTest && !frustum->isInside(node))
+            continue;
+
+        node->renderShadow();
+    }
+}
+
+void MeshParallelScene::drawScene()
+{
     Frustum* frustum = m_sceneManager->getFrustum();
 
     m_frustumCullingCount = 0;
@@ -84,9 +104,48 @@ void MeshParallelScene::render()
         }
 
         node->render();
-        m_renderedMeshCount++;
 
+        m_renderedMeshCount++;
     }
+}
+
+void MeshParallelScene::render()
+{
+    if(!m_enable)
+        return;
+
+    ShadowMap* shadowMap = m_sceneManager->getShadowMap();
+
+    if(shadowMap->isEnabled())
+    {
+
+        BOOST_FOREACH(Light* l, m_lightNodes)
+        {
+            if(l->getType() != Light::DIRI || !l->isCastShadow())
+                continue;
+
+            shadowMap->begin(l);
+            m_sceneManager->getFrustum()->extractPlane();
+
+            drawShadow(true);
+            shadowMap->end();
+
+            shadowMap->bind(l);
+            m_sceneManager->getFrustum()->extractPlane();
+
+            drawShadow(false);
+            shadowMap->unbind();
+
+            drawScene();
+
+            shadowMap->render();
+
+            break; // Support of multiple light for shadwing soon...
+        }
+    }
+    else
+        drawScene();
+
 }
 
 Vector3f::Array MeshParallelScene::rayCast(Vector3f start, Vector3f dir)

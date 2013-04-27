@@ -146,11 +146,15 @@ void PostProcessManager::beginPostProcess()
     gluOrtho2D(0, 1, 0, 1);
 
     glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
     glLoadIdentity();
 }
 
 void PostProcessManager::endPostProcess()
 {
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+    
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
 

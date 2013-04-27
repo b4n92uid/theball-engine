@@ -10,6 +10,7 @@
 #include "SceneManager.h"
 #include "MeshParallelScene.h"
 #include "Tools.h"
+#include "ShadowMap.h"
 
 #include <boost/function.hpp>
 #include <boost/algorithm/string.hpp>
@@ -53,6 +54,8 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_billBoard = false;
     m_requestVertexRestore = false;
     m_priorityRender = 0;
+    m_receiveShadow = true;
+    m_castShadow = true;
 
     Node::m_parallelScene = m_parallelScene = scene;
 
@@ -156,6 +159,8 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_visible = copy.m_visible;
     m_billBoard = copy.m_billBoard;
     m_priorityRender = copy.m_priorityRender;
+    m_receiveShadow = copy.m_receiveShadow;
+    m_castShadow = copy.m_castShadow;
 
     if(copy.m_hardwareBuffer)
         m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
@@ -348,14 +353,8 @@ struct ShaderBind
     }
 };
 
-void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned count)
+Shader Mesh::getUsedShader(Material* material)
 {
-    using namespace boost;
-
-    glPushAttrib(GL_ENABLE_BIT);
-
-    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
-
     Shader usedshader;
 
     if(!material->isEnable(Material::PIPELINE))
@@ -366,6 +365,19 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
         else if(m_parallelScene->getRenderingShader().isEnable())
             usedshader = m_parallelScene->getRenderingShader();
     }
+
+    return usedshader;
+}
+
+void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned count)
+{
+    using namespace boost;
+
+    glPushAttrib(GL_ENABLE_BIT);
+
+    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
+
+    Shader usedshader = getUsedShader(material);
 
     if(usedshader.isEnable())
     {
@@ -728,18 +740,9 @@ void Mesh::endRenderingMatrix()
     glPopMatrix();
 }
 
-void Mesh::render(Material* material, unsigned offset, unsigned count)
+void Mesh::drawMaterial(Material* material, unsigned offset, unsigned count)
 {
-    Shader usedshader;
-
-    if(!material->isEnable(Material::PIPELINE))
-    {
-        if(material->m_shader.isEnable())
-            usedshader = material->m_shader;
-
-        else if(m_parallelScene->getRenderingShader().isEnable())
-            usedshader = m_parallelScene->getRenderingShader();
-    }
+    Shader usedshader = getUsedShader(material);
 
     beginRenderingBuffer(material, offset, count);
 
@@ -816,7 +819,7 @@ void Mesh::render()
     if(m_renderProess.empty())
     {
         Material defaultMateral;
-        render(&defaultMateral, 0, m_hardwareBuffer->getVertexCount());
+        drawMaterial(&defaultMateral, 0, m_hardwareBuffer->getVertexCount());
     }
 
     else
@@ -826,11 +829,11 @@ void Mesh::render()
             std::sort(m_renderProess.begin(), m_renderProess.end(), renderProcessSortFunc);
 
             for(unsigned i = 0; i < m_renderProess.size(); i++)
-                render(m_materials[m_renderProess[i].applyMaterial], m_renderProess[i].offset, m_renderProess[i].size);
+                drawMaterial(m_materials[m_renderProess[i].applyMaterial], m_renderProess[i].offset, m_renderProess[i].size);
         }
         else
         {
-            render(m_materials[m_renderProess.front().applyMaterial], m_renderProess.front().offset, m_renderProess.front().size);
+            drawMaterial(m_materials[m_renderProess.front().applyMaterial], m_renderProess.front().offset, m_renderProess.front().size);
         }
 
     }
@@ -842,6 +845,22 @@ void Mesh::render()
     }
 
     m_hardwareBuffer->bindBuffer(false);
+}
+
+void Mesh::renderShadow()
+{
+    if(!m_hardwareBuffer || m_hardwareBuffer->isEmpty() || !m_enable || !m_visible)
+        return;
+
+    beginRenderingMatrix();
+    m_hardwareBuffer->bindBuffer();
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(true);
+    m_hardwareBuffer->render(Material::TRIANGLES, 0, m_hardwareBuffer->getVertexCount());
+
+    m_hardwareBuffer->bindBuffer(false);
+    endRenderingMatrix();
 }
 
 void Mesh::process()
@@ -1187,6 +1206,8 @@ rtree Mesh::serialize(std::string root)
     {
         scheme.put("class", "Mesh");
         scheme.put("class.billBoarding", m_billBoard.toStr());
+        scheme.put("class.castShadow", m_castShadow);
+        scheme.put("class.receiveShadow", m_receiveShadow);
 
         if(scheme.count("material"))
         {
@@ -1282,4 +1303,24 @@ void Mesh::setPriorityRender(int priorityRender)
 int Mesh::getPriorityRender() const
 {
     return m_priorityRender;
+}
+
+void Mesh::setCastShadow(bool castShadow)
+{
+    this->m_castShadow = castShadow;
+}
+
+bool Mesh::isCastShadow() const
+{
+    return m_castShadow;
+}
+
+void Mesh::setReceiveShadow(bool receiveShadow)
+{
+    this->m_receiveShadow = receiveShadow;
+}
+
+bool Mesh::isReceiveShadow() const
+{
+    return m_receiveShadow;
 }

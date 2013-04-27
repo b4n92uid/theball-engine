@@ -9,6 +9,7 @@
 
 #include "Exception.h"
 #include "Tools.h"
+#include "SceneManager.h"
 
 using namespace std;
 using namespace tbe;
@@ -31,6 +32,7 @@ Light::Light(MeshParallelScene* scene, Type type)
     setRadius(1);
 
     m_type = type;
+    m_castShadow = true;
 
     Node::m_parallelScene = m_parallelScene = scene;
     m_sceneManager = m_parallelScene->getSceneManager();
@@ -185,6 +187,27 @@ Light::Type Light::getType() const
     return m_type;
 }
 
+Matrix4 Light::getProjectionMatrix() const
+{
+    // return math::perspectiveMatrix(70.0, 1.0, 1, 1000);
+    return math::orthographicMatrix(-10, 10, -10, 10, -10, 20);
+}
+
+Matrix4 Light::getViewMatrix() const
+{
+    return math::lookAt(Vector3f::normalize(m_position) * 8, 0, Vector3f(0.0f, 1.0f, 0.0f));
+}
+
+void Light::setCastShadow(bool castShadow)
+{
+    this->m_castShadow = castShadow;
+}
+
+bool Light::isCastShadow() const
+{
+    return m_castShadow;
+}
+
 rtree Light::serialize(std::string root)
 {
     rtree scheme = Node::serialize(root);
@@ -195,6 +218,8 @@ rtree Light::serialize(std::string root)
         scheme.put("class.type", "diri");
     else if(m_type == Light::POINT)
         scheme.put("class.type", "point");
+
+    scheme.put("class.castShadow", m_castShadow);
 
     scheme.put("class.ambient", m_ambient.toStr());
     scheme.put("class.diffuse", m_diffuse.toStr());

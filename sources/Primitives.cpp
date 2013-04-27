@@ -464,7 +464,6 @@ void Grid::build(Vector2f size, Vector2i cut)
     Material* mainMaterial = new Material;
     mainMaterial->disable(Material::TEXTURED | Material::LIGHTED);
     mainMaterial->setFaceType(Material::LINES);
-    mainMaterial->setDrawPass(m_hardwareBuffer->getVertexCount() / 2);
 
     addMaterial("main", mainMaterial);
 

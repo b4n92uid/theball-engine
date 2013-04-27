@@ -42,6 +42,7 @@ public:
 
     /// Rendue
     void render();
+    void renderShadow();
 
     /// Traitement
     void process();
@@ -143,6 +144,12 @@ public:
     void setBillBoard(Vector2b billBoard);
     Vector2b getBillBoard() const;
 
+    void setCastShadow(bool castShadow);
+    bool isCastShadow() const;
+
+    void setReceiveShadow(bool receiveShadow);
+    bool isReceiveShadow() const;
+
     bool rayCast(Vector3f rayStart, Vector3f rayDiri, float& intersect, bool global);
 
     void shareVertexes(const Mesh& copy);
@@ -168,6 +175,8 @@ protected:
     bool m_visible;
     bool m_outputMaterial;
     bool m_requestVertexRestore;
+    bool m_receiveShadow;
+    bool m_castShadow;
     int m_priorityRender;
 
     Vector2b m_billBoard;
@@ -185,7 +194,9 @@ private:
     void beginRenderingMatrix();
     void endRenderingMatrix();
 
-    void render(Material* material, unsigned offset, unsigned size);
+    void drawMaterial(Material* material, unsigned offset, unsigned size);
+
+    Shader getUsedShader(Material* material);
 
     struct RenderProcess
     {

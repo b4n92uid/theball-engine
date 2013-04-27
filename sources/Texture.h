@@ -24,10 +24,10 @@ public:
     virtual ~Texture();
 
     /// Construit une texture avec la valuer et la taille spécifier
-    void build(Vector2i size, Vector4i color = 0, GLint internalFormat = 4, GLenum format = GL_RGBA);
+    void build(Vector2i size, Vector4i color = 0, GLint internalFormat = 4, GLenum format = GL_RGBA, GLenum type = GL_UNSIGNED_BYTE);
 
     /// Construit une texture avec la valuer et la taille spécifier
-    void buildMem(Vector2i size, unsigned char* byte, GLint internalFormat = 4, GLenum format = GL_RGBA);
+    void buildMem(Vector2i size, unsigned char* byte, GLint internalFormat = 4, GLenum format = GL_RGBA, GLenum type = GL_UNSIGNED_BYTE);
 
     /**
      * Chargement la texture depuis un fichier

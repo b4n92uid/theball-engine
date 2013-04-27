@@ -22,12 +22,13 @@ static const char vertexShader[] =
 
 static const char fragmentShader[] =
         "#version 120\n"
+        "uniform float offset;"
         "uniform sampler2D texture;"
 
         "void main(void)"
         "{"
 
-        "float offset = 0.0078125;"
+        // "float offset = 0.0078125;"
 
         "vec4 final = texture2D(texture, gl_TexCoord[0].st);"
         "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset,0));"
@@ -52,11 +53,10 @@ BlurEffect::BlurEffect()
     m_processShader.loadProgram();
 
     setPasse(1);
+    setOffset(1.0f / 128.0f);
 }
 
-BlurEffect::~BlurEffect()
-{
-}
+BlurEffect::~BlurEffect() { }
 
 void BlurEffect::process(Rtt* rtt)
 {
@@ -67,6 +67,9 @@ void BlurEffect::process(Rtt* rtt)
      * Passe de blur sur workFbo
      * Rendue workFbo -> output
      */
+
+    if(m_passe == 0)
+        return;
 
     if(m_passe == 1) // Optimisation
     {
@@ -124,4 +127,18 @@ void BlurEffect::setPasse(unsigned passe)
 unsigned BlurEffect::getPasse() const
 {
     return m_passe;
+}
+
+void BlurEffect::setOffset(float offset)
+{
+    this->m_offset = offset;
+
+    Shader::bind(m_processShader);
+    m_processShader.uniform("offset", offset);
+    Shader::unbind();
+}
+
+float BlurEffect::getOffset() const
+{
+    return m_offset;
 }

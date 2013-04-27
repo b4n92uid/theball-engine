@@ -117,6 +117,9 @@ std::string AbstractParser::relativize(std::string parh)
 
 void AbstractParser::buildShader(rtree data, Material* mat)
 {
+    if(!data.count("shader"))
+        return;
+
     Shader shader;
 
     if(data.get_optional<string>("shader.vertex"))
@@ -328,6 +331,8 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
         Mesh::registerBuffer(mesh, path);
 
         mesh->setBillBoard(data.get<Vector2b>("class.billBoarding", Vector2b(false)));
+        mesh->setReceiveShadow(data.get<bool>("class.receiveShadow", true));
+        mesh->setCastShadow(data.get<bool>("class.castShadow(", true));
 
         if(data.count("material"))
         {
@@ -431,6 +436,7 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
         light->setAmbient(data.get<Vector4f>("class.ambient", Vector4f(0), v4tr));
         light->setDiffuse(data.get<Vector4f>("class.diffuse", Vector4f(1), v4tr));
         light->setSpecular(data.get<Vector4f>("class.specular", Vector4f(0), v4tr));
+        light->setCastShadow(data.get<bool>("class.castShadow", true));
 
         buildInherited(data, parent, light);
 

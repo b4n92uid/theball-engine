@@ -333,26 +333,28 @@ void MTLFile::open(const std::string& path)
             // le shininess doit etre spécifier manuellement
         }
 
-        else if(opcode == "Ka")
-        {
-            Vector4f ka;
-            sscanf(arg.c_str(), "%f %f %f", &ka.x, &ka.y, &ka.z);
-            material->setAmbient(ka);
-        }
+            /*
+            else if(opcode == "Ka")
+            {
+                Vector4f ka;
+                sscanf(arg.c_str(), "%f %f %f", &ka.x, &ka.y, &ka.z);
+                material->setAmbient(ka);
+            }
 
-        else if(opcode == "Kd")
-        {
-            Vector4f kd;
-            sscanf(arg.c_str(), "%f %f %f", &kd.x, &kd.y, &kd.z);
-            material->setDiffuse(kd);
-        }
+            else if(opcode == "Kd")
+            {
+                Vector4f kd;
+                sscanf(arg.c_str(), "%f %f %f", &kd.x, &kd.y, &kd.z);
+                material->setDiffuse(kd);
+            }
 
-        else if(opcode == "Ks")
-        {
-            Vector4f ks;
-            sscanf(arg.c_str(), "%f %f %f", &ks.x, &ks.y, &ks.z);
-            material->setSpecular(ks);
-        }
+            else if(opcode == "Ks")
+            {
+                Vector4f ks;
+                sscanf(arg.c_str(), "%f %f %f", &ks.x, &ks.y, &ks.z);
+                material->setSpecular(ks);
+            }
+             */
 
         else if(opcode == "Ni")
         {
