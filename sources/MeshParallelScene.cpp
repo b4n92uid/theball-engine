@@ -56,6 +56,7 @@ struct DepthSortMeshFunc
 void MeshParallelScene::drawShadow(bool cast)
 {
     Frustum* frustum = m_sceneManager->getFrustum();
+    ShadowMap* shadowMap = m_sceneManager->getShadowMap();
 
     for(Mesh::Array::iterator it = m_nodes.begin(); it != m_nodes.end(); ++it)
     {
@@ -72,6 +73,9 @@ void MeshParallelScene::drawShadow(bool cast)
 
         if(m_enableFrustumTest && !frustum->isInside(node))
             continue;
+
+        if(!cast) // Receive
+            shadowMap->bindMatrix(node->getMatrix());
 
         node->renderShadow();
     }

@@ -47,6 +47,7 @@ static const char vertex[] =
 
         "uniform mat4 LightProjectionMatrix;"
         "uniform mat4 LightViewMatrix;"
+        "uniform mat4 NodeMatrix;"
 
         "void main()"
         "{"
@@ -55,7 +56,7 @@ static const char vertex[] =
         "0.0, 0.0, 0.5, 0.0,"
         "0.5, 0.5, 0.5, 1.0);"
 
-        "ShadowCoord = biasMatrix * (LightProjectionMatrix * LightViewMatrix) * gl_Vertex;"
+        "ShadowCoord = biasMatrix * (LightProjectionMatrix * LightViewMatrix ) * (NodeMatrix * gl_Vertex);"
 
         "gl_Position = ftransform();"
 
@@ -180,6 +181,11 @@ void ShadowMap::bind(Light* l)
     m_shader.uniform("LightViewMatrix", lightVM);
 
     m_lightBuffer->getDepht().use(true);
+}
+
+void ShadowMap::bindMatrix(Matrix4 mat)
+{
+    m_shader.uniform("NodeMatrix", mat);
 }
 
 void ShadowMap::unbind()

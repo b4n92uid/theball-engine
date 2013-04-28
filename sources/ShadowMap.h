@@ -32,6 +32,7 @@ public:
     void end();
 
     void bind(Light* l);
+    void bindMatrix(Matrix4 mat);
     void unbind();
 
     void render();
