@@ -49,6 +49,8 @@ static const char vertex[] =
         "uniform mat4 LightViewMatrix;"
         "uniform mat4 NodeMatrix;"
 
+        "uniform float Intensity;"
+
         "void main()"
         "{"
         "mat4 biasMatrix = mat4(0.5, 0.0, 0.0, 0.0,"
@@ -60,7 +62,7 @@ static const char vertex[] =
 
         "gl_Position = ftransform();"
 
-        "gl_FrontColor = vec4(0,0,0,0.5);"
+        "gl_FrontColor = vec4(0,0,0,Intensity);"
         "}";
 
 ShadowMap::ShadowMap(SceneManager* sceneManager)
@@ -72,11 +74,13 @@ ShadowMap::ShadowMap(SceneManager* sceneManager)
     m_shader.parseFragmentShader(fragment);
     m_shader.loadProgram();
 
+    setIntensity(0.5);
+
     m_frameSize = 512;
 
-    m_lightBuffer = new Rtt(m_frameSize);
-    m_lightBuffer->setCaptureColor(true);
-    m_lightBuffer->setCaptureDepth(true);
+    m_depthBuffer = new Rtt(m_frameSize);
+    m_depthBuffer->setCaptureColor(true);
+    m_depthBuffer->setCaptureDepth(true);
 
     m_shadowBuffer = new Rtt(m_frameSize);
     m_shadowBuffer->setCaptureColor(true);
@@ -110,12 +114,41 @@ int ShadowMap::getBlurPass() const
     return m_blur->getPasse();
 }
 
+void ShadowMap::setIntensity(float intensity)
+{
+    this->m_intensity = intensity;
+
+    Shader::bind(m_shader);
+    m_shader.uniform("Intensity", intensity);
+    Shader::unbind();
+}
+
+float ShadowMap::getIntensity() const
+{
+    return m_intensity;
+}
+
+Matrix4 ShadowMap::getModelMatrix() const
+{
+    return m_modelMatrix;
+}
+
+Matrix4 ShadowMap::getProjectionMatrix() const
+{
+    return m_projectionMatrix;
+}
+
+Texture ShadowMap::getDepthMap()
+{
+    return m_depthBuffer->getDepht();
+}
+
 void ShadowMap::setFrameSize(Vector2i size)
 {
     m_frameSize = size;
     m_blur->setRttFrameSize(m_frameSize);
     m_blur->setOffset(1.0f / m_frameSize.x);
-    m_lightBuffer->setFrameSize(size);
+    m_depthBuffer->setFrameSize(size);
     m_shadowBuffer->setFrameSize(size);
 }
 
@@ -126,7 +159,7 @@ Vector2i ShadowMap::getFrameSize() const
 
 void ShadowMap::begin(Light* l)
 {
-    m_lightBuffer->use(true);
+    m_depthBuffer->use(true);
 
     glClear(GL_DEPTH_BUFFER_BIT);
 
@@ -138,14 +171,14 @@ void ShadowMap::begin(Light* l)
     glShadeModel(GL_FLAT);
     glColorMask(0, 0, 0, 0);
 
-    Matrix4 lightPM = l->getProjectionMatrix();
-    Matrix4 lightVM = l->getViewMatrix();
+    m_projectionMatrix = l->getProjectionMatrix();
+    m_modelMatrix = l->getViewMatrix();
 
     glMatrixMode(GL_PROJECTION);
-    glLoadMatrixf(lightPM);
+    glLoadMatrixf(m_projectionMatrix);
 
     glMatrixMode(GL_MODELVIEW);
-    glLoadMatrixf(lightVM);
+    glLoadMatrixf(m_modelMatrix);
 }
 
 void ShadowMap::end()
@@ -162,10 +195,10 @@ void ShadowMap::end()
     glMatrixMode(GL_MODELVIEW);
     glLoadMatrixf(m_sceneManager->getViewMatrix());
 
-    m_lightBuffer->use(false);
+    m_depthBuffer->use(false);
 }
 
-void ShadowMap::bind(Light* l)
+void ShadowMap::bind()
 {
     m_shadowBuffer->use(true);
 
@@ -174,13 +207,10 @@ void ShadowMap::bind(Light* l)
 
     Shader::bind(m_shader);
 
-    Matrix4 lightPM = l->getProjectionMatrix();
-    Matrix4 lightVM = l->getViewMatrix();
+    m_shader.uniform("LightProjectionMatrix", m_projectionMatrix);
+    m_shader.uniform("LightViewMatrix", m_modelMatrix);
 
-    m_shader.uniform("LightProjectionMatrix", lightPM);
-    m_shader.uniform("LightViewMatrix", lightVM);
-
-    m_lightBuffer->getDepht().use(true);
+    m_depthBuffer->getDepht().use(true);
 }
 
 void ShadowMap::bindMatrix(Matrix4 mat)
@@ -190,7 +220,7 @@ void ShadowMap::bindMatrix(Matrix4 mat)
 
 void ShadowMap::unbind()
 {
-    m_lightBuffer->getDepht().use(false);
+    m_depthBuffer->getDepht().use(false);
 
     Shader::unbind();
 

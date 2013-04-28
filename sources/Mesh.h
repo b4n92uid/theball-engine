@@ -186,6 +186,9 @@ protected:
     MeshParallelScene* m_parallelScene;
 
 private:
+    void animateTexture(unsigned layer, Texture texture, TextureApply settings);
+    void bindTexture(unsigned layer, Texture texture, TextureApply settings);
+
     void beginRenderingBuffer(Material* material, unsigned, unsigned);
     void beginRenderingProperty(Material* material, unsigned, unsigned);
     void endRenderingProperty(Material* material, unsigned, unsigned);

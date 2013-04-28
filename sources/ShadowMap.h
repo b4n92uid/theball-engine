@@ -31,9 +31,14 @@ public:
     void begin(Light* l);
     void end();
 
-    void bind(Light* l);
+    void bind();
     void bindMatrix(Matrix4 mat);
     void unbind();
+
+    Matrix4 getModelMatrix() const;
+    Matrix4 getProjectionMatrix() const;
+
+    Texture getDepthMap();
 
     void render();
 
@@ -42,14 +47,21 @@ public:
 
     void setEnabled(bool enabled);
     bool isEnabled() const;
-    
+
     void setBlurPass(int blurPass);
     int getBlurPass() const;
 
+    void setIntensity(float intensity);
+    float getIntensity() const;
+
 private:
+    Matrix4 m_projectionMatrix;
+    Matrix4 m_modelMatrix;
+    float m_intensity;
+
     SceneManager* m_sceneManager;
     ppe::BlurEffect* m_blur;
-    Rtt* m_lightBuffer;
+    Rtt* m_depthBuffer;
     Rtt* m_shadowBuffer;
     Vector2i m_frameSize;
     Shader m_shader;

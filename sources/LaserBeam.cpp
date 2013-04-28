@@ -77,7 +77,7 @@ void LaserBeam::shoot(Vector3f start, Vector3f end)
 
     Material* mainMaterial = new Material;
     mainMaterial->disable(Material::LIGHTED);
-    mainMaterial->enable(Material::TEXTURED | Material::BLEND_ADD | Material::COLORED);
+    mainMaterial->enable(Material::TEXTURED | Material::ADDITIVE | Material::COLORED);
     mainMaterial->setFaceType(Material::TRIANGLES);
     mainMaterial->setTexture(m_texture);
 

@@ -185,13 +185,13 @@ void AbstractParser::buildMaterial(rtree data, Mesh* mesh)
             string blend = v.second.get<string>("blend");
 
             if(blend == "additive")
-                mat->enable(Material::BLEND_ADD);
+                mat->enable(Material::ADDITIVE);
 
             else if(blend == "modulate")
-                mat->enable(Material::BLEND_MOD);
+                mat->enable(Material::MODULATE);
 
             else if(blend == "multiply")
-                mat->enable(Material::BLEND_MUL);
+                mat->enable(Material::MULTIPLY);
         }
 
         if(v.second.get<string>("faceCull", "none") != "none")

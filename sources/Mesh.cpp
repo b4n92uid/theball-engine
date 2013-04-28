@@ -299,14 +299,117 @@ struct DepthSortVertexFunc
     Vector3f meshPos;
 };
 
+Shader Mesh::getUsedShader(Material* material)
+{
+    Shader usedshader;
+
+    if(!material->isEnable(Material::PIPELINE))
+    {
+        if(material->m_shader.isEnable())
+            usedshader = material->m_shader;
+
+        else if(m_parallelScene->getRenderingShader().isEnable())
+            usedshader = m_parallelScene->getRenderingShader();
+    }
+
+    return usedshader;
+}
+
+void Mesh::animateTexture(unsigned layer, Texture texture, TextureApply settings)
+{
+    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
+
+    requestVertexRestore();
+
+    const Vector2f& size = texture.getSize();
+
+    const Vertex::Array& initvert = m_hardwareBuffer->getInitialVertex();
+
+    if(layer)
+    {
+        Vector2f* uvs = m_hardwareBuffer->lockMultiTexCoord(layer, GL_WRITE_ONLY);
+
+        for(unsigned i = 0; i < vertexCount; i++)
+        {
+            Vector2f frame(settings.frameSize.x / size.x, settings.frameSize.y / size.y);
+
+            Vector2f scaled(initvert[i].texCoord.x * frame.x, initvert[i].texCoord.y * frame.y);
+
+            uvs[i].x = scaled.x + frame.x * settings.part.x;
+            uvs[i].y = scaled.y + frame.y * settings.part.y;
+        }
+    }
+    else
+    {
+        Vertex* vs = m_hardwareBuffer->lock(GL_WRITE_ONLY);
+
+        for(unsigned i = 0; i < vertexCount; i++)
+        {
+            Vector2f frame(settings.frameSize.x / size.x, settings.frameSize.y / size.y);
+
+            Vector2f scaled(initvert[i].texCoord.x * frame.x, initvert[i].texCoord.y * frame.y);
+
+            vs[i].texCoord.x = scaled.x + frame.x * settings.part.x;
+            vs[i].texCoord.y = scaled.y + frame.y * settings.part.y;
+        }
+    }
+
+    m_hardwareBuffer->unlock();
+
+    if(settings.animation > 0)
+        if(settings.clock.isEsplanedTime(settings.animation))
+        {
+            settings.part.x++;
+
+            if(settings.part.x >= size.x / settings.frameSize.x)
+            {
+                settings.part.x = 0;
+                settings.part.y++;
+
+                if(settings.part.y >= size.y / settings.frameSize.y)
+                    settings.part.y = 0;
+            }
+        }
+
+}
+
+void Mesh::bindTexture(unsigned layer, Texture texture, TextureApply settings)
+{
+    unsigned id = GL_TEXTURE0 + layer;
+
+    // Animation de la texture par modification des coordonés UV
+    if(settings.clipped)
+        animateTexture(layer, texture, settings);
+
+    glClientActiveTexture(id);
+    m_hardwareBuffer->bindTexture(true, layer);
+
+    glActiveTexture(id);
+    glEnable(GL_TEXTURE_2D);
+    texture.use(true);
+
+    unsigned multexb = settings.blend;
+
+    if(multexb == Material::REPLACE)
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+    else if(multexb == Material::ADDITIVE)
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
+
+    else if(multexb == Material::MODULATE)
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+}
+
 struct ShaderBind
 {
+    Mesh* mesh;
     Material* material;
     Shader& shader;
 
-    ShaderBind(Material* material, Shader& shader_) : shader(shader_)
+    ShaderBind(Mesh* mesh, Material* material, Shader& shader_) : shader(shader_)
     {
         this->material = material;
+        this->mesh = mesh;
     }
 
     void bindLighted(std::string location)
@@ -330,6 +433,18 @@ struct ShaderBind
         shader.uniform(location, material->isEnable(Material::COLORED));
     }
 
+    void bindTangent(std::string location)
+    {
+        GLuint index = glGetAttribLocation(shader, location.c_str());
+        mesh->getHardwareBuffer()->bindTangent(true, index);
+    }
+
+    void bindAOCC(std::string location)
+    {
+        GLuint index = glGetAttribLocation(shader, location.c_str());
+        mesh->getHardwareBuffer()->bindAocc(true, index);
+    }
+
     void assignExp(string location, string exp)
     {
         using namespace boost;
@@ -345,6 +460,8 @@ struct ShaderBind
             callmap["foged"] = boost::bind(&ShaderBind::bindFoged, this, _1);
             callmap["textured"] = boost::bind(&ShaderBind::bindTextured, this, _1);
             callmap["colored"] = boost::bind(&ShaderBind::bindColored, this, _1);
+            callmap["tangent"] = boost::bind(&ShaderBind::bindTangent, this, _1);
+            callmap["aocc"] = boost::bind(&ShaderBind::bindAOCC, this, _1);
 
             if(callmap.count(exp))
                 callmap[exp](location);
@@ -353,56 +470,26 @@ struct ShaderBind
     }
 };
 
-Shader Mesh::getUsedShader(Material* material)
-{
-    Shader usedshader;
-
-    if(!material->isEnable(Material::PIPELINE))
-    {
-        if(material->m_shader.isEnable())
-            usedshader = material->m_shader;
-
-        else if(m_parallelScene->getRenderingShader().isEnable())
-            usedshader = m_parallelScene->getRenderingShader();
-    }
-
-    return usedshader;
-}
-
 void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned count)
 {
     using namespace boost;
 
     glPushAttrib(GL_ENABLE_BIT);
 
-    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
-
     Shader usedshader = getUsedShader(material);
 
+    // Request uniform for general purpose
     if(usedshader.isEnable())
     {
-        ShaderBind callbind(material, usedshader);
-
-        const Shader::UniformMap& umap = usedshader.getRequestedUniform();
+        ShaderBind callbind(this, material, usedshader);
 
         Shader::bind(usedshader);
 
+        const Shader::UniformMap& umap = usedshader.getRequestedUniform();
+
         BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
         {
-            if(u.second == "tangent")
-            {
-                GLuint index = glGetAttribLocation(usedshader, u.first.c_str());
-                m_hardwareBuffer->bindTangent(true, index);
-            }
-
-            else if(u.second == "aocc")
-            {
-                GLuint index = glGetAttribLocation(usedshader, u.first.c_str());
-                m_hardwareBuffer->bindAocc(true, index);
-            }
-
-            else
-                callbind.assignExp(u.first, u.second);
+            callbind.assignExp(u.first, u.second);
         }
 
         Shader::unbind();
@@ -410,102 +497,38 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
 
     if(material->m_renderFlags & Material::TEXTURED)
     {
-        Texture::Map& textures = material->m_textures;
-        Material::TexApplyMap& texApply = material->m_texApply;
 
-        for(Texture::Map::iterator itt = textures.begin();
-                itt != textures.end(); itt++)
+        BOOST_FOREACH(Texture::Map::value_type itt, material->m_textures)
         {
-            if(!itt->second)
+            if(!itt.second)
                 continue;
 
-            unsigned textureIndex = GL_TEXTURE0 + itt->first;
+            Texture texture = material->m_textures[itt.first];
+            TextureApply settings = material->m_texApply[itt.first];
 
-            glClientActiveTexture(textureIndex);
+            bindTexture(itt.first, texture, settings);
+        }
 
-            // Animation de la texture par modification des coordonés UV
-            if(texApply[itt->first].clipped)
+        // Request uniform for texture layer
+        if(usedshader.isEnable())
+        {
+            Shader::bind(usedshader);
+
+            const Shader::UniformMap& umap = usedshader.getRequestedUniform();
+
+            BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
             {
-                requestVertexRestore();
-
-                const Vector2f& texSize = itt->second.getSize();
-
-                const Vertex::Array& initvert = m_hardwareBuffer->getInitialVertex();
-
-                Vector2i& frame_offset = texApply[itt->first].part;
-                Vector2i& frame_size = texApply[itt->first].frameSize;
-
-                if(itt->first > 0)
+                if(u.second == "shadowmap")
                 {
-                    Vector2f* uvs = m_hardwareBuffer->lockMultiTexCoord(itt->first, GL_WRITE_ONLY);
+                    unsigned layer = material->m_textures.size();
+                    usedshader.uniform(u.first, (int) layer);
 
-                    for(unsigned i = 0; i < vertexCount; i++)
-                    {
-                        Vector2f frame(frame_size.x / texSize.x, frame_size.y / texSize.y);
-
-                        Vector2f scaled(initvert[i].texCoord.x * frame.x, initvert[i].texCoord.y * frame.y);
-
-                        uvs[i].x = scaled.x + frame.x * frame_offset.x;
-                        uvs[i].y = scaled.y + frame.y * frame_offset.y;
-                    }
+                    Texture shadowMap = m_sceneManager->getShadowMap()->getDepthMap();
+                    bindTexture(layer, shadowMap, TextureApply());
                 }
-                else
-                {
-                    Vertex* vs = m_hardwareBuffer->lock(GL_WRITE_ONLY);
-
-                    for(unsigned i = 0; i < vertexCount; i++)
-                    {
-                        Vector2f frame(frame_size.x / texSize.x, frame_size.y / texSize.y);
-
-                        Vector2f scaled(initvert[i].texCoord.x * frame.x, initvert[i].texCoord.y * frame.y);
-
-                        vs[i].texCoord.x = scaled.x + frame.x * frame_offset.x;
-                        vs[i].texCoord.y = scaled.y + frame.y * frame_offset.y;
-                    }
-                }
-
-                m_hardwareBuffer->unlock();
-
-                if(texApply[itt->first].animation > 0)
-                    if(texApply[itt->first].clock.isEsplanedTime(texApply[itt->first].animation))
-                    {
-                        frame_offset.x++;
-
-                        if(frame_offset.x >= texSize.x / texApply[itt->first].frameSize.x)
-                        {
-                            frame_offset.x = 0;
-                            frame_offset.y++;
-
-                            if(frame_offset.y >= texSize.y / texApply[itt->first].frameSize.y)
-                                frame_offset.y = 0;
-                        }
-                    }
             }
 
-
-            m_hardwareBuffer->bindTexture(true, itt->first);
-
-            glActiveTexture(textureIndex);
-            glEnable(GL_TEXTURE_2D);
-
-            itt->second.use(true);
-
-            unsigned multexb = texApply[itt->first].blend;
-
-            if(multexb == Material::REPLACE)
-            {
-                glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-            }
-
-            else if(multexb == Material::ADDITIVE)
-            {
-                glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
-            }
-
-            else if(multexb == Material::MODULATE)
-            {
-                glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-            }
+            Shader::unbind();
         }
     }
 
@@ -618,21 +641,21 @@ void Mesh::beginRenderingProperty(Material* material, unsigned offset, unsigned 
         glCullFace(GL_FRONT);
     }
 
-    if(material->m_renderFlags & Material::BLEND_ADD)
+    if(material->m_renderFlags & Material::ADDITIVE)
     {
         glEnable(GL_BLEND);
         // glBlendFunc(GL_SRC_ALPHA, GL_ONE);
         glBlendFunc(GL_ONE, GL_ONE);
     }
 
-    else if(material->m_renderFlags & Material::BLEND_MUL)
+    else if(material->m_renderFlags & Material::MULTIPLY)
     {
         glEnable(GL_BLEND);
         glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
 
     }
 
-    else if(material->m_renderFlags & Material::BLEND_MOD)
+    else if(material->m_renderFlags & Material::MODULATE)
     {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -1128,11 +1151,11 @@ rtree Mesh::serializeMaterial(std::string root)
         matscheme.put("alpha", it->second->isEnable(Material::ALPHA));
         matscheme.put("alphaThershold", it->second->m_alphaThershold);
 
-        if(it->second->isEnable(Material::BLEND_MOD))
+        if(it->second->isEnable(Material::MODULATE))
             matscheme.put("blendMod", "modulate");
-        else if(it->second->isEnable(Material::BLEND_ADD))
+        else if(it->second->isEnable(Material::ADDITIVE))
             matscheme.put("blendMod", "additive");
-        else if(it->second->isEnable(Material::BLEND_MUL))
+        else if(it->second->isEnable(Material::MULTIPLY))
             matscheme.put("blendMod", "multiplty");
 
         matscheme.put("color", it->second->m_color);

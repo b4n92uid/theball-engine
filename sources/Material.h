@@ -22,6 +22,20 @@ namespace tbe
 namespace scene
 {
 
+struct TextureApply
+{
+    unsigned blend;
+
+    bool clipped;
+    Vector2i frameSize;
+    Vector2i part;
+
+    int animation;
+    ticks::Clock clock;
+
+    typedef std::map<unsigned, TextureApply> Map;
+};
+
 /**
  * \brief Représentation d'un matériau
  * Stock les propriétés de rendue d'un maillage
@@ -36,13 +50,6 @@ public:
 
     Material & operator=(const Material& copy);
 
-    enum MulTexBlend
-    {
-        MODULATE,
-        REPLACE,
-        ADDITIVE,
-    };
-
     enum
     {
         LIGHTED = 0x1,
@@ -53,12 +60,13 @@ public:
         SHADER = 0x10,
         PIPELINE = 0x20,
 
-        VERTEX_SORT = 0x80,
-        VERTEX_SORT_CULL_TRICK = 0x100,
+        VERTEX_SORT = 0x40,
+        VERTEX_SORT_CULL_TRICK = 0x80,
 
-        BLEND_ADD = 0x200,
-        BLEND_MUL = 0x400,
-        BLEND_MOD = 0x800,
+        ADDITIVE = 0x100,
+        MULTIPLY = 0x200,
+        MODULATE = 0x400,
+        REPLACE = 0x800,
 
         ALPHA = 0x1000,
 
@@ -147,12 +155,12 @@ public:
     /**
      * Spécifier la méthode de mélange utiliser lors du multi-texturing
      */
-    void setTextureBlend(MulTexBlend type, unsigned index = 0);
+    void setTextureBlend(unsigned type, unsigned index = 0);
 
     /**
      * Renvois la méthode de mélange utiliser lors du multi-texturing
      */
-    MulTexBlend getTextureBlend(unsigned index = 0);
+    unsigned getTextureBlend(unsigned index = 0);
 
     void setTextureFrameSize(Vector2i size, unsigned index = 0);
     Vector2i getTextureFrameSize(unsigned index = 0);
@@ -190,21 +198,7 @@ protected:
     bool m_depthTest;
     bool m_depthWrite;
 
-    struct TextureApply
-    {
-        MulTexBlend blend;
-
-        bool clipped;
-        Vector2i frameSize;
-        Vector2i part;
-
-        int animation;
-        ticks::Clock clock;
-    };
-
-    typedef std::map<unsigned, TextureApply> TexApplyMap;
-
-    TexApplyMap m_texApply;
+    TextureApply::Map m_texApply;
 };
 
 }

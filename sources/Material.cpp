@@ -77,9 +77,9 @@ unsigned Material::getFrameSortWait() const
 
 bool Material::isTransparent()
 {
-    return (m_renderFlags & BLEND_ADD)
-            || (m_renderFlags & BLEND_MUL)
-            || (m_renderFlags & BLEND_MOD)
+    return (m_renderFlags & ADDITIVE)
+            || (m_renderFlags & MULTIPLY)
+            || (m_renderFlags & MODULATE)
             || (m_renderFlags & ALPHA);
 }
 
@@ -139,7 +139,7 @@ void Material::setTexture(Texture texture, unsigned index)
 
     if(!m_texApply.count(index))
     {
-        TextureApply apply = {MODULATE, false, 128, 0, 0};
+        TextureApply apply = {Material::MODULATE, false, 128, 0, 0};
         m_texApply[index] = apply;
     }
 }
@@ -249,12 +249,12 @@ bool Material::isDepthTest() const
     return m_depthTest;
 }
 
-void Material::setTextureBlend(MulTexBlend type, unsigned index)
+void Material::setTextureBlend(unsigned type, unsigned index)
 {
     m_texApply[index].blend = type;
 }
 
-Material::MulTexBlend Material::getTextureBlend(unsigned index)
+unsigned Material::getTextureBlend(unsigned index)
 {
     return m_texApply[index].blend;
 }

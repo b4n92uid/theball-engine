@@ -134,7 +134,7 @@ void MeshParallelScene::render()
             drawShadow(true);
             shadowMap->end();
 
-            shadowMap->bind(l);
+            shadowMap->bind();
             m_sceneManager->getFrustum()->extractPlane();
 
             drawShadow(false);

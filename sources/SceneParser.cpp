@@ -44,6 +44,7 @@ void SceneParser::prepare()
         m_scheme.put("Scene.shadow", smap->isEnabled());
         m_scheme.put("Scene.shadow.size", smap->getFrameSize().toStr());
         m_scheme.put("Scene.shadow.blur", smap->getBlurPass());
+        m_scheme.put("Scene.shadow.intensity", smap->getIntensity());
     }
 
     Fog* fog = m_sceneManager->getFog();
@@ -166,6 +167,7 @@ void SceneParser::build()
         smap->setEnabled(m_scheme.get<bool>("Scene.shadow", false));
         smap->setFrameSize(m_scheme.get<Vector2i>("Scene.shadow.size", Vector2i(512), v2itr));
         smap->setBlurPass(m_scheme.get<int>("Scene.shadow.blur", 0));
+        smap->setIntensity(m_scheme.get<float>("Scene.shadow.intensity", 0.5));
     }
 
     if(m_scheme.get_child("Scene").count("fog"))
