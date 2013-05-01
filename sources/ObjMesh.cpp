@@ -2,6 +2,7 @@
 #include "Tools.h"
 
 #include <fstream>
+#include <boost/lexical_cast.hpp>
 
 using namespace std;
 using namespace tbe;
@@ -367,6 +368,21 @@ void MTLFile::open(const std::string& path)
         else if(opcode == "d")
         {
             // Valeur alpha du materiaux
+            try
+            {
+                float alpha = boost::lexical_cast<float>(arg);
+
+                if(math::isZero(alpha))
+                {
+                    material->enable(Material::ALPHA);
+                    material->setAlphaThershold(0.5);
+                }
+            }
+
+            catch(tbe::Exception& e)
+            {
+                cout << e.what() << endl;
+            }
         }
 
         else if(opcode == "illum")

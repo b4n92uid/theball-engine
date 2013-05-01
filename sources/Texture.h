@@ -18,8 +18,8 @@ class Texture
 public:
     Texture();
     Texture(const Texture& copy);
-    Texture(std::string filename, bool genMipMap = false, bool upperLeftOrigin = true);
-    Texture(const char* filename, bool genMipMap = false, bool upperLeftOrigin = true);
+    Texture(std::string filename, bool genMipMap = false, int origin = 0);
+    Texture(const char* filename, bool genMipMap = false, int origin = 0);
 
     virtual ~Texture();
 
@@ -36,15 +36,15 @@ public:
      * @param genMipMap Définie si le chargement de la texture générera un mipMapping (texture a plusieur niveau de détail)
      * @param upperLeftOrigin Définie si la texture devera etre retourné pour que (0,0) correspend au coin du haut a gauche
      */
-    void load(std::string filename, bool genMipMap = false, bool upperLeftOrigin = true);
+    void load(std::string filename, bool genMipMap = false, int origin = 0);
 
-    void loadMask(std::string filename, bool upperLeftOrigin = true);
+    void loadMask(std::string filename, int origin = 0);
 
     /// @see load()
 
-    void operator()(std::string filename, bool genMipMap = false, bool upperLeftOrigin = true)
+    void operator()(std::string filename, bool genMipMap = false, int origin = 0)
     {
-        load(filename, genMipMap, upperLeftOrigin);
+        load(filename, genMipMap, origin);
     }
 
     /// Operateur d'assginement : charge la texture spécifier par filename
@@ -112,7 +112,7 @@ public:
      * a ce que les coordonnés 0,0 font référence au coin
      * superieur a gauche de la texture
      */
-    bool isUpperLeftOrigin() const;
+    int getOrigin() const;
 
     /**
      * Renvois true si les couches du mipmap
@@ -151,7 +151,8 @@ protected:
 
     bool m_persistent;
     bool m_genMipMap;
-    bool m_upperLeftOrigin;
+
+    int m_origin;
 
     unsigned m_filtring;
     unsigned m_anistropy;

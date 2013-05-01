@@ -1208,8 +1208,8 @@ rtree Mesh::serializeMaterial(std::string root)
             Texture tex = it->second->getTexture(i);
 
             texscheme.put("path", tools::relativizePath(tex.getFilename(), root));
-            texscheme.put("upperleft", tex.isUpperLeftOrigin());
-            texscheme.put("mimap", tex.isGenMipMap());
+            texscheme.put("origin", tex.getOrigin());
+            texscheme.put("mipmap", tex.isGenMipMap());
 
             unsigned blend = it->second->m_texApply[i].blend;
 

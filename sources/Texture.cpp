@@ -33,10 +33,10 @@ public:
         {
             string filename = itt->first->getFilename();
             bool mipmap = itt->first->isGenMipMap();
-            bool ulorig = itt->first->isUpperLeftOrigin();
+            int origin = itt->first->getOrigin();
 
             itt->first->remove();
-            itt->first->load(filename, mipmap, ulorig);
+            itt->first->load(filename, mipmap, origin);
         }
     }
 
@@ -74,7 +74,7 @@ Texture::Texture()
     m_textureName = 0;
     m_persistent = false;
     m_genMipMap = false;
-    m_upperLeftOrigin = false;
+    m_origin = false;
     m_filtring = 0;
     m_anistropy = 1;
 }
@@ -84,35 +84,35 @@ Texture::Texture(const Texture& copy)
     m_textureName = 0;
     m_persistent = false;
     m_genMipMap = false;
-    m_upperLeftOrigin = false;
+    m_origin = false;
     m_filtring = 0;
     m_anistropy = 1;
 
     *this = copy;
 }
 
-Texture::Texture(std::string filename, bool genMipMap, bool upperLeftOrigin)
+Texture::Texture(std::string filename, bool genMipMap, int origin)
 {
     m_textureName = 0;
     m_persistent = false;
     m_genMipMap = false;
-    m_upperLeftOrigin = false;
+    m_origin = false;
     m_filtring = 0;
     m_anistropy = 1;
 
-    load(filename, genMipMap, upperLeftOrigin);
+    load(filename, genMipMap, origin);
 }
 
-Texture::Texture(const char* filename, bool genMipMap, bool upperLeftOrigin)
+Texture::Texture(const char* filename, bool genMipMap, int origin)
 {
     m_textureName = 0;
     m_persistent = false;
     m_genMipMap = false;
-    m_upperLeftOrigin = false;
+    m_origin = false;
     m_filtring = 0;
     m_anistropy = 1;
 
-    load(filename, genMipMap, upperLeftOrigin);
+    load(filename, genMipMap, origin);
 }
 
 Texture::~Texture()
@@ -128,7 +128,7 @@ Texture& Texture::operator =(const Texture& copy)
     m_textureName = copy.m_textureName;
     m_persistent = copy.m_persistent;
     m_genMipMap = copy.m_genMipMap;
-    m_upperLeftOrigin = copy.m_upperLeftOrigin;
+    m_origin = copy.m_origin;
     m_filtring = copy.m_filtring;
     m_anistropy = copy.m_anistropy;
 
@@ -175,7 +175,7 @@ void Texture::remove()
         m_textureName = 0;
         m_persistent = false;
         m_genMipMap = false;
-        m_upperLeftOrigin = false;
+        m_origin = false;
         m_filtring = 0;
         m_anistropy = 1;
 
@@ -197,7 +197,7 @@ void Texture::release()
     m_textureName = 0;
     m_persistent = false;
     m_genMipMap = false;
-    m_upperLeftOrigin = false;
+    m_origin = false;
     m_filtring = 0;
     m_anistropy = 1;
 
@@ -205,7 +205,7 @@ void Texture::release()
     m_size = 0;
 }
 
-void Texture::load(std::string filename, bool genMipMap, bool upperLeftOrigin)
+void Texture::load(std::string filename, bool genMipMap, int origin)
 {
     Texture* sharedTexture = manager.IsExist(filename);
 
@@ -219,10 +219,16 @@ void Texture::load(std::string filename, bool genMipMap, bool upperLeftOrigin)
 
     cout << "[Texture] " << filename << endl;
 
-    if(upperLeftOrigin)
+    if(origin == 1)
     {
         ilEnable(IL_ORIGIN_SET);
         ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
+    }
+
+    else if(origin == 2)
+    {
+        ilEnable(IL_ORIGIN_SET);
+        ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
     }
 
     ilEnable(IL_FORMAT_SET);
@@ -249,7 +255,7 @@ void Texture::load(std::string filename, bool genMipMap, bool upperLeftOrigin)
         cout << "***WARNING*** Texture::Load; Texture is not pow2 dim (" << filename << ")" << endl;
 
     m_genMipMap = genMipMap;
-    m_upperLeftOrigin = upperLeftOrigin;
+    m_origin = origin;
 
     ILubyte* pixels = new ILubyte[m_size.x * m_size.y * 4];
 
@@ -315,7 +321,7 @@ void Texture::buildMem(Vector2i size, unsigned char* byte, GLint internalFormat,
 
     m_persistent = false;
     m_genMipMap = false;
-    m_upperLeftOrigin = false;
+    m_origin = false;
 
     m_filtring = 0;
     m_anistropy = 1;
@@ -420,9 +426,9 @@ unsigned Texture::getAnistropy() const
     return m_anistropy;
 }
 
-bool Texture::isUpperLeftOrigin() const
+int Texture::getOrigin() const
 {
-    return m_upperLeftOrigin;
+    return m_origin;
 }
 
 bool Texture::isGenMipMap() const
