@@ -138,9 +138,8 @@ public:
 
     const Any::Map getUserDatas() const;
 
-    void addSerializeValue(std::string key, std::string value);
-
     virtual rtree serialize(std::string root);
+    rtree& serializing();
 
     void setSerialized(bool serialized);
     bool isSerialized() const;
@@ -165,7 +164,7 @@ protected:
     Node* m_parent;
     Node::Array m_childs;
 
-    strmap m_serializeValue;
+    rtree m_serializeValue;
     bool m_serialized;
 
     Any::Map m_userDatas;

@@ -73,8 +73,11 @@ public:
 protected:
     Node* buildNode(rtree data, Node* parent = NULL);
     void buildInherited(rtree data, Node* parent, Node* current);
-    void buildMaterial(rtree data, Mesh* mesh);
-    void buildShader(rtree data, Material* mat);
+
+    void buildMeshMaterial(rtree data, Mesh* mesh, std::string base);
+    void buildMaterial(rtree data, Material* mat, std::string base);
+
+    Shader buildShader(rtree data, std::string base);
 
     std::string resolve(std::string relpath, std::string base = "");
     std::string relativize(std::string abspath);

@@ -56,6 +56,7 @@ public:
 private:
     rtree m_scheme;
     rtree m_attributes;
+    rtree m_identity;
     std::string m_sceneName;
     std::string m_authorName;
 };

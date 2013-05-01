@@ -427,27 +427,17 @@ void Node::clearAllChild()
     m_childs.clear();
 }
 
-void Node::addSerializeValue(std::string key, std::string value)
+rtree& Node::serializing()
 {
-    m_serializeValue[key] = value;
+    return m_serializeValue;
 }
 
 rtree Node::serialize(std::string root)
 {
-    rtree scheme;
+    rtree scheme = m_serializeValue;
 
     scheme.put("name", m_name);
     scheme.put("matrix", m_matrix.toStr());
-
-    if(!m_serializeValue.empty())
-    {
-
-        BOOST_FOREACH(strmap::value_type &v, m_serializeValue)
-        {
-            scheme.put(v.first, v.second);
-        }
-
-    }
 
     if(!m_userDatas.empty())
     {

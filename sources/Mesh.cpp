@@ -50,7 +50,6 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_withNormal = false;
     m_withTexCoord = false;
     m_visible = true;
-    m_outputMaterial = false;
     m_billBoard = false;
     m_requestVertexRestore = false;
     m_priorityRender = 0;
@@ -97,8 +96,6 @@ void Mesh::clear()
 
     m_materials.clear();
 
-    m_outputMaterial = false;
-
     Mesh::unregisterBuffer(this);
 
     if(!Mesh::isUsedBuffer(m_hardwareBuffer))
@@ -109,8 +106,6 @@ void Mesh::clear()
 
 void Mesh::fetchMaterials(const Mesh& copy)
 {
-    m_outputMaterial = copy.m_outputMaterial;
-
     for(Material::Map::const_iterator it = m_materials.begin(); it != m_materials.end(); ++it)
         delete it->second;
 
@@ -1244,15 +1239,9 @@ rtree Mesh::serialize(std::string root)
         scheme.put("class.castShadow", m_castShadow);
         scheme.put("class.receiveShadow", m_receiveShadow);
 
-        if(scheme.count("material"))
-        {
-            // Material is already handled by external file
-        }
-
-        else if(m_outputMaterial)
-        {
-            scheme.put_child("material", serializeMaterial(root));
-        }
+        // *** Material are handled by external file
+        // if(!scheme.count("material"))
+        // scheme.put_child("material", serializeMaterial(root));
     }
 
     return scheme;
@@ -1286,16 +1275,6 @@ Mesh* Mesh::isSharedBuffer(const std::string& source)
 bool Mesh::isUsedBuffer(HardwareBuffer* hb)
 {
     return manager.used(hb);
-}
-
-void Mesh::setOutputMaterial(bool outputMaterial)
-{
-    this->m_outputMaterial = outputMaterial;
-}
-
-bool Mesh::isOutputMaterial() const
-{
-    return m_outputMaterial;
 }
 
 void Mesh::requestVertexRestore(bool requestVertexRestore)

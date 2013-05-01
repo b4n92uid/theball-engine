@@ -163,9 +163,6 @@ public:
     static Mesh* isSharedBuffer(const std::string& source);
     static bool isUsedBuffer(HardwareBuffer* hb);
 
-    void setOutputMaterial(bool outputMaterial);
-    bool isOutputMaterial() const;
-
     void requestVertexRestore(bool requestVertexRestore = true);
 
 protected:
@@ -173,7 +170,6 @@ protected:
     bool m_withNormal;
     bool m_withTexCoord;
     bool m_visible;
-    bool m_outputMaterial;
     bool m_requestVertexRestore;
     bool m_receiveShadow;
     bool m_castShadow;

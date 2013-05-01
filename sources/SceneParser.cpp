@@ -31,6 +31,7 @@ SceneParser::~SceneParser() { }
 void SceneParser::prepare()
 {
     m_scheme.clear();
+    m_scheme = m_identity;
 
     m_scheme.put("Scene", m_sceneName);
     m_scheme.put("Scene.author", m_authorName);
@@ -70,6 +71,8 @@ void SceneParser::prepare()
         m_scheme.put("Scene.skybox.right", relativize(skytex[5].getFilename()));
     }
 
+    /* Handled by identity scheme
+    
     Shader rshade = m_meshScene->getRenderingShader();
 
     if(rshade.isEnable())
@@ -88,6 +91,7 @@ void SceneParser::prepare()
 
         m_scheme.put_child("Scene.shader.bind", bindtree);
     }
+     */
 
     m_scheme.put("Scene.ambient", m_sceneManager->getAmbientLight());
     m_scheme.put("Scene.znear", m_sceneManager->getZNear());
@@ -160,8 +164,9 @@ void SceneParser::build()
         m_sceneManager->addParallelScene(m_markScene);
     }
 
+    rtree head = m_scheme.get_child("Scene");
 
-    if(m_scheme.get_child("Scene").count("shadow"))
+    if(head.count("shadow"))
     {
         ShadowMap* smap = m_sceneManager->getShadowMap();
         smap->setEnabled(m_scheme.get<bool>("Scene.shadow", false));
@@ -170,7 +175,7 @@ void SceneParser::build()
         smap->setIntensity(m_scheme.get<float>("Scene.shadow.intensity", 0.5));
     }
 
-    if(m_scheme.get_child("Scene").count("fog"))
+    if(head.count("fog"))
     {
         scene::Fog* fog = m_sceneManager->getFog();
         fog->setEnable(m_scheme.get<bool>("Scene.fog", false));
@@ -179,7 +184,7 @@ void SceneParser::build()
         fog->setEnd(m_scheme.get<float>("Scene.fog.end"));
     }
 
-    if(m_scheme.get_child("Scene").count("skybox"))
+    if(head.count("skybox"))
     {
         if(m_scheme.get<bool>("Scene.skybox"))
         {
@@ -200,40 +205,32 @@ void SceneParser::build()
         }
     }
 
-    if(m_scheme.get_child("Scene").count("shader"))
+    if(head.count("shader"))
     {
-        Shader shader;
+        rtree inlineShaderTree = head.get_child("shader");
 
-        if(m_scheme.get_child("Scene.shader").count("vertex"))
+        Shader shade;
+
+        if(!inlineShaderTree.empty())
         {
-            string path = m_scheme.get<string>("Scene.shader.vertex");
+            shade = buildShader(inlineShaderTree, m_filename);
+        }
+        else
+        {
+            string path = head.get<string>("shader");
+
+            m_identity.put("Scene.shader", path);
 
             if(!tools::isAbsoloutPath(path))
                 path = resolve(path);
 
-            shader.loadVertexShader(path);
+            rtree shaderTree;
+            boost::property_tree::read_info(path, shaderTree);
+
+            shade = buildShader(shaderTree, path);
         }
 
-        if(m_scheme.get_child("Scene.shader").count("fragment"))
-        {
-            string path = m_scheme.get<string>("Scene.shader.fragment");
-
-            if(!tools::isAbsoloutPath(path))
-                path = resolve(path);
-
-            shader.loadFragmentShader(path);
-        }
-
-        shader.loadProgram();
-
-        if(m_scheme.get_child("Scene.shader").count("bind"))
-            BOOST_FOREACH(rtree::value_type & b, m_scheme.get_child("Scene.shader.bind"))
-        {
-            shader.setRequestedUniform(b.first, b.second.data());
-        }
-
-
-        m_meshScene->setRenderingShader(shader);
+        m_meshScene->setRenderingShader(shade);
     }
 
     m_sceneManager->setAmbientLight(m_scheme.get<Vector4f>("Scene.ambient", v4ftr));

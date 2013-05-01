@@ -115,7 +115,7 @@ std::string AbstractParser::relativize(std::string parh)
     return tools::relativizePath(parh, m_filename);
 }
 
-void AbstractParser::buildShader(rtree data, Material* mat)
+Shader AbstractParser::buildShader(rtree data, std::string base)
 {
     Shader shader;
 
@@ -124,7 +124,7 @@ void AbstractParser::buildShader(rtree data, Material* mat)
         string path = data.get<string>("vertex");
 
         if(!tools::isAbsoloutPath(path))
-            path = resolve(path);
+            path = resolve(path, base);
 
         shader.loadVertexShader(path);
     }
@@ -134,7 +134,7 @@ void AbstractParser::buildShader(rtree data, Material* mat)
         string path = data.get<string>("fragment");
 
         if(!tools::isAbsoloutPath(path))
-            path = resolve(path);
+            path = resolve(path, base);
 
         shader.loadFragmentShader(path);
     }
@@ -147,131 +147,141 @@ void AbstractParser::buildShader(rtree data, Material* mat)
         shader.setRequestedUniform(b.first, b.second.data());
     }
 
-    mat->setShader(shader);
+    return shader;
 }
 
-void AbstractParser::buildMaterial(rtree data, Mesh* mesh)
+void AbstractParser::buildMaterial(rtree data, Material* mat, std::string base)
 {
     VectorTranslator<Vector4f> v4tr;
 
-    mesh->setOutputMaterial(true);
+    mat->setAmbient(data.get<Vector4f>("ambient", Vector4f(1), v4tr));
+    mat->setDiffuse(data.get<Vector4f>("diffuse", Vector4f(1), v4tr));
+    mat->setSpecular(data.get<Vector4f>("specular", Vector4f(0.5), v4tr));
+    mat->setShininess(data.get<float>("shininess", 16));
 
+    if(data.get<bool>("alpha", false))
+    {
+        mat->enable(Material::ALPHA);
+        mat->setAlphaThershold(data.get<float>("alphaThershold", 0.0f));
+    }
+
+    if(data.get<bool>("colored", true))
+    {
+        mat->enable(Material::COLORED);
+        mat->setColor(data.get<Vector4f>("color", Vector4f(1, 1, 1, 1), VectorTranslator<Vector4f>()));
+    }
+
+    if(data.get<string>("blend", "none") != "none")
+    {
+        string blend = data.get<string>("blend");
+
+        if(blend == "additive")
+            mat->enable(Material::ADDITIVE);
+
+        else if(blend == "modulate")
+            mat->enable(Material::MODULATE);
+
+        else if(blend == "multiply")
+            mat->enable(Material::MULTIPLY);
+    }
+
+    if(data.get<string>("faceCull", "none") != "none")
+    {
+        string cull = data.get<string>("faceCull");
+
+        if(cull == "back")
+            mat->enable(Material::BACKFACE_CULL);
+
+        else if(cull == "front")
+            mat->enable(Material::FRONTFACE_CULL);
+    }
+
+    if(data.get<bool>("lighted", true))
+        mat->enable(Material::LIGHTED);
+    else
+        mat->disable(Material::LIGHTED);
+
+    if(data.get<bool>("foged", true))
+        mat->enable(Material::FOGED);
+    else
+        mat->disable(Material::FOGED);
+
+    if(data.get<bool>("textured", true))
+        mat->enable(Material::TEXTURED);
+    else
+        mat->disable(Material::TEXTURED);
+
+    if(data.count("textures"))
+    {
+        rtree textures = data.get_child("textures");
+
+        rtree::iterator it = textures.begin();
+        for(int i = 0; it != textures.end(); i++)
+        {
+            string path = it->second.get<string>("path");
+
+            if(!tools::isAbsoloutPath(path))
+                path = resolve(path);
+
+            bool mipmap = it->second.get<bool>("mipmap", true);
+            int origin = it->second.get<int>("origin", 0);
+
+            mat->setTexture(Texture(path, mipmap, origin), i);
+
+            string blend = it->second.get<string>("blend", "modulate");
+
+            if(blend == "modulate")
+                mat->setTextureBlend(Material::MODULATE, i);
+
+            else if(blend == "additive")
+                mat->setTextureBlend(Material::ADDITIVE, i);
+
+            else if(blend == "replace")
+                mat->setTextureBlend(Material::REPLACE, i);
+
+            it++;
+        }
+    }
+
+    if(data.count("shader"))
+    {
+        Shader shade;
+
+        /*
+         We handle only shader from external file
+
+        rtree inlineShaderTree = data.get_child("shader");
+
+        if(!inlineShaderTree.empty())
+        {
+            shade = buildShader(inlineShaderTree, base);
+        }
+        else
+        {
+        }
+         */
+
+        string path = data.get<string>("shader");
+
+        if(!tools::isAbsoloutPath(path))
+            path = resolve(path, base);
+
+        rtree shaderTree;
+        boost::property_tree::read_info(path, shaderTree);
+
+        shade = buildShader(shaderTree, path);
+
+        mat->setShader(shade);
+    }
+}
+
+void AbstractParser::buildMeshMaterial(rtree data, Mesh* mesh, std::string base)
+{
     BOOST_FOREACH(rtree::value_type &v, data)
     {
         Material* mat = mesh->getMaterial(v.second.get_value<string>());
 
-        mat->setAmbient(v.second.get<Vector4f>("ambient", Vector4f(1), v4tr));
-        mat->setDiffuse(v.second.get<Vector4f>("diffuse", Vector4f(1), v4tr));
-        mat->setSpecular(v.second.get<Vector4f>("specular", Vector4f(0.5), v4tr));
-        mat->setShininess(v.second.get<float>("shininess", 16));
-
-        if(v.second.get<bool>("alpha", false))
-        {
-            mat->enable(Material::ALPHA);
-            mat->setAlphaThershold(v.second.get<float>("alphaThershold", 0.0f));
-        }
-
-        if(v.second.get<bool>("colored", true))
-        {
-            mat->enable(Material::COLORED);
-            mat->setColor(v.second.get<Vector4f>("color", Vector4f(1, 1, 1, 1), VectorTranslator<Vector4f>()));
-        }
-
-        if(v.second.get<string>("blend", "none") != "none")
-        {
-            string blend = v.second.get<string>("blend");
-
-            if(blend == "additive")
-                mat->enable(Material::ADDITIVE);
-
-            else if(blend == "modulate")
-                mat->enable(Material::MODULATE);
-
-            else if(blend == "multiply")
-                mat->enable(Material::MULTIPLY);
-        }
-
-        if(v.second.get<string>("faceCull", "none") != "none")
-        {
-            string cull = v.second.get<string>("faceCull");
-
-            if(cull == "back")
-                mat->enable(Material::BACKFACE_CULL);
-
-            else if(cull == "front")
-                mat->enable(Material::FRONTFACE_CULL);
-        }
-
-        if(v.second.get<bool>("lighted", true))
-            mat->enable(Material::LIGHTED);
-        else
-            mat->disable(Material::LIGHTED);
-
-        if(v.second.get<bool>("foged", true))
-            mat->enable(Material::FOGED);
-        else
-            mat->disable(Material::FOGED);
-
-        if(v.second.get<bool>("textured", true))
-            mat->enable(Material::TEXTURED);
-        else
-            mat->disable(Material::TEXTURED);
-
-        if(v.second.count("textures"))
-        {
-            rtree textures = v.second.get_child("textures");
-
-            rtree::iterator it = textures.begin();
-            for(int i = 0; it != textures.end(); i++)
-            {
-                string path = it->second.get<string>("path");
-
-                if(!tools::isAbsoloutPath(path))
-                    path = resolve(path);
-
-                bool mipmap = it->second.get<bool>("mipmap", true);
-                bool upperleft = it->second.get<bool>("upperleft", true);
-
-                mat->setTexture(Texture(path, mipmap, upperleft), i);
-
-                string blend = it->second.get<string>("blend", "modulate");
-
-                if(blend == "modulate")
-                    mat->setTextureBlend(Material::MODULATE, i);
-
-                else if(blend == "additive")
-                    mat->setTextureBlend(Material::ADDITIVE, i);
-
-                else if(blend == "replace")
-                    mat->setTextureBlend(Material::REPLACE, i);
-
-                it++;
-            }
-        }
-
-        if(v.second.count("shader"))
-        {
-            boost::optional<rtree&> inlineShaderTree = v.second.get_child_optional("shader");
-
-            rtree shaderTree;
-
-            if(inlineShaderTree)
-            {
-                shaderTree = *inlineShaderTree;
-            }
-            else
-            {
-                string path = v.second.get<string>("shader");
-
-                // TODO Reslove relative to material file (if one)
-                if(!tools::isAbsoloutPath(path))
-                    path = resolve(path);
-
-                boost::property_tree::read_info(path, shaderTree);
-            }
-
-            buildShader(shaderTree, mat);
-        }
+        buildMaterial(v.second, mat, base);
     }
 }
 
@@ -308,8 +318,8 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
 
         string path = data.get<string>("class.path");
 
-        mesh->addSerializeValue("class.path", path);
-        mesh->addSerializeValue("class.format", "obj");
+        mesh->serializing().put("class.path", path);
+        mesh->serializing().put("class.format", "obj");
 
         if(!tools::isAbsoloutPath(path))
             path = resolve(path);
@@ -336,27 +346,30 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
 
         if(data.count("material"))
         {
+            // We handle only material from external file
+            /*
             boost::optional<rtree&> inlineMaTree = data.get_child_optional("material");
-
-            rtree matTree;
 
             if(inlineMaTree)
             {
-                matTree = *inlineMaTree;
+                buildMeshMaterial(*inlineMaTree, mesh, m_filename);
             }
             else
             {
-                string path = data.get<string>("material");
-
-                mesh->addSerializeValue("material", path);
-
-                if(!tools::isAbsoloutPath(path))
-                    path = resolve(path);
-
-                boost::property_tree::read_info(path, matTree);
             }
+             */
 
-            buildMaterial(matTree, mesh);
+            string path = data.get<string>("material");
+
+            mesh->serializing().put("material", path);
+
+            if(!tools::isAbsoloutPath(path))
+                path = resolve(path);
+
+            rtree matTree;
+            boost::property_tree::read_info(path, matTree);
+
+            buildMeshMaterial(matTree, mesh, path);
         }
 
         mesh->computeAabb();
@@ -471,7 +484,7 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
             read_info(classfile, nodetree);
 
             current = buildNode(nodetree.get_child("Class"), parent);
-            current->addSerializeValue("class", iclass);
+            current->serializing().put("class", iclass);
         }
 
         else
