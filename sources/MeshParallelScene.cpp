@@ -122,10 +122,11 @@ void MeshParallelScene::render()
 
     if(shadowMap->isEnabled())
     {
+        bool empty = true;
 
         BOOST_FOREACH(Light* l, m_lightNodes)
         {
-            if(l->getType() != Light::DIRI || !l->isCastShadow())
+            if(l->getType() != Light::DIRI || !l->isCastShadow() || !l->isEnable())
                 continue;
 
             shadowMap->begin(l);
@@ -144,8 +145,12 @@ void MeshParallelScene::render()
 
             shadowMap->render();
 
+            empty = false;
             break; // Support of multiple light for shadwing soon...
         }
+
+        if(empty)
+            drawScene();
     }
     else
         drawScene();

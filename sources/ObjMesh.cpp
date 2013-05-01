@@ -171,38 +171,43 @@ void OBJMesh::open(const std::string& path)
                 vert.pos = vPos[index - 1];
 
                 // TexCoord
-
-                exp >> sep;
-                exp >> index;
-
-                if(exp.fail())
+                if(!vTexCoord.empty())
                 {
-                    m_withTexCoord = false;
-                    exp.clear();
+                    exp >> sep;
+                    exp >> index;
+
+                    if(exp.fail())
+                    {
+                        m_withTexCoord = false;
+                        exp.clear();
+                    }
+
+                    else
+                    {
+                        m_withTexCoord = true;
+                        vert.texCoord = vTexCoord[index - 1];
+
+                    }
+
                 }
-
-                else
-                {
-                    m_withTexCoord = true;
-                    vert.texCoord = vTexCoord[index - 1];
-
-                }
-
                 // Normal
 
-                exp >> sep;
-                exp >> index;
-
-                if(exp.fail())
+                if(!vNormal.empty())
                 {
-                    m_withNormal = false;
-                    exp.clear();
-                }
+                    exp >> sep;
+                    exp >> index;
 
-                else
-                {
-                    vert.normal = vNormal[index - 1];
-                    m_withNormal = true;
+                    if(exp.fail())
+                    {
+                        m_withNormal = false;
+                        exp.clear();
+                    }
+
+                    else
+                    {
+                        vert.normal = vNormal[index - 1];
+                        m_withNormal = true;
+                    }
                 }
 
                 newFace.push_back(vert);
@@ -333,28 +338,26 @@ void MTLFile::open(const std::string& path)
             // le shininess doit etre spécifier manuellement
         }
 
-            /*
-            else if(opcode == "Ka")
-            {
-                Vector4f ka;
-                sscanf(arg.c_str(), "%f %f %f", &ka.x, &ka.y, &ka.z);
-                material->setAmbient(ka);
-            }
+        else if(opcode == "Ka")
+        {
+            // Vector4f ka;
+            // sscanf(arg.c_str(), "%f %f %f", &ka.x, &ka.y, &ka.z);
+            // material->setAmbient(ka);
+        }
 
-            else if(opcode == "Kd")
-            {
-                Vector4f kd;
-                sscanf(arg.c_str(), "%f %f %f", &kd.x, &kd.y, &kd.z);
-                material->setDiffuse(kd);
-            }
+        else if(opcode == "Kd")
+        {
+            // Vector4f kd;
+            // sscanf(arg.c_str(), "%f %f %f", &kd.x, &kd.y, &kd.z);
+            // material->setDiffuse(kd);
+        }
 
-            else if(opcode == "Ks")
-            {
-                Vector4f ks;
-                sscanf(arg.c_str(), "%f %f %f", &ks.x, &ks.y, &ks.z);
-                material->setSpecular(ks);
-            }
-             */
+        else if(opcode == "Ks")
+        {
+            // Vector4f ks;
+            // sscanf(arg.c_str(), "%f %f %f", &ks.x, &ks.y, &ks.z);
+            // material->setSpecular(ks);
+        }
 
         else if(opcode == "Ni")
         {

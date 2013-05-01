@@ -14,7 +14,7 @@ Material::Material()
 {
     m_ambient = 1;
     m_diffuse = 1;
-    m_specular = 1;
+    m_specular = 0.5;
     m_renderFlags = COLORED | TEXTURED | LIGHTED | FOGED;
     m_shininess = 16;
     m_lineWidth = 0;

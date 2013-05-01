@@ -222,8 +222,10 @@ void HardwareBuffer::bindTexture(bool state, unsigned layer)
     {
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-        if(!layer)
+        if(layer == 0)
+        {
             glTexCoordPointer(2, GL_FLOAT, vertexStrid, texUvOffset);
+        }
         else
         {
             if(!m_multiTexCoord.count(layer - 1))

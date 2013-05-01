@@ -300,6 +300,9 @@ void Axes::build(float lineWidth, float lineLength)
 
     addMaterial("main", mainMaterial);
     applyMaterial(mainMaterial, 0, 6);
+    
+    setCastShadow(false);
+    setReceiveShadow(false);
 }
 
 float Axes::getLineLength() const

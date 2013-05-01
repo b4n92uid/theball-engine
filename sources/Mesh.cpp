@@ -210,7 +210,11 @@ void Mesh::computeTangent()
     if(!m_hardwareBuffer)
         return;
 
-    Vertex* vertex = m_hardwareBuffer->bindBuffer().lock();
+    // Buffer must be binded
+    Vertex* vertex = m_hardwareBuffer->lock();
+
+    if(!vertex)
+        return;
 
     unsigned vertexCount = m_hardwareBuffer->getVertexCount();
 
@@ -270,9 +274,9 @@ void Mesh::computeTangent()
         vertex[i].tangent.normalize();
     }
 
-    m_hardwareBuffer->snapshot();
+    m_hardwareBuffer->unlock();
 
-    m_hardwareBuffer->unlock().unbindBuffer();
+    m_hardwareBuffer->snapshot();
 }
 
 void Mesh::computeAocc() { }
@@ -435,6 +439,8 @@ struct ShaderBind
 
     void bindTangent(std::string location)
     {
+        mesh->computeTangent();
+
         GLuint index = glGetAttribLocation(shader, location.c_str());
         mesh->getHardwareBuffer()->bindTangent(true, index);
     }
@@ -531,6 +537,8 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
             Shader::unbind();
         }
     }
+    else
+        glDisable(GL_TEXTURE_2D);
 
     if(material->m_renderFlags & Material::LIGHTED)
     {
@@ -668,6 +676,7 @@ void Mesh::beginRenderingProperty(Material* material, unsigned offset, unsigned 
     {
         glEnable(GL_ALPHA_TEST);
         glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+        glEnable(GL_MULTISAMPLE);
         glAlphaFunc(GL_GREATER, material->m_alphaThershold);
     }
 
@@ -684,13 +693,11 @@ void Mesh::endRenderingProperty(Material* material, unsigned offset, unsigned co
 
 void Mesh::endRenderingBuffer(Material* material, unsigned offset, unsigned count)
 {
-    /*
     if(material->m_renderFlags & Material::SHADER)
     {
-         m_hardwareBuffer->bindTangent(false, m_tangentAttribIndex);
-         m_hardwareBuffer->bindAocc(false, m_aoccAttribIndex);
+        m_hardwareBuffer->bindTangent(false);
+        m_hardwareBuffer->bindAocc(false);
     }
-     */
 
     if(material->m_renderFlags & Material::TEXTURED)
     {
@@ -710,6 +717,9 @@ void Mesh::endRenderingBuffer(Material* material, unsigned offset, unsigned coun
             glActiveTexture(textureIndex);
             glDisable(GL_TEXTURE_2D);
         }
+
+        glActiveTexture(GL_TEXTURE0);
+        glDisable(GL_TEXTURE_2D);
     }
 
     if(material->m_renderFlags & Material::LIGHTED)
@@ -1198,6 +1208,8 @@ rtree Mesh::serializeMaterial(std::string root)
             Texture tex = it->second->getTexture(i);
 
             texscheme.put("path", tools::relativizePath(tex.getFilename(), root));
+            texscheme.put("upperleft", tex.isUpperLeftOrigin());
+            texscheme.put("mimap", tex.isGenMipMap());
 
             unsigned blend = it->second->m_texApply[i].blend;
 

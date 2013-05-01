@@ -117,14 +117,11 @@ std::string AbstractParser::relativize(std::string parh)
 
 void AbstractParser::buildShader(rtree data, Material* mat)
 {
-    if(!data.count("shader"))
-        return;
-
     Shader shader;
 
-    if(data.get_optional<string>("shader.vertex"))
+    if(data.get_optional<string>("vertex"))
     {
-        string path = data.get<string>("shader.vertex");
+        string path = data.get<string>("vertex");
 
         if(!tools::isAbsoloutPath(path))
             path = resolve(path);
@@ -132,9 +129,9 @@ void AbstractParser::buildShader(rtree data, Material* mat)
         shader.loadVertexShader(path);
     }
 
-    if(data.get_optional<string>("shader.fragment"))
+    if(data.get_optional<string>("fragment"))
     {
-        string path = data.get<string>("shader.fragment");
+        string path = data.get<string>("fragment");
 
         if(!tools::isAbsoloutPath(path))
             path = resolve(path);
@@ -144,8 +141,8 @@ void AbstractParser::buildShader(rtree data, Material* mat)
 
     shader.loadProgram();
 
-    if(data.get_child("shader").count("bind"))
-        BOOST_FOREACH(rtree::value_type & b, data.get_child("shader.bind"))
+    if(data.count("bind"))
+        BOOST_FOREACH(rtree::value_type & b, data.get_child("bind"))
     {
         shader.setRequestedUniform(b.first, b.second.data());
     }
@@ -232,7 +229,10 @@ void AbstractParser::buildMaterial(rtree data, Mesh* mesh)
                 if(!tools::isAbsoloutPath(path))
                     path = resolve(path);
 
-                mat->setTexture(Texture(path, true), i);
+                bool mipmap = it->second.get<bool>("mipmap", true);
+                bool upperleft = it->second.get<bool>("upperleft", true);
+
+                mat->setTexture(Texture(path, mipmap, upperleft), i);
 
                 string blend = it->second.get<string>("blend", "modulate");
 
