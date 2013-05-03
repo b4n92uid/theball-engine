@@ -58,6 +58,9 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_priorityRender = 0;
     m_receiveShadow = true;
     m_castShadow = true;
+    m_computeNormals = false;
+    m_computeTangent = false;
+    m_computeAocc = false;
 
     Node::m_parallelScene = m_parallelScene = scene;
 
@@ -128,6 +131,9 @@ void Mesh::fetchVertexes(const Mesh& copy)
     m_triangulate = copy.m_triangulate;
     m_withNormal = copy.m_withNormal;
     m_withTexCoord = copy.m_withTexCoord;
+    m_computeNormals = copy.m_computeNormals;
+    m_computeTangent = copy.m_computeTangent;
+    m_computeAocc = copy.m_computeAocc;
 
     m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
 
@@ -139,6 +145,9 @@ void Mesh::shareVertexes(const Mesh& copy)
     m_triangulate = copy.m_triangulate;
     m_withNormal = copy.m_withNormal;
     m_withTexCoord = copy.m_withTexCoord;
+    m_computeNormals = copy.m_computeNormals;
+    m_computeTangent = copy.m_computeTangent;
+    m_computeAocc = copy.m_computeAocc;
 
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
@@ -159,6 +168,9 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_priorityRender = copy.m_priorityRender;
     m_receiveShadow = copy.m_receiveShadow;
     m_castShadow = copy.m_castShadow;
+    m_computeNormals = copy.m_computeNormals;
+    m_computeTangent = copy.m_computeTangent;
+    m_computeAocc = copy.m_computeAocc;
 
     if(copy.m_hardwareBuffer)
         m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
@@ -203,13 +215,53 @@ void Mesh::computeAabb()
         m_aabb.count(vertex[i].pos);
 }
 
+void Mesh::computeNormal()
+{
+    if(!m_hardwareBuffer)
+        return;
+
+    Vertex* vertex = m_hardwareBuffer->bindBuffer().lock();
+
+    if(!vertex)
+        return;
+
+    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
+
+    map<Vector3f, Vector3f> sharedNormals;
+
+    for(unsigned i = 0; i < vertexCount; i += 3)
+    {
+        Vector3f base = vertex[i].pos;
+        sharedNormals[base] += Vector3f::cross(vertex[i + 1].pos - base, vertex[i + 2].pos - base);
+
+        base = vertex[i + 1].pos;
+        sharedNormals[base] += Vector3f::cross(vertex[i + 2].pos - base, vertex[i].pos - base);
+
+        base = vertex[i + 2].pos;
+        sharedNormals[base] += Vector3f::cross(vertex[i].pos - base, vertex[i + 1].pos - base);
+    }
+
+    for(unsigned i = 0; i < vertexCount; i += 3)
+    {
+        vertex[i + 0].normal = sharedNormals[vertex[i + 0].pos].normalize();
+        vertex[i + 1].normal = sharedNormals[vertex[i + 1].pos].normalize();
+        vertex[i + 2].normal = sharedNormals[vertex[i + 2].pos].normalize();
+    }
+
+    m_hardwareBuffer->snapshot();
+
+    m_hardwareBuffer->unlock().unbindBuffer();
+
+    m_computeNormals = true;
+}
+
 void Mesh::computeTangent()
 {
     if(!m_hardwareBuffer)
         return;
 
     // Buffer must be binded
-    Vertex* vertex = m_hardwareBuffer->lock();
+    Vertex* vertex = m_hardwareBuffer->bindBuffer().lock();
 
     if(!vertex)
         return;
@@ -272,12 +324,32 @@ void Mesh::computeTangent()
         vertex[i].tangent.normalize();
     }
 
-    m_hardwareBuffer->unlock();
-
     m_hardwareBuffer->snapshot();
+
+    m_hardwareBuffer->unlock().unbindBuffer();
+
+    m_computeTangent = true;
 }
 
-void Mesh::computeAocc() { }
+void Mesh::computeAocc()
+{
+    m_computeAocc = true;
+}
+
+bool Mesh::isComputeAocc() const
+{
+    return m_computeAocc;
+}
+
+bool Mesh::isComputeTangent() const
+{
+    return m_computeTangent;
+}
+
+bool Mesh::isComputeNormals() const
+{
+    return m_computeNormals;
+}
 
 struct TriangleFace
 {
@@ -442,8 +514,6 @@ struct ShaderBind
 
     void bindTangent(std::string location)
     {
-        mesh->computeTangent();
-
         GLuint index = glGetAttribLocation(shader, location.c_str());
         mesh->getHardwareBuffer()->bindTangent(true, index);
     }
@@ -1407,6 +1477,9 @@ rtree Mesh::serialize(std::string root)
         scheme.put("class.billBoarding", m_billBoard.toStr());
         scheme.put("class.castShadow", m_castShadow);
         scheme.put("class.receiveShadow", m_receiveShadow);
+        scheme.put("class.computeNormal", m_computeNormals);
+        scheme.put("class.computeTangent", m_computeTangent);
+        scheme.put("class.computeAocc", m_computeAocc);
 
         // *** Material are handled by external file
         // if(!scheme.count("material"))

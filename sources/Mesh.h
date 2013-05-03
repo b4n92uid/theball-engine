@@ -54,8 +54,15 @@ public:
     /// Calcule l'espace tangente des vertex du mesh
     void computeTangent();
 
+    /// Calcule les normals
+    void computeNormal();
+
     /// Calcule l'occlusion ambiante
     void computeAocc();
+
+    bool isComputeAocc() const;
+    bool isComputeTangent() const;
+    bool isComputeNormals() const;
 
     /// Renvois la position y des coordonnés x z dans le repere local du mesh
     bool findFloor(float getx, float& sety, float getz, bool global);
@@ -174,6 +181,9 @@ protected:
     bool m_requestVertexRestore;
     bool m_receiveShadow;
     bool m_castShadow;
+    bool m_computeNormals;
+    bool m_computeTangent;
+    bool m_computeAocc;
     int m_priorityRender;
 
     Vector2b m_billBoard;
