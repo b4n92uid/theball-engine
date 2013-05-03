@@ -74,11 +74,6 @@ protected:
     Node* buildNode(rtree data, Node* parent = NULL);
     void buildInherited(rtree data, Node* parent, Node* current);
 
-    void buildMeshMaterial(rtree data, Mesh* mesh, std::string base);
-    void buildMaterial(rtree data, Material* mat, std::string base);
-
-    Shader buildShader(rtree data, std::string base);
-
     std::string resolve(std::string relpath, std::string base = "");
     std::string relativize(std::string abspath);
 
@@ -117,56 +112,6 @@ struct TextureTranslator
     boost::optional<internal_type> put_value(const external_type& b)
     {
         return boost::optional<internal_type>(b.getFilename());
-    }
-};
-
-struct Matrix4Translator
-{
-    typedef std::string internal_type;
-    typedef Matrix4 external_type;
-
-    // Converts a string to bool
-
-    boost::optional<external_type> get_value(const internal_type& str)
-    {
-        if(!str.empty())
-        {
-            return Matrix4().fromStr(str);
-        }
-        else
-            return boost::optional<external_type>(boost::none);
-    }
-
-    // Converts a bool to string
-
-    boost::optional<internal_type> put_value(const external_type& b)
-    {
-        return boost::optional<internal_type>(b.toStr());
-    }
-};
-
-template<typename T> struct VectorTranslator
-{
-    typedef std::string internal_type;
-    typedef T external_type;
-
-    // Converts a string to bool
-
-    boost::optional<external_type> get_value(const internal_type& str)
-    {
-        if(!str.empty())
-        {
-            return T().fromStr(str);
-        }
-        else
-            return boost::optional<external_type>(boost::none);
-    }
-
-    // Converts a bool to string
-
-    boost::optional<internal_type> put_value(const external_type& b)
-    {
-        return T(b).toStr();
     }
 };
 

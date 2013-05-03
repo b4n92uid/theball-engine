@@ -207,28 +207,16 @@ void SceneParser::build()
 
     if(head.count("shader"))
     {
-        rtree inlineShaderTree = head.get_child("shader");
-
         Shader shade;
 
-        if(!inlineShaderTree.empty())
-        {
-            shade = buildShader(inlineShaderTree, m_filename);
-        }
-        else
-        {
-            string path = head.get<string>("shader");
+        string path = head.get<string>("shader");
 
-            m_identity.put("Scene.shader", path);
+        m_identity.put("Scene.shader", path);
 
-            if(!tools::isAbsoloutPath(path))
-                path = resolve(path);
+        if(!tools::isAbsoloutPath(path))
+            path = resolve(path);
 
-            rtree shaderTree;
-            boost::property_tree::read_info(path, shaderTree);
-
-            shade = buildShader(shaderTree, path);
-        }
+        shade.parseShaderFile(path);
 
         m_meshScene->setRenderingShader(shade);
     }

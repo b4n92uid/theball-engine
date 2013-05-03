@@ -11,8 +11,6 @@
 #include "Node.h"
 #include "Material.h"
 
-#include <boost/filesystem.hpp>
-
 namespace tbe
 {
 namespace scene
@@ -134,9 +132,12 @@ public:
     HardwareBuffer* getHardwareBuffer() const;
 
     rtree serialize(std::string root);
+
     rtree serializeMaterial(std::string root);
 
-    void generateMulTexCoord();
+    void attachMaterialFile(std::string path);
+    void releaseMaterialFile();
+    std::string getMaterialFile();
 
     typedef std::map<std::string, Mesh*> Map;
     typedef std::vector<Mesh*> Array;
@@ -214,6 +215,9 @@ private:
 
     RenderProcess::Array m_renderProess;
     Material::Map m_materials;
+
+    Material::Map m_materialsBackup;
+    std::string m_attachMaterial;
 
     Mesh& copy(const Mesh& copy);
 };

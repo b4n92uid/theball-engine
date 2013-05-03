@@ -21,8 +21,19 @@
 #include <vector>
 #include <typeinfo>
 
+#include <boost/foreach.hpp>
+#include <boost/optional.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/info_parser.hpp>
+#include <boost/filesystem.hpp>
+
 namespace tbe
 {
+
+typedef boost::property_tree::ptree rtree;
+typedef boost::filesystem::path fspath;
+typedef std::map<std::string, std::string> strmap;
+
 namespace tools
 {
 
@@ -589,6 +600,57 @@ template <typename T> T strToNum(std::string str)
 }
 
 }
+
+struct Matrix4Translator
+{
+    typedef std::string internal_type;
+    typedef Matrix4 external_type;
+
+    // Converts a string to bool
+
+    boost::optional<external_type> get_value(const internal_type& str)
+    {
+        if(!str.empty())
+        {
+            return Matrix4().fromStr(str);
+        }
+        else
+            return boost::optional<external_type>(boost::none);
+    }
+
+    // Converts a bool to string
+
+    boost::optional<internal_type> put_value(const external_type& b)
+    {
+        return boost::optional<internal_type>(b.toStr());
+    }
+};
+
+template<typename T> struct VectorTranslator
+{
+    typedef std::string internal_type;
+    typedef T external_type;
+
+    // Converts a string to bool
+
+    boost::optional<external_type> get_value(const internal_type& str)
+    {
+        if(!str.empty())
+        {
+            return T().fromStr(str);
+        }
+        else
+            return boost::optional<external_type>(boost::none);
+    }
+
+    // Converts a bool to string
+
+    boost::optional<internal_type> put_value(const external_type& b)
+    {
+        return T(b).toStr();
+    }
+};
+
 }
 
 #endif	/* _TBE_TOOLS_H */

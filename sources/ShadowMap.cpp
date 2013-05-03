@@ -241,7 +241,10 @@ void ShadowMap::render()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     m_shadowBuffer->getColor().use(true);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
     lay.draw();
+
     m_shadowBuffer->getColor().use(false);
 
     ppe::PostProcessManager::endPostProcess();

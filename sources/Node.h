@@ -7,16 +7,13 @@
 #include <vector>
 #include <map>
 
-#include <boost/foreach.hpp>
-#include <boost/property_tree/ptree.hpp>
-#include <boost/filesystem.hpp>
-
 #include "Mathematics.h"
 #include "Any.h"
 #include "AABB.h"
 #include "Texture.h"
 #include "Exception.h"
 #include "Iterator.h"
+#include "Tools.h"
 
 namespace tbe
 {
@@ -25,10 +22,6 @@ namespace scene
 
 class ParallelScene;
 class SceneManager;
-
-typedef boost::property_tree::ptree rtree;
-typedef boost::filesystem::path fspath;
-typedef std::map<std::string, std::string> strmap;
 
 /**
  * \brief Class de base pour la représentation d'une entité

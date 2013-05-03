@@ -91,7 +91,7 @@ Texture::Texture(const Texture& copy)
     *this = copy;
 }
 
-Texture::Texture(std::string filename, bool genMipMap, int origin)
+Texture::Texture(std::string filename, bool genMipMap, int origin, bool override)
 {
     m_textureName = 0;
     m_persistent = false;
@@ -100,10 +100,10 @@ Texture::Texture(std::string filename, bool genMipMap, int origin)
     m_filtring = 0;
     m_anistropy = 1;
 
-    load(filename, genMipMap, origin);
+    load(filename, genMipMap, origin, override);
 }
 
-Texture::Texture(const char* filename, bool genMipMap, int origin)
+Texture::Texture(const char* filename, bool genMipMap, int origin, bool override)
 {
     m_textureName = 0;
     m_persistent = false;
@@ -112,7 +112,7 @@ Texture::Texture(const char* filename, bool genMipMap, int origin)
     m_filtring = 0;
     m_anistropy = 1;
 
-    load(filename, genMipMap, origin);
+    load(filename, genMipMap, origin, override);
 }
 
 Texture::~Texture()
@@ -205,11 +205,11 @@ void Texture::release()
     m_size = 0;
 }
 
-void Texture::load(std::string filename, bool genMipMap, int origin)
+void Texture::load(std::string filename, bool genMipMap, int origin, bool override)
 {
     Texture* sharedTexture = manager.IsExist(filename);
 
-    if(sharedTexture)
+    if(sharedTexture && !override)
     {
         *this = *sharedTexture;
         return;
@@ -252,7 +252,7 @@ void Texture::load(std::string filename, bool genMipMap, int origin)
     m_size.y = ilGetInteger(IL_IMAGE_HEIGHT);
 
     if(!math::isPow2(m_size.x) || !math::isPow2(m_size.y))
-        cout << "***WARNING*** Texture::Load; Texture is not pow2 dim (" << filename << ")" << endl;
+        cout << "/!\\ WARNING: Texture::Load; Texture is not pow2 dim (" << filename << ")" << endl;
 
     m_genMipMap = genMipMap;
     m_origin = origin;

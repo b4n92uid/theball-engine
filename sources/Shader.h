@@ -7,6 +7,7 @@
 #include <boost/optional.hpp>
 
 #include "Mathematics.h"
+#include "Tools.h"
 
 namespace tbe
 {
@@ -41,6 +42,31 @@ public:
      * chargement d'un fragment shader
      */
     void loadProgram();
+
+    /**
+     * Charge un program a partir d'un fichier au format 
+     * property_tree info
+     * @param path
+     */
+    void parseShaderFile(std::string path);
+
+    std::string getVertFilename() const;
+
+    std::string getFragFilename() const;
+
+    std::string getShaderFile() const;
+
+    rtree serialize(std::string root);
+
+    void setEnable(bool enable);
+
+    bool isEnable() const;
+
+    typedef std::map<std::string, std::string> UniformMap;
+
+    void setRequestedUniform(std::string what, std::string var);
+
+    const UniformMap& getRequestedUniform();
 
     /**
      * Utilisation du program. Le rendue effectuer apres cette appelle
@@ -87,20 +113,6 @@ public:
         return m_program;
     }
 
-    void setVertFilename(std::string vertFilename);
-    std::string getVertFilename() const;
-
-    void setFragFilename(std::string fragFilename);
-    std::string getFragFilename() const;
-
-    void setEnable(bool enable);
-    bool isEnable() const;
-
-    typedef std::map<std::string, std::string> UniformMap;
-
-    void setRequestedUniform(std::string what, std::string var);
-    const UniformMap& getRequestedUniform();
-
     /**
      * Cette fonction vérifie si le materiel actuelle supporte l'utilisation
      * des shader.
@@ -114,7 +126,7 @@ public:
      */
     static bool checkHardware();
     static void forceHardware(bool enable);
-    
+
     static void bind(Shader& shader);
     static void unbind();
 
@@ -126,6 +138,7 @@ protected:
 
     std::string m_fragFilename;
     std::string m_vertFilename;
+    std::string m_shaderFilename;
 
     UniformMap m_requestedUniform;
 

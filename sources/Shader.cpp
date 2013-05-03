@@ -1,12 +1,18 @@
+#include "Shader.h"
+
 #include <iostream>
 #include <sstream>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <map>
-#include <bits/basic_string.h>
 
-#include "Shader.h"
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/info_parser.hpp>
+#include <boost/optional.hpp>
+#include <boost/optional.hpp>
+#include <boost/foreach.hpp>
+
 #include "Exception.h"
 
 using namespace std;
@@ -39,6 +45,7 @@ Shader::Shader(const Shader& copy)
     m_program = copy.m_program;
     m_vertFilename = copy.m_vertFilename;
     m_fragFilename = copy.m_fragFilename;
+    m_shaderFilename = copy.m_shaderFilename;
     m_enable = copy.m_enable;
     m_requestedUniform = copy.m_requestedUniform;
 }
@@ -52,6 +59,7 @@ Shader& Shader::operator=(const Shader& copy)
     m_program = copy.m_program;
     m_vertFilename = copy.m_vertFilename;
     m_fragFilename = copy.m_fragFilename;
+    m_shaderFilename = copy.m_shaderFilename;
     m_enable = copy.m_enable;
     m_requestedUniform = copy.m_requestedUniform;
 
@@ -157,26 +165,6 @@ void Shader::loadFragmentShader(std::string filepath)
     m_fragFilename = filepath;
 }
 
-void Shader::setVertFilename(std::string vertFilename)
-{
-    this->m_vertFilename = vertFilename;
-}
-
-std::string Shader::getVertFilename() const
-{
-    return m_vertFilename;
-}
-
-void Shader::setFragFilename(std::string fragFilename)
-{
-    this->m_fragFilename = fragFilename;
-}
-
-std::string Shader::getFragFilename() const
-{
-    return m_fragFilename;
-}
-
 void Shader::use(bool use)
 {
     if(m_enable)
@@ -237,6 +225,82 @@ void Shader::loadProgram()
     m_enable = true;
 
     manager.push_back(m_program);
+}
+
+void Shader::parseShaderFile(std::string path)
+{
+    using namespace boost;
+    using namespace property_tree;
+
+    cout << "[Shader Program] " << path << endl;
+
+    ptree data;
+    property_tree::read_info(path, data);
+
+    m_shaderFilename = path;
+
+    if(data.get_optional<string>("vertex"))
+    {
+        string vertex = data.get<string>("vertex");
+
+        if(!tools::isAbsoloutPath(vertex))
+            vertex = tools::resolvePath(vertex, path);
+
+        loadVertexShader(vertex);
+    }
+
+    if(data.get_optional<string>("fragment"))
+    {
+        string frag = data.get<string>("fragment");
+
+        if(!tools::isAbsoloutPath(frag))
+            frag = tools::resolvePath(frag, path);
+
+        loadFragmentShader(frag);
+    }
+
+    loadProgram();
+
+    if(data.count("bind"))
+        BOOST_FOREACH(ptree::value_type & b, data.get_child("bind"))
+    {
+        setRequestedUniform(b.first, b.second.data());
+    }
+
+}
+
+std::string Shader::getShaderFile() const
+{
+    return m_shaderFilename;
+}
+
+std::string Shader::getVertFilename() const
+{
+    return m_vertFilename;
+}
+
+std::string Shader::getFragFilename() const
+{
+    return m_fragFilename;
+}
+
+rtree Shader::serialize(std::string root)
+{
+    rtree scheme;
+
+    scheme.put("vertex", tools::relativizePath(m_vertFilename, root));
+    scheme.put("fragment", tools::relativizePath(m_fragFilename, root));
+
+    rtree bindtree;
+
+    BOOST_FOREACH(Shader::UniformMap::value_type v, m_requestedUniform)
+    {
+        bindtree.put(v.first, v.second);
+    }
+
+    scheme.put_child("bind", bindtree);
+
+    return scheme;
 }
 
 void Shader::uniform(std::string name, bool value)

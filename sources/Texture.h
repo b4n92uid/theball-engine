@@ -18,8 +18,8 @@ class Texture
 public:
     Texture();
     Texture(const Texture& copy);
-    Texture(std::string filename, bool genMipMap = false, int origin = 0);
-    Texture(const char* filename, bool genMipMap = false, int origin = 0);
+    Texture(std::string filename, bool genMipMap = false, int origin = 1, bool override = false);
+    Texture(const char* filename, bool genMipMap = false, int origin = 1, bool override = false);
 
     virtual ~Texture();
 
@@ -36,13 +36,11 @@ public:
      * @param genMipMap Définie si le chargement de la texture générera un mipMapping (texture a plusieur niveau de détail)
      * @param upperLeftOrigin Définie si la texture devera etre retourné pour que (0,0) correspend au coin du haut a gauche
      */
-    void load(std::string filename, bool genMipMap = false, int origin = 0);
-
-    void loadMask(std::string filename, int origin = 0);
+    void load(std::string filename, bool genMipMap = false, int origin = 1, bool override = false);
 
     /// @see load()
 
-    void operator()(std::string filename, bool genMipMap = false, int origin = 0)
+    void operator()(std::string filename, bool genMipMap = false, int origin = 1)
     {
         load(filename, genMipMap, origin);
     }

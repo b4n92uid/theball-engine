@@ -15,6 +15,9 @@
 #include <boost/function.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/info_parser.hpp>
+#include <boost/optional/optional.hpp>
 
 using namespace tbe;
 using namespace tbe::scene;
@@ -397,6 +400,11 @@ void Mesh::bindTexture(unsigned layer, Texture texture, TextureApply settings)
 
     else if(multexb == Material::MODULATE)
         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+    else if(multexb == Material::ALPHA)
+    {
+        // Use a shader instead
+    }
 }
 
 struct ShaderBind
@@ -777,6 +785,8 @@ void Mesh::drawMaterial(Material* material, unsigned offset, unsigned count)
     beginRenderingMatrix();
     beginRenderingProperty(material, offset, count);
 
+    Shader::bind(usedshader);
+
     if(!(material->m_renderFlags & Material::LIGHTED))
     {
         Shader::bind(usedshader);
@@ -787,9 +797,22 @@ void Mesh::drawMaterial(Material* material, unsigned offset, unsigned count)
     else
     {
         // Disable or use default shader for only scene ambient light
-        Shader::unbind();
+        const Shader::UniformMap& umap = usedshader.getRequestedUniform();
+
+        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
+        {
+            if(u.second == "lighted")
+                usedshader.uniform(u.first, 0);
+        }
 
         m_hardwareBuffer->render(material->m_faceType, offset, count);
+
+        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
+        {
+            if(u.second == "lighted")
+                usedshader.uniform(u.first, material->isEnable(Material::LIGHTED));
+        }
+
     }
 
     endRenderingProperty(material, offset, count);
@@ -1138,6 +1161,152 @@ bool Mesh::isVisible() const
     return m_visible;
 }
 
+void Mesh::attachMaterialFile(std::string path)
+{
+    rtree data;
+    boost::property_tree::read_info(path, data);
+
+    cout << "[Material] " << path << endl;
+
+    m_attachMaterial = path;
+
+    BOOST_FOREACH(Material::Map::value_type &v, m_materials)
+    {
+        m_materialsBackup[v.first] = new Material(*v.second);
+    }
+
+    BOOST_FOREACH(rtree::value_type &v, data)
+    {
+        Material* mat = getMaterial(v.second.get_value<string>());
+
+        rtree pass = v.second;
+
+        VectorTranslator<Vector4f> v4tr;
+
+        mat->setAmbient(pass.get<Vector4f>("ambient", Vector4f(1), v4tr));
+        mat->setDiffuse(pass.get<Vector4f>("diffuse", Vector4f(1), v4tr));
+        mat->setSpecular(pass.get<Vector4f>("specular", Vector4f(0.5), v4tr));
+        mat->setShininess(pass.get<float>("shininess", 16));
+
+        if(pass.get<bool>("alpha", false))
+        {
+            mat->enable(Material::ALPHA);
+            mat->setAlphaThershold(pass.get<float>("alphaThershold", 0.0f));
+        }
+
+        if(pass.get<bool>("colored", true))
+        {
+            mat->enable(Material::COLORED);
+            mat->setColor(pass.get<Vector4f>("color", Vector4f(1, 1, 1, 1), VectorTranslator<Vector4f>()));
+        }
+
+        if(pass.get<string>("blend", "none") != "none")
+        {
+            string blend = pass.get<string>("blend");
+
+            if(blend == "additive")
+                mat->enable(Material::ADDITIVE);
+
+            else if(blend == "modulate")
+                mat->enable(Material::MODULATE);
+
+            else if(blend == "multiply")
+                mat->enable(Material::MULTIPLY);
+        }
+
+        if(pass.get<string>("faceCull", "none") != "none")
+        {
+            string cull = pass.get<string>("faceCull");
+
+            if(cull == "back")
+                mat->enable(Material::BACKFACE_CULL);
+
+            else if(cull == "front")
+                mat->enable(Material::FRONTFACE_CULL);
+        }
+
+        if(pass.get<bool>("lighted", true))
+            mat->enable(Material::LIGHTED);
+        else
+            mat->disable(Material::LIGHTED);
+
+        if(pass.get<bool>("foged", true))
+            mat->enable(Material::FOGED);
+        else
+            mat->disable(Material::FOGED);
+
+        if(pass.get<bool>("textured", true))
+            mat->enable(Material::TEXTURED);
+        else
+            mat->disable(Material::TEXTURED);
+
+        if(pass.count("textures"))
+        {
+            rtree textures = pass.get_child("textures");
+
+            rtree::iterator it = textures.begin();
+            for(int i = 0; it != textures.end(); i++)
+            {
+                string texpath = it->second.get<string>("path");
+
+                if(!tools::isAbsoloutPath(texpath))
+                    texpath = tools::resolvePath(texpath, path);
+
+                bool mipmap = it->second.get<bool>("mipmap", true);
+                int origin = it->second.get<int>("origin", 1);
+
+                mat->setTexture(Texture(texpath, mipmap, origin, true), i);
+
+                string blend = it->second.get<string>("blend", "modulate");
+
+                if(blend == "modulate")
+                    mat->setTextureBlend(Material::MODULATE, i);
+
+                else if(blend == "additive")
+                    mat->setTextureBlend(Material::ADDITIVE, i);
+
+                else if(blend == "replace")
+                    mat->setTextureBlend(Material::REPLACE, i);
+
+                else if(blend == "alpha")
+                    mat->setTextureBlend(Material::ALPHA, i);
+
+                it++;
+            }
+        }
+
+        if(pass.count("shader"))
+        {
+            string shaderpath = pass.get<string>("shader");
+
+            if(!tools::isAbsoloutPath(shaderpath))
+                shaderpath = tools::resolvePath(shaderpath, path);
+
+            Shader shader;
+            shader.parseShaderFile(shaderpath);
+
+            mat->setShader(shader);
+        }
+    }
+}
+
+void Mesh::releaseMaterialFile()
+{
+
+    BOOST_FOREACH(Material::Map::value_type &v, m_materialsBackup)
+    {
+        *m_materials[v.first] = *v.second;
+        delete v.second, v.second = NULL;
+    }
+
+    m_attachMaterial.clear();
+}
+
+std::string Mesh::getMaterialFile()
+{
+    return m_attachMaterial;
+}
+
 rtree Mesh::serializeMaterial(std::string root)
 {
     rtree scheme;
@@ -1157,11 +1326,11 @@ rtree Mesh::serializeMaterial(std::string root)
         matscheme.put("alphaThershold", it->second->m_alphaThershold);
 
         if(it->second->isEnable(Material::MODULATE))
-            matscheme.put("blendMod", "modulate");
+            matscheme.put("blend", "modulate");
         else if(it->second->isEnable(Material::ADDITIVE))
-            matscheme.put("blendMod", "additive");
+            matscheme.put("blend", "additive");
         else if(it->second->isEnable(Material::MULTIPLY))
-            matscheme.put("blendMod", "multiplty");
+            matscheme.put("blend", "multiplty");
 
         matscheme.put("color", it->second->m_color);
         matscheme.put("cullTrick", it->second->isEnable(Material::VERTEX_SORT_CULL_TRICK));
@@ -1179,19 +1348,19 @@ rtree Mesh::serializeMaterial(std::string root)
         {
             Shader shade = it->second->m_shader;
 
-            matscheme.put("shader.vertex", tools::relativizePath(shade.getVertFilename(), root));
-            matscheme.put("shader.fragment", tools::relativizePath(shade.getFragFilename(), root));
+            string shaderpath = shade.getShaderFile();
 
-            rtree bindtree;
-
-            const Shader::UniformMap& umap = shade.getRequestedUniform();
-
-            BOOST_FOREACH(Shader::UniformMap::value_type v, umap)
+            if(!shaderpath.empty())
             {
-                bindtree.put(v.first, v.second);
-            }
+                rtree shadertree = shade.serialize(shaderpath);
+                boost::property_tree::write_info(shaderpath, shadertree);
 
-            matscheme.put_child("shader.bind", bindtree);
+                shaderpath = tools::relativizePath(shaderpath, root);
+
+                matscheme.put("shader", shaderpath);
+            }
+            else
+                cout << "/!\\ WARNING: Mesh::serializeMaterial; Shader has not been loaded from file (" << shaderpath << ")" << endl;
         }
 
         unsigned txcount = it->second->getTexturesCount();
@@ -1297,16 +1466,6 @@ std::vector<std::string> Mesh::getUsedRessources()
     ressPath.push_back(manager[this]);
 
     return ressPath;
-}
-
-void Mesh::generateMulTexCoord()
-{
-    Material* mat = m_materials.begin()->second;
-
-    for(Texture::Map::iterator itt = mat->m_textures.begin(); itt != mat->m_textures.end(); itt++)
-        m_hardwareBuffer->newMultiTexCoord(itt->first);
-
-    m_hardwareBuffer->compile();
 }
 
 void Mesh::setPriorityRender(int priorityRender)

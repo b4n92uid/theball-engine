@@ -412,7 +412,7 @@ void MTLFile::open(const std::string& path)
 
         else
         {
-            cout << "MTLFile::Open; Warning : line (" << line << ") ignored" << endl;
+            cout << "/!\\ WARNING: MTLFile::Open; line (" << line << ") ignored" << endl;
         }
 
     }
