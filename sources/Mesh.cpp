@@ -1247,7 +1247,14 @@ void Mesh::attachMaterialFile(std::string path)
 
     BOOST_FOREACH(rtree::value_type &v, data)
     {
-        Material* mat = getMaterial(v.second.get_value<string>());
+        string matname = v.second.get_value<string>();
+        Material* mat = getMaterial(matname);
+
+        if(!mat)
+        {
+            cout << "/!\\ WARNING: Mesh::attachMaterialFile; Unexpected material (" << matname << ")" << endl;
+            continue;
+        }
 
         rtree pass = v.second;
 
@@ -1480,6 +1487,8 @@ rtree Mesh::serialize(std::string root)
         scheme.put("class.computeNormal", m_computeNormals);
         scheme.put("class.computeTangent", m_computeTangent);
         scheme.put("class.computeAocc", m_computeAocc);
+
+        scheme.put("material", tools::relativizePath(m_attachMaterial, root));
 
         // *** Material are handled by external file
         // if(!scheme.count("material"))

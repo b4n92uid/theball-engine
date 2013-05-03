@@ -200,8 +200,6 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
 
             string path = data.get<string>("material");
 
-            mesh->serializing().put("material", path);
-
             if(!tools::isAbsoloutPath(path))
                 path = resolve(path);
 
