@@ -148,7 +148,7 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
 
         string path = data.get<string>("class.path");
 
-        mesh->serializing().put("class.path", path);
+        mesh->serializing().put("class.path", tools::relativizePath(path, m_filename));
         mesh->serializing().put("class.format", "obj");
 
         if(!tools::isAbsoloutPath(path))
@@ -173,6 +173,15 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
         mesh->setBillBoard(data.get<Vector2b>("class.billBoarding", Vector2b(false)));
         mesh->setReceiveShadow(data.get<bool>("class.receiveShadow", true));
         mesh->setCastShadow(data.get<bool>("class.castShadow(", true));
+
+        if(data.get<bool>("class.computeNormal", false))
+            mesh->computeNormal();
+
+        if(data.get<bool>("class.computeTangent", false))
+            mesh->computeTangent();
+
+        if(data.get<bool>("class.computeAocc", false))
+            mesh->computeAocc();
 
         if(data.count("material"))
         {

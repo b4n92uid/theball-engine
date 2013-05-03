@@ -237,6 +237,9 @@ void Shader::parseShaderFile(std::string path)
     ptree data;
     property_tree::read_info(path, data);
 
+    if(!data.count("vertex"))
+        throw new Exception("Shader::parseShaderFile; Parsing error (%s)", path.c_str());
+
     m_shaderFilename = path;
 
     if(data.get_optional<string>("vertex"))

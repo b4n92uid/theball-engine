@@ -189,7 +189,6 @@ Light::Type Light::getType() const
 
 Matrix4 Light::getProjectionMatrix() const
 {
-    // return math::perspectiveMatrix(70.0, 1.0, 1, 1000);
     return math::orthographicMatrix(-10, 10, -10, 10, -10, 20);
 }
 

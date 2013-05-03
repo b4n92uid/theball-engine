@@ -171,7 +171,7 @@ void FrameBufferObject::attach(unsigned compenent)
         m_depthTextureId.build(m_frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
 
         m_depthTextureId.use(true);
-        m_depthTextureId.setFiltring(Texture::NEAREST);
+        m_depthTextureId.setFiltring(Texture::LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         m_depthTextureId.use(false);
