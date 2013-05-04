@@ -48,6 +48,11 @@ AbstractParser::~AbstractParser()
     delete m_classFactory;
 }
 
+void AbstractParser::setFilename(std::string filename)
+{
+    m_filename = filename;
+}
+
 std::string AbstractParser::getFilename() const
 {
     return m_filename;

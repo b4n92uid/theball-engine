@@ -220,7 +220,9 @@ private:
 
     inline static bool renderProcessSortFunc(const RenderProcess& rp1, const RenderProcess&)
     {
-        return !rp1.parent->m_materials[rp1.applyMaterial]->isTransparent();
+        return rp1.parent->m_materials[rp1.applyMaterial]
+                ? !rp1.parent->m_materials[rp1.applyMaterial]->isTransparent()
+                : false;
     }
 
     RenderProcess::Array m_renderProess;

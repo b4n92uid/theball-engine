@@ -56,6 +56,7 @@ public:
 
     virtual void clear();
 
+    void setFilename(std::string filename);
     std::string getFilename() const;
 
     void setMeshScene(MeshParallelScene* meshScene);

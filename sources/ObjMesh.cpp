@@ -135,6 +135,9 @@ void OBJMesh::open(const std::string& path)
 
                 curMaterial->enable(Material::COLORED);
 
+                if(applySize % 3 != 0)
+                    cout << "/!\\ WARNING: Mesh may not be triangulated (" << curMaterial->getName() << ")" << endl;
+
                 applyMaterial(curMaterial, applyOffset, applySize);
             }
 
@@ -235,6 +238,9 @@ void OBJMesh::open(const std::string& path)
             curMaterial->enable(Material::LIGHTED);
 
         curMaterial->enable(Material::COLORED);
+
+        if(applySize % 3 != 0)
+            cout << "/!\\ WARNING: Mesh may not be triangulated (" << curMaterial->getName() << ")" << endl;
 
         applyMaterial(curMaterial, applyOffset, applySize);
     }

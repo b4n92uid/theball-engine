@@ -145,6 +145,12 @@ void Mesh::shareVertexes(const Mesh& copy)
     m_triangulate = copy.m_triangulate;
     m_withNormal = copy.m_withNormal;
     m_withTexCoord = copy.m_withTexCoord;
+    m_visible = copy.m_visible;
+    m_billBoard = copy.m_billBoard;
+    m_priorityRender = copy.m_priorityRender;
+    m_receiveShadow = copy.m_receiveShadow;
+    m_castShadow = copy.m_castShadow;
+    m_aabb = copy.m_aabb;
     m_computeNormals = copy.m_computeNormals;
     m_computeTangent = copy.m_computeTangent;
     m_computeAocc = copy.m_computeAocc;
@@ -168,6 +174,7 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_priorityRender = copy.m_priorityRender;
     m_receiveShadow = copy.m_receiveShadow;
     m_castShadow = copy.m_castShadow;
+    m_aabb = copy.m_aabb;
     m_computeNormals = copy.m_computeNormals;
     m_computeTangent = copy.m_computeTangent;
     m_computeAocc = copy.m_computeAocc;
@@ -1204,14 +1211,13 @@ void Mesh::applyMaterial(std::string name, unsigned offset, unsigned size)
 
 void Mesh::applyMaterial(Material* material, unsigned offset, unsigned size)
 {
-    for(Material::Map::iterator it = m_materials.begin();
-            it != m_materials.end(); ++it)
-        if(it->second == material)
-        {
-            RenderProcess rp = {this, it->first, offset, size};
-            m_renderProess.push_back(rp);
-            return;
-        }
+    BOOST_FOREACH(Material::Map::value_type &it, m_materials)
+    if(it.second == material)
+    {
+        RenderProcess rp = {this, it.first, offset, size};
+        m_renderProess.push_back(rp);
+        return;
+    }
 
     throw tbe::Exception("Mesh::ApplyMaterial; [%s] Material ptr not found", m_name.c_str());
 }
@@ -1472,6 +1478,8 @@ rtree Mesh::serializeMaterial(std::string root)
 
 rtree Mesh::serialize(std::string root)
 {
+    using namespace boost;
+
     rtree scheme = Node::serialize(root);
 
     if(scheme.count("class") && scheme.get_child("class").empty())
@@ -1480,6 +1488,14 @@ rtree Mesh::serialize(std::string root)
     }
     else
     {
+        optional<string> path = scheme.get_optional<string>("class.path");
+
+        if(path && tools::isAbsoloutPath(*path))
+        {
+            *path = tools::relativizePath(*path, root);
+            scheme.put("class.path", *path);
+        }
+
         scheme.put("class", "Mesh");
         scheme.put("class.billBoarding", m_billBoard.toStr());
         scheme.put("class.castShadow", m_castShadow);
@@ -1488,11 +1504,15 @@ rtree Mesh::serialize(std::string root)
         scheme.put("class.computeTangent", m_computeTangent);
         scheme.put("class.computeAocc", m_computeAocc);
 
-        scheme.put("material", tools::relativizePath(m_attachMaterial, root));
+        if(!m_attachMaterial.empty())
+        {
+            string matpath = m_attachMaterial;
 
-        // *** Material are handled by external file
-        // if(!scheme.count("material"))
-        // scheme.put_child("material", serializeMaterial(root));
+            if(!tools::isAbsoloutPath(matpath))
+                matpath = tools::relativizePath(matpath, root);
+
+            scheme.put("material", matpath);
+        }
     }
 
     return scheme;

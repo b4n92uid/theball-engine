@@ -194,7 +194,7 @@ Matrix4 Light::getProjectionMatrix() const
 
 Matrix4 Light::getViewMatrix() const
 {
-    return math::lookAt(Vector3f::normalize(m_position) * 8, 0, Vector3f(0.0f, 1.0f, 0.0f));
+    return math::lookAt(Vector3f::normalize(m_position), 0, Vector3f(0.0f, 1.0f, 0.0f));
 }
 
 void Light::setCastShadow(bool castShadow)
