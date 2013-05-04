@@ -19,37 +19,38 @@ using namespace scene;
 
 static const char fragment[] =
         "varying vec4 ShadowCoord;"
-
         "uniform sampler2D ShadowMap;"
+        "uniform float Intensity;"
 
         "void main()"
         "{"
-        "vec4 shadowCoordinateWdivide = ShadowCoord / ShadowCoord.w ;"
+        "vec4 v = ShadowCoord / ShadowCoord.w;"
+        "v.z += 0.005;"
 
-        "shadowCoordinateWdivide.z += 0.0005;"
+        "float offset = 0.0009765625;"
 
-        "float distanceFromLight = texture2D(ShadowMap,shadowCoordinateWdivide.xy).z;"
+        "float shadow = texture2D(ShadowMap, v.xy).r;"
 
-        "float shadow = 1.0;"
+        "shadow += texture2D(ShadowMap, v.xy + vec2(-offset, offset)).r;"
+        "shadow += texture2D(ShadowMap, v.xy + vec2(0,       offset)).r;"
+        "shadow += texture2D(ShadowMap, v.xy + vec2(offset,  offset)).r;"
+        "shadow += texture2D(ShadowMap, v.xy + vec2(-offset, 0)).r;"
+        "shadow += texture2D(ShadowMap, v.xy + vec2(offset,  0)).r;"
+        "shadow += texture2D(ShadowMap, v.xy + vec2(-offset, -offset)).r;"
+        "shadow += texture2D(ShadowMap, v.xy + vec2(0,       -offset)).r;"
+        "shadow += texture2D(ShadowMap, v.xy + vec2(offset,  -offset)).r;"
+        "shadow /= 9;"
 
-        "if (ShadowCoord.w > 0.0)"
-        "{"
-        "if(distanceFromLight > shadowCoordinateWdivide.z)"
-        "shadow = 0;"
+        "gl_FragColor = vec4(0,0,0,Intensity+0.5) * (1-shadow);"
         "}"
-
-        "gl_FragColor = gl_Color * shadow;"
-        "}";
+        ;
 
 static const char vertex[] =
-
         "varying vec4 ShadowCoord;"
 
         "uniform mat4 LightProjectionMatrix;"
         "uniform mat4 LightViewMatrix;"
         "uniform mat4 NodeMatrix;"
-
-        "uniform float Intensity;"
 
         "void main()"
         "{"
@@ -61,8 +62,6 @@ static const char vertex[] =
         "ShadowCoord = biasMatrix * (LightProjectionMatrix * LightViewMatrix ) * (NodeMatrix * gl_Vertex);"
 
         "gl_Position = ftransform();"
-
-        "gl_FrontColor = vec4(0,0,0,Intensity);"
         "}";
 
 ShadowMap::ShadowMap(SceneManager* sceneManager)
@@ -169,7 +168,10 @@ void ShadowMap::begin(Light* l)
 
     // Disable color writes, and use flat shading for speed
     glShadeModel(GL_FLAT);
-    glColorMask(0, 0, 0, 0);
+    glColorMask(0, 0, 0, 1);
+
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.5f);
 
     m_projectionMatrix = l->getProjectionMatrix();
     m_modelMatrix = l->getViewMatrix();
@@ -188,6 +190,10 @@ void ShadowMap::end()
 
     glShadeModel(GL_SMOOTH);
     glColorMask(1, 1, 1, 1);
+
+    glDisable(GL_ALPHA_TEST);
+    glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+    glDisable(GL_MULTISAMPLE);
 
     glMatrixMode(GL_PROJECTION);
     glLoadMatrixf(m_sceneManager->getProjectionMatrix());
