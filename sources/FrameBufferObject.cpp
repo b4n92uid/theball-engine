@@ -152,8 +152,9 @@ void FrameBufferObject::attach(unsigned compenent)
         // Génération buffer de rendue
         m_colorTextureId.build(m_frameSize);
 
-        m_colorTextureId.use(true);
         m_depthTextureId.setFiltring(Texture::LINEAR);
+
+        m_colorTextureId.use(true);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         m_colorTextureId.use(false);
@@ -170,8 +171,9 @@ void FrameBufferObject::attach(unsigned compenent)
         // Génération buffer de rendue
         m_depthTextureId.build(m_frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
 
-        m_depthTextureId.use(true);
         m_depthTextureId.setFiltring(Texture::LINEAR);
+
+        m_depthTextureId.use(true);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         m_depthTextureId.use(false);

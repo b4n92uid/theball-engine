@@ -24,26 +24,30 @@ static const char fragment[] =
 
         "void main()"
         "{"
-        "vec4 v = ShadowCoord / ShadowCoord.w;"
-        "v.z += 0.005;"
+        "vec4 wdiv = ShadowCoord / ShadowCoord.w ;"
+        "wdiv.z += 0.005;"
 
         "float offset = 0.0009765625;"
+        "float distanceFromLight = texture2D(ShadowMap,wdiv.st).z;"
+        "float shadow = 1.0;"
 
-        "float shadow = texture2D(ShadowMap, v.xy).r;"
-
-        "shadow += texture2D(ShadowMap, v.xy + vec2(-offset, offset)).r;"
-        "shadow += texture2D(ShadowMap, v.xy + vec2(0,       offset)).r;"
-        "shadow += texture2D(ShadowMap, v.xy + vec2(offset,  offset)).r;"
-        "shadow += texture2D(ShadowMap, v.xy + vec2(-offset, 0)).r;"
-        "shadow += texture2D(ShadowMap, v.xy + vec2(offset,  0)).r;"
-        "shadow += texture2D(ShadowMap, v.xy + vec2(-offset, -offset)).r;"
-        "shadow += texture2D(ShadowMap, v.xy + vec2(0,       -offset)).r;"
-        "shadow += texture2D(ShadowMap, v.xy + vec2(offset,  -offset)).r;"
+        "if (ShadowCoord.w > 0.0)"
+        "if(distanceFromLight < wdiv.z)"
+        "{"
+        "shadow = texture2D(ShadowMap, wdiv.xy).r;"
+        "shadow += texture2D(ShadowMap, wdiv.xy + vec2(-offset, offset)).r;"
+        "shadow += texture2D(ShadowMap, wdiv.xy + vec2(0,       offset)).r;"
+        "shadow += texture2D(ShadowMap, wdiv.xy + vec2(offset,  offset)).r;"
+        "shadow += texture2D(ShadowMap, wdiv.xy + vec2(offset,  0)).r;"
+        "shadow += texture2D(ShadowMap, wdiv.xy + vec2(-offset, 0)).r;"
+        "shadow += texture2D(ShadowMap, wdiv.xy + vec2(-offset, -offset)).r;"
+        "shadow += texture2D(ShadowMap, wdiv.xy + vec2(0,       -offset)).r;"
+        "shadow += texture2D(ShadowMap, wdiv.xy + vec2(offset,  -offset)).r;"
         "shadow /= 9;"
+        "}"
 
         "gl_FragColor = vec4(0,0,0,Intensity+0.5) * (1-shadow);"
-        "}"
-        ;
+        "}";
 
 static const char vertex[] =
         "varying vec4 ShadowCoord;"
