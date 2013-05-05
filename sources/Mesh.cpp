@@ -1508,7 +1508,7 @@ rtree Mesh::serialize(std::string root)
         {
             string matpath = m_attachMaterial;
 
-            if(!tools::isAbsoloutPath(matpath))
+            if(tools::isAbsoloutPath(matpath))
                 matpath = tools::relativizePath(matpath, root);
 
             scheme.put("material", matpath);
