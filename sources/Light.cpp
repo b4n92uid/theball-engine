@@ -187,16 +187,6 @@ Light::Type Light::getType() const
     return m_type;
 }
 
-Matrix4 Light::getProjectionMatrix() const
-{
-    return math::orthographicMatrix(-10, 10, -10, 10, -10, 20);
-}
-
-Matrix4 Light::getViewMatrix() const
-{
-    return math::lookAt(Vector3f::normalize(m_position), 0, Vector3f(0.0f, 1.0f, 0.0f));
-}
-
 void Light::setCastShadow(bool castShadow)
 {
     this->m_castShadow = castShadow;

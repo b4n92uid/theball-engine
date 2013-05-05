@@ -41,6 +41,8 @@ public:
     Texture getDepthMap();
 
     void render();
+    
+    void renderDebug();
 
     void setFrameSize(Vector2i size);
     Vector2i getFrameSize() const;

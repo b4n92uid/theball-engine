@@ -169,7 +169,7 @@ void FrameBufferObject::attach(unsigned compenent)
             m_depthTextureId.remove();
 
         // Génération buffer de rendue
-        m_depthTextureId.build(m_frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT);
+        m_depthTextureId.build(m_frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_FLOAT);
 
         m_depthTextureId.setFiltring(Texture::LINEAR);
 

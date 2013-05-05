@@ -32,7 +32,7 @@ namespace ppe
 class Layer
 {
 public:
-    Layer();
+    Layer(Vector2f pos = 0, Vector2f size = 1);
     ~Layer();
 
     void draw(bool autoSetup = true);

@@ -25,9 +25,7 @@ PostProcessManager::PostProcessManager()
     m_rttRender = NULL;
 }
 
-PostProcessManager::PostProcessManager(const PostProcessManager& orig)
-{
-}
+PostProcessManager::PostProcessManager(const PostProcessManager& orig) { }
 
 PostProcessManager::~PostProcessManager()
 {
@@ -154,7 +152,7 @@ void PostProcessManager::endPostProcess()
 {
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
-    
+
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
 
@@ -239,13 +237,18 @@ bool Effect::isEnable() const
 
 // Layer -----------------------------------------------------------------------
 
-Layer::Layer()
+Layer::Layer(Vector2f pos, Vector2f size)
 {
-    float vertexs[8] = {0, 0, 1, 0, 0, 1, 1, 1};
+    //    float vertexs[8] = {0, 0, 1, 0, 0, 1, 1, 1};
+    Vector2f pos2 = pos + size;
+    float vertexs[16] = {
+        pos.x, pos.y, pos2.x, pos.y, pos.x, pos2.y, pos2.x, pos2.y,
+        0, 0, 1, 0, 0, 1, 1, 1
+    };
 
     glGenBuffers(1, &m_renderId);
     glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
-    glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(float), vertexs, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 16 * sizeof (float), vertexs, GL_STATIC_DRAW);
 }
 
 Layer::~Layer()
@@ -261,7 +264,7 @@ void Layer::begin()
     glVertexPointer(2, GL_FLOAT, 0, 0);
 
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glTexCoordPointer(2, GL_FLOAT, 0, 0);
+    glTexCoordPointer(2, GL_FLOAT, 0, (void*) (8 * sizeof (float)));
 }
 
 void Layer::draw(bool autoSetup)

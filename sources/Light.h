@@ -57,9 +57,6 @@ public:
     void setType(Type type);
     Type getType() const;
 
-    Matrix4 getProjectionMatrix() const;
-    Matrix4 getViewMatrix() const;
-
     void setCastShadow(bool castShadow);
     bool isCastShadow() const;
 

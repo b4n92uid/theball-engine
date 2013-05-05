@@ -25,7 +25,7 @@ static const char fragment[] =
         "void main()"
         "{"
         "vec4 wdiv = ShadowCoord / ShadowCoord.w ;"
-        "wdiv.z += 0.005;"
+        "wdiv.z -= 0.0005;"
 
         "float offset = 0.0009765625;"
         "float distanceFromLight = texture2D(ShadowMap,wdiv.st).z;"
@@ -177,8 +177,15 @@ void ShadowMap::begin(Light* l)
     glEnable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0.5f);
 
-    m_projectionMatrix = l->getProjectionMatrix();
-    m_modelMatrix = l->getViewMatrix();
+    // 24 is an aproximation of average length necessary
+    // for render the whole object that cast shadow
+
+    m_projectionMatrix = math::orthographicMatrix(-24, 24, -24, 24, -50, 100);
+
+    Camera * cam = m_sceneManager->getCurCamera();
+    Vector3f pos = cam->getPos() + cam->getTarget() * 24.0f + l->getPos();
+    Vector3f target = cam->getPos() + cam->getTarget() * 24.0f;
+    m_modelMatrix = math::lookAt(pos, target, Vector3f(0.0f, 1.0f, 0.0f));
 
     glMatrixMode(GL_PROJECTION);
     glLoadMatrixf(m_projectionMatrix);
@@ -256,6 +263,21 @@ void ShadowMap::render()
     lay.draw();
 
     m_shadowBuffer->getColor().use(false);
+
+    ppe::PostProcessManager::endPostProcess();
+}
+
+void ShadowMap::renderDebug()
+{
+    ppe::PostProcessManager::beginPostProcess();
+
+    ppe::Layer lay(0, 0.25);
+
+    m_depthBuffer->getDepht().use(true);
+
+    lay.draw();
+
+    m_depthBuffer->getDepht().use(false);
 
     ppe::PostProcessManager::endPostProcess();
 }
