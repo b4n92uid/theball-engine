@@ -31,8 +31,11 @@ static const char fragment[] =
         "float distanceFromLight = texture2D(ShadowMap,wdiv.st).z;"
         "float shadow = 1.0;"
 
-        "if (ShadowCoord.w > 0.0)"
-        "if(distanceFromLight < wdiv.z)"
+        "if(wdiv.x < 0 || wdiv.y < 0) shadow = 1.0;"
+
+        "else if(wdiv.x > 1 || wdiv.y > 1) shadow = 1.0;"
+
+        "else if (ShadowCoord.w > 0.0 && distanceFromLight < wdiv.z)"
         "{"
         "shadow = texture2D(ShadowMap, wdiv.xy).r;"
         "shadow += texture2D(ShadowMap, wdiv.xy + vec2(-offset, offset)).r;"
@@ -179,12 +182,13 @@ void ShadowMap::begin(Light* l)
 
     // 24 is an aproximation of average length necessary
     // for render the whole object that cast shadow
+    const float approx = 32;
 
-    m_projectionMatrix = math::orthographicMatrix(-24, 24, -24, 24, -50, 100);
+    m_projectionMatrix = math::orthographicMatrix(-approx, approx, -approx, approx, -50, 100);
 
     Camera * cam = m_sceneManager->getCurCamera();
-    Vector3f pos = cam->getPos() + cam->getTarget() * 24.0f + l->getPos();
-    Vector3f target = cam->getPos() + cam->getTarget() * 24.0f;
+    Vector3f pos = cam->getPos() + cam->getTarget() * approx + l->getPos();
+    Vector3f target = cam->getPos() + cam->getTarget() * approx;
     m_modelMatrix = math::lookAt(pos, target, Vector3f(0.0f, 1.0f, 0.0f));
 
     glMatrixMode(GL_PROJECTION);
