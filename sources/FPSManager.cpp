@@ -20,18 +20,19 @@ FpsManager::FpsManager()
 
     m_cyclePerSecond = 0;
 
-    m_fromLastFrame = 0;
-    m_fromLastRender = 0;
+    m_updateTick = 0;
+    m_secondTick = 0;
+    m_renderTick = 0;
 
     m_doARender = true;
 
-#ifdef __WIN32__
+    #ifdef __WIN32__
     QueryPerformanceFrequency((LARGE_INTEGER*) & m_cyclePerSecond);
 
-#elif defined(__linux__)
+    #elif defined(__linux__)
     m_cyclePerSecond = 1;
 
-#endif
+    #endif
 
     setRunFps(60);
 }
@@ -52,21 +53,23 @@ void FpsManager::update()
 {
     counttype curtime = 0;
 
-#ifdef __WIN32__
+    #ifdef __WIN32__
     QueryPerformanceCounter((LARGE_INTEGER*) & curtime);
 
-#elif defined(__linux__)
+    #elif defined(__linux__)
     curtime = clock();
 
-#endif
+    #endif
 
-    if(curtime - m_fromLastRender >= m_timeToRend)
+    // If there is enough tick to make a render
+    if(curtime - m_renderTick >= m_timeToRend)
     {
         m_doARender = true;
-        m_fromLastRender = curtime;
+        m_renderTick = curtime;
     }
 
-    if(curtime - m_fromLastFrame >= m_cyclePerSecond)
+    // If there is enough tick for a second
+    if(curtime - m_secondTick >= m_cyclePerSecond)
     {
         m_fps = m_framecount;
 
@@ -74,8 +77,11 @@ void FpsManager::update()
             m_betterfps = m_fps;
 
         m_framecount = 0;
-        m_fromLastFrame = curtime;
+        m_secondTick = curtime;
     }
+
+    // from last update/frame
+    m_updateTick = curtime;
 
     if(m_doARender)
         m_framecount++;
@@ -104,10 +110,35 @@ unsigned FpsManager::getRunFps() const
 
 FpsManager::counttype FpsManager::getFromLastRender() const
 {
-    return m_fromLastRender;
+    counttype curtime = 0;
+
+    #ifdef __WIN32__
+    QueryPerformanceCounter((LARGE_INTEGER*) & curtime);
+
+    #elif defined(__linux__)
+    curtime = clock();
+
+    #endif
+
+    return curtime - m_renderTick;
 }
 
-FpsManager::counttype FpsManager::getFromLastFrame() const
+FpsManager::counttype FpsManager::getFromLastUpdate() const
 {
-    return m_fromLastFrame;
+    counttype curtime = 0;
+
+    #ifdef __WIN32__
+    QueryPerformanceCounter((LARGE_INTEGER*) & curtime);
+
+    #elif defined(__linux__)
+    curtime = clock();
+
+    #endif
+
+    return curtime - m_updateTick;
+}
+
+double FpsManager::getFromLastFrameMs() const
+{
+    return getFromLastUpdate() / (m_cyclePerSecond / 1000.0f);
 }

@@ -60,7 +60,8 @@ public:
     unsigned getRunFps() const;
 
     counttype getFromLastRender() const;
-    counttype getFromLastFrame() const;
+    counttype getFromLastUpdate() const;
+    double getFromLastFrameMs() const;
 
 protected:
 
@@ -74,8 +75,9 @@ protected:
     counttype m_cyclePerSecond;
     counttype m_timeToRend;
 
-    counttype m_fromLastFrame;
-    counttype m_fromLastRender;
+    counttype m_updateTick;
+    counttype m_secondTick;
+    counttype m_renderTick;
 
     bool m_doARender;
 };
