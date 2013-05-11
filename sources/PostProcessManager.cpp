@@ -50,7 +50,7 @@ void PostProcessManager::setup(Vector2i viewport)
 Effect* PostProcessManager::getPostEffect(std::string name)
 {
     if(m_postEffects.find(name) == m_postEffects.end())
-        throw Exception("PostProcessManager::getPostEffect; PostEffect not found (%s)", name.c_str());
+        throw Exception("PostProcessManager::getPostEffect; PostEffect not found (%1%)") % name;
 
     return m_postEffects[name];
 }
@@ -88,7 +88,7 @@ void PostProcessManager::addPostEffect(std::string name, Effect* effect)
         name = tools::nameGen(m_postEffects);
 
     else if(m_postEffects.find(name) != m_postEffects.end())
-        throw Exception("PostProcessManager::AddPostEffect; PostEffect already exits (%s)", name.c_str());
+        throw Exception("PostProcessManager::AddPostEffect; PostEffect already exits (%1%)") % name;
 
     m_postEffects[name] = effect;
 }
@@ -96,7 +96,7 @@ void PostProcessManager::addPostEffect(std::string name, Effect* effect)
 Effect* PostProcessManager::releasePostEffect(std::string name)
 {
     if(!m_postEffects.count(name))
-        throw Exception("PostProcessManager::releasePostEffect; PostEffect not found (%s)", name.c_str());
+        throw Exception("PostProcessManager::releasePostEffect; PostEffect not found (%1%)") % name;
 
     Effect* e = m_postEffects[name];
 
@@ -108,7 +108,7 @@ Effect* PostProcessManager::releasePostEffect(std::string name)
 void PostProcessManager::deletePostEffect(std::string name)
 {
     if(!m_postEffects.count(name))
-        throw Exception("PostProcessManager::releasePostEffect; PostEffect not found (%s)", name.c_str());
+        throw Exception("PostProcessManager::releasePostEffect; PostEffect not found (%1%)") % name;
 
     delete m_postEffects[name];
 

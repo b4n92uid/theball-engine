@@ -188,7 +188,7 @@ void FrameBufferObject::attach(unsigned compenent)
     string error = glStrCheckFramebufferStatus();
 
     if(!error.empty())
-        throw tbe::Exception("FboRenderBuffer::Attach; %s", error.c_str());
+        throw tbe::Exception("FboRenderBuffer::Attach; %1%") % error;
 
     glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 }

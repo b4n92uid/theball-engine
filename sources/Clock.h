@@ -27,7 +27,7 @@ public:
     virtual ~Clock();
 
     /// Renvois 'true' si 'time' est écouler
-    bool isEsplanedTime(long time);
+    bool isEsplanedTime(long time, bool snapshoot = true);
 
     /// Renvois le temp depuis le dernier appelle de la fonction
     long getEsplanedTime(bool snapshoot = true);

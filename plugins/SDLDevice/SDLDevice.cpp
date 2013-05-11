@@ -32,7 +32,7 @@ void SDLDevice::window(std::string caption, Vector2i winsize, int bits, bool ful
     const SDL_version* sdlv = SDL_Linked_Version();
 
     cout << "SDL Init" << endl;
-    cout << "Version: " << (int)sdlv->major << "." << (int)sdlv->minor << "." << (int)sdlv->minor << endl;
+    cout << "Version: " << (int) sdlv->major << "." << (int) sdlv->minor << "." << (int) sdlv->minor << endl;
     cout << endl << endl;
 
     m_caption = caption;
@@ -78,7 +78,7 @@ void SDLDevice::setVideoMode(Vector2i winsize, int bits, bool fullscreen, int mu
     SDL_WM_SetCaption(m_caption.c_str(), 0);
 
     if(SDL_SetVideoMode(m_viewport.x, m_viewport.y, m_winBits, flags) == NULL)
-        throw Exception("SDLDevice::Window; Couldn't set specified video mode : %s", SDL_GetError());
+        throw Exception("SDLDevice::Window; Couldn't set specified video mode : %1%") % SDL_GetError();
 }
 
 void SDLDevice::pollEvent()
@@ -178,7 +178,7 @@ void SDLDevice::pollEvent()
         m_keyStateTmp[sdlEvent.key.keysym.sym] = sdlEvent.key.keysym.unicode;
 
         if(sdlEvent.key.keysym.unicode && sdlEvent.key.keysym.unicode < 256)
-            sdlEvent.key.keysym.sym = (SDLKey)sdlEvent.key.keysym.unicode;
+            sdlEvent.key.keysym.sym = (SDLKey) sdlEvent.key.keysym.unicode;
 
         m_eventManager->keyState[(EventManager::KeyCode)sdlEvent.key.keysym.sym] = true;
 
@@ -266,7 +266,7 @@ std::string SDLDevice::getMouseName(int mouseCode)
 
 std::string SDLDevice::getKeyName(int keyCode)
 {
-    std::string keyName = SDL_GetKeyName((SDLKey)keyCode);
+    std::string keyName = SDL_GetKeyName((SDLKey) keyCode);
     keyName[0] = toupper(keyName[0]);
 
     return keyName;
@@ -281,7 +281,7 @@ std::vector<Vector2i> SDLDevice::getAvilableSceeenSize()
     if(!rects)
         throw Exception("Device::GetAvilableSceeenSize; Warning no screen available");
 
-    else if(-1 == (int)rects)
+    else if(-1 == (int) rects)
         throw Exception("Device::GetAvilableSceeenSize; Resolution is restricted");
 
     else

@@ -70,6 +70,8 @@ public:
 
     void setClassFactory(ParserClassFactory* classFactory);
     ParserClassFactory* getClassFactory() const;
+    
+    static Material::Map loadMaterialSet(std::string path);
 
 protected:
     Node* buildNode(rtree data, Node* parent = NULL);

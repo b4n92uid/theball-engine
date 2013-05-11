@@ -82,8 +82,6 @@ GLuint ParseShader(const string& content, GLenum type)
 
     if(!success)
     {
-        Exception ex;
-
         int logsize;
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logsize);
 
@@ -92,12 +90,15 @@ GLuint ParseShader(const string& content, GLenum type)
 
         switch(type)
         {
-            case GL_VERTEX_SHADER: ex << "Shader::LoadShader; Vertex Shader compile error" << endl << c_log;
-            case GL_FRAGMENT_SHADER: ex << "Shader::LoadShader; Fragment Shader compile error" << endl << c_log;
-        }
+            case GL_VERTEX_SHADER:
+                throw Exception("Shader::LoadShader; Vertex Shader compile error\n%1%") % c_log;
 
-        cout << ex.what() << endl;
-        throw ex;
+            case GL_FRAGMENT_SHADER:
+                throw Exception("Shader::LoadShader; Fragment Shader compile error\n%1%") % c_log;
+
+            default:
+                throw Exception("Shader::LoadShader; Unknow Shader compile error\n%1%") % c_log;
+        }
     }
 
     return shader;
@@ -120,7 +121,7 @@ void Shader::loadVertexShader(std::string filepath)
     ifstream file(filepath.c_str());
 
     if(!file)
-        throw tbe::Exception("Shader::LoadVertexShader; Open shader file error; (%s)", filepath.c_str());
+        throw tbe::Exception("Shader::LoadVertexShader; Open shader file error; (%1%)") % filepath;
 
     stringstream sourceCode;
     sourceCode << file.rdbuf();
@@ -133,7 +134,7 @@ void Shader::loadVertexShader(std::string filepath)
     }
     catch(Exception& e)
     {
-        throw Exception("[Vertex Shader] " + filepath + "\n" + e.what());
+        throw Exception("[Vertex Shader] %1%\n%2%") % filepath % e.what();
     }
 
     m_vertFilename = filepath;
@@ -146,7 +147,7 @@ void Shader::loadFragmentShader(std::string filepath)
     ifstream file(filepath.c_str());
 
     if(!file)
-        throw tbe::Exception("Shader::LoadFragmentShader; Open shader file error; (%s)", filepath.c_str());
+        throw tbe::Exception("Shader::LoadFragmentShader; Open shader file error; (%1%)") % filepath;
 
     stringstream sourceCode;
     sourceCode << file.rdbuf();
@@ -159,7 +160,7 @@ void Shader::loadFragmentShader(std::string filepath)
     }
     catch(Exception& e)
     {
-        throw Exception("[Fragment Shader] " + filepath + "\n" + e.what());
+        throw Exception("[Fragment Shader] %1%\n%2%") % filepath % e.what();
     }
 
     m_fragFilename = filepath;
@@ -202,10 +203,6 @@ void Shader::loadProgram()
 
     if(!success)
     {
-        tbe::Exception ex;
-
-        ex << "Shader::LoadProgram; Program link error;" << endl;
-
         int logsize = 0;
         char* log = NULL;
 
@@ -215,11 +212,7 @@ void Shader::loadProgram()
         std::fill(log, log + logsize + 1, 0);
 
         glGetProgramInfoLog(m_program, logsize, &logsize, log);
-        ex << log;
-
-        delete[] log;
-
-        throw ex;
+        throw Exception("Shader::LoadProgram; Program link error; %1%") % log;
     }
 
     m_enable = true;
@@ -238,7 +231,7 @@ void Shader::parseShaderFile(std::string path)
     property_tree::read_info(path, data);
 
     if(!data.count("vertex"))
-        throw new Exception("Shader::parseShaderFile; Parsing error (%s)", path.c_str());
+        throw Exception("Shader::parseShaderFile; Parsing error (%1%)") % path;
 
     m_shaderFilename = path;
 

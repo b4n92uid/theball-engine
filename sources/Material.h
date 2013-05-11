@@ -174,6 +174,11 @@ public:
     void setTextureClipped(bool stat, unsigned index = 0);
     bool isTextureClipped(unsigned index = 0);
 
+    void setClockCycle(long clockCycle);
+    long getClockCycle() const;
+
+    ticks::Clock getClock() const;
+
 protected:
     std::string m_name;
 
@@ -197,6 +202,9 @@ protected:
 
     bool m_depthTest;
     bool m_depthWrite;
+
+    ticks::Clock m_clock;
+    long m_clockCycle;
 
     TextureApply::Map m_texApply;
 };

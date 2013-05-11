@@ -7,6 +7,8 @@
 #include <cstdarg>
 #include <exception>
 
+#include <boost/format.hpp>
+
 #include "GLee.h"
 #include <GL/glu.h>
 
@@ -15,16 +17,22 @@ namespace tbe
 
 /// \brief Gestion des exceptions
 
-class Exception : public std::exception, public std::stringstream
+class Exception : public std::exception, public boost::format
 {
 public:
     Exception();
-    Exception(std::string content, ...);
-    Exception(const char* content, ...);
+    Exception(std::string content);
     Exception(const Exception& copy);
-    ~Exception() throw();
+    ~Exception() throw ();
 
-    const char* what() const throw();
+    template<typename T> Exception& operator%(T v)
+    {
+        boost::format& self = *this;
+        parse(self.operator%(v).str());
+        return *this;
+    }
+
+    const char* what() const throw ();
 };
 
 }

@@ -65,7 +65,7 @@ void OBJMesh::open(const std::string& path)
     ifstream file(path.c_str(), ios::in);
 
     if(!file)
-        throw tbe::Exception("OBJMesh::open; Open OBJ File Error; (%s)", path.c_str());
+        throw tbe::Exception("OBJMesh::open; Open OBJ File Error; (%1%)") % path;
 
     if(!m_hardwareBuffer)
         m_hardwareBuffer = new HardwareBuffer;
@@ -91,7 +91,7 @@ void OBJMesh::open(const std::string& path)
     {
         for(unsigned i = 0; i < buffer.size(); i++)
             if(buffer[i] <= 0)
-                throw tbe::Exception("OBJMesh::open; File is binary; (%s)", path.c_str());
+                throw tbe::Exception("OBJMesh::open; File is binary; (%1%)") % path;
 
         if(buffer[0] == '#' || buffer.empty())
             continue;
@@ -227,7 +227,7 @@ void OBJMesh::open(const std::string& path)
     }
 
     if(m_hardwareBuffer->isEmpty())
-        throw tbe::Exception("OBJMesh::open; File is invalid; Buffer is empty; (%s)", path.c_str());
+        throw tbe::Exception("OBJMesh::open; File is invalid; Buffer is empty; (%1%)") % path;
 
     if(curMaterial)
     {
@@ -313,7 +313,7 @@ void MTLFile::open(const std::string& path)
     ifstream file(path.c_str());
 
     if(!file)
-        throw tbe::Exception("MTLFile::Open; Open MTL File Error; (%s)", path.c_str());
+        throw tbe::Exception("MTLFile::Open; Open MTL File Error; (%1%)") % path;
 
     cout << "[MTL File] " << path << endl;
 

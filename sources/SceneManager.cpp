@@ -134,6 +134,8 @@ void SceneManager::render(bool setupView)
     // Traitement Graphique : Rendue des scenes parallele
     std::for_each(m_parallelScenes.begin(), m_parallelScenes.end(),
                   mem_fun(&ParallelScene::render));
+
+    m_timestamp.snapShoot();
 }
 
 void SceneManager::addParallelScene(ParallelScene* scene)
@@ -400,6 +402,11 @@ Matrix4 SceneManager::getProjectionMatrix() const
 Matrix4 SceneManager::getViewMatrix() const
 {
     return m_viewMatrix;
+}
+
+ticks::Clock SceneManager::getTimestamp() const
+{
+    return m_timestamp;
 }
 
 void SceneManager::setAmbientLight(Vector4f ambient)

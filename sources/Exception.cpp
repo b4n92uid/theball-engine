@@ -3,46 +3,18 @@
 using namespace tbe;
 using namespace std;
 
-Exception::Exception()
-{
+Exception::Exception() { }
 
-}
-
-Exception::Exception(std::string content, ...)
-{
-    char buffer[4096];
-
-    va_list list;
-    va_start(list, content);
-    vsprintf(buffer, content.c_str(), list);
-    va_end(list);
-
-    str(buffer);
-}
-
-Exception::Exception(const char* content, ...)
-{
-    char buffer[4096];
-
-    va_list list;
-    va_start(list, content);
-    vsprintf(buffer, content, list);
-    va_end(list);
-
-    str(buffer);
-}
+Exception::Exception(std::string content) : boost::format(content) { }
 
 Exception::Exception(const Exception& copy)
 {
-    str(copy.str());
+    boost::format::parse(copy.str());
 }
 
-Exception::~Exception() throw()
-{
+Exception::~Exception() throw () { }
 
-}
-
-const char* Exception::what() const throw()
+const char* Exception::what() const throw ()
 {
     string error = str();
 
@@ -51,8 +23,10 @@ const char* Exception::what() const throw()
     if(glErrorNum)
     {
         error += "\nOpenGL error; ";
-        error += (char*)gluErrorString(glErrorNum);
+        error += (char*) gluErrorString(glErrorNum);
     }
+
+    cout << error.c_str() << endl;
 
     return error.c_str();
 }

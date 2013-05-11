@@ -30,6 +30,13 @@ namespace ticks
 class FpsManager
 {
 public:
+    #ifdef __WIN32__
+    typedef LONGLONG counttype;
+
+    #elif defined(__linux__)
+    typedef unsigned long long counttype;
+
+    #endif
 
     FpsManager();
 
@@ -52,15 +59,10 @@ public:
     /// Renvois le framerate specifier de l'application
     unsigned getRunFps() const;
 
+    counttype getFromLastRender() const;
+    counttype getFromLastFrame() const;
+
 protected:
-
-    #ifdef __WIN32__
-    typedef LONGLONG counttype;
-
-    #elif defined(__linux__)
-    typedef unsigned long long counttype;
-
-    #endif
 
     unsigned m_setFps;
 
@@ -72,8 +74,8 @@ protected:
     counttype m_cyclePerSecond;
     counttype m_timeToRend;
 
-    counttype m_lastTimeFramCount;
-    counttype m_lastTimeFramShow;
+    counttype m_fromLastFrame;
+    counttype m_fromLastRender;
 
     bool m_doARender;
 };

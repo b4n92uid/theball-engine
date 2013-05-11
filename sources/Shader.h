@@ -6,6 +6,7 @@
 #include <map>
 #include <boost/optional.hpp>
 
+#include "Clock.h"
 #include "Mathematics.h"
 #include "Tools.h"
 

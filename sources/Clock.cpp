@@ -28,9 +28,7 @@ Clock::Clock()
     m_lastTime = clock();
 }
 
-Clock::~Clock()
-{
-}
+Clock::~Clock() { }
 
 void Clock::snapShoot()
 {
@@ -48,12 +46,17 @@ long Clock::getEsplanedTime(bool snapshoot)
     return esplanedTime;
 }
 
-bool Clock::isEsplanedTime(long time)
+bool Clock::isEsplanedTime(long time, bool snapshoot)
 {
     long curtime = clock();
 
     if(curtime - m_lastTime >= time)
-        return (m_lastTime = curtime);
+    {
+        if(snapshoot)
+            m_lastTime = curtime;
+
+        return curtime;
+    }
 
     else return false;
 }

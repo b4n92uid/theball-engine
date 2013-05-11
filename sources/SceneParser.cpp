@@ -132,7 +132,7 @@ void SceneParser::load(const std::string& filepath)
     boost::property_tree::read_info(filepath, m_scheme);
 
     if(!m_scheme.count("Scene") || !m_scheme.count("Content"))
-        throw Exception("SceneParser::load; Invalid scene format (%s)", filepath.c_str());
+        throw Exception("SceneParser::load; Invalid scene format (%1%)") % filepath;
 
     m_sceneName = m_scheme.get<string>("Scene");
     m_authorName = m_scheme.get<string>("Scene.author");

@@ -106,14 +106,14 @@ void Ball3DMesh::open(std::string filepath)
     ifstream file(filepath.c_str());
 
     if(!file)
-        throw Exception("Ball3DMesh::Open; Open file error (%s)", filepath.c_str());
+        throw Exception("Ball3DMesh::Open; Open file error (%1%)") % filepath;
 
     string buffer;
 
     getline(file, buffer);
 
     if(buffer != ".ball3d.")
-        throw Exception("Ball3DMesh::Open; Invalid file format (%s)", filepath.c_str());
+        throw Exception("Ball3DMesh::Open; Invalid file format (%1%)") % filepath;
 
     m_filename = filepath;
     m_name = tools::basename(filepath, false);

@@ -137,6 +137,8 @@ public:
     Matrix4 getProjectionMatrix() const;
     Matrix4 getViewMatrix() const;
 
+    ticks::Clock getTimestamp() const;
+
     // Picking -----------------------------------------------------------------
 
     /// Picking 2D->3D
@@ -170,6 +172,8 @@ protected:
 
     Matrix4 m_projectionMatrix;
     Matrix4 m_viewMatrix;
+
+    ticks::Clock m_timestamp;
 };
 
 }

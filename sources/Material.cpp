@@ -24,6 +24,7 @@ Material::Material()
     m_depthTest = true;
     m_depthWrite = true;
     m_color = 1;
+    m_clockCycle = 0;
 }
 
 Material::Material(const Material& copy)
@@ -49,6 +50,11 @@ Material& Material::operator=(const Material& copy)
 
     m_renderFlags = copy.m_renderFlags;
 
+    m_color = copy.m_color;
+
+    m_clock = copy.m_clock;
+    m_clockCycle = copy.m_clockCycle;
+
     m_frameSortWait = copy.m_frameSortWait;
 
     m_lineWidth = copy.m_lineWidth;
@@ -59,8 +65,6 @@ Material& Material::operator=(const Material& copy)
     m_depthWrite = copy.m_depthWrite;
 
     m_texApply = copy.m_texApply;
-
-    m_color = copy.m_color;
 
     return *this;
 }
@@ -317,4 +321,19 @@ void Material::setColor(Vector4f color)
 Vector4f Material::getColor()
 {
     return m_color;
+}
+
+void Material::setClockCycle(long clockCycle)
+{
+    this->m_clockCycle = clockCycle;
+}
+
+long Material::getClockCycle() const
+{
+    return m_clockCycle;
+}
+
+ticks::Clock Material::getClock() const
+{
+    return m_clock;
 }

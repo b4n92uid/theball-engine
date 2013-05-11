@@ -41,7 +41,7 @@ float Heightmap::GetY(unsigned x, unsigned z)
     // On accède avec comme calcul z * largeur + x. Ainsi pour trouver l'élément
     // tab [9][4], soit par convention la ligne 9 et colonne 4, cela donne :
     // 4 * m_iLargeur (par exemple 15) : 4 * 15 + 9 = 69.
-    return (GLfloat)m_pixels[z * m_length + x];
+    return (GLfloat) m_pixels[z * m_length + x];
 }
 
 void Heightmap::open(const std::string& path)
@@ -54,11 +54,11 @@ void Heightmap::open(const std::string& path)
     FILE * pFile = fopen(path.c_str(), "rb");
 
     if(!pFile)
-        throw tbe::Exception("Heightmap::Open; Open file error (%s)", path.c_str());
+        throw tbe::Exception("Heightmap::Open; Open file error (%1%)") % path;
 
     fseek(pFile, 0, SEEK_END);
     m_fileSize = ftell(pFile);
-    m_length = (GLuint)sqrt(m_fileSize);
+    m_length = (GLuint) sqrt(m_fileSize);
 
     rewind(pFile);
 
@@ -85,8 +85,8 @@ void Heightmap::open(const std::string& path)
 
             pos3 = pos;
 
-            Vector2f tex((float)x / m_length * 6, (float)z / m_length * 6);
-            Vector2f tex2((float)(x + m_precision) / m_length * 6, (float)z / m_length * 6);
+            Vector2f tex((float) x / m_length * 6, (float) z / m_length * 6);
+            Vector2f tex2((float) (x + m_precision) / m_length * 6, (float) z / m_length * 6);
 
             face.push_back(Vertex(pos, normal, 1, tex));
             face.push_back(Vertex(pos2, normal2, 1, tex2));

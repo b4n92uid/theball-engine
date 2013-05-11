@@ -330,7 +330,7 @@ void Node::releaseChild(Node* child)
 Node* Node::releaseChild(unsigned index)
 {
     if(index >= m_childs.size())
-        throw Exception("Node::ReleaseChild; index out of range %d", index);
+        throw Exception("Node::ReleaseChild; index out of range %1%") % index;
 
     Node* ret = m_childs[index];
     ret->releaseFromParent();
@@ -354,7 +354,7 @@ void Node::deleteChild(Node* child)
 void Node::deleteChild(unsigned index)
 {
     if(index >= m_childs.size())
-        throw Exception("Node::DeleteChild; index out of range %d", index);
+        throw Exception("Node::DeleteChild; index out of range %1%") % index;
 
     delete m_childs[index];
     m_childs.erase(m_childs.begin() + index);
@@ -368,7 +368,7 @@ unsigned Node::getChildCount() const
 Node* Node::getChild(unsigned index) const
 {
     if(index >= m_childs.size())
-        throw Exception("Node::GetChild; index out of range %d", index);
+        throw Exception("Node::GetChild; index out of range %1%") % index;
 
     return m_childs[index];
 }
@@ -404,7 +404,7 @@ Any Node::getUserData(std::string key) const
     map<string, Any>::const_iterator it = m_userDatas.find(key);
 
     if(it == m_userDatas.end())
-        throw Exception("Node::getUserData; undifined key %s", key.c_str());
+        throw Exception("Node::getUserData; undifined key %1%") % key;
     else
         return it->second;
 }

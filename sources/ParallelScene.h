@@ -88,7 +88,7 @@ public:
         const std::type_info& ti = typeid (node);
 
         if(std::find(m_nodes.begin(), m_nodes.end(), node) != m_nodes.end())
-            throw Exception("NodeRegister::Register<%s>; child already exist", ti.name());
+            throw Exception("NodeRegister::Register<%1%>; child already exist") % ti.name();
 
         m_nodes.push_back(node);
     }
@@ -100,7 +100,7 @@ public:
         const std::type_info& ti = typeid (node);
 
         if(it == m_nodes.end())
-            throw Exception("NodeRegister::UnRegister<%s>; cannot found child", ti.name());
+            throw Exception("NodeRegister::UnRegister<%1%>; cannot found child") % ti.name();
 
         if(deleteptr)
             delete (*it);

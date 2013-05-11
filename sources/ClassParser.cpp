@@ -78,5 +78,5 @@ Node* ClassParser::build()
 
 std::string ClassParser::getClassname() const
 {
-    return m_scheme.get<string>("node");
+    return m_scheme.get<string>("Class.name", "noname");
 }

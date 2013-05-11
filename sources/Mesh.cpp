@@ -11,6 +11,7 @@
 #include "MeshParallelScene.h"
 #include "Tools.h"
 #include "ShadowMap.h"
+#include "AbstractParser.h"
 
 #include <boost/function.hpp>
 #include <boost/algorithm/string.hpp>
@@ -45,7 +46,7 @@ public:
         return false;
     }
 
-} manager;
+} _BufferManager;
 
 Mesh::Mesh(MeshParallelScene* scene)
 {
@@ -97,10 +98,26 @@ void Mesh::clear()
 {
     m_renderProess.clear();
 
-    for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
-        delete it->second;
 
-    m_materials.clear();
+    if(!m_materialsBackup.empty())
+    {
+        /*
+         * m_materials are cleared by internal manager
+         * since they are loaded from a file
+         */
+
+        BOOST_FOREACH(Material::Map::value_type& v, m_materialsBackup)
+                delete v.second;
+
+        m_materialsBackup.clear();
+    }
+    else
+    {
+        for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
+            delete it->second;
+
+        m_materials.clear();
+    }
 
     Mesh::unregisterBuffer(this);
 
@@ -531,6 +548,13 @@ struct ShaderBind
         mesh->getHardwareBuffer()->bindAocc(true, index);
     }
 
+    void bindTimestamp(std::string location)
+    {
+        ticks::Clock cl = material->getClock();
+
+        shader.uniform(location, (int) cl.getEsplanedTime(false));
+    }
+
     void assignExp(string location, string exp)
     {
         using namespace boost;
@@ -548,6 +572,7 @@ struct ShaderBind
             callmap["colored"] = boost::bind(&ShaderBind::bindColored, this, _1);
             callmap["tangent"] = boost::bind(&ShaderBind::bindTangent, this, _1);
             callmap["aocc"] = boost::bind(&ShaderBind::bindAOCC, this, _1);
+            callmap["timestamp"] = boost::bind(&ShaderBind::bindTimestamp, this, _1);
 
             if(callmap.count(exp))
                 callmap[exp](location);
@@ -855,12 +880,17 @@ void Mesh::endRenderingMatrix()
 
 void Mesh::drawMaterial(Material* material, unsigned offset, unsigned count)
 {
+    if(material->m_clock.isEsplanedTime(material->m_clockCycle, false))
+        material->m_clock.snapShoot();
+
     Shader usedshader = getUsedShader(material);
 
     beginRenderingBuffer(material, offset, count);
 
     beginRenderingMatrix();
     beginRenderingProperty(material, offset, count);
+
+    const Shader::UniformMap& umap = usedshader.getRequestedUniform();
 
     Shader::bind(usedshader);
 
@@ -874,22 +904,14 @@ void Mesh::drawMaterial(Material* material, unsigned offset, unsigned count)
     else
     {
         // Disable or use default shader for only scene ambient light
-        const Shader::UniformMap& umap = usedshader.getRequestedUniform();
 
         BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
         {
-            if(u.second == "lighted")
-                usedshader.uniform(u.first, 0);
+            if(u.second == "ambient_pass")
+                usedshader.uniform(u.first, true);
         }
 
         m_hardwareBuffer->render(material->m_faceType, offset, count);
-
-        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
-        {
-            if(u.second == "lighted")
-                usedshader.uniform(u.first, material->isEnable(Material::LIGHTED));
-        }
-
     }
 
     endRenderingProperty(material, offset, count);
@@ -900,6 +922,12 @@ void Mesh::drawMaterial(Material* material, unsigned offset, unsigned count)
     if(material->m_renderFlags & Material::LIGHTED)
     {
         Shader::bind(usedshader);
+
+        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
+        {
+            if(u.second == "ambient_pass")
+                usedshader.uniform(u.first, false);
+        }
 
         glEnable(GL_BLEND);
 
@@ -1219,7 +1247,7 @@ void Mesh::applyMaterial(Material* material, unsigned offset, unsigned size)
         return;
     }
 
-    throw tbe::Exception("Mesh::ApplyMaterial; [%s] Material ptr not found", m_name.c_str());
+    throw tbe::Exception("Mesh::ApplyMaterial; [%1%] Material ptr not found") % m_name;
 }
 
 HardwareBuffer* Mesh::getHardwareBuffer() const
@@ -1237,140 +1265,37 @@ bool Mesh::isVisible() const
     return m_visible;
 }
 
-void Mesh::attachMaterialFile(std::string path)
+void Mesh::attachMaterialSet(const Material::Map& set)
 {
-    rtree data;
-    boost::property_tree::read_info(path, data);
+    m_materialsBackup = m_materials;
 
-    cout << "[Material] " << path << endl;
-
-    m_attachMaterial = path;
-
-    BOOST_FOREACH(Material::Map::value_type &v, m_materials)
+    BOOST_FOREACH(const Material::Map::value_type& v, set)
     {
-        m_materialsBackup[v.first] = new Material(*v.second);
-    }
-
-    BOOST_FOREACH(rtree::value_type &v, data)
-    {
-        string matname = v.second.get_value<string>();
-        Material* mat = getMaterial(matname);
-
-        if(!mat)
+        if(!m_materials.count(v.first))
         {
-            cout << "/!\\ WARNING: Mesh::attachMaterialFile; Unexpected material (" << matname << ")" << endl;
+            cout << "/!\\ WARNING: Mesh::attachMaterialFile; Unexpected material (" << v.first << ")" << endl;
             continue;
         }
 
-        rtree pass = v.second;
-
-        VectorTranslator<Vector4f> v4tr;
-
-        mat->setAmbient(pass.get<Vector4f>("ambient", Vector4f(1), v4tr));
-        mat->setDiffuse(pass.get<Vector4f>("diffuse", Vector4f(1), v4tr));
-        mat->setSpecular(pass.get<Vector4f>("specular", Vector4f(0.5), v4tr));
-        mat->setShininess(pass.get<float>("shininess", 16));
-
-        if(pass.get<bool>("alpha", false))
+        BOOST_FOREACH(Texture::Map::value_type& t, v.second->m_textures)
         {
-            mat->enable(Material::ALPHA);
-            mat->setAlphaThershold(pass.get<float>("alphaThershold", 0.0f));
+            if(t.first != 0)
+                m_hardwareBuffer->newMultiTexCoord(t.first);
         }
 
-        if(pass.get<bool>("colored", true))
-        {
-            mat->enable(Material::COLORED);
-            mat->setColor(pass.get<Vector4f>("color", Vector4f(1, 1, 1, 1), VectorTranslator<Vector4f>()));
-        }
-
-        if(pass.get<string>("blend", "none") != "none")
-        {
-            string blend = pass.get<string>("blend");
-
-            if(blend == "additive")
-                mat->enable(Material::ADDITIVE);
-
-            else if(blend == "modulate")
-                mat->enable(Material::MODULATE);
-
-            else if(blend == "multiply")
-                mat->enable(Material::MULTIPLY);
-        }
-
-        if(pass.get<string>("faceCull", "none") != "none")
-        {
-            string cull = pass.get<string>("faceCull");
-
-            if(cull == "back")
-                mat->enable(Material::BACKFACE_CULL);
-
-            else if(cull == "front")
-                mat->enable(Material::FRONTFACE_CULL);
-        }
-
-        if(pass.get<bool>("lighted", true))
-            mat->enable(Material::LIGHTED);
-        else
-            mat->disable(Material::LIGHTED);
-
-        if(pass.get<bool>("foged", true))
-            mat->enable(Material::FOGED);
-        else
-            mat->disable(Material::FOGED);
-
-        if(pass.get<bool>("textured", true))
-            mat->enable(Material::TEXTURED);
-        else
-            mat->disable(Material::TEXTURED);
-
-        if(pass.count("textures"))
-        {
-            rtree textures = pass.get_child("textures");
-
-            rtree::iterator it = textures.begin();
-            for(int i = 0; it != textures.end(); i++)
-            {
-                string texpath = it->second.get<string>("path");
-
-                if(!tools::isAbsoloutPath(texpath))
-                    texpath = tools::resolvePath(texpath, path);
-
-                bool mipmap = it->second.get<bool>("mipmap", true);
-                int origin = it->second.get<int>("origin", 1);
-
-                mat->setTexture(Texture(texpath, mipmap, origin, true), i);
-
-                string blend = it->second.get<string>("blend", "modulate");
-
-                if(blend == "modulate")
-                    mat->setTextureBlend(Material::MODULATE, i);
-
-                else if(blend == "additive")
-                    mat->setTextureBlend(Material::ADDITIVE, i);
-
-                else if(blend == "replace")
-                    mat->setTextureBlend(Material::REPLACE, i);
-
-                else if(blend == "alpha")
-                    mat->setTextureBlend(Material::ALPHA, i);
-
-                it++;
-            }
-        }
-
-        if(pass.count("shader"))
-        {
-            string shaderpath = pass.get<string>("shader");
-
-            if(!tools::isAbsoloutPath(shaderpath))
-                shaderpath = tools::resolvePath(shaderpath, path);
-
-            Shader shader;
-            shader.parseShaderFile(shaderpath);
-
-            mat->setShader(shader);
-        }
+        m_materials[v.first] = v.second;
     }
+
+    m_hardwareBuffer->compile();
+}
+
+void Mesh::attachMaterialFile(std::string path)
+{
+    Material::Map matset = AbstractParser::loadMaterialSet(path);
+
+    m_attachMaterial = path;
+
+    attachMaterialSet(matset);
 }
 
 void Mesh::releaseMaterialFile()
@@ -1404,6 +1329,7 @@ rtree Mesh::serializeMaterial(std::string root)
         matscheme.put("diffuse", it->second->getDiffuse());
         matscheme.put("specular", it->second->getSpecular());
         matscheme.put("shininess", it->second->getShininess());
+        matscheme.put("clockCycle", it->second->m_clockCycle);
 
         matscheme.put("alpha", it->second->isEnable(Material::ALPHA));
         matscheme.put("alphaThershold", it->second->m_alphaThershold);
@@ -1530,22 +1456,22 @@ Vector2b Mesh::getBillBoard() const
 
 void Mesh::registerBuffer(Mesh* mesh, const std::string& source)
 {
-    manager[mesh] = source;
+    _BufferManager[mesh] = source;
 }
 
 void Mesh::unregisterBuffer(Mesh* mesh)
 {
-    manager.erase(mesh);
+    _BufferManager.erase(mesh);
 }
 
 Mesh* Mesh::isSharedBuffer(const std::string& source)
 {
-    return manager.shared(source);
+    return _BufferManager.shared(source);
 }
 
 bool Mesh::isUsedBuffer(HardwareBuffer* hb)
 {
-    return manager.used(hb);
+    return _BufferManager.used(hb);
 }
 
 void Mesh::requestVertexRestore(bool requestVertexRestore)
@@ -1565,7 +1491,7 @@ std::vector<std::string> Mesh::getUsedRessources()
             ressPath.push_back(it->second->getTexture(i).getFilename());
     }
 
-    ressPath.push_back(manager[this]);
+    ressPath.push_back(_BufferManager[this]);
 
     return ressPath;
 }

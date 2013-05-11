@@ -142,6 +142,7 @@ public:
 
     rtree serializeMaterial(std::string root);
 
+    void attachMaterialSet(const Material::Map& set);
     void attachMaterialFile(std::string path);
     void releaseMaterialFile();
     std::string getMaterialFile();

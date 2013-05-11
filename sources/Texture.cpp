@@ -244,7 +244,7 @@ void Texture::load(std::string filename, bool genMipMap, int origin, bool overri
     ILboolean error = !ilLoadImage(filename.c_str());
 
     if(error)
-        throw Exception("Texture::Load; Open file error (%s)", filename.c_str());
+        throw Exception("Texture::Load; Open file error (%1%)") % filename;
 
     manager[this] = m_filename = filename;
 

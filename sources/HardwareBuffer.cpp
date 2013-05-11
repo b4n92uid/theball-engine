@@ -228,12 +228,12 @@ void HardwareBuffer::bindTexture(bool state, unsigned layer)
         }
         else
         {
-            if(!m_multiTexCoord.count(layer - 1))
-                glTexCoordPointer(2, GL_FLOAT, vertexStrid, texUvOffset);
-
-            else
+            if(m_multiTexCoord.count(layer))
                 glTexCoordPointer(2, GL_FLOAT, 0, (void*) (m_multiTexCoordOffset
                                   + (layer - 1) * m_vertexCount * sizeof (Vector2f)));
+
+            else
+                glTexCoordPointer(2, GL_FLOAT, vertexStrid, texUvOffset);
         }
     }
 

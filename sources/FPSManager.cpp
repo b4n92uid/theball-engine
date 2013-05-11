@@ -20,8 +20,8 @@ FpsManager::FpsManager()
 
     m_cyclePerSecond = 0;
 
-    m_lastTimeFramCount = 0;
-    m_lastTimeFramShow = 0;
+    m_fromLastFrame = 0;
+    m_fromLastRender = 0;
 
     m_doARender = true;
 
@@ -60,13 +60,13 @@ void FpsManager::update()
 
 #endif
 
-    if(curtime - m_lastTimeFramShow >= m_timeToRend)
+    if(curtime - m_fromLastRender >= m_timeToRend)
     {
         m_doARender = true;
-        m_lastTimeFramShow = curtime;
+        m_fromLastRender = curtime;
     }
 
-    if(curtime - m_lastTimeFramCount >= m_cyclePerSecond)
+    if(curtime - m_fromLastFrame >= m_cyclePerSecond)
     {
         m_fps = m_framecount;
 
@@ -74,7 +74,7 @@ void FpsManager::update()
             m_betterfps = m_fps;
 
         m_framecount = 0;
-        m_lastTimeFramCount = curtime;
+        m_fromLastFrame = curtime;
     }
 
     if(m_doARender)
@@ -100,4 +100,14 @@ void FpsManager::setRunFps(unsigned setFps)
 unsigned FpsManager::getRunFps() const
 {
     return m_setFps;
+}
+
+FpsManager::counttype FpsManager::getFromLastRender() const
+{
+    return m_fromLastRender;
+}
+
+FpsManager::counttype FpsManager::getFromLastFrame() const
+{
+    return m_fromLastFrame;
 }

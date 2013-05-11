@@ -63,12 +63,15 @@ void MapMark::process()
     for_each(m_childs.begin(), m_childs.end(), std::mem_fun(&Node::process));
 }
 
-void MapMark::render()
-{
+void MapMark::render() {
     // Nothging to do...
 }
 
 rtree MapMark::serialize(std::string root)
 {
-    return Node::serialize(root).put("class", "MapMark");
+    rtree scheme = Node::serialize(root);
+
+    scheme.put("class", "MapMark");
+
+    return scheme;
 }
