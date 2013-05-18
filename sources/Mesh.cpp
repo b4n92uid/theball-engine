@@ -573,6 +573,24 @@ struct ShaderBind
         shader.uniform(location, mesh->getMatrix());
     }
 
+    void bindShadowIntensity(std::string location)
+    {
+        ShadowMap* smap = mesh->getSceneManager()->getShadowMap();
+        shader.uniform(location, smap->getIntensity());
+    }
+
+    void bindShadowBlur(std::string location)
+    {
+        ShadowMap* smap = mesh->getSceneManager()->getShadowMap();
+        shader.uniform(location, smap->getBlurPass());
+    }
+
+    void bindShadowEnable(std::string location)
+    {
+        ShadowMap* smap = mesh->getSceneManager()->getShadowMap();
+        shader.uniform(location, smap->isEnabled());
+    }
+
     void assignExp(string location, string exp)
     {
         using namespace boost;
@@ -594,6 +612,9 @@ struct ShaderBind
             callmap["light_projection_matrix"] = boost::bind(&ShaderBind::bindProjMatrix, this, _1);
             callmap["light_view_matrix"] = boost::bind(&ShaderBind::bindViewMatrix, this, _1);
             callmap["node_matrix"] = boost::bind(&ShaderBind::bindNodeMatrix, this, _1);
+            callmap["shadow_intensity"] = boost::bind(&ShaderBind::bindShadowIntensity, this, _1);
+            callmap["shadow_blur"] = boost::bind(&ShaderBind::bindShadowBlur, this, _1);
+            callmap["shadow_enable"] = boost::bind(&ShaderBind::bindShadowEnable, this, _1);
 
             if(callmap.count(exp))
                 callmap[exp](location);
@@ -1395,8 +1416,8 @@ rtree Mesh::serializeMaterial(std::string root)
 
             if(!shaderpath.empty())
             {
-                rtree shadertree = shade.serialize(shaderpath);
-                boost::property_tree::write_info(shaderpath, shadertree);
+                // rtree shadertree = shade.serialize(shaderpath);
+                // boost::property_tree::write_info(shaderpath, shadertree);
 
                 shaderpath = tools::relativizePath(shaderpath, root);
 

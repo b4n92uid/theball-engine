@@ -174,10 +174,10 @@ void FrameBufferObject::attach(unsigned compenent)
         m_depthTextureId.setFiltring(Texture::LINEAR);
 
         m_depthTextureId.use(true);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
-        GLfloat border[] = {0.0f, 0.0f, 0.0f, 0.0f};
+        GLfloat border[] = {1.0f, 1.0f, 1.0f, 0.0f};
         glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);
         m_depthTextureId.use(false);
 
