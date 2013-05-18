@@ -34,7 +34,7 @@ public:
     bool isInside(Node* node) const;
     bool isInside(const AABB& aabb) const;
     bool isInside(Vector3f point) const;
-
+    
 private:
     Vector4f m_planes[6];
 };

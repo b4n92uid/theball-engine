@@ -65,17 +65,20 @@ void MeshParallelScene::drawShadow(bool cast)
         if(!node->isAttached())
             continue;
 
-        if(cast && !node->isCastShadow())
-            continue;
-
-        if(!cast && !node->isReceiveShadow())
-            continue;
-
         if(m_enableFrustumTest && !frustum->isInside(node))
             continue;
 
-        if(!cast) // Receive
-            shadowMap->bindMatrix(node->getMatrix());
+        if(cast && !node->isCastShadow())
+            continue;
+
+        if(!shadowMap->isShaderHandled())
+        {
+            if(!cast && !node->isReceiveShadow())
+                continue;
+
+            if(!cast) // Receive
+                shadowMap->bindMatrix(node->getMatrix());
+        }
 
         node->renderShadow();
     }
@@ -129,24 +132,30 @@ void MeshParallelScene::render()
             if(l->getType() != Light::DIRI || !l->isCastShadow() || !l->isEnable())
                 continue;
 
+            // First pass
             shadowMap->begin(l);
-            m_sceneManager->getFrustum()->extractPlane();
-
             drawShadow(true);
             shadowMap->end();
 
-            shadowMap->bind();
-            m_sceneManager->getFrustum()->extractPlane();
+            if(!shadowMap->isShaderHandled())
+            {
+                // Second pass
+                shadowMap->bind();
+                drawShadow(false);
+                shadowMap->unbind();
 
-            drawShadow(false);
-            shadowMap->unbind();
+                // Third pass
+                drawScene();
+                shadowMap->render();
+            }
+            else
+            {
+                drawScene();
+            }
 
-            drawScene();
-
-            shadowMap->render();
-
+            // Support of multiple light for shadwing soon...
             empty = false;
-            break; // Support of multiple light for shadwing soon...
+            break;
         }
 
         if(empty)

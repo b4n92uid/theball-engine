@@ -137,19 +137,26 @@ void HardwareBuffer::compile(GLenum usage)
 {
     typedef std::map<unsigned, Vector2f::Array> vu2map;
 
+    bool allocate = m_vertexCount == 0;
+
     m_usage = usage;
     m_vertexCount = m_vertex.size();
     m_bufferSize = m_vertex.size() * sizeof (Vertex);
 
+    unsigned coreBufferSize = m_bufferSize;
+
     if(!m_multiTexCoord.empty())
     {
         m_bufferSize += m_vertex.size() * sizeof (Vector2f) * m_multiTexCoord.size();
-
         m_multiTexCoordOffset = m_vertex.size() * sizeof (Vertex);
     }
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
-    glBufferDataARB(GL_ARRAY_BUFFER_ARB, m_bufferSize, &m_vertex[0], usage);
+
+    if(allocate)
+        glBufferDataARB(GL_ARRAY_BUFFER_ARB, m_bufferSize, &m_vertex[0], usage);
+    else
+        glBufferSubData(GL_ARRAY_BUFFER_ARB, 0, coreBufferSize, &m_vertex[0]);
 
     unsigned mtoffset = m_multiTexCoordOffset;
 
@@ -291,30 +298,22 @@ Face::Array HardwareBuffer::getAllFace()
     Face::Array faceArray;
     faceArray.reserve(m_vertexCount / 3);
 
-    Vertex* vertex = bindBuffer().lock(GL_READ_ONLY_ARB);
-
     for(unsigned i = 0; i < m_vertexCount; i += 3)
     {
         Face f;
-        f.push_back(vertex[i + 0]);
-        f.push_back(vertex[i + 1]);
-        f.push_back(vertex[i + 2]);
+        f.push_back(m_vertex[i + 0]);
+        f.push_back(m_vertex[i + 1]);
+        f.push_back(m_vertex[i + 2]);
 
         faceArray.push_back(f);
     }
-
-    unlock().bindBuffer(false);
 
     return faceArray;
 }
 
 Vertex::Array HardwareBuffer::getAllVertex(bool makeUnique)
 {
-    Vertex::Array allVertexs;
-
-    Vertex* vertex = bindBuffer(true).lock(GL_READ_ONLY_ARB);
-    allVertexs.assign(vertex, vertex + m_vertexCount);
-    unlock().bindBuffer(false);
+    Vertex::Array allVertexs = m_vertex;
 
     if(makeUnique)
     {

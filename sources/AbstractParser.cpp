@@ -130,10 +130,10 @@ Material::Map AbstractParser::loadMaterialSet(std::string path)
         return _MaterialManager[path];
     }
 
+    cout << "[Material] " << path << endl;
+
     rtree data;
     property_tree::read_info(path, data);
-
-    cout << "[Material] " << path << endl;
 
     Material::Map matset;
 
@@ -501,6 +501,8 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
 
             current = buildNode(nodetree.get_child("Class"), parent);
             current->serializing().put("class", iclass);
+
+            buildInherited(data, NULL, current);
         }
 
         else

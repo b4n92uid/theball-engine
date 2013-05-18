@@ -14,6 +14,7 @@
 #include "PostProcessManager.h"
 #include "BlurEffect.h"
 
+using namespace std;
 using namespace tbe;
 using namespace scene;
 
@@ -74,7 +75,9 @@ static const char vertex[] =
 ShadowMap::ShadowMap(SceneManager* sceneManager)
 {
     m_sceneManager = sceneManager;
+    m_shaderHandled = false;
     m_enabled = false;
+    m_cameraSetup = NULL;
 
     m_shader.parseVertexShader(vertex);
     m_shader.parseFragmentShader(fragment);
@@ -98,7 +101,11 @@ ShadowMap::ShadowMap(SceneManager* sceneManager)
     m_blur->setOffset(1.0f / 512.0f);
 }
 
-ShadowMap::~ShadowMap() { }
+ShadowMap::~ShadowMap()
+{
+    if(m_cameraSetup)
+        delete m_cameraSetup;
+}
 
 void ShadowMap::setEnabled(bool enabled)
 {
@@ -134,9 +141,29 @@ float ShadowMap::getIntensity() const
     return m_intensity;
 }
 
-Matrix4 ShadowMap::getModelMatrix() const
+void ShadowMap::setShaderHandled(bool shaderHandled)
 {
-    return m_modelMatrix;
+    this->m_shaderHandled = shaderHandled;
+}
+
+bool ShadowMap::isShaderHandled() const
+{
+    return m_shaderHandled;
+}
+
+void ShadowMap::setCameraSetup(ShadowMapCameraSetup* cameraSetup)
+{
+    this->m_cameraSetup = cameraSetup;
+}
+
+ShadowMapCameraSetup* ShadowMap::getCameraSetup() const
+{
+    return m_cameraSetup;
+}
+
+Matrix4 ShadowMap::getViewMatrix() const
+{
+    return m_viewMatrix;
 }
 
 Matrix4 ShadowMap::getProjectionMatrix() const
@@ -177,25 +204,26 @@ void ShadowMap::begin(Light* l)
     glShadeModel(GL_FLAT);
     glColorMask(0, 0, 0, 1);
 
-    glEnable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.5f);
+    Camera* cam = m_sceneManager->getCurCamera();
+    Vector3f centerView = cam->getPos();
 
-    // 24 is an aproximation of average length necessary
-    // for render the whole object that cast shadow
-    const float approx = 32;
+    if(m_cameraSetup)
+        centerView = m_cameraSetup->setupCamera(m_sceneManager, l);
 
-    m_projectionMatrix = math::orthographicMatrix(-approx, approx, -approx, approx, -50, 100);
+    Vector3f pos = centerView + l->getPos().normalize();
+    Vector3f target = centerView;
 
-    Camera * cam = m_sceneManager->getCurCamera();
-    Vector3f pos = cam->getPos() + cam->getTarget() * approx + l->getPos();
-    Vector3f target = cam->getPos() + cam->getTarget() * approx;
-    m_modelMatrix = math::lookAt(pos, target, Vector3f(0.0f, 1.0f, 0.0f));
+    m_projectionMatrix = math::orthographicMatrix(-15, 15, -10, 10, -50, 50);
+
+    m_viewMatrix = math::lookAt(pos, target, Vector3f(0.0f, 1.0f, 0.0f));
 
     glMatrixMode(GL_PROJECTION);
     glLoadMatrixf(m_projectionMatrix);
 
     glMatrixMode(GL_MODELVIEW);
-    glLoadMatrixf(m_modelMatrix);
+    glLoadMatrixf(m_viewMatrix);
+
+    m_sceneManager->getFrustum()->extractPlane();
 }
 
 void ShadowMap::end()
@@ -206,15 +234,13 @@ void ShadowMap::end()
     glShadeModel(GL_SMOOTH);
     glColorMask(1, 1, 1, 1);
 
-    glDisable(GL_ALPHA_TEST);
-    glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
-    glDisable(GL_MULTISAMPLE);
-
     glMatrixMode(GL_PROJECTION);
     glLoadMatrixf(m_sceneManager->getProjectionMatrix());
 
     glMatrixMode(GL_MODELVIEW);
     glLoadMatrixf(m_sceneManager->getViewMatrix());
+
+    m_sceneManager->getFrustum()->extractPlane();
 
     m_depthBuffer->use(false);
 }
@@ -226,10 +252,13 @@ void ShadowMap::bind()
     glClearColor(0, 0, 0, 0);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(true);
+
     Shader::bind(m_shader);
 
     m_shader.uniform("LightProjectionMatrix", m_projectionMatrix);
-    m_shader.uniform("LightViewMatrix", m_modelMatrix);
+    m_shader.uniform("LightViewMatrix", m_viewMatrix);
 
     m_depthBuffer->getDepht().use(true);
 }

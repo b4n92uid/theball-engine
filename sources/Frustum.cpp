@@ -14,13 +14,9 @@
 using namespace tbe;
 using namespace tbe::scene;
 
-Frustum::Frustum()
-{
-}
+Frustum::Frustum() { }
 
-Frustum::~Frustum()
-{
-}
+Frustum::~Frustum() { }
 
 bool Frustum::isInside(Node* node) const
 {

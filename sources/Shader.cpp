@@ -220,29 +220,71 @@ void Shader::loadProgram()
     manager.push_back(m_program);
 }
 
-void Shader::parseShaderFile(std::string path)
+void Shader::parseShaderFile(std::string root)
 {
     using namespace boost;
     using namespace property_tree;
 
-    cout << "[Shader Program] " << path << endl;
+    cout << "[Shader Program] " << root << endl;
 
     ptree data;
-    property_tree::read_info(path, data);
+    property_tree::read_info(root, data);
 
     if(!data.count("vertex"))
-        throw Exception("Shader::parseShaderFile; Parsing error (%1%)") % path;
+        throw Exception("Shader::parseShaderFile; Parsing error (%1%)") % root;
 
-    m_shaderFilename = path;
+    m_shaderFilename = root;
+
+    std::stringstream fragmentSource;
+    std::stringstream vertexSource;
+
+    if(data.count("define"))
+        BOOST_FOREACH(ptree::value_type & b, data.get_child("define"))
+    {
+        vertexSource << "#define " << b.first;
+        fragmentSource << "#define " << b.first;
+
+        optional<string> value = b.second.get_value_optional<string>();
+
+        if(value)
+        {
+            vertexSource << *value;
+            fragmentSource << *value;
+        }
+
+        vertexSource << endl;
+        fragmentSource << endl;
+    }
+
+    if(data.count("include"))
+        BOOST_FOREACH(ptree::value_type & b, data.get_child("include"))
+    {
+        string path = b.second.get_value<string>();
+
+        if(!tools::isAbsoloutPath(path))
+            path = tools::resolvePath(path, root);
+
+        if(b.first == "vertex")
+            vertexSource << tools::get_file_content(path) << "\n\n";
+
+        if(b.first == "fragment")
+            fragmentSource << tools::get_file_content(path) << "\n\n";
+    }
 
     if(data.get_optional<string>("vertex"))
     {
         string vertex = data.get<string>("vertex");
 
         if(!tools::isAbsoloutPath(vertex))
-            vertex = tools::resolvePath(vertex, path);
+            vertex = tools::resolvePath(vertex, root);
 
-        loadVertexShader(vertex);
+        if(vertexSource.rdbuf()->in_avail() > 0)
+        {
+            vertexSource << tools::get_file_content(vertex) << "\n\n";
+            parseVertexShader(vertexSource.str());
+        }
+        else
+            loadVertexShader(vertex);
     }
 
     if(data.get_optional<string>("fragment"))
@@ -250,9 +292,15 @@ void Shader::parseShaderFile(std::string path)
         string frag = data.get<string>("fragment");
 
         if(!tools::isAbsoloutPath(frag))
-            frag = tools::resolvePath(frag, path);
+            frag = tools::resolvePath(frag, root);
 
-        loadFragmentShader(frag);
+        if(fragmentSource.rdbuf()->in_avail() > 0)
+        {
+            fragmentSource << tools::get_file_content(frag) << "\n\n";
+            parseFragmentShader(fragmentSource.str());
+        }
+        else
+            loadFragmentShader(frag);
     }
 
     loadProgram();
@@ -426,6 +474,15 @@ void Shader::setRequestedUniform(std::string what, std::string var)
 const Shader::UniformMap& Shader::getRequestedUniform()
 {
     return m_requestedUniform;
+}
+
+bool Shader::isRequested(std::string value)
+{
+    BOOST_FOREACH(Shader::UniformMap::value_type u, m_requestedUniform)
+    if(u.second == value)
+        return true;
+
+    return false;
 }
 
 void Shader::setEnable(bool enable)

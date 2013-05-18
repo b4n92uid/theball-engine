@@ -110,6 +110,7 @@ void Mesh::clear()
                 delete v.second;
 
         m_materialsBackup.clear();
+        m_materials.clear();
     }
     else
     {
@@ -479,12 +480,12 @@ void Mesh::bindTexture(unsigned layer, Texture texture, TextureApply settings)
     if(settings.clipped)
         animateTexture(layer, texture, settings);
 
-    glClientActiveTexture(id);
-    m_hardwareBuffer->bindTexture(true, layer);
-
     glActiveTexture(id);
     glEnable(GL_TEXTURE_2D);
     texture.use(true);
+
+    glClientActiveTexture(id);
+    m_hardwareBuffer->bindTexture(true, layer);
 
     unsigned multexb = settings.blend;
 
@@ -555,6 +556,23 @@ struct ShaderBind
         shader.uniform(location, (int) cl.getEsplanedTime(false));
     }
 
+    void bindProjMatrix(std::string location)
+    {
+        ShadowMap* smap = mesh->getSceneManager()->getShadowMap();
+        shader.uniform(location, smap->getProjectionMatrix());
+    }
+
+    void bindViewMatrix(std::string location)
+    {
+        ShadowMap* smap = mesh->getSceneManager()->getShadowMap();
+        shader.uniform(location, smap->getViewMatrix());
+    }
+
+    void bindNodeMatrix(std::string location)
+    {
+        shader.uniform(location, mesh->getMatrix());
+    }
+
     void assignExp(string location, string exp)
     {
         using namespace boost;
@@ -573,6 +591,9 @@ struct ShaderBind
             callmap["tangent"] = boost::bind(&ShaderBind::bindTangent, this, _1);
             callmap["aocc"] = boost::bind(&ShaderBind::bindAOCC, this, _1);
             callmap["timestamp"] = boost::bind(&ShaderBind::bindTimestamp, this, _1);
+            callmap["light_projection_matrix"] = boost::bind(&ShaderBind::bindProjMatrix, this, _1);
+            callmap["light_view_matrix"] = boost::bind(&ShaderBind::bindViewMatrix, this, _1);
+            callmap["node_matrix"] = boost::bind(&ShaderBind::bindNodeMatrix, this, _1);
 
             if(callmap.count(exp))
                 callmap[exp](location);
@@ -629,7 +650,7 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
 
             BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
             {
-                if(u.second == "shadowmap")
+                if(u.second == "shadow_map")
                 {
                     unsigned layer = material->m_textures.size();
                     usedshader.uniform(u.first, (int) layer);
@@ -804,27 +825,40 @@ void Mesh::endRenderingBuffer(Material* material, unsigned offset, unsigned coun
         m_hardwareBuffer->bindAocc(false);
     }
 
+    Shader shade = getUsedShader(material);
+
     if(material->m_renderFlags & Material::TEXTURED)
     {
-        Texture::Map& textures = material->m_textures;
 
-        for(Texture::Map::reverse_iterator itt = textures.rbegin();
-                itt != textures.rend(); itt++)
+        BOOST_FOREACH(Texture::Map::value_type itt, material->m_textures)
         {
-            if(!itt->second)
+            if(!itt.second)
                 continue;
 
-            unsigned textureIndex = GL_TEXTURE0 + itt->first;
+            unsigned layer = GL_TEXTURE0 + itt.first;
 
-            glClientActiveTexture(textureIndex);
+            glClientActiveTexture(layer);
             m_hardwareBuffer->bindTexture(false);
 
-            glActiveTexture(textureIndex);
+            glActiveTexture(layer);
+            glDisable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, 0);
+        }
+
+        if(shade.isRequested("shadow_map"))
+        {
+            unsigned layer = GL_TEXTURE0 + material->m_textures.size();
+
+            glClientActiveTexture(layer);
+            m_hardwareBuffer->bindTexture(false);
+
+            glActiveTexture(layer);
             glDisable(GL_TEXTURE_2D);
         }
 
+        // Don't forger to reactivate texture unit 0 for future use !!!
+        glClientActiveTexture(GL_TEXTURE0);
         glActiveTexture(GL_TEXTURE0);
-        glDisable(GL_TEXTURE_2D);
     }
 
     if(material->m_renderFlags & Material::LIGHTED)
@@ -896,8 +930,6 @@ void Mesh::drawMaterial(Material* material, unsigned offset, unsigned count)
 
     if(!(material->m_renderFlags & Material::LIGHTED))
     {
-        Shader::bind(usedshader);
-
         m_hardwareBuffer->render(material->m_faceType, offset, count);
     }
 
@@ -1013,6 +1045,7 @@ void Mesh::renderShadow()
 
     glEnable(GL_DEPTH_TEST);
     glDepthMask(true);
+
     m_hardwareBuffer->render(Material::TRIANGLES, 0, m_hardwareBuffer->getVertexCount());
 
     m_hardwareBuffer->bindBuffer(false);
@@ -1267,7 +1300,8 @@ bool Mesh::isVisible() const
 
 void Mesh::attachMaterialSet(const Material::Map& set)
 {
-    m_materialsBackup = m_materials;
+    if(m_materialsBackup.empty())
+        m_materialsBackup = m_materials;
 
     BOOST_FOREACH(const Material::Map::value_type& v, set)
     {

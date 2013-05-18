@@ -60,6 +60,8 @@ public:
     unsigned getRunFps() const;
 
     counttype getFromLastRender() const;
+    double getFromLastRenderMs() const;
+    
     counttype getFromLastUpdate() const;
     double getFromLastFrameMs() const;
 

@@ -37,23 +37,26 @@ void ShellRenderInterfaceOpenGL::RenderGeometry(Rocket::Core::Vertex* vertices, 
     glPushMatrix();
     glTranslatef(translation.x, translation.y, 0);
 
-    glVertexPointer(2, GL_FLOAT, sizeof(Rocket::Core::Vertex), &vertices[0].position);
-    glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(Rocket::Core::Vertex), &vertices[0].colour);
+    glVertexPointer(2, GL_FLOAT, sizeof (Rocket::Core::Vertex), &vertices[0].position);
+    glColorPointer(4, GL_UNSIGNED_BYTE, sizeof (Rocket::Core::Vertex), &vertices[0].colour);
 
-    if(!texture)
+    if(texture)
     {
-        glDisable(GL_TEXTURE_2D);
-        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, (GLuint) texture);
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+        glTexCoordPointer(2, GL_FLOAT, sizeof (Rocket::Core::Vertex), &vertices[0].tex_coord);
     }
     else
     {
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, (GLuint)texture);
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-        glTexCoordPointer(2, GL_FLOAT, sizeof(Rocket::Core::Vertex), &vertices[0].tex_coord);
+        glDisable(GL_TEXTURE_2D);
     }
 
     glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, indices);
+
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_COLOR_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
     glPopMatrix();
 }
@@ -120,7 +123,7 @@ bool ShellRenderInterfaceOpenGL::GenerateTexture(Rocket::Core::TextureHandle& te
 
 void ShellRenderInterfaceOpenGL::ReleaseTexture(Rocket::Core::TextureHandle texture_handle)
 {
-    GLuint id = (GLuint)texture_handle;
+    GLuint id = (GLuint) texture_handle;
 
     glDeleteTextures(1, &id);
 }
@@ -145,25 +148,25 @@ Rocket::Core::FileHandle ShellFileInterface::Open(const Rocket::Core::String& pa
         fp = fopen((base + "/" + path).CString(), "rb");
     }
 
-    return(Rocket::Core::FileHandle) fp;
+    return (Rocket::Core::FileHandle) fp;
 }
 
 void ShellFileInterface::Close(Rocket::Core::FileHandle file)
 {
-    fclose((FILE*)file);
+    fclose((FILE*) file);
 }
 
 size_t ShellFileInterface::Read(void* buffer, size_t size, Rocket::Core::FileHandle file)
 {
-    return fread(buffer, 1, size, (FILE*)file);
+    return fread(buffer, 1, size, (FILE*) file);
 }
 
 bool ShellFileInterface::Seek(Rocket::Core::FileHandle file, long offset, int origin)
 {
-    return fseek((FILE*)file, offset, origin) == 0;
+    return fseek((FILE*) file, offset, origin) == 0;
 }
 
 size_t ShellFileInterface::Tell(Rocket::Core::FileHandle file)
 {
-    return ftell((FILE*)file);
+    return ftell((FILE*) file);
 }

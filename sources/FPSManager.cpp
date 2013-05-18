@@ -123,6 +123,11 @@ FpsManager::counttype FpsManager::getFromLastRender() const
     return curtime - m_renderTick;
 }
 
+double FpsManager::getFromLastRenderMs() const
+{
+    return getFromLastRender() / (double(m_cyclePerSecond) / 1000.0f);
+}
+
 FpsManager::counttype FpsManager::getFromLastUpdate() const
 {
     counttype curtime = 0;
@@ -135,10 +140,11 @@ FpsManager::counttype FpsManager::getFromLastUpdate() const
 
     #endif
 
-    return curtime - m_updateTick;
+    counttype ret = curtime - m_updateTick;
+    return ret;
 }
 
 double FpsManager::getFromLastFrameMs() const
 {
-    return getFromLastUpdate() / (m_cyclePerSecond / 1000.0f);
+    return getFromLastUpdate() / (double(m_cyclePerSecond) / 1000.0f);
 }

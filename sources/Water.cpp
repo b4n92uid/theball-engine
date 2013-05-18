@@ -361,6 +361,9 @@ void Water::process()
 
 void Water::render()
 {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     m_buffer.bindBuffer();
     m_buffer.bindTexture();
 
@@ -452,14 +455,19 @@ rtree Water::serialize(std::string root)
 {
     rtree scheme = Node::serialize(root);
 
-    //    ctormap["class"] = "Water";
-    //
-    //    ctormap["normalMap"] = tools::pathScope(root, m_normalMap.getFilename(), false);
-    //    ctormap["size"] = tools::numToStr(m_size);
-    //    ctormap["speed"] = tools::numToStr(m_speed);
-    //    ctormap["deform"] = tools::numToStr(m_deform);
-    //    ctormap["blend"] = tools::numToStr(m_blend);
-    //    ctormap["uvRepeat"] = tools::numToStr(m_uvRepeat);
+    scheme.put("class", "Water");
+
+    scheme.put("class.size", tools::numToStr(m_size));
+
+    scheme.put("class.normalMap", tools::relativizePath(m_normalMap.getFilename(), root));
+
+    if(!m_shader.getShaderFile().empty())
+        scheme.put("class.shader", tools::relativizePath(m_shader.getShaderFile(), root));
+
+    scheme.put("class.uvRepeat", tools::numToStr(m_uvRepeat));
+    scheme.put("class.blend", tools::numToStr(m_blend));
+    scheme.put("class.deform", tools::numToStr(m_deform));
+    scheme.put("class.speed", tools::numToStr(m_speed));
 
     return scheme;
 }

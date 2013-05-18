@@ -68,6 +68,8 @@ public:
     void setRequestedUniform(std::string what, std::string var);
 
     const UniformMap& getRequestedUniform();
+    
+    bool isRequested(std::string value);
 
     /**
      * Utilisation du program. Le rendue effectuer apres cette appelle

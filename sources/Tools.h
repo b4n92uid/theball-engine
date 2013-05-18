@@ -27,6 +27,8 @@
 #include <boost/property_tree/info_parser.hpp>
 #include <boost/filesystem.hpp>
 
+#include "Exception.h"
+
 namespace tbe
 {
 
@@ -36,6 +38,23 @@ typedef std::map<std::string, std::string> strmap;
 
 namespace tools
 {
+
+inline std::string get_file_content(std::string path)
+{
+    using namespace std;
+
+    ifstream file(path.c_str());
+
+    if(!file)
+        throw tbe::Exception("tools::get_file_content; Open shader file error; (%1%)") % path;
+
+    stringstream sourceCode;
+    sourceCode << file.rdbuf();
+
+    file.close();
+
+    return sourceCode.str();
+}
 
 inline std::string toupper(std::string str)
 {
