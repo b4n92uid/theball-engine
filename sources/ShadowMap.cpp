@@ -213,7 +213,7 @@ void ShadowMap::begin(Light* l)
     Vector3f pos = centerView + l->getPos().normalize();
     Vector3f target = centerView;
 
-    m_projectionMatrix = math::orthographicMatrix(-25, 25, -25, 25, -25, 25);
+    m_projectionMatrix = math::orthographicMatrix(-25, 25, -25, 25, -25, m_sceneManager->getZFar());
 
     m_viewMatrix = math::lookAt(pos, target, Vector3f(0.0f, 1.0f, 0.0f));
 

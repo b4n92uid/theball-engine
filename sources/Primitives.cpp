@@ -6,10 +6,7 @@ using namespace tbe::scene;
 
 // Box -------------------------------------------------------------------------
 
-Box::Box(MeshParallelScene* scene) : Mesh(scene)
-{
-
-}
+Box::Box(MeshParallelScene* scene) : Mesh(scene) { }
 
 Box::Box(MeshParallelScene* scene, Vector3f size) : Mesh(scene)
 {
@@ -97,26 +94,26 @@ void Box::build(Vector3f size)
     vertexs[10] = Vertex(-1, 1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 1);
     vertexs[11] = Vertex(1, 1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
     // Top
-    vertexs[14] = Vertex(1, 1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[12] = Vertex(1, 1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
     vertexs[13] = Vertex(1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0);
-    vertexs[12] = Vertex(-1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1);
-    vertexs[17] = Vertex(-1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1);
+    vertexs[14] = Vertex(-1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1);
+    vertexs[15] = Vertex(-1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1);
     vertexs[16] = Vertex(-1, 1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 1);
-    vertexs[15] = Vertex(1, 1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[17] = Vertex(1, 1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
     // Bottom
-    vertexs[20] = Vertex(1, -1, 1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[18] = Vertex(1, -1, 1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
     vertexs[19] = Vertex(1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 0, 0);
-    vertexs[18] = Vertex(-1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 0, 1);
-    vertexs[23] = Vertex(-1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 0, 1);
+    vertexs[20] = Vertex(-1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 0, 1);
+    vertexs[21] = Vertex(-1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 0, 1);
     vertexs[22] = Vertex(-1, -1, 1, 0, -1, 0, 1, 1, 1, 1, 1, 1);
-    vertexs[21] = Vertex(1, -1, 1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[23] = Vertex(1, -1, 1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
     // Left
-    vertexs[25] = Vertex(-1, 1, -1, -1, 0, 0, 1, 1, 1, 1, 0, 0);
-    vertexs[26] = Vertex(-1, -1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
-    vertexs[24] = Vertex(-1, -1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1);
-    vertexs[28] = Vertex(-1, -1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1);
-    vertexs[29] = Vertex(-1, 1, 1, -1, 0, 0, 1, 1, 1, 1, 0, 1);
-    vertexs[27] = Vertex(-1, 1, -1, -1, 0, 0, 1, 1, 1, 1, 0, 0);
+    vertexs[24] = Vertex(-1, 1, -1, -1, 0, 0, 1, 1, 1, 1, 0, 0);
+    vertexs[25] = Vertex(-1, -1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[26] = Vertex(-1, -1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1);
+    vertexs[27] = Vertex(-1, -1, 1, -1, 0, 0, 1, 1, 1, 1, 1, 1);
+    vertexs[28] = Vertex(-1, 1, 1, -1, 0, 0, 1, 1, 1, 1, 0, 1);
+    vertexs[29] = Vertex(-1, 1, -1, -1, 0, 0, 1, 1, 1, 1, 0, 0);
     // Right
     vertexs[30] = Vertex(1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1);
     vertexs[31] = Vertex(1, -1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0);
@@ -152,15 +149,14 @@ void Box::setSize(Vector3f size)
 
     m_aabb.clear();
 
+    const Vertex::Array& vertices = m_hardwareBuffer->getInitialVertex();
     Vertex* verts = m_hardwareBuffer->bindBuffer().lock();
 
     for(unsigned i = 0; i < 36; i++)
     {
-        verts[i].pos.reSet(m_size);
+        verts[i].pos = vertices[i].pos * size;
         m_aabb.count(verts[i].pos);
     }
-
-    m_hardwareBuffer->snapshot();
 
     m_hardwareBuffer->unlock().unbindBuffer();
 }
@@ -197,7 +193,7 @@ void Sphere::build(float radius, unsigned slices, unsigned stackes)
     for(unsigned int i = 0; i < slices; i++)
     {
         // Cercle horizontal courant
-        float fPointCourantH = static_cast<float>(i) * fHorizontal;
+        float fPointCourantH = static_cast<float> (i) * fHorizontal;
         // Cercle horizontal suivant
         float fPointSuivantH = fPointCourantH + fHorizontal;
 
@@ -214,21 +210,21 @@ void Sphere::build(float radius, unsigned slices, unsigned stackes)
         // Parcours vertical
         for(unsigned int j = 0; j <= stackes; j++)
         {
-            float fPointCourantV = static_cast<float>(j) * fVertical;
+            float fPointCourantV = static_cast<float> (j) * fVertical;
             float x = cosf(fPointCourantV);
             float y = sinf(fPointCourantV);
 
             Vertex vert1(x * fPointCourantX, y * fPointCourantX, fPointCourantZ,
                          x * fPointCourantX, y * fPointCourantX, fPointCourantZ,
                          1, 1, 1, 1,
-                         (float)j / (float)stackes, (float)i / (float)slices);
+                         (float) j / (float) stackes, (float) i / (float) slices);
 
             face.push_back(vert1);
 
             Vertex vert2(x * fPointSuivantX, y * fPointSuivantX, fPointSuivantZ,
                          x * fPointSuivantX, y * fPointSuivantX, fPointSuivantZ,
                          1, 1, 1, 1,
-                         (float)j / (float)stackes, (float)(i + 1) / (float)slices);
+                         (float) j / (float) stackes, (float) (i + 1) / (float) slices);
 
             face.push_back(vert2);
 
@@ -300,7 +296,7 @@ void Axes::build(float lineWidth, float lineLength)
 
     addMaterial("main", mainMaterial);
     applyMaterial(mainMaterial, 0, 6);
-    
+
     setCastShadow(false);
     setReceiveShadow(false);
 }
@@ -317,10 +313,7 @@ float Axes::getLineWidth() const
 
 // Plan ------------------------------------------------------------------------
 
-Plane::Plane(MeshParallelScene* scene) : Mesh(scene)
-{
-
-}
+Plane::Plane(MeshParallelScene* scene) : Mesh(scene) { }
 
 Plane::Plane(MeshParallelScene* scene, Vector2f size, Vector2i cut) : Mesh(scene)
 {
@@ -412,10 +405,7 @@ Vector2f Plane::getSize() const
 
 // Grid ------------------------------------------------------------------------
 
-Grid::Grid(MeshParallelScene* scene) : Mesh(scene)
-{
-
-}
+Grid::Grid(MeshParallelScene* scene) : Mesh(scene) { }
 
 Grid::Grid(MeshParallelScene* scene, Vector2f size, Vector2i cut) : Mesh(scene)
 {

@@ -23,9 +23,9 @@ public:
 
     template<typename T2> Vector3(const Vector3<T2>& vec)
     {
-        x = static_cast<T2>(vec.x);
-        y = static_cast<T2>(vec.y);
-        z = static_cast<T2>(vec.z);
+        x = static_cast<T2> (vec.x);
+        y = static_cast<T2> (vec.y);
+        z = static_cast<T2> (vec.z);
     }
 
     Vector3(const Vector3& vec)
@@ -51,9 +51,9 @@ public:
 
     template<typename T2> Vector3 & operator=(const Vector3<T2>& vec)
     {
-        x = static_cast<T2>(vec.x);
-        y = static_cast<T2>(vec.y);
-        z = static_cast<T2>(vec.z);
+        x = static_cast<T2> (vec.x);
+        y = static_cast<T2> (vec.y);
+        z = static_cast<T2> (vec.z);
 
         return *this;
     }
@@ -83,7 +83,7 @@ public:
         return *this;
     }
 
-    T operator[](unsigned i)const
+    T operator[](unsigned i) const
     {
         switch(i)
         {
@@ -321,7 +321,7 @@ public:
 
     T getMagnitude() const
     {
-        return (T)sqrt(x * x + y * y + z * z);
+        return (T) sqrt(x * x + y * y + z * z);
     }
 
     float getAverage() const
@@ -332,13 +332,6 @@ public:
     bool isInside(const Vector3& min, const Vector3& max) const
     {
         return (x >= min.x && y >= min.y && z >= min.z && x <= max.x && y <= max.y && z <= max.z);
-    }
-
-    void reSet(const Vector3<T>& diri)
-    {
-        x = !x ? 0 : (x > 0 ? diri.x : -diri.x);
-        y = !y ? 0 : (y > 0 ? diri.y : -diri.y);
-        z = !z ? 0 : (z > 0 ? diri.z : -diri.z);
     }
 
     Vector3& pinpoint()
