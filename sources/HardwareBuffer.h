@@ -132,7 +132,7 @@ public:
     void bindAocc(bool state = true, GLint location = -1);
 
     /// Rendue du buffer
-    void render(GLenum mode = GL_TRIANGLES, unsigned first = 0, unsigned count = 0);
+    void render(GLenum mode = GL_TRIANGLES, unsigned first = 0, unsigned count = 0, int drawcount = 1);
 
     /// Renvois true si le buffer est compiler et pret au rendue
     bool isEmpty() const;

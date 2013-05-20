@@ -272,10 +272,27 @@ void HardwareBuffer::bindAocc(bool state, GLint location)
         glDisableVertexAttribArray(location);
 }
 
-void HardwareBuffer::render(GLenum mode, unsigned first, unsigned count)
+void HardwareBuffer::render(GLenum mode, unsigned first, unsigned count, int drawpass)
 {
-    if(m_vertexCount > 0)
-        glDrawArrays(mode, first, count ? count : m_vertexCount);
+    if(m_vertexCount == 0)
+        return;
+
+    if(count == 0)
+        count = m_vertexCount;
+
+    if(drawpass > 1)
+    {
+        int subcount = count / drawpass;
+        int rest = count % drawpass;
+
+        for(int i = 0; i < drawpass; i++)
+            glDrawArrays(mode, first + i * subcount, subcount);
+
+        if(rest > 0)
+            glDrawArrays(mode, first + (drawpass - 1) * subcount, rest);
+    }
+    else
+        glDrawArrays(mode, first, count);
 }
 
 unsigned HardwareBuffer::getBufferSize() const

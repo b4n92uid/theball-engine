@@ -142,9 +142,6 @@ public:
     void setDepthTest(bool depthTest);
     bool isDepthTest() const;
 
-    void setDrawPass(unsigned drawPass);
-    unsigned getDrawPass() const;
-
     /// Applique une couleur a tout les vertecies du mesh
     void setColor(Vector4f color);
     Vector4f getColor();
@@ -179,6 +176,9 @@ public:
 
     ticks::Clock getClock() const;
 
+    void setDrawPass(unsigned drawPass);
+    unsigned getDrawPass() const;
+
 protected:
     std::string m_name;
 
@@ -192,6 +192,7 @@ protected:
     FaceType m_faceType;
 
     unsigned m_renderFlags;
+    unsigned m_drawPass;
 
     Vector4f m_color;
 

@@ -156,6 +156,8 @@ void Mesh::fetchVertexes(const Mesh& copy)
     m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
 
     fetchMaterials(copy);
+
+    computeAabb();
 }
 
 void Mesh::shareVertexes(const Mesh& copy)
@@ -834,7 +836,7 @@ void Mesh::endRenderingProperty(Material* material, unsigned offset, unsigned co
     if(material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
     {
         glCullFace(GL_BACK);
-        m_hardwareBuffer->render(material->m_faceType, offset, count);
+        m_hardwareBuffer->render(material->m_faceType, offset, count, material->m_drawPass);
     }
 }
 
@@ -935,8 +937,9 @@ void Mesh::endRenderingMatrix()
 
 void Mesh::drawMaterial(Material* material, unsigned offset, unsigned count)
 {
-    if(material->m_clock.isEsplanedTime(material->m_clockCycle, false))
-        material->m_clock.snapShoot();
+    if(material->m_clockCycle > 0)
+        if(material->m_clock.isEsplanedTime(material->m_clockCycle, false))
+            material->m_clock.snapShoot();
 
     Shader usedshader = getUsedShader(material);
 
@@ -951,7 +954,7 @@ void Mesh::drawMaterial(Material* material, unsigned offset, unsigned count)
 
     if(!(material->m_renderFlags & Material::LIGHTED))
     {
-        m_hardwareBuffer->render(material->m_faceType, offset, count);
+        m_hardwareBuffer->render(material->m_faceType, offset, count, material->m_drawPass);
     }
 
     else
@@ -964,7 +967,7 @@ void Mesh::drawMaterial(Material* material, unsigned offset, unsigned count)
                 usedshader.uniform(u.first, true);
         }
 
-        m_hardwareBuffer->render(material->m_faceType, offset, count);
+        m_hardwareBuffer->render(material->m_faceType, offset, count, material->m_drawPass);
     }
 
     endRenderingProperty(material, offset, count);
@@ -1002,7 +1005,7 @@ void Mesh::drawMaterial(Material* material, unsigned offset, unsigned count)
             m_parallelScene->prePassLighting(i);
 
             beginRenderingMatrix();
-            m_hardwareBuffer->render(material->m_faceType, offset, count);
+            m_hardwareBuffer->render(material->m_faceType, offset, count, material->m_drawPass);
             endRenderingMatrix();
         }
 
@@ -1358,10 +1361,10 @@ void Mesh::releaseMaterialFile()
 
     BOOST_FOREACH(Material::Map::value_type &v, m_materialsBackup)
     {
-        *m_materials[v.first] = *v.second;
-        delete v.second, v.second = NULL;
+        m_materials[v.first] = v.second;
     }
 
+    m_materialsBackup.clear();
     m_attachMaterial.clear();
 }
 
