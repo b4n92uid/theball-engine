@@ -98,7 +98,6 @@ ShadowMap::ShadowMap(SceneManager* sceneManager)
     m_blur = new ppe::BlurEffect;
     m_blur->setRttFrameSize(m_frameSize);
     m_blur->setPasse(2);
-    m_blur->setOffset(1.0f / 512.0f);
 }
 
 ShadowMap::~ShadowMap()
@@ -180,7 +179,6 @@ void ShadowMap::setFrameSize(Vector2i size)
 {
     m_frameSize = size;
     m_blur->setRttFrameSize(m_frameSize);
-    m_blur->setOffset(1.0f / m_frameSize.x);
     m_depthBuffer->setFrameSize(size);
     m_shadowBuffer->setFrameSize(size);
 }

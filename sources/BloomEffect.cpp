@@ -53,13 +53,12 @@ static const char brightFragShader[] =
 static const char horzBlurFragShader[] =
         "#version 120\n"
         "uniform sampler2D texture;"
+        "uniform float offset;"
 
         "void main(void)"
         "{"
 
         "vec4 final;"
-
-        "float offset = 0.0078125;"
 
         "final += texture2D(texture, gl_TexCoord[0].st - vec2(offset * 4.0,0));"
         "final += texture2D(texture, gl_TexCoord[0].st - vec2(offset * 3.0,0));"
@@ -83,13 +82,12 @@ static const char horzBlurFragShader[] =
 static const char vertBlurFragShader[] =
         "#version 120\n"
         "uniform sampler2D texture;"
+        "uniform float offset;"
 
         "void main(void)"
         "{"
 
         "vec4 final;"
-
-        "float offset = 0.0078125;"
 
         "final += texture2D(texture, gl_TexCoord[0].st - vec2(0, offset * 4.0));"
         "final += texture2D(texture, gl_TexCoord[0].st - vec2(0, offset * 3.0));"
@@ -131,9 +129,7 @@ BloomEffect::BloomEffect()
     setAverage(false);
 }
 
-BloomEffect::~BloomEffect()
-{
-}
+BloomEffect::~BloomEffect() { }
 
 void BloomEffect::process(Rtt* rtt)
 {
@@ -159,6 +155,7 @@ void BloomEffect::process(Rtt* rtt)
     // Step 2 ------------------------------------------------------------------
 
     m_horzBlurShader.use(true);
+    m_horzBlurShader.uniform("offset", 1.0f / m_workRtt->getFrameSize().x);
 
     m_workRtt->getColor().use(true);
 
@@ -170,6 +167,7 @@ void BloomEffect::process(Rtt* rtt)
     // --
 
     m_vertBlurShader.use(true);
+    m_vertBlurShader.uniform("offset", 1.0f / m_workRtt->getFrameSize().x);
 
     m_workRtt->getColor().use(true);
 

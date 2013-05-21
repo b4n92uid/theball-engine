@@ -28,8 +28,6 @@ static const char fragmentShader[] =
         "void main(void)"
         "{"
 
-        // "float offset = 0.0078125;"
-
         "vec4 final = texture2D(texture, gl_TexCoord[0].st);"
         "final += texture2D(texture, gl_TexCoord[0].st + vec2(offset,0));"
         "final += texture2D(texture, gl_TexCoord[0].st + vec2(-offset,0));"
@@ -53,7 +51,6 @@ BlurEffect::BlurEffect()
     m_processShader.loadProgram();
 
     setPasse(1);
-    setOffset(1.0f / 128.0f);
 }
 
 BlurEffect::~BlurEffect() { }
@@ -75,6 +72,7 @@ void BlurEffect::process(Rtt* rtt)
     {
         rtt->use(true);
         m_processShader.use(true);
+        m_processShader.uniform("offset", 1.0f / m_workRtt->getFrameSize().x);
 
         rtt->getColor().use(true);
         m_layer.draw();
@@ -88,6 +86,7 @@ void BlurEffect::process(Rtt* rtt)
         // Etape 1
 
         m_processShader.use(true);
+        m_processShader.uniform("offset", 1.0f / m_workRtt->getFrameSize().x);
 
         m_workRtt->use(true);
 
@@ -127,18 +126,4 @@ void BlurEffect::setPasse(unsigned passe)
 unsigned BlurEffect::getPasse() const
 {
     return m_passe;
-}
-
-void BlurEffect::setOffset(float offset)
-{
-    this->m_offset = offset;
-
-    Shader::bind(m_processShader);
-    m_processShader.uniform("offset", offset);
-    Shader::unbind();
-}
-
-float BlurEffect::getOffset() const
-{
-    return m_offset;
 }
