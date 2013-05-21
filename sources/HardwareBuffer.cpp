@@ -147,8 +147,8 @@ void HardwareBuffer::compile(GLenum usage)
 
     if(!m_multiTexCoord.empty())
     {
-        m_bufferSize += m_vertex.size() * sizeof (Vector2f) * m_multiTexCoord.size();
-        m_multiTexCoordOffset = m_vertex.size() * sizeof (Vertex);
+        m_multiTexCoordOffset = m_bufferSize;
+        m_bufferSize += m_multiTexCoord.size() * sizeof (Vector2f);
     }
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
