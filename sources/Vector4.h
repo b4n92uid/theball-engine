@@ -32,10 +32,10 @@ public:
 
     template<typename T2> Vector4(const Vector4<T2>& vec)
     {
-        x = static_cast<T2>(vec.x);
-        y = static_cast<T2>(vec.y);
-        z = static_cast<T2>(vec.z);
-        w = static_cast<T2>(vec.w);
+        x = static_cast<T2> (vec.x);
+        y = static_cast<T2> (vec.y);
+        z = static_cast<T2> (vec.z);
+        w = static_cast<T2> (vec.w);
     }
 
     Vector4(T fx, T fy, T fz, T fw)
@@ -56,10 +56,10 @@ public:
 
     template<typename T2> Vector4 & operator=(const Vector4<T2>& vec)
     {
-        x = static_cast<T2>(vec.x);
-        y = static_cast<T2>(vec.y);
-        z = static_cast<T2>(vec.z);
-        w = static_cast<T2>(vec.w);
+        x = static_cast<T2> (vec.x);
+        y = static_cast<T2> (vec.y);
+        z = static_cast<T2> (vec.z);
+        w = static_cast<T2> (vec.w);
 
         return *this;
     }
@@ -101,7 +101,7 @@ public:
         return *this;
     }
 
-    T operator[](unsigned i)const
+    T operator[](unsigned i) const
     {
         switch(i)
         {
@@ -339,23 +339,6 @@ public:
     {
         T length = getMagnitude();
 
-        if(length != 0)
-        {
-            x /= length;
-            y /= length;
-            z /= length;
-
-            return *this;
-        }
-
-        else
-            return (*this)(0);
-    }
-
-    Vector4& normalizeW()
-    {
-        T length = getMagnitude();
-
         return (length == 0) ? (*this)(0) : (*this /= length);
     }
 
@@ -366,7 +349,7 @@ public:
 
     T getMagnitude() const
     {
-        return (T)sqrt(x * x + y * y + z * z);
+        return (T) sqrt(x * x + y * y + z * z);
     }
 
     float getAverage() const
@@ -496,7 +479,7 @@ public:
     }
 
     /**
-     * Interprétation d'une chaine de caracteres en vecteur a 4 composant
+     * InterprÃ©tation d'une chaine de caracteres en vecteur a 4 composant
      *  depuis le format "x, y, z, w"
      */
     Vector4& fromStr(std::string str, bool withsep = true)

@@ -20,7 +20,7 @@ class Node;
 class ParticlesEmiter;
 
 /**
- * \brief Représentation du frustum culling
+ * \brief ReprÃ©sentation du frustum culling
  * inclus des fonction de test
  */
 class Frustum

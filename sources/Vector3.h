@@ -419,7 +419,7 @@ public:
     }
 
     /**
-     * Interprétation d'une chaine de caracteres en vecteur a 3 composant
+     * InterprÃ©tation d'une chaine de caracteres en vecteur a 3 composant
      *  depuis le format "x, y, z"
      */
     std::string toStr(char sep = ',') const

@@ -112,7 +112,7 @@ public:
     void clear();
 
     /// Activer le rendue des position vertex (activation minimum)
-    HardwareBuffer& bindBuffer(bool state = true);
+    HardwareBuffer& bindBuffer(bool state = true, int vertCount = 3);
     HardwareBuffer& unbindBuffer();
 
     /// Activer le rendue des coordonnées de texture
@@ -178,7 +178,7 @@ protected:
 
     unsigned m_multiTexCoordOffset;
     std::map<unsigned, Vector2f::Array> m_multiTexCoord;
-    
+
     Vertex* m_cache;
 };
 

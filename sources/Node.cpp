@@ -140,6 +140,7 @@ Vector3f Node::mapToGlobal(Vector3f pos)
 void Node::mulMatrix(const Matrix4& matrix)
 {
     this->m_matrix *= matrix;
+    m_matrix.decompose(m_position, m_rotation, m_scale);
 }
 
 void Node::setMatrix(const Matrix4& matrix)
@@ -157,11 +158,6 @@ Matrix4 Node::getAbsoluteMatrix(bool includeThis) const
 }
 
 Matrix4 Node::getMatrix() const
-{
-    return m_matrix;
-}
-
-Matrix4& Node::getMatrix()
 {
     return m_matrix;
 }

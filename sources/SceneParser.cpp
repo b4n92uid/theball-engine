@@ -17,6 +17,7 @@
 #include "ObjMesh.h"
 #include "Ball3DMesh.h"
 #include "ShadowMap.h"
+#include "VolumetricLight.h"
 
 using namespace std;
 using namespace tbe;
@@ -38,16 +39,6 @@ void SceneParser::prepare()
 
     if(!m_attributes.empty())
         m_scheme.put_child("Scene.attributes", m_attributes);
-
-    ShadowMap* smap = m_sceneManager->getShadowMap();
-
-    {
-        m_scheme.put("Scene.shadow", smap->isEnabled());
-        m_scheme.put("Scene.shadow.size", smap->getFrameSize().toStr());
-        m_scheme.put("Scene.shadow.blur", smap->getBlurPass());
-        m_scheme.put("Scene.shadow.intensity", smap->getIntensity());
-        m_scheme.put("Scene.shadow.shader", smap->isShaderHandled());
-    }
 
     Fog* fog = m_sceneManager->getFog();
 
@@ -166,16 +157,6 @@ void SceneParser::build()
     }
 
     rtree head = m_scheme.get_child("Scene");
-
-    if(head.count("shadow"))
-    {
-        ShadowMap* smap = m_sceneManager->getShadowMap();
-        smap->setEnabled(m_scheme.get<bool>("Scene.shadow", false));
-        smap->setFrameSize(m_scheme.get<Vector2i>("Scene.shadow.size", Vector2i(512), v2itr));
-        smap->setBlurPass(m_scheme.get<int>("Scene.shadow.blur", 0));
-        smap->setIntensity(m_scheme.get<float>("Scene.shadow.intensity", 0.5));
-        smap->setShaderHandled(m_scheme.get<bool>("Scene.shadow.shader", false));
-    }
 
     if(head.count("fog"))
     {

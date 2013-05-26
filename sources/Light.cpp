@@ -10,6 +10,8 @@
 #include "Exception.h"
 #include "Tools.h"
 #include "SceneManager.h"
+#include "ShadowMap.h"
+#include "VolumetricLight.h"
 
 using namespace std;
 using namespace tbe;
@@ -33,6 +35,9 @@ Light::Light(MeshParallelScene* scene, Type type)
 
     m_type = type;
     m_castShadow = true;
+    m_castRays = false;
+    m_shadowMap = NULL;
+    m_volumeLight = NULL;
 
     Node::m_parallelScene = m_parallelScene = scene;
     m_sceneManager = m_parallelScene->getSceneManager();
@@ -190,11 +195,27 @@ Light::Type Light::getType() const
 void Light::setCastShadow(bool castShadow)
 {
     this->m_castShadow = castShadow;
+
+    if(!m_shadowMap)
+        m_shadowMap = new ShadowMap(this);
 }
 
 bool Light::isCastShadow() const
 {
     return m_castShadow;
+}
+
+void Light::setCastRays(bool castRays)
+{
+    this->m_castRays = castRays;
+
+    if(!m_volumeLight)
+        m_volumeLight = new VolumetricLight(this);
+}
+
+bool Light::isCastRays() const
+{
+    return m_castRays;
 }
 
 rtree Light::serialize(std::string root)
@@ -208,14 +229,66 @@ rtree Light::serialize(std::string root)
     else if(m_type == Light::POINT)
         scheme.put("class.type", "point");
 
-    scheme.put("class.castShadow", m_castShadow);
-
     scheme.put("class.ambient", m_ambient.toStr());
     scheme.put("class.diffuse", m_diffuse.toStr());
     scheme.put("class.specular", m_specular.toStr());
     scheme.put("class.radius", m_radius);
 
+    scheme.put("class.castShadow", m_castShadow);
+    scheme.put("class.castRays", m_castRays);
+
+    if(m_shadowMap)
+    {
+        ShadowMap* smap = m_shadowMap;
+        scheme.put("class.shadowMap.size", smap->getFrameSize().toStr());
+        scheme.put("class.shadowMap.blur", smap->getBlurPass());
+        scheme.put("class.shadowMap.intensity", smap->getIntensity());
+        scheme.put("class.shadowMap.shader", smap->isShaderHandled());
+    }
+
+    if(m_volumeLight)
+    {
+        VolumetricLight* vlight = m_volumeLight;
+        scheme.put("class.volumeLight.frameSize", vlight->getFrameSize().toStr());
+        scheme.put("class.volumeLight.lightSize", vlight->getLightSize().toStr());
+        scheme.put("class.volumeLight.offset", vlight->getOffset().toStr());
+
+        if(vlight->getNoiseLayer())
+        {
+            string path = tools::relativizePath(vlight->getNoiseLayer().getFilename(), root);
+            scheme.put("class.volumeLight.noiseLayer", path);
+        }
+    }
+
     return scheme;
+}
+
+MeshParallelScene* Light::getParallelScene() const
+{
+    return m_parallelScene;
+}
+
+void Light::setShadowMap(ShadowMap* shadowMap)
+{
+    if(m_shadowMap)
+        delete m_shadowMap;
+
+    this->m_shadowMap = shadowMap;
+}
+
+ShadowMap* Light::getShadowMap() const
+{
+    return m_shadowMap;
+}
+
+void Light::setVolumeLight(VolumetricLight* volumeLight)
+{
+    this->m_volumeLight = volumeLight;
+}
+
+VolumetricLight* Light::getVolumeLight() const
+{
+    return m_volumeLight;
 }
 
 DiriLight::DiriLight(MeshParallelScene* scene) : Light(scene, DIRI) { }

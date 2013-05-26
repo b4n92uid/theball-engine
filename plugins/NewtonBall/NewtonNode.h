@@ -70,9 +70,6 @@ public:
 
     Node* clone();
 
-    void setUpdatedMatrix(Matrix4* updatedMatrix);
-    Matrix4* getUpdatedMatrix() const;
-
     void setApplyTorque(Vector3f applyTorque);
     Vector3f getApplyTorque() const;
 
@@ -101,7 +98,6 @@ protected:
     NewtonParallelScene* m_parallelScene;
     NewtonWorld* m_newtonWorld;
     NewtonBody* m_body;
-    Matrix4* m_updatedMatrix;
     float m_masse;
     bool m_applyGravity;
 };

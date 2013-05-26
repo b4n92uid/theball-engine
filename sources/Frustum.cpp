@@ -99,10 +99,10 @@ void Frustum::extractPlane()
 
     clip = modelview * projection;
 
-    m_planes[RIGHT] = Vector4f(clip[ 3] - clip[ 0], clip[ 7] - clip[ 4], clip[11] - clip[ 8], clip[15] - clip[12]).normalizeW();
-    m_planes[LEFT] = Vector4f(clip[ 3] + clip[ 0], clip[ 7] + clip[ 4], clip[11] + clip[ 8], clip[15] + clip[12]).normalizeW();
-    m_planes[BOTTOM] = Vector4f(clip[ 3] + clip[ 1], clip[ 7] + clip[ 5], clip[11] + clip[ 9], clip[15] + clip[13]).normalizeW();
-    m_planes[TOP] = Vector4f(clip[ 3] - clip[ 1], clip[ 7] - clip[ 5], clip[11] - clip[ 9], clip[15] - clip[13]).normalizeW();
-    m_planes[FAR] = Vector4f(clip[ 3] - clip[ 2], clip[ 7] - clip[ 6], clip[11] - clip[10], clip[15] - clip[14]).normalizeW();
-    m_planes[NEAR] = Vector4f(clip[ 3] + clip[ 2], clip[ 7] + clip[ 6], clip[11] + clip[10], clip[15] + clip[14]).normalizeW();
+    m_planes[RIGHT] = Vector4f(clip[ 3] - clip[ 0], clip[ 7] - clip[ 4], clip[11] - clip[ 8], clip[15] - clip[12]).normalize();
+    m_planes[LEFT] = Vector4f(clip[ 3] + clip[ 0], clip[ 7] + clip[ 4], clip[11] + clip[ 8], clip[15] + clip[12]).normalize();
+    m_planes[BOTTOM] = Vector4f(clip[ 3] + clip[ 1], clip[ 7] + clip[ 5], clip[11] + clip[ 9], clip[15] + clip[13]).normalize();
+    m_planes[TOP] = Vector4f(clip[ 3] - clip[ 1], clip[ 7] - clip[ 5], clip[11] - clip[ 9], clip[15] - clip[13]).normalize();
+    m_planes[FAR] = Vector4f(clip[ 3] - clip[ 2], clip[ 7] - clip[ 6], clip[11] - clip[10], clip[15] - clip[14]).normalize();
+    m_planes[NEAR] = Vector4f(clip[ 3] + clip[ 2], clip[ 7] + clip[ 6], clip[11] + clip[10], clip[15] + clip[14]).normalize();
 }

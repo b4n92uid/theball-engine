@@ -72,11 +72,11 @@ static const char vertex[] =
         "gl_Position = ftransform();"
         "}";
 
-ShadowMap::ShadowMap(SceneManager* sceneManager)
+ShadowMap::ShadowMap(Light* light)
 {
-    m_sceneManager = sceneManager;
+    m_light = light;
+    m_sceneManager = light->getSceneManager();
     m_shaderHandled = false;
-    m_enabled = false;
     m_cameraSetup = NULL;
 
     m_shader.parseVertexShader(vertex);
@@ -102,18 +102,12 @@ ShadowMap::ShadowMap(SceneManager* sceneManager)
 
 ShadowMap::~ShadowMap()
 {
+    delete m_depthBuffer;
+    delete m_shadowBuffer;
+    delete m_blur;
+
     if(m_cameraSetup)
         delete m_cameraSetup;
-}
-
-void ShadowMap::setEnabled(bool enabled)
-{
-    this->m_enabled = enabled;
-}
-
-bool ShadowMap::isEnabled() const
-{
-    return m_enabled;
 }
 
 void ShadowMap::setBlurPass(int blurPass)
@@ -188,30 +182,30 @@ Vector2i ShadowMap::getFrameSize() const
     return m_frameSize;
 }
 
-void ShadowMap::begin(Light* l)
+void ShadowMap::begin()
 {
     m_depthBuffer->use(true);
 
     glClear(GL_DEPTH_BUFFER_BIT);
-
-    // Draw back faces into the shadow map
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_FRONT);
 
     // Disable color writes, and use flat shading for speed
     glShadeModel(GL_FLAT);
     glColorMask(0, 0, 0, 1);
 
     Camera* cam = m_sceneManager->getCurCamera();
-    Vector3f centerView = cam->getPos() + cam->getTarget() * (25.0f - cam->getPos().getMagnitude() / 2.0f);
+    float length = m_light->getParallelScene()->getSceneAabb().getLength() / 4.0f;
+    Vector3f centerView = cam->getPos() + cam->getTarget() * (length / 2);
 
     if(m_cameraSetup)
-        centerView = m_cameraSetup->setupCamera(m_sceneManager, l);
+        centerView = m_cameraSetup->setupCamera(m_sceneManager, m_light);
 
-    Vector3f pos = centerView + l->getPos().normalize();
+    Vector3f pos = centerView + m_light->getPos().normalize();
     Vector3f target = centerView;
 
-    m_projectionMatrix = math::orthographicMatrix(-25, 25, -25, 25, -25, m_sceneManager->getZFar());
+    if(m_cameraSetup)
+        m_projectionMatrix = m_cameraSetup->setupMatrix(m_sceneManager, m_light);
+    else
+        m_projectionMatrix = math::orthographicMatrix(-length, length, -length, length, -length, length);
 
     m_viewMatrix = math::lookAt(pos, target, Vector3f(0.0f, 1.0f, 0.0f));
 
@@ -226,9 +220,6 @@ void ShadowMap::begin(Light* l)
 
 void ShadowMap::end()
 {
-    glDisable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-
     glShadeModel(GL_SMOOTH);
     glColorMask(1, 1, 1, 1);
 

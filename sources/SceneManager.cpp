@@ -7,6 +7,7 @@
 #include "Tools.h"
 #include "Rtt.h"
 #include "ShadowMap.h"
+#include "VolumetricLight.h"
 #include "Skybox.h"
 #include "Node.h"
 #include "Primitives.h"
@@ -26,7 +27,6 @@ SceneManager::SceneManager()
 {
     glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);
 
-    m_shadowMap = new ShadowMap(this);
     m_frustum = new Frustum;
     m_skybox = new SkyBox;
     m_fog = new Fog;
@@ -225,11 +225,6 @@ Camera* SceneManager::getCurCamera()
 Iterator<Camera*> SceneManager::getCameraIterator()
 {
     return Iterator<Camera*>(m_cameras);
-}
-
-ShadowMap* SceneManager::getShadowMap() const
-{
-    return m_shadowMap;
 }
 
 Frustum* SceneManager::getFrustum() const

@@ -171,14 +171,14 @@ void HardwareBuffer::compile(GLenum usage)
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 }
 
-HardwareBuffer& HardwareBuffer::bindBuffer(bool state)
+HardwareBuffer& HardwareBuffer::bindBuffer(bool state, int vertCount)
 {
     if(state)
     {
         glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_bufferId);
 
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, vertexStrid, posOffset);
+        glVertexPointer(vertCount, GL_FLOAT, vertexStrid, posOffset);
     }
 
     else

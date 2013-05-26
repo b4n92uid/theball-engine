@@ -10,6 +10,7 @@
 
 #include "ParallelScene.h"
 #include "Mesh.h"
+#include "VolumetricLight.h"
 
 namespace tbe
 {
@@ -49,6 +50,8 @@ public:
 
     void registerLight(Light* light);
     void unregisterLight(Light* light);
+    
+    Light* light(int index);
 
     int beginPrePassLighting(Mesh* mesh);
     void prePassLighting(int i);
@@ -59,7 +62,7 @@ public:
 
 private:
     void drawScene();
-    void drawShadow(bool cast);
+    void drawShadow();
 
 private:
     unsigned m_renderedMeshCount;

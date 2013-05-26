@@ -56,6 +56,7 @@
 #include "Primitives.h"
 #include "Particles.h"
 #include "ShadowMap.h"
+#include "VolumetricLight.h"
 #include "ParallelScene.h"
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"

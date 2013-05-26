@@ -27,15 +27,16 @@ class ShadowMapCameraSetup
 {
 public:
     virtual Vector3f setupCamera(SceneManager*, Light*) = 0;
+    virtual Matrix4 setupMatrix(SceneManager*, Light*) = 0;
 };
 
 class ShadowMap
 {
 public:
-    ShadowMap(SceneManager* sceneManager);
+    ShadowMap(Light* light);
     virtual ~ShadowMap();
 
-    void begin(Light* l);
+    void begin();
     void end();
 
     void bind();
@@ -54,9 +55,6 @@ public:
     void setFrameSize(Vector2i size);
     Vector2i getFrameSize() const;
 
-    void setEnabled(bool enabled);
-    bool isEnabled() const;
-
     void setBlurPass(int blurPass);
     int getBlurPass() const;
 
@@ -74,13 +72,14 @@ private:
     float m_intensity;
 
     SceneManager* m_sceneManager;
+    Light* m_light;
+    
     ShadowMapCameraSetup* m_cameraSetup;
     ppe::BlurEffect* m_blur;
     Rtt* m_depthBuffer;
     Rtt* m_shadowBuffer;
     Vector2i m_frameSize;
     Shader m_shader;
-    bool m_enabled;
     bool m_shaderHandled;
 };
 

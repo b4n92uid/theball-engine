@@ -58,6 +58,7 @@ public:
 
     /// Matrice du noeud
     void setMatrix(const Matrix4& matrix);
+    Matrix4 getMatrix() const;
     void mulMatrix(const Matrix4& matrix);
 
     void setScale(Vector3f scale);
@@ -68,9 +69,6 @@ public:
 
     void setPos(Vector3f pos);
     Vector3f getPos() const;
-
-    Matrix4& getMatrix();
-    Matrix4 getMatrix() const;
 
     Matrix4 getAbsoluteMatrix(bool includeThis = true) const;
 

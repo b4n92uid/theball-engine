@@ -478,7 +478,7 @@ void Mesh::bindTexture(unsigned layer, Texture texture, TextureApply settings)
 {
     unsigned id = GL_TEXTURE0 + layer;
 
-    // Animation de la texture par modification des coordonés UV
+    // Animation de la texture par modification des coordonï¿½s UV
     if(settings.clipped)
         animateTexture(layer, texture, settings);
 
@@ -506,14 +506,17 @@ void Mesh::bindTexture(unsigned layer, Texture texture, TextureApply settings)
     }
 }
 
-struct ShaderBind
+class ShaderBind
 {
-    Mesh* mesh;
+public:
+    MeshParallelScene* scene;
     Material* material;
     Shader& shader;
+    Mesh* mesh;
 
-    ShaderBind(Mesh* mesh, Material* material, Shader& shader_) : shader(shader_)
+    ShaderBind(MeshParallelScene* scene, Mesh* mesh, Material* material, Shader& shader_) : shader(shader_)
     {
+        this->scene = scene;
         this->material = material;
         this->mesh = mesh;
     }
@@ -558,39 +561,37 @@ struct ShaderBind
         shader.uniform(location, (int) cl.getEsplanedTime(false));
     }
 
-    void bindProjMatrix(std::string location)
-    {
-        ShadowMap* smap = mesh->getSceneManager()->getShadowMap();
-        shader.uniform(location, smap->getProjectionMatrix());
-    }
-
-    void bindViewMatrix(std::string location)
-    {
-        ShadowMap* smap = mesh->getSceneManager()->getShadowMap();
-        shader.uniform(location, smap->getViewMatrix());
-    }
-
     void bindNodeMatrix(std::string location)
     {
         shader.uniform(location, mesh->getMatrix());
     }
 
+    void bindLightProjMatrix(std::string location)
+    {
+        Light* light = scene->light(0);
+        ShadowMap* smap = light->getShadowMap();
+        shader.uniform(location, smap->getProjectionMatrix());
+    }
+
+    void bindLightViewMatrix(std::string location)
+    {
+        Light* light = scene->light(0);
+        ShadowMap* smap = light->getShadowMap();
+        shader.uniform(location, smap->getViewMatrix());
+    }
+
     void bindShadowIntensity(std::string location)
     {
-        ShadowMap* smap = mesh->getSceneManager()->getShadowMap();
+        Light* light = scene->light(0);
+        ShadowMap* smap = light->getShadowMap();
         shader.uniform(location, smap->getIntensity());
     }
 
     void bindShadowBlur(std::string location)
     {
-        ShadowMap* smap = mesh->getSceneManager()->getShadowMap();
+        Light* light = scene->light(0);
+        ShadowMap* smap = light->getShadowMap();
         shader.uniform(location, smap->getBlurPass());
-    }
-
-    void bindShadowEnable(std::string location)
-    {
-        ShadowMap* smap = mesh->getSceneManager()->getShadowMap();
-        shader.uniform(location, smap->isEnabled());
     }
 
     void assignExp(string location, string exp)
@@ -611,12 +612,11 @@ struct ShaderBind
             callmap["tangent"] = boost::bind(&ShaderBind::bindTangent, this, _1);
             callmap["aocc"] = boost::bind(&ShaderBind::bindAOCC, this, _1);
             callmap["timestamp"] = boost::bind(&ShaderBind::bindTimestamp, this, _1);
-            callmap["light_projection_matrix"] = boost::bind(&ShaderBind::bindProjMatrix, this, _1);
-            callmap["light_view_matrix"] = boost::bind(&ShaderBind::bindViewMatrix, this, _1);
+            callmap["light_projection_matrix"] = boost::bind(&ShaderBind::bindLightProjMatrix, this, _1);
+            callmap["light_view_matrix"] = boost::bind(&ShaderBind::bindLightViewMatrix, this, _1);
             callmap["node_matrix"] = boost::bind(&ShaderBind::bindNodeMatrix, this, _1);
             callmap["shadow_intensity"] = boost::bind(&ShaderBind::bindShadowIntensity, this, _1);
             callmap["shadow_blur"] = boost::bind(&ShaderBind::bindShadowBlur, this, _1);
-            callmap["shadow_enable"] = boost::bind(&ShaderBind::bindShadowEnable, this, _1);
 
             if(callmap.count(exp))
                 callmap[exp](location);
@@ -636,7 +636,7 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
     // Request uniform for general purpose
     if(usedshader.isEnable())
     {
-        ShaderBind callbind(this, material, usedshader);
+        ShaderBind callbind(m_parallelScene, this, material, usedshader);
 
         Shader::bind(usedshader);
 
@@ -678,7 +678,9 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
                     unsigned layer = material->m_textures.size();
                     usedshader.uniform(u.first, (int) layer);
 
-                    Texture shadowMap = m_sceneManager->getShadowMap()->getDepthMap();
+                    Light* light = m_parallelScene->light(0);
+                    ShadowMap* smap = light->getShadowMap();
+                    Texture shadowMap = smap->getDepthMap();
                     bindTexture(layer, shadowMap, TextureApply());
                 }
             }
@@ -703,8 +705,8 @@ void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned co
         /* Normal Scaling ------------------------------------------------------
          *
          * Ici on divise les normale des vertex par le Scale de la matrice du noeud
-         * pour les rendre unitaire (normaliser), afin d'éviter un calcule
-         * incorrect de la lumière lors d'une mise a l'échelle sur la matrice
+         * pour les rendre unitaire (normaliser), afin d'ï¿½viter un calcule
+         * incorrect de la lumiï¿½re lors d'une mise a l'ï¿½chelle sur la matrice
          */
 
         tbe::Vector3f position, scale;
@@ -1064,16 +1066,65 @@ void Mesh::renderShadow()
     if(!m_hardwareBuffer || m_hardwareBuffer->isEmpty() || !m_enable || !m_visible)
         return;
 
-    beginRenderingMatrix();
-    m_hardwareBuffer->bindBuffer();
+    glPushAttrib(GL_ENABLE_BIT);
 
     glEnable(GL_DEPTH_TEST);
     glDepthMask(true);
 
-    m_hardwareBuffer->render(Material::TRIANGLES, 0, m_hardwareBuffer->getVertexCount());
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.5);
+
+    glDisable(GL_BLEND);
+    glDisable(GL_LIGHTING);
+
+    glColor4f(0, 0, 0, 1);
+
+    beginRenderingMatrix();
+    m_hardwareBuffer->bindBuffer();
+
+    for(unsigned i = 0; i < m_renderProess.size(); i++)
+    {
+        Material* material = m_materials[m_renderProess[i].applyMaterial];
+        unsigned offset = m_renderProess[i].offset;
+        unsigned count = m_renderProess[i].size;
+
+        BOOST_FOREACH(Texture::Map::value_type itt, material->m_textures)
+        {
+            if(!itt.second)
+                continue;
+
+            Texture texture = material->m_textures[itt.first];
+            TextureApply settings = material->m_texApply[itt.first];
+
+            bindTexture(itt.first, texture, settings);
+        }
+
+        m_hardwareBuffer->render(Material::TRIANGLES, offset, count);
+
+        BOOST_FOREACH(Texture::Map::value_type itt, material->m_textures)
+        {
+            if(!itt.second)
+                continue;
+
+            unsigned layer = GL_TEXTURE0 + itt.first;
+
+            glClientActiveTexture(layer);
+            m_hardwareBuffer->bindTexture(false);
+
+            glActiveTexture(layer);
+            glDisable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, 0);
+        }
+
+        // Don't forger to reactivate texture unit 0 for future use !!!
+        glClientActiveTexture(GL_TEXTURE0);
+        glActiveTexture(GL_TEXTURE0);
+    }
 
     m_hardwareBuffer->bindBuffer(false);
     endRenderingMatrix();
+
+    glPopAttrib();
 }
 
 void Mesh::process()

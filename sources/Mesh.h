@@ -15,7 +15,6 @@ namespace tbe
 {
 namespace scene
 {
-
 class MeshParallelScene;
 
 /**

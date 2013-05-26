@@ -159,6 +159,8 @@ void SkyBox::initRender()
     glVertex3f(-size.x, -size.y, size.z);
     glEnd();
 
+    m_textures[5].use(false);
+
     glEndList();
 }
 

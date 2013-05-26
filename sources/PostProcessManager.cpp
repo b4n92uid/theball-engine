@@ -128,7 +128,7 @@ void PostProcessManager::deletePostEffect(Effect* effect)
     }
 }
 
-void PostProcessManager::beginPostProcess()
+void PostProcessManager::beginPostProcess(float w, float h)
 {
     glPushAttrib(GL_ENABLE_BIT | GL_CURRENT_BIT);
 
@@ -141,7 +141,7 @@ void PostProcessManager::beginPostProcess()
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    gluOrtho2D(0, 1, 0, 1);
+    gluOrtho2D(0, w, 0, h);
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -237,34 +237,28 @@ bool Effect::isEnable() const
 
 // Layer -----------------------------------------------------------------------
 
-Layer::Layer(Vector2f pos, Vector2f size)
+Layer::Layer(Vector2f pos, Vector2f size, Vector4f color)
 {
-    //    float vertexs[8] = {0, 0, 1, 0, 0, 1, 1, 1};
     Vector2f pos2 = pos + size;
-    float vertexs[16] = {
-        pos.x, pos.y, pos2.x, pos.y, pos.x, pos2.y, pos2.x, pos2.y,
-        0, 0, 1, 0, 0, 1, 1, 1
-    };
 
-    glGenBuffers(1, &m_renderId);
-    glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
-    glBufferData(GL_ARRAY_BUFFER, 16 * sizeof (float), vertexs, GL_STATIC_DRAW);
+    Vertex vertices[4];
+
+    vertices[0] = Vertex(pos.x, pos.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 0, 0);
+    vertices[1] = Vertex(pos2.x, pos.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 1, 0);
+    vertices[2] = Vertex(pos.x, pos2.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 0, 1);
+    vertices[3] = Vertex(pos2.x, pos2.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 1, 1);
+
+    m_renderId.addVertex(vertices, 4);
+    m_renderId.compile();
 }
 
-Layer::~Layer()
-{
-    glDeleteBuffers(1, &m_renderId);
-}
+Layer::~Layer() { }
 
 void Layer::begin()
 {
-    glBindBuffer(GL_ARRAY_BUFFER, m_renderId);
-
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(2, GL_FLOAT, 0, 0);
-
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glTexCoordPointer(2, GL_FLOAT, 0, (void*) (8 * sizeof (float)));
+    m_renderId.bindBuffer(true, 2);
+    m_renderId.bindTexture(true);
+    m_renderId.bindColor(true);
 }
 
 void Layer::draw(bool autoSetup)
@@ -272,7 +266,7 @@ void Layer::draw(bool autoSetup)
     if(autoSetup)
         begin();
 
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    m_renderId.render(GL_TRIANGLE_STRIP, 0, 4);
 
     if(autoSetup)
         end();
@@ -280,8 +274,22 @@ void Layer::draw(bool autoSetup)
 
 void Layer::end()
 {
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    m_renderId.bindColor(false);
+    m_renderId.bindTexture(false);
+    m_renderId.bindBuffer(false);
+}
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+void Layer::bindTexture(unsigned layer)
+{
+    glActiveTexture(GL_TEXTURE0 + layer);
+    glClientActiveTexture(GL_TEXTURE0 + layer);
+    glEnable(GL_TEXTURE);
+}
+
+void Layer::unbindTexture(unsigned layer)
+{
+    glActiveTexture(GL_TEXTURE0 + layer);
+    glClientActiveTexture(GL_TEXTURE0 + layer);
+    glDisable(GL_TEXTURE);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }

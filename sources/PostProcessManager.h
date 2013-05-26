@@ -32,7 +32,7 @@ namespace ppe
 class Layer
 {
 public:
-    Layer(Vector2f pos = 0, Vector2f size = 1);
+    Layer(Vector2f pos = 0, Vector2f size = 1, Vector4f color = 1);
     ~Layer();
 
     void draw(bool autoSetup = true);
@@ -40,8 +40,11 @@ public:
     void begin();
     void end();
 
+    void bindTexture(unsigned layer);
+    void unbindTexture(unsigned layer);
+
 protected:
-    GLuint m_renderId;
+    HardwareBuffer m_renderId;
 };
 
 /**
@@ -99,7 +102,7 @@ public:
     void deletePostEffect(std::string name);
     void deletePostEffect(Effect* effect);
 
-    static void beginPostProcess();
+    static void beginPostProcess(float w = 1, float h = 1);
     static void endPostProcess();
 
     Rtt* getRtt() const;

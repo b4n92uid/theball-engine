@@ -14,6 +14,7 @@
 #include "Ball3DMesh.h"
 #include "ObjMesh.h"
 #include "ShadowMap.h"
+#include "VolumetricLight.h"
 
 using namespace tbe;
 using namespace tbe::scene;
@@ -53,10 +54,9 @@ struct DepthSortMeshFunc
     Vector3f camPos;
 };
 
-void MeshParallelScene::drawShadow(bool cast)
+void MeshParallelScene::drawShadow()
 {
     Frustum* frustum = m_sceneManager->getFrustum();
-    ShadowMap* shadowMap = m_sceneManager->getShadowMap();
 
     for(Mesh::Array::iterator it = m_nodes.begin(); it != m_nodes.end(); ++it)
     {
@@ -68,17 +68,8 @@ void MeshParallelScene::drawShadow(bool cast)
         if(m_enableFrustumTest && !frustum->isInside(node))
             continue;
 
-        if(cast && !node->isCastShadow())
+        if(!node->isCastShadow())
             continue;
-
-        if(!shadowMap->isShaderHandled())
-        {
-            if(!cast && !node->isReceiveShadow())
-                continue;
-
-            if(!cast) // Receive
-                shadowMap->bindMatrix(node->getMatrix());
-        }
 
         node->renderShadow();
     }
@@ -118,52 +109,74 @@ void MeshParallelScene::drawScene()
 
 void MeshParallelScene::render()
 {
+    using namespace std;
+
     if(!m_enable)
         return;
 
-    ShadowMap* shadowMap = m_sceneManager->getShadowMap();
+    vector<ShadowMap*> shadowmaps;
+    vector<VolumetricLight*> volumelights;
 
-    if(shadowMap->isEnabled())
+    // Process ShadowMap
+
+    BOOST_FOREACH(Light* l, m_lightNodes)
     {
-        bool empty = true;
+        if(l->getType() != Light::DIRI || !l->isCastShadow() || !l->isEnable())
+            continue;
 
-        BOOST_FOREACH(Light* l, m_lightNodes)
-        {
-            if(l->getType() != Light::DIRI || !l->isCastShadow() || !l->isEnable())
-                continue;
+        ShadowMap* shadowMap = l->getShadowMap();
 
-            // First pass
-            shadowMap->begin(l);
-            drawShadow(true);
-            shadowMap->end();
+        // First pass
+        shadowMap->begin();
+        drawShadow();
+        shadowMap->end();
 
-            if(!shadowMap->isShaderHandled())
-            {
-                // Second pass
-                shadowMap->bind();
-                drawShadow(false);
-                shadowMap->unbind();
-
-                // Third pass
-                drawScene();
-                shadowMap->render();
-            }
-            else
-            {
-                drawScene();
-            }
-
-            // Support of multiple light for shadwing soon...
-            empty = false;
-            break;
-        }
-
-        if(empty)
-            drawScene();
+        shadowmaps.push_back(shadowMap);
     }
-    else
-        drawScene();
 
+    // Process VolumetricLight
+
+    BOOST_FOREACH(Light* l, m_lightNodes)
+    {
+        if(!l->isEnable() || !l->isCastRays())
+            continue;
+
+        VolumetricLight* vl = l->getVolumeLight();
+
+        vl->begin();
+
+        vl->drawLight();
+        drawShadow();
+
+        vl->end();
+
+        volumelights.push_back(vl);
+    }
+
+    // Render Scene
+    drawScene();
+
+    // Post-Process ShadowMap
+
+    BOOST_FOREACH(ShadowMap* shadowMap, shadowmaps)
+    {
+        if(shadowMap->isShaderHandled())
+            continue;
+
+        shadowMap->bind();
+        drawShadow();
+        shadowMap->unbind();
+
+        shadowMap->render();
+    }
+
+
+    // Post-Process VolumetricLight
+
+    BOOST_FOREACH(VolumetricLight* vl, volumelights)
+    {
+        vl->render();
+    }
 }
 
 Vector3f::Array MeshParallelScene::rayCast(Vector3f start, Vector3f dir)
@@ -301,6 +314,11 @@ unsigned MeshParallelScene::getFrustumCullingCount() const
 unsigned MeshParallelScene::getRenderedMeshCount() const
 {
     return m_renderedMeshCount;
+}
+
+Light* MeshParallelScene::light(int index)
+{
+    return m_lightNodes.at(index);
 }
 
 void MeshParallelScene::registerLight(Light* light)

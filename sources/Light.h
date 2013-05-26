@@ -15,10 +15,11 @@ namespace tbe
 namespace scene
 {
 
-class LightingTechnique;
+class ShadowMap;
+class VolumetricLight;
 
 /**
- * \brief Représentation d'un lumieres
+ * \brief ReprÃ©sentation d'un lumieres
  */
 class Light : public Node
 {
@@ -60,7 +61,18 @@ public:
     void setCastShadow(bool castShadow);
     bool isCastShadow() const;
 
+    void setCastRays(bool castRays);
+    bool isCastRays() const;
+
+    void setShadowMap(ShadowMap* shadowMap);
+    ShadowMap* getShadowMap() const;
+
+    void setVolumeLight(VolumetricLight* volumeLight);
+    VolumetricLight* getVolumeLight() const;
+
     rtree serialize(std::string root);
+
+    MeshParallelScene* getParallelScene() const;
 
     typedef std::vector<scene::Light*> Array;
 
@@ -72,6 +84,7 @@ protected:
     Vector3f m_spotDirection; // Sdli
 
     bool m_castShadow;
+    bool m_castRays;
 
     float m_spotExponent; // Srli
     float m_spotCutoff; // Crli
@@ -86,6 +99,9 @@ protected:
     Type m_type;
 
     MeshParallelScene* m_parallelScene;
+
+    ShadowMap* m_shadowMap;
+    VolumetricLight* m_volumeLight;
 
 private:
     void copy(const Light& orig);

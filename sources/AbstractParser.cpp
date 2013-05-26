@@ -16,6 +16,8 @@
 #include "MapMark.h"
 #include "ObjMesh.h"
 #include "Ball3DMesh.h"
+#include "ShadowMap.h"
+#include "VolumetricLight.h"
 
 using namespace std;
 using namespace tbe;
@@ -439,9 +441,11 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
 
     else if(iclass == "Light")
     {
+        rtree rclass = data.get_child("class");
+
         Light* light = m_classFactory ? m_classFactory->newLight(m_meshScene) : new Light(m_meshScene);
 
-        string type = data.get<string>("class.type");
+        string type = rclass.get<string>("type");
 
         if(type == "diri")
         {
@@ -451,7 +455,7 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
         else if(type == "point")
         {
             light->setType(Light::POINT);
-            light->setRadius(data.get<float>("class.radius", 1.0));
+            light->setRadius(rclass.get<float>("radius", 1.0));
         }
 
         else
@@ -462,10 +466,38 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
 
         VectorTranslator<Vector4f> v4tr;
 
-        light->setAmbient(data.get<Vector4f>("class.ambient", Vector4f(0), v4tr));
-        light->setDiffuse(data.get<Vector4f>("class.diffuse", Vector4f(1), v4tr));
-        light->setSpecular(data.get<Vector4f>("class.specular", Vector4f(0), v4tr));
-        light->setCastShadow(data.get<bool>("class.castShadow", true));
+        light->setAmbient(rclass.get<Vector4f>("ambient", Vector4f(0), v4tr));
+        light->setDiffuse(rclass.get<Vector4f>("diffuse", Vector4f(1), v4tr));
+        light->setSpecular(rclass.get<Vector4f>("specular", Vector4f(0), v4tr));
+        light->setCastShadow(rclass.get<bool>("castShadow", true));
+        light->setCastRays(rclass.get<bool>("castRays", false));
+
+        if(rclass.count("shadowMap"))
+        {
+            ShadowMap* smap = new ShadowMap(light);
+
+            smap->setFrameSize(rclass.get<Vector2i>("shadowMap.size", Vector2i(512)));
+            smap->setBlurPass(rclass.get<int>("shadowMap.blur", 0));
+            smap->setIntensity(rclass.get<float>("shadowMap.intensity", 0.5));
+            smap->setShaderHandled(rclass.get<bool>("shadowMap.shader", true));
+
+            light->setShadowMap(smap);
+        }
+
+        if(rclass.count("volumeLight"))
+        {
+            VolumetricLight* vlight = new VolumetricLight(light);
+            vlight->setFrameSize(rclass.get<Vector2i>("volumeLight.frameSize", Vector2i(512)));
+            vlight->setLightSize(rclass.get<Vector2f>("volumeLight.lightSize", Vector2f(64)));
+            vlight->setOffset(rclass.get<Vector3f>("volumeLight.offset", Vector3f(0)));
+
+            boost::optional<string> noiselayer = rclass.get_optional<string>("volumeLight.noiseLayer");
+
+            if(noiselayer)
+                vlight->setNoiseLayer(resolve(*noiselayer));
+
+            light->setVolumeLight(vlight);
+        }
 
         buildInherited(data, parent, light);
 
