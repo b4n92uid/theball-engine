@@ -119,7 +119,7 @@ void FrameBufferObject::attach(unsigned compenent)
         if(m_colorRenderBuffer)
             glDeleteRenderbuffersEXT(1, &m_colorRenderBuffer);
 
-        // Génération buffer de rendue
+        // GÃ©nÃ©ration buffer de rendue
         glGenRenderbuffersEXT(1, &m_colorRenderBuffer);
         glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, m_colorRenderBuffer);
         glRenderbufferStorageMultisampleEXT(GL_RENDERBUFFER_EXT, m_multiSamplesCount, GL_RGBA, m_frameSize.x, m_frameSize.y);
@@ -133,7 +133,7 @@ void FrameBufferObject::attach(unsigned compenent)
         if(m_depthRenderBuffer)
             glDeleteRenderbuffersEXT(1, &m_depthRenderBuffer);
 
-        // Génération buffer de rendue
+        // GÃ©nÃ©ration buffer de rendue
         glGenRenderbuffersEXT(1, &m_depthRenderBuffer);
         glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, m_depthRenderBuffer);
         // NOTE GL_DEPTH_COMPONENT16 fix for ati cards (def: GL_DEPTH_COMPONENT)
@@ -149,7 +149,7 @@ void FrameBufferObject::attach(unsigned compenent)
         if(m_colorTextureId)
             m_colorTextureId.remove();
 
-        // Génération buffer de rendue
+        // GÃ©nÃ©ration buffer de rendue
         m_colorTextureId.build(m_frameSize);
 
         m_depthTextureId.setFiltring(Texture::LINEAR);
@@ -168,7 +168,7 @@ void FrameBufferObject::attach(unsigned compenent)
         if(m_depthTextureId)
             m_depthTextureId.remove();
 
-        // Génération buffer de rendue
+        // GÃ©nÃ©ration buffer de rendue
         m_depthTextureId.build(m_frameSize, 0, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_FLOAT);
 
         m_depthTextureId.setFiltring(Texture::LINEAR);

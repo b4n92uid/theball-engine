@@ -37,8 +37,8 @@ struct TextureApply
 };
 
 /**
- * \brief Représentation d'un matériau
- * Stock les propriétés de rendue d'un maillage
+ * \brief ReprÃ©sentation d'un matÃ©riau
+ * Stock les propriÃ©tÃ©s de rendue d'un maillage
  */
 class Material
 {
@@ -150,12 +150,12 @@ public:
     float getOpacity() const;
 
     /**
-     * Spécifier la méthode de mélange utiliser lors du multi-texturing
+     * SpÃ©cifier la mÃ©thode de mÃ©lange utiliser lors du multi-texturing
      */
     void setTextureBlend(unsigned type, unsigned index = 0);
 
     /**
-     * Renvois la méthode de mélange utiliser lors du multi-texturing
+     * Renvois la mÃ©thode de mÃ©lange utiliser lors du multi-texturing
      */
     unsigned getTextureBlend(unsigned index = 0);
 

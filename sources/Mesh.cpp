@@ -130,6 +130,8 @@ void Mesh::clear()
 
 void Mesh::fetchMaterials(const Mesh& copy)
 {
+    m_attachMaterial = copy.m_attachMaterial;
+
     for(Material::Map::const_iterator it = m_materials.begin(); it != m_materials.end(); ++it)
         delete it->second;
 
@@ -152,6 +154,7 @@ void Mesh::fetchVertexes(const Mesh& copy)
     m_computeNormals = copy.m_computeNormals;
     m_computeTangent = copy.m_computeTangent;
     m_computeAocc = copy.m_computeAocc;
+    m_attachMaterial = copy.m_attachMaterial;
 
     m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
 
@@ -174,6 +177,7 @@ void Mesh::shareVertexes(const Mesh& copy)
     m_computeNormals = copy.m_computeNormals;
     m_computeTangent = copy.m_computeTangent;
     m_computeAocc = copy.m_computeAocc;
+    m_attachMaterial = copy.m_attachMaterial;
 
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
@@ -198,6 +202,7 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_computeNormals = copy.m_computeNormals;
     m_computeTangent = copy.m_computeTangent;
     m_computeAocc = copy.m_computeAocc;
+    m_attachMaterial = copy.m_attachMaterial;
 
     if(copy.m_hardwareBuffer)
         m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
@@ -827,7 +832,6 @@ void Mesh::beginRenderingProperty(Material* material, unsigned offset, unsigned 
     {
         glEnable(GL_ALPHA_TEST);
         glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
-        glEnable(GL_MULTISAMPLE);
         glAlphaFunc(GL_GREATER, material->m_alphaThershold);
     }
 
@@ -1087,6 +1091,13 @@ void Mesh::renderShadow()
         Material* material = m_materials[m_renderProess[i].applyMaterial];
         unsigned offset = m_renderProess[i].offset;
         unsigned count = m_renderProess[i].size;
+
+        // If we have a back face then cull the front
+        if(material->m_renderFlags & Material::BACKFACE_CULL)
+        {
+            glEnable(GL_CULL_FACE);
+            glCullFace(GL_FRONT);
+        }
 
         BOOST_FOREACH(Texture::Map::value_type itt, material->m_textures)
         {

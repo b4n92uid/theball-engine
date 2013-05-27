@@ -193,8 +193,11 @@ void ShadowMap::begin()
     glColorMask(0, 0, 0, 1);
 
     Camera* cam = m_sceneManager->getCurCamera();
+
     float length = m_light->getParallelScene()->getSceneAabb().getLength() / 4.0f;
-    Vector3f centerView = cam->getPos() + cam->getTarget() * (length / 2);
+    length /= 3;
+
+    Vector3f centerView = cam->getPos() + cam->getTarget() * length;
 
     if(m_cameraSetup)
         centerView = m_cameraSetup->setupCamera(m_sceneManager, m_light);
@@ -205,7 +208,7 @@ void ShadowMap::begin()
     if(m_cameraSetup)
         m_projectionMatrix = m_cameraSetup->setupMatrix(m_sceneManager, m_light);
     else
-        m_projectionMatrix = math::orthographicMatrix(-length, length, -length, length, -length, length);
+        m_projectionMatrix = math::orthographicMatrix(-length * 2, length * 2, -length, length, -length, length);
 
     m_viewMatrix = math::lookAt(pos, target, Vector3f(0.0f, 1.0f, 0.0f));
 

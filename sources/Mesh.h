@@ -18,8 +18,8 @@ namespace scene
 class MeshParallelScene;
 
 /**
- * \brief Représentation d'un Mailliage
- * inclus des fonctions de calcules additinelle, de lancé de rayon
+ * \brief ReprÃ©sentation d'un Mailliage
+ * inclus des fonctions de calcules additinelle, de lancÃ© de rayon
  * et d'affictation de materiaux
  */
 class Mesh : public Node
@@ -29,10 +29,10 @@ public:
     Mesh(const Mesh& copy);
     ~Mesh();
 
-    /// Opérateur d'assignation
+    /// OpÃ©rateur d'assignation
     Mesh & operator=(const Mesh& copy);
 
-    /// Méthode polymorphique de clonage du noueud
+    /// MÃ©thode polymorphique de clonage du noueud
     Mesh* clone();
 
     void clear();
@@ -63,7 +63,7 @@ public:
     bool isComputeTangent() const;
     bool isComputeNormals() const;
 
-    /// Renvois la position y des coordonnés x z dans le repere local du mesh
+    /// Renvois la position y des coordonnÃ©s x z dans le repere local du mesh
     bool findFloor(float getx, float& sety, float getz, bool global);
 
     /// Ajout un materieux au noeud
@@ -91,10 +91,10 @@ public:
     /// Supprime le materieux name
     void deleteMaterial(std::string name);
 
-    /// Déttache le materieux name du noeud
+    /// DÃ©ttache le materieux name du noeud
     Material* releaseMaterial(std::string name);
 
-    /// Contien les coordonnés pour l'application d'une texture
+    /// Contien les coordonnÃ©s pour l'application d'une texture
     void setWithTexCoord(bool withTexCoord);
     bool isWithTexCoord() const;
 
