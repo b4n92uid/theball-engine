@@ -15,9 +15,9 @@
 #include "Particles.h"
 #include "MapMark.h"
 #include "ObjMesh.h"
-#include "Ball3DMesh.h"
 #include "ShadowMap.h"
 #include "VolumetricLight.h"
+#include "WaterParallelScene.h"
 
 using namespace std;
 using namespace tbe;
@@ -154,6 +154,12 @@ void SceneParser::build()
     {
         m_markScene = new MapMarkParallelScene;
         m_sceneManager->addParallelScene(m_markScene);
+    }
+
+    if(!m_waterScene)
+    {
+        m_waterScene = new WaterParallelScene;
+        m_sceneManager->addParallelScene(m_waterScene);
     }
 
     rtree head = m_scheme.get_child("Scene");

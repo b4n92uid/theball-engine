@@ -25,7 +25,7 @@ const char* vertexShader =
 
         "void main()\n"
         "{\n"
-        "    // CoordonÈs de projection\n"
+        "    // Coordon√©s de projection\n"
         "    projectionCoordinates = gl_ModelViewProjectionMatrix * gl_Vertex;\n"
 
         "    gl_TexCoord[0].xy   = gl_MultiTexCoord0.xy * uvRepeat;\n"
@@ -35,7 +35,7 @@ const char* vertexShader =
         "    // Vecteur vertex -> lumiere (Lumiere dirictionelle)\n"
         "    light = gl_LightSource[0].position.xyz;\n"
 
-        "    // Vecteur vertex -> camÈra\n"
+        "    // Vecteur vertex -> cam√©ra\n"
         "    eye = -vVertex;\n"
 
         "    // Il faut se mettre dans la TBN\n"
@@ -80,23 +80,23 @@ const char* fragmentShader =
         "    vec3 n2 = texture2D(normalMap, gl_TexCoord[0].st + vec2(-timer, timer) * speed).xyz * 2.0 - 1.0;\n"
         "    vec3 N = normalize(n1 + n2);\n"
 
-        "    // -- CoorodonÈ de texture de projection\n"
+        "    // -- Coorodon√© de texture de projection\n"
         "    vec2 projCoord = projectionCoordinates.xy / projectionCoordinates.w;\n"
         "    projCoord = (projCoord + 1.0) * 0.5;\n"
         "    projCoord = clamp(projCoord, 0.0, 1.0);\n"
         "    projCoord += N.xy * deform;"
 
-        "    // -- IntensitÈ spÈculaire\n"
+        "    // -- Intensit√© sp√©culaire\n"
         "    vec3 L = normalize(light);\n"
         "    vec3 E = normalize(eye);\n"
 
         "    // Le reflet du vecteur incident 'lumiere' sur la normal de la surface\n"
         "    vec3 ref = normalize(reflect(-L, N));\n"
 
-        "    // L'angle entre la camÈra et le reflet de la lumiere\n"
+        "    // L'angle entre la cam√©ra et le reflet de la lumiere\n"
         "    float stemp = clamp(dot(E, ref), 0.0, 1.0);\n"
 
-        "    // IntensitÈ de la spÈculaire\n"
+        "    // Intensit√© de la sp√©culaire\n"
         "    float ispecular = pow(stemp, 16.0);\n"
 
         "    // -- Calcule de Reflection & Refraction\n"
@@ -167,11 +167,11 @@ Water::Water(const Water& copy)
     m_shader.uniform("refractionMap", 2);
     m_shader.use(false);
 
-    m_reflection.setFrameSize(128);
+    m_reflection.setFrameSize(512);
     m_reflection.setCaptureColor(true);
     m_reflection.setCaptureDepth(true);
 
-    m_refraction.setFrameSize(128);
+    m_refraction.setFrameSize(512);
     m_refraction.setCaptureColor(true);
     m_refraction.setCaptureDepth(true);
 
@@ -361,9 +361,6 @@ void Water::process()
 
 void Water::render()
 {
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     m_buffer.bindBuffer();
     m_buffer.bindTexture();
 
@@ -464,7 +461,7 @@ rtree Water::serialize(std::string root)
     if(!m_shader.getShaderFile().empty())
         scheme.put("class.shader", tools::relativizePath(m_shader.getShaderFile(), root));
 
-    scheme.put("class.uvRepeat", tools::numToStr(m_uvRepeat));
+    scheme.put("class.uvscale", tools::numToStr(m_uvRepeat));
     scheme.put("class.blend", tools::numToStr(m_blend));
     scheme.put("class.deform", tools::numToStr(m_deform));
     scheme.put("class.speed", tools::numToStr(m_speed));

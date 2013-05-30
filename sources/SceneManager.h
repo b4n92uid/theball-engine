@@ -33,7 +33,7 @@ class VolumetricLight;
  * inclus des fonctions de gestion des scenes parallel,
  * des lumiers et encapsule les gestionnaires Skybox, Fog
  * et du test du frustum culling ansi
- * que les propriétés relative au rendue en perspective
+ * que les propriÃ©tÃ©s relative au rendue en perspective
  */
 
 class SceneManager
@@ -49,7 +49,7 @@ public:
     /// Supprime tout les scene paralleles
     void clearParallelScenes(bool deleteThem = true);
 
-    /// Supprime tout les caméras
+    /// Supprime tout les camÃ©ras
     void clearCameras();
 
     /// Vide tout la scene
@@ -61,21 +61,21 @@ public:
     /// Ajouter une sous-scene
     void addParallelScene(ParallelScene* scene);
 
-    /// Accès a une sous-scene
+    /// AccÃ©s a une sous-scene
     ParallelScene* getParallelScene(unsigned index);
 
     /// Destruite une scene parallele
     void deleteParallelScene(unsigned index);
     void deleteParallelScene(ParallelScene* scene);
 
-    /// Détache une scene parallele du gestionnaire
+    /// DÃ©tache une scene parallele du gestionnaire
     ParallelScene* releaseParallelScene(unsigned index);
     void releaseParallelScene(ParallelScene* scene);
 
     Iterator<ParallelScene*> getParallelSceneIterator();
 
     /// Rendue
-    void render(bool setupView = true);
+    void render();
 
     // Node --------------------------------------------------------------------
 
@@ -89,7 +89,7 @@ public:
     /// Specifier la camera courante
     void setCurCamera(Camera* camera);
 
-    /// Accès a la camera courante
+    /// AccÃ©s a la camera courante
     Camera* getCurCamera();
 
     void deleteCamera(Camera* camera);
@@ -146,7 +146,7 @@ public:
     /// Picking 2D->3D, dans le cas d'utilisation des PPE
     Vector3f screenToWorld(Vector2i target, Rtt* rtt);
 
-    /// Calcule de la matrice de rotation d'un billboard (face a la caméra)
+    /// Calcule de la matrice de rotation d'un billboard (face a la camÃ©ra)
     Quaternion computeBillboard(Vector3f obj, Vector3f cam = 0, Vector2b diri = true);
 
 protected:

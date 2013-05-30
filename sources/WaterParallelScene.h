@@ -26,12 +26,12 @@ public:
     WaterParallelScene();
     ~WaterParallelScene();
 
-    void preRender();
-
+    void addOffscreenScene(ParallelScene*);
+    
     void render();
 
 private:
-    bool m_inPreRender;
+    std::vector<ParallelScene*> m_offscreenScene;
 };
 
 }

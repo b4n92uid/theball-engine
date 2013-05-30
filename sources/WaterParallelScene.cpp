@@ -6,48 +6,31 @@
  */
 
 #include "WaterParallelScene.h"
-#include "SceneManager.h"
+
+#include <boost/foreach.hpp>
+
+#include "Water.h"
 #include "Exception.h"
 #include "Tools.h"
-#include "Water.h"
+#include "SceneManager.h"
+#include "Skybox.h"
+#include "ShadowMap.h"
 
 using namespace tbe;
-using namespace tbe::scene;
+using namespace scene;
 
-WaterParallelScene::WaterParallelScene()
+WaterParallelScene::WaterParallelScene() { }
+
+WaterParallelScene::~WaterParallelScene() { }
+
+void WaterParallelScene::addOffscreenScene(ParallelScene* scene)
 {
-    m_inPreRender = false;
-}
-
-WaterParallelScene::~WaterParallelScene()
-{
-}
-
-void WaterParallelScene::preRender()
-{
-    m_inPreRender = true;
-
-    for(unsigned i = 0; i < m_nodes.size(); i++)
-    {
-        Water* water = m_nodes[i];
-
-        // Render Reflection
-        water->beginReflection();
-        m_sceneManager->render(false);
-        water->endReflection();
-
-        // Render Refraction
-        water->beginRefraction();
-        m_sceneManager->render(false);
-        water->endRefraction();
-    }
-
-    m_inPreRender = false;
+    m_offscreenScene.push_back(scene);
 }
 
 void WaterParallelScene::render()
 {
-    if(!m_enable || m_inPreRender)
+    if(!m_enable)
         return;
 
     glPushAttrib(GL_ENABLE_BIT);
@@ -57,9 +40,35 @@ void WaterParallelScene::render()
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
 
+    SkyBox* sky = m_sceneManager->getSkybox();
+    Camera* cam = m_sceneManager->getCurCamera();
+
+    // Disable some useless effects here !
+    ShadowMap::enable = VolumetricLight::enable = false;
+
     for(unsigned i = 0; i < m_nodes.size(); i++)
-        if(m_nodes[i]->isAttached())
-            m_nodes[i]->render();
+    {
+        Water* water = m_nodes[i];
+
+        if(!water->isAttached())
+            return;
+
+        // Render Reflection
+        water->beginReflection();
+        sky->render(cam->getPos());
+        BOOST_FOREACH(ParallelScene* scene, m_offscreenScene) scene->render();
+        water->endReflection();
+
+        // Render Refraction
+        water->beginRefraction();
+        sky->render(cam->getPos());
+        BOOST_FOREACH(ParallelScene* scene, m_offscreenScene) scene->render();
+        water->endRefraction();
+
+        water->render();
+    }
+
+    ShadowMap::enable = VolumetricLight::enable = true;
 
     glPopAttrib();
 }

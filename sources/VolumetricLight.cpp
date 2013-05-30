@@ -68,6 +68,8 @@ const char* fragmentshader =
         "gl_FragColor *= fadeout;"
         "}";
 
+bool VolumetricLight::enable = true;
+
 VolumetricLight::VolumetricLight(Light* light)
 {
     m_light = light;
@@ -139,7 +141,9 @@ void VolumetricLight::drawLight()
         ppe::PostProcessManager::beginPostProcess(m_frameSize.x, m_frameSize.y);
 
         Vector4f color = m_light->getDiffuse() * 0.5;
-        ppe::Layer lay(scrpos - m_lightSize / 2, m_lightSize, color);
+
+        static ppe::Layer lay;
+        lay.setGeometry(scrpos - m_lightSize / 2, m_lightSize, color);
         lay.draw();
 
         ppe::PostProcessManager::endPostProcess();
@@ -151,7 +155,7 @@ void VolumetricLight::render()
     ppe::PostProcessManager::beginPostProcess();
     Shader::bind(m_process);
 
-    ppe::Layer lay;
+    static ppe::Layer lay;
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE);

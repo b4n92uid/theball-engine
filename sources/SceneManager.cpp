@@ -107,25 +107,22 @@ void SceneManager::clearAll()
     m_fog->clear();
 }
 
-void SceneManager::render(bool setupView)
+void SceneManager::render()
 {
     glMatrixMode(GL_MODELVIEW);
 
-    if(setupView)
-        glLoadIdentity();
+    glLoadIdentity();
 
     // Camera et Skybox
     if(!m_cameras.empty() && m_currentCamera != m_cameras.end())
     {
-        if(setupView)
-        {
-            (*m_currentCamera)->look();
-            glGetFloatv(GL_MODELVIEW_MATRIX, m_viewMatrix);
-        }
+        Camera* cam = *m_currentCamera;
 
+        cam->look();
+        glGetFloatv(GL_MODELVIEW_MATRIX, m_viewMatrix);
         m_frustum->extractPlane();
 
-        m_skybox->render((*m_currentCamera)->getPos());
+        m_skybox->render(cam->getPos());
     }
 
     // Traitement Logique
@@ -335,11 +332,11 @@ Vector3f SceneManager::screenToWorld(Vector2i target)
 
     Vector3<double> pick;
 
-    // On récupére la matrice de visualisation
+    // On rÃ©cupÃ©re la matrice de visualisation
     glGetDoublev(GL_MODELVIEW_MATRIX, fModelview);
-    // On récupére la matrice de projection
+    // On rÃ©cupÃ©re la matrice de projection
     glGetDoublev(GL_PROJECTION_MATRIX, fProjection);
-    // On récupére le viewport
+    // On rÃ©cupÃ©re le viewport
     glGetIntegerv(GL_VIEWPORT, iViewport);
 
     fPosX = (float) target.x;

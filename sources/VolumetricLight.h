@@ -43,6 +43,8 @@ public:
     void setOffset(Vector3f offset);
     Vector3f getOffset() const;
 
+    static bool enable;
+
 private:
     SceneManager* m_scenemng;
     Light* m_light;

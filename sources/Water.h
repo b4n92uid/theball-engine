@@ -29,7 +29,7 @@ namespace scene
 class WaterParallelScene;
 
 /**
- * \brief Représentation d'un plan d'eau
+ * \brief ReprÃ©sentation d'un plan d'eau
  */
 class Water : public Node
 {
@@ -41,9 +41,9 @@ public:
     Water& operator=(const Water& copy);
 
     void render();
-    
+
     void process();
-    
+
     Water* clone();
 
     void setNormalMap(Texture normalMap);
@@ -84,7 +84,7 @@ protected:
     Shader m_shader;
     Rtt m_reflection;
     Rtt m_refraction;
-    
+
     ticks::Clock m_clock;
 
     Vector2f m_uvRepeat;

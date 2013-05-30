@@ -72,6 +72,8 @@ static const char vertex[] =
         "gl_Position = ftransform();"
         "}";
 
+bool ShadowMap::enable = true;
+
 ShadowMap::ShadowMap(Light* light)
 {
     m_light = light;
@@ -195,8 +197,6 @@ void ShadowMap::begin()
     Camera* cam = m_sceneManager->getCurCamera();
 
     float length = m_light->getParallelScene()->getSceneAabb().getLength() / 4.0f;
-    length /= 3;
-
     Vector3f centerView = cam->getPos() + cam->getTarget() * length;
 
     if(m_cameraSetup)
