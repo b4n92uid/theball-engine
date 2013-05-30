@@ -1,5 +1,6 @@
 #include "ObjMesh.h"
 #include "Tools.h"
+#include "MeshParallelScene.h"
 
 #include <fstream>
 #include <boost/lexical_cast.hpp>
@@ -138,7 +139,7 @@ void OBJMesh::open(const std::string& path)
                 if(applySize % 3 != 0)
                     cout << "/!\\ WARNING: Mesh may not be triangulated (" << curMaterial->getName() << ")" << endl;
 
-                applyMaterial(curMaterial, applyOffset, applySize);
+                addSubMesh(curMaterial, applyOffset, applySize);
             }
 
             applyOffset += applySize;
@@ -146,13 +147,12 @@ void OBJMesh::open(const std::string& path)
 
             try
             {
-                curMaterial = getMaterial(value);
+                curMaterial = m_parallelScene->getMaterialManager()->getMaterial(value);
             }
 
             catch(...)
             {
-                curMaterial = new Material;
-                addMaterial("", curMaterial);
+                curMaterial = m_parallelScene->getMaterialManager()->newMaterial("");
             }
         }
 
@@ -242,12 +242,14 @@ void OBJMesh::open(const std::string& path)
         if(applySize % 3 != 0)
             cout << "/!\\ WARNING: Mesh may not be triangulated (" << curMaterial->getName() << ")" << endl;
 
-        applyMaterial(curMaterial, applyOffset, applySize);
+        addSubMesh(curMaterial, applyOffset, applySize);
     }
 
-    m_hardwareBuffer->compile();
-
     file.close();
+
+    m_hardwareBuffer->convertToIndexedBuffer();
+    m_hardwareBuffer->compile();
+    m_hardwareBuffer->compileIndex();
 
     computeAabb();
 }
@@ -334,15 +336,13 @@ void MTLFile::open(const std::string& path)
 
         if(opcode == "newmtl")
         {
-            material = new Material;
-
-            m_parent->addMaterial(arg, material);
+            material = m_parent->m_parallelScene->getMaterialManager()->newMaterial(arg);
         }
 
         else if(opcode == "Ns")
         {
             // Evite de lire la valeur Ns pour la non-standarisation du format
-            // le shininess doit etre spécifier manuellement
+            // le shininess doit etre spï¿½cifier manuellement
         }
 
         else if(opcode == "Ka")
@@ -393,10 +393,10 @@ void MTLFile::open(const std::string& path)
 
         else if(opcode == "illum")
         {
-            // Mode d'éclairage :
-            // 0 : pas d'éclairage
-            // 1 : éclairage ambiant et diffuse
-            // 2 : éclairage ambiant, diffuse et spéculaire
+            // Mode d'ï¿½clairage :
+            // 0 : pas d'ï¿½clairage
+            // 1 : ï¿½clairage ambiant et diffuse
+            // 2 : ï¿½clairage ambiant, diffuse et spï¿½culaire
         }
 
         else if(opcode == "map_Kd")

@@ -15,33 +15,15 @@
 #include "Particles.h"
 #include "MapMark.h"
 #include "ObjMesh.h"
-#include "Ball3DMesh.h"
 #include "ShadowMap.h"
 #include "VolumetricLight.h"
+#include "Water.h"
 
 using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 using namespace boost::filesystem;
 using namespace boost::property_tree;
-
-static class TbeMaterialManager : public map<string, Material::Map>
-{
-public:
-
-    ~TbeMaterialManager()
-    {
-
-        BOOST_FOREACH(TbeMaterialManager::value_type& v, *this)
-        {
-            BOOST_FOREACH(Material::Map::value_type& m, v.second)
-                    delete m.second;
-        }
-
-        clear();
-    }
-
-} _MaterialManager;
 
 AbstractParser::AbstractParser()
 {
@@ -98,6 +80,16 @@ MapMarkParallelScene* AbstractParser::getMarkScene() const
     return m_markScene;
 }
 
+void AbstractParser::setWaterScene(WaterParallelScene* waterScene)
+{
+    this->m_waterScene = waterScene;
+}
+
+WaterParallelScene* AbstractParser::getWaterScene() const
+{
+    return m_waterScene;
+}
+
 void AbstractParser::setClassFactory(ParserClassFactory* classFactory)
 {
     this->m_classFactory = classFactory;
@@ -121,165 +113,6 @@ void AbstractParser::setMeshScene(MeshParallelScene* meshScene)
 void AbstractParser::setMarkScene(MapMarkParallelScene* markScene)
 {
     this->m_markScene = markScene;
-}
-
-Material::Map AbstractParser::loadMaterialSet(std::string path)
-{
-    using namespace boost;
-
-    if(_MaterialManager.count(path))
-    {
-        return _MaterialManager[path];
-    }
-
-    cout << "[Material] " << path << endl;
-
-    rtree data;
-    property_tree::read_info(path, data);
-
-    Material::Map matset;
-
-    BOOST_FOREACH(rtree::value_type &v, data)
-    {
-        string matname = v.second.get_value<string>();
-
-        Material* mat = new Material;
-
-        mat->setName(matname);
-
-        matset[matname] = mat;
-
-        rtree pass = v.second;
-
-        VectorTranslator<Vector4f> v4tr;
-
-        mat->setAmbient(pass.get<Vector4f>("ambient", Vector4f(1), v4tr));
-        mat->setDiffuse(pass.get<Vector4f>("diffuse", Vector4f(1), v4tr));
-        mat->setSpecular(pass.get<Vector4f>("specular", Vector4f(0.5), v4tr));
-        mat->setShininess(pass.get<float>("shininess", 16));
-        mat->setClockCycle(pass.get<long>("clockCycle", 1000));
-
-        if(pass.get<bool>("alpha", false))
-        {
-            mat->enable(Material::ALPHA);
-            mat->setAlphaThershold(pass.get<float>("alphaThershold", 0.0f));
-        }
-
-        if(pass.get<bool>("colored", true))
-        {
-            mat->enable(Material::COLORED);
-            mat->setColor(pass.get<Vector4f>("color", Vector4f(1, 1, 1, 1), VectorTranslator<Vector4f>()));
-        }
-
-        if(pass.get<string>("blend", "none") != "none")
-        {
-            string blend = pass.get<string>("blend");
-
-            if(blend == "additive")
-                mat->enable(Material::ADDITIVE);
-
-            else if(blend == "modulate")
-                mat->enable(Material::MODULATE);
-
-            else if(blend == "multiply")
-                mat->enable(Material::MULTIPLY);
-        }
-
-        if(pass.get<string>("faceCull", "none") != "none")
-        {
-            string cull = pass.get<string>("faceCull");
-
-            if(cull == "back")
-                mat->enable(Material::BACKFACE_CULL);
-
-            else if(cull == "front")
-                mat->enable(Material::FRONTFACE_CULL);
-        }
-
-        if(pass.get<bool>("lighted", true))
-            mat->enable(Material::LIGHTED);
-        else
-            mat->disable(Material::LIGHTED);
-
-        if(pass.get<bool>("foged", true))
-            mat->enable(Material::FOGED);
-        else
-            mat->disable(Material::FOGED);
-
-        if(pass.get<bool>("textured", true))
-            mat->enable(Material::TEXTURED);
-        else
-            mat->disable(Material::TEXTURED);
-
-        if(pass.count("textures"))
-        {
-            rtree textures = pass.get_child("textures");
-
-            rtree::iterator it = textures.begin();
-            for(int i = 0; it != textures.end(); i++)
-            {
-                rtree& value = it->second;
-
-                string texpath = value.get<string>("path");
-
-                if(!tools::isAbsoloutPath(texpath))
-                    texpath = tools::resolvePath(texpath, path);
-
-                bool mipmap = value.get<bool>("mipmap", true);
-                int origin = value.get<int>("origin", 1);
-
-                mat->setTexture(Texture(texpath, mipmap, origin, true), i);
-
-                string blend = value.get<string>("blend", "modulate");
-
-                if(blend == "modulate")
-                    mat->setTextureBlend(Material::MODULATE, i);
-
-                else if(blend == "additive")
-                    mat->setTextureBlend(Material::ADDITIVE, i);
-
-                else if(blend == "replace")
-                    mat->setTextureBlend(Material::REPLACE, i);
-
-                else if(blend == "alpha")
-                    mat->setTextureBlend(Material::ALPHA, i);
-
-                optional<rtree&> transform = value.get_child_optional("transform");
-
-                if(transform)
-                {
-                    VectorTranslator<Vector2i> v2itr;
-
-                    bool clipped = transform->get("clipped", false);
-                    Vector2i framesize = transform->get("framesize", Vector2i(), v2itr);
-                    Vector2i part = transform->get("part", Vector2i(), v2itr);
-
-                    mat->setTextureClipped(clipped, i);
-                    mat->setTextureFrameSize(framesize, i);
-                    mat->setTexturePart(part, i);
-                }
-
-                it++;
-            }
-        }
-
-        if(pass.count("shader"))
-        {
-            string shaderpath = pass.get<string>("shader");
-
-            if(!tools::isAbsoloutPath(shaderpath))
-                shaderpath = tools::resolvePath(shaderpath, path);
-
-            Shader shader;
-            shader.parseShaderFile(shaderpath);
-
-            mat->setShader(shader);
-        }
-    }
-
-    _MaterialManager[path] = matset;
-
-    return matset;
 }
 
 std::string AbstractParser::resolve(std::string relpath, std::string base)
@@ -369,25 +202,29 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
 
         if(data.count("material"))
         {
-            // We handle only material from external file
-            /*
-            boost::optional<rtree&> inlineMaTree = data.get_child_optional("material");
+            rtree material = data.get_child("material");
 
-            if(inlineMaTree)
+            BOOST_FOREACH(rtree::value_type& v, material)
             {
-                buildMeshMaterial(*inlineMaTree, mesh, m_filename);
+                SubMesh* smesh = mesh->getSubMesh(v.first);
+
+                if(!smesh)
+                {
+                    cout << "/!\\ WARNING; SubMesh " << v.first << " not found" << endl;
+                    continue;
+                }
+
+                string path = v.second.get_value<string>();
+
+                if(!tools::isAbsoloutPath(path))
+                    path = resolve(path);
+
+                Material* mat = m_meshScene->getMaterialManager()->loadMaterial(path);
+
+                smesh->setMaterial(mat);
+
+                mesh->serializing().put("material." + mat->getName(), path);
             }
-            else
-            {
-            }
-             */
-
-            string path = data.get<string>("material");
-
-            if(!tools::isAbsoloutPath(path))
-                path = resolve(path);
-
-            mesh->attachMaterialFile(path);
         }
 
         mesh->computeAabb();
@@ -517,6 +354,26 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
             m_classFactory->setupMapMark(mark);
 
         current = mark;
+    }
+
+    else if(iclass == "Water")
+    {
+        Water* wat = new Water(m_waterScene);
+
+        rtree rclass = data.get_child("class");
+
+        wat->setSize(rclass.get<Vector2f>("size"));
+        wat->setSpeed(rclass.get<float>("speed"));
+        wat->setDeform(rclass.get<float>("deform"));
+        wat->setBlend(rclass.get<float>("blend"));
+        wat->setUvRepeat(rclass.get<Vector2f>("uvscale"));
+
+        string path = rclass.get<string>("normalMap");
+        wat->setNormalMap(Texture(resolve(path), true));
+
+        buildInherited(data, parent, wat);
+
+        current = wat;
     }
 
     else

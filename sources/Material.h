@@ -22,6 +22,27 @@ namespace tbe
 namespace scene
 {
 
+class Material;
+
+class MaterialManager
+{
+public:
+    MaterialManager();
+    ~MaterialManager();
+
+    Material* newMaterial(std::string name);
+    Material* getMaterial(std::string name);
+    Material* loadMaterial(std::string path);
+
+    rtree serialize(std::string name, std::string root);
+
+    typedef std::map<std::string, Material*> Map;
+
+private:
+    Map m_materials;
+    Map m_materialsFromFile;
+};
+
 struct TextureApply
 {
     unsigned blend;
@@ -78,6 +99,7 @@ public:
     typedef std::map<std::string, Material*> Map;
 
     friend class Mesh;
+    friend class SubMesh;
 
     void setRenderFlags(unsigned renderFlags);
     unsigned getRenderFlags() const;

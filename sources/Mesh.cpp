@@ -6,12 +6,6 @@
  */
 
 #include "Mesh.h"
-#include "ParallelScene.h"
-#include "SceneManager.h"
-#include "MeshParallelScene.h"
-#include "Tools.h"
-#include "ShadowMap.h"
-#include "AbstractParser.h"
 
 #include <boost/function.hpp>
 #include <boost/algorithm/string.hpp>
@@ -19,6 +13,13 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/info_parser.hpp>
 #include <boost/optional/optional.hpp>
+
+#include "ParallelScene.h"
+#include "SceneManager.h"
+#include "MeshParallelScene.h"
+#include "Tools.h"
+#include "ShadowMap.h"
+#include "AbstractParser.h"
 
 using namespace tbe;
 using namespace tbe::scene;
@@ -96,29 +97,10 @@ Mesh& Mesh::operator=(const Mesh& copy)
 
 void Mesh::clear()
 {
-    m_renderProess.clear();
+    BOOST_FOREACH(SubMesh* s, m_subMeshs)
+            delete s;
 
-
-    if(!m_materialsBackup.empty())
-    {
-        /*
-         * m_materials are cleared by internal manager
-         * since they are loaded from a file
-         */
-
-        BOOST_FOREACH(Material::Map::value_type& v, m_materialsBackup)
-                delete v.second;
-
-        m_materialsBackup.clear();
-        m_materials.clear();
-    }
-    else
-    {
-        for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
-            delete it->second;
-
-        m_materials.clear();
-    }
+    m_subMeshs.clear();
 
     Mesh::unregisterBuffer(this);
 
@@ -130,20 +112,17 @@ void Mesh::clear()
 
 void Mesh::fetchMaterials(const Mesh& copy)
 {
-    m_attachMaterial = copy.m_attachMaterial;
+    m_subMeshs.reserve(copy.m_subMeshs.size());
 
-    for(Material::Map::const_iterator it = m_materials.begin(); it != m_materials.end(); ++it)
-        delete it->second;
+    for(unsigned i = 0; i < copy.m_subMeshs.size(); i++)
+    {
+        SubMesh* sm = new SubMesh(this,
+                                  copy.m_subMeshs[i]->m_material,
+                                  copy.m_subMeshs[i]->m_offset,
+                                  copy.m_subMeshs[i]->m_size);
 
-    m_materials.clear();
-
-    for(Material::Map::const_iterator it = copy.m_materials.begin(); it != copy.m_materials.end(); ++it)
-        m_materials[it->first] = new Material(*it->second);
-
-    m_renderProess = copy.m_renderProess;
-
-    for(unsigned i = 0; i < m_renderProess.size(); i++)
-        m_renderProess[i].parent = this;
+        m_subMeshs.push_back(sm);
+    }
 }
 
 void Mesh::fetchVertexes(const Mesh& copy)
@@ -154,7 +133,6 @@ void Mesh::fetchVertexes(const Mesh& copy)
     m_computeNormals = copy.m_computeNormals;
     m_computeTangent = copy.m_computeTangent;
     m_computeAocc = copy.m_computeAocc;
-    m_attachMaterial = copy.m_attachMaterial;
 
     m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
 
@@ -177,7 +155,6 @@ void Mesh::shareVertexes(const Mesh& copy)
     m_computeNormals = copy.m_computeNormals;
     m_computeTangent = copy.m_computeTangent;
     m_computeAocc = copy.m_computeAocc;
-    m_attachMaterial = copy.m_attachMaterial;
 
     m_hardwareBuffer = copy.m_hardwareBuffer;
 
@@ -202,7 +179,6 @@ Mesh& Mesh::copy(const Mesh& copy)
     m_computeNormals = copy.m_computeNormals;
     m_computeTangent = copy.m_computeTangent;
     m_computeAocc = copy.m_computeAocc;
-    m_attachMaterial = copy.m_attachMaterial;
 
     if(copy.m_hardwareBuffer)
         m_hardwareBuffer = new HardwareBuffer(*copy.m_hardwareBuffer);
@@ -224,7 +200,7 @@ AABB Mesh::getAbsolutAabb()
 
     Matrix4 mat = getAbsoluteMatrix();
 
-    const Vertex::Array& vertex = m_hardwareBuffer->getInitialVertex();
+    const Vertex::Array& vertex = m_hardwareBuffer->getClientVertex();
 
     AABB aabb;
 
@@ -239,7 +215,7 @@ void Mesh::computeAabb()
     if(!m_hardwareBuffer)
         return;
 
-    const Vertex::Array& vertex = m_hardwareBuffer->getInitialVertex();
+    const Vertex::Array& vertex = m_hardwareBuffer->getClientVertex();
 
     m_aabb.clear();
 
@@ -298,20 +274,22 @@ void Mesh::computeTangent()
     if(!vertex)
         return;
 
-    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
+    unsigned indexCount = m_hardwareBuffer->getIndexCount();
 
-    Vector3f::Array tan1(vertexCount);
-    Vector3f::Array tan2(vertexCount);
+    Vector3f::Array tan1;
+    tan1.resize(indexCount);
 
-    for(unsigned i = 0; i < vertexCount; i += 3)
+    HardwareBuffer::IndexArray index = m_hardwareBuffer->getClientIndex();
+
+    for(unsigned i = 0; i < indexCount; i += 3)
     {
-        const Vector3f& v1 = vertex[i + 0].pos;
-        const Vector3f& v2 = vertex[i + 1].pos;
-        const Vector3f& v3 = vertex[i + 2].pos;
+        const Vector3f& v1 = vertex[index[i + 0]].pos;
+        const Vector3f& v2 = vertex[index[i + 1]].pos;
+        const Vector3f& v3 = vertex[index[i + 2]].pos;
 
-        const Vector2f& w1 = vertex[i + 0].texCoord;
-        const Vector2f& w2 = vertex[i + 1].texCoord;
-        const Vector2f& w3 = vertex[i + 2].texCoord;
+        const Vector2f& w1 = vertex[index[i + 0]].texCoord;
+        const Vector2f& w2 = vertex[index[i + 1]].texCoord;
+        const Vector2f& w3 = vertex[index[i + 2]].texCoord;
 
         float x1 = v2.x - v1.x;
         float y1 = v2.y - v1.y;
@@ -331,29 +309,20 @@ void Mesh::computeTangent()
 
         Vector3f sdir((t2 * x1 - t1 * x2) * r, (t2 * y1 - t1 * y2) * r,
                       (t2 * z1 - t1 * z2) * r);
-        Vector3f tdir((s1 * x2 - s2 * x1) * r, (s1 * y2 - s2 * y1) * r,
-                      (s1 * z2 - s2 * z1) * r);
 
         tan1[i + 0] += sdir;
         tan1[i + 1] += sdir;
         tan1[i + 2] += sdir;
-
-        tan2[i + 0] += tdir;
-        tan2[i + 1] += tdir;
-        tan2[i + 2] += tdir;
-
-        if(i + 3 >= vertexCount)
-            break;
     }
 
-    for(unsigned i = 0; i < vertexCount; i++)
+    for(unsigned i = 0; i < indexCount; i++)
     {
-        const Vector3f& n = vertex[i].normal;
+        const Vector3f& n = vertex[index[i]].normal;
         const Vector3f& t = tan1[i];
 
         // Gram-Schmidt orthogonalize
-        vertex[i].tangent = (t - n * Vector3f::dot(n, t));
-        vertex[i].tangent.normalize();
+        vertex[index[i]].tangent = (t - n * Vector3f::dot(n, t));
+        vertex[index[i]].tangent.normalize();
     }
 
     m_hardwareBuffer->snapshot();
@@ -404,112 +373,6 @@ struct DepthSortVertexFunc
     Vector3f camPos;
     Vector3f meshPos;
 };
-
-Shader Mesh::getUsedShader(Material* material)
-{
-    Shader usedshader;
-
-    if(!material->isEnable(Material::PIPELINE))
-    {
-        if(material->m_shader.isEnable())
-            usedshader = material->m_shader;
-
-        else if(m_parallelScene->getRenderingShader().isEnable())
-            usedshader = m_parallelScene->getRenderingShader();
-    }
-
-    return usedshader;
-}
-
-void Mesh::animateTexture(unsigned layer, Texture texture, TextureApply settings)
-{
-    unsigned vertexCount = m_hardwareBuffer->getVertexCount();
-
-    requestVertexRestore();
-
-    const Vector2f& size = texture.getSize();
-
-    const Vertex::Array& initvert = m_hardwareBuffer->getInitialVertex();
-
-    if(layer)
-    {
-        Vector2f* uvs = m_hardwareBuffer->lockMultiTexCoord(layer, GL_WRITE_ONLY);
-
-        for(unsigned i = 0; i < vertexCount; i++)
-        {
-            Vector2f frame(settings.frameSize.x / size.x, settings.frameSize.y / size.y);
-
-            Vector2f scaled(initvert[i].texCoord.x * frame.x, initvert[i].texCoord.y * frame.y);
-
-            uvs[i].x = scaled.x + frame.x * settings.part.x;
-            uvs[i].y = scaled.y + frame.y * settings.part.y;
-        }
-    }
-    else
-    {
-        Vertex* vs = m_hardwareBuffer->lock(GL_WRITE_ONLY);
-
-        for(unsigned i = 0; i < vertexCount; i++)
-        {
-            Vector2f frame(settings.frameSize.x / size.x, settings.frameSize.y / size.y);
-
-            Vector2f scaled(initvert[i].texCoord.x * frame.x, initvert[i].texCoord.y * frame.y);
-
-            vs[i].texCoord.x = scaled.x + frame.x * settings.part.x;
-            vs[i].texCoord.y = scaled.y + frame.y * settings.part.y;
-        }
-    }
-
-    m_hardwareBuffer->unlock();
-
-    if(settings.animation > 0)
-        if(settings.clock.isEsplanedTime(settings.animation))
-        {
-            settings.part.x++;
-
-            if(settings.part.x >= size.x / settings.frameSize.x)
-            {
-                settings.part.x = 0;
-                settings.part.y++;
-
-                if(settings.part.y >= size.y / settings.frameSize.y)
-                    settings.part.y = 0;
-            }
-        }
-
-}
-
-void Mesh::bindTexture(unsigned layer, Texture texture, TextureApply settings)
-{
-    unsigned id = GL_TEXTURE0 + layer;
-
-    // Animation de la texture par modification des coordon�s UV
-    if(settings.clipped)
-        animateTexture(layer, texture, settings);
-
-    glActiveTexture(id);
-    glEnable(GL_TEXTURE_2D);
-    texture.use(true);
-
-    glClientActiveTexture(id);
-    m_hardwareBuffer->bindTexture(true, layer);
-
-    unsigned multexb = settings.blend;
-
-    if(multexb == Material::REPLACE)
-        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-
-    else if(multexb == Material::ADDITIVE)
-        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
-
-    else if(multexb == Material::MODULATE)
-        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
-    else if(multexb == Material::ALPHA)
-    {
-        // Use a shader instead
-    }
-}
 
 class ShaderBind
 {
@@ -630,514 +493,6 @@ public:
     }
 };
 
-void Mesh::beginRenderingBuffer(Material* material, unsigned offset, unsigned count)
-{
-    using namespace boost;
-
-    glPushAttrib(GL_ENABLE_BIT);
-
-    Shader usedshader = getUsedShader(material);
-
-    // Request uniform for general purpose
-    if(usedshader.isEnable())
-    {
-        ShaderBind callbind(m_parallelScene, this, material, usedshader);
-
-        Shader::bind(usedshader);
-
-        const Shader::UniformMap& umap = usedshader.getRequestedUniform();
-
-        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
-        {
-            callbind.assignExp(u.first, u.second);
-        }
-
-        Shader::unbind();
-    }
-
-    if(material->m_renderFlags & Material::TEXTURED)
-    {
-
-        BOOST_FOREACH(Texture::Map::value_type itt, material->m_textures)
-        {
-            if(!itt.second)
-                continue;
-
-            Texture texture = material->m_textures[itt.first];
-            TextureApply settings = material->m_texApply[itt.first];
-
-            bindTexture(itt.first, texture, settings);
-        }
-
-        // Request uniform for texture layer
-        if(usedshader.isEnable())
-        {
-            Shader::bind(usedshader);
-
-            const Shader::UniformMap& umap = usedshader.getRequestedUniform();
-
-            BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
-            {
-                if(u.second == "shadow_map")
-                {
-                    unsigned layer = material->m_textures.size();
-                    usedshader.uniform(u.first, (int) layer);
-
-                    Light* light = m_parallelScene->light(0);
-                    ShadowMap* smap = light->getShadowMap();
-                    Texture shadowMap = smap->getDepthMap();
-                    bindTexture(layer, shadowMap, TextureApply());
-                }
-            }
-
-            Shader::unbind();
-        }
-    }
-    else
-        glDisable(GL_TEXTURE_2D);
-
-    if(material->m_renderFlags & Material::LIGHTED)
-    {
-        m_hardwareBuffer->bindNormal();
-
-        glEnable(GL_LIGHTING);
-
-        glMaterialfv(GL_FRONT, GL_AMBIENT, material->m_ambient);
-        glMaterialfv(GL_FRONT, GL_DIFFUSE, material->m_diffuse);
-        glMaterialfv(GL_FRONT, GL_SPECULAR, material->m_specular);
-        glMaterialf(GL_FRONT, GL_SHININESS, material->m_shininess);
-
-        /* Normal Scaling ------------------------------------------------------
-         *
-         * Ici on divise les normale des vertex par le Scale de la matrice du noeud
-         * pour les rendre unitaire (normaliser), afin d'�viter un calcule
-         * incorrect de la lumi�re lors d'une mise a l'�chelle sur la matrice
-         */
-
-        tbe::Vector3f position, scale;
-        tbe::Quaternion rotation;
-
-        m_matrix.decompose(position, rotation, scale);
-
-        if(!math::isEqual(scale, 1))
-            glEnable(GL_RESCALE_NORMAL);
-        else
-            glDisable(GL_RESCALE_NORMAL);
-    }
-
-    if(material->m_renderFlags & Material::COLORED)
-    {
-        unsigned vertexCount = m_hardwareBuffer->getVertexCount();
-
-        m_hardwareBuffer->bindColor();
-
-        if(!usedshader.isEnable())
-        {
-            glEnable(GL_COLOR_MATERIAL);
-
-            // if(!math::isEqual(material->m_color, 1))
-            // requestVertexRestore();
-
-            Vertex* vertex = m_hardwareBuffer->lock(GL_READ_WRITE);
-
-            for(unsigned i = offset; i < offset + count && i < vertexCount; i++)
-                vertex[i].color = material->m_color;
-
-            m_hardwareBuffer->unlock();
-        }
-    }
-}
-
-void Mesh::beginRenderingProperty(Material* material, unsigned offset, unsigned count)
-{
-    if(material->m_depthTest)
-        glEnable(GL_DEPTH_TEST);
-    else
-        glDisable(GL_DEPTH_TEST);
-
-    glDepthMask(material->m_depthWrite);
-
-    if(material->m_renderFlags & Material::BACKFACE_CULL)
-    {
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
-    }
-
-    else if(material->m_renderFlags & Material::FRONTFACE_CULL)
-    {
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
-    }
-
-    if(glIsEnabled(GL_FOG) && !(material->m_renderFlags & Material::FOGED))
-    {
-        glDisable(GL_FOG);
-    }
-
-    if(material->m_lineWidth)
-        glLineWidth(material->m_lineWidth);
-
-    if(material->m_renderFlags & Material::VERTEX_SORT)
-    {
-        if(material->m_frameSortWait <= 0)
-        {
-            static DepthSortVertexFunc cmp;
-            cmp.camPos = m_parallelScene->getSceneManager()->getCurCamera()->getPos();
-            cmp.meshPos = m_matrix.getPos();
-
-            TriangleFace* vertexes = reinterpret_cast<TriangleFace*> (m_hardwareBuffer->lock(GL_READ_WRITE));
-            TriangleFace* start = vertexes + offset / 3;
-            TriangleFace* end = start + count / 3;
-
-            std::sort(start, end, cmp);
-
-            m_hardwareBuffer->unlock();
-
-            material->m_frameSortWait = 16;
-        }
-
-        material->m_frameSortWait--;
-    }
-
-    else if(material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
-    {
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
-    }
-
-    if(material->m_renderFlags & Material::ADDITIVE)
-    {
-        glEnable(GL_BLEND);
-        // glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-        glBlendFunc(GL_ONE, GL_ONE);
-    }
-
-    else if(material->m_renderFlags & Material::MULTIPLY)
-    {
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
-
-    }
-
-    else if(material->m_renderFlags & Material::MODULATE)
-    {
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    }
-
-    else
-        glDisable(GL_BLEND);
-
-    if(material->m_renderFlags & Material::ALPHA)
-    {
-        glEnable(GL_ALPHA_TEST);
-        glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
-        glAlphaFunc(GL_GREATER, material->m_alphaThershold);
-    }
-
-}
-
-void Mesh::endRenderingProperty(Material* material, unsigned offset, unsigned count)
-{
-    if(material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
-    {
-        glCullFace(GL_BACK);
-        m_hardwareBuffer->render(material->m_faceType, offset, count, material->m_drawPass);
-    }
-}
-
-void Mesh::endRenderingBuffer(Material* material, unsigned offset, unsigned count)
-{
-    if(material->m_renderFlags & Material::SHADER)
-    {
-        m_hardwareBuffer->bindTangent(false);
-        m_hardwareBuffer->bindAocc(false);
-    }
-
-    Shader shade = getUsedShader(material);
-
-    if(material->m_renderFlags & Material::TEXTURED)
-    {
-
-        BOOST_FOREACH(Texture::Map::value_type itt, material->m_textures)
-        {
-            if(!itt.second)
-                continue;
-
-            unsigned layer = GL_TEXTURE0 + itt.first;
-
-            glClientActiveTexture(layer);
-            m_hardwareBuffer->bindTexture(false);
-
-            glActiveTexture(layer);
-            glDisable(GL_TEXTURE_2D);
-            glBindTexture(GL_TEXTURE_2D, 0);
-        }
-
-        if(shade.isRequested("shadow_map"))
-        {
-            unsigned layer = GL_TEXTURE0 + material->m_textures.size();
-
-            glClientActiveTexture(layer);
-            m_hardwareBuffer->bindTexture(false);
-
-            glActiveTexture(layer);
-            glDisable(GL_TEXTURE_2D);
-        }
-
-        // Don't forger to reactivate texture unit 0 for future use !!!
-        glClientActiveTexture(GL_TEXTURE0);
-        glActiveTexture(GL_TEXTURE0);
-    }
-
-    if(material->m_renderFlags & Material::LIGHTED)
-    {
-        m_hardwareBuffer->bindNormal(false);
-    }
-
-    if(material->m_renderFlags & Material::COLORED)
-    {
-        m_hardwareBuffer->bindColor(false);
-    }
-
-    glPopAttrib();
-
-    glColor4f(1, 1, 1, 1);
-}
-
-void Mesh::beginRenderingMatrix()
-{
-    glPushMatrix();
-
-    if(m_parent && !m_parent->isRoot())
-        glMultMatrixf(m_parent->getAbsoluteMatrix());
-
-    // Billboarding ------------------------------------------------------------
-
-    if(!!m_billBoard)
-    {
-        Vector3f position, scale;
-        Quaternion rotation;
-        m_matrix.decompose(position, rotation, scale);
-
-        Quaternion new_rotation = m_sceneManager
-                ->computeBillboard(getAbsoluteMatrix().getPos(), 0, m_billBoard);
-
-        Matrix4 newmat;
-        rotation.w = -rotation.w;
-        newmat.rotate(rotation.conjugate());
-        newmat.rotate(new_rotation);
-        newmat.scale(scale);
-        newmat.translate(position);
-
-        glMultMatrixf(newmat);
-    }
-    else
-        glMultMatrixf(m_matrix);
-}
-
-void Mesh::endRenderingMatrix()
-{
-    glPopMatrix();
-}
-
-void Mesh::drawMaterial(Material* material, unsigned offset, unsigned count)
-{
-    if(material->m_clockCycle > 0)
-        if(material->m_clock.isEsplanedTime(material->m_clockCycle, false))
-            material->m_clock.snapShoot();
-
-    Shader usedshader = getUsedShader(material);
-
-    beginRenderingBuffer(material, offset, count);
-
-    beginRenderingMatrix();
-    beginRenderingProperty(material, offset, count);
-
-    const Shader::UniformMap& umap = usedshader.getRequestedUniform();
-
-    Shader::bind(usedshader);
-
-    if(!(material->m_renderFlags & Material::LIGHTED))
-    {
-        m_hardwareBuffer->render(material->m_faceType, offset, count, material->m_drawPass);
-    }
-
-    else
-    {
-        // Disable or use default shader for only scene ambient light
-
-        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
-        {
-            if(u.second == "ambient_pass")
-                usedshader.uniform(u.first, true);
-        }
-
-        m_hardwareBuffer->render(material->m_faceType, offset, count, material->m_drawPass);
-    }
-
-    endRenderingProperty(material, offset, count);
-    endRenderingMatrix();
-
-    // Forward Rendering -------------------------------------------------------
-
-    if(material->m_renderFlags & Material::LIGHTED)
-    {
-        Shader::bind(usedshader);
-
-        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
-        {
-            if(u.second == "ambient_pass")
-                usedshader.uniform(u.first, false);
-        }
-
-        glEnable(GL_BLEND);
-
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
-
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-
-        glDepthFunc(GL_LEQUAL);
-
-        Vector4f globalAmbient = m_sceneManager->getAmbientLight();
-
-        m_sceneManager->setAmbientLight(0);
-
-        int lightCount = m_parallelScene->beginPrePassLighting(this);
-
-        for(int i = 0; i < lightCount; i++)
-        {
-            m_parallelScene->prePassLighting(i);
-
-            beginRenderingMatrix();
-            m_hardwareBuffer->render(material->m_faceType, offset, count, material->m_drawPass);
-            endRenderingMatrix();
-        }
-
-        m_parallelScene->endPrePassLighting();
-
-        m_sceneManager->setAmbientLight(globalAmbient);
-
-        Shader::unbind();
-    }
-
-    endRenderingBuffer(material, offset, count);
-}
-
-void Mesh::render()
-{
-    if(!m_hardwareBuffer || m_hardwareBuffer->isEmpty() || !m_enable || !m_visible)
-        return;
-
-    m_hardwareBuffer->bindBuffer();
-
-    // Render ------------------------------------------------------------------
-
-    if(m_renderProess.empty())
-    {
-        Material defaultMateral;
-        drawMaterial(&defaultMateral, 0, m_hardwareBuffer->getVertexCount());
-    }
-
-    else
-    {
-        if(m_renderProess.size() > 1)
-        {
-            std::sort(m_renderProess.begin(), m_renderProess.end(), renderProcessSortFunc);
-
-            for(unsigned i = 0; i < m_renderProess.size(); i++)
-                drawMaterial(m_materials[m_renderProess[i].applyMaterial], m_renderProess[i].offset, m_renderProess[i].size);
-        }
-        else
-        {
-            drawMaterial(m_materials[m_renderProess.front().applyMaterial], m_renderProess.front().offset, m_renderProess.front().size);
-        }
-
-    }
-
-    if(m_requestVertexRestore)
-    {
-        m_hardwareBuffer->restore();
-        m_requestVertexRestore = false;
-    }
-
-    m_hardwareBuffer->bindBuffer(false);
-}
-
-void Mesh::renderShadow()
-{
-    if(!m_hardwareBuffer || m_hardwareBuffer->isEmpty() || !m_enable || !m_visible)
-        return;
-
-    glPushAttrib(GL_ENABLE_BIT);
-
-    glEnable(GL_DEPTH_TEST);
-    glDepthMask(true);
-
-    glEnable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.5);
-
-    glDisable(GL_BLEND);
-    glDisable(GL_LIGHTING);
-
-    glColor4f(0, 0, 0, 1);
-
-    beginRenderingMatrix();
-    m_hardwareBuffer->bindBuffer();
-
-    for(unsigned i = 0; i < m_renderProess.size(); i++)
-    {
-        Material* material = m_materials[m_renderProess[i].applyMaterial];
-        unsigned offset = m_renderProess[i].offset;
-        unsigned count = m_renderProess[i].size;
-
-        // If we have a back face then cull the front
-        if(material->m_renderFlags & Material::BACKFACE_CULL)
-        {
-            glEnable(GL_CULL_FACE);
-            glCullFace(GL_FRONT);
-        }
-
-        BOOST_FOREACH(Texture::Map::value_type itt, material->m_textures)
-        {
-            if(!itt.second)
-                continue;
-
-            Texture texture = material->m_textures[itt.first];
-            TextureApply settings = material->m_texApply[itt.first];
-
-            bindTexture(itt.first, texture, settings);
-        }
-
-        m_hardwareBuffer->render(Material::TRIANGLES, offset, count);
-
-        BOOST_FOREACH(Texture::Map::value_type itt, material->m_textures)
-        {
-            if(!itt.second)
-                continue;
-
-            unsigned layer = GL_TEXTURE0 + itt.first;
-
-            glClientActiveTexture(layer);
-            m_hardwareBuffer->bindTexture(false);
-
-            glActiveTexture(layer);
-            glDisable(GL_TEXTURE_2D);
-            glBindTexture(GL_TEXTURE_2D, 0);
-        }
-
-        // Don't forger to reactivate texture unit 0 for future use !!!
-        glClientActiveTexture(GL_TEXTURE0);
-        glActiveTexture(GL_TEXTURE0);
-    }
-
-    m_hardwareBuffer->bindBuffer(false);
-    endRenderingMatrix();
-
-    glPopAttrib();
-}
-
 void Mesh::process()
 {
     if(!m_enable)
@@ -1197,7 +552,7 @@ bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDir, float& intersect, bool gl
     if(!m_hardwareBuffer)
         return false;
 
-    const Vertex::Array& vertex = m_hardwareBuffer->getInitialVertex();
+    const Vertex::Array& vertex = m_hardwareBuffer->getClientVertex();
 
     // Cannot raycast no triangulated mesh !
     if(vertex.size() % 3 != 0)
@@ -1269,104 +624,43 @@ bool Mesh::findFloor(float getx, float& sety, float getz, bool global)
 
 bool Mesh::isTransparent()
 {
-    for(Material::Map::iterator itt = m_materials.begin(); itt != m_materials.end(); itt++)
-        if(!itt->second->isTransparent())
-            return false;
+    BOOST_FOREACH(SubMesh* smesh, m_subMeshs)
+    if(smesh->m_material->isTransparent())
+        return true;
 
-    return true;
+    return false;
 }
 
-void Mesh::addMaterial(std::string name, Material* material)
+unsigned Mesh::getSubMeshCount()
 {
-    m_materials[name] = material;
-
-    material->setName(name);
+    return m_subMeshs.size();
 }
 
-void Mesh::deleteMaterial(std::string name)
+SubMesh* Mesh::addSubMesh(Material* material, unsigned offset, unsigned size)
 {
-    m_materials.erase(name);
+    SubMesh* smesh = new SubMesh(this, material, offset, size);
+    m_subMeshs.push_back(smesh);
+
+    return smesh;
 }
 
-unsigned Mesh::getMaterialCount()
+SubMesh* Mesh::getSubMesh(int index)
 {
-    return m_materials.size();
+    return m_subMeshs.at(index);
 }
 
-Material::Array Mesh::getAllMaterial()
+SubMesh* Mesh::getSubMesh(std::string matname)
 {
-    std::vector<Material*> ret;
-    ret.reserve(m_materials.size());
+    BOOST_FOREACH(SubMesh* smesh, m_subMeshs)
+    if(smesh->m_material->getName() == matname)
+        return smesh;
 
-    for(Material::Map::iterator itt = m_materials.begin(); itt != m_materials.end(); itt++)
-        ret.push_back(itt->second);
-
-    return ret;
+    return NULL;
 }
 
-Vector2i::Array Mesh::getMaterialApply(std::string name)
+const SubMesh::Array& Mesh::getAllSubMesh()
 {
-    Vector2i::Array offset;
-
-    for(unsigned i = 0; i < m_renderProess.size(); i++)
-    {
-        const RenderProcess& rp = m_renderProess[i];
-
-        if(rp.applyMaterial == name)
-            offset.push_back(Vector2i(rp.offset, rp.size));
-    }
-
-    return offset;
-}
-
-Material* Mesh::getMaterial(unsigned index)
-{
-    if(index == 0 && !m_materials.empty())
-        return m_materials.begin()->second;
-
-    if(index > m_materials.size() - 1)
-        return NULL;
-
-    unsigned i = 0;
-    for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); ++it, i++)
-        if(i == index) return it->second;
-}
-
-Material* Mesh::getMaterial(std::string name)
-{
-    if(m_materials.find(name) == m_materials.end())
-        return NULL;
-
-    return m_materials[name];
-}
-
-Material* Mesh::releaseMaterial(std::string name)
-{
-    if(m_materials.find(name) == m_materials.end())
-        return NULL;
-
-    Material* toRet = m_materials[name];
-    m_materials.erase(name);
-    return toRet;
-}
-
-void Mesh::applyMaterial(std::string name, unsigned offset, unsigned size)
-{
-    RenderProcess rp = {this, name, offset, size};
-    m_renderProess.push_back(rp);
-}
-
-void Mesh::applyMaterial(Material* material, unsigned offset, unsigned size)
-{
-    BOOST_FOREACH(Material::Map::value_type &it, m_materials)
-    if(it.second == material)
-    {
-        RenderProcess rp = {this, it.first, offset, size};
-        m_renderProess.push_back(rp);
-        return;
-    }
-
-    throw tbe::Exception("Mesh::ApplyMaterial; [%1%] Material ptr not found") % m_name;
+    return m_subMeshs;
 }
 
 HardwareBuffer* Mesh::getHardwareBuffer() const
@@ -1382,144 +676,6 @@ void Mesh::setVisible(bool visible)
 bool Mesh::isVisible() const
 {
     return m_visible;
-}
-
-void Mesh::attachMaterialSet(const Material::Map& set)
-{
-    if(m_materialsBackup.empty())
-        m_materialsBackup = m_materials;
-
-    BOOST_FOREACH(const Material::Map::value_type& v, set)
-    {
-        if(!m_materials.count(v.first))
-        {
-            cout << "/!\\ WARNING: Mesh::attachMaterialFile; Unexpected material (" << v.first << ")" << endl;
-            continue;
-        }
-
-        BOOST_FOREACH(Texture::Map::value_type& t, v.second->m_textures)
-        {
-            if(t.first != 0)
-                m_hardwareBuffer->newMultiTexCoord(t.first);
-        }
-
-        m_materials[v.first] = v.second;
-    }
-
-    m_hardwareBuffer->compile();
-}
-
-void Mesh::attachMaterialFile(std::string path)
-{
-    Material::Map matset = AbstractParser::loadMaterialSet(path);
-
-    m_attachMaterial = path;
-
-    attachMaterialSet(matset);
-}
-
-void Mesh::releaseMaterialFile()
-{
-
-    BOOST_FOREACH(Material::Map::value_type &v, m_materialsBackup)
-    {
-        m_materials[v.first] = v.second;
-    }
-
-    m_materialsBackup.clear();
-    m_attachMaterial.clear();
-}
-
-std::string Mesh::getMaterialFile()
-{
-    return m_attachMaterial;
-}
-
-rtree Mesh::serializeMaterial(std::string root)
-{
-    rtree scheme;
-
-    for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); it++)
-    {
-        rtree matscheme;
-
-        matscheme.put_value(it->first);
-
-        matscheme.put("ambient", it->second->getAmbient());
-        matscheme.put("diffuse", it->second->getDiffuse());
-        matscheme.put("specular", it->second->getSpecular());
-        matscheme.put("shininess", it->second->getShininess());
-        matscheme.put("clockCycle", it->second->m_clockCycle);
-
-        matscheme.put("alpha", it->second->isEnable(Material::ALPHA));
-        matscheme.put("alphaThershold", it->second->m_alphaThershold);
-
-        if(it->second->isEnable(Material::MODULATE))
-            matscheme.put("blend", "modulate");
-        else if(it->second->isEnable(Material::ADDITIVE))
-            matscheme.put("blend", "additive");
-        else if(it->second->isEnable(Material::MULTIPLY))
-            matscheme.put("blend", "multiplty");
-
-        matscheme.put("color", it->second->m_color);
-        matscheme.put("cullTrick", it->second->isEnable(Material::VERTEX_SORT_CULL_TRICK));
-
-        if(it->second->isEnable(Material::FRONTFACE_CULL))
-            matscheme.put("faceCull", "front");
-        if(it->second->isEnable(Material::BACKFACE_CULL))
-            matscheme.put("faceCull", "back");
-
-        matscheme.put("lighted", it->second->isEnable(Material::LIGHTED));
-        matscheme.put("textured", it->second->isEnable(Material::TEXTURED));
-        matscheme.put("colored", it->second->isEnable(Material::COLORED));
-
-        if(it->second->m_shader.isEnable())
-        {
-            Shader shade = it->second->m_shader;
-
-            string shaderpath = shade.getShaderFile();
-
-            if(!shaderpath.empty())
-            {
-                // rtree shadertree = shade.serialize(shaderpath);
-                // boost::property_tree::write_info(shaderpath, shadertree);
-
-                shaderpath = tools::relativizePath(shaderpath, root);
-
-                matscheme.put("shader", shaderpath);
-            }
-            else
-                cout << "/!\\ WARNING: Mesh::serializeMaterial; Shader has not been loaded from file (" << shaderpath << ")" << endl;
-        }
-
-        unsigned txcount = it->second->getTexturesCount();
-
-        for(unsigned i = 0; i < txcount; i++)
-        {
-            rtree texscheme;
-
-            Texture tex = it->second->getTexture(i);
-
-            texscheme.put("path", tools::relativizePath(tex.getFilename(), root));
-            texscheme.put("origin", tex.getOrigin());
-            texscheme.put("mipmap", tex.isGenMipMap());
-
-            unsigned blend = it->second->m_texApply[i].blend;
-
-            if(blend == Material::MODULATE)
-                texscheme.put("blend", "modulate");
-            if(blend == Material::ADDITIVE)
-                texscheme.put("blend", "additive");
-            if(blend == Material::REPLACE)
-                texscheme.put("blend", "replace");
-
-            matscheme.add_child("textures.unit", texscheme);
-        }
-
-        scheme.add_child("pass", matscheme);
-    }
-
-    return scheme;
 }
 
 rtree Mesh::serialize(std::string root)
@@ -1550,9 +706,11 @@ rtree Mesh::serialize(std::string root)
         scheme.put("class.computeTangent", m_computeTangent);
         scheme.put("class.computeAocc", m_computeAocc);
 
-        if(!m_attachMaterial.empty())
+        optional<string> material = scheme.get_optional<string>("material");
+
+        if(material)
         {
-            string matpath = m_attachMaterial;
+            string matpath = *material;
 
             if(tools::isAbsoloutPath(matpath))
                 matpath = tools::relativizePath(matpath, root);
@@ -1594,6 +752,11 @@ bool Mesh::isUsedBuffer(HardwareBuffer* hb)
     return _BufferManager.used(hb);
 }
 
+MeshParallelScene* Mesh::getParallelScene() const
+{
+    return m_parallelScene;
+}
+
 void Mesh::requestVertexRestore(bool requestVertexRestore)
 {
     this->m_requestVertexRestore = requestVertexRestore;
@@ -1603,12 +766,12 @@ std::vector<std::string> Mesh::getUsedRessources()
 {
     vector<string> ressPath;
 
-    for(Material::Map::iterator it = m_materials.begin(); it != m_materials.end(); it++)
+    BOOST_FOREACH(SubMesh* smesh, m_subMeshs)
     {
-        unsigned txcount = it->second->getTexturesCount();
+        unsigned txcount = smesh->m_material->getTexturesCount();
 
         for(unsigned i = 0; i < txcount; i++)
-            ressPath.push_back(it->second->getTexture(i).getFilename());
+            ressPath.push_back(smesh->m_material->getTexture(i).getFilename());
     }
 
     ressPath.push_back(_BufferManager[this]);
@@ -1644,4 +807,585 @@ void Mesh::setReceiveShadow(bool receiveShadow)
 bool Mesh::isReceiveShadow() const
 {
     return m_receiveShadow;
+}
+
+SubMesh::SubMesh(Mesh* mh, Material* mt, unsigned f, unsigned c)
+{
+    m_owner = mh;
+    m_material = mt;
+    m_offset = f;
+    m_size = c;
+
+    m_hardbuf = m_owner->getHardwareBuffer();
+    m_scenemng = m_owner->getSceneManager();
+    m_parallel = m_owner->getParallelScene();
+}
+
+SubMesh::~SubMesh() { }
+
+void SubMesh::setMaterial(Material* material)
+{
+    this->m_material = material;
+}
+
+Material* SubMesh::getMaterial() const
+{
+    return m_material;
+}
+
+void SubMesh::setSize(unsigned size)
+{
+    this->m_size = size;
+}
+
+unsigned SubMesh::getSize() const
+{
+    return m_size;
+}
+
+void SubMesh::setOffset(unsigned offset)
+{
+    this->m_offset = offset;
+}
+
+unsigned SubMesh::getOffset() const
+{
+    return m_offset;
+}
+
+bool SubMesh::operator==(const SubMesh& other)
+{
+    return m_material == other.m_material
+            && m_offset == other.m_offset
+            && m_size == other.m_size
+            ;
+}
+
+void SubMesh::setOwner(Mesh* owner)
+{
+    this->m_owner = owner;
+}
+
+Mesh* SubMesh::getOwner() const
+{
+    return m_owner;
+}
+
+void SubMesh::beginProperty()
+{
+    if(m_material->m_depthTest)
+        glEnable(GL_DEPTH_TEST);
+    else
+        glDisable(GL_DEPTH_TEST);
+
+    glDepthMask(m_material->m_depthWrite);
+
+    if(m_material->m_renderFlags & Material::BACKFACE_CULL)
+    {
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+    }
+
+    else if(m_material->m_renderFlags & Material::FRONTFACE_CULL)
+    {
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
+    }
+
+    if(glIsEnabled(GL_FOG) && !(m_material->m_renderFlags & Material::FOGED))
+    {
+        glDisable(GL_FOG);
+    }
+
+    if(m_material->m_lineWidth)
+        glLineWidth(m_material->m_lineWidth);
+
+    if(m_material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
+    {
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
+    }
+
+    if(m_material->m_renderFlags & Material::ADDITIVE)
+    {
+        glEnable(GL_BLEND);
+        // glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+        glBlendFunc(GL_ONE, GL_ONE);
+    }
+
+    else if(m_material->m_renderFlags & Material::MULTIPLY)
+    {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
+
+    }
+
+    else if(m_material->m_renderFlags & Material::MODULATE)
+    {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
+
+    else
+        glDisable(GL_BLEND);
+
+    if(m_material->m_renderFlags & Material::ALPHA)
+    {
+        glEnable(GL_ALPHA_TEST);
+        glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+        glAlphaFunc(GL_GREATER, m_material->m_alphaThershold);
+    }
+}
+
+void SubMesh::bindBuffers()
+{
+    using namespace boost;
+
+    glPushAttrib(GL_ENABLE_BIT);
+
+    m_hardbuf->bindBuffer(true);
+
+    Shader& usedshader = m_material->m_shader;
+
+    // Request uniform for general purpose
+    if(usedshader.isEnable())
+    {
+        ShaderBind callbind(m_parallel, m_owner, m_material, usedshader);
+
+        Shader::bind(usedshader);
+
+        const Shader::UniformMap& umap = usedshader.getRequestedUniform();
+
+        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
+        {
+            callbind.assignExp(u.first, u.second);
+        }
+
+        Shader::unbind();
+    }
+
+    if(m_material->m_renderFlags & Material::TEXTURED)
+    {
+
+        BOOST_FOREACH(Texture::Map::value_type itt, m_material->m_textures)
+        {
+            if(!itt.second)
+                continue;
+
+            Texture texture = m_material->m_textures[itt.first];
+            TextureApply settings = m_material->m_texApply[itt.first];
+
+            bindTexture(itt.first, texture, settings);
+        }
+
+        // Request uniform for texture layer
+        if(usedshader.isEnable())
+        {
+            Shader::bind(usedshader);
+
+            const Shader::UniformMap& umap = usedshader.getRequestedUniform();
+
+            BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
+            {
+                if(u.second == "shadow_map")
+                {
+                    unsigned layer = m_material->m_textures.size();
+                    usedshader.uniform(u.first, (int) layer);
+
+                    Light* light = m_parallel->light(0);
+                    ShadowMap* smap = light->getShadowMap();
+                    Texture shadowMap = smap->getDepthMap();
+                    bindTexture(layer, shadowMap, TextureApply());
+                }
+            }
+
+            Shader::unbind();
+        }
+    }
+    else
+        glDisable(GL_TEXTURE_2D);
+
+    if(m_material->m_renderFlags & Material::LIGHTED)
+    {
+        m_hardbuf->bindNormal();
+
+        glEnable(GL_LIGHTING);
+
+        glMaterialfv(GL_FRONT, GL_AMBIENT, m_material->m_ambient);
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, m_material->m_diffuse);
+        glMaterialfv(GL_FRONT, GL_SPECULAR, m_material->m_specular);
+        glMaterialf(GL_FRONT, GL_SHININESS, m_material->m_shininess);
+
+        /* Normal Scaling ------------------------------------------------------
+         *
+         * Ici on divise les normale des vertex par le Scale de la matrice du noeud
+         * pour les rendre unitaire (normaliser), afin d'�viter un calcule
+         * incorrect de la lumière lors d'une mise a l'�chelle sur la matrice
+         * TODO renable scalling
+         */
+
+        if(!math::isEqual(m_owner->getScale(), 1))
+            glEnable(GL_RESCALE_NORMAL);
+        else
+            glDisable(GL_RESCALE_NORMAL);
+    }
+
+    if(m_material->m_renderFlags & Material::COLORED)
+    {
+        unsigned vertexCount = m_hardbuf->getVertexCount();
+
+        m_hardbuf->bindColor();
+
+        if(!usedshader.isEnable())
+        {
+            glEnable(GL_COLOR_MATERIAL);
+
+            // TODO Avoid Material Coloring manytime
+
+            // if(!math::isEqual(material->m_color, 1))
+            // requestVertexRestore();
+
+            Vertex* vertex = m_hardbuf->lock(GL_READ_WRITE);
+
+            for(unsigned i = m_offset; i < m_offset + m_size && i < vertexCount; i++)
+                vertex[i].color = m_material->m_color;
+
+            m_hardbuf->unlock();
+        }
+    }
+}
+
+void SubMesh::draw(const Matrix4& mat)
+{
+    transform(mat);
+
+    if(m_material->m_clockCycle > 0)
+        if(m_material->m_clock.isEsplanedTime(m_material->m_clockCycle, false))
+            m_material->m_clock.snapShoot();
+
+    Shader& usedshader = m_material->m_shader;
+    Shader::bind(usedshader);
+
+    const Shader::UniformMap& umap = usedshader.getRequestedUniform();
+
+    // Ambient Pass ------------------------------------------------------------
+
+    glDisable(GL_BLEND);
+
+    if(!(m_material->m_renderFlags & Material::LIGHTED))
+    {
+        glDisable(GL_LIGHTING);
+        m_hardbuf->render(m_material->m_faceType, m_offset, m_size, m_material->m_drawPass);
+    }
+
+    else
+    {
+        glEnable(GL_LIGHTING);
+        glDisable(GL_LIGHT0);
+
+        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
+        {
+            if(u.second == "ambient_pass")
+                usedshader.uniform(u.first, true);
+        }
+
+        m_hardbuf->render(m_material->m_faceType, m_offset, m_size, m_material->m_drawPass);
+    }
+
+    // Forward Rendering -------------------------------------------------------
+
+    if(m_material->m_renderFlags & Material::LIGHTED)
+    {
+        glPushAttrib(GL_ENABLE_BIT);
+
+        BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
+        {
+            if(u.second == "ambient_pass")
+                usedshader.uniform(u.first, false);
+        }
+
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+
+        glDepthFunc(GL_LEQUAL);
+
+        Vector4f globalAmbient = m_scenemng->getAmbientLight();
+
+        m_scenemng->setAmbientLight(0);
+
+        int lightCount = m_parallel->beginPrePassLighting(m_owner);
+
+        for(int i = 0; i < lightCount; i++)
+        {
+            m_parallel->prePassLighting(i);
+            m_hardbuf->render(m_material->m_faceType, m_offset, m_size, m_material->m_drawPass);
+        }
+
+        m_parallel->endPrePassLighting();
+
+        m_scenemng->setAmbientLight(globalAmbient);
+
+        glPopAttrib();
+    }
+
+    Shader::unbind();
+
+    glPopMatrix();
+}
+
+void SubMesh::beginShadowPass()
+{
+    glPushAttrib(GL_ENABLE_BIT);
+
+    m_hardbuf->bindBuffer();
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(true);
+
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.5);
+
+    glDisable(GL_BLEND);
+    glDisable(GL_LIGHTING);
+
+    glColor4f(0, 0, 0, 1);
+
+    // If we have a back face then cull the front
+    if(m_material->m_renderFlags & Material::BACKFACE_CULL)
+    {
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
+    }
+
+    // Only first texture unit to handle alpha
+    if(!m_material->m_textures.empty())
+    {
+        Texture::Map::iterator itt = m_material->m_textures.begin();
+
+        Texture texture = m_material->m_textures[itt->first];
+        TextureApply settings = m_material->m_texApply[itt->first];
+
+        bindTexture(itt->first, texture, settings);
+    }
+
+}
+
+void SubMesh::drawShadow(const Matrix4& mat)
+{
+    transform(mat);
+
+    m_hardbuf->render(Material::TRIANGLES, m_offset, m_size);
+
+    glPopMatrix();
+}
+
+void SubMesh::endShadowPass()
+{
+    if(!m_material->m_textures.empty())
+    {
+        Texture::Map::iterator itt = m_material->m_textures.begin();
+
+        glClientActiveTexture(GL_TEXTURE0);
+        m_hardbuf->bindTexture(false);
+
+        glActiveTexture(GL_TEXTURE0);
+        glDisable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    m_hardbuf->bindBuffer(false);
+
+    glPopAttrib();
+}
+
+void SubMesh::unbindBuffers()
+{
+    if(m_material->m_renderFlags & Material::SHADER)
+    {
+        m_hardbuf->bindTangent(false);
+        m_hardbuf->bindAocc(false);
+    }
+
+    Shader& usedshader = m_material->m_shader;
+
+    if(m_material->m_renderFlags & Material::TEXTURED)
+    {
+
+        BOOST_FOREACH(Texture::Map::value_type itt, m_material->m_textures)
+        {
+            if(!itt.second)
+                continue;
+
+            unsigned layer = GL_TEXTURE0 + itt.first;
+
+            glClientActiveTexture(layer);
+            m_hardbuf->bindTexture(false);
+
+            glActiveTexture(layer);
+            glDisable(GL_TEXTURE_2D);
+            glBindTexture(GL_TEXTURE_2D, 0);
+        }
+
+        if(usedshader.isRequested("shadow_map"))
+        {
+            unsigned layer = GL_TEXTURE0 + m_material->m_textures.size();
+
+            glClientActiveTexture(layer);
+            m_hardbuf->bindTexture(false);
+
+            glActiveTexture(layer);
+            glDisable(GL_TEXTURE_2D);
+        }
+
+        // Don't forger to reactivate texture unit 0 for future use !!!
+        glClientActiveTexture(GL_TEXTURE0);
+        glActiveTexture(GL_TEXTURE0);
+    }
+
+    if(m_material->m_renderFlags & Material::LIGHTED)
+    {
+        m_hardbuf->bindNormal(false);
+    }
+
+    if(m_material->m_renderFlags & Material::COLORED)
+    {
+        m_hardbuf->bindColor(false);
+    }
+
+    m_hardbuf->unbindBuffer();
+
+    glPopAttrib();
+
+    glColor4f(1, 1, 1, 1);
+}
+
+void SubMesh::endProperty()
+{
+    if(m_material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
+    {
+        glCullFace(GL_BACK);
+        m_owner->getHardwareBuffer()->render(m_material->m_faceType, m_offset, m_size, m_material->m_drawPass);
+    }
+}
+
+void SubMesh::transform(const Matrix4& mat)
+{
+    glPushMatrix();
+
+    glMultMatrixf(mat);
+
+    /* Billboarding ------------------------------------------------------------
+    
+    if(!!m_billBoard)
+    {
+        Vector3f position, scale;
+        Quaternion rotation;
+        m_matrix.decompose(position, rotation, scale);
+
+        Quaternion new_rotation = m_sceneManager
+                ->computeBillboard(getAbsoluteMatrix().getPos(), 0, m_billBoard);
+
+        Matrix4 newmat;
+        rotation.w = -rotation.w;
+        newmat.rotate(rotation.conjugate());
+        newmat.rotate(new_rotation);
+        newmat.scale(scale);
+        newmat.translate(position);
+
+        glMultMatrixf(newmat);
+    }
+    else
+        glMultMatrixf(m_matrix);
+     */
+}
+
+void SubMesh::animateTexture(unsigned layer, Texture texture, TextureApply settings)
+{
+    unsigned vertexCount = m_hardbuf->getVertexCount();
+
+    const Vector2f& size = texture.getSize();
+
+    const Vertex::Array& initvert = m_hardbuf->getClientVertex();
+
+    if(layer)
+    {
+        Vector2f* uvs = m_hardbuf->lockMultiTexCoord(layer, GL_WRITE_ONLY);
+
+        for(unsigned i = 0; i < vertexCount; i++)
+        {
+            Vector2f frame(settings.frameSize.x / size.x, settings.frameSize.y / size.y);
+
+            Vector2f scaled(initvert[i].texCoord.x * frame.x, initvert[i].texCoord.y * frame.y);
+
+            uvs[i].x = scaled.x + frame.x * settings.part.x;
+            uvs[i].y = scaled.y + frame.y * settings.part.y;
+        }
+    }
+    else
+    {
+        Vertex* vs = m_hardbuf->lock(GL_WRITE_ONLY);
+
+        for(unsigned i = 0; i < vertexCount; i++)
+        {
+            Vector2f frame(settings.frameSize.x / size.x, settings.frameSize.y / size.y);
+
+            Vector2f scaled(initvert[i].texCoord.x * frame.x, initvert[i].texCoord.y * frame.y);
+
+            vs[i].texCoord.x = scaled.x + frame.x * settings.part.x;
+            vs[i].texCoord.y = scaled.y + frame.y * settings.part.y;
+        }
+    }
+
+    m_hardbuf->unlock();
+
+    if(settings.animation > 0)
+        if(settings.clock.isEsplanedTime(settings.animation))
+        {
+            settings.part.x++;
+
+            if(settings.part.x >= size.x / settings.frameSize.x)
+            {
+                settings.part.x = 0;
+                settings.part.y++;
+
+                if(settings.part.y >= size.y / settings.frameSize.y)
+                    settings.part.y = 0;
+            }
+        }
+
+}
+
+void SubMesh::bindTexture(unsigned layer, Texture texture, TextureApply settings)
+{
+    unsigned id = GL_TEXTURE0 + layer;
+
+    // Animation de la texture par modification des coordon�s UV
+    if(settings.clipped)
+        animateTexture(layer, texture, settings);
+
+    glActiveTexture(id);
+    glEnable(GL_TEXTURE_2D);
+    texture.use(true);
+
+    glClientActiveTexture(id);
+    m_hardbuf->bindTexture(true, layer);
+
+    unsigned multexb = settings.blend;
+
+    if(multexb == Material::REPLACE)
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+    else if(multexb == Material::ADDITIVE)
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD);
+
+    else if(multexb == Material::MODULATE)
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+    else if(multexb == Material::ALPHA)
+    {
+        // Use a shader instead
+    }
 }

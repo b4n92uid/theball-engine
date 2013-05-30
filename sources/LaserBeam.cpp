@@ -6,6 +6,7 @@
  */
 
 #include "LaserBeam.h"
+#include "MeshParallelScene.h"
 
 using namespace std;
 using namespace tbe;
@@ -16,9 +17,7 @@ LaserBeam::LaserBeam(MeshParallelScene* scene) : Mesh(scene)
     m_opacity = 1;
 }
 
-LaserBeam::~LaserBeam()
-{
-}
+LaserBeam::~LaserBeam() { }
 
 void LaserBeam::shoot(Vector3f start, Vector3f end)
 {
@@ -75,14 +74,13 @@ void LaserBeam::shoot(Vector3f start, Vector3f end)
         m_hardwareBuffer->addFace(face);
     }
 
-    Material* mainMaterial = new Material;
+    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("LaserBeam");
     mainMaterial->disable(Material::LIGHTED);
     mainMaterial->enable(Material::TEXTURED | Material::ADDITIVE | Material::COLORED);
     mainMaterial->setFaceType(Material::TRIANGLES);
     mainMaterial->setTexture(m_texture);
 
-    addMaterial("main", mainMaterial);
-    applyMaterial(mainMaterial, 0, 24);
+    addSubMesh(mainMaterial, 0, 24);
 
     m_hardwareBuffer->compile();
 
@@ -140,7 +138,7 @@ void LaserBeam::setTexture(Texture texture)
 {
     this->m_texture = texture;
 
-    Material* mainMaterial = getMaterial("main");
+    Material* mainMaterial = m_subMeshs.front()->getMaterial();
 
     if(mainMaterial)
         mainMaterial->setTexture(m_texture);

@@ -1,4 +1,5 @@
 #include "Heightmap.h"
+#include "MeshParallelScene.h"
 
 using namespace std;
 using namespace tbe;
@@ -38,7 +39,7 @@ float Heightmap::GetY(unsigned x, unsigned z)
     z = min(max(0u, z), m_length - 1);
 
     // RAPPEL
-    // On accède avec comme calcul z * largeur + x. Ainsi pour trouver l'élément
+    // On accï¿½de avec comme calcul z * largeur + x. Ainsi pour trouver l'ï¿½lï¿½ment
     // tab [9][4], soit par convention la ligne 9 et colonne 4, cela donne :
     // 4 * m_iLargeur (par exemple 15) : 4 * 15 + 9 = 69.
     return (GLfloat) m_pixels[z * m_length + x];
@@ -101,11 +102,8 @@ void Heightmap::open(const std::string& path)
 
     computeAabb();
 
-    Material* mainMaterial = new Material;
-    //    mainMaterial->Enable(Material::FRONTFACE_CULL);
-    //    mainMaterial->Disable(Material::BACKFACE_CULL);
+    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("HeightMap");
     mainMaterial->setFaceType(Material::TRIANGLE_STRIP);
 
-    addMaterial("main", mainMaterial);
-    applyMaterial(mainMaterial, 0, vertexsCount);
+    addSubMesh(mainMaterial, 0, vertexsCount);
 }

@@ -15,7 +15,6 @@
 #include "Particles.h"
 #include "MapMark.h"
 #include "ObjMesh.h"
-#include "Ball3DMesh.h"
 
 using namespace std;
 using namespace tbe;

@@ -36,7 +36,9 @@ public:
     ~Layer();
 
     void draw(bool autoSetup = true);
-
+    
+    void setGeometry(Vector2f pos, Vector2f size, Vector4f color);
+    
     void begin();
     void end();
 

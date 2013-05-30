@@ -2,7 +2,7 @@
  * File:   tbe_tools.h
  * Author: Administrateur
  *
- * Created on 21 août 2009, 21:34
+ * Created on 21 aoÃ©t 2009, 21:34
  */
 
 #ifndef _TBE_TOOLS_H
@@ -103,8 +103,8 @@ inline std::string pathname(std::string filename)
 }
 
 /**
- * Renvois le nom (et l'extention si withExt est à true)
- *  du chemin spécifier par filename
+ * Renvois le nom (et l'extention si withExt est Ã© true)
+ *  du chemin spÃ©cifier par filename
  *
  * @param filename
  * @param withExt
@@ -128,7 +128,7 @@ inline std::string basename(std::string filename, bool withExt = true)
 }
 
 /**
- * Renvois un tableau contenant les partie découper de str par sep
+ * Renvois un tableau contenant les partie dÃ©couper de str par sep
  *  si le parametre skipempty est a true alors les patie vide seront effacer
  *
  * @param str
@@ -169,7 +169,7 @@ template<typename T> std::vector<T> tokenize(std::string str, char sep, bool ski
 
 /**
  * Renvois un tableau contenant les partie de chaine de caracteres
- *  découper de str par sep, si le parametre skipempty est a true
+ *  dÃ©couper de str par sep, si le parametre skipempty est a true
  *  alors les patie vide seront effacer
  *
  * @param str
@@ -206,7 +206,7 @@ inline std::vector<std::string> tokenize(std::string str, char sep, bool skipemp
 }
 
 /**
- * Ré-assemble les élement de vec en une chaine de caracteres séparer par glue
+ * RÃ©-assemble les Ã©lement de vec en une chaine de caracteres sÃ©parer par glue
  *
  * @param vec
  * @param glue
@@ -391,7 +391,7 @@ inline std::string resolvePath(std::string path, std::string base)
 /**
  * Trouve et efface la premiere occurance de 'val'
  *  si elle est contenue dans le tableau 'vec',
- *  val peut être d'un type héritant de T
+ *  val peut Ã©tre d'un type hÃ©ritant de T
  *
  * @param vec
  * @param val
@@ -421,7 +421,7 @@ template<typename T> void erase(std::vector<T>& vec, T val)
 
 /**
  * Indique si la valeur 'val' est contenue dans le tableau 'vec',
- *  val peut être d'un type héritant de T
+ *  val peut Ã©tre d'un type hÃ©ritant de T
  *
  * @param vec
  * @param val
@@ -446,7 +446,7 @@ template<typename T> bool find(const std::vector<T>& vec, T val)
 }
 
 /**
- * Enleve les espace blanc des extrémité de la chaine
+ * Enleve les espace blanc des extrÃ©mitÃ© de la chaine
  * http://www.codeproject.com/Articles/10880/A-trim-implementation-for-std-string
  *
  * @param buffer
@@ -528,8 +528,8 @@ inline std::string unixName(std::string name)
 
     repMap replacement;
     replacement[' '] = '-';
-    replacement['é'] = 'e';
-    replacement['è'] = 'e';
+    replacement[138] = 'e'; // Ã¨
+    replacement[130] = 'e'; // Ã©
 
     for(repMap::iterator it = replacement.begin(); it != replacement.end(); ++it)
         std::replace(name.begin(), name.end(), it->first, it->second);
@@ -538,7 +538,7 @@ inline std::string unixName(std::string name)
 }
 
 /**
- * Génére un nom unique pour map
+ * GÃ©nÃ©re un nom unique pour map
  *
  * @param map
  * @param prefix
@@ -559,7 +559,7 @@ std::string nameGen(std::map<std::string, T2>& map, std::string prefix = std::st
 }
 
 /**
- * Génére un nom unique pour un tableau de noeud (Node)
+ * GÃ©nÃ©re un nom unique pour un tableau de noeud (Node)
  *
  * @param array
  * @param prefix
@@ -592,7 +592,7 @@ std::string nameGen(std::vector<T>& array, std::string prefix = std::string())
 }
 
 /**
- * Conversion numérique vers chaine de characters
+ * Conversion numÃ©rique vers chaine de characters
  *
  * @param numeric
  * @return
@@ -605,7 +605,7 @@ template <typename T> std::string numToStr(T numeric)
 }
 
 /**
- * Conversion de chaine de characters vers valeur numérique
+ * Conversion de chaine de characters vers valeur numÃ©rique
  *
  * @param str
  * @return
@@ -616,6 +616,18 @@ template <typename T> T strToNum(std::string str)
     std::stringstream ss(str);
     ss >> numeric;
     return numeric;
+}
+
+#define drawGlError() tbe::tools::_drawGlError(__LINE__, __FILE__)
+
+inline void _drawGlError(int line, const char* file)
+{
+    GLenum err = glGetError();
+
+    if(err != GL_NO_ERROR)
+        std::cout
+            << "/!\\ Warning; " << file << ":" << line << std::endl
+            << "\t" << gluErrorString(err) << std::endl;
 }
 
 }

@@ -19,7 +19,12 @@
 namespace tbe
 {
 
-/// \brief Représentation d'un vertex
+namespace scene
+{
+class SubMesh;
+}
+
+/// \brief ReprÃ©sentation d'un vertex
 
 class Vertex
 {
@@ -27,6 +32,8 @@ public:
     Vertex();
     Vertex(Vector3f pos, Vector3f normal, Vector4f color, Vector2f texCoord);
     Vertex(float px, float py, float pz, float nx, float ny, float nz, float r, float g, float b, float a, float s, float t);
+
+    bool operator==(const Vertex& v) const;
 
     typedef std::vector<Vertex> Array;
 
@@ -40,7 +47,7 @@ public:
     /// Couleur du vertex
     Vector4f color;
 
-    /// coordonnées de texture
+    /// coordonnÃ©es de texture
     Vector2f texCoord;
 
     /// Tangent du vertex
@@ -50,7 +57,7 @@ public:
     Vector4f ambOcc;
 };
 
-/// \brief Représentation d'une face a nombre variable de vertex
+/// \brief ReprÃ©sentation d'une face a nombre variable de vertex
 
 class Face : public Vertex::Array
 {
@@ -58,25 +65,26 @@ public:
     typedef std::vector<Face> Array;
 };
 
-/// \brief Tempon de stockage en mémoire GPU (Vertex buffer object)
+/// \brief Tempon de stockage en mÃ©moire GPU (Vertex buffer object)
 
 class HardwareBuffer
 {
 public:
     HardwareBuffer();
+    HardwareBuffer(const HardwareBuffer& hb);
     ~HardwareBuffer();
 
-    HardwareBuffer(const HardwareBuffer& hb);
+    typedef std::vector<unsigned> IndexArray;
 
     HardwareBuffer & operator=(const HardwareBuffer& hb);
 
-    /// Véroulleu le buffer pour d'éventuelle modification
+    /// VÃ©roulleu le buffer pour d'Ã©ventuelle modification
     Vertex* lock(GLenum usage = GL_READ_WRITE);
 
-    /// Véroulleu le buffer pour d'éventuelle modification
+    /// VÃ©roulleu le buffer pour d'Ã©ventuelle modification
     Vector2f* lockMultiTexCoord(unsigned index, GLenum usage = GL_READ_WRITE);
 
-    /// Dévéroulleu le buffer pour signaler la fin des modification
+    /// DÃ©vÃ©roulleu le buffer pour signaler la fin des modification
     HardwareBuffer& unlock();
 
     /// *
@@ -97,17 +105,24 @@ public:
     /// Ajoute un tablaux de vertex au buffer (Style C)
     void addVertex(const Vertex* array, unsigned size);
 
+    void addIndex(unsigned index);
+
+    void addIndex(unsigned* array, unsigned size);
+
+    void convertToIndexedBuffer();
+
     /**
      * Compile le buffer avec les vertex enregistrer
      *
-     * Cette fonction doit etre appeller après que tout les ajoute de vertex
-     * soit effectuer, si des les vertex sont ajouter après l'appelle de cette
+     * Cette fonction doit etre appeller aprÃ©s que tout les ajoute de vertex
+     * soit effectuer, si des les vertex sont ajouter aprÃ©s l'appelle de cette
      * fonction, ils seront ignorer
      */
     void compile(GLenum usage = GL_STATIC_DRAW);
+    void compileIndex(GLenum usage = GL_STATIC_DRAW);
 
     /**
-     * Réinitialise le buffer de rendue (efface tout les vertexs)
+     * RÃ©initialise le buffer de rendue (efface tout les vertexs)
      */
     void clear();
 
@@ -115,7 +130,7 @@ public:
     HardwareBuffer& bindBuffer(bool state = true, int vertCount = 3);
     HardwareBuffer& unbindBuffer();
 
-    /// Activer le rendue des coordonnées de texture
+    /// Activer le rendue des coordonnÃ©es de texture
     void bindTexture(bool state = true, unsigned layer = 0);
 
     /// Activer le rendue des couleur associer aux vertexs
@@ -143,26 +158,31 @@ public:
     /// Renvois la nombre de vertexs contenue dans le buffer
     unsigned getVertexCount() const;
 
+    unsigned getIndexCount() const;
+
+    bool isIndexMode() const;
+
     /// Renvois un tableau contenant les face triangulaire du buffer
     Face::Array getAllFace();
 
     /**
      * Renvois un tableau contenant tout les vertexs du buffer
      *
-     * @param makeUnique Indique si les vertex qui partagent la même position
+     * @param makeUnique Indique si les vertex qui partagent la mÃ©me position
      *                  seront supprimer
      */
     Vertex::Array getAllVertex(bool makeUnique = false);
 
-    const Vertex::Array& getInitialVertex() const;
+    const Vertex::Array& getClientVertex() const;
+    const IndexArray& getClientIndex() const;
 
     void setMultiTexCoord(unsigned index, Vector2f::Array uv);
     void newMultiTexCoord(unsigned index);
 
     /**
-     * Vérifier le support des extention requis par la carte graphique pour le rendue
+     * VÃ©rifier le support des extention requis par la carte graphique pour le rendue
      *
-     * Pour déterminer le support des VBO's,
+     * Pour dÃ©terminer le support des VBO's,
      * l'extention suivante est tester :
      *  GL_ARB_vertex_buffer_object
      */
@@ -170,11 +190,18 @@ public:
 
 protected:
     GLuint m_bufferId;
+    GLuint m_indexId;
     GLenum m_usage;
     Vertex::Array m_vertex;
+    IndexArray m_index;
 
     unsigned m_vertexCount;
     unsigned m_bufferSize;
+
+    unsigned m_indexCount;
+    unsigned m_indexBufferSize;
+
+    bool m_indexMode;
 
     unsigned m_multiTexCoordOffset;
     std::map<unsigned, Vector2f::Array> m_multiTexCoord;

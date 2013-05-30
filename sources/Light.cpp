@@ -34,7 +34,7 @@ Light::Light(MeshParallelScene* scene, Type type)
     setRadius(1);
 
     m_type = type;
-    m_castShadow = true;
+    m_castShadow = false;
     m_castRays = false;
     m_shadowMap = NULL;
     m_volumeLight = NULL;

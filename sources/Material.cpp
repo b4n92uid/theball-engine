@@ -8,7 +8,7 @@
 #include "Material.h"
 
 using namespace tbe;
-using namespace tbe::scene;
+using namespace scene;
 
 Material::Material()
 {
@@ -348,4 +348,278 @@ void Material::setDrawPass(unsigned drawPass)
 unsigned Material::getDrawPass() const
 {
     return m_drawPass;
+}
+
+MaterialManager::MaterialManager() { }
+
+MaterialManager::~MaterialManager()
+{
+    BOOST_FOREACH(MaterialManager::Map::value_type&v, m_materials)
+            delete v.second;
+
+    m_materials.clear();
+}
+
+Material* MaterialManager::newMaterial(std::string name)
+{
+    if(m_materials.count(name))
+        return m_materials[name];
+
+    Material* mat = new Material;
+    mat->setName(name);
+
+    m_materials[name] = mat;
+
+    return mat;
+}
+
+Material* MaterialManager::getMaterial(std::string name)
+{
+    if(m_materials.count(name))
+        return m_materials[name];
+
+    return NULL;
+}
+
+Material* MaterialManager::loadMaterial(std::string path)
+{
+    using namespace std;
+    using namespace boost;
+
+    if(m_materialsFromFile.count(path))
+    {
+        return m_materialsFromFile[path];
+    }
+
+    cout << "[Material] " << path << endl;
+
+    rtree data;
+    property_tree::read_info(path, data);
+
+    string matname = data.get<string>("name");
+
+    Material* mat = new Material;
+    mat->setName(matname);
+
+    m_materials[matname] = mat;
+    m_materialsFromFile[path] = mat;
+
+    VectorTranslator<Vector4f> v4tr;
+
+    mat->setAmbient(data.get<Vector4f>("ambient", Vector4f(1), v4tr));
+    mat->setDiffuse(data.get<Vector4f>("diffuse", Vector4f(1), v4tr));
+    mat->setSpecular(data.get<Vector4f>("specular", Vector4f(0.5), v4tr));
+    mat->setShininess(data.get<float>("shininess", 16));
+    mat->setClockCycle(data.get<long>("clockCycle", 1000));
+
+    if(data.get<bool>("alpha", false))
+    {
+        mat->enable(Material::ALPHA);
+        mat->setAlphaThershold(data.get<float>("alphaThershold", 0.0f));
+    }
+
+    if(data.get<bool>("colored", true))
+    {
+        mat->enable(Material::COLORED);
+        mat->setColor(data.get<Vector4f>("color", Vector4f(1, 1, 1, 1), VectorTranslator<Vector4f>()));
+    }
+
+    if(data.get<string>("blend", "none") != "none")
+    {
+        string blend = data.get<string>("blend");
+
+        if(blend == "additive")
+            mat->enable(Material::ADDITIVE);
+
+        else if(blend == "modulate")
+            mat->enable(Material::MODULATE);
+
+        else if(blend == "multiply")
+            mat->enable(Material::MULTIPLY);
+    }
+
+    if(data.get<string>("faceCull", "none") != "none")
+    {
+        string cull = data.get<string>("faceCull");
+
+        if(cull == "back")
+            mat->enable(Material::BACKFACE_CULL);
+
+        else if(cull == "front")
+            mat->enable(Material::FRONTFACE_CULL);
+    }
+
+    if(data.get<bool>("lighted", true))
+        mat->enable(Material::LIGHTED);
+    else
+        mat->disable(Material::LIGHTED);
+
+    if(data.get<bool>("foged", true))
+        mat->enable(Material::FOGED);
+    else
+        mat->disable(Material::FOGED);
+
+    if(data.get<bool>("textured", true))
+        mat->enable(Material::TEXTURED);
+    else
+        mat->disable(Material::TEXTURED);
+
+    if(data.count("textures"))
+    {
+        rtree textures = data.get_child("textures");
+
+        rtree::iterator it = textures.begin();
+        for(int i = 0; it != textures.end(); i++)
+        {
+            rtree& value = it->second;
+
+            string texpath = value.get<string>("path");
+
+            if(!tools::isAbsoloutPath(texpath))
+                texpath = tools::resolvePath(texpath, path);
+
+            bool mipmap = value.get<bool>("mipmap", true);
+            int origin = value.get<int>("origin", 1);
+
+            mat->setTexture(Texture(texpath, mipmap, origin, true), i);
+
+            string blend = value.get<string>("blend", "modulate");
+
+            if(blend == "modulate")
+                mat->setTextureBlend(Material::MODULATE, i);
+
+            else if(blend == "additive")
+                mat->setTextureBlend(Material::ADDITIVE, i);
+
+            else if(blend == "replace")
+                mat->setTextureBlend(Material::REPLACE, i);
+
+            else if(blend == "alpha")
+                mat->setTextureBlend(Material::ALPHA, i);
+
+            optional<rtree&> transform = value.get_child_optional("transform");
+
+            if(transform)
+            {
+                VectorTranslator<Vector2i> v2itr;
+
+                bool clipped = transform->get("clipped", false);
+                Vector2i framesize = transform->get("framesize", Vector2i(), v2itr);
+                Vector2i part = transform->get("part", Vector2i(), v2itr);
+
+                mat->setTextureClipped(clipped, i);
+                mat->setTextureFrameSize(framesize, i);
+                mat->setTexturePart(part, i);
+            }
+
+            it++;
+        }
+    }
+
+    if(data.count("shader"))
+    {
+        string shaderpath = data.get<string>("shader");
+
+        if(!tools::isAbsoloutPath(shaderpath))
+            shaderpath = tools::resolvePath(shaderpath, path);
+
+        Shader shader;
+        shader.parseShaderFile(shaderpath);
+
+        mat->setShader(shader);
+    }
+
+    return mat;
+}
+
+rtree MaterialManager::serialize(std::string name, std::string root)
+{
+    using namespace std;
+    using namespace boost;
+
+    if(!m_materials.count(name))
+        return rtree();
+
+    rtree scheme;
+
+    Material* mat = m_materials[name];
+
+    rtree matscheme;
+
+    matscheme.put("name", name);
+
+    matscheme.put("ambient", mat->getAmbient());
+    matscheme.put("diffuse", mat->getDiffuse());
+    matscheme.put("specular", mat->getSpecular());
+    matscheme.put("shininess", mat->getShininess());
+    matscheme.put("clockCycle", mat->getClockCycle());
+
+    matscheme.put("alpha", mat->isEnable(Material::ALPHA));
+    matscheme.put("alphaThershold", mat->getAlphaThershold());
+
+    if(mat->isEnable(Material::MODULATE))
+        matscheme.put("blend", "modulate");
+    else if(mat->isEnable(Material::ADDITIVE))
+        matscheme.put("blend", "additive");
+    else if(mat->isEnable(Material::MULTIPLY))
+        matscheme.put("blend", "multiplty");
+
+    matscheme.put("color", mat->getColor());
+    matscheme.put("cullTrick", mat->isEnable(Material::VERTEX_SORT_CULL_TRICK));
+
+    if(mat->isEnable(Material::FRONTFACE_CULL))
+        matscheme.put("faceCull", "front");
+    if(mat->isEnable(Material::BACKFACE_CULL))
+        matscheme.put("faceCull", "back");
+
+    matscheme.put("lighted", mat->isEnable(Material::LIGHTED));
+    matscheme.put("textured", mat->isEnable(Material::TEXTURED));
+    matscheme.put("colored", mat->isEnable(Material::COLORED));
+
+    Shader shade = mat->getShader();
+
+    if(shade.isEnable())
+    {
+        string shaderpath = shade.getShaderFile();
+
+        if(!shaderpath.empty())
+        {
+            // rtree shadertree = shade.serialize(shaderpath);
+            // boost::property_tree::write_info(shaderpath, shadertree);
+
+            shaderpath = tools::relativizePath(shaderpath, root);
+
+            matscheme.put("shader", shaderpath);
+        }
+        else
+            cout << "/!\\ WARNING: Mesh::serializeMaterial; Shader has not been loaded from file (" << shaderpath << ")" << endl;
+    }
+
+    unsigned txcount = mat->getTexturesCount();
+
+    for(unsigned i = 0; i < txcount; i++)
+    {
+        rtree texscheme;
+
+        Texture tex = mat->getTexture(i);
+
+        texscheme.put("path", tools::relativizePath(tex.getFilename(), root));
+        texscheme.put("origin", tex.getOrigin());
+        texscheme.put("mipmap", tex.isGenMipMap());
+
+        unsigned blend = mat->getTextureBlend(i);
+
+        if(blend == Material::MODULATE)
+            texscheme.put("blend", "modulate");
+        if(blend == Material::ADDITIVE)
+            texscheme.put("blend", "additive");
+        if(blend == Material::REPLACE)
+            texscheme.put("blend", "replace");
+
+        matscheme.add_child("textures.unit", texscheme);
+    }
+
+    scheme.add_child("pass", matscheme);
+
+    return scheme;
 }

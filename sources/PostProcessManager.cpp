@@ -168,7 +168,7 @@ void PostProcessManager::render()
      * -----------------------------------
      * Passage en 2D
      * Pour chaque effet : traitement sur fbo
-     * Rendue fbo -> écran
+     * Rendue fbo -> ï¿½cran
      */
 
     beginPostProcess();
@@ -239,6 +239,13 @@ bool Effect::isEnable() const
 
 Layer::Layer(Vector2f pos, Vector2f size, Vector4f color)
 {
+    setGeometry(pos, size, color);
+}
+
+Layer::~Layer() { }
+
+void Layer::setGeometry(Vector2f pos, Vector2f size, Vector4f color)
+{
     Vector2f pos2 = pos + size;
 
     Vertex vertices[4];
@@ -248,11 +255,10 @@ Layer::Layer(Vector2f pos, Vector2f size, Vector4f color)
     vertices[2] = Vertex(pos.x, pos2.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 0, 1);
     vertices[3] = Vertex(pos2.x, pos2.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 1, 1);
 
+    m_renderId.clear();
     m_renderId.addVertex(vertices, 4);
     m_renderId.compile();
 }
-
-Layer::~Layer() { }
 
 void Layer::begin()
 {

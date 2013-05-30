@@ -66,6 +66,8 @@ public:
     void setCameraSetup(ShadowMapCameraSetup* cameraSetup);
     ShadowMapCameraSetup* getCameraSetup() const;
 
+    static bool enable;
+
 private:
     Matrix4 m_projectionMatrix;
     Matrix4 m_viewMatrix;
@@ -73,7 +75,7 @@ private:
 
     SceneManager* m_sceneManager;
     Light* m_light;
-    
+
     ShadowMapCameraSetup* m_cameraSetup;
     ppe::BlurEffect* m_blur;
     Rtt* m_depthBuffer;

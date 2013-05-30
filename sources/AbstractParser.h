@@ -14,6 +14,7 @@
 #include "MeshParallelScene.h"
 #include "ParticlesParallelScene.h"
 #include "MapMarkParallelScene.h"
+#include "WaterParallelScene.h"
 
 #include <boost/foreach.hpp>
 #include <boost/property_tree/ptree.hpp>
@@ -68,10 +69,11 @@ public:
     void setMarkScene(MapMarkParallelScene* markScene);
     MapMarkParallelScene* getMarkScene() const;
 
+    void setWaterScene(WaterParallelScene* waterScene);
+    WaterParallelScene* getWaterScene() const;
+
     void setClassFactory(ParserClassFactory* classFactory);
     ParserClassFactory* getClassFactory() const;
-    
-    static Material::Map loadMaterialSet(std::string path);
 
 protected:
     Node* buildNode(rtree data, Node* parent = NULL);
@@ -84,6 +86,7 @@ protected:
     MeshParallelScene* m_meshScene;
     ParticlesParallelScene* m_particlesScene;
     MapMarkParallelScene* m_markScene;
+    WaterParallelScene* m_waterScene;
 
     SceneManager* m_sceneManager;
     Node* m_rootNode;

@@ -16,6 +16,57 @@ namespace tbe
 namespace scene
 {
 class MeshParallelScene;
+class Mesh;
+
+class SubMesh
+{
+public:
+    SubMesh(Mesh*, Material*, unsigned, unsigned);
+    ~SubMesh();
+
+    void setMaterial(Material* material);
+    Material* getMaterial() const;
+
+    void setSize(unsigned size);
+    unsigned getSize() const;
+
+    void setOffset(unsigned offset);
+    unsigned getOffset() const;
+
+    void bindBuffers();
+    void beginProperty();
+    void draw(const Matrix4& mat);
+    void endProperty();
+    void unbindBuffers();
+
+    void beginShadowPass();
+    void drawShadow(const Matrix4& mat);
+    void endShadowPass();
+
+    void setOwner(Mesh* owner);
+    Mesh* getOwner() const;
+
+    bool operator==(const SubMesh& other);
+
+    typedef std::vector<SubMesh*> Array;
+
+    friend class Mesh;
+
+private:
+    void transform(const Matrix4& mat);
+    void animateTexture(unsigned layer, Texture texture, TextureApply settings);
+    void bindTexture(unsigned layer, Texture texture, TextureApply settings);
+
+private:
+    Mesh* m_owner;
+    Material* m_material;
+    unsigned m_offset;
+    unsigned m_size;
+
+    HardwareBuffer* m_hardbuf;
+    SceneManager* m_scenemng;
+    MeshParallelScene* m_parallel;
+};
 
 /**
  * \brief Représentation d'un Mailliage
@@ -36,10 +87,6 @@ public:
     Mesh* clone();
 
     void clear();
-
-    /// Rendue
-    void render();
-    void renderShadow();
 
     /// Traitement
     void process();
@@ -66,34 +113,6 @@ public:
     /// Renvois la position y des coordonnés x z dans le repere local du mesh
     bool findFloor(float getx, float& sety, float getz, bool global);
 
-    /// Ajout un materieux au noeud
-    void addMaterial(std::string name, Material* material);
-
-    /// Renvois le nombre de materials assosier au noeud
-    unsigned getMaterialCount();
-
-    /**
-     * Renvois tout les application du materieux name
-     * sous forme d'un tableau de vecteur ou x=offset et y=lenght
-     *
-     * @param name
-     * @return
-     */
-    Vector2i::Array getMaterialApply(std::string name);
-
-    /// Renvois le materieux identifier par son nom
-    Material* getMaterial(std::string name);
-    Material* getMaterial(unsigned index);
-
-    /// Renvois tout les materials du mesh
-    Material::Array getAllMaterial();
-
-    /// Supprime le materieux name
-    void deleteMaterial(std::string name);
-
-    /// Déttache le materieux name du noeud
-    Material* releaseMaterial(std::string name);
-
     /// Contien les coordonnés pour l'application d'une texture
     void setWithTexCoord(bool withTexCoord);
     bool isWithTexCoord() const;
@@ -107,23 +126,21 @@ public:
     bool isTriangulate() const;
 
     /**
-     * Applique le materieux identifier par name
-     * aux vertexs depuis offset jusqu'a offset + size
-     *
-     * @param name
-     * @param offset
-     * @param size
-     */
-    void applyMaterial(std::string name, unsigned offset, unsigned size);
-
-    /**
      * Applique le materieux aux vertexs depuis offset jusqu'a offset + size
      *
      * @param material
      * @param offset
      * @param size
      */
-    void applyMaterial(Material* material, unsigned offset, unsigned size);
+    SubMesh* addSubMesh(Material* material, unsigned offset, unsigned size);
+
+    SubMesh* getSubMesh(int index);
+    SubMesh* getSubMesh(std::string matname);
+
+    const SubMesh::Array& getAllSubMesh();
+
+    /// Renvois le nombre de materials assosier au noeud
+    unsigned getSubMeshCount();
 
     /// Renvoi `true` si le mesh contien un materieu transparent
     bool isTransparent();
@@ -138,16 +155,6 @@ public:
     HardwareBuffer* getHardwareBuffer() const;
 
     rtree serialize(std::string root);
-
-    rtree serializeMaterial(std::string root);
-
-    void attachMaterialSet(const Material::Map& set);
-    void attachMaterialFile(std::string path);
-    void releaseMaterialFile();
-    std::string getMaterialFile();
-
-    typedef std::map<std::string, Mesh*> Map;
-    typedef std::vector<Mesh*> Array;
 
     void setBillBoard(Vector2b billBoard);
     Vector2b getBillBoard() const;
@@ -164,6 +171,10 @@ public:
     void fetchVertexes(const Mesh& copy);
     void fetchMaterials(const Mesh& copy);
 
+    void requestVertexRestore(bool requestVertexRestore = true);
+
+    MeshParallelScene* getParallelScene() const;
+
     std::vector<std::string> getUsedRessources();
 
     static void registerBuffer(Mesh* mesh, const std::string& source);
@@ -171,7 +182,8 @@ public:
     static Mesh* isSharedBuffer(const std::string& source);
     static bool isUsedBuffer(HardwareBuffer* hb);
 
-    void requestVertexRestore(bool requestVertexRestore = true);
+    typedef std::map<std::string, Mesh*> Map;
+    typedef std::vector<Mesh*> Array;
 
 protected:
     bool m_triangulate;
@@ -190,46 +202,11 @@ protected:
 
     HardwareBuffer* m_hardwareBuffer;
 
+    SubMesh::Array m_subMeshs;
+
     MeshParallelScene* m_parallelScene;
 
 private:
-    void animateTexture(unsigned layer, Texture texture, TextureApply settings);
-    void bindTexture(unsigned layer, Texture texture, TextureApply settings);
-
-    void beginRenderingBuffer(Material* material, unsigned, unsigned);
-    void beginRenderingProperty(Material* material, unsigned, unsigned);
-    void endRenderingProperty(Material* material, unsigned, unsigned);
-    void endRenderingBuffer(Material* material, unsigned, unsigned);
-
-    void beginRenderingMatrix();
-    void endRenderingMatrix();
-
-    void drawMaterial(Material* material, unsigned offset, unsigned size);
-
-    Shader getUsedShader(Material* material);
-
-    struct RenderProcess
-    {
-        Mesh* parent;
-        std::string applyMaterial;
-        unsigned offset;
-        unsigned size;
-
-        typedef std::vector<RenderProcess> Array;
-    };
-
-    inline static bool renderProcessSortFunc(const RenderProcess& rp1, const RenderProcess&)
-    {
-        return rp1.parent->m_materials[rp1.applyMaterial]
-                ? !rp1.parent->m_materials[rp1.applyMaterial]->isTransparent()
-                : false;
-    }
-
-    RenderProcess::Array m_renderProess;
-    Material::Map m_materials;
-
-    Material::Map m_materialsBackup;
-    std::string m_attachMaterial;
 
     Mesh& copy(const Mesh& copy);
 };

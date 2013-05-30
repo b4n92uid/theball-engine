@@ -24,7 +24,7 @@ class ParallelScene;
 class SceneManager;
 
 /**
- * \brief Class de base pour la représentation d'une entité
+ * \brief Class de base pour la reprï¿½sentation d'une entitï¿½
  * qui inclus une matrice, un AABB et un nom
  */
 class Node
@@ -43,7 +43,7 @@ public:
     /// Renvois le AABB du noeud
     AABB getAabb() const;
 
-    /// Renvois le AABB du noeud avec des coordonées sur le repere global
+    /// Renvois le AABB du noeud avec des coordonï¿½es sur le repere global
     AABB getAbsolutAabb() const;
 
     /// Specifier si l'objet est activer
@@ -72,7 +72,7 @@ public:
 
     Matrix4 getAbsoluteMatrix(bool includeThis = true) const;
 
-    /// Spécifier la scene parallel parent
+    /// Spï¿½cifier la scene parallel parent
     void setParallelScene(ParallelScene* parallelScene);
     ParallelScene* getParallelScene() const;
 
@@ -116,8 +116,6 @@ public:
     virtual Node* clone() = 0;
 
     virtual void process() = 0;
-
-    virtual void render() = 0;
 
     void setUserData(std::string key, Any value);
     Any getUserData(std::string key) const;

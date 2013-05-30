@@ -50,7 +50,7 @@ public:
 
     void registerLight(Light* light);
     void unregisterLight(Light* light);
-    
+
     Light* light(int index);
 
     int beginPrePassLighting(Mesh* mesh);
@@ -60,9 +60,10 @@ public:
     void setRenderingShader(Shader renderingShader);
     Shader getRenderingShader() const;
 
+    MaterialManager* getMaterialManager() const;
+
 private:
-    void drawScene();
-    void drawShadow();
+    void drawScene(bool shadowpass = false);
 
 private:
     unsigned m_renderedMeshCount;
@@ -74,6 +75,7 @@ private:
 
     std::vector<Light*> m_lightNodes;
     std::vector<Light*> m_prePassLights;
+    MaterialManager* m_materialManager;
 
     int m_maxlight;
 };

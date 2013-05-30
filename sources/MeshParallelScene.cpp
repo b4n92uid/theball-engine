@@ -5,13 +5,14 @@
  * Created on 30 avril 2010, 23:02
  */
 
+#include <queue>
+
 #include "MeshParallelScene.h"
 #include "Light.h"
 #include "SceneManager.h"
 #include "Frustum.h"
 #include "Mesh.h"
 #include "Tools.h"
-#include "Ball3DMesh.h"
 #include "ObjMesh.h"
 #include "ShadowMap.h"
 #include "VolumetricLight.h"
@@ -24,27 +25,42 @@ MeshParallelScene::MeshParallelScene()
     m_frustumCullingCount = 0;
     m_enableFrustumTest = true;
     m_transparencySort = false;
+    m_materialManager = new MaterialManager;
 
     glGetIntegerv(GL_MAX_LIGHTS, & m_maxlight);
 }
 
-MeshParallelScene::~MeshParallelScene() { }
+MeshParallelScene::~MeshParallelScene()
+{
+    delete m_materialManager;
+}
+
+struct RenderQueue
+{
+    SubMesh* render;
+    std::vector<Matrix4> transforms;
+};
 
 struct DepthSortMeshFunc
 {
 
-    bool operator()(Mesh* node1, Mesh * node2)
+    bool operator()(const RenderQueue& rq1, const RenderQueue& rq2)
     {
+        Material* mat1 = rq1.render->getMaterial();
+        Material* mat2 = rq2.render->getMaterial();
+        Mesh* node1 = rq1.render->getOwner();
+        Mesh* node2 = rq2.render->getOwner();
+
         if(node1->getPriorityRender() != 0 || node2->getPriorityRender() != 0)
             return node1->getPriorityRender() > node2->getPriorityRender();
 
-        else if(node1->isTransparent() && node2->isTransparent())
+        else if(mat1->isTransparent() && mat2->isTransparent())
             return (node1->getAbsoluteMatrix().getPos() - camPos) > (node2->getAbsoluteMatrix().getPos() - camPos);
 
-        else if(node1->isTransparent() && !node2->isTransparent())
+        else if(mat1->isTransparent() && !mat2->isTransparent())
             return false;
 
-        else if(!node1->isTransparent() && node2->isTransparent())
+        else if(!mat1->isTransparent() && mat2->isTransparent())
             return true;
 
         else
@@ -54,45 +70,20 @@ struct DepthSortMeshFunc
     Vector3f camPos;
 };
 
-void MeshParallelScene::drawShadow()
+void MeshParallelScene::drawScene(bool shadowpass)
 {
-    Frustum* frustum = m_sceneManager->getFrustum();
+    using namespace std;
 
-    for(Mesh::Array::iterator it = m_nodes.begin(); it != m_nodes.end(); ++it)
-    {
-        Mesh* node = *it;
-
-        if(!node->isAttached())
-            continue;
-
-        if(m_enableFrustumTest && !frustum->isInside(node))
-            continue;
-
-        if(!node->isCastShadow())
-            continue;
-
-        node->renderShadow();
-    }
-}
-
-void MeshParallelScene::drawScene()
-{
     Frustum* frustum = m_sceneManager->getFrustum();
 
     m_frustumCullingCount = 0;
     m_renderedMeshCount = 0;
 
-    static DepthSortMeshFunc sortFunc;
-    sortFunc.camPos = m_sceneManager->getCurCamera()->getPos();
+    std::deque<RenderQueue> renderqueue;
 
-    if(m_transparencySort)
-        std::sort(m_nodes.begin(), m_nodes.end(), sortFunc);
-
-    for(Mesh::Array::iterator it = m_nodes.begin(); it != m_nodes.end(); ++it)
+    BOOST_FOREACH(Mesh* node, m_nodes)
     {
-        Mesh* node = *it;
-
-        if(!node->isAttached())
+        if(!node->isAttached() || !node->isVisible() || !node->isEnable())
             continue;
 
         if(m_enableFrustumTest && !frustum->isInside(node))
@@ -101,10 +92,63 @@ void MeshParallelScene::drawScene()
             continue;
         }
 
-        node->render();
+        if(shadowpass && !node->isCastShadow())
+            continue;
+
+        BOOST_FOREACH(SubMesh* sm, node->getAllSubMesh())
+        {
+            bool pushRequest = true;
+            BOOST_FOREACH(RenderQueue& rq, renderqueue)
+            if(*rq.render == *sm)
+            {
+                rq.transforms.push_back(node->getAbsoluteMatrix());
+                pushRequest = false;
+                break;
+            }
+
+            if(pushRequest)
+            {
+                RenderQueue rq;
+                rq.render = sm;
+                rq.transforms.push_back(node->getMatrix());
+                renderqueue.push_back(rq);
+            }
+        }
 
         m_renderedMeshCount++;
     }
+
+    if(m_transparencySort)
+    {
+        DepthSortMeshFunc sortFunc;
+        sortFunc.camPos = m_sceneManager->getCurCamera()->getPos();
+        std::sort(renderqueue.begin(), renderqueue.end(), sortFunc);
+    }
+
+    if(shadowpass) BOOST_FOREACH(RenderQueue & rq, renderqueue)
+    {
+        // cout << "Render " << rq.render->getMaterial()->getName() << endl;
+
+        rq.render->beginShadowPass();
+
+        BOOST_FOREACH(Matrix4 & mat, rq.transforms) rq.render->drawShadow(mat);
+
+        rq.render->endShadowPass();
+    }
+    else BOOST_FOREACH(RenderQueue & rq, renderqueue)
+    {
+        // cout << "Render " << rq.render->getMaterial()->getName() << endl;
+
+        rq.render->bindBuffers();
+        rq.render->beginProperty();
+
+        BOOST_FOREACH(Matrix4 & mat, rq.transforms) rq.render->draw(mat);
+
+        rq.render->endProperty();
+        rq.render->unbindBuffers();
+    }
+
+
 }
 
 void MeshParallelScene::render()
@@ -117,65 +161,76 @@ void MeshParallelScene::render()
     vector<ShadowMap*> shadowmaps;
     vector<VolumetricLight*> volumelights;
 
-    // Process ShadowMap
-
-    BOOST_FOREACH(Light* l, m_lightNodes)
+    if(ShadowMap::enable)
     {
-        if(l->getType() != Light::DIRI || !l->isCastShadow() || !l->isEnable())
-            continue;
+        // Process ShadowMap
 
-        ShadowMap* shadowMap = l->getShadowMap();
+        BOOST_FOREACH(Light* l, m_lightNodes)
+        {
+            if(l->getType() != Light::DIRI || !l->isCastShadow() || !l->isEnable())
+                continue;
 
-        // First pass
-        shadowMap->begin();
-        drawShadow();
-        shadowMap->end();
+            ShadowMap* shadowMap = l->getShadowMap();
 
-        shadowmaps.push_back(shadowMap);
+            // First pass
+            shadowMap->begin();
+            drawScene(true);
+            shadowMap->end();
+
+            shadowmaps.push_back(shadowMap);
+        }
     }
 
-    // Process VolumetricLight
-
-    BOOST_FOREACH(Light* l, m_lightNodes)
+    if(VolumetricLight::enable)
     {
-        if(!l->isEnable() || !l->isCastRays())
-            continue;
+        // Process VolumetricLight
 
-        VolumetricLight* vl = l->getVolumeLight();
+        BOOST_FOREACH(Light* l, m_lightNodes)
+        {
+            if(!l->isEnable() || !l->isCastRays())
+                continue;
 
-        vl->begin();
+            VolumetricLight* vl = l->getVolumeLight();
 
-        vl->drawLight();
-        drawShadow();
+            vl->begin();
 
-        vl->end();
+            vl->drawLight();
+            drawScene(true);
 
-        volumelights.push_back(vl);
+            vl->end();
+
+            volumelights.push_back(vl);
+        }
     }
 
     // Render Scene
     drawScene();
 
-    // Post-Process ShadowMap
-
-    BOOST_FOREACH(ShadowMap* shadowMap, shadowmaps)
+    if(ShadowMap::enable)
     {
-        if(shadowMap->isShaderHandled())
-            continue;
+        // Post-Process ShadowMap
 
-        shadowMap->bind();
-        drawShadow();
-        shadowMap->unbind();
+        BOOST_FOREACH(ShadowMap* shadowMap, shadowmaps)
+        {
+            if(shadowMap->isShaderHandled())
+                continue;
 
-        shadowMap->render();
+            shadowMap->bind();
+            drawScene(true);
+            shadowMap->unbind();
+
+            shadowMap->render();
+        }
     }
 
-
-    // Post-Process VolumetricLight
-
-    BOOST_FOREACH(VolumetricLight* vl, volumelights)
+    if(VolumetricLight::enable)
     {
-        vl->render();
+        // Post-Process VolumetricLight
+
+        BOOST_FOREACH(VolumetricLight* vl, volumelights)
+        {
+            vl->render();
+        }
     }
 }
 
@@ -341,6 +396,7 @@ void MeshParallelScene::unregisterLight(Light* light)
 
 int MeshParallelScene::beginPrePassLighting(Mesh* mesh)
 {
+    glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
 
     m_prePassLights.clear();
@@ -386,4 +442,9 @@ void MeshParallelScene::setRenderingShader(Shader renderingShader)
 Shader MeshParallelScene::getRenderingShader() const
 {
     return m_renderingShader;
+}
+
+MaterialManager* MeshParallelScene::getMaterialManager() const
+{
+    return m_materialManager;
 }

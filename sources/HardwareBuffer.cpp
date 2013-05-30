@@ -7,6 +7,8 @@
 
 #include "HardwareBuffer.h"
 #include "Exception.h"
+#include "Mathematics.h"
+#include "Mesh.h"
 
 #include <algorithm>
 #include <iostream>
@@ -26,8 +28,10 @@ using namespace std;
 HardwareBuffer::HardwareBuffer()
 {
     m_bufferId = 0;
+    m_indexId = 0;
 
     glGenBuffersARB(1, &m_bufferId);
+    glGenBuffersARB(1, &m_indexId);
 
     if(!m_bufferId)
         throw Exception("HardwareBuffer::HardwareBuffer; Buffer generation failed");
@@ -35,6 +39,10 @@ HardwareBuffer::HardwareBuffer()
     m_vertexCount = 0;
     m_bufferSize = 0;
     m_multiTexCoordOffset = 0;
+
+    m_indexCount = 0;
+    m_indexBufferSize = 0;
+    m_indexMode = false;
 
     m_cache = NULL;
 }
@@ -42,8 +50,10 @@ HardwareBuffer::HardwareBuffer()
 HardwareBuffer::HardwareBuffer(const HardwareBuffer& hb)
 {
     m_bufferId = 0;
+    m_indexId = 0;
 
     glGenBuffersARB(1, &m_bufferId);
+    glGenBuffersARB(1, &m_indexId);
 
     if(!m_bufferId)
         throw Exception("HardwareBuffer::HardwareBuffer; Buffer generation failed");
@@ -51,6 +61,10 @@ HardwareBuffer::HardwareBuffer(const HardwareBuffer& hb)
     m_vertexCount = 0;
     m_bufferSize = 0;
     m_multiTexCoordOffset = 0;
+
+    m_indexCount = 0;
+    m_indexBufferSize = 0;
+    m_indexMode = false;
 
     *this = hb;
 
@@ -60,14 +74,19 @@ HardwareBuffer::HardwareBuffer(const HardwareBuffer& hb)
 HardwareBuffer::~HardwareBuffer()
 {
     glDeleteBuffersARB(1, &m_bufferId);
+    glDeleteBuffersARB(1, &m_indexId);
 }
 
 HardwareBuffer& HardwareBuffer::operator=(const HardwareBuffer& hb)
 {
     m_vertex = hb.m_vertex;
+    m_index = hb.m_index;
     m_multiTexCoord = hb.m_multiTexCoord;
 
     compile(hb.m_usage);
+
+    if(hb.m_indexMode)
+        compileIndex(hb.m_usage);
 
     return *this;
 }
@@ -123,6 +142,16 @@ void HardwareBuffer::addVertex(const Vertex::Array& array)
     m_vertex.insert(m_vertex.end(), array.begin(), array.end());
 }
 
+void HardwareBuffer::addIndex(unsigned index)
+{
+    m_index.push_back(index);
+}
+
+void HardwareBuffer::addIndex(unsigned* array, unsigned size)
+{
+    m_index.insert(m_index.end(), array, array + size);
+}
+
 void HardwareBuffer::clear()
 {
     m_vertex.clear();
@@ -131,6 +160,32 @@ void HardwareBuffer::clear()
 
     glDeleteBuffersARB(1, &m_bufferId);
     glGenBuffersARB(1, &m_bufferId);
+}
+
+void HardwareBuffer::convertToIndexedBuffer()
+{
+    Vertex::Array indexedVertices = m_vertex;
+
+    m_vertex.clear();
+    m_index.clear();
+
+    for(unsigned i = 0; i < indexedVertices.size(); i++)
+    {
+        Vertex& v = indexedVertices[i];
+
+        Vertex::Array::iterator it = std::find(m_vertex.begin(), m_vertex.end(), v);
+
+        if(it != m_vertex.end())
+        {
+            unsigned index = it - m_vertex.begin();
+            m_index.push_back(index);
+        }
+        else
+        {
+            m_vertex.push_back(v);
+            m_index.push_back(m_vertex.size() - 1);
+        }
+    }
 }
 
 void HardwareBuffer::compile(GLenum usage)
@@ -169,6 +224,30 @@ void HardwareBuffer::compile(GLenum usage)
     }
 
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+
+    drawGlError();
+}
+
+void HardwareBuffer::compileIndex(GLenum usage)
+{
+    bool allocate = m_indexCount == 0;
+
+    m_usage = usage;
+    m_indexCount = m_index.size();
+    m_indexBufferSize = m_index.size() * sizeof (unsigned);
+
+    glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, m_indexId);
+
+    if(allocate)
+        glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER_ARB, m_indexBufferSize, &m_index[0], usage);
+    else
+        glBufferSubData(GL_ELEMENT_ARRAY_BUFFER_ARB, 0, m_indexBufferSize, &m_index[0]);
+
+    glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
+
+    m_indexMode = true;
+
+    drawGlError();
 }
 
 HardwareBuffer& HardwareBuffer::bindBuffer(bool state, int vertCount)
@@ -194,6 +273,7 @@ HardwareBuffer& HardwareBuffer::bindBuffer(bool state, int vertCount)
 HardwareBuffer& HardwareBuffer::unbindBuffer()
 {
     glDisableClientState(GL_VERTEX_ARRAY);
+
     glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 
     return *this;
@@ -277,6 +357,19 @@ void HardwareBuffer::render(GLenum mode, unsigned first, unsigned count, int dra
     if(m_vertexCount == 0)
         return;
 
+    if(m_indexMode)
+    {
+        // TODO Support of drawpass
+
+        if(count == 0)
+            count = m_indexCount;
+
+        glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, m_indexId);
+        glDrawElements(mode, count, GL_UNSIGNED_INT, (void*) (first * sizeof (unsigned)));
+        glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
+        return;
+    }
+
     if(count == 0)
         count = m_vertexCount;
 
@@ -303,6 +396,16 @@ unsigned HardwareBuffer::getBufferSize() const
 unsigned HardwareBuffer::getVertexCount() const
 {
     return m_vertex.size();
+}
+
+bool HardwareBuffer::isIndexMode() const
+{
+    return m_indexMode;
+}
+
+unsigned HardwareBuffer::getIndexCount() const
+{
+    return m_indexCount;
 }
 
 inline bool VertexComparePredicat(Vertex& v1, Vertex& v2)
@@ -341,9 +444,14 @@ Vertex::Array HardwareBuffer::getAllVertex(bool makeUnique)
     return allVertexs;
 }
 
-const Vertex::Array& HardwareBuffer::getInitialVertex() const
+const Vertex::Array& HardwareBuffer::getClientVertex() const
 {
     return m_vertex;
+}
+
+const HardwareBuffer::IndexArray& HardwareBuffer::getClientIndex() const
+{
+    return m_index;
 }
 
 void HardwareBuffer::snapshot()
@@ -407,4 +515,10 @@ Vertex::Vertex(float posx, float posy, float posz,
     color.w = colorw;
     texCoord.x = texCoordx;
     texCoord.y = texCoordy;
+}
+
+bool Vertex::operator==(const Vertex& v) const
+{
+    return math::isEqual(this->pos, v.pos) && math::isEqual(this->normal, v.normal)
+            && math::isEqual(this->color, v.color) && math::isEqual(this->texCoord, v.texCoord);
 }

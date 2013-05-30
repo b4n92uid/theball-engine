@@ -1,4 +1,5 @@
 #include "Primitives.h"
+#include "MeshParallelScene.h"
 
 using namespace std;
 using namespace tbe;
@@ -136,11 +137,10 @@ void Box::build(Vector3f size)
 
     setSize(size);
 
-    Material* mainMaterial = new Material;
+    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("Box");
     mainMaterial->setFaceType(Material::TRIANGLES);
 
-    addMaterial("main", mainMaterial);
-    applyMaterial(mainMaterial, 0, 36);
+    addSubMesh(mainMaterial, 0, 36);
 }
 
 void Box::setSize(Vector3f size)
@@ -149,7 +149,7 @@ void Box::setSize(Vector3f size)
 
     m_aabb.clear();
 
-    const Vertex::Array& vertices = m_hardwareBuffer->getInitialVertex();
+    const Vertex::Array& vertices = m_hardwareBuffer->getClientVertex();
     Vertex* verts = m_hardwareBuffer->bindBuffer().lock();
 
     for(unsigned i = 0; i < 36; i++)
@@ -237,11 +237,10 @@ void Sphere::build(float radius, unsigned slices, unsigned stackes)
 
     computeAabb();
 
-    Material* mainMaterial = new Material;
+    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("Sphere");
     mainMaterial->setFaceType(Material::TRIANGLE_STRIP);
 
-    addMaterial("main", mainMaterial);
-    applyMaterial(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
+    addSubMesh(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
 }
 
 float Sphere::getRadius() const
@@ -289,13 +288,12 @@ void Axes::build(float lineWidth, float lineLength)
 
     computeAabb();
 
-    Material* mainMaterial = new Material;
+    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("Axis");
     mainMaterial->setRenderFlags(Material::COLORED);
     mainMaterial->setLineWidth(m_lineWidth);
     mainMaterial->setFaceType(Material::LINES);
 
-    addMaterial("main", mainMaterial);
-    applyMaterial(mainMaterial, 0, 6);
+    addSubMesh(mainMaterial, 0, 6);
 
     setCastShadow(false);
     setReceiveShadow(false);
@@ -385,12 +383,10 @@ void Plane::build(Vector2f size, Vector2i cut)
 
     computeAabb();
 
-    Material* mainMaterial = new Material;
+    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("Plane");
     mainMaterial->setFaceType(Material::TRIANGLES);
 
-    addMaterial("main", mainMaterial);
-
-    applyMaterial(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
+    addSubMesh(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
 }
 
 Vector2i Plane::getCut() const
@@ -454,13 +450,11 @@ void Grid::build(Vector2f size, Vector2i cut)
 
     computeAabb();
 
-    Material* mainMaterial = new Material;
+    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("Grid");
     mainMaterial->disable(Material::TEXTURED | Material::LIGHTED);
     mainMaterial->setFaceType(Material::LINES);
 
-    addMaterial("main", mainMaterial);
-
-    applyMaterial(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
+    addSubMesh(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
 }
 
 Vector2i Grid::getCut() const
