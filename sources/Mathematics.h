@@ -25,7 +25,7 @@ namespace math
 {
 
 /**
- * Conversion depuis un vecteur a 3 dimension ‡ un vecteur a 2 dimension
+ * Conversion depuis un vecteur a 3 dimension √© un vecteur a 2 dimension
  */
 template<typename T> inline tbe::Vector2<T> vec32(tbe::Vector3<T> vec3)
 {
@@ -33,7 +33,7 @@ template<typename T> inline tbe::Vector2<T> vec32(tbe::Vector3<T> vec3)
 }
 
 /**
- * Conversion depuis un vecteur a 2 dimension ‡ un vecteur a 3 dimension
+ * Conversion depuis un vecteur a 2 dimension √© un vecteur a 3 dimension
  */
 template<typename T> inline tbe::Vector2<T> vec23(tbe::Vector2<T> vec2)
 {
@@ -41,7 +41,7 @@ template<typename T> inline tbe::Vector2<T> vec23(tbe::Vector2<T> vec2)
 }
 
 /**
- * Conversion depuis un vecteur a 4 dimension ‡ un vecteur a 2 dimension
+ * Conversion depuis un vecteur a 4 dimension √© un vecteur a 2 dimension
  */
 template<typename T> inline tbe::Vector2<T> vec42(tbe::Vector4<T> vec4)
 {
@@ -49,7 +49,7 @@ template<typename T> inline tbe::Vector2<T> vec42(tbe::Vector4<T> vec4)
 }
 
 /**
- * Conversion depuis un vecteur a 2 dimension ‡ un vecteur a 4 dimension
+ * Conversion depuis un vecteur a 2 dimension √© un vecteur a 4 dimension
  */
 template<typename T> inline tbe::Vector4<T> vec24(tbe::Vector2<T> vec2)
 {
@@ -57,7 +57,7 @@ template<typename T> inline tbe::Vector4<T> vec24(tbe::Vector2<T> vec2)
 }
 
 /**
- * Conversion depuis un vecteur a 4 dimension ‡ un vecteur a 3 dimension
+ * Conversion depuis un vecteur a 4 dimension √© un vecteur a 3 dimension
  */
 template<typename T> inline tbe::Vector3<T> vec43(tbe::Vector4<T> vec4)
 {
@@ -65,7 +65,7 @@ template<typename T> inline tbe::Vector3<T> vec43(tbe::Vector4<T> vec4)
 }
 
 /**
- * Conversion depuis un vecteur a 3 dimension ‡ un vecteur a 4 dimension
+ * Conversion depuis un vecteur a 3 dimension √© un vecteur a 4 dimension
  */
 template<typename T> inline tbe::Vector4<T> vec34(tbe::Vector3<T> vec3)
 {
@@ -94,8 +94,8 @@ inline Vector3f radianClamp(const Vector3f& euler)
 #define FLOAT_TEST_FACTOR 0.001
 
 /**
- * Test d'Ègaliter sur float
- *  le parametre factor dÈfinie le degres de prÈcision de l'operation
+ * Test d'√©galiter sur float
+ *  le parametre factor d√©finie le degres de pr√©cision de l'operation
  */
 inline bool isEqual(float a, float b, float factor = FLOAT_TEST_FACTOR)
 {
@@ -103,8 +103,8 @@ inline bool isEqual(float a, float b, float factor = FLOAT_TEST_FACTOR)
 }
 
 /**
- * Test d'Ègaliter sur Vecteur a 3 dimension avec un float
- *  le parametre factor dÈfinie le degres de prÈcision de l'operation
+ * Test d'√©galiter sur Vecteur a 3 dimension avec un float
+ *  le parametre factor d√©finie le degres de pr√©cision de l'operation
  */
 inline bool isEqual(Vector3f a, float b, float factor = FLOAT_TEST_FACTOR)
 {
@@ -112,8 +112,8 @@ inline bool isEqual(Vector3f a, float b, float factor = FLOAT_TEST_FACTOR)
 }
 
 /**
- * Test d'Ègaliter sur Vecteur a 3 dimension avec autre vecteur
- *  le parametre factor dÈfinie le degres de prÈcision de l'operation
+ * Test d'√©galiter sur Vecteur a 3 dimension avec autre vecteur
+ *  le parametre factor d√©finie le degres de pr√©cision de l'operation
  */
 inline bool isEqual(Vector3f a, Vector3f b, float factor = FLOAT_TEST_FACTOR)
 {
@@ -121,8 +121,8 @@ inline bool isEqual(Vector3f a, Vector3f b, float factor = FLOAT_TEST_FACTOR)
 }
 
 /**
- * Test d'Ègaliter sur Vecteur a 4 dimension avec un float
- *  le parametre factor dÈfinie le degres de prÈcision de l'operation
+ * Test d'√©galiter sur Vecteur a 4 dimension avec un float
+ *  le parametre factor d√©finie le degres de pr√©cision de l'operation
  */
 inline bool isEqual(Vector4f a, float b, float factor = FLOAT_TEST_FACTOR)
 {
@@ -130,8 +130,8 @@ inline bool isEqual(Vector4f a, float b, float factor = FLOAT_TEST_FACTOR)
 }
 
 /**
- * Test d'Ègaliter sur Vecteur a 4 dimension avec autre vecteur
- *  le parametre factor dÈfinie le degres de prÈcision de l'operation
+ * Test d'√©galiter sur Vecteur a 4 dimension avec autre vecteur
+ *  le parametre factor d√©finie le degres de pr√©cision de l'operation
  */
 inline bool isEqual(Vector4f a, Vector4f b, float factor = FLOAT_TEST_FACTOR)
 {
@@ -139,8 +139,17 @@ inline bool isEqual(Vector4f a, Vector4f b, float factor = FLOAT_TEST_FACTOR)
 }
 
 /**
- * Test si le valeur flotante de est ‡ zÈro
- *  le parametre factor dÈfinie le degres de prÈcision de l'operation
+ * Test d'√©galiter sur Vecteur a 2 dimension avec autre vecteur
+ *  le parametre factor d√©finie le degres de pr√©cision de l'operation
+ */
+inline bool isEqual(Vector2f a, Vector2f b, float factor = FLOAT_TEST_FACTOR)
+{
+    return (isEqual(a.x, b.x, factor) && isEqual(a.y, b.y, factor));
+}
+
+/**
+ * Test si le valeur flotante de est √© z√©ro
+ *  le parametre factor d√©finie le degres de pr√©cision de l'operation
  */
 inline bool isZero(float a, float factor = FLOAT_TEST_FACTOR)
 {
@@ -148,8 +157,8 @@ inline bool isZero(float a, float factor = FLOAT_TEST_FACTOR)
 }
 
 /**
- * Test si une des valeurs du vecteur est ‡ zÈro
- *  le parametre factor dÈfinie le degres de prÈcision de l'operation
+ * Test si une des valeurs du vecteur est √© z√©ro
+ *  le parametre factor d√©finie le degres de pr√©cision de l'operation
  */
 inline bool isAnyZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
 {
@@ -157,8 +166,8 @@ inline bool isAnyZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
 }
 
 /**
- * Test si toute les valeurs du vecteur sont ‡ zÈro
- *  le parametre factor dÈfinie le degres de prÈcision de l'operation
+ * Test si toute les valeurs du vecteur sont √© z√©ro
+ *  le parametre factor d√©finie le degres de pr√©cision de l'operation
  */
 inline bool isZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
 {
@@ -166,8 +175,8 @@ inline bool isZero(Vector3f a, float factor = FLOAT_TEST_FACTOR)
 }
 
 /**
- * Test si une des valeurs du vecteur est ‡ zÈro
- *  le parametre factor dÈfinie le degres de prÈcision de l'operation
+ * Test si une des valeurs du vecteur est √© z√©ro
+ *  le parametre factor d√©finie le degres de pr√©cision de l'operation
  */
 inline bool isAnyZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
 {
@@ -175,8 +184,8 @@ inline bool isAnyZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
 }
 
 /**
- * Test si toute les valeurs du vecteur sont ‡ zÈro
- *  le parametre factor dÈfinie le degres de prÈcision de l'operation
+ * Test si toute les valeurs du vecteur sont √© z√©ro
+ *  le parametre factor d√©finie le degres de pr√©cision de l'operation
  */
 inline bool isZero(Vector2f a, float factor = FLOAT_TEST_FACTOR)
 {
@@ -214,7 +223,7 @@ template<typename T> inline T nextPow2(T v)
 
 /**
  * Renvois la valeur 'value' si elle se situe entre min et max,
- *  sinon elle renvois une des extrÈmitÈ
+ *  sinon elle renvois une des extr√©mit√©
  *
  * @param value
  * @param min
@@ -227,7 +236,7 @@ template<typename T> T clamp(const T& value, const T& min, const T& max)
 }
 
 /**
- * Renvois la premier puissance-deux aprËs 'v'
+ * Renvois la premier puissance-deux apr√©s 'v'
  *
  * @param v
  * @return
@@ -244,7 +253,7 @@ template<typename T> inline Vector2<T> nextPow2(Vector2<T> v)
 }
 
 /**
- * Renvoi un nombre entier alÈatoir entre min et max
+ * Renvoi un nombre entier al√©atoir entre min et max
  *
  * @param min
  * @param max
@@ -259,7 +268,7 @@ inline int rand(int min, int max)
 }
 
 /**
- * Renvoi un nombre flotant alÈatoir entre min et max
+ * Renvoi un nombre flotant al√©atoir entre min et max
  *
  * @param min
  * @param max
@@ -274,7 +283,7 @@ inline float rand(float min, float max)
 }
 
 /**
- * Renvoi un vectur alÈatoir situer entre min et max
+ * Renvoi un vectur al√©atoir situer entre min et max
  *
  * @param min
  * @param max
@@ -331,7 +340,7 @@ inline T round(const T& value, const T& unit)
 }
 
 /**
- * SpÈcialisation de round() pour float
+ * Sp√©cialisation de round() pour float
  *
  * @param value
  * @param unit
@@ -416,7 +425,7 @@ inline Vector4<T> round(const Vector4<T>& value, const Vector4<T>& unit)
 }
 
 /**
- * SpÈcialisation de round() pour Vector2f
+ * Sp√©cialisation de round() pour Vector2f
  *
  * @param value
  * @param unit
@@ -431,7 +440,7 @@ inline Vector2f round(Vector2f value)
 }
 
 /**
- * SpÈcialisation de round() pour Vector3f
+ * Sp√©cialisation de round() pour Vector3f
  *
  * @param value
  * @param unit
@@ -447,7 +456,7 @@ inline Vector3f round(Vector3f value)
 }
 
 /**
- * SpÈcialisation de round() pour Vector4f
+ * Sp√©cialisation de round() pour Vector4f
  *
  * @param value
  * @param unit
