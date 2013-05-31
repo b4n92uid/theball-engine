@@ -171,8 +171,6 @@ public:
     void fetchVertexes(const Mesh& copy);
     void fetchMaterials(const Mesh& copy);
 
-    void requestVertexRestore(bool requestVertexRestore = true);
-
     MeshParallelScene* getParallelScene() const;
 
     std::vector<std::string> getUsedRessources();
@@ -190,7 +188,6 @@ protected:
     bool m_withNormal;
     bool m_withTexCoord;
     bool m_visible;
-    bool m_requestVertexRestore;
     bool m_receiveShadow;
     bool m_castShadow;
     bool m_computeNormals;
@@ -207,7 +204,8 @@ protected:
     MeshParallelScene* m_parallelScene;
 
 private:
-
+    bool rayCastVertexBuffer(Vector3f rayStart, Vector3f rayDiri, float& intersect, bool global);
+    bool rayCastIndexBuffer(Vector3f rayStart, Vector3f rayDiri, float& intersect, bool global);
     Mesh& copy(const Mesh& copy);
 };
 

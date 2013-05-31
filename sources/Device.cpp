@@ -35,6 +35,7 @@ Device::~Device()
     if(m_postProcessManager) delete m_postProcessManager;
 
     Texture::resetCache();
+    scene::MaterialManager::clear();
 
     cout << "OK" << endl;
     cout << endl;
@@ -43,7 +44,7 @@ Device::~Device()
 void Device::init()
 {
     const char * shaderver = Shader::checkHardware() ?
-            (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION) : "N/A";
+            (const char*) glGetString(GL_SHADING_LANGUAGE_VERSION) : "N/A";
 
     cout
             #ifdef NDEBUG
@@ -76,21 +77,21 @@ void Device::init()
     cout << "Init event manager" << endl;
 
     if(m_eventManager)
-        new(m_eventManager)EventManager;
+        new(m_eventManager) EventManager;
     else
         m_eventManager = new EventManager;
 
     cout << "Init framerate manager" << endl;
 
     if(m_fpsManager)
-        new(m_fpsManager)ticks::FpsManager;
+        new(m_fpsManager) ticks::FpsManager;
     else
         m_fpsManager = new ticks::FpsManager;
 
     cout << "Init scene manager" << endl;
 
     if(m_sceneManager)
-        new(m_sceneManager)scene::SceneManager;
+        new(m_sceneManager) scene::SceneManager;
     else
         m_sceneManager = new scene::SceneManager;
 
@@ -99,7 +100,7 @@ void Device::init()
     cout << "Init post process effets manager" << endl;
 
     if(m_postProcessManager)
-        new(m_postProcessManager)ppe::PostProcessManager;
+        new(m_postProcessManager) ppe::PostProcessManager;
     else
         m_postProcessManager = new ppe::PostProcessManager;
 

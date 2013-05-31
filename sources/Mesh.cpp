@@ -56,7 +56,6 @@ Mesh::Mesh(MeshParallelScene* scene)
     m_withTexCoord = false;
     m_visible = true;
     m_billBoard = false;
-    m_requestVertexRestore = false;
     m_priorityRender = 0;
     m_receiveShadow = true;
     m_castShadow = true;
@@ -76,7 +75,6 @@ Mesh::Mesh(MeshParallelScene* scene)
 Mesh::Mesh(const Mesh& copy) : Node(copy)
 {
     this->copy(copy);
-    m_requestVertexRestore = false;
 
     m_parallelScene->registerNode(this);
 }
@@ -547,11 +545,8 @@ bool RayCastTriangle(Vector3f p, Vector3f d, float& i, Vector3f v0, Vector3f v1,
         return false;
 }
 
-bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDir, float& intersect, bool global)
+bool Mesh::rayCastVertexBuffer(Vector3f rayStart, Vector3f rayDir, float& intersect, bool global)
 {
-    if(!m_hardwareBuffer)
-        return false;
-
     const Vertex::Array& vertex = m_hardwareBuffer->getClientVertex();
 
     // Cannot raycast no triangulated mesh !
@@ -589,6 +584,59 @@ bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDir, float& intersect, bool gl
 
     else
         return false;
+}
+
+bool Mesh::rayCastIndexBuffer(Vector3f rayStart, Vector3f rayDir, float& intersect, bool global)
+{
+    const HardwareBuffer::IndexArray& index = m_hardwareBuffer->getClientIndex();
+    const Vertex::Array& vertex = m_hardwareBuffer->getClientVertex();
+
+    // Cannot raycast no triangulated mesh !
+    if(index.size() % 3 != 0)
+        return false;
+
+    Matrix4 absmat = getAbsoluteMatrix();
+
+    vector<float> hits;
+
+    for(unsigned i = 0; i < index.size(); i += 3)
+    {
+        Vector3f pos0 = vertex[index[i + 0]].pos,
+                pos1 = vertex[index[i + 1]].pos,
+                pos2 = vertex[index[i + 2]].pos;
+
+        if(global)
+        {
+            pos0 = absmat * pos0;
+            pos1 = absmat * pos1;
+            pos2 = absmat * pos2;
+        }
+
+        float intr;
+
+        if(RayCastTriangle(rayStart, rayDir, intr, pos0, pos1, pos2))
+            hits.push_back(intr);
+    }
+
+    if(!hits.empty())
+    {
+        intersect = *std::min_element(hits.begin(), hits.end());
+        return true;
+    }
+
+    else
+        return false;
+}
+
+bool Mesh::rayCast(Vector3f rayStart, Vector3f rayDir, float& intersect, bool global)
+{
+    if(!m_hardwareBuffer)
+        return false;
+
+    if(m_hardwareBuffer->isIndexMode())
+        return rayCastIndexBuffer(rayStart, rayDir, intersect, global);
+    else
+        return rayCastVertexBuffer(rayStart, rayDir, intersect, global);
 }
 
 bool Mesh::findFloor(float getx, float& sety, float getz, bool global)
@@ -757,11 +805,6 @@ MeshParallelScene* Mesh::getParallelScene() const
     return m_parallelScene;
 }
 
-void Mesh::requestVertexRestore(bool requestVertexRestore)
-{
-    this->m_requestVertexRestore = requestVertexRestore;
-}
-
 std::vector<std::string> Mesh::getUsedRessources()
 {
     vector<string> ressPath;
@@ -897,6 +940,8 @@ void SubMesh::beginProperty()
         glDisable(GL_FOG);
     }
 
+    glPolygonMode(GL_FRONT_AND_BACK, m_material->m_polygoneMode);
+
     if(m_material->m_lineWidth)
         glLineWidth(m_material->m_lineWidth);
 
@@ -996,6 +1041,7 @@ void SubMesh::bindBuffers()
                     ShadowMap* smap = light->getShadowMap();
                     Texture shadowMap = smap->getDepthMap();
                     bindTexture(layer, shadowMap, TextureApply());
+                    break;
                 }
             }
 
@@ -1019,38 +1065,38 @@ void SubMesh::bindBuffers()
         /* Normal Scaling ------------------------------------------------------
          *
          * Ici on divise les normale des vertex par le Scale de la matrice du noeud
-         * pour les rendre unitaire (normaliser), afin d'�viter un calcule
-         * incorrect de la lumière lors d'une mise a l'�chelle sur la matrice
+         * pour les rendre unitaire (normaliser), afin d'éviter un calcule
+         * incorrect de la lumière lors d'une mise a l'échelle sur la matrice
          * TODO renable scalling
          */
 
+        // TODO Avoid normal rescaling
+        #if 0
         if(!math::isEqual(m_owner->getScale(), 1))
             glEnable(GL_RESCALE_NORMAL);
         else
             glDisable(GL_RESCALE_NORMAL);
+        #endif
     }
 
     if(m_material->m_renderFlags & Material::COLORED)
     {
-        unsigned vertexCount = m_hardbuf->getVertexCount();
-
         m_hardbuf->bindColor();
 
+        // TODO Avoid Material Coloring on every frame
         if(!usedshader.isEnable())
         {
             glEnable(GL_COLOR_MATERIAL);
 
-            // TODO Avoid Material Coloring manytime
-
-            // if(!math::isEqual(material->m_color, 1))
-            // requestVertexRestore();
-
+            #if 0
             Vertex* vertex = m_hardbuf->lock(GL_READ_WRITE);
+            unsigned vertexCount = m_hardbuf->getVertexCount();
 
             for(unsigned i = m_offset; i < m_offset + m_size && i < vertexCount; i++)
-                vertex[i].color = m_material->m_color;
+                vertex[i].color *= m_material->m_color;
 
             m_hardbuf->unlock();
+            #endif
         }
     }
 }
@@ -1086,7 +1132,10 @@ void SubMesh::draw(const Matrix4& mat)
         BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
         {
             if(u.second == "ambient_pass")
+            {
                 usedshader.uniform(u.first, true);
+                break;
+            }
         }
 
         m_hardbuf->render(m_material->m_faceType, m_offset, m_size, m_material->m_drawPass);
@@ -1101,7 +1150,10 @@ void SubMesh::draw(const Matrix4& mat)
         BOOST_FOREACH(Shader::UniformMap::value_type u, umap)
         {
             if(u.second == "ambient_pass")
+            {
                 usedshader.uniform(u.first, false);
+                break;
+            }
         }
 
         glEnable(GL_CULL_FACE);
@@ -1362,7 +1414,7 @@ void SubMesh::bindTexture(unsigned layer, Texture texture, TextureApply settings
 {
     unsigned id = GL_TEXTURE0 + layer;
 
-    // Animation de la texture par modification des coordon�s UV
+    // Animation de la texture par modification des coordonés UV
     if(settings.clipped)
         animateTexture(layer, texture, settings);
 

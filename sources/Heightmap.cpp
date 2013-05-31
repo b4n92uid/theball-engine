@@ -102,7 +102,7 @@ void Heightmap::open(const std::string& path)
 
     computeAabb();
 
-    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("HeightMap");
+    Material* mainMaterial = MaterialManager::get()->newMaterial("HeightMap");
     mainMaterial->setFaceType(Material::TRIANGLE_STRIP);
 
     addSubMesh(mainMaterial, 0, vertexsCount);

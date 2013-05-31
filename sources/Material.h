@@ -27,9 +27,6 @@ class Material;
 class MaterialManager
 {
 public:
-    MaterialManager();
-    ~MaterialManager();
-
     Material* newMaterial(std::string name);
     Material* getMaterial(std::string name);
     Material* loadMaterial(std::string path);
@@ -37,6 +34,15 @@ public:
     rtree serialize(std::string name, std::string root);
 
     typedef std::map<std::string, Material*> Map;
+
+    static MaterialManager* get();
+    static void clear();
+
+private:
+    MaterialManager();
+    ~MaterialManager();
+
+    static MaterialManager* m_matMng;
 
 private:
     Map m_materials;
@@ -63,13 +69,15 @@ struct TextureApply
  */
 class Material
 {
-public:
-
+private:
     Material();
-    Material(const Material& copy);
     ~Material();
 
+public:
+    Material(const Material& copy);
     Material & operator=(const Material& copy);
+
+    friend class MaterialManager;
 
     enum
     {
@@ -158,6 +166,9 @@ public:
     void setFaceType(FaceType faceType);
     FaceType getFaceType() const;
 
+    void setPolygoneMode(GLenum polygoneMode);
+    GLenum getPolygoneMode() const;
+
     void setDepthWrite(bool depthWrite);
     bool isDepthWrite() const;
 
@@ -212,6 +223,7 @@ protected:
     Shader m_shader;
 
     FaceType m_faceType;
+    GLenum m_polygoneMode;
 
     unsigned m_renderFlags;
     unsigned m_drawPass;

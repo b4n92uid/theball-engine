@@ -60,8 +60,6 @@ public:
     void setRenderingShader(Shader renderingShader);
     Shader getRenderingShader() const;
 
-    MaterialManager* getMaterialManager() const;
-
 private:
     void drawScene(bool shadowpass = false);
 
@@ -75,7 +73,6 @@ private:
 
     std::vector<Light*> m_lightNodes;
     std::vector<Light*> m_prePassLights;
-    MaterialManager* m_materialManager;
 
     int m_maxlight;
 };

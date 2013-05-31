@@ -157,9 +157,6 @@ void HardwareBuffer::clear()
     m_vertex.clear();
     m_vertexCount = 0;
     m_bufferSize = 0;
-
-    glDeleteBuffersARB(1, &m_bufferId);
-    glGenBuffersARB(1, &m_bufferId);
 }
 
 void HardwareBuffer::convertToIndexedBuffer()

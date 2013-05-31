@@ -22,6 +22,7 @@ Material::Material()
     m_alphaThershold = 0;
     m_frameSortWait = 0;
     m_faceType = TRIANGLES;
+    m_polygoneMode = GL_FILL;
     m_depthTest = true;
     m_depthWrite = true;
     m_color = 1;
@@ -48,6 +49,7 @@ Material& Material::operator=(const Material& copy)
     m_shader = copy.m_shader;
 
     m_faceType = copy.m_faceType;
+    m_polygoneMode = copy.m_polygoneMode;
 
     m_renderFlags = copy.m_renderFlags;
     m_drawPass = copy.m_drawPass;
@@ -235,6 +237,16 @@ Material::FaceType Material::getFaceType() const
     return m_faceType;
 }
 
+void Material::setPolygoneMode(GLenum polygoneMode)
+{
+    this->m_polygoneMode = polygoneMode;
+}
+
+GLenum Material::getPolygoneMode() const
+{
+    return m_polygoneMode;
+}
+
 void Material::setDepthWrite(bool depthWrite)
 {
     this->m_depthWrite = depthWrite;
@@ -348,6 +360,21 @@ void Material::setDrawPass(unsigned drawPass)
 unsigned Material::getDrawPass() const
 {
     return m_drawPass;
+}
+
+MaterialManager* MaterialManager::m_matMng = NULL;
+
+MaterialManager* MaterialManager::get()
+{
+    if(!m_matMng)
+        m_matMng = new MaterialManager;
+
+    return m_matMng;
+}
+
+void MaterialManager::clear()
+{
+    delete m_matMng, m_matMng = NULL;
 }
 
 MaterialManager::MaterialManager() { }

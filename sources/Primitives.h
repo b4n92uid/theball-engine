@@ -37,6 +37,25 @@ protected:
 };
 
 /**
+ * \brief Primitive de type cube
+ */
+class QuadBox : public Mesh
+{
+public:
+    QuadBox(MeshParallelScene* scene);
+    QuadBox(MeshParallelScene* scene, Vector3f size);
+
+    void build(Vector3f size);
+
+    void setSize(Vector3f size);
+    Vector3f getSize() const;
+
+protected:
+    Vector3f m_size;
+
+};
+
+/**
  * \brief Primitive de type Sphere
  */
 class Sphere : public Mesh

@@ -74,7 +74,7 @@ void LaserBeam::shoot(Vector3f start, Vector3f end)
         m_hardwareBuffer->addFace(face);
     }
 
-    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("LaserBeam");
+    Material* mainMaterial = MaterialManager::get()->newMaterial("LaserBeam");
     mainMaterial->disable(Material::LIGHTED);
     mainMaterial->enable(Material::TEXTURED | Material::ADDITIVE | Material::COLORED);
     mainMaterial->setFaceType(Material::TRIANGLES);

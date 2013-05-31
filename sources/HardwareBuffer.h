@@ -121,9 +121,6 @@ public:
     void compile(GLenum usage = GL_STATIC_DRAW);
     void compileIndex(GLenum usage = GL_STATIC_DRAW);
 
-    /**
-     * Réinitialise le buffer de rendue (efface tout les vertexs)
-     */
     void clear();
 
     /// Activer le rendue des position vertex (activation minimum)

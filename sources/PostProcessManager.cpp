@@ -239,25 +239,31 @@ bool Effect::isEnable() const
 
 Layer::Layer(Vector2f pos, Vector2f size, Vector4f color)
 {
-    setGeometry(pos, size, color);
+    Vertex vertices[4];
+
+    Vector2f pos2 = pos + size;
+    vertices[0] = Vertex(pos.x, pos.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 0, 0);
+    vertices[1] = Vertex(pos2.x, pos.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 1, 0);
+    vertices[2] = Vertex(pos.x, pos2.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 0, 1);
+    vertices[3] = Vertex(pos2.x, pos2.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 1, 1);
+
+    m_renderId.addVertex(vertices, 4);
+    m_renderId.compile();
 }
 
 Layer::~Layer() { }
 
 void Layer::setGeometry(Vector2f pos, Vector2f size, Vector4f color)
 {
+    Vertex* vertices = m_renderId.bindBuffer().lock();
+
     Vector2f pos2 = pos + size;
-
-    Vertex vertices[4];
-
     vertices[0] = Vertex(pos.x, pos.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 0, 0);
     vertices[1] = Vertex(pos2.x, pos.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 1, 0);
     vertices[2] = Vertex(pos.x, pos2.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 0, 1);
     vertices[3] = Vertex(pos2.x, pos2.y, 0, 0, 0, 0, color.x, color.y, color.z, color.w, 1, 1);
 
-    m_renderId.clear();
-    m_renderId.addVertex(vertices, 4);
-    m_renderId.compile();
+    m_renderId.unlock().unbindBuffer();
 }
 
 void Layer::begin()

@@ -147,12 +147,12 @@ void OBJMesh::open(const std::string& path)
 
             try
             {
-                curMaterial = m_parallelScene->getMaterialManager()->getMaterial(value);
+                curMaterial = MaterialManager::get()->getMaterial(value);
             }
 
             catch(...)
             {
-                curMaterial = m_parallelScene->getMaterialManager()->newMaterial("");
+                curMaterial = MaterialManager::get()->newMaterial("");
             }
         }
 
@@ -336,7 +336,7 @@ void MTLFile::open(const std::string& path)
 
         if(opcode == "newmtl")
         {
-            material = m_parent->m_parallelScene->getMaterialManager()->newMaterial(arg);
+            material = MaterialManager::get()->newMaterial(arg);
         }
 
         else if(opcode == "Ns")

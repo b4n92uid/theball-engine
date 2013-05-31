@@ -25,15 +25,11 @@ MeshParallelScene::MeshParallelScene()
     m_frustumCullingCount = 0;
     m_enableFrustumTest = true;
     m_transparencySort = false;
-    m_materialManager = new MaterialManager;
 
     glGetIntegerv(GL_MAX_LIGHTS, & m_maxlight);
 }
 
-MeshParallelScene::~MeshParallelScene()
-{
-    delete m_materialManager;
-}
+MeshParallelScene::~MeshParallelScene() { }
 
 struct RenderQueue
 {
@@ -79,7 +75,10 @@ void MeshParallelScene::drawScene(bool shadowpass)
     m_frustumCullingCount = 0;
     m_renderedMeshCount = 0;
 
-    std::deque<RenderQueue> renderqueue;
+    std::vector<RenderQueue> renderqueue;
+
+    // Pre allocate approximate nodes count
+    renderqueue.reserve(m_nodes.size());
 
     BOOST_FOREACH(Mesh* node, m_nodes)
     {
@@ -147,8 +146,6 @@ void MeshParallelScene::drawScene(bool shadowpass)
         rq.render->endProperty();
         rq.render->unbindBuffers();
     }
-
-
 }
 
 void MeshParallelScene::render()
@@ -237,6 +234,8 @@ void MeshParallelScene::render()
 Vector3f::Array MeshParallelScene::rayCast(Vector3f start, Vector3f dir)
 {
     std::vector<float> fhits;
+
+    // TODO Improve by frustum culling 
 
     for(unsigned i = 0; i < m_nodes.size(); i++)
     {
@@ -442,9 +441,4 @@ void MeshParallelScene::setRenderingShader(Shader renderingShader)
 Shader MeshParallelScene::getRenderingShader() const
 {
     return m_renderingShader;
-}
-
-MaterialManager* MeshParallelScene::getMaterialManager() const
-{
-    return m_materialManager;
 }

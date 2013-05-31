@@ -20,64 +20,6 @@ void Box::build(Vector3f size)
 
     m_hardwareBuffer = new HardwareBuffer;
 
-    /*
-    Vertex vertexs[24];
-
-    // Front
-    vertexs[ 0] = Vertex(-1, -1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
-    vertexs[ 1] = Vertex(+1, -1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
-    vertexs[ 2] = Vertex(+1, +1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
-    vertexs[ 3] = Vertex(-1, +1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
-    // Back
-    vertexs[ 4] = Vertex(+1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
-    vertexs[ 5] = Vertex(-1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
-    vertexs[ 6] = Vertex(-1, +1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
-    vertexs[ 7] = Vertex(+1, +1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
-    // Left
-    vertexs[12] = Vertex(+1, -1, -1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
-    vertexs[13] = Vertex(+1, +1, -1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
-    vertexs[14] = Vertex(+1, +1, +1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
-    vertexs[15] = Vertex(+1, -1, +1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
-    // Right
-    vertexs[ 8] = Vertex(-1, -1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
-    vertexs[ 9] = Vertex(-1, -1, +1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
-    vertexs[10] = Vertex(-1, +1, +1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
-    vertexs[11] = Vertex(-1, +1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
-    // Top
-    vertexs[16] = Vertex(+1, +1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
-    vertexs[17] = Vertex(-1, +1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
-    vertexs[18] = Vertex(-1, +1, +1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
-    vertexs[19] = Vertex(+1, +1, +1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
-    // Bottom
-    vertexs[20] = Vertex(+1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
-    vertexs[21] = Vertex(+1, -1, +1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
-    vertexs[22] = Vertex(-1, -1, +1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
-    vertexs[23] = Vertex(-1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
-
-    for(unsigned i = 0; i < 6; i++)
-    {
-        Face face;
-
-        for(unsigned j = 0; j < 4; j++)
-        {
-            vertexs[i * 4 + j].pos *= m_size;
-            face.push_back(vertexs[i * 4 + j]);
-        }
-
-        m_hardwareBuffer->addFace(face);
-    }
-
-    m_hardwareBuffer->compile();
-
-    computeAabb();
-
-    Material* mainMaterial = new Material;
-    mainMaterial->setFaceType(Material::QUADS);
-
-    addMaterial("main", mainMaterial);
-    applyMaterial(mainMaterial, 0, 24);
-     */
-
     Vertex vertexs[36];
 
     // Front
@@ -123,21 +65,12 @@ void Box::build(Vector3f size)
     vertexs[34] = Vertex(1, 1, -1, 1, 0, 0, 1, 1, 1, 1, 1, 1);
     vertexs[35] = Vertex(1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1);
 
-    for(unsigned i = 0; i < 12; i++)
-    {
-        Face face;
-
-        for(unsigned j = 0; j < 3; j++)
-            face.push_back(vertexs[i * 3 + j]);
-
-        m_hardwareBuffer->addFace(face);
-    }
-
+    m_hardwareBuffer->addVertex(vertexs, 36);
     m_hardwareBuffer->compile();
 
     setSize(size);
 
-    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("Box");
+    Material* mainMaterial = MaterialManager::get()->newMaterial("Box");
     mainMaterial->setFaceType(Material::TRIANGLES);
 
     addSubMesh(mainMaterial, 0, 36);
@@ -166,6 +99,89 @@ Vector3f Box::getSize() const
     return m_size;
 }
 
+// QuadBox----------------------------------------------------------------------
+
+QuadBox::QuadBox(MeshParallelScene* scene) : Mesh(scene) { }
+
+QuadBox::QuadBox(MeshParallelScene* scene, Vector3f size) : Mesh(scene)
+{
+    build(size);
+}
+
+void QuadBox::build(Vector3f size)
+{
+    clear();
+
+    m_hardwareBuffer = new HardwareBuffer;
+
+    Vertex vertexs[24];
+
+    // Front
+    vertexs[ 0] = Vertex(-1, -1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[ 1] = Vertex(+1, -1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[ 2] = Vertex(+1, +1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[ 3] = Vertex(-1, +1, +1, 0, 0, 1, 1, 1, 1, 1, 1, 0);
+    // Back
+    vertexs[ 4] = Vertex(+1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
+    vertexs[ 5] = Vertex(-1, -1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
+    vertexs[ 6] = Vertex(-1, +1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
+    vertexs[ 7] = Vertex(+1, +1, -1, 0, 0, -1, 1, 1, 1, 1, 1, 0);
+    // Left
+    vertexs[12] = Vertex(+1, -1, -1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[13] = Vertex(+1, +1, -1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[14] = Vertex(+1, +1, +1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
+    vertexs[15] = Vertex(+1, -1, +1, 1, 0, 1, 1, 1, 1, 1, 1, 0);
+    // Right
+    vertexs[ 8] = Vertex(-1, -1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[ 9] = Vertex(-1, -1, +1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[10] = Vertex(-1, +1, +1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[11] = Vertex(-1, +1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0);
+    // Top
+    vertexs[16] = Vertex(+1, +1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[17] = Vertex(-1, +1, -1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[18] = Vertex(-1, +1, +1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[19] = Vertex(+1, +1, +1, 0, 1, 0, 1, 1, 1, 1, 1, 0);
+    // Bottom
+    vertexs[20] = Vertex(+1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[21] = Vertex(+1, -1, +1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[22] = Vertex(-1, -1, +1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[23] = Vertex(-1, -1, -1, 0, -1, 0, 1, 1, 1, 1, 1, 0);
+
+    m_hardwareBuffer->addVertex(vertexs, 24);
+    m_hardwareBuffer->compile();
+
+    setSize(size);
+
+    computeAabb();
+
+    Material* mainMaterial = MaterialManager::get()->newMaterial("QuadBox");
+    mainMaterial->setFaceType(Material::QUADS);
+
+    addSubMesh(mainMaterial, 0, 24);
+}
+
+void QuadBox::setSize(Vector3f size)
+{
+    m_size = size;
+
+    m_aabb.clear();
+
+    const Vertex::Array& vertices = m_hardwareBuffer->getClientVertex();
+    Vertex* verts = m_hardwareBuffer->bindBuffer().lock();
+
+    for(unsigned i = 0; i < 36; i++)
+    {
+        verts[i].pos = vertices[i].pos * size;
+        m_aabb.count(verts[i].pos);
+    }
+
+    m_hardwareBuffer->unlock().unbindBuffer();
+}
+
+Vector3f QuadBox::getSize() const
+{
+    return m_size;
+}
 // Sphere ----------------------------------------------------------------------
 
 Sphere::Sphere(MeshParallelScene* scene) : Mesh(scene)
@@ -237,7 +253,7 @@ void Sphere::build(float radius, unsigned slices, unsigned stackes)
 
     computeAabb();
 
-    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("Sphere");
+    Material* mainMaterial = MaterialManager::get()->newMaterial("Sphere");
     mainMaterial->setFaceType(Material::TRIANGLE_STRIP);
 
     addSubMesh(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
@@ -288,7 +304,7 @@ void Axes::build(float lineWidth, float lineLength)
 
     computeAabb();
 
-    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("Axis");
+    Material* mainMaterial = MaterialManager::get()->newMaterial("Axis");
     mainMaterial->setRenderFlags(Material::COLORED);
     mainMaterial->setLineWidth(m_lineWidth);
     mainMaterial->setFaceType(Material::LINES);
@@ -383,7 +399,7 @@ void Plane::build(Vector2f size, Vector2i cut)
 
     computeAabb();
 
-    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("Plane");
+    Material* mainMaterial = MaterialManager::get()->newMaterial("Plane");
     mainMaterial->setFaceType(Material::TRIANGLES);
 
     addSubMesh(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
@@ -450,7 +466,7 @@ void Grid::build(Vector2f size, Vector2i cut)
 
     computeAabb();
 
-    Material* mainMaterial = m_parallelScene->getMaterialManager()->newMaterial("Grid");
+    Material* mainMaterial = MaterialManager::get()->newMaterial("Grid");
     mainMaterial->disable(Material::TEXTURED | Material::LIGHTED);
     mainMaterial->setFaceType(Material::LINES);
 

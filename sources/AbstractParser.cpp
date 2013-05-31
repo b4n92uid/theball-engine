@@ -33,6 +33,7 @@ AbstractParser::AbstractParser()
     m_meshScene = NULL;
     m_particlesScene = NULL;
     m_markScene = NULL;
+    m_waterScene = NULL;
 }
 
 AbstractParser::AbstractParser(SceneManager* sceneManager)
@@ -43,6 +44,7 @@ AbstractParser::AbstractParser(SceneManager* sceneManager)
     m_meshScene = NULL;
     m_particlesScene = NULL;
     m_markScene = NULL;
+    m_waterScene = NULL;
 }
 
 AbstractParser::~AbstractParser()
@@ -219,7 +221,7 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
                 if(!tools::isAbsoloutPath(path))
                     path = resolve(path);
 
-                Material* mat = m_meshScene->getMaterialManager()->loadMaterial(path);
+                Material* mat = MaterialManager::get()->loadMaterial(path);
 
                 smesh->setMaterial(mat);
 
