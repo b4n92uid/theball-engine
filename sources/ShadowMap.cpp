@@ -296,7 +296,8 @@ void ShadowMap::renderDebug()
 {
     ppe::PostProcessManager::beginPostProcess();
 
-    ppe::Layer lay(0, 0.25);
+    static ppe::Layer lay;
+    lay.setGeometry(0, 0.25, 1);
 
     m_depthBuffer->getDepht().use(true);
 

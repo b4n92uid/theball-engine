@@ -39,6 +39,7 @@ void WaterParallelScene::render()
     glEnable(GL_LIGHTING);
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     SkyBox* sky = m_sceneManager->getSkybox();
     Camera* cam = m_sceneManager->getCurCamera();

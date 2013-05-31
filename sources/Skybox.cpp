@@ -91,7 +91,7 @@ void SkyBox::initRender()
 
     m_textures[1].use(true);
 
-    // Derriére
+    // DerriÃ¨re
     glBegin(GL_QUADS);
     glTexCoord2d(0, 0);
     glVertex3f(-size.x, size.y, -size.z);

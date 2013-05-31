@@ -71,43 +71,55 @@ const char* fragmentShader =
         "uniform float blend;\n"
         "uniform float deform;\n"
         "uniform float speed;\n"
-        "uniform float endborder;\n"
+        "uniform float zfar;\n"
+
+        "uniform int FOG_ENABLE;\n"
 
         "void main()\n"
         "{\n"
-        "    // -- On passe les normals dans un optique de [-1;1] plutot que [0;1]\n"
+        // -- On passe les normals dans un optique de [-1;1] plutot que [0;1]
         "    vec3 n1 = texture2D(normalMap, gl_TexCoord[0].st + vec2(timer, -timer) * speed).xyz * 2.0 - 1.0;\n"
         "    vec3 n2 = texture2D(normalMap, gl_TexCoord[0].st + vec2(-timer, timer) * speed).xyz * 2.0 - 1.0;\n"
         "    vec3 N = normalize(n1 + n2);\n"
 
-        "    // -- Coorodoné de texture de projection\n"
+        // -- Coorodoné de texture de projection
         "    vec2 projCoord = projectionCoordinates.xy / projectionCoordinates.w;\n"
         "    projCoord = (projCoord + 1.0) * 0.5;\n"
         "    projCoord = clamp(projCoord, 0.0, 1.0);\n"
         "    projCoord += N.xy * deform;"
 
-        "    // -- Intensité spéculaire\n"
+        // -- Intensité spéculaire
         "    vec3 L = normalize(light);\n"
         "    vec3 E = normalize(eye);\n"
 
-        "    // Le reflet du vecteur incident 'lumiere' sur la normal de la surface\n"
+        // Le reflet du vecteur incident 'lumiere' sur la normal de la surface
         "    vec3 ref = normalize(reflect(-L, N));\n"
 
-        "    // L'angle entre la caméra et le reflet de la lumiere\n"
+        // L'angle entre la caméra et le reflet de la lumiere
         "    float stemp = clamp(dot(E, ref), 0.0, 1.0);\n"
 
-        "    // Intensité de la spéculaire\n"
+        // Intensité de la spéculaire
         "    float ispecular = pow(stemp, 16.0);\n"
 
-        "    // -- Calcule de Reflection & Refraction\n"
+        // -- Calcule de Reflection & Refraction
         "    vec4 reflexion = texture2D(reflexionMap, projCoord);\n"
         "    vec4 refraction = texture2D(refractionMap, projCoord);\n"
 
         "    gl_FragColor = mix(reflexion, refraction, blend);\n"
         "    gl_FragColor += gl_LightSource[0].specular * ispecular;\n"
 
-        "    // Attinuation par transparence sur les bords\n"
-        "    gl_FragColor.a = 1.0 - (gl_FragCoord.z / gl_FragCoord.w) / endborder;\n"
+        "    if(FOG_ENABLE == 1)\n"
+        "    {\n"
+        "        float z = gl_FragCoord.z / gl_FragCoord.w;\n"
+        "        float fogFactor = (gl_Fog.end - z) / (gl_Fog.end - gl_Fog.start);\n"
+        "        fogFactor = clamp(fogFactor, 0.0, 1.0);\n"
+        "        gl_FragColor.a = fogFactor;\n"
+        "    }\n"
+        "    else\n"
+        "    {\n"
+        //       Attinuation par transparence sur les bords
+        "        gl_FragColor.a = 1.0 - (gl_FragCoord.z / gl_FragCoord.w) / zfar;\n"
+        "    }\n"
         "}";
 
 using namespace std;
@@ -366,6 +378,7 @@ void Water::render()
 
     m_shader.use(true);
     m_shader.uniform("timer", (float) (clock() * 0.001f));
+    m_shader.uniform("FOG_ENABLE", m_sceneManager->getFog()->isEnable());
 
     glClientActiveTexture(GL_TEXTURE0);
     glActiveTexture(GL_TEXTURE0);
@@ -439,7 +452,7 @@ void Water::setSize(Vector2f size)
     m_buffer.unlock().unbindBuffer();
 
     m_shader.use(true);
-    m_shader.uniform("endborder", max(m_size.x, m_size.y));
+    m_shader.uniform("zfar", max(m_size.x, m_size.y));
     m_shader.use(false);
 }
 

@@ -1202,6 +1202,7 @@ void SubMesh::beginShadowPass()
 
     glDisable(GL_BLEND);
     glDisable(GL_LIGHTING);
+    glDisable(GL_FOG);
 
     glColor4f(0, 0, 0, 1);
 
@@ -1316,6 +1317,8 @@ void SubMesh::unbindBuffers()
 
 void SubMesh::endProperty()
 {
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
     if(m_material->m_renderFlags & Material::VERTEX_SORT_CULL_TRICK)
     {
         glCullFace(GL_BACK);
