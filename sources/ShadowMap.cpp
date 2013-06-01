@@ -196,8 +196,8 @@ void ShadowMap::begin()
 
     Camera* cam = m_sceneManager->getCurCamera();
 
-    float length = m_light->getParallelScene()->getSceneAabb().getLength() / 8.0f;
-    Vector3f centerView = cam->getPos() + cam->getTarget() * length;
+    AABB length = m_light->getParallelScene()->getSceneAabb();
+    Vector3f centerView = cam->getPos() + cam->getTarget() * 4;
 
     if(m_cameraSetup)
         centerView = m_cameraSetup->setupCamera(m_sceneManager, m_light);
@@ -208,7 +208,12 @@ void ShadowMap::begin()
     if(m_cameraSetup)
         m_projectionMatrix = m_cameraSetup->setupMatrix(m_sceneManager, m_light);
     else
-        m_projectionMatrix = math::orthographicMatrix(-length * 2, length * 2, -length, length, -length * 2, length * 2);
+        m_projectionMatrix = math::orthographicMatrix(length.min.x,
+                                                      length.max.x,
+                                                      length.min.z,
+                                                      length.max.z,
+                                                      -50,
+                                                      50);
 
     m_viewMatrix = math::lookAt(pos, target, Vector3f(0.0f, 1.0f, 0.0f));
 

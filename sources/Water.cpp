@@ -71,7 +71,6 @@ const char* fragmentShader =
         "uniform float blend;\n"
         "uniform float deform;\n"
         "uniform float speed;\n"
-        "uniform float zfar;\n"
 
         "uniform int FOG_ENABLE;\n"
 
@@ -114,11 +113,6 @@ const char* fragmentShader =
         "        float fogFactor = (gl_Fog.end - z) / (gl_Fog.end - gl_Fog.start);\n"
         "        fogFactor = clamp(fogFactor, 0.0, 1.0);\n"
         "        gl_FragColor.a = fogFactor;\n"
-        "    }\n"
-        "    else\n"
-        "    {\n"
-        //       Attinuation par transparence sur les bords
-        "        gl_FragColor.a = 1.0 - (gl_FragCoord.z / gl_FragCoord.w) / zfar;\n"
         "    }\n"
         "}";
 
@@ -450,10 +444,6 @@ void Water::setSize(Vector2f size)
     m_buffer.snapshot();
 
     m_buffer.unlock().unbindBuffer();
-
-    m_shader.use(true);
-    m_shader.uniform("zfar", max(m_size.x, m_size.y));
-    m_shader.use(false);
 }
 
 Vector2f Water::getSize() const
