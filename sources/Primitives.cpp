@@ -169,7 +169,7 @@ void QuadBox::setSize(Vector3f size)
     const Vertex::Array& vertices = m_hardwareBuffer->getClientVertex();
     Vertex* verts = m_hardwareBuffer->bindBuffer().lock();
 
-    for(unsigned i = 0; i < 36; i++)
+    for(unsigned i = 0; i < vertices.size(); i++)
     {
         verts[i].pos = vertices[i].pos * size;
         m_aabb.count(verts[i].pos);

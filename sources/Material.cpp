@@ -384,7 +384,8 @@ MaterialManager::~MaterialManager()
     BOOST_FOREACH(MaterialManager::Map::value_type&v, m_materials)
             delete v.second;
 
-    m_materials.clear();
+    BOOST_FOREACH(MaterialManager::Map::value_type&v, m_materialsBackup)
+            delete v.second;
 }
 
 Material* MaterialManager::newMaterial(std::string name)
@@ -408,15 +409,21 @@ Material* MaterialManager::getMaterial(std::string name)
     return NULL;
 }
 
-Material* MaterialManager::loadMaterial(std::string path)
+Material* MaterialManager::backupMaterial(std::string name)
+{
+    if(m_materialsBackup.count(name))
+        return m_materialsBackup[name];
+
+    return NULL;
+}
+
+Material* MaterialManager::loadMaterial(std::string path, bool reload)
 {
     using namespace std;
     using namespace boost;
 
-    if(m_materialsFromFile.count(path))
-    {
+    if(!reload && m_materialsFromFile.count(path))
         return m_materialsFromFile[path];
-    }
 
     cout << "[Material] " << path << endl;
 
@@ -425,10 +432,25 @@ Material* MaterialManager::loadMaterial(std::string path)
 
     string matname = data.get<string>("name");
 
-    Material* mat = new Material;
+    Material* mat = NULL;
+
+    if(m_materialsFromFile.count(path) && reload)
+    {
+        mat = m_materialsFromFile[path];
+    }
+    else if(m_materials.count(matname) && !reload)
+    {
+        mat = m_materials[matname];
+        m_materialsBackup[matname] = new Material(*mat);
+    }
+    else
+    {
+        mat = new Material;
+        m_materials[matname] = mat;
+    }
+
     mat->setName(matname);
 
-    m_materials[matname] = mat;
     m_materialsFromFile[path] = mat;
 
     VectorTranslator<Vector4f> v4tr;
@@ -567,8 +589,6 @@ rtree MaterialManager::serialize(std::string name, std::string root)
     if(!m_materials.count(name))
         return rtree();
 
-    rtree scheme;
-
     Material* mat = m_materials[name];
 
     rtree matscheme;
@@ -646,7 +666,5 @@ rtree MaterialManager::serialize(std::string name, std::string root)
         matscheme.add_child("textures.unit", texscheme);
     }
 
-    scheme.add_child("pass", matscheme);
-
-    return scheme;
+    return matscheme;
 }

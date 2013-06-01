@@ -732,39 +732,38 @@ rtree Mesh::serialize(std::string root)
 
     rtree scheme = Node::serialize(root);
 
-    if(scheme.count("class") && scheme.get_child("class").empty())
+    optional<string> path = scheme.get_optional<string>("class.path");
+
+    if(path && tools::isAbsoloutPath(*path))
     {
-        // This node is loaded from external file
+        *path = tools::relativizePath(*path, root);
+        scheme.put("class.path", *path);
     }
-    else
+
+    scheme.put("class", "Mesh");
+    scheme.put("class.billBoarding", m_billBoard.toStr());
+    scheme.put("class.castShadow", m_castShadow);
+    scheme.put("class.receiveShadow", m_receiveShadow);
+    scheme.put("class.computeNormal", m_computeNormals);
+    scheme.put("class.computeTangent", m_computeTangent);
+    scheme.put("class.computeAocc", m_computeAocc);
+
+    // Relativize absolute path according to the root
+    optional<rtree&> materials = scheme.get_child_optional("material");
+
+    if(materials)
     {
-        optional<string> path = scheme.get_optional<string>("class.path");
 
-        if(path && tools::isAbsoloutPath(*path))
+        BOOST_FOREACH(rtree::value_type& v, *materials)
         {
-            *path = tools::relativizePath(*path, root);
-            scheme.put("class.path", *path);
+            string path = v.second.get_value<string>();
+
+            if(tools::isAbsoloutPath(path))
+                path = tools::relativizePath(path, root);
+
+            v.second.put_value(path);
         }
 
-        scheme.put("class", "Mesh");
-        scheme.put("class.billBoarding", m_billBoard.toStr());
-        scheme.put("class.castShadow", m_castShadow);
-        scheme.put("class.receiveShadow", m_receiveShadow);
-        scheme.put("class.computeNormal", m_computeNormals);
-        scheme.put("class.computeTangent", m_computeTangent);
-        scheme.put("class.computeAocc", m_computeAocc);
-
-        optional<string> material = scheme.get_optional<string>("material");
-
-        if(material)
-        {
-            string matpath = *material;
-
-            if(tools::isAbsoloutPath(matpath))
-                matpath = tools::relativizePath(matpath, root);
-
-            scheme.put("material", matpath);
-        }
     }
 
     return scheme;
@@ -1071,12 +1070,10 @@ void SubMesh::bindBuffers()
          */
 
         // TODO Avoid normal rescaling
-        #if 0
         if(!math::isEqual(m_owner->getScale(), 1))
             glEnable(GL_RESCALE_NORMAL);
         else
             glDisable(GL_RESCALE_NORMAL);
-        #endif
     }
 
     if(m_material->m_renderFlags & Material::COLORED)
@@ -1332,8 +1329,10 @@ void SubMesh::transform(const Matrix4& mat)
 
     glMultMatrixf(mat);
 
-    /* Billboarding ------------------------------------------------------------
-    
+    // Billboarding ------------------------------------------------------------
+
+    // TODO fix billboard
+    #if 0
     if(!!m_billBoard)
     {
         Vector3f position, scale;
@@ -1354,7 +1353,7 @@ void SubMesh::transform(const Matrix4& mat)
     }
     else
         glMultMatrixf(m_matrix);
-     */
+    #endif
 }
 
 void SubMesh::animateTexture(unsigned layer, Texture texture, TextureApply settings)

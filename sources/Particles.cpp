@@ -584,7 +584,7 @@ rtree ParticlesEmiter::serialize(std::string root)
 
     scheme.put("class", "ParticlesEmiter");
 
-    scheme.put("class.texture", absolute(m_texture.getFilename(), root));
+    scheme.put("class.texture", tools::relativizePath(m_texture.getFilename(), root));
     scheme.put("class.number", m_number);
     scheme.put("class.lifeInit", m_lifeInit);
     scheme.put("class.lifeDown", m_lifeDown);

@@ -412,7 +412,7 @@ Iterator<Node*> Node::getChildIterator()
 
 void Node::clearAllChild()
 {
-    // Copie de pointeur pour éviter les problemes d'itération
+    // Copie de pointeur pour Ã©viter les problemes d'itÃ©ration
     // lors de la suppresion par l'enfant -> parent
 
     Node::Array copyptr = m_childs;
@@ -433,7 +433,9 @@ rtree Node::serialize(std::string root)
     rtree scheme = m_serializeValue;
 
     scheme.put("name", m_name);
-    scheme.put("matrix", m_matrix.toStr());
+    scheme.put("position", m_position.toStr());
+    scheme.put("scale", m_scale.toStr());
+    scheme.put("rotation", m_rotation.toStr());
 
     if(!m_userDatas.empty())
     {

@@ -34,8 +34,8 @@ Device::~Device()
     if(m_sceneManager) delete m_sceneManager;
     if(m_postProcessManager) delete m_postProcessManager;
 
-    Texture::resetCache();
     scene::MaterialManager::clear();
+    Texture::resetCache();
 
     cout << "OK" << endl;
     cout << endl;

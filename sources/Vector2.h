@@ -22,8 +22,8 @@ public:
 
     template<typename T2> Vector2(const Vector2<T2>& vec)
     {
-        x = static_cast<T2>(vec.x);
-        y = static_cast<T2>(vec.y);
+        x = static_cast<T2> (vec.x);
+        y = static_cast<T2> (vec.y);
     }
 
     Vector2(const Vector2& vec)
@@ -46,8 +46,8 @@ public:
 
     template<typename T2> Vector2 & operator=(const Vector2<T2>& vec)
     {
-        x = static_cast<T2>(vec.x);
-        y = static_cast<T2>(vec.y);
+        x = static_cast<T2> (vec.x);
+        y = static_cast<T2> (vec.y);
 
         return *this;
     }
@@ -75,7 +75,7 @@ public:
         return *this;
     }
 
-    T operator[](unsigned i)const
+    T operator[](unsigned i) const
     {
         switch(i)
         {
@@ -298,7 +298,7 @@ public:
 
     T getMagnitude() const
     {
-        return (T)sqrt(x * x + y * y);
+        return (T) sqrt(x * x + y * y);
     }
 
     bool isInsinde(Vector2 pos, Vector2 size)
@@ -317,7 +317,7 @@ public:
         return (a.x * b.x + a.y * b.y);
     }
 
-     Vector2& pinpoint()
+    Vector2& pinpoint()
     {
         if(x > 0.6666)
             return X(1).Y(0).Z(0);
@@ -381,7 +381,7 @@ public:
     }
 
     /**
-     * Interprétation d'une chaine de caracteres en vecteur a 2 composant
+     * InterprÃ©tation d'une chaine de caracteres en vecteur a 2 composant
      *  depuis le format "x, y"
      */
     Vector2 fromStr(std::string str, bool withsep = true)

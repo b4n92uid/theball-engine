@@ -484,7 +484,6 @@ public:
      */
     Vector4& fromStr(std::string str, bool withsep = true)
     {
-        Vector4<T> vec;
         std::stringstream ss(str);
 
         if(withsep)

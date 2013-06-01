@@ -28,10 +28,7 @@ Quaternion::Quaternion()
 
 Quaternion::Quaternion(const Quaternion& quat)
 {
-    this->x = quat.x;
-    this->y = quat.y;
-    this->z = quat.z;
-    this->w = quat.w;
+    *this = quat;
 }
 
 Quaternion::Quaternion(float w, float x, float y, float z)
@@ -58,6 +55,22 @@ Quaternion::Quaternion(float angle, const Vector3f& axe)
 {
     identity();
     setAxisAngle(angle, axe);
+}
+
+Quaternion& Quaternion::operator=(const Quaternion& quat)
+{
+    this->x = quat.x;
+    this->y = quat.y;
+    this->z = quat.z;
+    this->w = quat.w;
+
+    return *this;
+}
+
+bool Quaternion::operator==(const Quaternion& quat)
+{
+    return this->x == quat.x && this->y == quat.y
+            && this->z == quat.z && this->w == quat.w;
 }
 
 void Quaternion::setAxisAngle(float angle, const Vector3f& axe)
@@ -277,7 +290,7 @@ Quaternion Quaternion::operator *(const Quaternion& rv) const
 
 Quaternion & Quaternion::operator*=(const Quaternion& q)
 {
-    return(*this = *this * q);
+    return (*this = *this * q);
 }
 
 Vector3f Quaternion::operator*(const Vector3f& vec) const

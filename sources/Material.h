@@ -29,7 +29,8 @@ class MaterialManager
 public:
     Material* newMaterial(std::string name);
     Material* getMaterial(std::string name);
-    Material* loadMaterial(std::string path);
+    Material* backupMaterial(std::string name);
+    Material* loadMaterial(std::string path, bool reload = false);
 
     rtree serialize(std::string name, std::string root);
 
@@ -47,6 +48,7 @@ private:
 private:
     Map m_materials;
     Map m_materialsFromFile;
+    Map m_materialsBackup;
 };
 
 struct TextureApply

@@ -119,6 +119,9 @@ void AbstractParser::setMarkScene(MapMarkParallelScene* markScene)
 
 std::string AbstractParser::resolve(std::string relpath, std::string base)
 {
+    if(tools::isAbsoloutPath(relpath))
+        return relpath;
+
     if(base.empty())
         base = m_filename;
 
@@ -129,9 +132,12 @@ std::string AbstractParser::resolve(std::string relpath, std::string base)
     return output.normalize().string();
 }
 
-std::string AbstractParser::relativize(std::string parh)
+std::string AbstractParser::relativize(std::string abspath)
 {
-    return tools::relativizePath(parh, m_filename);
+    if(!tools::isAbsoloutPath(abspath))
+        return abspath;
+
+    return tools::relativizePath(abspath, m_filename);
 }
 
 void AbstractParser::buildInherited(rtree data, Node* parent, Node* current)
@@ -146,6 +152,15 @@ void AbstractParser::buildInherited(rtree data, Node* parent, Node* current)
 
     if(data.count("matrix"))
         current->setMatrix(data.get<Matrix4>("matrix", m4tr));
+
+    if(data.count("position"))
+        current->setPos(data.get<Vector3f>("position"));
+
+    if(data.count("scale"))
+        current->setScale(data.get<Vector3f>("scale"));
+
+    if(data.count("rotation"))
+        current->setRotation(data.get<Quaternion>("rotation"));
 
     if(data.count("attributes")) BOOST_FOREACH(rtree::value_type & v, data.get_child("attributes"))
     {
@@ -212,7 +227,7 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
 
                 if(!smesh)
                 {
-                    cout << "/!\\ WARNING; SubMesh " << v.first << " not found" << endl;
+                    cout << "/!\\ WARNING; AbstractParser::buildNode; SubMesh " << v.first << " not found" << endl;
                     continue;
                 }
 
@@ -222,10 +237,10 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
                     path = resolve(path);
 
                 Material* mat = MaterialManager::get()->loadMaterial(path);
-
                 smesh->setMaterial(mat);
 
-                mesh->serializing().put("material." + mat->getName(), path);
+                string relpath = v.second.get_value<string>();
+                mesh->serializing().put("material." + mat->getName(), relpath);
             }
         }
 
@@ -243,14 +258,8 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
     {
         ParticlesEmiter* emiter = m_classFactory ? m_classFactory->newParticles(m_particlesScene) : new ParticlesEmiter(m_particlesScene);
 
-        if(data.count("class.texture"))
-        {
-            rtree textures = data.get_child("class.texture");
-
-            fspath path = textures.get<fspath>("path");
-
-            emiter->setTexture(path.string());
-        }
+        string texturePath = data.get<string>("class.texture");
+        emiter->setTexture(resolve(texturePath));
 
         emiter->setGravity(data.get<Vector3f>("class.gravity", Vector3f(0)));
 
