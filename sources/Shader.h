@@ -39,7 +39,7 @@ public:
 
     /**
      * Chargement du program. Cette fonction deveras etre appeller au moin
-     * apres le chargement d'un vertex shader et éventuellement après le
+     * apres le chargement d'un vertex shader et Ã©ventuellement aprÃ©s le
      * chargement d'un fragment shader
      */
     void loadProgram();
@@ -68,7 +68,7 @@ public:
     void setRequestedUniform(std::string what, std::string var);
 
     const UniformMap& getRequestedUniform();
-    
+
     bool isRequested(std::string value);
 
     /**
@@ -109,7 +109,7 @@ public:
     /// Transmet une variable au shader de type Matrix4
     void uniform(std::string name, Matrix4 value);
 
-    /// Récuperation d'identifiant OpenGL
+    /// RÃ©cuperation d'identifiant OpenGL
 
     operator GLuint()
     {
@@ -117,10 +117,10 @@ public:
     }
 
     /**
-     * Cette fonction vérifie si le materiel actuelle supporte l'utilisation
+     * Cette fonction vÃ©rifie si le materiel actuelle supporte l'utilisation
      * des shader.
      *
-     * Pour déterminer le support des shader,
+     * Pour dÃ©terminer le support des shader,
      * les Extention suivante sont tester :
      *  GL_ARB_shading_language_100
      *  GL_ARB_shader_objects

@@ -80,7 +80,7 @@ void LaserBeam::shoot(Vector3f start, Vector3f end)
     mainMaterial->setFaceType(Material::TRIANGLES);
     mainMaterial->setTexture(m_texture);
 
-    addSubMesh(mainMaterial, 0, 24);
+    addSubMesh("default",mainMaterial, 0, 24);
 
     m_hardwareBuffer->compile();
 

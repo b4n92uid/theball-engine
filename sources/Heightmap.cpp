@@ -105,5 +105,5 @@ void Heightmap::open(const std::string& path)
     Material* mainMaterial = MaterialManager::get()->newMaterial("HeightMap");
     mainMaterial->setFaceType(Material::TRIANGLE_STRIP);
 
-    addSubMesh(mainMaterial, 0, vertexsCount);
+    addSubMesh("default", mainMaterial, 0, vertexsCount);
 }

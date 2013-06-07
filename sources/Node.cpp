@@ -149,12 +149,9 @@ void Node::setMatrix(const Matrix4& matrix)
     matrix.decompose(m_position, m_rotation, m_scale);
 }
 
-Matrix4 Node::getAbsoluteMatrix(bool includeThis) const
+Matrix4 Node::getAbsoluteMatrix() const
 {
-    if(includeThis)
-        return m_parent ? m_matrix * m_parent->getAbsoluteMatrix() : m_matrix;
-    else
-        return m_parent ? m_parent->getAbsoluteMatrix() : Matrix4();
+    return m_parent ? m_matrix * m_parent->getAbsoluteMatrix() : m_matrix;
 }
 
 Matrix4 Node::getMatrix() const

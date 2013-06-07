@@ -88,6 +88,7 @@ ShadowMap::ShadowMap(Light* light)
     setIntensity(0.5);
 
     m_frameSize = 512;
+    m_orthoSize = 20;
 
     m_depthBuffer = new Rtt(m_frameSize);
     m_depthBuffer->setCaptureColor(true);
@@ -134,6 +135,16 @@ void ShadowMap::setIntensity(float intensity)
 float ShadowMap::getIntensity() const
 {
     return m_intensity;
+}
+
+void ShadowMap::setOrthoSize(Vector3f orthoSize)
+{
+    this->m_orthoSize = orthoSize;
+}
+
+Vector3f ShadowMap::getOrthoSize() const
+{
+    return m_orthoSize;
 }
 
 void ShadowMap::setShaderHandled(bool shaderHandled)
@@ -196,8 +207,7 @@ void ShadowMap::begin()
 
     Camera* cam = m_sceneManager->getCurCamera();
 
-    AABB length = m_light->getParallelScene()->getSceneAabb();
-    Vector3f centerView = cam->getPos() + cam->getTarget() * 4;
+    Vector3f centerView = cam->getPos();
 
     if(m_cameraSetup)
         centerView = m_cameraSetup->setupCamera(m_sceneManager, m_light);
@@ -208,12 +218,12 @@ void ShadowMap::begin()
     if(m_cameraSetup)
         m_projectionMatrix = m_cameraSetup->setupMatrix(m_sceneManager, m_light);
     else
-        m_projectionMatrix = math::orthographicMatrix(length.min.x,
-                                                      length.max.x,
-                                                      length.min.z,
-                                                      length.max.z,
-                                                      -50,
-                                                      50);
+        m_projectionMatrix = math::orthographicMatrix(-m_orthoSize.x,
+                                                      m_orthoSize.x,
+                                                      -m_orthoSize.y,
+                                                      m_orthoSize.y,
+                                                      -m_orthoSize.z,
+                                                      m_orthoSize.z);
 
     m_viewMatrix = math::lookAt(pos, target, Vector3f(0.0f, 1.0f, 0.0f));
 
@@ -305,9 +315,11 @@ void ShadowMap::renderDebug()
     lay.setGeometry(0, 0.25, 1);
 
     m_depthBuffer->getDepht().use(true);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
 
     lay.draw();
 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
     m_depthBuffer->getDepht().use(false);
 
     ppe::PostProcessManager::endPostProcess();

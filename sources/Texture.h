@@ -23,18 +23,18 @@ public:
 
     virtual ~Texture();
 
-    /// Construit une texture avec la valuer et la taille spécifier
+    /// Construit une texture avec la valuer et la taille spÃ©cifier
     void build(Vector2i size, Vector4i color = 0, GLint internalFormat = 4, GLenum format = GL_RGBA, GLenum type = GL_UNSIGNED_BYTE);
 
-    /// Construit une texture avec la valuer et la taille spécifier
+    /// Construit une texture avec la valuer et la taille spÃ©cifier
     void buildMem(Vector2i size, unsigned char* byte, GLint internalFormat = 4, GLenum format = GL_RGBA, GLenum type = GL_UNSIGNED_BYTE);
 
     /**
      * Chargement la texture depuis un fichier
      *
      * @param filename Chemin vers la texture
-     * @param genMipMap Définie si le chargement de la texture générera un mipMapping (texture a plusieur niveau de détail)
-     * @param upperLeftOrigin Définie si la texture devera etre retourné pour que (0,0) correspend au coin du haut a gauche
+     * @param genMipMap DÃ©finie si le chargement de la texture gÃ©nÃ©rera un mipMapping (texture a plusieur niveau de dÃ©tail)
+     * @param upperLeftOrigin DÃ©finie si la texture devera etre retournÃ© pour que (0,0) correspend au coin du haut a gauche
      */
     void load(std::string filename, bool genMipMap = false, int origin = 1, bool override = false);
 
@@ -45,10 +45,10 @@ public:
         load(filename, genMipMap, origin);
     }
 
-    /// Operateur d'assginement : charge la texture spécifier par filename
+    /// Operateur d'assginement : charge la texture spÃ©cifier par filename
     Texture & operator=(std::string filename);
 
-    /// Operateur d'assginement : charge la texture spécifier par filename
+    /// Operateur d'assginement : charge la texture spÃ©cifier par filename
     Texture & operator=(const char* filename);
 
     /// Operateur de copie
@@ -60,7 +60,7 @@ public:
     /// Verification de statue, renvois true si une texture est bien charger
     operator bool() const;
 
-    /// Récuperation d'identifiant OpenGL
+    /// RÃ©cuperation d'identifiant OpenGL
     GLuint getTextureName() const;
 
     /// @see getTextureName()
@@ -96,7 +96,7 @@ public:
         MIPMAP = 8,
     };
 
-    /// Spécifier le filtring appliquer a la texture
+    /// SpÃ©cifier le filtring appliquer a la texture
     void setFiltring(unsigned filtring);
 
     /// Renvois le filtring utliser par la texture
@@ -106,19 +106,19 @@ public:
     unsigned getAnistropy() const;
 
     /**
-     * Renvois true si la texture a été position de facon
-     * a ce que les coordonnés 0,0 font référence au coin
+     * Renvois true si la texture a Ã©tÃ© position de facon
+     * a ce que les coordonnÃ©s 0,0 font rÃ©fÃ©rence au coin
      * superieur a gauche de la texture
      */
     int getOrigin() const;
 
     /**
      * Renvois true si les couches du mipmap
-     * ont été générer durant le chargement de la texture
+     * ont Ã©tÃ© gÃ©nÃ©rer durant le chargement de la texture
      */
     bool isGenMipMap() const;
 
-    /// Renvois le chemin d'accée a la texture par un fichier
+    /// Renvois le chemin d'accÃ©e a la texture par un fichier
     std::string getFilename() const;
 
     void setPersistent(bool persistent);
@@ -126,7 +126,7 @@ public:
 
     /**
      * Supprime toute les texture partager
-     * attention : tout les texture déja charger devienderont invalide
+     * attention : tout les texture dÃ©ja charger devienderont invalide
      */
     static void resetCache();
 

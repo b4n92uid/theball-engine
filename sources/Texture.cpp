@@ -43,7 +43,7 @@ public:
     void Free()
     {
         for(iterator itt = begin(); itt != end(); itt++)
-            itt->first->remove();
+            itt->first->release();
 
         clear();
     }

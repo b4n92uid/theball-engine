@@ -305,8 +305,13 @@ inline Vector3f rand(Vector3f min, Vector3f max)
  */
 inline float floatModulo(float lvalue, float rvalue)
 {
+    // Zero has an exact representation in floating point format
+    if(rvalue == 0)
+        return lvalue;
+
     if(lvalue - rvalue > 0)
         return floatModulo(lvalue - rvalue, rvalue);
+
     else
         return lvalue;
 }

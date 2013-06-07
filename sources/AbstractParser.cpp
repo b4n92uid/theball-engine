@@ -240,7 +240,7 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
                 smesh->setMaterial(mat);
 
                 string relpath = v.second.get_value<string>();
-                mesh->serializing().put("material." + mat->getName(), relpath);
+                mesh->serializing().put("material." + v.first, relpath);
             }
         }
 
@@ -328,6 +328,7 @@ Node* AbstractParser::buildNode(rtree data, Node* parent)
             smap->setBlurPass(rclass.get<int>("shadowMap.blur", 0));
             smap->setIntensity(rclass.get<float>("shadowMap.intensity", 0.5));
             smap->setShaderHandled(rclass.get<bool>("shadowMap.shader", true));
+            smap->setOrthoSize(rclass.get<Vector3f>("shadowMap.orthoSize", 40));
 
             light->setShadowMap(smap);
         }

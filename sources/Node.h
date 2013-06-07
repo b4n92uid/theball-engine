@@ -70,7 +70,7 @@ public:
     void setPos(Vector3f pos);
     Vector3f getPos() const;
 
-    Matrix4 getAbsoluteMatrix(bool includeThis = true) const;
+    Matrix4 getAbsoluteMatrix() const;
 
     /// Sp�cifier la scene parallel parent
     void setParallelScene(ParallelScene* parallelScene);

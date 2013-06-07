@@ -73,7 +73,7 @@ void Box::build(Vector3f size)
     Material* mainMaterial = MaterialManager::get()->newMaterial("Box");
     mainMaterial->setFaceType(Material::TRIANGLES);
 
-    addSubMesh(mainMaterial, 0, 36);
+    addSubMesh("default", mainMaterial, 0, 36);
 }
 
 void Box::setSize(Vector3f size)
@@ -157,7 +157,7 @@ void QuadBox::build(Vector3f size)
     Material* mainMaterial = MaterialManager::get()->newMaterial("QuadBox");
     mainMaterial->setFaceType(Material::QUADS);
 
-    addSubMesh(mainMaterial, 0, 24);
+    addSubMesh("default", mainMaterial, 0, 24);
 }
 
 void QuadBox::setSize(Vector3f size)
@@ -256,7 +256,7 @@ void Sphere::build(float radius, unsigned slices, unsigned stackes)
     Material* mainMaterial = MaterialManager::get()->newMaterial("Sphere");
     mainMaterial->setFaceType(Material::TRIANGLE_STRIP);
 
-    addSubMesh(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
+    addSubMesh("default", mainMaterial, 0, m_hardwareBuffer->getVertexCount());
 }
 
 float Sphere::getRadius() const
@@ -309,7 +309,7 @@ void Axes::build(float lineWidth, float lineLength)
     mainMaterial->setLineWidth(m_lineWidth);
     mainMaterial->setFaceType(Material::LINES);
 
-    addSubMesh(mainMaterial, 0, 6);
+    addSubMesh("default", mainMaterial, 0, 6);
 
     setCastShadow(false);
     setReceiveShadow(false);
@@ -402,7 +402,7 @@ void Plane::build(Vector2f size, Vector2i cut)
     Material* mainMaterial = MaterialManager::get()->newMaterial("Plane");
     mainMaterial->setFaceType(Material::TRIANGLES);
 
-    addSubMesh(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
+    addSubMesh("default", mainMaterial, 0, m_hardwareBuffer->getVertexCount());
 }
 
 Vector2i Plane::getCut() const
@@ -470,7 +470,7 @@ void Grid::build(Vector2f size, Vector2i cut)
     mainMaterial->disable(Material::TEXTURED | Material::LIGHTED);
     mainMaterial->setFaceType(Material::LINES);
 
-    addSubMesh(mainMaterial, 0, m_hardwareBuffer->getVertexCount());
+    addSubMesh("default", mainMaterial, 0, m_hardwareBuffer->getVertexCount());
 }
 
 Vector2i Grid::getCut() const

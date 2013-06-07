@@ -109,6 +109,7 @@ void MeshParallelScene::drawScene(bool shadowpass)
             {
                 RenderQueue rq;
                 rq.render = sm;
+                rq.transforms.reserve(8);
                 rq.transforms.push_back(node->getMatrix());
                 renderqueue.push_back(rq);
             }
@@ -372,7 +373,10 @@ unsigned MeshParallelScene::getRenderedMeshCount() const
 
 Light* MeshParallelScene::light(int index)
 {
-    return m_lightNodes.at(index);
+    if(index >= m_lightNodes.size())
+        return NULL;
+
+    return m_lightNodes[index];
 }
 
 void MeshParallelScene::registerLight(Light* light)

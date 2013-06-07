@@ -593,7 +593,7 @@ rtree MaterialManager::serialize(std::string name, std::string root)
 
     rtree matscheme;
 
-    matscheme.put("name", name);
+    matscheme.put("name", mat->getName());
 
     matscheme.put("ambient", mat->getAmbient());
     matscheme.put("diffuse", mat->getDiffuse());

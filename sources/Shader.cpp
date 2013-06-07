@@ -68,7 +68,7 @@ Shader& Shader::operator=(const Shader& copy)
 
 GLuint ParseShader(const string& content, GLenum type)
 {
-    // Création du shader
+    // CrÃ©ation du shader
     GLuint shader = glCreateShader(type);
 
     // Compilation du shader

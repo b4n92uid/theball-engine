@@ -75,12 +75,12 @@ public:
     void setClassFactory(ParserClassFactory* classFactory);
     ParserClassFactory* getClassFactory() const;
 
+    std::string resolve(std::string relpath, std::string base = "");
+    std::string relativize(std::string abspath);
+
 protected:
     Node* buildNode(rtree data, Node* parent = NULL);
     void buildInherited(rtree data, Node* parent, Node* current);
-
-    std::string resolve(std::string relpath, std::string base = "");
-    std::string relativize(std::string abspath);
 
 protected:
     MeshParallelScene* m_meshScene;

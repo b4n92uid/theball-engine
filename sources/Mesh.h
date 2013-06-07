@@ -21,7 +21,7 @@ class Mesh;
 class SubMesh
 {
 public:
-    SubMesh(Mesh*, Material*, unsigned, unsigned);
+    SubMesh(std::string, Mesh*, Material*, unsigned, unsigned);
     ~SubMesh();
 
     void setMaterial(Material* material);
@@ -46,6 +46,9 @@ public:
     void setOwner(Mesh* owner);
     Mesh* getOwner() const;
 
+    void setName(std::string name);
+    std::string getName() const;
+
     bool operator==(const SubMesh& other);
 
     typedef std::vector<SubMesh*> Array;
@@ -58,6 +61,7 @@ private:
     void bindTexture(unsigned layer, Texture texture, TextureApply settings);
 
 private:
+    std::string m_name;
     Mesh* m_owner;
     Material* m_material;
     unsigned m_offset;
@@ -132,10 +136,10 @@ public:
      * @param offset
      * @param size
      */
-    SubMesh* addSubMesh(Material* material, unsigned offset, unsigned size);
+    SubMesh* addSubMesh(std::string name, Material* material, unsigned offset, unsigned size);
 
     SubMesh* getSubMesh(int index);
-    SubMesh* getSubMesh(std::string matname);
+    SubMesh* getSubMesh(std::string name);
 
     const SubMesh::Array& getAllSubMesh();
 

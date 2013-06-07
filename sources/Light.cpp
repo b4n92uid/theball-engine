@@ -117,7 +117,7 @@ void Light::render()
     // set specular color
     glLightfv(lid, GL_SPECULAR, m_specular);
 
-    Vector3f position = getAbsoluteMatrix().getPos();
+    Vector3f position;
 
     switch(m_type)
     {
@@ -129,11 +129,13 @@ void Light::render()
             glLightf(lid, GL_QUADRATIC_ATTENUATION, m_quadraticAttenuation);
 
             // set position
+            position = getAbsoluteMatrix().getPos();
             glLightfv(lid, GL_POSITION, Vector4f(position.x, position.y, position.z, 1.0f));
             break;
 
         case DIRI:
             // set position
+            position = getPos();
             glLightfv(lid, GL_POSITION, Vector4f(position.x, position.y, position.z, 0));
             break;
     }

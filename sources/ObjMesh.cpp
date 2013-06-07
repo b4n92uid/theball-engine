@@ -7,7 +7,8 @@
 
 using namespace std;
 using namespace tbe;
-using namespace tbe::scene;
+using namespace scene;
+using namespace boost;
 
 OBJMesh::OBJMesh(MeshParallelScene* scene) : Mesh(scene), m_mtlfile(this) { }
 
@@ -80,6 +81,8 @@ void OBJMesh::open(const std::string& path)
 
     Material* curMaterial = NULL;
 
+    string curMatName;
+
     Vector3f::Array vPos;
     Vector3f::Array vNormal;
     Vector2f::Array vTexCoord;
@@ -88,6 +91,8 @@ void OBJMesh::open(const std::string& path)
     unsigned applyOffset = 0;
 
     string buffer;
+    string opcode;
+    string value;
     for(unsigned lineCount = 1; tools::getline(file, buffer); lineCount++)
     {
         for(unsigned i = 0; i < buffer.size(); i++)
@@ -97,8 +102,8 @@ void OBJMesh::open(const std::string& path)
         if(buffer[0] == '#' || buffer.empty())
             continue;
 
-        string opcode = buffer.substr(0, buffer.find_first_of(' '));
-        string value = buffer.substr(buffer.find_first_of(' ') + 1);
+        opcode = buffer.substr(0, buffer.find_first_of(' '));
+        value = buffer.substr(buffer.find_first_of(' ') + 1);
 
         if(opcode == "mtllib")
         {
@@ -139,21 +144,18 @@ void OBJMesh::open(const std::string& path)
                 if(applySize % 3 != 0)
                     cout << "/!\\ WARNING: Mesh may not be triangulated (" << curMaterial->getName() << ")" << endl;
 
-                addSubMesh(curMaterial, applyOffset, applySize);
+                addSubMesh(curMatName, curMaterial, applyOffset, applySize);
             }
+
+            curMatName = m_name + ":" + value;
 
             applyOffset += applySize;
             applySize = 0;
 
-            try
-            {
-                curMaterial = MaterialManager::get()->getMaterial(value);
-            }
+            curMaterial = MaterialManager::get()->getMaterial(curMatName);
 
-            catch(...)
-            {
-                curMaterial = MaterialManager::get()->newMaterial("");
-            }
+            if(!curMaterial)
+                cout << "/!\\ WARNING; OBJMesh::open; Material " << value << " not found" << endl;
         }
 
         else if(opcode == "f")
@@ -174,10 +176,10 @@ void OBJMesh::open(const std::string& path)
                 exp >> index;
                 vert.pos = vPos[index - 1];
 
+                exp >> sep;
                 // TexCoord
                 if(!vTexCoord.empty())
                 {
-                    exp >> sep;
                     exp >> index;
 
                     if(exp.fail())
@@ -194,11 +196,11 @@ void OBJMesh::open(const std::string& path)
                     }
 
                 }
-                // Normal
 
+                exp >> sep;
+                // Normal
                 if(!vNormal.empty())
                 {
-                    exp >> sep;
                     exp >> index;
 
                     if(exp.fail())
@@ -242,7 +244,7 @@ void OBJMesh::open(const std::string& path)
         if(applySize % 3 != 0)
             cout << "/!\\ WARNING: Mesh may not be triangulated (" << curMaterial->getName() << ")" << endl;
 
-        addSubMesh(curMaterial, applyOffset, applySize);
+        addSubMesh(curMatName, curMaterial, applyOffset, applySize);
     }
 
     file.close();
@@ -336,13 +338,14 @@ void MTLFile::open(const std::string& path)
 
         if(opcode == "newmtl")
         {
-            material = MaterialManager::get()->newMaterial(arg);
+            string filename = filesystem::basename(path);
+            material = MaterialManager::get()->newMaterial(filename + ":" + arg);
         }
 
         else if(opcode == "Ns")
         {
             // Evite de lire la valeur Ns pour la non-standarisation du format
-            // le shininess doit etre sp�cifier manuellement
+            // le shininess doit etre spï¿½cifier manuellement
         }
 
         else if(opcode == "Ka")
@@ -393,10 +396,10 @@ void MTLFile::open(const std::string& path)
 
         else if(opcode == "illum")
         {
-            // Mode d'�clairage :
-            // 0 : pas d'�clairage
-            // 1 : �clairage ambiant et diffuse
-            // 2 : �clairage ambiant, diffuse et sp�culaire
+            // Mode d'ï¿½clairage :
+            // 0 : pas d'ï¿½clairage
+            // 1 : ï¿½clairage ambiant et diffuse
+            // 2 : ï¿½clairage ambiant, diffuse et spï¿½culaire
         }
 
         else if(opcode == "map_Kd")

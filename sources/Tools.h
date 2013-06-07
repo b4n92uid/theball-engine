@@ -110,7 +110,7 @@ inline std::string pathname(std::string filename)
  * @param withExt
  * @return
  */
-inline std::string basename(std::string filename, bool withExt = true)
+inline std::string basename(std::string filename, bool withExt = false)
 {
     unsigned pos = filename.find_last_of('\\');
 

@@ -114,7 +114,8 @@ void Mesh::fetchMaterials(const Mesh& copy)
 
     for(unsigned i = 0; i < copy.m_subMeshs.size(); i++)
     {
-        SubMesh* sm = new SubMesh(this,
+        SubMesh* sm = new SubMesh(copy.m_subMeshs[i]->m_name,
+                                  this,
                                   copy.m_subMeshs[i]->m_material,
                                   copy.m_subMeshs[i]->m_offset,
                                   copy.m_subMeshs[i]->m_size);
@@ -435,29 +436,58 @@ public:
     void bindLightProjMatrix(std::string location)
     {
         Light* light = scene->light(0);
-        ShadowMap* smap = light->getShadowMap();
-        shader.uniform(location, smap->getProjectionMatrix());
+        if(light)
+        {
+            ShadowMap* smap = light->getShadowMap();
+            if(smap)
+                shader.uniform(location, smap->getProjectionMatrix());
+        }
     }
 
     void bindLightViewMatrix(std::string location)
     {
         Light* light = scene->light(0);
-        ShadowMap* smap = light->getShadowMap();
-        shader.uniform(location, smap->getViewMatrix());
+        if(light)
+        {
+            Light* light = scene->light(0);
+            ShadowMap* smap = light->getShadowMap();
+            if(smap)
+                shader.uniform(location, smap->getViewMatrix());
+        }
     }
 
     void bindShadowIntensity(std::string location)
     {
         Light* light = scene->light(0);
-        ShadowMap* smap = light->getShadowMap();
-        shader.uniform(location, smap->getIntensity());
+        if(light)
+        {
+            Light* light = scene->light(0);
+            ShadowMap* smap = light->getShadowMap();
+            if(smap)
+                shader.uniform(location, smap->getIntensity());
+        }
     }
 
     void bindShadowBlur(std::string location)
     {
         Light* light = scene->light(0);
-        ShadowMap* smap = light->getShadowMap();
-        shader.uniform(location, smap->getBlurPass());
+        if(light)
+        {
+            Light* light = scene->light(0);
+            ShadowMap* smap = light->getShadowMap();
+            if(smap)
+                shader.uniform(location, smap->getBlurPass());
+        }
+    }
+
+    void bindShadowCast(std::string location)
+    {
+        shader.uniform(location, mesh->isCastShadow());
+    }
+
+    void bindShadowReceive(std::string location)
+    {
+        shader.uniform(location, mesh->isReceiveShadow());
     }
 
     void assignExp(string location, string exp)
@@ -483,6 +513,8 @@ public:
             callmap["node_matrix"] = boost::bind(&ShaderBind::bindNodeMatrix, this, _1);
             callmap["shadow_intensity"] = boost::bind(&ShaderBind::bindShadowIntensity, this, _1);
             callmap["shadow_blur"] = boost::bind(&ShaderBind::bindShadowBlur, this, _1);
+            callmap["shadow_cast"] = boost::bind(&ShaderBind::bindShadowCast, this, _1);
+            callmap["shadow_receive"] = boost::bind(&ShaderBind::bindShadowReceive, this, _1);
 
             if(callmap.count(exp))
                 callmap[exp](location);
@@ -684,9 +716,9 @@ unsigned Mesh::getSubMeshCount()
     return m_subMeshs.size();
 }
 
-SubMesh* Mesh::addSubMesh(Material* material, unsigned offset, unsigned size)
+SubMesh* Mesh::addSubMesh(std::string name, Material* material, unsigned offset, unsigned size)
 {
-    SubMesh* smesh = new SubMesh(this, material, offset, size);
+    SubMesh* smesh = new SubMesh(name, this, material, offset, size);
     m_subMeshs.push_back(smesh);
 
     return smesh;
@@ -700,7 +732,7 @@ SubMesh* Mesh::getSubMesh(int index)
 SubMesh* Mesh::getSubMesh(std::string matname)
 {
     BOOST_FOREACH(SubMesh* smesh, m_subMeshs)
-    if(smesh->m_material->getName() == matname)
+    if(smesh->m_name == matname)
         return smesh;
 
     return NULL;
@@ -851,8 +883,9 @@ bool Mesh::isReceiveShadow() const
     return m_receiveShadow;
 }
 
-SubMesh::SubMesh(Mesh* mh, Material* mt, unsigned f, unsigned c)
+SubMesh::SubMesh(std::string name, Mesh* mh, Material* mt, unsigned f, unsigned c)
 {
+    m_name = name;
     m_owner = mh;
     m_material = mt;
     m_offset = f;
@@ -897,10 +930,20 @@ unsigned SubMesh::getOffset() const
 
 bool SubMesh::operator==(const SubMesh& other)
 {
-    return m_material == other.m_material
+    return m_owner->getHardwareBuffer() == other.m_owner->getHardwareBuffer()
+            && m_material == other.m_material
             && m_offset == other.m_offset
-            && m_size == other.m_size
-            ;
+            && m_size == other.m_size;
+}
+
+void SubMesh::setName(std::string name)
+{
+    this->m_name = name;
+}
+
+std::string SubMesh::getName() const
+{
+    return m_name;
 }
 
 void SubMesh::setOwner(Mesh* owner)
@@ -1037,9 +1080,15 @@ void SubMesh::bindBuffers()
                     usedshader.uniform(u.first, (int) layer);
 
                     Light* light = m_parallel->light(0);
-                    ShadowMap* smap = light->getShadowMap();
-                    Texture shadowMap = smap->getDepthMap();
-                    bindTexture(layer, shadowMap, TextureApply());
+                    if(light)
+                    {
+                        ShadowMap* smap = light->getShadowMap();
+                        if(smap)
+                        {
+                            Texture shadowMap = smap->getDepthMap();
+                            bindTexture(layer, shadowMap, TextureApply());
+                        }
+                    }
                     break;
                 }
             }
@@ -1100,8 +1149,6 @@ void SubMesh::bindBuffers()
 
 void SubMesh::draw(const Matrix4& mat)
 {
-    transform(mat);
-
     if(m_material->m_clockCycle > 0)
         if(m_material->m_clock.isEsplanedTime(m_material->m_clockCycle, false))
             m_material->m_clock.snapShoot();
@@ -1118,7 +1165,9 @@ void SubMesh::draw(const Matrix4& mat)
     if(!(m_material->m_renderFlags & Material::LIGHTED))
     {
         glDisable(GL_LIGHTING);
+        transform(mat);
         m_hardbuf->render(m_material->m_faceType, m_offset, m_size, m_material->m_drawPass);
+        glPopMatrix();
     }
 
     else
@@ -1135,7 +1184,9 @@ void SubMesh::draw(const Matrix4& mat)
             }
         }
 
+        transform(mat);
         m_hardbuf->render(m_material->m_faceType, m_offset, m_size, m_material->m_drawPass);
+        glPopMatrix();
     }
 
     // Forward Rendering -------------------------------------------------------
@@ -1170,7 +1221,10 @@ void SubMesh::draw(const Matrix4& mat)
         for(int i = 0; i < lightCount; i++)
         {
             m_parallel->prePassLighting(i);
+
+            transform(mat);
             m_hardbuf->render(m_material->m_faceType, m_offset, m_size, m_material->m_drawPass);
+            glPopMatrix();
         }
 
         m_parallel->endPrePassLighting();
@@ -1181,8 +1235,6 @@ void SubMesh::draw(const Matrix4& mat)
     }
 
     Shader::unbind();
-
-    glPopMatrix();
 }
 
 void SubMesh::beginShadowPass()
