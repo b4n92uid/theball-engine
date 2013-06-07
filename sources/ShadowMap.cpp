@@ -88,7 +88,6 @@ ShadowMap::ShadowMap(Light* light)
     setIntensity(0.5);
 
     m_frameSize = 512;
-    m_orthoSize = 20;
 
     m_depthBuffer = new Rtt(m_frameSize);
     m_depthBuffer->setCaptureColor(true);
@@ -135,16 +134,6 @@ void ShadowMap::setIntensity(float intensity)
 float ShadowMap::getIntensity() const
 {
     return m_intensity;
-}
-
-void ShadowMap::setOrthoSize(Vector3f orthoSize)
-{
-    this->m_orthoSize = orthoSize;
-}
-
-Vector3f ShadowMap::getOrthoSize() const
-{
-    return m_orthoSize;
 }
 
 void ShadowMap::setShaderHandled(bool shaderHandled)
@@ -195,7 +184,7 @@ Vector2i ShadowMap::getFrameSize() const
     return m_frameSize;
 }
 
-void ShadowMap::begin()
+void ShadowMap::begin(const AABB& sceneaabb)
 {
     m_depthBuffer->use(true);
 
@@ -206,24 +195,18 @@ void ShadowMap::begin()
     glColorMask(0, 0, 0, 1);
 
     Camera* cam = m_sceneManager->getCurCamera();
-
     Vector3f centerView = cam->getPos();
-
-    if(m_cameraSetup)
-        centerView = m_cameraSetup->setupCamera(m_sceneManager, m_light);
 
     Vector3f pos = centerView + m_light->getPos().normalize();
     Vector3f target = centerView;
+    Vector3f length = sceneaabb.getLength() / 2;
 
     if(m_cameraSetup)
         m_projectionMatrix = m_cameraSetup->setupMatrix(m_sceneManager, m_light);
     else
-        m_projectionMatrix = math::orthographicMatrix(-m_orthoSize.x,
-                                                      m_orthoSize.x,
-                                                      -m_orthoSize.y,
-                                                      m_orthoSize.y,
-                                                      -m_orthoSize.z,
-                                                      m_orthoSize.z);
+        m_projectionMatrix = math::orthographicMatrix(-length.x, length.x,
+                                                      -length.y, length.y,
+                                                      -length.z, length.z);
 
     m_viewMatrix = math::lookAt(pos, target, Vector3f(0.0f, 1.0f, 0.0f));
 

@@ -86,6 +86,15 @@ void Light::copy(const Light& orig)
 
     m_type = orig.m_type;
 
+    m_castShadow = orig.m_castShadow;
+    m_castRays = orig.m_castRays;
+
+    if(m_castShadow)
+        m_shadowMap = new ShadowMap(this);
+
+    if(m_castRays)
+        m_volumeLight = new VolumetricLight(this);
+
     Node::m_parallelScene = m_parallelScene = orig.m_parallelScene;
 
     m_sceneManager = m_parallelScene->getSceneManager();

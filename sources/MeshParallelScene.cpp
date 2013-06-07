@@ -161,6 +161,21 @@ void MeshParallelScene::render()
 
     if(ShadowMap::enable)
     {
+        // Compute View Frustum for ShadowMap
+        Frustum* frustum = m_sceneManager->getFrustum();
+        AABB frustumBox;
+
+        BOOST_FOREACH(Mesh* node, m_nodes)
+        {
+            if(!node->isAttached() || !node->isVisible() || !node->isEnable())
+                continue;
+
+            if(m_enableFrustumTest && !frustum->isInside(node))
+                continue;
+
+            frustumBox.count(node);
+        }
+
         // Process ShadowMap
 
         BOOST_FOREACH(Light* l, m_lightNodes)
@@ -171,7 +186,7 @@ void MeshParallelScene::render()
             ShadowMap* shadowMap = l->getShadowMap();
 
             // First pass
-            shadowMap->begin();
+            shadowMap->begin(frustumBox);
             drawScene(true);
             shadowMap->end();
 

@@ -36,7 +36,7 @@ public:
     ShadowMap(Light* light);
     virtual ~ShadowMap();
 
-    void begin();
+    void begin(const AABB& sceneaabb);
     void end();
 
     void bind();
@@ -61,9 +61,6 @@ public:
     void setIntensity(float intensity);
     float getIntensity() const;
 
-    void setOrthoSize(Vector3f orthoSize);
-    Vector3f getOrthoSize() const;
-
     void setShaderHandled(bool shaderHandled);
     bool isShaderHandled() const;
     void setCameraSetup(ShadowMapCameraSetup* cameraSetup);
@@ -84,7 +81,6 @@ private:
     Rtt* m_depthBuffer;
     Rtt* m_shadowBuffer;
     Vector2i m_frameSize;
-    Vector3f m_orthoSize;
     Shader m_shader;
     bool m_shaderHandled;
 };
