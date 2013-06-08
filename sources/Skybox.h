@@ -10,7 +10,7 @@ namespace scene
 {
 
 /**
- * \brief Class de représentation d'un Skybox
+ * \brief Class de reprÃ©sentation d'un Skybox
  * Ordre des texture : Devant, Derrier, Haut, Bas, Gauche, Droit
  */
 class SkyBox
@@ -24,7 +24,7 @@ public:
     void setTextures(Texture textures[]);
     Texture* getTextures();
 
-    /// Réinitialisation
+    /// RÃ©initialisation
     void clear();
     
     /// Rendue du skybox
@@ -35,10 +35,7 @@ public:
     bool isEnable() const;
 
 protected:
-    void initRender();
-
-protected:
-    GLuint m_renderID;
+    HardwareBuffer* m_hardbuf;
     Texture m_textures[6];
     bool m_enable;
 };

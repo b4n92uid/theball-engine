@@ -118,7 +118,7 @@ void MeshParallelScene::drawScene(bool shadowpass)
         m_renderedMeshCount++;
     }
 
-    if(m_transparencySort)
+    if(m_transparencySort && !shadowpass)
     {
         DepthSortMeshFunc sortFunc;
         sortFunc.camPos = m_sceneManager->getCurCamera()->getPos();
@@ -158,6 +158,9 @@ void MeshParallelScene::render()
 
     vector<ShadowMap*> shadowmaps;
     vector<VolumetricLight*> volumelights;
+
+    shadowmaps.reserve(m_lightNodes.size());
+    volumelights.reserve(m_lightNodes.size());
 
     if(ShadowMap::enable)
     {

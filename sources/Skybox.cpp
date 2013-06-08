@@ -4,6 +4,7 @@
  */
 
 #include "Skybox.h"
+#include "Material.h"
 #include <algorithm>
 
 using namespace std;
@@ -13,7 +14,46 @@ using namespace tbe::scene;
 SkyBox::SkyBox()
 {
     m_enable = false;
-    m_renderID = 0;
+
+    m_hardbuf = new HardwareBuffer;
+
+    Vertex vertexs[24];
+    // Devant
+    vertexs[0] = Vertex(1.f, 1.f, 1.f, 0, 0, 0, 1, 1, 1, 1, 0, 0);
+    vertexs[1] = Vertex(-1.f, 1.f, 1.f, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[2] = Vertex(-1.f, -1.f, 1.f, 0, 0, 0, 1, 1, 1, 1, 1, 1);
+    vertexs[3] = Vertex(1.f, -1.f, 1.f, 0, 0, 0, 1, 1, 1, 1, 0, 1);
+    // Derrière
+    vertexs[4] = Vertex(-1.f, 1.f, -1.f, 0, 0, 0, 1, 1, 1, 1, 0, 0);
+    vertexs[5] = Vertex(1.f, 1.f, -1.f, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[6] = Vertex(1.f, -1.f, -1.f, 0, 0, 0, 1, 1, 1, 1, 1, 1);
+    vertexs[7] = Vertex(-1.f, -1.f, -1.f, 0, 0, 0, 1, 1, 1, 1, 0, 1);
+    // Haut
+    vertexs[8] = Vertex(-1.f, 1.f, -1.f, 0, 0, 0, 1, 1, 1, 1, 0, 0);
+    vertexs[9] = Vertex(-1.f, 1.f, 1.f, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[10] = Vertex(1.f, 1.f, 1.f, 0, 0, 0, 1, 1, 1, 1, 1, 1);
+    vertexs[11] = Vertex(1.f, 1.f, -1.f, 0, 0, 0, 1, 1, 1, 1, 0, 1);
+    // Bas
+    vertexs[12] = Vertex(-1.f, -1.f, -1.f, 0, 0, 0, 1, 1, 1, 1, 0, 1);
+    vertexs[13] = Vertex(1.f, -1.f, -1.f, 0, 0, 0, 1, 1, 1, 1, 0, 0);
+    vertexs[14] = Vertex(1.f, -1.f, 1.f, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[15] = Vertex(-1.f, -1.f, 1.f, 0, 0, 0, 1, 1, 1, 1, 1, 1);
+    // Gauche
+    vertexs[16] = Vertex(1.f, 1.f, -1.f, 0, 0, 0, 1, 1, 1, 1, 0, 0);
+    vertexs[17] = Vertex(1.f, 1.f, 1.f, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[18] = Vertex(1.f, -1.f, 1.f, 0, 0, 0, 1, 1, 1, 1, 1, 1);
+    vertexs[19] = Vertex(1.f, -1.f, -1.f, 0, 0, 0, 1, 1, 1, 1, 0, 1);
+    // Droite
+    vertexs[20] = Vertex(-1.f, 1.f, 1.f, 0, 0, 0, 1, 1, 1, 1, 0, 0);
+    vertexs[21] = Vertex(-1.f, 1.f, -1.f, 0, 0, 0, 1, 1, 1, 1, 1, 0);
+    vertexs[22] = Vertex(-1.f, -1.f, -1.f, 0, 0, 0, 1, 1, 1, 1, 1, 1);
+    vertexs[23] = Vertex(-1.f, -1.f, 1.f, 0, 0, 0, 1, 1, 1, 1, 0, 1);
+
+    for(unsigned i = 0; i < 24; i++)
+        vertexs[i].pos *= 10;
+
+    m_hardbuf->addVertex(vertexs, 24);
+    m_hardbuf->compile();
 }
 
 SkyBox::SkyBox(Texture textures[])
@@ -25,6 +65,7 @@ SkyBox::SkyBox(Texture textures[])
 SkyBox::~SkyBox()
 {
     clear();
+    delete m_hardbuf;
 }
 
 Texture* SkyBox::getTextures()
@@ -36,19 +77,11 @@ void SkyBox::clear()
 {
     for_each(m_textures, m_textures + 6, mem_fun_ref(&Texture::release));
 
-    if(m_renderID)
-    {
-        glDeleteLists(m_renderID, 1);
-        m_renderID = 0;
-    }
-
     m_enable = false;
 }
 
 void SkyBox::setTextures(Texture textures[])
 {
-    clear();
-
     for(unsigned i = 0; i < 6; i++)
     {
         if(!textures[i])
@@ -63,105 +96,6 @@ void SkyBox::setTextures(Texture textures[])
 
         m_textures[i].use(false);
     }
-
-    initRender();
-}
-
-void SkyBox::initRender()
-{
-    Vector3f size = 10;
-
-    m_renderID = glGenLists(1);
-
-    glNewList(m_renderID, GL_COMPILE);
-
-    m_textures[0].use(true);
-
-    // Devant
-    glBegin(GL_QUADS);
-    glTexCoord2d(0, 0);
-    glVertex3f(size.x, size.y, size.z);
-    glTexCoord2d(1, 0);
-    glVertex3f(-size.x, size.y, size.z);
-    glTexCoord2d(1, 1);
-    glVertex3f(-size.x, -size.y, size.z);
-    glTexCoord2d(0, 1);
-    glVertex3f(size.x, -size.y, size.z);
-    glEnd();
-
-    m_textures[1].use(true);
-
-    // Derrière
-    glBegin(GL_QUADS);
-    glTexCoord2d(0, 0);
-    glVertex3f(-size.x, size.y, -size.z);
-    glTexCoord2d(1, 0);
-    glVertex3f(size.x, size.y, -size.z);
-    glTexCoord2d(1, 1);
-    glVertex3f(size.x, -size.y, -size.z);
-    glTexCoord2d(0, 1);
-    glVertex3f(-size.x, -size.y, -size.z);
-    glEnd();
-
-    m_textures[2].use(true);
-
-    // Haut
-    glBegin(GL_QUADS);
-    glTexCoord2d(0, 0);
-    glVertex3f(-size.x, size.y, -size.z);
-    glTexCoord2d(1, 0);
-    glVertex3f(-size.x, size.y, size.z);
-    glTexCoord2d(1, 1);
-    glVertex3f(size.x, size.y, size.z);
-    glTexCoord2d(0, 1);
-    glVertex3f(size.x, size.y, -size.z);
-    glEnd();
-
-    m_textures[3].use(true);
-
-    // Bas
-    glBegin(GL_QUADS);
-    glTexCoord2d(0, 1);
-    glVertex3f(-size.x, -size.y, -size.z);
-    glTexCoord2d(0, 0);
-    glVertex3f(size.x, -size.y, -size.z);
-    glTexCoord2d(1, 0);
-    glVertex3f(size.x, -size.y, size.z);
-    glTexCoord2d(1, 1);
-    glVertex3f(-size.x, -size.y, size.z);
-    glEnd();
-
-    m_textures[4].use(true);
-
-    // Gauche
-    glBegin(GL_QUADS);
-    glTexCoord2d(0, 0);
-    glVertex3f(size.x, size.y, -size.z);
-    glTexCoord2d(1, 0);
-    glVertex3f(size.x, size.y, size.z);
-    glTexCoord2d(1, 1);
-    glVertex3f(size.x, -size.y, size.z);
-    glTexCoord2d(0, 1);
-    glVertex3f(size.x, -size.y, -size.z);
-    glEnd();
-
-    m_textures[5].use(true);
-
-    // Droite
-    glBegin(GL_QUADS);
-    glTexCoord2d(0, 0);
-    glVertex3f(-size.x, size.y, size.z);
-    glTexCoord2d(1, 0);
-    glVertex3f(-size.x, size.y, -size.z);
-    glTexCoord2d(1, 1);
-    glVertex3f(-size.x, -size.y, -size.z);
-    glTexCoord2d(0, 1);
-    glVertex3f(-size.x, -size.y, size.z);
-    glEnd();
-
-    m_textures[5].use(false);
-
-    glEndList();
 }
 
 void SkyBox::render(const Vector3f& camerapos)
@@ -173,17 +107,33 @@ void SkyBox::render(const Vector3f& camerapos)
     glPushAttrib(GL_ENABLE_BIT);
 
     glEnable(GL_TEXTURE_2D);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
     glDisable(GL_BLEND);
+    glDisable(GL_ALPHA_TEST);
+    glDisable(GL_ALPHA);
+    glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
     glDisable(GL_LIGHTING);
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
     glDisable(GL_COLOR_MATERIAL);
     glDisable(GL_CLIP_PLANE0);
 
+    Shader::unbind();
+
     glTranslatef(camerapos.x, camerapos.y, camerapos.z);
 
-    glCallList(m_renderID);
+    m_hardbuf->bindBuffer();
+    m_hardbuf->bindTexture();
+
+    for(int i = 0; i < 6; i++)
+    {
+        m_textures[i].use(true);
+        m_hardbuf->render(Material::QUADS, i * 4, 4);
+    }
+
+    m_hardbuf->bindTexture(false);
+    m_hardbuf->unbindBuffer();
 
     glPopAttrib();
     glPopMatrix();

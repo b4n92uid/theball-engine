@@ -1160,8 +1160,6 @@ void SubMesh::draw(const Matrix4& mat)
 
     // Ambient Pass ------------------------------------------------------------
 
-    glDisable(GL_BLEND);
-
     if(!(m_material->m_renderFlags & Material::LIGHTED))
     {
         glDisable(GL_LIGHTING);
@@ -1244,7 +1242,6 @@ void SubMesh::beginShadowPass()
     m_hardbuf->bindBuffer();
 
     glEnable(GL_DEPTH_TEST);
-    glDepthMask(true);
 
     glEnable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0.5);
@@ -1299,6 +1296,8 @@ void SubMesh::endShadowPass()
     }
 
     m_hardbuf->bindBuffer(false);
+
+    glColor4f(1, 1, 1, 1);
 
     glPopAttrib();
 }
@@ -1379,20 +1378,19 @@ void SubMesh::transform(const Matrix4& mat)
 {
     glPushMatrix();
 
-    glMultMatrixf(mat);
-
     // Billboarding ------------------------------------------------------------
 
     // TODO fix billboard
-    #if 0
-    if(!!m_billBoard)
+    Vector2b billboard = m_owner->getBillBoard();
+
+    if(!!billboard)
     {
         Vector3f position, scale;
         Quaternion rotation;
-        m_matrix.decompose(position, rotation, scale);
+        mat.decompose(position, rotation, scale);
 
-        Quaternion new_rotation = m_sceneManager
-                ->computeBillboard(getAbsoluteMatrix().getPos(), 0, m_billBoard);
+        Quaternion new_rotation = m_scenemng
+                ->computeBillboard(m_owner->getAbsoluteMatrix().getPos(), 0, billboard);
 
         Matrix4 newmat;
         rotation.w = -rotation.w;
@@ -1404,8 +1402,7 @@ void SubMesh::transform(const Matrix4& mat)
         glMultMatrixf(newmat);
     }
     else
-        glMultMatrixf(m_matrix);
-    #endif
+        glMultMatrixf(mat);
 }
 
 void SubMesh::animateTexture(unsigned layer, Texture texture, TextureApply settings)

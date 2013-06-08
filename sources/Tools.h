@@ -26,6 +26,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/info_parser.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include "Exception.h"
 
@@ -334,7 +335,13 @@ inline std::string relativizePath(std::string path, std::string base)
 
     for(unsigned i = 0; i < abscomp.size(); i++)
     {
-        if(abscomp[i] != relcomp[i])
+        if(
+                #if __WIN32__
+                !boost::iequals(abscomp[i], relcomp[i])
+                #else
+                abscomp[i] != relcomp[i]
+                #endif
+                )
         {
             relcomp.erase(relcomp.begin(), relcomp.begin() + i);
             if(isAbsoloutPath(path))
