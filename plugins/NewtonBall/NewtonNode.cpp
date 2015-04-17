@@ -98,8 +98,8 @@ void NewtonNode::buildBoxNode(Vector3f size, float masse)
     size *= 2;
 
     NewtonCollision* collision = NewtonCreateBox(m_newtonWorld, size.x, size.y, size.z, 0, NULL);
-    m_body = NewtonCreateBody(m_newtonWorld, collision, m_matrix);
-    NewtonReleaseCollision(m_newtonWorld, collision);
+    m_body = NewtonCreateDynamicBody(m_newtonWorld, collision, m_matrix);
+    NewtonDestroyCollision(collision);
 
     size /= 2;
 
@@ -131,8 +131,8 @@ void NewtonNode::buildSphereNode(Vector3f size, float masse)
     m_masse = masse;
 
     // Corp de collision
-    NewtonCollision * collision = NewtonCreateSphere(m_newtonWorld, size.x, size.y, size.z, 0, NULL);
-    m_body = NewtonCreateBody(m_newtonWorld, collision, m_matrix);
+    NewtonCollision * collision = NewtonCreateSphere(m_newtonWorld, size.x, 0, NULL);
+    m_body = NewtonCreateDynamicBody(m_newtonWorld, collision, m_matrix);
 
     // Masse & Inertia
     Vector3f origine;
@@ -141,7 +141,7 @@ void NewtonNode::buildSphereNode(Vector3f size, float masse)
     NewtonConvexCollisionCalculateInertialMatrix(collision, inertia, origine);
     inertia *= m_masse;
 
-    NewtonReleaseCollision(m_newtonWorld, collision);
+    NewtonDestroyCollision(collision);
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
@@ -165,7 +165,7 @@ void NewtonNode::buildCylinderNode(Vector3f size, float masse)
 
     // Corp de collision
     NewtonCollision * collision = NewtonCreateCylinder(m_newtonWorld, size.y, size.z, 0, NULL);
-    m_body = NewtonCreateBody(m_newtonWorld, collision, m_matrix);
+    m_body = NewtonCreateDynamicBody(m_newtonWorld, collision, m_matrix);
 
     // Masse & Inertia
     Vector3f origine;
@@ -174,7 +174,7 @@ void NewtonNode::buildCylinderNode(Vector3f size, float masse)
     NewtonConvexCollisionCalculateInertialMatrix(collision, inertia, origine);
     inertia *= m_masse;
 
-    NewtonReleaseCollision(m_newtonWorld, collision);
+    NewtonDestroyCollision(collision);
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
@@ -219,7 +219,7 @@ void NewtonNode::buildConvexNode(const Vertex::Array& vertexes, float masse, Mat
 
     // Corp de collision
     NewtonCollision* collision = NewtonCreateConvexHull(m_newtonWorld, vertexes.size(), &onlyPos[0].x, sizeof (Vector3f), 0, 0, offset);
-    m_body = NewtonCreateBody(m_newtonWorld, collision, m_matrix);
+    m_body = NewtonCreateDynamicBody(m_newtonWorld, collision, m_matrix);
 
     // Masse & Inertia
     Vector3f origine;
@@ -228,7 +228,7 @@ void NewtonNode::buildConvexNode(const Vertex::Array& vertexes, float masse, Mat
     NewtonConvexCollisionCalculateInertialMatrix(collision, inertia, origine);
     inertia *= m_masse;
 
-    NewtonReleaseCollision(m_newtonWorld, collision);
+    NewtonDestroyCollision(collision);
 
     NewtonBodySetMassMatrix(m_body, m_masse, inertia.x, inertia.y, inertia.z);
 
@@ -280,8 +280,8 @@ void NewtonNode::buildTreeNode(const Face::Array& faces)
 
     // 1 = optimisation
     NewtonTreeCollisionEndBuild(nCollision, 1);
-    m_body = NewtonCreateBody(m_newtonWorld, nCollision, m_matrix);
-    NewtonReleaseCollision(m_newtonWorld, nCollision);
+    m_body = NewtonCreateDynamicBody(m_newtonWorld, nCollision, m_matrix);
+    NewtonDestroyCollision(nCollision);
 
     // Donne utilisateur
     NewtonBodySetUserData(m_body, this);
@@ -294,7 +294,7 @@ void NewtonNode::destroyBody()
 {
     if(m_body)
     {
-        NewtonDestroyBody(m_newtonWorld, m_body);
+        NewtonDestroyBody(m_body);
 
         m_body = NULL;
         m_masse = 0;
@@ -308,7 +308,7 @@ bool NewtonNode::isCollidWith(const NewtonNode* target) const
     return NewtonCollisionCollide(m_parallelScene->getNewtonWorld(), 1,
                                   NewtonBodyGetCollision(m_body), m_matrix,
                                   NewtonBodyGetCollision(target->m_body), target->m_matrix,
-                                  contact, normal, penetration, 0);
+                                  contact, normal, penetration, NULL, NULL, 0);
 }
 
 void NewtonNode::render() { }

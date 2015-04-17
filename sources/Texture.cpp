@@ -5,13 +5,13 @@
 
 #include <GL/glu.h>
 
-#include <IL/il.h>
-
 #include "Exception.h"
 #include "Tools.h"
 
 using namespace std;
 using namespace tbe;
+
+TextureLoader* Texture::_loader = NULL;
 
 class SharedTextureManager : public map<Texture*, string>
 {
@@ -19,7 +19,6 @@ public:
 
     SharedTextureManager()
     {
-        ilInit();
     }
 
     ~SharedTextureManager()
@@ -219,47 +218,27 @@ void Texture::load(std::string filename, bool genMipMap, int origin, bool overri
 
     cout << "[Texture] " << filename << endl;
 
-    if(origin == 1)
+    if(!_loader)
     {
-        ilEnable(IL_ORIGIN_SET);
-        ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
+        cout << "/!\\ WARNING: Texture::load; No loader registred" << endl;
+        return;
     }
 
-    else if(origin == 2)
-    {
-        ilEnable(IL_ORIGIN_SET);
-        ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
-    }
+    TextureLoader::TextureData* tdata = _loader->load(filename, origin);
 
-    ilEnable(IL_FORMAT_SET);
-    ilFormatFunc(IL_RGBA);
-
-    ilEnable(IL_TYPE_SET);
-    ilTypeFunc(IL_UNSIGNED_BYTE);
-
-
-    ILuint id = ilGenImage();
-    ilBindImage(id);
-
-    ILboolean error = !ilLoadImage(filename.c_str());
-
-    if(error)
-        throw Exception("Texture::Load; Open file error (%1%)") % filename;
+    if(!tdata)
+        throw Exception("Texture::load; Open file error (%1%)") % filename;
 
     manager[this] = m_filename = filename;
 
-    m_size.x = ilGetInteger(IL_IMAGE_WIDTH);
-    m_size.y = ilGetInteger(IL_IMAGE_HEIGHT);
+    m_size.x = tdata->width;
+    m_size.y = tdata->height;
 
     if(!math::isPow2(m_size.x) || !math::isPow2(m_size.y))
-        cout << "/!\\ WARNING: Texture::Load; Texture is not pow2 dim (" << filename << ")" << endl;
+        cout << "/!\\ WARNING: Texture::load; Texture is not pow2 dim (" << filename << ")" << endl;
 
     m_genMipMap = genMipMap;
     m_origin = origin;
-
-    ILubyte* pixels = new ILubyte[m_size.x * m_size.y * 4];
-
-    ilCopyPixels(0, 0, 0, m_size.x, m_size.y, 1, IL_RGBA, IL_UNSIGNED_BYTE, pixels);
 
     // OpenGL ------------------------------------------------------------------
 
@@ -268,21 +247,19 @@ void Texture::load(std::string filename, bool genMipMap, int origin, bool overri
 
     if(genMipMap)
     {
-        gluBuild2DMipmaps(GL_TEXTURE_2D, 4, m_size.x, m_size.y, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+        gluBuild2DMipmaps(GL_TEXTURE_2D, 4, m_size.x, m_size.y, GL_RGBA, GL_UNSIGNED_BYTE, tdata->pixels);
         setFiltring(MIPMAP | LINEAR);
     }
 
     else
     {
-        glTexImage2D(GL_TEXTURE_2D, 0, 4, m_size.x, m_size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+        glTexImage2D(GL_TEXTURE_2D, 0, 4, m_size.x, m_size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, tdata->pixels);
         setFiltring(LINEAR);
     }
 
     // -------------------------------------------------------------------------
 
-    ilDeleteImage(id);
-
-    delete[] pixels;
+    _loader->release(tdata);
 
     glBindTexture(GL_TEXTURE_2D, 0);
 }
@@ -464,4 +441,9 @@ void Texture::reloadCache()
 Texture* Texture::fetch(GLuint id)
 {
     return manager.IsExist(id);
+}
+
+void Texture::registerLoader(TextureLoader* loader)
+{
+    _loader = loader;
 }

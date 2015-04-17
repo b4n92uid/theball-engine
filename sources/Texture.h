@@ -11,6 +11,20 @@
 namespace tbe
 {
 
+class TextureLoader
+{
+public:
+    struct TextureData
+    {
+        const GLubyte* pixels;
+        int width;
+        int height;
+    };
+
+    virtual TextureData* load(std::string filename, int origin) = 0;
+    virtual void release(TextureData* tdata) = 0;
+};
+
 /// \brief Class de manipulation des texture utilise DevIL
 
 class Texture
@@ -137,9 +151,16 @@ public:
 
     static Texture* fetch(GLuint id);
 
+    /**
+     * Register a Texture Loader and set it the active one
+     */
+    static void registerLoader(TextureLoader* loader);
+
     typedef std::map<unsigned, Texture> Map;
 
 protected:
+
+    static TextureLoader* _loader;
 
     std::string m_filename;
 
