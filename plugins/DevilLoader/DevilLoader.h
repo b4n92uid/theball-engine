@@ -51,6 +51,8 @@ public:
     tdata->pixels = new ILubyte[tdata->width * tdata->height * 4];
 
     ilCopyPixels(0, 0, 0, tdata->width, tdata->height, 1, IL_RGBA, IL_UNSIGNED_BYTE, (ILubyte*)tdata->pixels);
+
+    return tdata;
   }
 
   void release(TextureData* tdata)

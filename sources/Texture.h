@@ -16,9 +16,10 @@ class TextureLoader
 public:
     struct TextureData
     {
-        const GLubyte* pixels;
+        GLubyte* pixels;
         int width;
         int height;
+        void* userdata;
     };
 
     virtual TextureData* load(std::string filename, int origin) = 0;
