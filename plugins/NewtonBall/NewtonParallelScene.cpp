@@ -11,8 +11,6 @@ using namespace std;
 using namespace tbe;
 using namespace tbe::scene;
 
-//// NewtonParallelScene ---------------------------------------------------
-
 NewtonParallelScene::NewtonParallelScene()
 {
     m_newtonWorld = NewtonCreate();
@@ -43,7 +41,6 @@ float NewtonParallelScene::getGravity() const
 void NewtonParallelScene::setWorldSize(AABB wordlSize)
 {
     m_worldSize = wordlSize;
-    // FIXME
     // NewtonSetWorldSize(m_newtonWorld, m_worldSize.min, m_worldSize.max);
 }
 
@@ -62,7 +59,7 @@ void NewtonParallelScene::render()
 
 void NewtonParallelScene::setWorldTimestep(float worldTimestep)
 {
-    this->m_worldTimestep = worldTimestep;
+    this->m_worldTimestep = max(worldTimestep, 0.00000001f);
 }
 
 float NewtonParallelScene::getWorldTimestep() const
@@ -115,7 +112,7 @@ Vector3f NewtonParallelScene::findAnyBody(Vector3f start, Vector3f end)
 static dFloat RayFilterZeroMassBody(const NewtonBody* const body, const NewtonCollision* const shapeHit, const dFloat* const hitContact, const dFloat* const hitNormal, dLong collisionID, void* const userData, dFloat intersectParam)
 {
     float inertia[3], masse;
-    NewtonBodyGetMassMatrix(body, &masse, &inertia[0], &inertia[1], &inertia[2]);
+    NewtonBodyGetMass(body, &masse, &inertia[0], &inertia[1], &inertia[2]);
 
     float& userDataIntersectParam = *static_cast<float*> (userData);
 

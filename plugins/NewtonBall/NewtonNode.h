@@ -6,104 +6,104 @@
  */
 
 #ifndef _NEWTONNODE_H
-#define	_NEWTONNODE_H
+#define _NEWTONNODE_H
 
 #include <Newton.h>
 
-namespace tbe
-{
-namespace scene
-{
+#include "Vector3.h"
+#include "Matrix4.h"
 
-class NewtonParallelScene;
+namespace tbe {
+    namespace scene {
 
-/// \brief Class represantant un objet physique dans l'espace
+        class NewtonParallelScene;
 
-class NewtonNode : public Node
-{
-public:
-    NewtonNode(NewtonParallelScene* newtonScene);
-    NewtonNode(NewtonParallelScene* newtonScene, Node* node);
-    NewtonNode(NewtonParallelScene* newtonScene, Matrix4* matrix);
-    NewtonNode(const NewtonNode& copy);
+        /// \brief Class represantant un objet physique dans l'espace
 
-    virtual ~NewtonNode();
+        class NewtonNode : public Node {
+        public:
+            NewtonNode(NewtonParallelScene* newtonScene);
+            NewtonNode(NewtonParallelScene* newtonScene, Node* node);
+            NewtonNode(const NewtonNode& copy);
 
-    bool operator=(const NewtonNode& copy);
+            virtual ~NewtonNode();
 
-    void buildBoxNode(Vector3f size, float masse);
-    void buildSphereNode(Vector3f size, float masse);
-    void buildCylinderNode(Vector3f size, float masse);
-    void buildConvexNode(const tbe::scene::Mesh* mesh, float masse);
-    void buildConvexNode(const Vertex::Array& vertexes, float masse, Matrix4 offset = Matrix4());
-    void buildTreeNode(const tbe::scene::Mesh* mesh);
-    void buildTreeNode(const Face::Array& faces);
+            bool operator=(const NewtonNode& copy);
 
-    /// Destruction de l'objet physique
-    void destroyBody();
+            void buildBoxNode(Vector3f size, float masse);
+            void buildSphereNode(Vector3f size, float masse);
+            void buildCylinderNode(Vector3f size, float masse);
+            void buildConvexNode(const tbe::scene::Mesh* mesh, float masse);
+            void buildConvexNode(const Vertex::Array& vertexes, float masse, Matrix4 offset = Matrix4());
+            void buildTreeNode(const tbe::scene::Mesh* mesh);
+            void buildTreeNode(const Face::Array& faces);
 
-    /// Recuperation Objet NewtonBody
-    NewtonBody* getBody() const;
+            /// Destruction de l'objet physique
+            void destroyBody();
 
-    /// Test de collision
-    bool isCollidWith(const NewtonNode* target) const;
+            /// Recuperation Objet NewtonBody
+            NewtonBody* getBody() const;
 
-    /// Masse
-    float getMasse();
+            /// Test de collision
+            bool isCollidWith(const NewtonNode* target) const;
 
-    /// Assigne une matrice
-    void setMatrix(Matrix4 matrix);
-    Matrix4 getMatrix();
+            /// Masse
+            float getMasse();
 
-    void setPos(Vector3f pos);
-    Vector3f getPos();
+            /// Assigne une matrice
+            void setMatrix(Matrix4 matrix);
+            Matrix4 getMatrix();
 
-    void setVelocity(Vector3f vel);
-    Vector3f getVelocity();
+            void setPos(Vector3f pos);
+            Vector3f getPos();
 
-    void setOmega(Vector3f vel);
-    Vector3f getOmega();
+            void setVelocity(Vector3f vel);
+            Vector3f getVelocity();
 
-    void render();
+            void setOmega(Vector3f vel);
+            Vector3f getOmega();
 
-    void process();
+            void render();
 
-    Node* clone();
+            void process();
 
-    void setApplyTorque(Vector3f applyTorque);
-    Vector3f getApplyTorque() const;
+            Node* clone();
 
-    void setApplyForce(Vector3f applyForce);
-    Vector3f getApplyForce() const;
+            void setApplyTorque(Vector3f applyTorque);
+            Vector3f getApplyTorque() const;
 
-    void setApplyGravity(bool applyGravity);
-    bool isApplyGravity() const;
+            void setApplyForce(Vector3f applyForce);
+            Vector3f getApplyForce() const;
 
-    void applyForceAndTorque();
+            void setApplyGravity(bool applyGravity);
+            bool isApplyGravity() const;
 
-    NewtonParallelScene* getParallelScene() const;
+            void applyForceAndTorque();
 
-    /// Method static d'application de la force gravitationnele (9.81)
-    static void applyForceAndTorqueCallback(const NewtonBody* body, float, int);
+            NewtonParallelScene* getParallelScene() const;
 
-    /// Method static d'application de la transformation
-    static void applyTransformCallback(const NewtonBody* body, const float*, int);
+            /// Method static d'application de la force gravitationnele (9.81)
+            static void applyForceAndTorqueCallback(const NewtonBody* body, float, int);
 
-    typedef std::vector<NewtonNode*> Array;
-    typedef std::map<std::string, NewtonNode*> Map;
+            /// Method static d'application de la transformation
+            static void applyTransformCallback(const NewtonBody* body, const float*, int);
 
-protected:
-    Vector3f m_applyForce;
-    Vector3f m_applyTorque;
-    NewtonParallelScene* m_parallelScene;
-    NewtonWorld* m_newtonWorld;
-    NewtonBody* m_body;
-    float m_masse;
-    bool m_applyGravity;
-};
+            typedef std::vector<NewtonNode*> Array;
+            typedef std::map<std::string, NewtonNode*> Map;
 
+        protected:
+            Vector3f m_applyForce;
+            Vector3f m_applyTorque;
+            NewtonParallelScene* m_parallelScene;
+            NewtonWorld* m_newtonWorld;
+            NewtonBody* m_body;
+            Node* m_visualBody;
+            float m_masse;
+            bool m_applyGravity;
+        };
+
+    }
 }
-}
 
-#endif	/* _NEWTONNODE_H */
+#endif /* _NEWTONNODE_H */
 
