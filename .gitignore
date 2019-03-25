@@ -1,0 +1,4 @@
+build*
+doxygen/html
+.vscode
+!.vscode/tasks.json
