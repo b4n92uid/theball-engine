@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.json": "jsonc",
+			"vector": "cpp",
+			"string": "cpp",
+			"utility": "cpp"
+		},
+	}
+}
