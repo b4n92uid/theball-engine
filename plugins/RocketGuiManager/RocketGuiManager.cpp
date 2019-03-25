@@ -8,13 +8,17 @@
 #include "RocketGuiManager.h"
 #include "RocketGuiInterfaces.h"
 #include <Tbe.h>
-#include <dirent.h>
+
+#include <boost\algorithm\algorithm.hpp>
+#include <boost\filesystem.hpp>
 
 #include <GL/gl.h>
 
 using namespace std;
 using namespace tbe;
 using namespace tbe::gui;
+
+namespace fs = boost::filesystem;
 
 RocketGuiManager::RocketGuiManager()
 {
@@ -128,23 +132,13 @@ void RocketGuiManager::trasmitEvent(EventManager& e)
 
 void RocketGuiManager::loadFonts(std::string dirpath)
 {
-    dirpath = tools::toSlashSeprator(dirpath);
+	using namespace boost;
+	
+	vector<string> exts = { "ttf", "otf" };
 
-    DIR* dir = opendir(dirpath.c_str());
-
-    if(!dir)
-        return;
-
-    dirent* readed = 0;
-    while(readed = readdir(dir))
-    {
-        string ffn = dirpath + '/' + readed->d_name;
-
-        if(tools::matchext(ffn, "ttf otf"))
-            Rocket::Core::FontDatabase::LoadFontFace(ffn.c_str());
-    }
-
-    closedir(dir);
+	for (auto& entry : make_iterator_range(fs::directory_iterator(dirpath), {}))
+        if(std::find(exts.begin(), exts.end(), entry.path().extension().string()) != exts.end())
+            Rocket::Core::FontDatabase::LoadFontFace(entry.path().string().c_str());
 }
 
 void RocketGuiManager::addPath(std::string dirpath)
