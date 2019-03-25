@@ -1,6 +1,10 @@
 #include <iostream>
 #include <time.h>
 
+#include <windows.h>
+#include "GLee.h"
+#include <GL/glu.h>
+
 #include "Device.h"
 
 #include "SceneManager.h"

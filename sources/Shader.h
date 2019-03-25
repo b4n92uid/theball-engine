@@ -1,6 +1,7 @@
 #ifndef ShaderFile
 #define ShaderFile
 
+#include <windows.h>
 #include "GLee.h"
 
 #include <map>

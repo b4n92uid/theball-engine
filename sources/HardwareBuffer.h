@@ -11,6 +11,7 @@
 #include <map>
 #include <vector>
 
+#include <windows.h>
 #include "GLee.h"
 
 #include "Mathematics.h"

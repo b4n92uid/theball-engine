@@ -511,7 +511,7 @@ inline bool getline(std::istream& stream, std::string& buffer)
 {
     using namespace std;
 
-    bool status = std::getline(stream, buffer);
+    bool status = (bool)std::getline(stream, buffer);
 
     #ifdef __linux__
     for(string::iterator it = --buffer.end(); isspace(*it); it--)

@@ -1,8 +1,6 @@
 #ifndef _TEXTURE_H
 #define _TEXTURE_H
 
-#include "GLee.h"
-
 #include <string>
 #include <map>
 

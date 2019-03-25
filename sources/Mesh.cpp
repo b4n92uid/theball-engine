@@ -7,7 +7,8 @@
 
 #include "Mesh.h"
 
-#include <boost/function.hpp>
+#include <functional>
+
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/property_tree/ptree.hpp>
@@ -500,7 +501,8 @@ public:
             shader.uniform(location, lexical_cast<float>(exp.data(), exp.size() - 1));
         else
         {
-            map<string, function<void (string) > > callmap;
+            map< string, std::function<void(string)> > callmap;
+
             callmap["lighted"] = boost::bind(&ShaderBind::bindLighted, this, _1);
             callmap["foged"] = boost::bind(&ShaderBind::bindFoged, this, _1);
             callmap["textured"] = boost::bind(&ShaderBind::bindTextured, this, _1);

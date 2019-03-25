@@ -9,6 +9,7 @@
 
 #include <boost/format.hpp>
 
+#include <windows.h>
 #include "GLee.h"
 #include <GL/glu.h>
 

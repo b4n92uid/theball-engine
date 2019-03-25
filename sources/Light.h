@@ -4,8 +4,6 @@
 #include <iostream>
 #include <map>
 
-#include "GLee.h"
-
 #include "Mathematics.h"
 #include "Node.h"
 #include "MeshParallelScene.h"

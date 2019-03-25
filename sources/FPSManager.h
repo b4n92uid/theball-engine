@@ -11,7 +11,7 @@
 #include <iostream>
 #include <string>
 
-#ifdef __WIN32__
+#ifdef _WIN32
 #include <windows.h>
 
 #elif defined(__linux__)
@@ -30,7 +30,7 @@ namespace ticks
 class FpsManager
 {
 public:
-    #ifdef __WIN32__
+    #ifdef WIN32
     typedef LONGLONG counttype;
 
     #elif defined(__linux__)

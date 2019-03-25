@@ -8,6 +8,7 @@
 #ifndef _FOG_H
 #define	_FOG_H
 
+#include <windows.h>
 #include "GLee.h"
 
 #include "Mathematics.h"

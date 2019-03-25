@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iostream>
 
+#include <windows.h>
 #include <GL/glu.h>
 
 #include "Exception.h"
@@ -391,7 +392,7 @@ unsigned Texture::getFiltring() const
 
 void Texture::setAnistropy(unsigned anistropy)
 {
-    this->m_anistropy = std::max(std::min(anistropy, 8u), 1u);
+    this->m_anistropy = max(min(anistropy, 8u), 1u);
 
     use(true);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, m_anistropy);

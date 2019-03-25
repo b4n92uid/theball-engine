@@ -5,9 +5,11 @@
  * Created on 26 avril 2013, 18:03
  */
 
+#include "ShadowMap.h"
+
+#include <windows.h>
 #include "GLee.h"
 
-#include "ShadowMap.h"
 #include "SceneManager.h"
 #include "Rtt.h"
 #include "Light.h"

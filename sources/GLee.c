@@ -37,6 +37,10 @@
 	#pragma optimize( "g", off )
 #endif
 
+#ifdef _WIN32
+	#include <Windows.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

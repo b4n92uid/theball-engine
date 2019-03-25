@@ -3,9 +3,6 @@
 
 #include <iostream>
 
-#include "GLee.h"
-#include <GL/glu.h>
-
 #include "Mathematics.h"
 #include "Clock.h"
 

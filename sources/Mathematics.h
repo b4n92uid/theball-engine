@@ -8,8 +8,10 @@
 #ifndef _MATHEMATICS_H
 #define	_MATHEMATICS_H
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 #include <iostream>
-#include <cmath>
 
 #include "Vector2.h"
 #include "Vector3.h"

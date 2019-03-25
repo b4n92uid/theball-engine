@@ -1,8 +1,6 @@
 #ifndef CameraFile
 #define CameraFile
 
-#include "GLee.h"
-
 #include <map>
 #include <stack>
 

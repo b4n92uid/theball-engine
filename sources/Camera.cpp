@@ -1,5 +1,7 @@
 #include "Camera.h"
 
+#include <windows.h>
+#include "GLee.h"
 #include <GL/glu.h>
 
 using namespace std;
