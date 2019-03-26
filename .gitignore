@@ -1,4 +1,5 @@
 build*
 doxygen/html
+*.code-workspace
 .vscode
 !.vscode/tasks.json
